@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_picking_form_inherit_gn_sales_order" model="ir.ui.view">
+        <field name="name">stock.picking.form.inherit.gn</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <!-- Agregar Asesor después del campo sale_id (Cotización) -->
+            <xpath expr="//field[@name='sale_id'][not(ancestor::tree)]" position="after">
+                <field name="sale_user_id" widget="many2one_avatar_user" readonly="1" options="{'no_create': True}"/>
+            </xpath>
+            <!-- Agregar campo Factura después de Ubicación de origen (location_id) -->
+            <!-- Buscar location_id en el encabezado principal, no en trees ni notebooks -->
+            <xpath expr="//sheet//field[@name='location_id'][not(ancestor::tree)][not(ancestor::notebook)]" position="after">
+                <field name="invoice_id" readonly="1" options="{'no_create': True, 'no_open': False}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+

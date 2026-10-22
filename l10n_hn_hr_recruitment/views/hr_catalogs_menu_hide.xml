@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Ocultar catálogos duplicados / no deseados bajo Empleados → Configuración -->
+    <record id="area_menuitem" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+    <record id="relation_family_menuitem" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+</odoo>

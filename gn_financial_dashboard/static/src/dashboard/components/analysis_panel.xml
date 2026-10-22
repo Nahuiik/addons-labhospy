@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_financial_dashboard.AnalysisPanel">
+        <section class="gn-fd-panel">
+            <header class="gn-fd-panel__head">
+                <span>
+                    <i t-att-class="'fa me-2 ' + (props.icon || 'fa-commenting-o')"/>
+                    <t t-esc="props.title || 'Análisis financiero automático'"/>
+                </span>
+            </header>
+            <ul class="gn-fd-analysis">
+                <li t-foreach="props.notes" t-as="note" t-key="note_index"
+                    t-att-class="'gn-fd-analysis__item gn-fd-analysis__item--' + note.tone">
+                    <i t-att-class="'fa me-2 ' + iconFor(note.tone)"/>
+                    <span t-esc="note.text"/>
+                </li>
+                <li t-if="!props.notes.length" class="gn-fd-analysis__item gn-fd-analysis__item--info">
+                    <i class="fa fa-info-circle me-2"/>
+                    <span>Sin observaciones para el período.</span>
+                </li>
+            </ul>
+        </section>
+    </t>
+
+</templates>

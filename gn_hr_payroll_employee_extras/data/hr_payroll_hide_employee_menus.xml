@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Ocultar entradas de Nómina → Empleados no usadas en localizaciones HN/SV (grupohmm). -->
+    <record id="l10n_hn_payroll_base.hr_menu_versions" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+    <record id="l10n_hn_payroll_base.hr_menu_salary_attachments" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+</odoo>

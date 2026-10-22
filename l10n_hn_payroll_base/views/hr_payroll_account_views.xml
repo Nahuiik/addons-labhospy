@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_payslip_form_account" model="ir.ui.view">
+        <field name="name">hr.payslip.form.account</field>
+        <field name="model">hr.payslip</field>
+        <field name="inherit_id" ref="l10n_hn_payroll_base.view_hr_payslip_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='credit_note']" position="after">
+                <field name="journal_id" readonly="state != 'draft'" groups="account.group_account_invoice"/>
+                <field name="date" readonly="state != 'draft'" groups="account.group_account_invoice"/>
+                <field name="move_id" readonly="1" groups="account.group_account_invoice"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_salary_rule_form_account" model="ir.ui.view">
+        <field name="name">hr.salary.rule.form.account</field>
+        <field name="model">hr.salary.rule</field>
+        <field name="inherit_id" ref="l10n_hn_payroll_base.hr_salary_rule_form"/>
+        <field name="arch" type="xml">
+            <page name="rules" position="after">
+                <page string="Accounting" name="accounting">
+                    <group>
+                        <field name="account_debit" groups="account.group_account_invoice"/>
+                        <field name="account_credit" groups="account.group_account_invoice"/>
+                        <field name="account_tax_id" groups="account.group_account_invoice"/>
+                    </group>
+                </page>
+            </page>
+        </field>
+    </record>
+
+    <record id="hr_payslip_run_form_account" model="ir.ui.view">
+        <field name="name">hr.payslip.run.form.account</field>
+        <field name="model">hr.payslip.run</field>
+        <field name="inherit_id" ref="l10n_hn_payroll_base.hr_payslip_run_form"/>
+        <field name="arch" type="xml">
+            <field name="credit_note" position="before">
+                <field name="journal_id" readonly="state != 'draft'" groups="account.group_account_invoice"/>
+            </field>
+        </field>
+    </record>
+</odoo>

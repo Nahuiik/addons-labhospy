@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_qif_openai_reconcile.GnQifBankStLineListView" t-inherit="web.ListView" t-inherit-mode="primary">
+        <xpath expr="//t[@t-set-slot='layout-buttons']" position="inside">
+            <div t-if="gnQifRecoToolbarVisible" class="o_gn_qif_reco_toolbar_wrap d-flex flex-column align-items-start me-2 gap-1">
+                <div class="d-flex gap-1 align-items-center">
+                    <button type="button"
+                            class="btn btn-outline-secondary btn-sm"
+                            title="Abre una lista ordenada de modelos de reconciliación Odoo CE (account.reconcile.model). NO busca líneas de facturas/pagos; para eso existe el Workspace «matching inteligente» en gn_account_reconcile_ce."
+                            t-on-click.prevent="onGnQifOpenRecoCandidates">
+                        Candidatos
+                    </button>
+                    <button type="button"
+                            class="btn btn-outline-secondary btn-sm"
+                            title="Asistente de plantillas: crea modelos CE tipo transferencias/comisiones; no ejecuta reconcile contra apuntes contables uno a uno."
+                            t-on-click.prevent="onGnQifOpenTemplateWizard">
+                        Plantillas
+                    </button>
+                </div>
+                <small class="text-muted lh-sm d-none d-lg-block" role="note">
+                    «Candidatos» / «Plantillas» ⇒ <strong>presets modelo CE</strong>.
+                    Para <strong>emparejar línea de banco contra apuntes contables</strong> (<code>account.move.line</code>),
+                    usar el cliente <strong>Conciliación CE → Workspace matching inteligente</strong> (módulo <code>gn_account_reconcile_ce</code>),
+                    mismo diario tras importación.
+                    Ver también <code>doc/CONVIVENCIA_ACCOUNT_RECONCILE_CE.md</code>.
+                </small>
+            </div>
+        </xpath>
+        <xpath expr="//t[@t-component='props.Renderer']" position="before">
+            <div t-if="gnQifImportMessage" class="alert alert-success o_gn_qif_import_banner mb-2">
+                <i class="fa fa-check-circle me-1" title="QIF" role="img" aria-label="QIF"/>
+                <t t-esc="gnQifImportMessage"/>
+            </div>
+        </xpath>
+    </t>
+</templates>

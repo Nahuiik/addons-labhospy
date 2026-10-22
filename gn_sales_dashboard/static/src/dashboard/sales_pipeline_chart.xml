@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_sales_dashboard.SalesPipelineChart">
+        <section class="gn-sd-panel gn-sd-panel--chart">
+            <h3 class="gn-sd-panel__title" t-esc="props.config?.title or 'Pipeline'"/>
+            <p class="gn-sd-panel__subtitle" t-esc="props.config?.subtitle or ''"/>
+            <div t-if="props.loading" class="gn-sd-skeleton gn-sd-skeleton--chart"/>
+            <div t-elif="!(props.config?.labels?.length)" class="gn-sd-empty gn-sd-empty--sm">
+                <p>Sin oportunidades abiertas</p>
+            </div>
+            <div t-else="" class="gn-sd-pipeline-canvas" t-ref="chartRoot"/>
+        </section>
+    </t>
+</templates>

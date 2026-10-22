@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="l10n_hn_reports.LibroReportDashboard">
+        <Layout display="display">
+            <t t-set-slot="control-panel-always-buttons">
+                <button type="button" class="btn btn-primary btn-sm me-1" t-on-click="refresh" t-att-disabled="state.loading">
+                    <i class="fa fa-refresh me-1"/> Actualizar
+                </button>
+                <button type="button" class="btn btn-outline-secondary btn-sm me-1" t-on-click="openClassicWizard">
+                    <i class="fa fa-wrench me-1"/> Asistente
+                </button>
+                <span class="fw-bold ms-2">Libro compras / ventas</span>
+            </t>
+            <div class="o_hn_libro_dash container-fluid py-2">
+                <div class="card mb-3">
+                    <div class="card-body row g-2 align-items-end">
+                        <div class="col-md-3" t-if="multiCompany">
+                            <label class="form-label small mb-0">Compañía</label>
+                            <select class="form-select form-select-sm" t-model.number="state.companyId" t-on-change="onCompanyChange">
+                                <t t-foreach="companies" t-as="co" t-key="co.id">
+                                    <option t-att-value="co.id" t-esc="co.name"/>
+                                </t>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label small mb-0">Tipo</label>
+                            <select class="form-select form-select-sm" t-model="state.tipo">
+                                <option value="compras">Compras</option>
+                                <option value="ventas">Ventas</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label small mb-0">Año</label>
+                            <input type="number" class="form-control form-control-sm" t-model.number="state.year" step="1"/>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label small mb-0">Mes</label>
+                            <select class="form-select form-select-sm" t-model.number="state.month">
+                                <t t-foreach="monthChoices" t-as="mo" t-key="mo[0]">
+                                    <option t-att-value="mo[0]" t-esc="mo[1]"/>
+                                </t>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label small mb-0">Formato vista</label>
+                            <select class="form-select form-select-sm" t-model="state.reportLayout">
+                                <option value="estandar">Detalle (tabla)</option>
+                                <option value="resumen">Resumen ejecutivo</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label small mb-0">Sucursales</label>
+                            <MultiRecordSelector t-props="branchSelectorProps" t-key="state.companyId"/>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label small mb-0" t-esc="userFilterLabel"/>
+                            <MultiRecordSelector t-props="userSelectorProps" t-key="state.companyId"/>
+                        </div>
+                    </div>
+                    <div class="card-body pt-0 row g-2" t-if="state.reportLayout === 'resumen'">
+                        <div class="col-auto">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="lbDocFiscal" t-model="state.resumenDocFiscal"/>
+                                <label class="form-check-label small" for="lbDocFiscal">Solo tipo doc. fiscal</label>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="lbBorr" t-model="state.resumenBorradores"/>
+                                <label class="form-check-label small" for="lbBorr">Incluir borradores</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer py-2 bg-transparent border-top-0">
+                        <button type="button" class="btn btn-sm btn-dark me-1" t-on-click="openPdf" t-att-disabled="state.loading">PDF</button>
+                        <button type="button" class="btn btn-sm btn-outline-dark me-1" t-on-click="openHtml" t-att-disabled="state.loading">HTML</button>
+                        <button type="button" class="btn btn-sm btn-outline-dark" t-on-click="exportXlsx" t-att-disabled="state.loading">XLSX</button>
+                    </div>
+                </div>
+
+                <t t-if="state.loading">
+                    <div class="text-muted py-5 text-center"><i class="fa fa-spinner fa-spin fa-2x"/> Cargando…</div>
+                </t>
+                <t t-elif="state.error">
+                    <div class="alert alert-danger" t-esc="state.error"/>
+                </t>
+                <t t-elif="state.payload">
+                    <div class="o_hn_libro_preview nh-report border p-3" t-att-style="state.payload.report_branding_style">
+                        <div class="d-flex align-items-start justify-content-between gap-3 mb-3 border-bottom pb-2">
+                            <div class="d-flex align-items-center gap-2">
+                                <img t-if="state.payload.report_logo_src or state.payload.report_logo_http_src or state.payload.nh_report_logo_src" t-att-src="state.payload.nh_report_logo_src or state.payload.report_logo_src or state.payload.report_logo_http_src" alt="" class="nh-logo" style="max-height:48px;max-width:220px;object-fit:contain;"/>
+                            </div>
+                            <div class="text-end flex-grow-1">
+                                <div class="fw-bold" t-esc="state.payload.company_name"/>
+                                <div class="small text-uppercase fw-semibold" t-if="state.payload.layout === 'estandar'" t-esc="state.payload.title"/>
+                                <div class="small text-uppercase fw-semibold" t-if="state.payload.layout === 'resumen'" t-esc="state.payload.libro_title"/>
+                                <div class="small text-muted" t-if="state.payload.date_from and state.payload.date_to">
+                                    <t t-esc="fmtDate(state.payload.date_from)"/> — <t t-esc="fmtDate(state.payload.date_to)"/>
+                                    <t t-if="state.payload.tipo_label"> — <t t-esc="state.payload.tipo_label"/></t>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="small text-muted mb-2" t-if="state.payload.layout === 'estandar'">
+                            NIT: <t t-esc="state.payload.nit or ''"/> · NRC: <t t-esc="state.payload.nrc or ''"/>
+                            <t t-if="state.payload.branch_label">
+                                · Sucursales: <t t-esc="state.payload.branch_label"/>
+                            </t>
+                            <t t-if="state.payload.user_label">
+                                · <t t-esc="state.payload.user_filter_label or 'Vendedores'"/>: <t t-esc="state.payload.user_label"/>
+                            </t>
+                        </div>
+
+                        <t t-if="state.payload.layout === 'estandar'">
+                            <div class="table-responsive">
+                                <table class="table table-sm table-striped mb-0">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>Fecha</th>
+                                            <th>CAI</th>
+                                            <th>RTN</th>
+                                            <th>Contribuyente</th>
+                                            <th>Nº doc.</th>
+                                            <th class="text-end">Base</th>
+                                            <th class="text-end">ISV</th>
+                                            <th class="text-end">Total</th>
+                                            <th>Mon.</th>
+                                            <th class="text-end">T.C.</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-if="!state.payload.lines.length">
+                                            <td colspan="10" class="text-center text-muted">Sin movimientos en el período.</td>
+                                        </tr>
+                                        <tr t-foreach="state.payload.lines" t-as="line" t-key="line_index">
+                                            <td t-esc="fmtDate(line.fecha)"/>
+                                            <td t-esc="line.cai"/>
+                                            <td t-esc="line.rtn"/>
+                                            <td t-esc="line.partner"/>
+                                            <td t-esc="line.documento"/>
+                                            <td class="text-end" t-esc="fmtNum(line.base)"/>
+                                            <td class="text-end" t-esc="fmtNum(line.impuesto)"/>
+                                            <td class="text-end" t-esc="fmtNum(line.total)"/>
+                                            <td t-esc="line.moneda"/>
+                                            <td class="text-end"><t t-if="line.tc !== '' and line.tc !== false and line.tc !== null" t-esc="fmtNum(line.tc)"/><t t-else="">—</t></td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot t-if="state.payload.sums" class="fw-bold table-secondary">
+                                        <tr>
+                                            <td colspan="5">TOTALES</td>
+                                            <td class="text-end" t-esc="fmtNum(state.payload.sums.base)"/>
+                                            <td class="text-end" t-esc="fmtNum(state.payload.sums.tax)"/>
+                                            <td class="text-end" t-esc="fmtNum(state.payload.sums.total)"/>
+                                            <td colspan="2"/>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </t>
+
+                        <t t-if="state.payload.layout === 'resumen'">
+                            <div class="row g-2 small">
+                                <div class="col-md-6">
+                                    <div class="border p-2 mb-2"><strong t-esc="state.payload.total_etiqueta"/>: <span t-esc="state.payload.total_general_fmt"/></div>
+                                    <div class="border p-2 mb-2">Gravado (docs): <span t-esc="state.payload.total_gravado_fmt"/></div>
+                                    <div class="border p-2 mb-2">Neto gravado: <span t-esc="state.payload.neto_gravado_fmt"/></div>
+                                    <div class="border p-2 mb-2">Exentas: <span t-esc="state.payload.monto_exentas_fmt"/></div>
+                                    <div class="border p-2">Impuestos: <span t-esc="state.payload.impuestos_fmt"/></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="border p-2 mb-2"># Facturas: <span t-esc="state.payload.n_facturas"/></div>
+                                    <div class="border p-2 mb-2"># Gravadas: <span t-esc="state.payload.n_gravadas"/></div>
+                                    <div class="border p-2 mb-2"># Exentas: <span t-esc="state.payload.n_exentas"/></div>
+                                    <div class="border p-2">Canceladas: <span t-esc="state.payload.n_canceladas"/></div>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </t>
+            </div>
+        </Layout>
+    </t>
+
+</templates>

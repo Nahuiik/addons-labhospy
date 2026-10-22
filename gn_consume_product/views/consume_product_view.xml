@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- form view for consume product-->
+    <record id="consume_product_form_view" model="ir.ui.view">
+        <field name="name">consume.product.form</field>
+        <field name="model">consume.product</field>
+        <field name="arch" type="xml">
+            <form string="Consume Products">
+                <header>
+                    <button name="action_set_to_draft" string="Set To Draft" type="object" class="btn-primary" invisible="state != 'cancel'"/>
+                    <button name="action_confirm" string="Confirm" type="object" class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_cancel" string="Cancel" type="object" invisible="state != 'confirm'"/>
+                    <button name="action_done" string="Mark As Done" type="object" class="btn-primary" invisible="state != 'confirm'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button type="object"
+                            name="action_view_picking"
+                            class="oe_stat_button"
+                            icon="fa-arrows-v"
+                            invisible="picking_ids == []"
+                            string="Pickings">
+                        </button>
+                    </div>
+                    <h2><field name="name" readonly="1"/></h2>
+                    <group>
+                        <group>
+                            <field name="picking_ids" invisible="1"/>
+                            <field name="allowed_picking_type_ids" invisible="1"/>
+                            <field name="location_id" required="1" readonly="state != 'draft'"/>
+                            <field name="dest_location_id" required="1" readonly="state != 'draft'"/>
+                            <field name="picking_type_id" required="1" readonly="state != 'draft'" options='{"no_create": true}'/>
+                        </group>
+                        <group>
+                            <field name="date" required="1" readonly="state != 'draft'"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Consume Lines">
+                            <field name="consume_line" readonly="state != 'draft'">
+                                <list string="Consume Lines" editable="bottom">
+                                    <field name="product_id" required="1" options='{"no_create": true}'/>
+                                    <field name="qty_available"/>
+                                    <!-- <field name="analytic_tag_ids" widget="many2many_tags" options='{"no_create": true}'/> -->
+                                    <!-- <field name="analytic_account_id" options='{"no_create": true}'/> -->
+                                    <field name="account_id"  options='{"no_create": true}'/>
+                                    <field name="quantity" required="1"/>
+                                    <field name="uom_id" required="1" options='{"no_create": true}'/>
+                                </list>
+                                <form string="Consume Line">
+                                    <group>
+                                        <field name="product_id" required="1"/>
+                                        <!-- <field name="analytic_tag_ids" widget="many2many_tags"/> -->
+                                        <field name="account_id" />
+                                        <field name="quantity" required="1"/>
+                                        <field name="uom_id" required="1" />
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="consume_product_tree_view" model="ir.ui.view">
+        <field name="name">consume.product.list</field>
+        <field name="model">consume.product</field>
+        <field name="arch" type="xml">
+            <list string="Consume Products">
+                <field name="name"/>
+                <field name="picking_type_id"/>
+                <field name="location_id"/>
+                <field name="dest_location_id"/>
+                <field name="date"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+    <!-- Menú y acción window: ver l10n_hn_stock (evita duplicar «Productos de consumo»). -->
+</odoo> 

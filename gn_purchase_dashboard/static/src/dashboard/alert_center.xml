@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_purchase_dashboard.AlertCenter">
+        <div t-if="props.open" class="gn-pd-modal gn-pd-alert-center">
+            <div class="gn-pd-modal__backdrop" t-on-click="onCloseClick"/>
+            <div class="gn-pd-modal__dialog gn-pd-modal__dialog--wide">
+                <header class="gn-pd-modal__head">
+                    <h2>Centro de alertas</h2>
+                    <button type="button" class="btn btn-link" t-on-click="onCloseClick">×</button>
+                </header>
+                <div class="gn-pd-alert-center__filters">
+                    <button type="button" class="btn btn-sm" t-att-class="state.filter === 'all' ? 'btn-primary' : 'btn-outline-secondary'" t-on-click="() => this.setFilter('all')">Todas</button>
+                    <button type="button" class="btn btn-sm" t-att-class="state.filter === 'critical' ? 'btn-danger' : 'btn-outline-secondary'" t-on-click="() => this.setFilter('critical')">Críticas</button>
+                    <button type="button" class="btn btn-sm" t-att-class="state.filter === 'high' ? 'btn-warning' : 'btn-outline-secondary'" t-on-click="() => this.setFilter('high')">Altas</button>
+                    <button type="button" class="btn btn-sm" t-att-class="state.filter === 'info' ? 'btn-info' : 'btn-outline-secondary'" t-on-click="() => this.setFilter('info')">Bajas</button>
+                </div>
+                <div class="gn-pd-modal__body">
+                    <div t-if="state.loading" class="gn-pd-skeleton gn-pd-skeleton--panel"/>
+                    <div t-foreach="filteredItems" t-as="alert" t-key="alert.id" class="gn-pd-alert-center__item">
+                        <div class="gn-pd-alert-center__meta">
+                            <span t-att-class="'gn-pd-alert-badge gn-pd-alert-badge--' + alert.severity" t-esc="alert.severity"/>
+                            <span t-att-class="'gn-pd-alert-state gn-pd-alert-state--' + alert.state" t-esc="alert.state"/>
+                        </div>
+                        <h4 t-esc="alert.title"/>
+                        <p t-esc="alert.explanation"/>
+                        <div class="gn-pd-alert-center__actions">
+                            <button type="button" class="btn btn-sm btn-outline-secondary" t-on-click="() => this.doAction(alert, 'read')">Leída</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary" t-on-click="() => this.doAction(alert, 'ignore')">Ignorar</button>
+                            <button type="button" class="btn btn-sm btn-outline-primary" t-on-click="() => this.doAction(alert, 'resolve')">Resolver</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ==================== DOCUMENT TYPES ==================== -->
+    <record id="hr_document_type_view_list" model="ir.ui.view">
+        <field name="name">hr.document.type.list</field>
+        <field name="model">hr.document.type</field>
+        <field name="arch" type="xml">
+            <list string="Tipos de Documento" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="is_required"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="hr_document_type_view_form" model="ir.ui.view">
+        <field name="name">hr.document.type.form</field>
+        <field name="model">hr.document.type</field>
+        <field name="arch" type="xml">
+            <form string="Tipo de Documento">
+                <sheet>
+                    <widget name="web_ribbon" title="Archivado" bg_color="text-bg-danger" invisible="active"/>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="sequence"/>
+                        </group>
+                        <group>
+                            <field name="is_required"/>
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_document_type_action" model="ir.actions.act_window">
+        <field name="name">Tipos de Documento</field>
+        <field name="res_model">hr.document.type</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Crear un tipo de documento</p>
+            <p>Configure los tipos de documentos requeridos para el expediente de empleados.</p>
+        </field>
+    </record>
+
+    <!-- Default Document Types -->
+    <record id="document_type_dni" model="hr.document.type">
+        <field name="name">Copia de Identidad</field>
+        <field name="sequence">1</field>
+        <field name="is_required" eval="True"/>
+    </record>
+    <record id="document_type_rtn" model="hr.document.type">
+        <field name="name">Copia de RTN</field>
+        <field name="sequence">2</field>
+        <field name="is_required" eval="True"/>
+    </record>
+    <record id="document_type_cv" model="hr.document.type">
+        <field name="name">Curriculum Vitae</field>
+        <field name="sequence">3</field>
+        <field name="is_required" eval="True"/>
+    </record>
+    <record id="document_type_photo" model="hr.document.type">
+        <field name="name">Fotografía Tamaño Carnet</field>
+        <field name="sequence">4</field>
+        <field name="is_required" eval="True"/>
+    </record>
+    <record id="document_type_antecedentes" model="hr.document.type">
+        <field name="name">Antecedentes Penales</field>
+        <field name="sequence">5</field>
+        <field name="is_required" eval="False"/>
+    </record>
+    <record id="document_type_titulo" model="hr.document.type">
+        <field name="name">Título Académico</field>
+        <field name="sequence">6</field>
+        <field name="is_required" eval="False"/>
+    </record>
+    <record id="document_type_referencias" model="hr.document.type">
+        <field name="name">Cartas de Referencia</field>
+        <field name="sequence">7</field>
+        <field name="is_required" eval="False"/>
+    </record>
+    <record id="document_type_ihss" model="hr.document.type">
+        <field name="name">Carnet IHSS</field>
+        <field name="sequence">8</field>
+        <field name="is_required" eval="False"/>
+    </record>
+    <record id="document_type_rap" model="hr.document.type">
+        <field name="name">Carnet RAP</field>
+        <field name="sequence">9</field>
+        <field name="is_required" eval="False"/>
+    </record>
+    <record id="document_type_licencia" model="hr.document.type">
+        <field name="name">Licencia de Conducir</field>
+        <field name="sequence">10</field>
+        <field name="is_required" eval="False"/>
+    </record>
+
+    <!-- ==================== EMPLOYEE DOCUMENTS ==================== -->
+    <record id="hr_employee_document_view_list" model="ir.ui.view">
+        <field name="name">hr.employee.document.list</field>
+        <field name="model">hr.employee.document</field>
+        <field name="arch" type="xml">
+            <list string="Documentos">
+                <field name="document_type_id"/>
+                <field name="document_filename"/>
+                <field name="is_required"/>
+                <field name="is_missing" decoration-danger="is_missing"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="hr_employee_document_view_form" model="ir.ui.view">
+        <field name="name">hr.employee.document.form</field>
+        <field name="model">hr.employee.document</field>
+        <field name="arch" type="xml">
+            <form string="Documento">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="employee_id" invisible="context.get('default_employee_id')"/>
+                            <field name="document_type_id"/>
+                            <field name="is_required" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="document" filename="document_filename"/>
+                            <field name="document_filename" invisible="1"/>
+                            <field name="is_missing" readonly="1"/>
+                            <field name="can_preview" invisible="1"/>
+                        </group>
+                    </group>
+                    <!-- Preview section for PDF/Images -->
+                    <group string="Vista Previa" invisible="not can_preview or not document">
+                        <field name="document" widget="pdf_viewer" nolabel="1" 
+                               invisible="file_extension != 'pdf'" colspan="2"/>
+                        <field name="document" widget="image" nolabel="1" 
+                               invisible="file_extension not in ('jpg', 'jpeg', 'png')" colspan="2"
+                               options="{'size': [500, 500]}"/>
+                        <field name="file_extension" invisible="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action for preview popup -->
+    <record id="hr_employee_document_action_preview" model="ir.actions.act_window">
+        <field name="name">Vista Previa del Documento</field>
+        <field name="res_model">hr.employee.document</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="hr_employee_document_view_form"/>
+    </record>
+</odoo>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_powerbi_dataset_unpublish_wizard_form" model="ir.ui.view">
+        <field name="name">powerbi.dataset.unpublish.wizard.form</field>
+        <field name="model">powerbi.dataset.unpublish.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Despublicar Dataset">
+                <group>
+                    <group>
+                        <field name="dataset_id" invisible="1"/>
+                        <field name="dataset_name" readonly="1"/>
+                    </group>
+                </group>
+                <group>
+                    <field name="warning_message" nolabel="1"/>
+                </group>
+                <group>
+                    <field name="delete_in_powerbi"/>
+                    <div class="text-muted" invisible="not delete_in_powerbi">
+                        El dataset será eliminado permanentemente de Power BI. Esta acción no se puede deshacer.
+                    </div>
+                    <div class="text-muted" invisible="delete_in_powerbi">
+                        El dataset permanecerá en Power BI pero se despublicará localmente. Podrás volver a publicarlo más tarde.
+                    </div>
+                </group>
+                <footer>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                    <button string="Confirmar Despublicación" name="action_confirm" type="object" class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
+

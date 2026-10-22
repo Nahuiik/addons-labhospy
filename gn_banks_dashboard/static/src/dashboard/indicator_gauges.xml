@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_banks_dashboard.IndicatorScorecard">
+        <article t-att-class="'gn-bd-scorecard gn-bd-scorecard--' + (props.gauge.status || 'unavailable')"
+                 t-att-title="tooltipText">
+            <div class="gn-bd-scorecard__head">
+                <span class="gn-bd-scorecard__title" t-esc="props.gauge.title"/>
+                <span t-att-class="'gn-bd-scorecard__badge gn-bd-scorecard__badge--' + (props.gauge.status || 'unavailable')"
+                      t-esc="statusLabel"/>
+            </div>
+            <div class="gn-bd-scorecard__body">
+                <span class="gn-bd-scorecard__value" t-esc="formattedValue"/>
+                <div class="gn-bd-scorecard__track" t-if="available">
+                    <span class="gn-bd-scorecard__fill"
+                          t-attf-style="width: {{ fillPct }}%; background-color: {{ statusColor }};"/>
+                </div>
+            </div>
+            <div class="gn-bd-scorecard__meta text-muted" t-if="metaLabel" t-esc="metaLabel"/>
+        </article>
+    </t>
+
+    <t t-name="gn_banks_dashboard.IndicatorGaugesPanel">
+        <section class="gn-bd-indicators gn-fade-in">
+            <header class="gn-bd-indicators__head">
+                <div>
+                    <h2 class="gn-bd-indicators__title" t-esc="panelTitle"/>
+                    <p class="gn-bd-indicators__subtitle" t-esc="panelSubtitle"/>
+                </div>
+            </header>
+            <t t-if="props.loading">
+                <GnLoadingSkeleton variant="'gauges'" rows="8"/>
+            </t>
+            <t t-elif="!hasAny">
+                <GnEmptyState
+                    icon="'fa-tachometer'"
+                    tone="'info'"
+                    compact="true"
+                    title="emptyTitle"
+                    description="emptyDescription"
+                    hint="emptyHint"
+                    actionLabel="props.onApplyDefaults ? emptyAction : ''"
+                    onAction="props.onApplyDefaults"/>
+            </t>
+            <t t-else="">
+                <div class="gn-bd-indicators__groups-row">
+                    <t t-foreach="groups" t-as="group" t-key="group.id">
+                        <div class="gn-bd-indicators__group gn-fade-in">
+                            <h3 class="gn-bd-indicators__group-title" t-esc="group.title"/>
+                            <div class="gn-bd-indicators__grid">
+                                <t t-foreach="group.gauges" t-as="gauge" t-key="gauge.id">
+                                    <TreasuryIndicatorScorecard t-if="gauge" gauge="gauge"/>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </section>
+    </t>
+
+</templates>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_report_inventory_executive" model="ir.actions.report">
+        <field name="name">Reporte ejecutivo de inventario</field>
+        <field name="model">res.company</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">dev_advance_inventory_dashboard.report_inv_exec</field>
+        <field name="report_file">dev_advance_inventory_dashboard.report_inv_exec</field>
+        <field name="print_report_name">'Inventario_Ejecutivo_%s' % (object.name)</field>
+    </record>
+
+    <template id="report_inv_exec">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="company">
+                <div class="page" style="font-family: Arial, sans-serif; padding: 20px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #2563eb; padding-bottom:12px;">
+                        <div>
+                            <h2 style="margin:0; color:#0f172a;">Reporte ejecutivo de inventario</h2>
+                            <p style="margin:4px 0; color:#64748b;">
+                                <t t-esc="company.name"/> ·
+                                <t t-esc="report_data.get('filters', {}).get('date_from', '')"/> —
+                                <t t-esc="report_data.get('filters', {}).get('date_to', '')"/>
+                            </p>
+                        </div>
+                        <div t-if="company.logo" style="text-align:right;">
+                            <img t-att-src="image_data_uri(company.logo)" style="max-height:60px;"/>
+                        </div>
+                    </div>
+
+                    <p style="margin-top:16px;">
+                        <strong>Generado por:</strong> <t t-esc="report_data.get('user_name', '')"/>
+                    </p>
+
+                    <div style="margin:20px 0; padding:16px; background:#f0fdf4; border-radius:8px;">
+                        <strong>Salud del inventario:</strong>
+                        <span style="font-size:24px; font-weight:bold; color:#059669;">
+                            <t t-esc="report_data.get('health', {}).get('score', 0)"/> / 100
+                        </span>
+                        (<t t-esc="report_data.get('health', {}).get('status', '')"/>)
+                    </div>
+
+                    <h3 style="color:#0f172a;">KPIs principales</h3>
+                    <table style="width:100%; border-collapse:collapse; font-size:12px;">
+                        <thead>
+                            <tr style="background:#eef2f7;">
+                                <th style="padding:8px; text-align:left;">Indicador</th>
+                                <th style="padding:8px; text-align:right;">Valor</th>
+                                <th style="padding:8px; text-align:right;">Variación %</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="report_data.get('kpis', [])" t-as="kpi">
+                                <tr>
+                                    <td style="padding:6px; border-bottom:1px solid #e5e7eb;"><t t-esc="kpi.get('label')"/></td>
+                                    <td style="padding:6px; border-bottom:1px solid #e5e7eb; text-align:right;"><t t-esc="kpi.get('value')"/></td>
+                                    <td style="padding:6px; border-bottom:1px solid #e5e7eb; text-align:right;"><t t-esc="kpi.get('variation_pct')"/>%</td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <h3 style="color:#0f172a; margin-top:24px;">Alertas</h3>
+                    <ul>
+                        <t t-foreach="report_data.get('alerts', [])" t-as="alert">
+                            <li><strong t-esc="alert.get('title')"/> — <t t-esc="alert.get('count')"/> registros</li>
+                        </t>
+                    </ul>
+
+                    <h3 style="color:#0f172a;">Insights</h3>
+                    <ul>
+                        <t t-foreach="report_data.get('insights', [])" t-as="ins">
+                            <li t-esc="ins.get('text')"/>
+                        </t>
+                    </ul>
+
+                    <h3 style="color:#0f172a;">Recomendaciones</h3>
+                    <ul>
+                        <t t-foreach="report_data.get('recommendations', [])" t-as="rec">
+                            <li t-esc="rec.get('text')"/>
+                        </t>
+                    </ul>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

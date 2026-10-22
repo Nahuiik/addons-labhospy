@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Extender vista del wizard de registro de pagos para agregar campo extra -->
+        <record id="view_account_payment_register_form_inherit_payment_extra" model="ir.ui.view">
+            <field name="name">account.payment.register.form.inherit.payment.extra</field>
+            <field name="model">account.payment.register</field>
+            <field name="inherit_id" ref="account.view_account_payment_register_form"/>
+            <field name="priority">100</field>
+            <field name="arch" type="xml">
+                <!-- Tipo de Pago: sección completa antes del diario, usa todo el ancho -->
+                <xpath expr="//group[@name='group1']" position="before">
+                    <field name="show_payment_toggles" invisible="1"/>
+                    <div class="col-12 mb-3 p-3 border rounded" colspan="2" invisible="not show_payment_toggles">
+                        <label for="payment_method_toggle" string="Tipo de Pago" class="fw-bold"/>
+                        <!-- Solo clientes / inbound; si va required en pagos a proveedor el OWL bloquea con «campos obligatorios». -->
+                        <field name="payment_method_toggle" widget="radio" nolabel="1" options="{'horizontal': true}"
+                               invisible="not show_payment_toggles"
+                               required="show_payment_toggles"
+                               force_save="1" class="d-block mt-2"/>
+                    </div>
+                </xpath>
+                <xpath expr="//field[@name='journal_id']" position="after">
+                    <field name="show_extra" invisible="1"/>
+                    <field name="card_agreement_id" invisible="1"/>
+                    <field name="commission_percentage" invisible="1"/>
+                    <field name="show_months" invisible="1"/>
+                    <field name="payment_method_type" invisible="not show_extra" required="show_extra" groups="gn_payment_extra.group_payment_extra_user"/>
+                    <field name="months" widget="selection" invisible="not show_months" groups="gn_payment_extra.group_payment_extra_user"/>
+                </xpath>
+                <xpath expr="//field[@name='communication']" position="after">
+                    <field name="payment_notes" placeholder="Notas del pago..." invisible="not show_payment_toggles"/>
+                </xpath>
+                <!-- Tabla informativa de deducciones después del grupo principal -->
+                <xpath expr="//group[@name='group2']" position="after">
+                    <group string="Detalle de Deducciones" 
+                           invisible="not show_extra or not payment_method_type"
+                           groups="gn_payment_extra.group_payment_extra_user"
+                           col="4">
+                        <field name="amount_without_vat" readonly="1"/>
+                        <field name="vat_amount" readonly="1"/>
+                        <field name="commission_amount" readonly="1"/>
+                        <field name="commission_vat_amount" readonly="1"/>
+                        <field name="retention_amount" readonly="1"/>
+                        <field name="total_deductions" readonly="1"/>
+                        <field name="amount_to_receive" readonly="1" class="text-success fw-bold"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
+

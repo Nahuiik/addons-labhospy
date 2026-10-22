@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hn_libro_diario_wizard_form" model="ir.ui.view">
+        <field name="name">hn.libro.diario.wizard.form</field>
+        <field name="model">hn.libro.diario.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Libro Diario">
+                <group>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="target_move"/>
+                </group>
+                <group string="Filtros opcionales">
+                    <field name="journal_ids" widget="many2many_tags"/>
+                </group>
+                <p class="text-muted">
+                    Listado cronológico de apuntes contables (equivalente funcional al Libro Diario).
+                    Folio, empaste y autorización municipal digital corresponden a trámites fuera de Odoo.
+                </p>
+                <footer>
+                    <button name="action_print_pdf" type="object" string="Imprimir PDF" class="btn-primary"/>
+                    <button name="action_print_html" type="object" string="Vista HTML" class="btn-secondary"/>
+                    <button name="action_export_xlsx" type="object" string="Exportar Excel" class="btn-secondary"/>
+                    <button special="cancel" string="Cerrar" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hn_libro_diario_wizard" model="ir.actions.act_window">
+        <field name="name">Libro Diario</field>
+        <field name="res_model">hn.libro.diario.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="view_hn_libro_mayor_wizard_form" model="ir.ui.view">
+        <field name="name">hn.libro.mayor.wizard.form</field>
+        <field name="model">hn.libro.mayor.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Libro Mayor">
+                <group>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="target_move"/>
+                </group>
+                <group string="Filtros opcionales">
+                    <field name="journal_ids" widget="many2many_tags"/>
+                </group>
+                <p class="text-muted">
+                    Movimientos y saldos por cuenta en el período, con saldo anterior calculado hasta el día previo al inicio.
+                </p>
+                <footer>
+                    <button name="action_print_pdf" type="object" string="Imprimir PDF" class="btn-primary"/>
+                    <button name="action_print_html" type="object" string="Vista HTML" class="btn-secondary"/>
+                    <button name="action_export_xlsx" type="object" string="Exportar Excel" class="btn-secondary"/>
+                    <button special="cancel" string="Cerrar" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hn_libro_mayor_wizard" model="ir.actions.act_window">
+        <field name="name">Libro Mayor</field>
+        <field name="res_model">hn.libro.mayor.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="view_hn_libro_inventarios_balances_wizard_form" model="ir.ui.view">
+        <field name="name">hn.libro.inventarios.balances.wizard.form</field>
+        <field name="model">hn.libro.inventarios.balances.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Inventarios y Balances">
+                <group>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="date_from" string="Referencia desde" help="Informativo; los saldos acumulan hasta la fecha de cierre."/>
+                    <field name="date_to" string="Saldos al"/>
+                    <field name="target_move"/>
+                </group>
+                <group>
+                    <field name="hide_zero_balance"/>
+                    <field name="include_stock_snapshot"/>
+                </group>
+                <group string="Filtros opcionales">
+                    <field name="journal_ids" widget="many2many_tags"/>
+                </group>
+                <p class="text-muted">
+                    <strong>Balances:</strong> suma de movimientos publicados hasta la fecha «Saldos al» por cuenta.
+                    <strong>Inventarios:</strong> si tiene Inventario instalado, lista existencias actuales como referencia (no reemplaza inventario físico valuado a la fecha sin ajustes).
+                </p>
+                <footer>
+                    <button name="action_print_pdf" type="object" string="Imprimir PDF" class="btn-primary"/>
+                    <button name="action_print_html" type="object" string="Vista HTML" class="btn-secondary"/>
+                    <button name="action_export_xlsx" type="object" string="Exportar Excel" class="btn-secondary"/>
+                    <button special="cancel" string="Cerrar" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hn_libro_inventarios_balances_wizard" model="ir.actions.act_window">
+        <field name="name">Libro de Inventarios y Balances</field>
+        <field name="res_model">hn.libro.inventarios.balances.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_hn_legal_books_root"
+              name="Libros legales (mercantil)"
+              parent="l10n_hn_reports.menu_hn_reports_root"
+              sequence="40"/>
+
+    <menuitem id="menu_hn_libro_diario"
+              name="Libro Diario"
+              parent="menu_hn_legal_books_root"
+              action="action_hn_libro_diario_wizard"
+              sequence="10"/>
+
+    <menuitem id="menu_hn_libro_mayor"
+              name="Libro Mayor"
+              parent="menu_hn_legal_books_root"
+              action="action_hn_libro_mayor_wizard"
+              sequence="20"/>
+
+    <menuitem id="menu_hn_libro_inventarios"
+              name="Inventarios y Balances"
+              parent="menu_hn_legal_books_root"
+              action="action_hn_libro_inventarios_balances_wizard"
+              sequence="30"/>
+</odoo>

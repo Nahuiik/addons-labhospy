@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        Enfoque:
+        1) Quitar perm_create Y perm_write de ACLs externos que los otorgan
+           indebidamente a usuarios sin Productos/Crear.
+        2) CSV: grupo GN da R+C (sin W) → botón «Nuevo» visible, form read-only.
+        3) Override create() usa sudo() para que la creación no falle por W=0.
+
+        Resultado por perfil:
+        - Productos=View, sin GN  → solo lectura.
+        - Productos=View, con GN  → leer + crear (form read-only en existentes).
+        - Productos=Create, sin GN → leer + editar + borrar, NO crear.
+        - Productos=Create, con GN → CRUD completo.
+    -->
+
+    <!-- product (core) — quitar C; W y U quedan para group_product_manager -->
+    <record id="product.access_product_template_manager" model="ir.model.access">
+        <field name="perm_create" eval="0"/>
+    </record>
+    <record id="product.access_product_product_manager" model="ir.model.access">
+        <field name="perm_create" eval="0"/>
+    </record>
+
+    <!-- acs_hms_base — quitar C y W (no deben dar write sobre productos) -->
+    <record id="acs_hms_base.access_product_template_hms_medicine_user" model="ir.model.access">
+        <field name="perm_create" eval="0"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+    <record id="acs_hms_base.access_product_template_hms_service_user" model="ir.model.access">
+        <field name="perm_create" eval="0"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+    <record id="acs_hms_base.access_product_product_hms_medicine_user" model="ir.model.access">
+        <field name="perm_create" eval="0"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+    <record id="acs_hms_base.access_product_product_hms_service_user" model="ir.model.access">
+        <field name="perm_create" eval="0"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+    <!-- gn_replace_products — quitar C y W -->
+    <record id="gn_replace_products.access_product_template_replace" model="ir.model.access">
+        <field name="perm_create" eval="0"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+</odoo>

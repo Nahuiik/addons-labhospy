@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Sin noupdate: asegura el flag aunque las plantillas estén en data noupdate="1". -->
+    <record id="mail_template_hn_anniversary" model="mail.template">
+        <field name="gn_hr_ecosystem" eval="True"/>
+    </record>
+    <record id="mail_template_hn_3months_expiry" model="mail.template">
+        <field name="gn_hr_ecosystem" eval="True"/>
+    </record>
+    <record id="mail_template_hn_10day_reminder" model="mail.template">
+        <field name="gn_hr_ecosystem" eval="True"/>
+    </record>
+    <record id="mail_template_hn_payment_pending" model="mail.template">
+        <field name="gn_hr_ecosystem" eval="True"/>
+    </record>
+    <record id="mail_template_hn_approved" model="mail.template">
+        <field name="gn_hr_ecosystem" eval="True"/>
+    </record>
+</odoo>

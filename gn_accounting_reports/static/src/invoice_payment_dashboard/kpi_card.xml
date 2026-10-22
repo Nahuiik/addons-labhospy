@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_accounting_reports.InvPayKpiCard">
+        <div t-attf-class="o_inv_pay_kpi card border-0 shadow-sm h-100 #{toneClass}"
+             t-att-title="props.card.tooltip">
+            <div class="card-body p-3">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <span class="o_inv_pay_kpi__label small text-muted" t-out="props.card.label"/>
+                    <i t-if="props.card.tone === 'success'" class="fa fa-check-circle o_inv_pay_kpi__icon"/>
+                    <i t-elif="props.card.tone === 'warning'" class="fa fa-exclamation-triangle o_inv_pay_kpi__icon"/>
+                    <i t-elif="props.card.tone === 'danger'" class="fa fa-exclamation-circle o_inv_pay_kpi__icon"/>
+                    <i t-else="" class="fa fa-bar-chart o_inv_pay_kpi__icon"/>
+                </div>
+                <div class="o_inv_pay_kpi__value" t-att-title="fullValue" t-out="displayValue"/>
+                <div t-if="deltaLabel" t-attf-class="o_inv_pay_kpi__delta small mt-1 #{deltaClass}" t-out="deltaLabel"/>
+            </div>
+        </div>
+    </t>
+</templates>

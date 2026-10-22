@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="wux.LanguDropdown">
+        <Dropdown menuClass="'omux-LanguDropdown'">
+            <a href="#" t-att-class="{ 'd-block text-body py-3 fs-4 d-flex flex-row gap-2': env.isSmall }">Language <i t-if="env.isSmall" class="oi oi-chevron-right ms-auto mt-1"/>
+            </a>
+            <t t-set-slot="content">
+                <DropdownItem t-foreach="state.langs" t-as="lang" t-key="lang[0]" class="{ 'active': lang[0] == user.context.lang }" onSelected.bind="switchLang" attrs="{ val: lang[0] }">
+                    <t t-out="lang[1]"/>
+                </DropdownItem>
+            </t>
+        </Dropdown>
+    </t>
+</templates>

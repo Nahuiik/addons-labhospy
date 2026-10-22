@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ==================== SPORTS ==================== -->
+    <record id="hr_sport_view_list" model="ir.ui.view">
+        <field name="name">hr.sport.list</field>
+        <field name="model">hr.sport</field>
+        <field name="arch" type="xml">
+            <list string="Deportes" editable="bottom">
+                <field name="name"/>
+                <field name="active" column_invisible="True"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="hr_sport_view_form" model="ir.ui.view">
+        <field name="name">hr.sport.form</field>
+        <field name="model">hr.sport</field>
+        <field name="arch" type="xml">
+            <form string="Deporte">
+                <sheet>
+                    <widget name="web_ribbon" title="Archivado" bg_color="text-bg-danger" invisible="active"/>
+                    <group>
+                        <field name="name"/>
+                        <field name="active" widget="boolean_toggle"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_sport_action" model="ir.actions.act_window">
+        <field name="name">Deportes</field>
+        <field name="res_model">hr.sport</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Crear un deporte</p>
+        </field>
+    </record>
+
+    <!-- Sports Default Data -->
+    <record id="sport_futbol" model="hr.sport"><field name="name">Fútbol</field></record>
+    <record id="sport_baloncesto" model="hr.sport"><field name="name">Baloncesto</field></record>
+    <record id="sport_voleibol" model="hr.sport"><field name="name">Voleibol</field></record>
+    <record id="sport_beisbol" model="hr.sport"><field name="name">Béisbol</field></record>
+    <record id="sport_natacion" model="hr.sport"><field name="name">Natación</field></record>
+    <record id="sport_ciclismo" model="hr.sport"><field name="name">Ciclismo</field></record>
+    <record id="sport_correr" model="hr.sport"><field name="name">Correr</field></record>
+    <record id="sport_gimnasio" model="hr.sport"><field name="name">Gimnasio</field></record>
+    <record id="sport_tenis" model="hr.sport"><field name="name">Tenis</field></record>
+    <record id="sport_boxeo" model="hr.sport"><field name="name">Boxeo</field></record>
+    <record id="sport_artes_marciales" model="hr.sport"><field name="name">Artes Marciales</field></record>
+    <record id="sport_yoga" model="hr.sport"><field name="name">Yoga</field></record>
+    <record id="sport_senderismo" model="hr.sport"><field name="name">Senderismo</field></record>
+    <record id="sport_futbol_americano" model="hr.sport"><field name="name">Fútbol Americano</field></record>
+    <record id="sport_softball" model="hr.sport"><field name="name">Softball</field></record>
+
+    <!-- ==================== HOBBIES ==================== -->
+    <record id="hr_hobby_view_list" model="ir.ui.view">
+        <field name="name">hr.hobby.list</field>
+        <field name="model">hr.hobby</field>
+        <field name="arch" type="xml">
+            <list string="Pasatiempos" editable="bottom">
+                <field name="name"/>
+                <field name="active" column_invisible="True"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="hr_hobby_view_form" model="ir.ui.view">
+        <field name="name">hr.hobby.form</field>
+        <field name="model">hr.hobby</field>
+        <field name="arch" type="xml">
+            <form string="Pasatiempo">
+                <sheet>
+                    <widget name="web_ribbon" title="Archivado" bg_color="text-bg-danger" invisible="active"/>
+                    <group>
+                        <field name="name"/>
+                        <field name="active" widget="boolean_toggle"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_hobby_action" model="ir.actions.act_window">
+        <field name="name">Pasatiempos</field>
+        <field name="res_model">hr.hobby</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Crear un pasatiempo</p>
+        </field>
+    </record>
+
+    <!-- Hobbies Default Data -->
+    <record id="hobby_lectura" model="hr.hobby"><field name="name">Lectura</field></record>
+    <record id="hobby_musica" model="hr.hobby"><field name="name">Música</field></record>
+    <record id="hobby_cocina" model="hr.hobby"><field name="name">Cocina</field></record>
+    <record id="hobby_jardineria" model="hr.hobby"><field name="name">Jardinería</field></record>
+    <record id="hobby_pintura" model="hr.hobby"><field name="name">Pintura</field></record>
+    <record id="hobby_fotografia" model="hr.hobby"><field name="name">Fotografía</field></record>
+    <record id="hobby_videojuegos" model="hr.hobby"><field name="name">Videojuegos</field></record>
+    <record id="hobby_cine" model="hr.hobby"><field name="name">Cine</field></record>
+    <record id="hobby_viajar" model="hr.hobby"><field name="name">Viajar</field></record>
+    <record id="hobby_manualidades" model="hr.hobby"><field name="name">Manualidades</field></record>
+    <record id="hobby_baile" model="hr.hobby"><field name="name">Baile</field></record>
+    <record id="hobby_pesca" model="hr.hobby"><field name="name">Pesca</field></record>
+    <record id="hobby_caza" model="hr.hobby"><field name="name">Caza</field></record>
+    <record id="hobby_coleccionismo" model="hr.hobby"><field name="name">Coleccionismo</field></record>
+    <record id="hobby_escritura" model="hr.hobby"><field name="name">Escritura</field></record>
+
+    <!-- ==================== ALLERGIES ==================== -->
+    <record id="hr_allergy_view_list" model="ir.ui.view">
+        <field name="name">hr.allergy.list</field>
+        <field name="model">hr.allergy</field>
+        <field name="arch" type="xml">
+            <list string="Alergias" editable="bottom">
+                <field name="name"/>
+                <field name="active" column_invisible="True"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="hr_allergy_view_form" model="ir.ui.view">
+        <field name="name">hr.allergy.form</field>
+        <field name="model">hr.allergy</field>
+        <field name="arch" type="xml">
+            <form string="Alergia">
+                <sheet>
+                    <widget name="web_ribbon" title="Archivado" bg_color="text-bg-danger" invisible="active"/>
+                    <group>
+                        <field name="name"/>
+                        <field name="active" widget="boolean_toggle"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_allergy_action" model="ir.actions.act_window">
+        <field name="name">Alergias</field>
+        <field name="res_model">hr.allergy</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Crear una alergia</p>
+        </field>
+    </record>
+
+    <record id="allergy_polen" model="hr.allergy"><field name="name">Polen</field></record>
+    <record id="allergy_acaros" model="hr.allergy"><field name="name">Ácaros del polvo</field></record>
+    <record id="allergy_latex" model="hr.allergy"><field name="name">Látex</field></record>
+    <record id="allergy_penicilina" model="hr.allergy"><field name="name">Penicilina</field></record>
+    <record id="allergy_mariscos" model="hr.allergy"><field name="name">Mariscos</field></record>
+    <record id="allergy_frutos_secos" model="hr.allergy"><field name="name">Frutos secos (nueces, maní)</field></record>
+    <record id="allergy_leche" model="hr.allergy"><field name="name">Leche (lactosa/proteína)</field></record>
+    <record id="allergy_huevo" model="hr.allergy"><field name="name">Huevo</field></record>
+    <record id="allergy_soja" model="hr.allergy"><field name="name">Soja</field></record>
+    <record id="allergy_gluten" model="hr.allergy"><field name="name">Trigo / gluten</field></record>
+    <record id="allergy_picadura_insectos" model="hr.allergy"><field name="name">Picadura de insectos (abeja, avispa)</field></record>
+    <record id="allergy_aines" model="hr.allergy"><field name="name">Medicamentos AINEs</field></record>
+    <record id="allergy_contrastes_yodo" model="hr.allergy"><field name="name">Contrastes con yodo</field></record>
+    <record id="allergy_medicamentos_genericos" model="hr.allergy"><field name="name">Otros medicamentos (especificar en notas)</field></record>
+
+    <!-- ==================== DISEASES ==================== -->
+    <record id="hr_disease_view_list" model="ir.ui.view">
+        <field name="name">hr.disease.list</field>
+        <field name="model">hr.disease</field>
+        <field name="arch" type="xml">
+            <list string="Enfermedades" editable="bottom">
+                <field name="name"/>
+                <field name="active" column_invisible="True"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="hr_disease_view_form" model="ir.ui.view">
+        <field name="name">hr.disease.form</field>
+        <field name="model">hr.disease</field>
+        <field name="arch" type="xml">
+            <form string="Enfermedad">
+                <sheet>
+                    <widget name="web_ribbon" title="Archivado" bg_color="text-bg-danger" invisible="active"/>
+                    <group>
+                        <field name="name"/>
+                        <field name="active" widget="boolean_toggle"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_disease_action" model="ir.actions.act_window">
+        <field name="name">Enfermedades</field>
+        <field name="res_model">hr.disease</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Crear una enfermedad</p>
+        </field>
+    </record>
+
+    <!-- Diseases Default Data -->
+    <record id="disease_diabetes" model="hr.disease"><field name="name">Diabetes</field></record>
+    <record id="disease_hipertension" model="hr.disease"><field name="name">Hipertensión</field></record>
+    <record id="disease_asma" model="hr.disease"><field name="name">Asma</field></record>
+    <record id="disease_artritis" model="hr.disease"><field name="name">Artritis</field></record>
+    <record id="disease_epilepsia" model="hr.disease"><field name="name">Epilepsia</field></record>
+    <record id="disease_migranas" model="hr.disease"><field name="name">Migrañas</field></record>
+    <record id="disease_alergias" model="hr.disease"><field name="name">Alergias</field></record>
+    <record id="disease_gastritis" model="hr.disease"><field name="name">Gastritis</field></record>
+    <record id="disease_colesterol" model="hr.disease"><field name="name">Colesterol Alto</field></record>
+    <record id="disease_tiroides" model="hr.disease"><field name="name">Problemas de Tiroides</field></record>
+    <record id="disease_anemia" model="hr.disease"><field name="name">Anemia</field></record>
+    <record id="disease_rinitis" model="hr.disease"><field name="name">Rinitis</field></record>
+    <record id="disease_sinusitis" model="hr.disease"><field name="name">Sinusitis</field></record>
+    <record id="disease_hernia" model="hr.disease"><field name="name">Hernia</field></record>
+    <record id="disease_varices" model="hr.disease"><field name="name">Várices</field></record>
+
+    <!-- ==================== MEDICATIONS ==================== -->
+    <record id="hr_medication_view_list" model="ir.ui.view">
+        <field name="name">hr.medication.list</field>
+        <field name="model">hr.medication</field>
+        <field name="arch" type="xml">
+            <list string="Medicamentos" editable="bottom">
+                <field name="name"/>
+                <field name="active" column_invisible="True"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="hr_medication_view_form" model="ir.ui.view">
+        <field name="name">hr.medication.form</field>
+        <field name="model">hr.medication</field>
+        <field name="arch" type="xml">
+            <form string="Medicamento">
+                <sheet>
+                    <widget name="web_ribbon" title="Archivado" bg_color="text-bg-danger" invisible="active"/>
+                    <group>
+                        <field name="name"/>
+                        <field name="active" widget="boolean_toggle"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_medication_action" model="ir.actions.act_window">
+        <field name="name">Medicamentos</field>
+        <field name="res_model">hr.medication</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Crear un medicamento</p>
+        </field>
+    </record>
+
+    <record id="med_paracetamol" model="hr.medication"><field name="name">Paracetamol (acetaminofén)</field></record>
+    <record id="med_ibuprofeno" model="hr.medication"><field name="name">Ibuprofeno</field></record>
+    <record id="med_naproxeno" model="hr.medication"><field name="name">Naproxeno</field></record>
+    <record id="med_diclofenaco" model="hr.medication"><field name="name">Diclofenaco</field></record>
+    <record id="med_aas" model="hr.medication"><field name="name">Ácido acetilsalicílico (AAS)</field></record>
+    <record id="med_losartan" model="hr.medication"><field name="name">Losartán</field></record>
+    <record id="med_enalapril" model="hr.medication"><field name="name">Enalapril</field></record>
+    <record id="med_amlodipino" model="hr.medication"><field name="name">Amlodipino</field></record>
+    <record id="med_metformina" model="hr.medication"><field name="name">Metformina</field></record>
+    <record id="med_glibenclamida" model="hr.medication"><field name="name">Glibenclamida</field></record>
+    <record id="med_omeprazol" model="hr.medication"><field name="name">Omeprazol</field></record>
+    <record id="med_pantoprazol" model="hr.medication"><field name="name">Pantoprazol</field></record>
+    <record id="med_famotidina" model="hr.medication"><field name="name">Famotidina</field></record>
+    <record id="med_dimeticona" model="hr.medication"><field name="name">Dimeticona / simeticona</field></record>
+    <record id="med_amoxicilina" model="hr.medication"><field name="name">Amoxicilina</field></record>
+    <record id="med_amoxi_clavulanico" model="hr.medication"><field name="name">Amoxicilina con ácido clavulánico</field></record>
+    <record id="med_azitromicina" model="hr.medication"><field name="name">Azitromicina</field></record>
+    <record id="med_cefalexina" model="hr.medication"><field name="name">Cefalexina</field></record>
+    <record id="med_metronidazol" model="hr.medication"><field name="name">Metronidazol</field></record>
+    <record id="med_ciprofloxacino" model="hr.medication"><field name="name">Ciprofloxacino</field></record>
+    <record id="med_loratadina" model="hr.medication"><field name="name">Loratadina</field></record>
+    <record id="med_cetirizina" model="hr.medication"><field name="name">Cetirizina</field></record>
+    <record id="med_salbutamol" model="hr.medication"><field name="name">Salbutamol (inhalador)</field></record>
+    <record id="med_budesonida" model="hr.medication"><field name="name">Budesonida (inhalador)</field></record>
+    <record id="med_metoprolol" model="hr.medication"><field name="name">Metoprolol</field></record>
+    <record id="med_atorvastatina" model="hr.medication"><field name="name">Atorvastatina</field></record>
+    <record id="med_simvastatina" model="hr.medication"><field name="name">Simvastatina</field></record>
+    <record id="med_levotiroxina" model="hr.medication"><field name="name">Levotiroxina</field></record>
+    <record id="med_insulina" model="hr.medication"><field name="name">Insulina</field></record>
+    <record id="med_warfarina" model="hr.medication"><field name="name">Warfarina</field></record>
+    <record id="med_acenocumarol" model="hr.medication"><field name="name">Acenocumarol</field></record>
+    <record id="med_clonazepam" model="hr.medication"><field name="name">Clonazepam</field></record>
+    <record id="med_alprazolam" model="hr.medication"><field name="name">Alprazolam</field></record>
+    <record id="med_sertralina" model="hr.medication"><field name="name">Sertralina</field></record>
+    <record id="med_fluoxetina" model="hr.medication"><field name="name">Fluoxetina</field></record>
+    <record id="med_hidroxicina" model="hr.medication"><field name="name">Hidroxicina</field></record>
+    <record id="med_dexametasona" model="hr.medication"><field name="name">Dexametasona</field></record>
+    <record id="med_prednisona" model="hr.medication"><field name="name">Prednisona</field></record>
+    <record id="med_furosemida" model="hr.medication"><field name="name">Furosemida</field></record>
+    <record id="med_hidroclorotiazida" model="hr.medication"><field name="name">Hidroclorotiazida</field></record>
+    <record id="med_albendazol" model="hr.medication"><field name="name">Albendazol</field></record>
+    <record id="med_mebendazol" model="hr.medication"><field name="name">Mebendazol</field></record>
+    <record id="med_acido_folico" model="hr.medication"><field name="name">Ácido fólico</field></record>
+    <record id="med_sulfato_ferroso" model="hr.medication"><field name="name">Sulfato ferroso</field></record>
+    <record id="med_calcio_vitd" model="hr.medication"><field name="name">Carbonato de calcio + vitamina D</field></record>
+    <record id="med_ambroxol" model="hr.medication"><field name="name">Ambroxol (mucolítico)</field></record>
+    <record id="med_multivitaminico" model="hr.medication"><field name="name">Multivitamínico</field></record>
+    <record id="med_ondansetron" model="hr.medication"><field name="name">Ondansetrón</field></record>
+    <record id="med_tramadol" model="hr.medication"><field name="name">Tramadol</field></record>
+    <record id="med_nitroglicerina" model="hr.medication"><field name="name">Nitroglicerina sublingual</field></record>
+    <record id="med_aciclovir" model="hr.medication"><field name="name">Aciclovir</field></record>
+    <record id="med_ivermectina" model="hr.medication"><field name="name">Ivermectina</field></record>
+
+    <!-- ==================== SURGERIES ==================== -->
+    <record id="hr_surgery_view_list" model="ir.ui.view">
+        <field name="name">hr.surgery.list</field>
+        <field name="model">hr.surgery</field>
+        <field name="arch" type="xml">
+            <list string="Cirugías" editable="bottom">
+                <field name="name"/>
+                <field name="active" column_invisible="True"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="hr_surgery_view_form" model="ir.ui.view">
+        <field name="name">hr.surgery.form</field>
+        <field name="model">hr.surgery</field>
+        <field name="arch" type="xml">
+            <form string="Cirugía">
+                <sheet>
+                    <widget name="web_ribbon" title="Archivado" bg_color="text-bg-danger" invisible="active"/>
+                    <group>
+                        <field name="name"/>
+                        <field name="active" widget="boolean_toggle"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_surgery_action" model="ir.actions.act_window">
+        <field name="name">Cirugías</field>
+        <field name="res_model">hr.surgery</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Crear una cirugía</p>
+        </field>
+    </record>
+
+    <!-- Surgeries Default Data -->
+    <record id="surgery_apendicectomia" model="hr.surgery"><field name="name">Apendicectomía</field></record>
+    <record id="surgery_cesarea" model="hr.surgery"><field name="name">Cesárea</field></record>
+    <record id="surgery_colecistectomia" model="hr.surgery"><field name="name">Colecistectomía (Vesícula)</field></record>
+    <record id="surgery_hernia_inguinal" model="hr.surgery"><field name="name">Hernia Inguinal</field></record>
+    <record id="surgery_hernia_umbilical" model="hr.surgery"><field name="name">Hernia Umbilical</field></record>
+    <record id="surgery_amigdalectomia" model="hr.surgery"><field name="name">Amigdalectomía</field></record>
+    <record id="surgery_rodilla" model="hr.surgery"><field name="name">Cirugía de Rodilla</field></record>
+    <record id="surgery_cataratas" model="hr.surgery"><field name="name">Cirugía de Cataratas</field></record>
+    <record id="surgery_corazon" model="hr.surgery"><field name="name">Cirugía de Corazón</field></record>
+    <record id="surgery_columna" model="hr.surgery"><field name="name">Cirugía de Columna</field></record>
+    <record id="surgery_histerectomia" model="hr.surgery"><field name="name">Histerectomía</field></record>
+    <record id="surgery_vasectomia" model="hr.surgery"><field name="name">Vasectomía</field></record>
+    <record id="surgery_ligadura" model="hr.surgery"><field name="name">Ligadura de Trompas</field></record>
+    <record id="surgery_dental" model="hr.surgery"><field name="name">Cirugía Dental</field></record>
+    <record id="surgery_nasal" model="hr.surgery"><field name="name">Cirugía Nasal</field></record>
+</odoo>

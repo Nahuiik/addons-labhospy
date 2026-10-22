@@ -1,0 +1,715 @@
+.labhospy-homepage,
+#wrapwrap {
+    --labhospy-accent: #41d8e2;
+    --labhospy-dark: #282828;
+    --labhospy-navy: #0f2167;
+    --labhospy-text: #3b3b3b;
+    --labhospy-font: "Poppins", sans-serif;
+}
+
+// ========== TIPOGRAFÍA (Poppins — cargada en views/layout.xml) ==========
+#wrapwrap {
+    font-family: var(--labhospy-font);
+    color: var(--labhospy-text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    h1, h2, h3, h4, h5, h6,
+    .h1-fs, .h2-fs, .h3-fs, .h4-fs, .h5-fs, .h6-fs {
+        font-family: var(--labhospy-font);
+    }
+
+    .lead {
+        font-size: 1.05rem;
+        font-weight: 400;
+        line-height: 1.7;
+        color: var(--labhospy-text);
+    }
+
+    .btn {
+        font-family: var(--labhospy-font);
+        font-weight: 600;
+        letter-spacing: 0.02em;
+    }
+}
+
+// ========== HEADER (azul marino + cyan) ==========
+.o_header_sales_two_top,
+.labhospy-header-top {
+    background-color: var(--labhospy-navy) !important;
+    color: #fff;
+
+    .labhospy-header-link,
+    a.nav-link {
+        color: #fff !important;
+
+        &:hover {
+            color: var(--labhospy-accent) !important;
+        }
+
+        small {
+            font-size: 13px;
+        }
+    }
+
+    .o_header_sales_two_lang_selector_placeholder,
+    .o_header_sales_two_social_links_placeholder {
+        display: none;
+    }
+}
+
+.labhospy-brand-wrap {
+    max-width: 400px;
+}
+
+.labhospy-logo {
+    max-height: 110px;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+
+    @media (min-width: 992px) {
+        max-height: 120px;
+    }
+}
+
+.labhospy-search-input {
+    min-width: 220px;
+
+    @media (min-width: 992px) {
+        min-width: 320px;
+    }
+}
+
+.labhospy-nav-bar {
+    background-color: var(--labhospy-accent) !important;
+    border-top: none !important;
+
+    .nav-link {
+        color: #fff !important;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 13px;
+        letter-spacing: 0.02em;
+        padding-top: 0.65rem !important;
+        padding-bottom: 0.65rem !important;
+
+        &:hover,
+        &.active {
+            color: var(--labhospy-navy) !important;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+    }
+
+    .labhospy-btn-cta {
+        background-color: var(--labhospy-navy) !important;
+        border-color: var(--labhospy-navy) !important;
+        color: #fff !important;
+        font-weight: 700;
+        font-size: 13px;
+        letter-spacing: 0.03em;
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+        white-space: nowrap;
+
+        &:hover {
+            background-color: #0a1850 !important;
+            border-color: #0a1850 !important;
+        }
+    }
+}
+
+.labhospy-mobile-contact {
+    .labhospy-header-link {
+        display: block;
+        padding: 0.35rem 0;
+    }
+}
+
+// Zona logo + búsqueda (fila central)
+#o_main_nav .o_header_hide_on_scroll > div[aria-label="Middle"] {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+// Botones primarios del sitio
+.labhospy-homepage .btn-primary,
+#wrapwrap .labhospy-btn-cta {
+    background-color: var(--labhospy-navy);
+    border-color: var(--labhospy-navy);
+
+    &:hover {
+        background-color: #0a1850;
+        border-color: #0a1850;
+    }
+}
+
+// Hero slider
+.labhospy-hero {
+    .carousel-item {
+        min-height: 420px;
+
+        @media (min-width: 768px) {
+            min-height: 520px;
+        }
+
+        @media (min-width: 992px) {
+            min-height: 570px;
+        }
+    }
+
+    .labhospy-hero-caption {
+        max-width: 560px;
+        padding: 1.5rem 0;
+
+        h2 {
+            font-size: clamp(1.75rem, 4vw, 2.25rem);
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        h3 {
+            font-size: clamp(1rem, 2.2vw, 1.125rem);
+            font-weight: 400;
+            line-height: 1.6;
+            margin-bottom: 0;
+
+            a {
+                color: inherit;
+                text-decoration: none;
+
+                &:hover {
+                    color: var(--labhospy-accent);
+                }
+            }
+        }
+    }
+
+    .carousel-indicators [data-bs-target] {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: var(--labhospy-accent);
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.5));
+    }
+}
+
+// Tarjetas de servicio
+.labhospy-service-card {
+    border: none;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    .card-title {
+        color: var(--labhospy-dark);
+        font-weight: 700;
+        font-size: 16px;
+        text-transform: uppercase;
+    }
+
+    .card-text {
+        font-size: 13px;
+        line-height: 1.7;
+        color: var(--labhospy-text);
+    }
+
+    a.text-labhospy {
+        color: var(--labhospy-accent);
+        font-weight: 700;
+        font-size: 13px;
+        text-decoration: none;
+
+        &:hover {
+            color: var(--labhospy-navy);
+            text-decoration: underline;
+        }
+    }
+}
+
+// Especialidades con icono circular
+.labhospy-specialty-card {
+    text-align: center;
+    padding: 1.25rem 1rem;
+    transition: transform 0.2s ease;
+
+    &:hover {
+        transform: translateY(-4px);
+    }
+
+    img.labhospy-specialty-icon {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+        margin-bottom: 0.75rem;
+    }
+
+    h3 {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--labhospy-dark);
+        margin-bottom: 0.5rem;
+        text-transform: uppercase;
+    }
+
+    p {
+        font-size: 13px;
+        color: var(--labhospy-text);
+        line-height: 1.7;
+        margin-bottom: 0;
+    }
+}
+
+// Productos destacados
+.labhospy-product-card {
+    text-align: center;
+
+    img {
+        object-fit: contain;
+        height: 200px;
+        width: 100%;
+        padding: 0.5rem;
+    }
+
+    h3 {
+        font-size: 13px;
+        font-weight: 700;
+        margin-top: 0.75rem;
+        color: var(--labhospy-dark);
+        text-transform: uppercase;
+    }
+}
+
+// Marcas (grid estático estilo payment-method)
+.labhospy-brands {
+    background-color: #fff;
+
+    .labhospy-brands-subtitle {
+        color: var(--labhospy-text);
+        font-weight: 400;
+        font-size: 14px;
+        margin-top: 0.5rem;
+    }
+}
+
+.labhospy-section-title {
+    h2 {
+        color: var(--labhospy-dark);
+        font-weight: 700;
+        font-size: 30px;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+    }
+
+    h3 {
+        color: var(--labhospy-accent);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        font-size: 16px;
+    }
+
+    h4 {
+        font-family: var(--labhospy-font);
+        font-weight: 400;
+        font-size: 14px;
+        color: var(--labhospy-text);
+    }
+
+    p {
+        font-size: 13px;
+        line-height: 1.7;
+        color: var(--labhospy-text);
+    }
+}
+
+.labhospy-footer {
+    background-color: #fff;
+    color: var(--labhospy-text);
+}
+
+.labhospy-footer-main {
+    background-color: #fff;
+}
+
+.labhospy-footer-title {
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--labhospy-dark);
+    margin-bottom: 1rem;
+}
+
+.labhospy-footer-readmore {
+    color: var(--labhospy-accent);
+    font-weight: 700;
+    text-decoration: none;
+
+    &:hover {
+        color: var(--labhospy-navy);
+        text-decoration: underline;
+    }
+}
+
+.labhospy-footer-links a,
+.labhospy-footer-contact {
+    color: var(--labhospy-text);
+    text-decoration: none;
+
+    &:hover {
+        color: var(--labhospy-accent);
+    }
+}
+
+.labhospy-footer-links li {
+    margin-bottom: 0.35rem;
+}
+
+.labhospy-footer-social {
+    background-color: var(--labhospy-accent);
+}
+
+.labhospy-footer-social-link {
+    color: #fff;
+    opacity: 0.95;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+        color: #fff;
+        opacity: 1;
+    }
+}
+
+.labhospy-footer-copyright {
+    background-color: var(--labhospy-accent) !important;
+    color: #fff;
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+
+    .container {
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+    }
+
+    .labhospy-copyright-text {
+        color: #fff !important;
+        font-size: 13px;
+    }
+}
+
+.labhospy-footer {
+    font-size: 13px;
+    line-height: 1.7;
+
+    p, li {
+        color: var(--labhospy-text);
+    }
+
+    a {
+        text-decoration: none;
+
+        &:hover {
+            color: var(--labhospy-accent);
+            text-decoration: underline;
+        }
+    }
+}
+
+.labhospy-payment-method {
+    border: 1px solid #e8e8e8;
+    padding: 0.35rem;
+    margin-bottom: 1rem;
+    background: #fff;
+    text-align: center;
+    transition: box-shadow 0.2s ease;
+
+    &:hover {
+        box-shadow: 0 2px 8px rgba(65, 216, 226, 0.25);
+    }
+
+    img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+}
+
+.labhospy-brand-oxfo {
+    padding: 0.5rem 0;
+    margin-bottom: 1rem;
+
+    img {
+        width: auto;
+        height: 50px;
+    }
+}
+
+// ========== PÁGINA CONTACTO ==========
+.labhospy-contact-hero {
+    background-color: #f8f9fa;
+    border-bottom: 3px solid var(--labhospy-accent);
+
+    h1 {
+        font-size: 30px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--labhospy-dark);
+        margin-bottom: 0;
+    }
+}
+
+.labhospy-office-card {
+    text-align: center;
+    padding: 1.5rem 1.25rem;
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 4px;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+
+    &:hover {
+        box-shadow: 0 4px 16px rgba(65, 216, 226, 0.2);
+        transform: translateY(-3px);
+    }
+
+    .labhospy-office-icon {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin-bottom: 1rem;
+    }
+
+    h3 {
+        font-size: 16px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--labhospy-dark);
+        margin-bottom: 0.75rem;
+    }
+
+    p {
+        font-size: 13px;
+        line-height: 1.7;
+        color: var(--labhospy-text);
+        margin-bottom: 0;
+        text-align: center;
+    }
+}
+
+.labhospy-contact-form-section {
+    background-color: #fff;
+
+    .labhospy-section-title h2 {
+        font-size: 22px;
+        text-transform: none;
+        font-weight: 700;
+        color: var(--labhospy-dark);
+    }
+}
+
+.labhospy-contact-form {
+    background: #f8f9fa;
+    border: 1px solid #e8e8e8;
+    border-radius: 4px;
+    padding: 2rem 1.5rem;
+
+    @media (min-width: 768px) {
+        padding: 2.5rem 2.5rem;
+    }
+
+    .s_website_form_label {
+        width: auto !important;
+        font-weight: 600;
+        font-size: 13px;
+        color: var(--labhospy-dark);
+        margin-bottom: 0.35rem;
+    }
+
+    .form-control {
+        border-color: #ddd;
+        font-size: 14px;
+        padding: 0.6rem 0.85rem;
+
+        &:focus {
+            border-color: var(--labhospy-accent);
+            box-shadow: 0 0 0 0.2rem rgba(65, 216, 226, 0.25);
+        }
+    }
+
+    .s_website_form_mark {
+        color: var(--labhospy-accent);
+    }
+}
+
+.labhospy-contact-info-box {
+    background: var(--labhospy-navy);
+    color: #fff;
+    padding: 1.5rem;
+    border-radius: 4px;
+
+    h3 {
+        font-size: 16px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--labhospy-accent);
+        margin-bottom: 0.75rem;
+    }
+
+    li, p {
+        font-size: 13px;
+        line-height: 1.7;
+        color: #fff;
+    }
+
+    a {
+        color: #fff;
+
+        &:hover {
+            color: var(--labhospy-accent);
+        }
+    }
+
+    .fa {
+        color: var(--labhospy-accent);
+    }
+}
+
+// ========== PÁGINA SOBRE NOSOTROS ==========
+.labhospy-about-banner img {
+    max-height: 420px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.labhospy-about-subtitle {
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--labhospy-accent);
+    margin-top: 0.5rem;
+}
+
+.labhospy-about-heading {
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--labhospy-dark);
+    margin-bottom: 1.25rem;
+}
+
+.labhospy-about-history {
+    background-color: #f8f9fa;
+}
+
+.labhospy-about-history-img {
+    max-height: 320px;
+    width: auto;
+    object-fit: cover;
+}
+
+.labhospy-about-history p,
+.labhospy-about-sectors p {
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--labhospy-text);
+    text-align: justify;
+}
+
+.labhospy-about-mv-card {
+    background-color: #191d3d;
+    color: #fff;
+    padding: 2rem 1.75rem;
+    border-radius: 4px;
+    min-height: 100%;
+
+    h2 {
+        font-size: 22px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--labhospy-accent);
+        margin-bottom: 1rem;
+    }
+
+    p {
+        font-size: 14px;
+        line-height: 1.75;
+        margin-bottom: 0;
+        text-align: justify;
+        color: #fff;
+    }
+}
+
+.labhospy-about-sectors {
+    background-color: #fff;
+}
+
+.labhospy-about-list {
+    padding-left: 1.1rem;
+    margin-bottom: 0;
+
+    li {
+        font-size: 14px;
+        line-height: 1.9;
+        color: var(--labhospy-text);
+    }
+}
+
+.labhospy-value-card {
+    text-align: center;
+    padding: 1rem 0.5rem;
+
+    img {
+        width: 100px;
+        height: 100px;
+        object-fit: contain;
+        margin-bottom: 0.75rem;
+    }
+
+    h4 {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--labhospy-dark);
+        line-height: 1.4;
+    }
+}
+
+.labhospy-about-cta {
+    background-color: var(--labhospy-accent);
+
+    h2 {
+        font-size: 24px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--labhospy-navy);
+    }
+
+    .lead {
+        color: var(--labhospy-navy);
+    }
+
+    .labhospy-btn-cta {
+        background-color: var(--labhospy-navy);
+        border-color: var(--labhospy-navy);
+    }
+
+    .labhospy-about-cta-outline {
+        border-color: var(--labhospy-navy);
+        color: var(--labhospy-navy);
+        font-weight: 700;
+
+        &:hover {
+            background-color: var(--labhospy-navy);
+            color: #fff;
+        }
+    }
+}

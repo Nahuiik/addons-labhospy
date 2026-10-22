@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_financial_dashboard.DecisionCenter">
+        <section class="gn-fd-panel gn-fd-decisions">
+            <header class="gn-fd-panel__head">
+                <span>
+                    <i t-att-class="'fa me-2 ' + (props.icon || 'fa-bullseye')"/>
+                    <t t-esc="props.title || 'Centro de decisiones'"/>
+                </span>
+            </header>
+            <table class="gn-fd-decisions__table" t-if="props.decisions.length">
+                <thead>
+                    <tr>
+                        <th>Acción</th>
+                        <th class="text-end">Impacto</th>
+                        <th>Beneficio</th>
+                        <th>Prioridad</th>
+                        <th>Tiempo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="props.decisions" t-as="d" t-key="d_index"
+                        t-att-class="priorityClass(d.priority)">
+                        <td>
+                            <strong t-esc="d.title"/>
+                            <div class="gn-fd-decisions__desc" t-if="d.description" t-esc="d.description"/>
+                        </td>
+                        <td class="text-end fw-semibold" t-esc="formatAmount(d.impact_amount)"/>
+                        <td t-esc="d.expected_impact"/>
+                        <td>
+                            <span class="gn-fd-decisions__priority"><i class="fa fa-flag me-1"/><t t-esc="priorityLabel(d.priority)"/></span>
+                        </td>
+                        <td t-esc="d.eta or '—'"/>
+                    </tr>
+                </tbody>
+            </table>
+            <div t-else="" class="gn-fd-decisions__empty">
+                <i class="fa fa-check-circle me-2"/>Sin acciones prioritarias pendientes.
+            </div>
+        </section>
+    </t>
+
+</templates>

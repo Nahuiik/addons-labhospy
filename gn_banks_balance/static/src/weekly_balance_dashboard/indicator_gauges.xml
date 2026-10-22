@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_banks_balance.IndicatorGauge">
+        <div t-att-class="'gn-gauge gn-gauge--' + (props.gauge.status || 'unavailable')">
+            <div class="gn-gauge__title" t-esc="props.gauge.title"/>
+            <div class="gn-gauge__chart">
+                <canvas t-ref="canvas"/>
+                <div class="gn-gauge__overlay">
+                    <div class="gn-gauge__value" t-att-style="'color:' + statusColor"
+                         t-esc="formattedValue"/>
+                    <div class="gn-gauge__status" t-att-style="'color:' + statusColor"
+                         t-esc="statusLabel"/>
+                </div>
+                <div class="gn-gauge__axis-min text-muted" t-esc="axis.min"/>
+                <div class="gn-gauge__axis-max text-muted" t-esc="axis.max.toFixed(axis.decimals)"/>
+            </div>
+            <div class="gn-gauge__range text-muted small">
+                <t t-if="rangeLabel">Rango saludable: <t t-esc="rangeLabel"/></t>
+            </div>
+            <div class="gn-gauge__message text-muted small" t-if="props.gauge.message" t-esc="props.gauge.message"/>
+            <div class="gn-gauge__formula text-muted small fst-italic" t-if="props.gauge.formula" t-esc="props.gauge.formula"/>
+        </div>
+    </t>
+
+    <t t-name="gn_banks_balance.IndicatorGaugesPanel">
+        <div class="gn-wb-fh-block gn-fade-in">
+            <h6 class="gn-wb-fh-block__title">Indicadores clave (gauges)</h6>
+            <t t-if="props.loading">
+                <WbLoadingSkeleton variant="'gauges'" rows="8"/>
+            </t>
+            <t t-elif="!hasAny">
+                <WbEmptyState
+                    icon="'fa-tachometer'"
+                    tone="'info'"
+                    title="emptyTitle"
+                    description="emptyDescription"
+                    hint="emptyHint"/>
+            </t>
+            <t t-else="">
+                <t t-foreach="groups" t-as="group" t-key="group.id">
+                    <div class="gn-gauges-group gn-fade-in">
+                        <h6 class="gn-gauges-group__title" t-esc="group.title"/>
+                        <div class="row g-3">
+                            <t t-foreach="group.gauges" t-as="gauge" t-key="gauge.id">
+                                <div class="col-12 col-sm-6 col-lg-4 col-xxl-3" t-if="gauge">
+                                    <IndicatorGauge gauge="gauge"/>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </div>
+    </t>
+
+</templates>

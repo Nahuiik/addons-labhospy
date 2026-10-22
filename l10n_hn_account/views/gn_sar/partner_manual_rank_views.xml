@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_res_partner_filter_manual_rank" model="ir.ui.view">
+        <field name="name">l10n_hn_account.view_partner_filter.manual_rank</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='inactive']" position="before">
+                <filter string="Customers" name="customers" domain="[('is_customer', '=', True)]"/>
+                <filter string="Suppliers" name="suppliers" domain="[('is_supplier', '=', True)]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_res_partner_filter_account_manual_rank" model="ir.ui.view">
+        <field name="name">l10n_hn_account.view_partner_filter.account.manual_rank</field>
+        <field name="inherit_id" ref="account.res_partner_view_search"/>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <filter name="customer" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </filter>
+            <filter name="supplier" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </filter>
+        </field>
+    </record>
+
+    <record id="view_partner_form_manual_rank" model="ir.ui.view">
+        <field name="name">l10n_hn_account.view_partner_form.manual_rank</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='child_ids']/kanban/templates" position="before">
+                <field name="is_customer"/>
+                <field name="is_supplier"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_payment_form_manual_rank" model="ir.ui.view">
+        <field name="name">l10n_hn_account.account.payment.form.manual_rank</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="attributes">
+                <attribute name="domain">[('is_customer', '=', True)] if partner_type == 'customer' else [('is_supplier', '=', True)] if partner_type == 'supplier' else []</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>

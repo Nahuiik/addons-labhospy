@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="purchase_order_form_view_custom" model="ir.ui.view">
+			<field name="name">purchase.order.form.custom</field>
+			<field name="model">purchase.order</field>
+			<field name="inherit_id" ref="purchase.purchase_order_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//header//button[@name='print_quotation']" position="before">
+					<field name="hide_payment_button" invisible="1"/>
+					<button name="advance_payment_button" string="Advance Payment"
+						type="object" class="btn-primary"
+						groups="account.group_account_invoice"
+							invisible="not hide_payment_button or state in ['done','cancel']"/>
+				</xpath>
+				<xpath expr="//div[@name='button_box']" position="inside">
+					<button name="action_advance_payment_view" type="object"
+						class="oe_stat_button" icon="fa-money"
+						groups="account.group_account_invoice" invisible="advance_payment_ids == []">
+						<field name="advance_payment_ids" widget="statinfo" string="Advance Payments" />
+					</button>
+				</xpath>
+			</field>
+		</record>
+
+		<record id="purchase_advance_account_payment_form_view_custom" model="ir.ui.view">
+			<field name="name">account.payment.form.view.custom</field>
+			<field name="model">account.payment</field>
+			<field name="arch" type="xml">
+				<form string="Advance Payment">
+					<group>
+						<group>
+							<label for="amount" />
+							<div name="amount_div" class="o_row">
+								<field name="amount" readonly="state != 'draft'"/>
+								<field name="currency_id" options="{'no_create': True, 'no_open': True}"
+									groups="base.group_multi_currency" readonly="state != 'draft'" />
+							</div>
+							<field name="journal_id" widget="selection"
+								readonly="state != 'draft'" domain="[('type', 'in', ['cash', 'bank'])]" />
+							<field name="date"/>
+							<field name="total_amount"/>
+							<field name="due_amount"/>
+						</group>
+						<group>
+							<field name="company_id" groups="base.group_multi_company" />
+							<field name="state" invisible="1" />
+							<field name="available_payment_method_line_ids" invisible="1" />
+							<field name="payment_method_line_id" required="1"
+								options="{'no_create': True, 'no_open': True}"
+								readonly="state != 'draft'" />
+						</group>
+					</group>
+					<footer>
+						<button name="create_advance_payment" type="object"
+							string="Create Payment" class="btn-primary" />
+						<button string="Cancel" class="btn-secondary" special="cancel" />
+					</footer>
+				</form>
+			</field>
+		</record>
+	</data>
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.module.category" id="module_category_udoo_list">
+            <field name="name">Udoo List View</field>
+            <field name="sequence">100</field>
+        </record>
+
+        <record id="group_advanced_list" model="res.groups">
+            <field name="name">Lista Avanzada</field>
+            <!-- category_id removed as it is not available in Odoo 19 res.groups -->
+            <field name="comment">Permite gestionar columnas avanzadas en las vistas de lista.</field>
+        </record>
+    </data>
+</odoo>

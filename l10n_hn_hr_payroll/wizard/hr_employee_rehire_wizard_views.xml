@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_l10n_hn_employee_rehire_wizard_form" model="ir.ui.view">
+        <field name="name">l10n.hn.employee.rehire.wizard.form</field>
+        <field name="model">l10n.hn.employee.rehire.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Recontratar empleado">
+                <group>
+                    <field name="employee_id" widget="many2one_avatar"/>
+                    <field name="company_id" invisible="1"/>
+                    <field name="currency_id" invisible="1"/>
+                </group>
+                <group string="Contrato y puesto">
+                    <group>
+                        <field name="contract_date_start"/>
+                        <field name="contract_date_end"/>
+                        <field name="wage"/>
+                    </group>
+                    <group>
+                        <field name="department_id"/>
+                        <field name="job_id"/>
+                        <field name="resource_calendar_id"/>
+                    </group>
+                </group>
+                <group string="Jerarquía">
+                    <field name="parent_id" widget="many2one_avatar"/>
+                    <field name="coach_id" widget="many2one_avatar"/>
+                </group>
+                <group string="Nómina / contrato (administrador RR.HH.)" groups="hr.group_hr_manager">
+                    <field name="contract_type_id"/>
+                    <field name="structure_type_id"/>
+                    <field name="hr_responsible_id"/>
+                </group>
+                <footer>
+                    <button name="action_apply" type="object" string="Confirmar recontratación" class="btn-primary" data-hotkey="q"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel" data-hotkey="x"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

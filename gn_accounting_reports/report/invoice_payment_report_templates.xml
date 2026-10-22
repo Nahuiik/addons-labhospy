@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_payment_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <div class="article">
+                    <div class="page" style="font-size:8px;">
+                        <h3 style="text-align:center;margin-bottom:8px;">
+                            <span t-esc="report_title"/>
+                        </h3>
+                        <table style="width:100%;margin-bottom:8px;border-collapse:collapse;font-size:9px;">
+                            <tr>
+                                <td style="width:50%;vertical-align:top;padding:3px;">
+                                    <strong>Compañía:</strong> <span t-esc="company.name"/>
+                                    <br/>
+                                    <strong>Período pagos:</strong>
+                                    <span t-esc="period_from"/> — <span t-esc="period_to"/>
+                                    <br/>
+                                    <strong>Período facturas:</strong>
+                                    <span t-esc="invoice_period_from or '—'"/> —
+                                    <span t-esc="invoice_period_to or '—'"/>
+                                </td>
+                                <td style="width:50%;vertical-align:top;padding:3px;">
+                                    <strong>Sucursales:</strong> <span t-esc="branch_label"/>
+                                    <br/>
+                                    <strong>Asesores:</strong> <span t-esc="user_label"/>
+                                    <br/>
+                                    <strong>Clientes:</strong> <span t-esc="partner_label"/>
+                                    <br/>
+                                    <strong>Bancos:</strong> <span t-esc="journal_label"/>
+                                    <br/>
+                                    <strong>Categorías:</strong> <span t-esc="categ_label"/>
+                                    <br/>
+                                    <strong>Estado factura:</strong> <span t-esc="payment_state_label"/>
+                                    <strong> · Plazo crédito:</strong> <span t-esc="credit_term_label"/>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <t t-if="not rows">
+                            <p>No hay registros con los filtros seleccionados.</p>
+                        </t>
+
+                        <div style="overflow-x:auto;width:100%;">
+                            <table style="width:100%;border-collapse:collapse;font-size:7px;min-width:1400px;" border="1">
+                                <thead style="background-color:#1f4e79;color:#fff;">
+                                    <tr>
+                                        <th>Cliente</th>
+                                        <th>Nº Factura</th>
+                                        <th>Fecha factura</th>
+                                        <th>Nº recibo pago</th>
+                                        <th>Fecha pago</th>
+                                        <th>Días</th>
+                                        <th>Asesor</th>
+                                        <th>Banco</th>
+                                        <th>Subtotal</th>
+                                        <th>ISV</th>
+                                        <th>Total</th>
+                                        <th>Monto pagado</th>
+                                        <th>Estado</th>
+                                        <th>Usuario pago</th>
+                                        <th>Crédito otorgado</th>
+                                        <th>Dentro plazo</th>
+                                        <th>Ranking</th>
+                                        <th>Categorías</th>
+                                        <th>Sucursal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="rows" t-as="row">
+                                        <tr t-att-style="row['payment_receipt'] and '' or 'background-color:#fff3cd;'">
+                                            <td><span t-esc="row['customer']"/></td>
+                                            <td><span t-esc="row['invoice_number']"/></td>
+                                            <td><span t-esc="row['invoice_date']"/></td>
+                                            <td><span t-esc="row['payment_receipt']"/></td>
+                                            <td><span t-esc="row['payment_date']"/></td>
+                                            <td style="text-align:center;"><span t-esc="row['days_diff']"/></td>
+                                            <td><span t-esc="row['advisor']"/></td>
+                                            <td><span t-esc="row['bank']"/></td>
+                                            <td style="text-align:right;"><span t-out="fmt_money(row['amount_untaxed'])"/></td>
+                                            <td style="text-align:right;"><span t-out="fmt_money(row['amount_tax'])"/></td>
+                                            <td style="text-align:right;"><span t-out="fmt_money(row['amount_total'])"/></td>
+                                            <td style="text-align:right;"><span t-out="fmt_money(row['amount_applied'])"/></td>
+                                            <td><span t-esc="row['invoice_status']"/></td>
+                                            <td><span t-esc="row['payment_user']"/></td>
+                                            <td style="text-align:right;"><span t-out="fmt_money(row['credit_granted'])"/></td>
+                                            <td style="text-align:center;"><span t-esc="row['within_credit']"/></td>
+                                            <td><span t-esc="row['customer_rank']"/></td>
+                                            <td><span t-esc="row['product_categories']"/></td>
+                                            <td><span t-esc="row['branch']"/></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                                <tfoot style="background-color:#e8e8e8;font-weight:bold;">
+                                    <tr>
+                                        <td colspan="8" style="text-align:right;">Totales</td>
+                                        <td style="text-align:right;"><span t-out="fmt_money(totals['amount_untaxed'])"/></td>
+                                        <td style="text-align:right;"><span t-out="fmt_money(totals['amount_tax'])"/></td>
+                                        <td style="text-align:right;"><span t-out="fmt_money(totals['amount_total'])"/></td>
+                                        <td style="text-align:right;"><span t-out="fmt_money(totals['amount_applied'])"/></td>
+                                        <td colspan="7"/>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <p style="margin-top:6px;font-size:7px;color:#666;">
+                            Filas resaltadas: facturas pendientes sin pago en el período.
+                            Impreso: <span t-esc="print_date"/> <span t-esc="print_time"/>.
+                        </p>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_invoice_payment_html">
+        <t t-call="gn_accounting_reports.report_invoice_payment_document"/>
+    </template>
+</odoo>

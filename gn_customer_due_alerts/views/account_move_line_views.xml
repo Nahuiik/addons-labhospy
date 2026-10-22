@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Vista unificada: facturas + saldos CxC por apunte -->
+    <record id="view_customer_due_all_receivable_list" model="ir.ui.view">
+        <field name="name">account.move.line.customer.due.all.receivable.list</field>
+        <field name="model">account.move.line</field>
+        <field name="arch" type="xml">
+            <list string="CxC abiertos por contacto"
+                  create="false"
+                  js_class="cxc_partner_receivable_list"
+                  expand="1"
+                  groups_limit="5000"
+                  default_order="partner_id, date_maturity asc, date desc"
+                  decoration-danger="gn_customer_days_to_due &lt; 0"
+                  decoration-warning="gn_customer_days_to_due == 0">
+                <field name="partner_id" string="Contacto"/>
+                <field name="gn_customer_cxc_type" string="Tipo"/>
+                <field name="move_id" string="Documento"/>
+                <field name="name" string="Etiqueta" optional="show"/>
+                <field name="account_id"/>
+                <field name="date" string="Fecha"/>
+                <field name="date_maturity" string="Vencimiento"/>
+                <field name="gn_customer_days_to_due" string="Dias"/>
+                <field name="amount_residual" sum="Saldo pendiente"/>
+                <field name="reconciled" column_invisible="1"/>
+                <field name="parent_state" column_invisible="1"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="currency_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_customer_due_all_receivable_search" model="ir.ui.view">
+        <field name="name">account.move.line.customer.due.all.receivable.search</field>
+        <field name="model">account.move.line</field>
+        <field name="arch" type="xml">
+            <search string="CxC abiertos por contacto">
+                <field name="partner_id" string="Contacto"
+                       filter_domain="['|', ('partner_id.name', 'ilike', self), ('partner_id.ref', 'ilike', self)]"/>
+                <field name="move_id" string="Documento"/>
+                <field name="account_id"/>
+                <field name="name"/>
+                <filter name="open_items" string="Sin conciliar"
+                        domain="[('reconciled','=',False),('amount_residual','&gt;',0)]"/>
+                <filter name="invoices" string="Facturas"
+                        domain="[('move_id.move_type','in',('out_invoice','out_refund'))]"/>
+                <filter name="openings" string="Saldos CxC (apuntes)"
+                        domain="[('move_id.move_type','=','entry')]"/>
+                <filter name="prior_years" string="Años anteriores (1010201.02)"
+                        domain="[('account_id.code','=','1010201.02')]"/>
+                <filter name="current" string="Vigente (1010201.01)"
+                        domain="[('account_id.code','=','1010201.01')]"/>
+                <filter name="overdue" string="Vencidas"
+                        domain="[('date_maturity','&lt;', context_today().strftime('%Y-%m-%d'))]"/>
+                <separator/>
+                <group>
+                    <filter name="group_partner" string="Contacto"
+                            context="{'group_by': 'partner_id'}"/>
+                    <filter name="group_type" string="Tipo"
+                            context="{'group_by': 'gn_customer_cxc_type'}"/>
+                    <filter name="group_account" string="Cuenta"
+                            context="{'group_by': 'account_id'}"/>
+                    <filter name="group_move" string="Documento"
+                            context="{'group_by': 'move_id'}"/>
+                    <filter name="group_date" string="Fecha"
+                            context="{'group_by': 'date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_customer_due_partner_all" model="ir.actions.act_window">
+        <field name="name">CxC abiertos por contacto</field>
+        <field name="res_model">account.move.line</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_customer_due_all_receivable_list"/>
+        <field name="search_view_id" ref="view_customer_due_all_receivable_search"/>
+        <field name="domain">[('parent_state','=','posted'),
+                             ('account_id.account_type','=','asset_receivable'),
+                             ('partner_id','!=',False),
+                             ('reconciled','=',False),
+                             ('amount_residual','&gt;',0),
+                             ('move_id.move_type','in',('out_invoice','out_refund','entry'))]</field>
+        <field name="context">{'search_default_group_partner': 1, 'cxc_partner_list': 1}</field>
+    </record>
+
+    <!-- Vista solo apuntes (saldos iniciales / asientos) -->
+    <record id="view_customer_due_receivable_list" model="ir.ui.view">
+        <field name="name">account.move.line.customer.due.receivable.list</field>
+        <field name="model">account.move.line</field>
+        <field name="arch" type="xml">
+            <list string="Saldos CxC abiertos"
+                  create="false"
+                  expand="1"
+                  default_order="partner_id, date_maturity asc"
+                  decoration-danger="date_maturity and date_maturity &lt; context_today().strftime('%Y-%m-%d')">
+                <field name="partner_id" string="Contacto"/>
+                <field name="move_id" string="Asiento"/>
+                <field name="name" string="Etiqueta"/>
+                <field name="account_id"/>
+                <field name="date" string="Fecha asiento"/>
+                <field name="date_maturity" string="Vencimiento"/>
+                <field name="amount_residual" sum="Saldo pendiente"/>
+                <field name="reconciled" column_invisible="1"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="currency_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_customer_due_receivable_search" model="ir.ui.view">
+        <field name="name">account.move.line.customer.due.receivable.search</field>
+        <field name="model">account.move.line</field>
+        <field name="arch" type="xml">
+            <search string="Saldos CxC abiertos">
+                <field name="partner_id" string="Contacto"
+                       filter_domain="['|', ('partner_id.name', 'ilike', self), ('partner_id.ref', 'ilike', self)]"/>
+                <field name="move_id"/>
+                <field name="account_id"/>
+                <field name="name"/>
+                <filter name="open_items" string="Sin conciliar"
+                        domain="[('reconciled','=',False),('amount_residual','&gt;',0)]"/>
+                <filter name="prior_years" string="Años anteriores (1010201.02)"
+                        domain="[('account_id.code','=','1010201.02')]"/>
+                <filter name="current" string="Vigente (1010201.01)"
+                        domain="[('account_id.code','=','1010201.01')]"/>
+                <separator/>
+                <group>
+                    <filter name="group_partner" string="Contacto"
+                            context="{'group_by': 'partner_id'}"/>
+                    <filter name="group_account" string="Cuenta"
+                            context="{'group_by': 'account_id'}"/>
+                    <filter name="group_move" string="Asiento"
+                            context="{'group_by': 'move_id'}"/>
+                    <filter name="group_date" string="Fecha"
+                            context="{'group_by': 'date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_customer_due_receivable_list" model="ir.actions.act_window">
+        <field name="name">Saldos CxC (apuntes)</field>
+        <field name="res_model">account.move.line</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_customer_due_receivable_list"/>
+        <field name="search_view_id" ref="view_customer_due_receivable_search"/>
+        <field name="domain">[('parent_state','=','posted'),
+                             ('account_id.account_type','=','asset_receivable'),
+                             ('partner_id','!=',False),
+                             ('reconciled','=',False),
+                             ('amount_residual','&gt;',0),
+                             ('move_id.move_type','=','entry')]</field>
+        <field name="context">{'search_default_group_partner': 1}</field>
+    </record>
+
+</odoo>

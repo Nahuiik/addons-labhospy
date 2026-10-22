@@ -1,0 +1,75 @@
+# -*- coding: utf-8 -*-
+{
+    'name': 'Dashboard de Ventas Premium',
+    'version': '19.0.5.0.2',
+    'category': 'Sales/Sales',
+    'summary': 'Centro de mando comercial ejecutivo con KPIs, gráficos ECharts y drill-down',
+    'description': """
+Dashboard de Ventas Premium
+===========================
+
+Centro de mando comercial con KPIs reales, comparativos, gráfico principal
+interactivo (Apache ECharts), filtros avanzados y navegación drill-down hacia
+pedidos, facturas y oportunidades.
+    """,
+    'license': 'LGPL-3',
+    'author': 'Grupo Nahuiik',
+    'website': 'https://www.gruponahuiik.com',
+    'depends': [
+        'sale_management',
+        'account',
+        'crm',
+        'web',
+        'gts_branch_management',
+    ],
+    'data': [
+        'security/sales_dashboard_security.xml',
+        'security/ir.model.access.csv',
+        'report/sales_executive_report.xml',
+        'views/sales_dashboard_views.xml',
+        'views/sales_target_views.xml',
+        'views/res_config_settings_views.xml',
+        'views/menu_views.xml',
+    ],
+    'assets': {
+        'web.assets_backend': [
+            'gn_sales_dashboard/static/lib/echarts.min.js',
+            'gn_sales_dashboard/static/src/dashboard/date_utils.js',
+            'gn_sales_dashboard/static/src/dashboard/export_utils.js',
+            'gn_sales_dashboard/static/src/dashboard/echarts_utils.js',
+            'gn_sales_dashboard/static/src/dashboard/kpi_semantics.js',
+            'gn_sales_dashboard/static/src/dashboard/empty_state.js',
+            'gn_sales_dashboard/static/src/dashboard/empty_state.xml',
+            'gn_sales_dashboard/static/src/dashboard/kpi_card.js',
+            'gn_sales_dashboard/static/src/dashboard/kpi_card.xml',
+            'gn_sales_dashboard/static/src/dashboard/goal_tracker_card.js',
+            'gn_sales_dashboard/static/src/dashboard/goal_tracker_card.xml',
+            'gn_sales_dashboard/static/src/dashboard/insights_panel.js',
+            'gn_sales_dashboard/static/src/dashboard/insights_panel.xml',
+            'gn_sales_dashboard/static/src/dashboard/top_ranking_card.js',
+            'gn_sales_dashboard/static/src/dashboard/top_ranking_card.xml',
+            'gn_sales_dashboard/static/src/dashboard/components.js',
+            'gn_sales_dashboard/static/src/dashboard/components.xml',
+            'gn_sales_dashboard/static/src/dashboard/hero_chart.js',
+            'gn_sales_dashboard/static/src/dashboard/hero_chart.xml',
+            'gn_sales_dashboard/static/src/dashboard/sales_health_gauge.js',
+            'gn_sales_dashboard/static/src/dashboard/sales_health_gauge.xml',
+            'gn_sales_dashboard/static/src/dashboard/sales_alerts_panel.js',
+            'gn_sales_dashboard/static/src/dashboard/sales_alerts_panel.xml',
+            'gn_sales_dashboard/static/src/dashboard/sales_forecast_chart.js',
+            'gn_sales_dashboard/static/src/dashboard/sales_forecast_chart.xml',
+            'gn_sales_dashboard/static/src/dashboard/sales_data_table.js',
+            'gn_sales_dashboard/static/src/dashboard/sales_data_table.xml',
+            'gn_sales_dashboard/static/src/dashboard/sales_ranking_panel.js',
+            'gn_sales_dashboard/static/src/dashboard/sales_ranking_panel.xml',
+            'gn_sales_dashboard/static/src/dashboard/sales_pipeline_chart.js',
+            'gn_sales_dashboard/static/src/dashboard/sales_pipeline_chart.xml',
+            'gn_sales_dashboard/static/src/dashboard/sales_dashboard.js',
+            'gn_sales_dashboard/static/src/dashboard/sales_dashboard.xml',
+            'gn_sales_dashboard/static/src/dashboard/sales_dashboard.scss',
+            'gn_sales_dashboard/static/src/dashboard/client_action.js',
+        ],
+    },
+    'installable': True,
+    'application': True,
+}

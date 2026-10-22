@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="hn_isv_declaracion">
+        <t t-call="web.html_container">
+            <t t-set="o" t-value="docs[:1]"/>
+            <t t-set="layout_document_title"><span t-esc="report_title"/></t>
+            <t t-call="web.external_layout">
+                <div class="page nh-report nh-isv-decl o_table_standard" t-att-style="report_branding_style">
+                    <p class="nh-isv-period-line mb-3">
+                        <span class="fw-semibold" t-if="company" t-esc="company.name"/>
+                        <t t-if="company"> — </t>
+                        <span t-esc="periodo_linea"/>
+                    </p>
+
+                    <div class="nh-isv-box">
+                        <h2 class="nh-isv-box-title">Resumen de las ventas</h2>
+                        <div class="nh-isv-row">
+                            <span class="nh-isv-label" t-esc="venta_neta_etiqueta"/>
+                            <span class="nh-isv-val" t-esc="venta_neta_fmt"/>
+                        </div>
+                        <div class="nh-isv-row">
+                            <span class="nh-isv-label">Venta gravada 15%</span>
+                            <span class="nh-isv-val" t-esc="venta_gravada_fmt"/>
+                        </div>
+                        <div class="nh-isv-row">
+                            <span class="nh-isv-label">Ventas exoneradas / exentas</span>
+                            <span class="nh-isv-val" t-esc="ventas_exoneradas_fmt"/>
+                        </div>
+                        <div class="nh-isv-row" t-if="show_export_row">
+                            <span class="nh-isv-label">Exportaciones</span>
+                            <span class="nh-isv-val" t-esc="ventas_export_fmt"/>
+                        </div>
+                        <div class="nh-isv-row">
+                            <span class="nh-isv-label">Venta total</span>
+                            <span class="nh-isv-val" t-esc="venta_total_fmt"/>
+                        </div>
+                    </div>
+
+                    <div class="nh-isv-box">
+                        <h2 class="nh-isv-box-title">Resumen de las importaciones</h2>
+                        <div class="nh-isv-row">
+                            <span class="nh-isv-label">Importación</span>
+                            <span class="nh-isv-val" t-esc="import_monto_fmt"/>
+                        </div>
+                        <div class="nh-isv-row">
+                            <span class="nh-isv-label">Compra gravada 15%</span>
+                            <span class="nh-isv-val" t-esc="import_grav_fmt"/>
+                        </div>
+                        <div class="nh-isv-row spacer"/>
+                        <div class="nh-isv-row">
+                            <span class="nh-isv-label">Compra total</span>
+                            <span class="nh-isv-val" t-esc="import_total_fmt"/>
+                        </div>
+                    </div>
+
+                    <div class="nh-isv-box">
+                        <h2 class="nh-isv-box-title">Resumen de las compras</h2>
+                        <div class="nh-isv-row">
+                            <span class="nh-isv-label" t-esc="compra_neta_etiqueta"/>
+                            <span class="nh-isv-val" t-esc="compra_neta_fmt"/>
+                        </div>
+                        <div class="nh-isv-row">
+                            <span class="nh-isv-label">Compra gravada 15%</span>
+                            <span class="nh-isv-val" t-esc="compra_grav_fmt"/>
+                        </div>
+                        <div class="nh-isv-row spacer"/>
+                        <div class="nh-isv-row">
+                            <span class="nh-isv-label">Compra total</span>
+                            <span class="nh-isv-val" t-esc="compra_total_fmt"/>
+                        </div>
+                    </div>
+
+                    <div class="nh-isv-footer">
+                        <div class="nh-isv-row">
+                            <span class="nh-isv-label">Total a pagar (débito fiscal − crédito fiscal, período)</span>
+                            <span class="nh-isv-val" t-esc="total_a_pagar_fmt"/>
+                        </div>
+                        <div class="nh-isv-row">
+                            <span class="nh-isv-label">(−) Crédito fiscal período anterior</span>
+                            <span class="nh-isv-val" t-esc="credito_ant_fmt"/>
+                        </div>
+                        <div class="nh-isv-row">
+                            <span class="nh-isv-label">(−) Impuesto retenido POS</span>
+                            <span class="nh-isv-val" t-esc="ret_pos_fmt"/>
+                        </div>
+                        <div class="nh-isv-row nh-isv-total-final">
+                            <span class="nh-isv-label">Total ISV a ser pagado</span>
+                            <span class="nh-isv-val" t-esc="total_isv_final_fmt"/>
+                        </div>
+                    </div>
+                    <p class="nh-isv-nota">
+                        Cifras obtenidas de líneas con etiquetas del formulario 904 en el período (compañía seleccionada), salvo el bloque de importaciones,
+                        que requiere criterio / etiquetas adicionales si aplica. Solo se consideran facturas y notas de crédito registradas (posted); las anuladas quedan excluidas.
+                        Validar con el contador y la SAR.
+                    </p>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_report_hn_isv_decl_pdf" model="ir.actions.report">
+        <field name="name">Reporte ISV (PDF)</field>
+        <field name="model">hn.reporte.isv.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hn_reports.hn_isv_declaracion</field>
+        <field name="report_file">l10n_hn_reports.hn_isv_declaracion</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+    </record>
+    <record id="action_report_hn_isv_decl_html" model="ir.actions.report">
+        <field name="name">Reporte ISV (HTML)</field>
+        <field name="model">hn.reporte.isv.wizard</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">l10n_hn_reports.hn_isv_declaracion</field>
+        <field name="report_file">l10n_hn_reports.hn_isv_declaracion</field>
+    </record>
+</odoo>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+<template id="realcom_invoice_footer" name="realcom Page Footer">
+    <t t-set="company" t-value="company.sudo()"/>
+    <div class="col-12" style="margin-left:-5mm;padding-top:145mm;font-size:8px !important;padding-left:0px;">
+        <div class="col-4" style="padding-left:0px;">
+            <div>Banca Raiffeisen Locarno</div>
+            <div>6601 Locarno</div>
+            <div>CH74 8037 9000 0027 7579 8</div>
+        </div>
+        <div class="col-4" style="padding-left:0px;">
+            <div>Banca Raiffeisen Locarno</div>
+            <div>6601 Locarno</div>
+            <div>CH74 8037 9000 0027 7579 8</div>
+        </div>
+        <div class="col-4" style="padding-left:0px;">
+            <div>
+                <span t-if="o.move_type == 'out_invoice' and o.state == 'posted'">Invoice Date:</span>
+                <span t-if="o.move_type == 'out_invoice' and o.state == 'draft'">Draft Invoice Date:</span>
+                <span t-if="o.move_type == 'out_invoice' and o.state == 'cancel'">Cancelled Invoice Date:</span>
+                <span t-if="o.move_type == 'out_refund'">Refund Date:</span>
+                <span t-if="o.move_type == 'in_refund'">Supplier Refund Date:</span>
+                <span t-if="o.move_type == 'in_invoice'">Supplier Invoice Date:</span>
+                <span t-if="o.invoice_date" t-field="o.invoice_date"/>
+            </div>
+            <div t-if="o.name">Number: <span t-field="o.name"/></div>
+        </div>
+    </div>
+    <div class="col-12 mt16" style="margin-left:-5mm;padding-left:0px;">
+        <div class="col-4" style="padding-left:0px;">
+            <address t-field="company.partner_id" style="margin-bottom:0px;font-size:8px !important;" t-field-options='{"widget": "contact", "fields":["name", "address","phone"],"no_marker": true}'/>
+        </div>
+        <div class="col-4" style="padding-left:0px;">
+            <address t-field="company.partner_id" style="margin-bottom:0px;font-size:8px !important;" t-field-options='{"widget": "contact", "fields":["name", "address", "phone"],"no_marker": true}'/>
+        </div>
+    </div>
+    <div class="col-12" style="margin-left:-5mm;padding-left:0px; padding-top:40px;">
+        <div class="mt16" style="letter-spacing:9px;width:30%;float:left;padding-right:13px; padding-top:0px;text-align:right;white-space:nowrap;font-size:18px">
+            <t t-esc="'{0:.2f}'.format(o.amount_total)"/> 
+        </div>
+        <div class="col-4 mt8" style="letter-spacing:9px;padding-left:0px;padding-right:6px; padding-top:7px;text-align:right;white-space:nowrap;font-size:18px;">
+            <t t-esc="'{0:.2f}'.format(o.amount_total)"/>
+        </div>
+        <div class="col-4" style="padding-top:5mm;">
+            <div t-field="o.partner_id" style="margin-top:4px;margin-bottom:0px;font-size:8px !important;" t-field-options='{"widget": "contact", "fields":["name","address"],"no_marker": true}'/>
+        </div>
+    </div>
+    <div class="col-12" style="margin-left:-5mm;padding-left:0px;padding-top:2px;">
+        <div class="col-4" style="padding-left:0px;">
+            <div t-field="o.partner_id" style="margin-top:4px;margin-bottom:0px;font-size:8px !important;" t-field-options='{"widget": "contact", "fields":["name","address"],"no_marker": true}'/>
+        </div>
+    </div>
+</template>
+</data>
+</odoo>

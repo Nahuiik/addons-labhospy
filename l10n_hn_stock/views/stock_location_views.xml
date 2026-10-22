@@ -1,0 +1,17 @@
+<odoo>
+    <record id="view_stock_location_form_l10n_hn_stock_negative" model="ir.ui.view">
+        <field name="name">stock.location.form.l10n.hn.stock.negative</field>
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_form"/>
+        <field name="arch" type="xml">
+            <field name="usage" position="before">
+                <field name="allow_negative_stock"/>
+                <field name="check_serial_no"/>
+            </field>
+        </field>
+    </record>
+</odoo>
+
+
+
+

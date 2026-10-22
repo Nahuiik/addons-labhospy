@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="blood_type_a_positive" model="l10n_hn_hr_payroll.blood.type">
+        <field name="name">A+</field>
+        <field name="code">a_positive</field>
+        <field name="sequence">10</field>
+    </record>
+    <record id="blood_type_a_negative" model="l10n_hn_hr_payroll.blood.type">
+        <field name="name">A-</field>
+        <field name="code">a_negative</field>
+        <field name="sequence">20</field>
+    </record>
+    <record id="blood_type_b_positive" model="l10n_hn_hr_payroll.blood.type">
+        <field name="name">B+</field>
+        <field name="code">b_positive</field>
+        <field name="sequence">30</field>
+    </record>
+    <record id="blood_type_b_negative" model="l10n_hn_hr_payroll.blood.type">
+        <field name="name">B-</field>
+        <field name="code">b_negative</field>
+        <field name="sequence">40</field>
+    </record>
+    <record id="blood_type_ab_positive" model="l10n_hn_hr_payroll.blood.type">
+        <field name="name">AB+</field>
+        <field name="code">ab_positive</field>
+        <field name="sequence">50</field>
+    </record>
+    <record id="blood_type_ab_negative" model="l10n_hn_hr_payroll.blood.type">
+        <field name="name">AB-</field>
+        <field name="code">ab_negative</field>
+        <field name="sequence">60</field>
+    </record>
+    <record id="blood_type_o_positive" model="l10n_hn_hr_payroll.blood.type">
+        <field name="name">O+</field>
+        <field name="code">o_positive</field>
+        <field name="sequence">70</field>
+    </record>
+    <record id="blood_type_o_negative" model="l10n_hn_hr_payroll.blood.type">
+        <field name="name">O-</field>
+        <field name="code">o_negative</field>
+        <field name="sequence">80</field>
+    </record>
+</odoo>

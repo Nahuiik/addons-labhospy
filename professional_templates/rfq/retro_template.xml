@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="RFQ_3_document" name="Retro Template">
+            <!-- Multicompany -->
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"></t>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"></t>
+            </t>
+            <div class="header" t-attf-style="color:{{style.text_color}} !important;font-size:{{int(style.header_font)}}px !important;font-family:{{style.font_family}} !important;" >
+                <t t-if="style.header">
+                    <div class="row mb-2">
+                        <div class="col-5">
+                            <strong>
+                                <address t-field="company.partner_id" t-options='{"widget": "contact", "fields": ["name", "address", "phone",  "email", "website"], "no_marker": false}'/>
+                            </strong>
+                        </div>
+                        <div class="col-7 text-end">
+                            <div t-if="style.logo">
+                                <img t-if="style.logo" t-att-src="image_data_uri(style.logo)" alt="Logo"/>
+                            </div>
+                            <div t-if="not style.logo">
+                                <img  t-att-src="image_data_uri(company.logo)" alt="Logo"/>
+                            </div>
+                            <div t-if="company.twitter or company.facebook or company.youtube" class="d-inline-block px-1" t-attf-style="background-color:{{style.theme_color}};color:{{style.theme_txt_color}};">
+                                <span t-if="company.twitter" style="padding-left:0px;" class="fa fa-twitter-square "/>&#160;<span t-field="company.twitter"/>
+                                <span t-if="company.facebook" style="padding-left:13px;" class="fa fa-facebook-square "/>&#160;<span t-field="company.facebook"/>
+                                <span t-if="company.youtube" style="padding-left:13px;" class="fa fa-youtube-square "/>&#160;<span t-field="company.youtube" />
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </div> <!--end of Header-->
+            <!-- START OF PAGE -->
+            <div class="article page" t-attf-data-oe-model="purchase.order" t-attf-data-oe-id="{{o.id}}"  t-attf-style="color:{{style.text_color}} !important;font-size:{{int(style.body_font)}}px !important;font-family:{{style.font_family}} !important;">
+                <div class="col-12" t-attf-style="white-space:pre-line;color:#{style.wm_color};left:#{style.leftpadding}mm; top:#{style.toppadding}mm;font-size:#{style.fontsize}px; opacity:#{style.opacity};z-index:-99; -webkit-transform:rotate(-#{style.rotate}deg);position:fixed;"><t t-esc="style.wm_eval(o, time, user, res_company)"/></div>
+                <div class="row mb-2">
+                    <div  t-attf-style="width:auto; max-width:100%;color:{{style.theme_txt_color}} !important;background-color:{{style.theme_color}} !important;font-size:{{int(style.body_font)+2}}px;">
+                        <h3>
+                            <span>Solicitud de Cotizacion #<span t-field="o.name"/></span>
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <span t-if="o.dest_address_id and o.dest_address_id != o.partner_id" t-attf-style="font-size:{{int(style.body_font)+6}}px; font-weight:bold;">
+                            <i class="fa fa-user "/> Direccion:
+                        </span>
+                        <span classs="text-nowrap" t-if="o.dest_address_id == o.partner_id or not o.dest_address_id" t-attf-style="font-size:{{int(style.body_font)+6}}px; font-weight:bold;">
+                            <i class="fa fa-user "/> Direccion:
+                        </span>
+                    </div>
+                    <div class="col-4" t-if="o.dest_address_id and o.dest_address_id != o.partner_id">
+                        <span t-attf-style="font-size:{{int(style.body_font)+6}}px; font-weight:bold;">
+                            <i class="fa fa-truck "/> Ship To:
+                        </span>
+                    </div>
+                </div>
+                <div class="row row-cols-2 mb-2">
+                    <div class="col">
+                        <div t-if="o.partner_id" t-attf-style="color:{{style.cust_color}}; margin-top:2px; margin-bottom:5px; margin-left:0px;">
+                            <t t-if="o.partner_id.parent_id">
+                                <span t-field="o.partner_id.parent_id"/>, <span t-if="o.partner_id._fields.get('title') and o.partner_id.title" t-field="o.partner_id.title"/>
+                                <span t-field="o.partner_id.name"/>
+                            </t>
+                            <t t-if="not o.partner_id.parent_id">
+                                <span t-if="o.partner_id._fields.get('title') and o.partner_id.title" t-field="o.partner_id.title"/> <span t-field="o.partner_id"/>
+                            </t>
+                        </div>
+                        <address t-field="o.partner_id" t-options='{"widget": "contact", "fields": ["address", "phone",  "email", "website"], "no_marker": false}'/>
+                        <div t-if="o.partner_id.vat">NIT: <span t-field="o.partner_id.vat"/></div>
+                    </div>
+                    <div class="col" t-if="o.dest_address_id and o.dest_address_id != o.partner_id">
+                        <address t-field="o.dest_address_id" t-options='{"widget": "contact", "fields":["name", "address","phone","email","website"],"no_marker": false}'/>
+                    </div>
+                </div>
+                <!-- DATA-->
+                <t t-call="professional_templates.rfq_lines"/>
+                    <!--/DATA-->
+            </div><!--End of PAGE-->
+            <!--FOOTER -->
+            <div class="footer" t-attf-style="font-size:{{style.footer_font}}px !important;font-family:{{style.font_family}} !important;">
+                <t t-call="professional_templates.company_footer"/>
+            </div>
+            <!--/FOOTER-->
+        </template>
+    </data>
+</odoo>

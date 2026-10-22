@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="purchase_order_merge_button_view" model="ir.ui.view">
+        <field name="name">purchase.order.merge.button.view</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header/button[@name='action_rfq_send']" position="before">
+                <button name="action_merge_order_line" invisible="state == 'cancel'" type="object" string="Merge Duplicate Lines" class="btn-primary"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

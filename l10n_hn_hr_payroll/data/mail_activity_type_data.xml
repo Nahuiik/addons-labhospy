@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="mail_activity_hn_program_vacation" model="mail.activity.type">
+            <field name="name">Programar vacaciones HN</field>
+            <field name="summary">Definir época de vacaciones</field>
+            <field name="category">default</field>
+            <field name="delay_count">0</field>
+            <field name="delay_unit">days</field>
+            <field name="delay_from">current_date</field>
+        </record>
+    </data>
+</odoo>

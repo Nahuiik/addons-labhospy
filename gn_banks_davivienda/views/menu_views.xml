@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Dentro del submenú "Banks"/"Bancos" junto con Débito, Tarjetas de crédito, etc. -->
+    <menuitem id="menu_import_davivienda_pos"
+              name="Importar Liquidaciones Davivienda"
+              parent="gn_banks.menu_sub_banks"
+              sequence="33"
+              action="gn_banks_davivienda.action_davivienda_pos_import_wizard"/>
+
+    <menuitem id="menu_davivienda_pos_import_history"
+              name="Historial importaciones Davivienda POS"
+              parent="gn_banks.menu_sub_banks"
+              sequence="34"
+              action="gn_banks_davivienda.action_davivienda_pos_import_history"/>
+</odoo>

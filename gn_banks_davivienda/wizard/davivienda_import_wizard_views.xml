@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_davivienda_pos_import_wizard_form" model="ir.ui.view">
+        <field name="name">davivienda.pos.import.wizard.form</field>
+        <field name="model">davivienda.pos.import.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Importar liquidaciones Davivienda POS">
+                <sheet>
+                    <div class="alert alert-info" role="alert">
+                        <strong>Por archivo Excel:</strong>
+                        las transacciones del reporte se agrupan por
+                        <strong>FECHA_TRX</strong> y se genera
+                        <strong>una liquidación por cada día</strong> con movimiento dentro de ese fichero.
+                        En modo lote, <strong>cada archivo se importa por separado</strong>
+                        (no se combinan importes entre archivos aunque compartan fecha).
+                    </div>
+                    <group>
+                        <field name="import_mode" widget="radio"/>
+                    </group>
+                    <group>
+                        <group string="Diarios">
+                            <field name="liquidation_journal_id"
+                                   readonly="1"
+                                   force_save="1"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="bank_journal_id"
+                                   options="{'no_create': True}"/>
+                            <field name="commission_account_id"
+                                   readonly="1"
+                                   force_save="1"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                        </group>
+                        <group string="Archivo" invisible="import_mode != 'single'">
+                            <field name="data_file" filename="file_name"/>
+                            <field name="file_name" invisible="1"/>
+                        </group>
+                    </group>
+                    <group string="Archivos Excel (varios a la vez)"
+                           invisible="import_mode != 'batch'">
+                        <field name="attachment_ids"
+                               widget="many2many_binary"
+                               nolabel="1"
+                               colspan="4"/>
+                    </group>
+                    <group string="Resultado" invisible="state != 'done'">
+                        <field name="state" invisible="1"/>
+                        <field name="result_data" widget="gn_davivienda_pos_import_result" nolabel="1" colspan="4"/>
+                    </group>
+                    <group invisible="1">
+                        <field name="progress"/>
+                        <field name="processed_days"/>
+                        <field name="total_days"/>
+                        <field name="result_message"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Importar"
+                            name="action_import"
+                            type="object"
+                            class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button special="cancel" string="Cerrar" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_davivienda_pos_import_wizard" model="ir.actions.act_window">
+        <field name="name">Importar liquidaciones Davivienda POS</field>
+        <field name="res_model">davivienda.pos.import.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

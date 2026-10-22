@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Salary Advance List View -->
+    <record id="view_salary_advance_list" model="ir.ui.view">
+        <field name="name">salary.advance.list</field>
+        <field name="model">salary.advance</field>
+        <field name="arch" type="xml">
+            <list string="Anticipos Salariales">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="date"/>
+                <field name="advance_amount" sum="Total"/>
+                <field name="advance_percentage"/>
+                <field name="state" widget="badge" 
+                       decoration-success="state == 'approved'"
+                       decoration-info="state in ('draft', 'submit')"
+                       decoration-warning="state == 'waiting_approval'"
+                       decoration-danger="state == 'reject'"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+    
+    <!-- Salary Advance Form View -->
+    <record id="view_salary_advance_form" model="ir.ui.view">
+        <field name="name">salary.advance.form</field>
+        <field name="model">salary.advance</field>
+        <field name="arch" type="xml">
+            <form string="Anticipo Salarial">
+                <header>
+                    <button name="action_submit" string="Enviar" type="object" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_approve" string="Aprobar" type="object" class="btn-primary"
+                            invisible="state not in ['submit', 'waiting_approval']"/>
+                    <button name="action_reject" string="Rechazar" type="object"
+                            invisible="state not in ['submit', 'waiting_approval']"/>
+                    <button name="action_cancel" string="Cancelar" type="object"
+                            invisible="state in ['approved', 'cancel', 'reject']"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submit,waiting_approval,approved"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1"/>
+                            <field name="employee_id" options="{'no_create': True}"/>
+                            <field name="date"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="current_wage" readonly="1"/>
+                            <field name="advance_amount"/>
+                            <field name="advance_percentage" readonly="1"/>
+                            <field name="max_advance_percentage" readonly="1"/>
+                            <field name="max_advance_amount" readonly="1"/>
+                            <field name="days_since_last_payment" readonly="1"/>
+                            <field name="min_days_since_payment" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Contabilidad" invisible="state == 'draft'">
+                        <group>
+                            <field name="journal_id" required="state in ['submit', 'waiting_approval', 'approved']"/>
+                            <field name="debit_account_id" required="state in ['submit', 'waiting_approval', 'approved']"/>
+                            <field name="credit_account_id" required="state in ['submit', 'waiting_approval', 'approved']"/>
+                        </group>
+                        <group>
+                            <field name="move_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Notas">
+                            <field name="notes" placeholder="Notas adicionales..."/>
+                        </page>
+                        <page string="Seguimiento" invisible="state == 'draft'">
+                            <field name="message_follower_ids"/>
+                            <field name="activity_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+    
+    <!-- Salary Advance Search View -->
+    <record id="view_salary_advance_search" model="ir.ui.view">
+        <field name="name">salary.advance.search</field>
+        <field name="model">salary.advance</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Anticipos Salariales">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <filter string="Borrador" name="draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Enviado" name="submit" domain="[('state', '=', 'submit')]"/>
+                <filter string="Aprobado" name="approved" domain="[('state', '=', 'approved')]"/>
+                <filter string="Rechazado" name="reject" domain="[('state', '=', 'reject')]"/>
+                <separator/>
+                <filter string="Empleado" name="group_by_employee" context="{'group_by': 'employee_id'}"/>
+                <filter string="Estado" name="group_by_state" context="{'group_by': 'state'}"/>
+                <filter string="Empresa" name="group_by_company" context="{'group_by': 'company_id'}"/>
+            </search>
+        </field>
+    </record>
+    
+    <!-- Salary Advance Action -->
+    <record id="action_salary_advance" model="ir.actions.act_window">
+        <field name="name">Anticipos Salariales</field>
+        <field name="res_model">salary.advance</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crear un nuevo anticipo salarial
+            </p>
+            <p>
+                Los anticipos salariales permiten a los empleados solicitar un adelanto de su salario.
+            </p>
+        </field>
+    </record>
+</odoo>

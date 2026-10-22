@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="dynamic_cheque_form_view" model="ir.ui.view">
+			<field name="name">check.format.custom.form.view</field>
+			<field name="model">check.format.custom</field>
+			<field name="arch" type="xml">
+				<form string="Cheque">
+					<sheet>
+						<div class="alert alert-success" role="alert">
+						<strong>Note :</strong> Consider value of all the parameter in px.
+						</div>
+						<group>
+							<field name="name" placeholder="Cheque Format"/>
+						</group>
+						<group>
+							<group>
+								<field name="cheque_hight" />
+							</group>
+							<group >
+								<field name="cheque_width"/>
+							</group>
+						</group>
+						<group col="3">
+							<group string="A/c Pay" colspan="1" col="2">
+								<field name="ac_pay"/>
+								<field name="ac_top_margin"/>
+								<field name="ac_left_margin"/>
+								<field name="ac_font_size"/>
+							</group>
+							<group string="Cheque Date" colspan="1" col="2">
+								<field name="top_margin"/>
+								<field name="left_margin"/>
+								<field name="font_size"/>
+								<field name="char_spacing"/>
+							</group>
+							<group string="Payee Name" colspan="1" col="2">
+								<field name="payee_top_margin"/>
+								<field name="payee_left_margin"/>
+								<field name="payee_width"/>
+								<field name="payee_font_size"/>
+							</group>
+						</group>
+						<group col="3">
+							<group string="Signature Box" colspan="1" col="2">
+								<field name="sb_width"/>
+								<field name="sb_hight"/>
+								<field name="sb_top_margin"/>
+								<field name="sb_left_margin"/>
+							</group>
+							<group string="Company Sign" colspan="1" col="2">
+								<field name="comapny_name"/>
+								<field name="comp_font_size"/>
+								<field name="comp_top_margin"/>
+								<field name="comp_left_margin"/>
+							</group>
+							<group string="Amount in Figure" colspan="1" col="2">
+								<field name="af_currency_symbol" />
+								<field name="af_currency_symbol_position" required="'af_currency_symbol', '=', True" />
+								<field name="af_top_margin"/>
+								<field name="af_left_margin"/>
+								<field name="af_width"/>
+								<field name="af_font_size"/>
+							</group>
+						</group>
+						<group string="Amount in Word" col="6" colspan="2">
+						    	<field name="sc_currency_name" invisible="1"/>
+								<field name="sc_currency_name_position" required="'sc_currency_name', '=', True" invisible="1"/>
+						    	<field name="fl_top_margin" string="Top Margin"/>
+								<field name="fl_left_margin" string="Left Margin"/>
+								<field name="fl_width" string="Width"/>
+								<field name="words_in_fl_line" invisible="1"/>
+								<field name="sc_top_margin" invisible="1"/>
+								<field name="sc_left_margin" invisible="1"/>
+								<field name="sc_width" invisible="1"/>
+								<field name="words_in_sc_line" invisible="1"/>
+								<field name="sc_font_size" />
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="dynamic_cheque_print_tree_view" model="ir.ui.view">
+			<field name="name">check.format.custom.tree.view</field>
+			<field name="model">check.format.custom</field>
+			<field name="arch" type="xml">
+				<list string="Cheque">
+					<field name="name"/>
+				</list>
+			</field>
+		</record>
+
+		<record id="action_dynamic_cheque_print" model="ir.actions.act_window">
+			<field name="name">Cheque</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">check.format.custom</field>
+			<field name="view_mode">list,form</field>
+			<field name="group_ids" eval="[(6, 0, [ref('gn_banks.banks_check_manager')])]"/>
+		</record>
+
+		 <menuitem name="Dynamic Cheque"
+			id="dynamic_cheque_config_menu"
+			parent = "account.menu_finance_configuration"
+			action="action_dynamic_cheque_print"
+			sequence = '3'
+			groups="gn_banks.banks_check_manager"
+		/>
+
+	</data>
+</odoo>

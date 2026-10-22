@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Evita duplicar RTN si ya existe otro contacto con el mismo número en la BD -->
+    <function model="res.partner" name="_gn_data_ensure_consumidor_final"/>
+</odoo>

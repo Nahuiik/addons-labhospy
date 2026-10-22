@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Formato de papel personalizado -->
+        <record id="paperformat_employee_declaration" model="report.paperformat">
+            <field name="name">Constancia de Trabajo</field>
+            <field name="default" eval="False"/>
+            <field name="format">custom</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">15</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">20</field>
+            <field name="margin_right">20</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+            <field name="dpi">100</field>
+        </record>
+
+        <!-- Reporte QWeb PDF registrado -->
+        <report
+            id="action_report_employee_declaration"
+            model="hr.contract"
+            string="Constancia de Trabajo"
+            print_report_name="(object._get_report_base_filename())"
+            report_type="qweb-pdf"
+            name="gn_l10n_employee.report_employee_declaration"
+            file="gn_l10n_employee.report_employee_declaration"
+            menu="False"
+            paperformat="paperformat_employee_declaration"
+        />
+        
+        <report
+            id="action_report_employee_cancelled_declaration"
+            model="hr.contract"
+            string="Constancia de Salida"
+            print_report_name="(object._get_report_base_filename())"
+            report_type="qweb-pdf"
+            name="gn_l10n_employee.report_employee_cancelled_declaration"
+            file="gn_l10n_employee.report_employee_cancelled_declaration"
+            menu="False"
+            paperformat="paperformat_employee_declaration"
+        />
+
+    </data>
+</odoo>

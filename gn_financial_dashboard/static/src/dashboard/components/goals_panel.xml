@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_financial_dashboard.GoalsPanel">
+        <section class="gn-fd-panel gn-fd-goals">
+            <header class="gn-fd-panel__head">
+                <span>
+                    <i class="fa fa-bullseye me-2"/>Objetivos estratégicos
+                </span>
+                <small class="text-muted">
+                    <t t-if="props.payload.summary.total === 0">
+                        Aún no has definido objetivos.
+                    </t>
+                    <t t-else="">
+                        <t t-esc="props.payload.summary.attained"/> alcanzados ·
+                        <t t-esc="props.payload.summary.in_progress"/> en curso ·
+                        <t t-esc="props.payload.summary.overdue"/> vencidos
+                    </t>
+                </small>
+            </header>
+            <div t-if="!props.payload.goals.length" class="gn-fd-empty">
+                <i class="fa fa-flag-o fa-2x mb-2"/>
+                <p>
+                    Define metas medibles desde
+                    <strong>Contabilidad → Configuración → Tablero financiero
+                    → Objetivos estratégicos</strong>.
+                </p>
+            </div>
+            <ul t-else="" class="gn-fd-goals__list">
+                <t t-foreach="props.payload.goals" t-as="g" t-key="g.id">
+                    <li t-att-class="'gn-fd-goals__item gn-fd-goals__item--' + statusTone(g)"
+                        t-on-click="() => this.onClick(g)">
+                        <div class="gn-fd-goals__head">
+                            <div class="gn-fd-goals__name">
+                                <i t-att-class="'fa me-2 ' + (g.status === 'attained' ? 'fa-check-circle' : g.status === 'overdue' ? 'fa-exclamation-circle' : 'fa-clock-o')"/>
+                                <span t-esc="g.name"/>
+                            </div>
+                            <span t-att-class="'gn-fd-goals__badge gn-fd-goals__badge--' + statusTone(g)"
+                                  t-esc="statusLabel(g)"/>
+                        </div>
+                        <div class="gn-fd-goals__meta">
+                            <span class="text-muted">KPI: </span>
+                            <strong t-esc="g.kpi_label"/>
+                            <span class="text-muted ms-2">· </span>
+                            <span t-esc="directionLabel(g)"/>
+                            <span t-if="g.date_deadline" class="text-muted ms-2">·
+                                Plazo: <t t-esc="fmtDate(g.date_deadline)"/>
+                            </span>
+                        </div>
+                        <div class="gn-fd-goals__values">
+                            <span><b>Actual:</b> <t t-esc="g.formatted_current"/></span>
+                            <span><b>Meta:</b> <t t-esc="g.formatted_target"/></span>
+                            <span class="ms-auto"><b><t t-esc="g.progress"/>%</b></span>
+                        </div>
+                        <div class="gn-fd-goals__progress">
+                            <div t-att-class="'gn-fd-goals__bar gn-fd-goals__bar--' + statusTone(g)"
+                                 t-att-style="'width: ' + progressWidth(g)"/>
+                        </div>
+                    </li>
+                </t>
+            </ul>
+        </section>
+    </t>
+
+</templates>

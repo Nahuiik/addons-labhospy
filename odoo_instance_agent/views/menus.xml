@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Menú principal de Monitoreo -->
+    <menuitem id="menu_monitor_root"
+              name="Monitoreo"
+              sequence="100"
+              groups="odoo_instance_agent.group_monitor_admin,odoo_instance_agent.group_monitor_user"/>
+
+    <!-- Presencia de Dispositivos -->
+    <menuitem id="menu_monitor_device_presence"
+              name="Presencia de Dispositivos"
+              parent="menu_monitor_root"
+              action="action_monitor_device_presence"
+              sequence="10"/>
+
+    <!-- Configuración -->
+    <menuitem id="menu_monitor_config"
+              name="Configuración"
+              parent="menu_monitor_root"
+              action="action_monitor_config_settings"
+              groups="odoo_instance_agent.group_monitor_admin"
+              sequence="100"/>
+</odoo>
+

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_hn_bank_operations_root"
+              name="Honduras (bank)"
+              parent="account.menu_finance_entries"
+              sequence="15"/>
+    <menuitem id="menu_hn_bank_matching"
+              name="Bank matching"
+              parent="menu_hn_bank_operations_root"
+              action="action_bank_statement_line_hn_kanban"
+              sequence="10"/>
+    <menuitem id="menu_hn_bank_lines_list"
+              name="All bank transactions"
+              parent="menu_hn_bank_operations_root"
+              action="action_bank_statement_line_hn_list"
+              sequence="20"/>
+</odoo>

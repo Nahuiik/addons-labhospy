@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="action_hr_afp_settings" model="ir.actions.act_window">
+        <field name="name">AFP Parámetros</field>
+        <field name="res_model">hr.afp.settings</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_create">Configurar parámetros AFP</p>
+        </field>
+    </record>
+
+    <record id="view_hr_afp_settings_form" model="ir.ui.view">
+        <field name="name">hr.afp.settings.form</field>
+        <field name="model">hr.afp.settings</field>
+        <field name="arch" type="xml">
+            <form string="AFP">
+                <header>
+                    <button name="set_afp" type="object" string="Establecer AFP"
+                            class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="set_to_draft" type="object" string="Establecer Borrador"
+                            invisible="state != 'validated'"/>
+                    <button name="action_get_employees" type="object" string="Obtener Empleados"
+                            class="btn-secondary" invisible="state != 'draft'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,validated"/>
+                </header>
+                <sheet>
+                    <h1>
+                        <field name="name" readonly="state != 'draft'"/>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="company_id" readonly="state != 'draft'"/>
+                            <field name="minimum_ceiling" readonly="state != 'draft'"/>
+                            <field name="include_in" readonly="state != 'draft'"/>
+                        </group>
+                        <group>
+                            <field name="apply_percentage" readonly="state != 'draft'"/>
+                            <field name="pay_periodicity" readonly="state != 'draft'"/>
+                            <field name="total_quincena_amount" readonly="1"/>
+                            <field name="total_afp_amount" readonly="1"/>
+                        </group>
+                    </group>
+                    <field name="line_ids" readonly="1">
+                        <list string="Empleados AFP">
+                            <field name="employee_id"/>
+                            <field name="current_wage"/>
+                            <field name="difference"/>
+                            <field name="quincena_amount"/>
+                            <field name="afp_amount"/>
+                        </list>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_hr_afp_settings_tree" model="ir.ui.view">
+        <field name="name">hr.afp.settings.tree</field>
+        <field name="model">hr.afp.settings</field>
+        <field name="arch" type="xml">
+            <list string="AFP Parámetros">
+                <field name="name"/>
+                <field name="company_id"/>
+                <field name="minimum_ceiling"/>
+                <field name="apply_percentage"/>
+                <field name="pay_periodicity"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <menuitem
+        id="menu_hr_afp_settings"
+        name="AFP"
+        parent="l10n_hn_payroll_base.menu_hr_payroll_configuration"
+        action="action_hr_afp_settings"
+        sequence="46"
+    />
+</odoo>

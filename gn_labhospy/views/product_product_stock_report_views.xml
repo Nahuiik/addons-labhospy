@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="product_product_stock_tree_inherit_gn_labhospy" model="ir.ui.view">
+            <field name="name">product.product.stock.list.inherit.gn.labhospy</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="stock.product_product_stock_tree"/>
+            <field name="arch" type="xml">
+                <field name="display_name" position="after">
+                    <field name="gn_labhospy_supplier_id" optional="show"/>
+                    <field name="gn_labhospy_catalog_code" optional="show"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

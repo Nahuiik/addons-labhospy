@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- CE: hereda del formulario de estructura de l10n_hn_payroll_base -->
+    <record id="view_hr_payroll_structure_form_inherit_l10n_hn" model="ir.ui.view">
+        <field name="name">hr.payroll.structure.form.inherit.l10n.hn</field>
+        <field name="model">hr.payroll.structure</field>
+        <field name="inherit_id" ref="l10n_hn_payroll_base.view_hr_payroll_structure_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='active']" position="attributes">
+                <attribute name="invisible">0</attribute>
+                <attribute name="string">Activa</attribute>
+            </xpath>
+            <xpath expr="//field[@name='company_id']" position="attributes">
+                <attribute name="groups"/>
+                <attribute name="options">{'no_create': True}</attribute>
+                <attribute name="help">Vacío = disponible para todas las compañías del país</attribute>
+            </xpath>
+            <xpath expr="//field[@name='country_id']" position="after">
+                <field name="is_default"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_hr_payroll_structure_list_inherit_l10n_hn" model="ir.ui.view">
+        <field name="name">hr.payroll.structure.list.inherit.l10n.hn</field>
+        <field name="model">hr.payroll.structure</field>
+        <field name="inherit_id" ref="l10n_hn_payroll_base.view_hr_payroll_structure_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']" position="attributes">
+                <attribute name="groups"/>
+                <attribute name="optional">show</attribute>
+            </xpath>
+            <xpath expr="//field[@name='country_id']" position="after">
+                <field name="is_default" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_hr_payroll_structure_filter_inherit_l10n_hn" model="ir.ui.view">
+        <field name="name">hr.payroll.structure.filter.inherit.l10n.hn</field>
+        <field name="model">hr.payroll.structure</field>
+        <field name="inherit_id" ref="l10n_hn_payroll_base.view_hr_payroll_structure_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='type_id']" position="after">
+                <field name="company_id"/>
+                <field name="is_default"/>
+            </xpath>
+            <xpath expr="//filter[@name='inactive']" position="before">
+                <filter name="filter_default" string="Por defecto" domain="[('is_default', '=', True)]"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

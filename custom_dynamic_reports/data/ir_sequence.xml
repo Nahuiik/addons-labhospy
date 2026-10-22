@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="seq_dynamic_report" model="ir.sequence">
+        <field name="name">Dynamic Report Sequence</field>
+        <field name="code">custom_dynamic_reports.dynamic_report</field>
+        <field name="prefix">DR%(year)s-</field>
+        <field name="padding">4</field>
+        <field name="implementation">standard</field>
+    </record>
+</odoo>

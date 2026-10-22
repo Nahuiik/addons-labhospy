@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_document_gn_fiscal" inherit_id="account.report_invoice_document">
+        <xpath expr="//t[@t-set='forced_vat']" position="after">
+            <t t-set="gn_inv_partner" t-value="o._gn_get_invoice_report_partner()"/>
+            <t t-set="gn_contact_line" t-value="o._gn_invoice_print_contact_name_line()"/>
+        </xpath>
+        <xpath expr="//t[@t-set='forced_vat']/following-sibling::div[@class='row'][1]" position="after">
+            <div t-if="gn_contact_line" class="row mb-2">
+                <div class="col-12">
+                    <p class="mb-0 text-muted"><span t-out="gn_contact_line"/></p>
+                </div>
+            </div>
+        </xpath>
+        <xpath expr="//div[@name='address_not_same_as_shipping']/t[@t-set='address']" position="replace">
+            <t t-set="address">
+                <address class="mb-0" t-field="gn_inv_partner" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
+                <div t-if="gn_inv_partner.vat" id="partner_vat_address_not_same_as_shipping">
+                    <t t-if="o.company_id.account_fiscal_country_id.vat_label" t-out="o.company_id.account_fiscal_country_id.vat_label" id="inv_tax_id_label"/>
+                    <t t-else="">Tax ID</t>: <span t-field="gn_inv_partner.vat"/>
+                </div>
+                <div t-if="gn_inv_partner.country_code == 'MA' and gn_inv_partner.company_registry">
+                    ICE: <a t-field="gn_inv_partner.company_registry"/>
+                </div>
+            </t>
+        </xpath>
+        <xpath expr="//div[@name='address_same_as_shipping']/t[@t-set='address']" position="replace">
+            <t t-set="address">
+                <address class="mb-0" t-field="gn_inv_partner" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
+                <div t-if="gn_inv_partner.vat" id="partner_vat_address_same_as_shipping">
+                    <t t-if="o.company_id.account_fiscal_country_id.vat_label" t-out="o.company_id.account_fiscal_country_id.vat_label" id="inv_tax_id_label"/>
+                    <t t-else="">Tax ID</t>: <span t-field="gn_inv_partner.vat"/>
+                </div>
+                <div t-if="gn_inv_partner.country_code == 'MA' and gn_inv_partner.company_registry">
+                    ICE: <a t-field="gn_inv_partner.company_registry"/>
+                </div>
+            </t>
+        </xpath>
+        <xpath expr="//div[@name='no_shipping']/t[@t-set='address']" position="replace">
+            <t t-set="address">
+                <address class="mb-0" t-field="gn_inv_partner" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
+                <div t-if="gn_inv_partner.vat" id="partner_vat_no_shipping">
+                    <t t-if="o.company_id.account_fiscal_country_id.vat_label" t-out="o.company_id.account_fiscal_country_id.vat_label" id="inv_tax_id_label"/>
+                    <t t-else="">Tax ID</t>: <span t-field="gn_inv_partner.vat"/>
+                </div>
+                <div t-if="gn_inv_partner.country_code == 'MA' and gn_inv_partner.company_registry">
+                    ICE: <a t-field="gn_inv_partner.company_registry"/>
+                </div>
+            </t>
+        </xpath>
+        <xpath expr="//div[@id='informations']" position="after">
+            <div t-if="o.gn_fiscal_matrix_notice" class="alert alert-warning mb-3">
+                <span t-out="o.gn_fiscal_matrix_notice"/>
+            </div>
+        </xpath>
+    </template>
+</odoo>

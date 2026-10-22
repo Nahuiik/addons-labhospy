@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_banks_ui.BankKpiCard">
+        <div t-att-class="toneClass">
+            <i t-if="props.icon" t-att-class="'gn-bk-kpi__icon fa ' + props.icon"/>
+            <div class="gn-bk-kpi__label" t-esc="props.label"/>
+            <div class="gn-bk-kpi__value" t-esc="props.value"/>
+        </div>
+    </t>
+</templates>

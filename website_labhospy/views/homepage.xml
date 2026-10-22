@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="labhospy_homepage" inherit_id="website.homepage" name="LABHOSPY Homepage">
+        <xpath expr="//div[@id='wrap']" position="replace">
+            <div id="wrap" class="oe_structure labhospy-homepage">
+
+                <!-- ========== SLIDER PRINCIPAL (4 slides como labhospy.hn) ========== -->
+                <section class="s_carousel_wrapper p-0 labhospy-hero" data-snippet="s_carousel">
+                    <t t-set="uniq" t-value="datetime.datetime.now().microsecond"/>
+                    <div t-attf-id="labhospyHero{{uniq}}" class="s_carousel s_carousel_default carousel slide" data-bs-ride="carousel" data-bs-interval="5000" data-bs-pause="hover">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active oe_img_bg o_bg_img_center o_cc o_cc5" style="background-image: url('/website_labhospy/static/src/img/slides/slide-01.jpg');" data-name="Slide">
+                                <div class="o_we_bg_filter bg-black-50"/>
+                                <div class="container oe_unremovable">
+                                    <div class="labhospy-hero-caption text-white">
+                                        <h2>LABHOSPY</h2>
+                                        <h3>Amplia gama de productos para laboratorios</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item oe_img_bg o_bg_img_center o_cc o_cc5" style="background-image: url('/website_labhospy/static/src/img/slides/slide-02.jpg');" data-name="Slide">
+                                <div class="o_we_bg_filter bg-black-50"/>
+                                <div class="container oe_unremovable">
+                                    <div class="labhospy-hero-caption text-white">
+                                        <h2>Importación y venta</h2>
+                                        <h3>de equipo de Laboratorio de calidad</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item oe_img_bg o_bg_img_center o_cc o_cc5" style="background-image: url('/website_labhospy/static/src/img/slides/slide-03.jpg');" data-name="Slide">
+                                <div class="o_we_bg_filter bg-black-50"/>
+                                <div class="container oe_unremovable">
+                                    <div class="labhospy-hero-caption text-white">
+                                        <h2>Cobertura nacional</h2>
+                                        <h3>Venta de equipo e insumos de laboratorio en todo el país</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item oe_img_bg o_bg_img_center o_cc o_cc5" style="background-image: url('/website_labhospy/static/src/img/slides/slide-04-oxfo.jpeg');" data-name="Slide">
+                                <div class="o_we_bg_filter bg-black-50"/>
+                                <div class="container oe_unremovable">
+                                    <div class="labhospy-hero-caption text-white">
+                                        <h2>Productos Oxfo</h2>
+                                        <h3>Dispositivos de suministros de oxígeno médico</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev o_not_editable" t-attf-data-bs-target="#labhospyHero{{uniq}}" data-bs-slide="prev" aria-label="Anterior">
+                            <span class="carousel-control-prev-icon"/>
+                        </button>
+                        <button class="carousel-control-next o_not_editable" t-attf-data-bs-target="#labhospyHero{{uniq}}" data-bs-slide="next" aria-label="Siguiente">
+                            <span class="carousel-control-next-icon"/>
+                        </button>
+                        <div class="carousel-indicators o_not_editable">
+                            <button type="button" t-attf-data-bs-target="#labhospyHero{{uniq}}" data-bs-slide-to="0" class="active"/>
+                            <button type="button" t-attf-data-bs-target="#labhospyHero{{uniq}}" data-bs-slide-to="1"/>
+                            <button type="button" t-attf-data-bs-target="#labhospyHero{{uniq}}" data-bs-slide-to="2"/>
+                            <button type="button" t-attf-data-bs-target="#labhospyHero{{uniq}}" data-bs-slide-to="3"/>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ========== INTRO LABHOSPY ========== -->
+                <section class="s_text_block pt64 pb48" data-snippet="s_text_block">
+                    <div class="container text-center labhospy-section-title">
+                        <h3>LABHOSPY</h3>
+                        <p class="lead col-lg-10 mx-auto">Somos distribuidores de equipos de la más alta calidad y tecnología para laboratorios con el respaldo de marcas con prestigio internacional. Contamos con asesoría, instalación, capacitación y soporte técnico de nuestras marcas.</p>
+                    </div>
+                </section>
+
+                <!-- ========== SERVICIOS (3 columnas) ========== -->
+                <section class="s_three_columns pt16 pb64" data-snippet="s_three_columns">
+                    <div class="container">
+                        <div class="row g-4">
+                            <div class="col-lg-4">
+                                <div class="card h-100 labhospy-service-card">
+                                    <img src="/website_labhospy/static/src/img/services/soporte-tecnico.png" class="card-img-top" alt="Servicio Técnico"/>
+                                    <div class="card-body text-center">
+                                        <h3 class="card-title h5-fs">Servicio Técnico</h3>
+                                        <p class="card-text">Personal altamente calificado para asesoría, instalación, capacitación y mantenimiento preventivo y correctivo.</p>
+                                        <a href="/contactus" class="text-labhospy">Contáctanos</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="card h-100 labhospy-service-card">
+                                    <img src="/website_labhospy/static/src/img/services/capacitaciones.png" class="card-img-top" alt="Instalación y Capacitación"/>
+                                    <div class="card-body text-center">
+                                        <h3 class="card-title h5-fs">Instalación y Capacitación</h3>
+                                        <p class="card-text">Garantizamos el adecuado funcionamiento de los equipos con puesta en marcha siguiendo normas de calidad.</p>
+                                        <a href="/contactus" class="text-labhospy">Contáctanos</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="card h-100 labhospy-service-card">
+                                    <img src="/website_labhospy/static/src/img/services/contratos.png" class="card-img-top" alt="Contratos de Servicio"/>
+                                    <div class="card-body text-center">
+                                        <h3 class="card-title h5-fs">Contratos de Servicio</h3>
+                                        <p class="card-text">Contratos con repuestos originales y respuestas ágiles y eficientes para nuestros clientes.</p>
+                                        <a href="/contactus" class="text-labhospy">Contáctanos</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ========== ESPECIALIDADES ========== -->
+                <section class="s_title pt48 pb16 o_cc o_cc2" data-snippet="s_title">
+                    <div class="container text-center labhospy-section-title">
+                        <h2>Especialidades</h2>
+                        <p class="lead">Comercializamos equipos, materiales e insumos para todas las especialidades del área de salud, industrias, ciencias de vida, ciencias forenses y educación.</p>
+                    </div>
+                </section>
+                <section class="pb64 o_cc o_cc2">
+                    <div class="container">
+                        <div class="row g-4">
+                            <div class="col-6 col-md-4 col-lg-3">
+                                <div class="labhospy-specialty-card">
+                                    <img src="/website_labhospy/static/src/img/specialties/anatomia.png" class="labhospy-specialty-icon" alt="Anatomía Patológica"/>
+                                    <h3>Anatomía Patológica</h3>
+                                    <p>Procesador de tejidos, micrótomo, sistemas de inclusión, parafina e inmunohistoquímica.</p>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-4 col-lg-3">
+                                <div class="labhospy-specialty-card">
+                                    <img src="/website_labhospy/static/src/img/specialties/educacion.jpg" class="labhospy-specialty-icon rounded-circle" alt="Educación"/>
+                                    <h3>Educación</h3>
+                                    <p>Modelos anatómicos, microscopios, estereoscopios y material didáctico.</p>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-4 col-lg-3">
+                                <div class="labhospy-specialty-card">
+                                    <img src="/website_labhospy/static/src/img/specialties/hospital.jpg" class="labhospy-specialty-icon rounded-circle" alt="Hospitalario"/>
+                                    <h3>Hospitalario</h3>
+                                    <p>Gases arteriales, negatoscopios, camillas, monitores, autoclaves e instrumental quirúrgico.</p>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-4 col-lg-3">
+                                <div class="labhospy-specialty-card">
+                                    <img src="/website_labhospy/static/src/img/specialties/investigacion.png" class="labhospy-specialty-icon" alt="Investigación"/>
+                                    <h3>Investigación</h3>
+                                    <p>Ciencias biológicas, ciencias de los materiales y ciencias geológicas.</p>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-4 col-lg-3">
+                                <div class="labhospy-specialty-card">
+                                    <img src="/website_labhospy/static/src/img/specialties/rehabilitacion.png" class="labhospy-specialty-icon" alt="Terapia y Rehabilitación"/>
+                                    <h3>Terapia y Rehabilitación</h3>
+                                    <p>Electroterapia, bicicletas, caminadoras, parafineros y tinas de hidroterapia.</p>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-4 col-lg-3">
+                                <div class="labhospy-specialty-card">
+                                    <img src="/website_labhospy/static/src/img/specialties/salud.png" class="labhospy-specialty-icon" alt="Cuidado de la Salud"/>
+                                    <h3>Cuidado de la Salud</h3>
+                                    <p>Bastones, sillas de rueda, muletas, colchones, nebulizadores y más.</p>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-4 col-lg-3">
+                                <div class="labhospy-specialty-card">
+                                    <img src="/website_labhospy/static/src/img/specialties/forense.jpg" class="labhospy-specialty-icon rounded-circle" alt="Forense"/>
+                                    <h3>Forense</h3>
+                                    <p>Documentoscopia, dactiloscopia, balística y criminalística de laboratorio.</p>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-4 col-lg-3">
+                                <div class="labhospy-specialty-card">
+                                    <img src="/website_labhospy/static/src/img/specialties/industrial.jpg" class="labhospy-specialty-icon rounded-circle" alt="Industrial"/>
+                                    <h3>Industrial</h3>
+                                    <p>Analizador de humedad, muflas, hornos, básculas, campanas y reactivos.</p>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-4 col-lg-3">
+                                <div class="labhospy-specialty-card">
+                                    <img src="/website_labhospy/static/src/img/specialties/laboratorio.jpg" class="labhospy-specialty-icon rounded-circle" alt="Laboratorios"/>
+                                    <h3>Laboratorios</h3>
+                                    <p>Agitadores, balanzas, centrifugas, espectrofotómetros, microscopios e incubadoras.</p>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-4 col-lg-3">
+                                <div class="labhospy-specialty-card">
+                                    <img src="/website_labhospy/static/src/img/specialties/oxigeno.jpg" class="labhospy-specialty-icon rounded-circle" alt="Oxígeno Terapia"/>
+                                    <h3>Oxígeno Terapia Respiratoria</h3>
+                                    <p>Dispositivos de suministros de oxígeno médico.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ========== PRODUCTOS DESTACADOS ========== -->
+                <section id="productos" class="pt64 pb64" data-snippet="s_key_images">
+                    <div class="container">
+                        <div class="text-center labhospy-section-title mb-4">
+                            <h2>Productos</h2>
+                        </div>
+                        <div class="row g-4">
+                            <div class="col-6 col-lg-3 labhospy-product-card">
+                                <img src="/website_labhospy/static/src/img/products/autoclave.jpg" class="img-fluid" alt="Autoclave Eléctrica"/>
+                                <h3>Autoclave Eléctrica</h3>
+                            </div>
+                            <div class="col-6 col-lg-3 labhospy-product-card">
+                                <img src="/website_labhospy/static/src/img/products/mortero.jpg" class="img-fluid" alt="Mortero con Pistilo"/>
+                                <h3>Mortero con Pistilo</h3>
+                            </div>
+                            <div class="col-6 col-lg-3 labhospy-product-card">
+                                <img src="/website_labhospy/static/src/img/products/modelo-anatomico.jpg" class="img-fluid" alt="Modelo Anatómico"/>
+                                <h3>Modelo Anatómico y educacional</h3>
+                            </div>
+                            <div class="col-6 col-lg-3 labhospy-product-card">
+                                <img src="/website_labhospy/static/src/img/products/matraz.jpg" class="img-fluid" alt="Matraz Erlenmeyer"/>
+                                <h3>Matraz Erlenmeyer</h3>
+                            </div>
+                            <div class="col-6 col-lg-3 labhospy-product-card">
+                                <img src="/website_labhospy/static/src/img/products/calentador.jpg" class="img-fluid" alt="Calentador Agitador Magnético"/>
+                                <h3>Calentador Agitador Magnético</h3>
+                            </div>
+                            <div class="col-6 col-lg-3 labhospy-product-card">
+                                <img src="/website_labhospy/static/src/img/products/centrifuga.jpg" class="img-fluid" alt="Centrífuga"/>
+                                <h3>Centrífuga de mesa</h3>
+                            </div>
+                            <div class="col-6 col-lg-3 labhospy-product-card">
+                                <img src="/website_labhospy/static/src/img/products/campana.jpg" class="img-fluid" alt="Campana de Flujo Laminar"/>
+                                <h3>Campana de Flujo Laminar</h3>
+                            </div>
+                            <div class="col-6 col-lg-3 labhospy-product-card">
+                                <img src="/website_labhospy/static/src/img/products/incubadora.jpg" class="img-fluid" alt="Incubadoras"/>
+                                <h3>Incubadoras microbiológicas Heratherm</h3>
+                            </div>
+                        </div>
+                        <p class="text-center mt-4">
+                            <a href="/contactus" class="btn btn-primary btn-lg">Solicitar cotización</a>
+                        </p>
+                    </div>
+                </section>
+
+                <!-- ========== CATEGORÍAS ========== -->
+                <section class="s_three_columns pt48 pb64 o_cc o_cc1" data-snippet="s_three_columns">
+                    <div class="container">
+                        <div class="text-center labhospy-section-title mb-4">
+                            <h2>Categorías</h2>
+                        </div>
+                        <div class="row g-4 justify-content-center">
+                            <div class="col-md-4">
+                                <div class="card h-100 border-0 text-center shadow-sm">
+                                    <div class="card-body py-4">
+                                        <img src="/website_labhospy/static/src/img/specialties/cristaleria.png" alt="Cristalería" class="mb-3" style="height:48px;"/>
+                                        <h3 class="h5-fs">Cristalería para laboratorio</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card h-100 border-0 text-center shadow-sm">
+                                    <div class="card-body py-4">
+                                        <img src="/website_labhospy/static/src/img/specialties/equipo.png" alt="Equipo" class="mb-3" style="height:48px;"/>
+                                        <h3 class="h5-fs">Equipo de Laboratorio</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card h-100 border-0 text-center shadow-sm">
+                                    <div class="card-body py-4">
+                                        <img src="/website_labhospy/static/src/img/specialties/pesaje.png" alt="Pesaje" class="mb-3" style="height:48px;"/>
+                                        <h3 class="h5-fs">Pesaje</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ========== MARCAS (grid 4 columnas como labhospy.hn) ========== -->
+                <section id="marcas" class="labhospy-brands pt64 pb80" data-snippet="s_references">
+                    <div class="container">
+                        <div class="text-center labhospy-section-title mb-4">
+                            <h2>Marcas</h2>
+                            <h4 class="labhospy-brands-subtitle">Algunas de nustras Marcas.</h4>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 col-md-3">
+                                <div class="labhospy-payment-method"><img src="/website_labhospy/static/src/img/brands/avantor.jpg" class="img-fluid" alt="Avantor"/></div>
+                                <div class="labhospy-payment-method"><img src="/website_labhospy/static/src/img/brands/ohaus.jpg" class="img-fluid" alt="Ohaus"/></div>
+                                <div class="labhospy-payment-method"><img src="/website_labhospy/static/src/img/brands/macherey-nagel.jpg" class="img-fluid" alt="Macherey-Nagel"/></div>
+                                <div class="labhospy-payment-method"><img src="/website_labhospy/static/src/img/brands/lw-scientific.jpg" class="img-fluid" alt="LW Scientific"/></div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="labhospy-payment-method"><img src="/website_labhospy/static/src/img/brands/fischer.jpg" class="img-fluid" alt="Fischer"/></div>
+                                <div class="labhospy-payment-method"><img src="/website_labhospy/static/src/img/brands/carolina.jpg" class="img-fluid" alt="Carolina"/></div>
+                                <div class="labhospy-payment-method"><img src="/website_labhospy/static/src/img/brands/graham-field.jpg" class="img-fluid" alt="Graham Field"/></div>
+                                <div class="labhospy-brand-oxfo"><img src="/website_labhospy/static/src/img/brands/oxfo.png" width="70" height="50" alt="Oxfo"/></div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="labhospy-payment-method"><img src="/website_labhospy/static/src/img/brands/leica.jpg" class="img-fluid" alt="Leica"/></div>
+                                <div class="labhospy-payment-method"><img src="/website_labhospy/static/src/img/brands/hollister.jpg" class="img-fluid" alt="Hollister"/></div>
+                                <div class="labhospy-payment-method"><img src="/website_labhospy/static/src/img/brands/labconco.jpg" class="img-fluid" alt="Labconco"/></div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="labhospy-payment-method"><img src="/website_labhospy/static/src/img/brands/boeco.jpg" class="img-fluid" alt="Boeco Germany"/></div>
+                                <div class="labhospy-payment-method"><img src="/website_labhospy/static/src/img/brands/thermo.jpg" class="img-fluid" alt="Thermo Fisher"/></div>
+                                <div class="labhospy-payment-method"><img src="/website_labhospy/static/src/img/brands/patterson.jpg" class="img-fluid" alt="Patterson"/></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ========== CIERRE + CTA ========== -->
+                <section class="s_text_image pt64 pb64" data-snippet="s_text_image">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6 pt16 pb16">
+                                <img src="/website_labhospy/static/src/img/services/experiencia.jpg" class="img img-fluid rounded shadow-sm" alt="Experiencia LABHOSPY"/>
+                            </div>
+                            <div class="col-lg-6 pt16 pb16 labhospy-section-title">
+                                <h2>LABHOSPY</h2>
+                                <p class="lead">Somos distribuidores de equipos de la más alta calidad y tecnología para laboratorios con el respaldo de marcas con prestigio internacional.</p>
+                                <p>Contamos con asesoría, instalación, capacitación y soporte técnico de nuestras marcas.</p>
+                                <a href="/contactus" class="btn btn-primary">Contáctanos</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </xpath>
+    </template>
+</odoo>

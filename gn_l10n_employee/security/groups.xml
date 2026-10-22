@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="privilege_gn_l10n_employee" model="res.groups.privilege">
+        <field name="name">Constancias de Empleo</field>
+        <field name="sequence">130</field>
+        <field name="category_id" ref="base.module_category_extra"/>
+    </record>
+
+    <record id="group_certificate_user" model="res.groups">
+        <field name="name">Usuario de Constancias</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="privilege_id" ref="privilege_gn_l10n_employee"/>
+    </record>
+
+    <record id="group_certificate_manager" model="res.groups">
+        <field name="name">Manager de Constancias</field>
+        <field name="implied_ids" eval="[(4, ref('group_certificate_user'))]"/>
+        <field name="privilege_id" ref="privilege_gn_l10n_employee"/>
+    </record>
+</odoo>

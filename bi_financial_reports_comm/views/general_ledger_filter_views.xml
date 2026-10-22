@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_general_ledger_form" model="ir.ui.view">
+        <field name="name">general.ledger.report.form</field>
+        <field name="model">general.ledger.report</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="date_from"/>
+                        <field name="target_move" widget="radio"/>
+                        
+                        <newline/>
+                    </group>
+                    <group>
+                        <field name="date_to"/>
+                        <field name="display_account" widget="radio"/>
+                        <newline/>
+                    </group>
+                </group>
+                <group>
+                    <field name="partner_ids" widget="many2many_tags"/>
+                    <field name="account_ids" widget="many2many_tags"/>
+                    <field name="journal_ids" widget="many2many_tags"/>
+                    <field name="analytic_account_ids" widget="many2many_tags" string="Analytic Accounts" />
+                </group>
+                <footer>
+                    <button name="action_apply_filters_general" type="object" class="oe_highlight" string="Apply"/>
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_general_ledger" model="ir.actions.act_window">
+        <field name="name">General Ledger Report</field>
+        <field name="res_model">general.ledger.report</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'report': 'general_ledger'}</field>
+    </record>
+</odoo>

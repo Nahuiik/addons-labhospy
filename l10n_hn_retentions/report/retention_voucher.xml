@@ -1,0 +1,655 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="retention_print_view">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="i" t-value="2"/>
+                    <t t-foreach="range(i)" t-as="indexs">
+                        <t t-if="len(o.invoice_lines)&lt;5">
+                            <div class="page">
+                                <div>
+                                    <div class="row" style="border-radius: 10px; border:1px solid #AAA;">
+                                        <div class="col-xs-5 col-5">
+                                            <img t-if="user.company_id.logo" t-att-src="image_data_uri(user.company_id.logo)" style="height:80px; border-radius: 10px; border:1px; margin:5px 0px 5px 10px;"/>
+                                        </div>
+                                        <div class="col-xs-7 col-7 mb8" style="padding-bottom:2px;padding-right:0px; text-align:center;">
+                                            <table style="widht:100%; border:1px solid transparent;">
+                                                <tr>
+                                                    <td style="font-size:18px">
+                                                        <strong>
+                                                            <span t-field="user.company_id.name"/>
+                                                        </strong>
+                                                    </td>
+                                                </tr>
+                                                <tr style="font-size:12px">
+                                                    <td>
+                                                        <t t-if="user.company_id.street">
+                                                            <span t-field="user.company_id.street"/>,
+                                                        </t>
+                                                        <t t-if="user.company_id.street2">
+                                                            <span t-field="user.company_id.street2"/>,
+                                                        </t>
+                                                        <t t-if="user.company_id.state_id.name">
+                                                            <span t-field="user.company_id.state_id.name"/>,
+                                                        </t>
+                                                        <t t-if="user.company_id.country_id.name">
+                                                            <span t-field="user.company_id.country_id.name"/>
+                                                        </t>
+                                                    </td>
+                                                </tr>
+                                                <tr style="font-size:12px">
+                                                    <td>
+                                                        <t t-if="user.company_id.phone">Tel:<span t-field="user.company_id.phone"/>, </t>
+                                                        <t t-if="user.company_id.email">Email:<span t-field="user.company_id.email"/></t>
+                                                    </td>
+                                                </tr>
+                                                <tr style="font-size:12px">
+                                                    <td>
+                                                        <t t-if="user.company_id.vat">RTN: <span t-field="user.company_id.vat"/></t>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <table style="font-size:11pt; width:100%; height:100px;border:1px solid transparent;">
+                                        <tr>
+                                            <td style="width:35%;">
+                                                <div t-attf-style="color:#000000;white-space:nowrap;font-size:15px;font-weight:500;">
+                                                    <strong>COMPROBANTE PARA:</strong>
+                                                </div>
+                                                <strong style="font-size:18px">
+                                                    <div t-field="o.partner_id.name"/>
+                                                </strong>
+                                                <!-- <div t-field="o.partner_id.address"/> -->
+                                                <div style="margin-bottom:0px;padding-bottom:0px;white-space:nowrap;font-size:13px;">
+                                                    RTN :
+                                                    <span t-field="o.partner_id.rtn"/>
+                                                </div>
+                                            </td>
+                                            <td style="width:65%;">
+                                                <t t-set="inv" t-value="''"/>
+                                                <t t-foreach="o.invoice_lines" t-as="line">
+                                                    <t t-if="line.supplier_invoice_number">
+                                                        <t t-set="inv" t-value="inv + ', ' + line.supplier_invoice_number"/>
+                                                    </t>
+                                                    <t t-if="not line.supplier_invoice_number">
+                                                        <t t-set="inv" t-value="inv + ', '"/>
+                                                    </t>
+                                                </t>
+                                                <table style="width:100%;border:1px solid transparent;">
+                                                    <tr>
+                                                        <td style="text-align:right;font-size:18px;font-weight:bold;" colspan="2">
+                                                            <strong>
+                                                                <span>RETENCION #
+                                                                    <span t-field="o.retention_sequence_id"/>
+                                                                </span>
+                                                            </strong>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="text-align:right;font-size:14px;">
+                                                            <p>
+                                                                <strong style="white-space:nowrap;" coslpan="2">Fecha de la retención:
+                                                                </strong>
+                                                                <span t-field="o.date"/>
+                                                            </p>
+                                                        </td>
+                                                    </tr>
+                                                    <t t-if="o.retention_sequence_ids">
+                                                        <t t-foreach="o.retention_sequence_ids.fiscal_regime" t-as="regime">
+                                                            <t t-if="regime.selected">
+                                                                <tr>
+                                                                    <td style="text-align:right;font-size:12px;border:1px solid black;border-bottom:0px;padding:2px" coslpan="2">
+                                                                        <div>
+                                                                            <strong style="white-space:nowrap;">Fecha Límite de Emisión:
+                                                                            </strong>
+                                                                            <span t-field="regime.cai.expiration_date"/>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="text-align:right;font-size:12px;;border:1px solid black;border-bottom:0px;border-top:0px;padding:2px" coslpan="2">
+                                                                        <strong style="white-space:nowrap;">CAI:</strong>
+                                                                        <span t-field="regime.cai.name"/>
+                                                                    </td>
+                                                                </tr>
+                                                            </t>
+                                                        </t>
+                                                    </t>
+                                                    <tr>
+                                                        <td style="text-align:right;font-size:12px;border:1px solid black;border-top:0px;padding:2px" coslpan="2">
+                                                            <strong style="white-space:nowrap;">Rango Autorizado:</strong>
+                                                            <span t-field="o.retention_sequence_ids.dis_min_value"/>
+                                                            a
+                                                            <span t-field="o.retention_sequence_ids.dis_max_value"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <strong style="white-space:nowrap;" colspan="2">CAI de la Factura:
+                                                            </strong>
+                                                            <t t-if="o.invoice_lines">
+                                                                <t t-foreach="o.l10n_hn_retention_invoice_cais()" t-as="invoice_cai">
+                                                                    <span t-esc="invoice_cai"/><br/>
+                                                                </t>
+                                                            </t>
+                                                            <t t-else="">
+                                                                <span t-field="o.partner_id.cai_shot"/>
+                                                            </t>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <!-- <td>
+                                                            <strong style="white-space:nowrap;" colspan="2">No. Correlativo del
+                                                                Comprobante:
+                                                            </strong>
+                                                            <span t-field="o.communication"/>
+                                                        </td> -->
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <strong style="white-space:nowrap;" colspan="2">Fecha Limite de
+                                                                Emisión:
+                                                            </strong>
+                                                            <t t-if="o.invoice_lines">
+                                                                <t t-foreach="o.l10n_hn_retention_invoice_cai_expiry_labels()" t-as="cai_expiry_label">
+                                                                    <span t-esc="cai_expiry_label"/><br/>
+                                                                </t>
+                                                            </t>
+                                                            <t t-else="">
+                                                                <span t-field="o.partner_id.cai_expires_shot"/>
+                                                            </t>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div style="text-align:center; margin: 0px 0px 0px 0px;">
+                                    <span style="font-size: 12px;">
+                                        Datos del sujeto y del comprobante de ventas que sustenta la transacción objeto de retención
+                                    </span>
+                                </div>
+                                <table class="table table-condensed" style="height: 14px; font-size:12px; margin:0px !important;">
+                                    <thead style="margin:0px !important;">
+                                        <tr style="font-size:12px; margin:0px !important;">
+                                            <!--<th>Item</th>-->
+                                            <th style="margin-top:0xp !important; width:5%;border-top: 1px solid #111 !important; border-bottom: 1px solid #111 !important;">No.</th>
+                                            <th class="text-center" style="margin-top:0xp !important; width:25%; border-top: 1px solid #111 !important; border-bottom: 1px solid #111 !important;">
+                                                No. Facturas
+                                            </th>
+                                            <th class="text-center" style="margin-top:0xp !important; width:30%; border-top: 1px solid #111 !important; border-bottom: 1px solid #111 !important;">Descripción de
+                                                Impuesto Retenido
+                                            </th>
+                                            <th class="text-center" style="margin-top:0xp !important; width:20%; border-top: 1px solid #111 !important; border-bottom: 1px solid #111 !important;">Base Imponible
+                                            </th>
+                                            <th class="text-center" style="margin-top:0xp !important; width:20%; border-top: 1px solid #111 !important; border-bottom: 1px solid #111 !important;">Retención 1%</th>
+                                            <th class="text-center" style="margin-top:0xp !important; width:20%; border-top: 1px solid #111 !important; border-bottom: 1px solid #111 !important;">Retención 12.5%</th>
+                                            <th class="text-center" style="margin-top:0xp !important; width:20%; border-top: 1px solid #111 !important; border-bottom: 1px solid #111 !important;">Retención 15%</th>
+                                            <th class="text-center" style="margin-top:0xp !important; width:25%; border-top: 1px solid #111 !important; border-bottom: 1px solid #111 !important;">Total
+                                                Retención
+                                            </th>
+                                        </tr>
+                                        <!-- <hr style="background-color: #111;"/> -->
+                                    </thead>
+                                    <tbody class="invoice_tbody" style=" font-size:12px; border-bottom: 1px solid #AAA;">
+                                        <t t-set="i" t-value="0"/>
+                                        <t t-set="total_retention" t-value="0"/>
+                                        <!-- inicio lines -->
+                                        <t t-foreach="o.invoice_lines" t-as="line">
+                                            <t t-set="i" t-value="i+1"/>
+                                            <tr style="margin-top:0px;bottom:0px;">
+                                                <td class="text-center" style="border-bottom: 1px solid #AAA !important;">
+                                                    <span t-esc="i"/>
+                                                </td>
+                                                <td class="text-center" style="border-bottom: 1px solid #AAA !important;">
+                                                    <span t-esc="line.invoice_id.supplier_invoice_number"/>
+                                                </td>
+                                                <td class="text-center" style="border-bottom: 1px solid #AAA !important;">
+                                                    <t t-if="o.apply_12_5 and o.apply_1">
+                                                        Retención de 12.5% and 1%
+                                                    </t>
+                                                    <t t-if="o.apply_12_5 and not o.apply_1">
+                                                        Retención de 12.5%
+                                                    </t>
+                                                    <t t-if="o.apply_1 and not o.apply_12_5">
+                                                        Retención de 1%
+                                                    </t>
+                                                </td>
+                                                <td class="text-center" style="border-bottom: 1px solid #AAA !important;">
+                                                    <span t-field="line.invoice_id.amount_untaxed" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.currency_id&quot;}"/>
+                                                </td>
+                                                <td style="width:20%; border-bottom: 1px solid #AAA !important;" class="text-center">
+                                                    <t t-if="o.apply_1">
+                                                        <span t-esc="'{0:,.2f}'.format(line.amount_retention_1)"/>
+                                                    </t>
+                                                    <t t-else="not o.apply_1">
+                                                        0.00
+                                                    </t>
+                                                </td>
+                                                <td style="width:20%; border-bottom: 1px solid #AAA !important;" class="text-center">
+                                                    <!-- <t t-if="o.apply_12_5"> -->
+                                                        <span t-esc="'{0:,.2f}'.format(line.amount_retention_12_5)"/>
+                                                    <!-- </t> -->
+                                                    <!-- <t t-else="not o.apply_12_5">
+                                                        0.00
+                                                    </t> -->
+                                                </td>
+                                                
+                                                <td style="width:20%; border-bottom: 1px solid #AAA !important;" class="text-center">
+                                                    <t t-if="o.apply_15">
+                                                        <span t-esc="'{0:,.2f}'.format(line.amount_retention_15)"/>
+                                                    </t>
+                                                    <t t-else="not o.apply_15">
+                                                        0.00
+                                                    </t>
+                                                </td>
+                                                
+                                                <td class="text-center" style="border-bottom: 1px solid #AAA !important;">
+                                                    <span t-field="o.currency_id.symbol"/>
+                                                    
+                                                    
+                                                    <t t-if="o.apply_1">
+                                                        <t t-set="total_retention" t-value="total_retention+(line.amount_retention_1)"/>
+                                                    </t>
+                                                    
+                                                    <t t-if="o.apply_12_5">
+                                                        <t t-set="total_retention" t-value="total_retention+(line.amount_retention_12_5)"/>
+                                                    </t>
+                                                    
+                                                    <t t-if="o.apply_15">
+                                                        <t t-set="total_retention" t-value="total_retention+(line.amount_retention_15)"/>
+                                                    </t>
+                                                    <span t-esc="'{0:,.2f}'.format(total_retention)"/>
+                                                    
+                                                    
+                                                </td>
+                                            </tr>                           
+                                        </t>
+                                        <!-- fin lineas -->
+                                    </tbody>
+                                </table>
+                                <div class="col-xs-12 row">
+                                    <div class="col-xs-7 col-7">
+                                        <strong>
+                                            Son :
+                                            <t t-if="o.apply_12_5 or o.apply_1 or o.apply_15">
+                                                <!-- <span t-esc="o.to_word(o.amount*(12.5/100) + o.amount*(1/100), o.currency_id.name)"></span> -->
+                                                <span t-esc="o.to_word(total_retention, o.currency_id.name)"/>
+                                            </t>
+
+                                        </strong>
+                                    </div>
+                                    <div class="col-xs-5 col-5" style="text-align:right">
+                                        Total Retencion : <strong> <span t-esc="'{0:,.2f}'.format(total_retention)"/></strong>
+                                    </div>
+                                </div>
+                                <table style="width:100%; margin:0xp;border:1px solid transparent;">
+                                    <tr style="margin:0xp;">
+                                        <td style="margin:0xp;">
+                                            <p>
+                                                <t t-if="indexs==0">
+                                                    <strong>Original:Cliente - Copia: Obligado Tributario Emisor</strong>
+                                                </t>
+                                                <t t-elif="indexs==1">
+                                                    <strong>Copia: Obligado Tributario Emisor</strong>
+                                                </t>
+                                                <!-- <strong>Original:Cliente - Copia: Obligado Tributario Emisor</strong> -->
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr style="margin:0xp;">
+                                        <td>
+                                            <p>
+                                                <strong>Estado: <span t-field="o.state"/> | Impreso por: <span t-field="o.env.user.name"/></strong>
+                                            </p>
+                                        </td>
+                                        <td style="text-align:right">
+                                            FIRMA ______________________________________
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                            <t t-if="indexs==0">
+                                <div class="col-1" style="">
+                                    <i class="fa fa-scissors" style="position:absolute;"/>
+                                </div>
+                                <div class="col-12" style="margin: 8px 0px 17px 30px; width:95%; border-bottom: 1px solid #111; border-style: dotted;"/>
+                            </t>
+                        </t>
+                        <t t-else="len(o.invoice_lines)&gt;4">
+                            <div class="page" style="height: 1300px;">
+                                <div>
+                                    <div class="row" style="border-radius: 10px; border:1px solid #AAA;">
+                                        <div class="col-xs-5 col-5">
+                                            <img t-if="user.company_id.logo" t-att-src="image_data_uri(user.company_id.logo)" style="height:80px; border-radius: 10px; border:1px; margin:5px 0px 5px 10px;"/>
+                                        </div>
+                                        <div class="col-xs-7 col-7 mb8" style="padding-bottom:2px;padding-right:0px; text-align:center;">
+                                            <table style="widht:100%">
+                                                <tr>
+                                                    <td style="font-size:18px">
+                                                        <strong>
+                                                            <span t-field="user.company_id.name"/>
+                                                        </strong>
+                                                    </td>
+                                                </tr>
+                                                <tr style="font-size:12px">
+                                                    <td>
+                                                        <t t-if="user.company_id.street">
+                                                            <span t-field="user.company_id.street"/>,
+                                                        </t>
+                                                        <t t-if="user.company_id.street2">
+                                                            <span t-field="user.company_id.street2"/>,
+                                                        </t>
+                                                        <t t-if="user.company_id.state_id.name">
+                                                            <span t-field="user.company_id.state_id.name"/>,
+                                                        </t>
+                                                        <t t-if="user.company_id.country_id.name">
+                                                            <span t-field="user.company_id.country_id.name"/>
+                                                        </t>
+                                                    </td>
+                                                </tr>
+                                                <tr style="font-size:12px">
+                                                    <td>
+                                                        <t t-if="user.company_id.phone">Tel:<span t-field="user.company_id.phone"/>, </t>
+                                                        <t t-if="user.company_id.email">Email:<span t-field="user.company_id.email"/></t>
+                                                    </td>
+                                                </tr>
+                                                <tr style="font-size:12px">
+                                                    <td>
+                                                        <t t-if="user.company_id.vat">RTN: <span t-field="user.company_id.vat"/></t>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <table style="font-size:11pt; width:100%; height:100px;">
+                                        <tr>
+                                            <td style="width:35%;">
+                                                <div t-attf-style="color:#000000;white-space:nowrap;font-size:15px;font-weight:500;">
+                                                    <strong>COMPROBANTE PARA:</strong>
+                                                </div>
+                                                <strong style="font-size:18px">
+                                                    <div t-field="o.partner_id.name"/>
+                                                </strong>
+                                                <!-- <div t-field="o.partner_id.address"/> -->
+                                                <div style="margin-bottom:0px;padding-bottom:0px;white-space:nowrap;font-size:13px;">
+                                                    RTN :
+                                                    <span t-field="o.partner_id.rtn"/>
+                                                </div>
+                                            </td>
+                                            <td style="width:65%;">
+                                                <t t-set="inv" t-value="''"/>
+                                                <t t-foreach="o.invoice_lines" t-as="line">
+                                                    <t t-if="line.supplier_invoice_number">
+                                                        <t t-set="inv" t-value="inv + ', ' + line.supplier_invoice_number"/>
+                                                    </t>
+                                                    <t t-if="not line.supplier_invoice_number">
+                                                        <t t-set="inv" t-value="inv + ', '"/>
+                                                    </t>
+                                                </t>
+                                                <table style="width:100%">
+                                                    <tr>
+                                                        <td style="text-align:right;font-size:18px;font-weight:bold;" colspan="2">
+                                                            <strong>
+                                                                <span>RETENCION #
+                                                                    <span t-field="o.retention_sequence_id"/>
+                                                                </span>
+                                                            </strong>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="text-align:right;font-size:14px;">
+                                                            <p>
+                                                                <strong style="white-space:nowrap;" coslpan="2">Fecha de la retención:
+                                                                </strong>
+                                                                <span t-field="o.date"/>
+                                                            </p>
+                                                        </td>
+                                                    </tr>
+                                                    <t t-if="o.retention_sequence_ids">
+                                                        <t t-foreach="o.retention_sequence_ids.fiscal_regime" t-as="regime">
+                                                            <t t-if="regime.selected">
+                                                                <tr>
+                                                                    <td style="text-align:right;font-size:12px;border:1px solid black;border-bottom:0px;padding:2px" coslpan="2">
+                                                                        <div>
+                                                                            <strong style="white-space:nowrap;">Fecha Límite de Emisión:
+                                                                            </strong>
+                                                                            <span t-field="regime.cai.expiration_date"/>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="text-align:right;font-size:12px;;border:1px solid black;border-bottom:0px;border-top:0px;padding:2px" coslpan="2">
+                                                                        <strong style="white-space:nowrap;">CAI:</strong>
+                                                                        <span t-field="regime.cai.name"/>
+                                                                    </td>
+                                                                </tr>
+                                                            </t>
+                                                        </t>
+                                                    </t>
+                                                    <tr>
+                                                        <td style="text-align:right;font-size:12px;border:1px solid black;border-top:0px;padding:2px" coslpan="2">
+                                                            <strong style="white-space:nowrap;">Rango Autorizado:</strong>
+                                                            <span t-field="o.retention_sequence_ids.dis_min_value"/>
+                                                            a
+                                                            <span t-field="o.retention_sequence_ids.dis_max_value"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <strong style="white-space:nowrap;" colspan="2">CAI de la Factura:
+                                                            </strong>
+                                                            <t t-if="o.invoice_lines">
+                                                                <t t-foreach="o.l10n_hn_retention_invoice_cais()" t-as="invoice_cai">
+                                                                    <span t-esc="invoice_cai"/><br/>
+                                                                </t>
+                                                            </t>
+                                                            <t t-else="">
+                                                                <span t-field="o.partner_id.cai_shot"/>
+                                                            </t>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <!-- <td>
+                                                            <strong style="white-space:nowrap;" colspan="2">No. Correlativo del
+                                                                Comprobante:
+                                                            </strong>
+                                                            <span t-field="o.communication"/>
+                                                        </td> -->
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <strong style="white-space:nowrap;" colspan="2">Fecha Limite de
+                                                                Emisión:
+                                                            </strong>
+                                                            <t t-if="o.invoice_lines">
+                                                                <t t-foreach="o.l10n_hn_retention_invoice_cai_expiry_labels()" t-as="cai_expiry_label">
+                                                                    <span t-esc="cai_expiry_label"/><br/>
+                                                                </t>
+                                                            </t>
+                                                            <t t-else="">
+                                                                <span t-field="o.partner_id.cai_expires_shot"/>
+                                                            </t>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div style="text-align:center; margin: 0px 0px 0px 0px;">
+                                    <span style="font-size: 12px;">
+                                        Datos del sujeto y del comprobante de ventas que sustenta la transacción objeto de retención
+                                    </span>
+                                </div>
+                                <table class="table table-condensed" style="font-size:12px; margin:0px !important;">
+                                    <thead style="margin:0px !important;">
+                                        <tr style="font-size:12px; margin:0px !important;">
+                                            <!--<th>Item</th>-->
+                                            <th style="margin-top:0xp !important; width:5%;border-top: 1px solid #111 !important; border-bottom: 1px solid #111 !important;">No.</th>
+                                            <th class="text-center" style="margin-top:0xp !important; width:25%; border-top: 1px solid #111 !important; border-bottom: 1px solid #111 !important;">
+                                                No. Facturas
+                                            </th>
+                                            <th class="text-center" style="margin-top:0xp !important; width:30%; border-top: 1px solid #111 !important; border-bottom: 1px solid #111 !important;">Descripción de
+                                                Impuesto Retenido
+                                            </th>
+                                            <th class="text-center" style="margin-top:0xp !important; width:20%; border-top: 1px solid #111 !important; border-bottom: 1px solid #111 !important;">Base Imponible
+                                            </th>
+                                            <th class="text-center" style="margin-top:0xp !important; width:20%; border-top: 1px solid #111 !important; border-bottom: 1px solid #111 !important;">Retención 1%</th>
+                                            <th class="text-center" style="margin-top:0xp !important; width:20%; border-top: 1px solid #111 !important; border-bottom: 1px solid #111 !important;">Retención 12.5%</th>
+                                            <th class="text-center" style="margin-top:0xp !important; width:20%; border-top: 1px solid #111 !important; border-bottom: 1px solid #111 !important;">Retención 15%</th>
+                                            <th class="text-center" style="margin-top:0xp !important; width:25%; border-top: 1px solid #111 !important; border-bottom: 1px solid #111 !important;">Total
+                                                Retención
+                                            </th>
+                                        </tr>
+                                        <!-- <hr style="background-color: #111;"/> -->
+                                    </thead>
+                                    <tbody class="invoice_tbody" style=" font-size:12px; border-bottom: 1px solid #AAA;">
+                                        <t t-set="i" t-value="0"/>
+                                        <t t-set="total_retention" t-value="0"/>
+                                        <!-- inicio lines -->
+                                        <t t-foreach="o.invoice_lines" t-as="line">
+                                            <t t-set="i" t-value="i+1"/>
+                                            <tr style="margin-top:0px;bottom:0px;">
+                                                <td class="text-center" style="border-bottom: 1px solid #AAA !important;">
+                                                    <span t-esc="i"/>
+                                                </td>
+                                                <td class="text-center" style="border-bottom: 1px solid #AAA !important;">
+                                                    <span t-esc="line.supplier_invoice_number"/>
+                                                </td>
+                                                <td class="text-center" style="border-bottom: 1px solid #AAA !important;">
+                                                    <t t-if="o.apply_12_5 and o.apply_1">
+                                                        Retención de 12.5% and 1%
+                                                    </t>
+                                                    <t t-if="o.apply_12_5 and not o.apply_1">
+                                                        Retención de 12.5%
+                                                    </t>
+                                                    <t t-if="o.apply_1 and not o.apply_12_5">
+                                                        Retención de 1%
+                                                    </t>
+                                                </td>
+                                                <td class="text-center" style="border-bottom: 1px solid #AAA !important;">
+                                                    <span t-field="line.invoice_id.amount_untaxed" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.currency_id&quot;}"/>
+                                                </td>
+                                                <td style="width:20%; border-bottom: 1px solid #AAA !important;" class="text-center">
+                                                    <t t-if="o.apply_1">
+                                                        <span t-esc="'{0:,.2f}'.format(line.amount_retention_1)"/>
+                                                    </t>
+                                                    <t t-else="not o.apply_1">
+                                                        0.00
+                                                    </t>
+                                                </td>
+                                                <td style="width:20%; border-bottom: 1px solid #AAA !important;" class="text-center">
+                                                    <t t-if="o.apply_12_5">
+                                                        <span t-esc="'{0:,.2f}'.format(line.amount_retention_12_5)"/>
+                                                    </t>
+                                                    <t t-else="not o.apply_12_5">
+                                                        0.00
+                                                    </t>
+                                                </td>
+                                                <td style="width:20%; border-bottom: 1px solid #AAA !important;" class="text-center">
+                                                    <t t-if="o.apply_15">
+                                                        <span t-esc="'{0:,.2f}'.format(line.amount_retention_15)"/>
+                                                    </t>
+                                                    <t t-else="not o.apply_15">
+                                                        0.00
+                                                    </t>
+                                                </td>
+
+                                                <td class="text-center" style="border-bottom: 1px solid #AAA !important;">
+                                                    <span t-field="o.currency_id.symbol"/>
+                                                    
+                                                    
+                                                    <t t-if="o.apply_1">
+                                                        <t t-set="total_retention" t-value="total_retention+(line.amount_retention_1)"/>
+                                                    </t>
+                                                    
+                                                    <t t-if="o.apply_12_5">
+                                                        <t t-set="total_retention" t-value="total_retention+(line.amount_retention_12_5)"/>
+                                                    </t>
+                                                    
+                                                    <t t-if="o.apply_15">
+                                                        <t t-set="total_retention" t-value="total_retention+(line.amount_retention_15)"/>
+                                                    </t>
+                                                    <span t-esc="'{0:,.2f}'.format(total_retention)"/>
+                                                    
+                                                    
+                                                </td>
+                                            </tr>                           
+                                        </t>
+                                        <!-- fin lineas -->
+                                    </tbody>
+                                </table>
+                                <div class="col-xs-12 row">
+                                    <div class="col-xs-7 col-7">
+                                        <strong>
+                                            Son : 
+                                            <t t-if="o.apply_12_5 and o.apply_1">
+                                                <!-- <span t-esc="o.to_word(o.amount*(12.5/100) + o.amount*(1/100), o.currency_id.name)"></span> -->
+                                                <span t-esc="o.to_word(total_retention, o.currency_id.name)"/>
+                                            </t>
+                                            <t t-if="o.apply_12_5 and not o.apply_1">
+                                                <!-- <span t-esc="o.to_word(o.amount*(12.5/100), o.currency_id.name)"></span> -->
+                                                <span t-esc="o.to_word(total_retention, o.currency_id.name)"/>
+                                            </t>
+                                            <t t-if="not o.apply_12_5 and o.apply_1">
+                                                <!-- <span t-esc="o.to_word(o.amount*(1/100), o.currency_id.name)"></span> -->
+                                                <span t-esc="o.to_word(total_retention, o.currency_id.name)"/>
+                                            </t>
+                                        </strong>
+                                    </div>
+                                    <div class="col-xs-5 col-5" style="text-align:right">
+                                        Total Retencion : <strong> <span t-esc="'{0:,.2f}'.format(total_retention)"/></strong>
+                                    </div>
+                                </div>
+                                <table style="width:100%; margin:0xp;">
+                                    <tr style="margin:0xp;">
+                                        <td style="margin:0xp;">
+                                            <p>
+                                                <t t-if="indexs==0">
+                                                    <strong>Original:Cliente - Copia: Obligado Tributario Emisor</strong>
+                                                </t>
+                                                <t t-elif="indexs==1">
+                                                    <strong>Copia: Obligado Tributario Emisor</strong>
+                                                </t>
+                                                <!-- <strong>Original:Cliente - Copia: Obligado Tributario Emisor</strong> -->
+                                            </p>
+                                        </td>
+                                        <!-- <td style="margin:0xp; text-align:right">
+                                            <t t-if="indexs==0">
+                                                Original
+                                            </t>
+                                            <t t-elif="indexs==1">
+                                                Copia
+                                            </t>
+                                        </td> -->
+                                    </tr>
+                                    <tr style="margin:0xp;">
+                                        <td>
+                                            <p>
+                                                <strong>Estado: <span t-field="o.state"/> | Impreso por: <span t-field="o.env.user.name"/></strong>
+                                            </p>
+                                        </td>
+                                        <td style="text-align:right">
+                                            FIRMA ______________________________________
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                        </t>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

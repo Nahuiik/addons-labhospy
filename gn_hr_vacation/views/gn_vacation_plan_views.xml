@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_gn_hn_vacation_plan_list" model="ir.ui.view">
+        <field name="name">gn.hn.vacation.plan.list</field>
+        <field name="model">gn.hn.vacation.plan</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="leave_type_id"/>
+                <field name="is_temporary"/>
+                <field name="vacation_accrual_mode"/>
+                <field name="vacation_year_basis" optional="show"/>
+                <field name="vacation_allocation_scope" optional="hide"/>
+                <field name="allow_proportional"/>
+                <field name="max_accumulation_periods"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_gn_hn_vacation_plan_form" model="ir.ui.view">
+        <field name="name">gn.hn.vacation.plan.form</field>
+        <field name="model">gn.hn.vacation.plan</field>
+        <field name="arch" type="xml">
+            <form>
+                <header/>
+                <sheet>
+                    <div class="oe_button_box" name="button_box"/>
+                    <widget name="web_ribbon" title="Archivado" bg_color="text-bg-danger" invisible="active"/>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="leave_type_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="is_temporary" widget="boolean_toggle"/>
+                            <field name="allow_proportional" widget="boolean_toggle"/>
+                            <field name="vacation_accrual_mode"/>
+                            <field name="vacation_year_basis"/>
+                            <field name="vacation_allocation_scope"/>
+                            <field name="allow_monthly_proportional" widget="boolean_toggle" invisible="vacation_accrual_mode != 'annual'"/>
+                            <field name="max_accumulation_periods"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Reglas de antigüedad" name="rules">
+                            <field name="rule_ids">
+                                <list editable="bottom">
+                                    <field name="min_years"/>
+                                    <field name="max_years"/>
+                                    <field name="days_entitled"/>
+                                    <field name="sequence"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notas" name="notes">
+                            <field name="notes" placeholder="Notas o descripción legal..."/>
+                        </page>
+                        <page string="Ayuda" name="help_formulas">
+                            <!-- InnerGroup OWL usa grid 2 columnas (~150px + 1fr); hijos sin colspan quedan en la
+                                 columna estrecha. Un único bloque con colspan="2" bajo col="2" = ancho completo. -->
+                            <group col="2">
+                                <div colspan="2" class="w-100">
+                                <div class="alert alert-info mb-3" role="alert">
+                                    <p class="mb-0">
+                                        Resumen de cómo se calculan las <strong>asignaciones de vacaciones</strong> en la
+                                        localización Honduras (<strong>l10n_hn_hr_payroll</strong>), en función de esta
+                                        pantalla y del empleado (<em>Fecha de inicio de contrato</em>, asignaciones ya
+                                        validadas y reglas de antigüedad).
+                                    </p>
+                                </div>
+                                <separator string="Base del período y alcance"/>
+                                <div class="text-muted">
+                                    <p>
+                                        <strong>Base del período vacacional:</strong> «Año laboral» corta los períodos
+                                        desde la fecha de ingreso (primer tramo hasta el día anterior al primer aniversario,
+                                        luego de aniversario en aniversario). «Año calendario» usa siempre del 1 de enero
+                                        al 31 de diciembre (el ingreso puede caer a mitad de año; el período efectivo
+                                        empieza en el máximo entre el ingreso y el 1 de enero).
+                                    </p>
+                                    <p>
+                                        <strong>Alcance de asignaciones «Solo el período vigente»:</strong> la sincronización
+                                        y el botón/cron solo crean o actualizan la asignación del período que contiene la
+                                        fecha actual (el ciclo laboral abierto o el año civil en curso), no rellenan
+                                        automáticamente años anteriores. Las filas antiguas ya existentes en la base no se
+                                        borran solas: revísalas si cambia la política.
+                                    </p>
+                                </div>
+                                <separator string="Reglas de antigüedad (tab «Reglas de antigüedad»)"/>
+                                <div class="text-muted">
+                                    <p>
+                                        Para el año laboral índice <code>k = 0, 1, 2, …</code> (primer año completo desde el ingreso → <code>k = 0</code>),
+                                        se toma <strong>D</strong> = <em>días del plan</em> como el valor <strong>days_entitled</strong>
+                                        de la regla que cumpla <code>min_years ≤ (k + 1) ≤ max_years</code> (o equivalente según su tabla).
+                                        Si no hay regla aplicable, <strong>D = 0</strong> y no se genera devengo para ese tramo.
+                                    </p>
+                                </div>
+                                <separator string="Año laboral (ancla: fecha de inicio de contrato)"/>
+                                <div class="text-muted">
+                                    <p>
+                                        Cada período <code>k</code> va desde <strong>I<sub>k</sub></strong> = ingreso + <code>k</code> años
+                                        hasta <strong>F<sub>k</sub></strong> = inicio del siguiente período − 1 día (duración real en días naturales, incluye bisiestos).
+                                    </p>
+                                </div>
+                                <separator string="Forma «Anual»"/>
+                                <div class="text-muted">
+                                    <ul>
+                                        <li>
+                                            <strong>Hasta el primer aniversario:</strong> no se crean asignaciones de vacaciones por este plan.
+                                        </li>
+                                        <li>
+                                            <strong>A partir del primer aniversario:</strong> una asignación por cada año laboral cumplido
+                                            (inicio en la fecha de aniversario), con <strong>días = D</strong> según la regla para ese año,
+                                            en bloque completo (sin fraccionar meses dentro del año).
+                                        </li>
+                                        <li>
+                                            <strong>Máximo períodos acumulables = 1:</strong> si ya hay saldo pendiente en asignaciones anteriores
+                                            sin «Permitir acumulación», puede bloquearse generar el período abierto hasta regularizar.
+                                        </li>
+                                    </ul>
+                                </div>
+                                <separator string="Forma «Mensual»"/>
+                                <div class="text-muted">
+                                    <p>
+                                        <strong>Una asignación validada por cada año laboral</strong> (<code>I<sub>k</sub></code> … <code>F<sub>k</sub></code>).
+                                        Los días se <strong>actualizan</strong> en esa misma línea:
+                                    </p>
+                                    <ul>
+                                        <li>
+                                            Si la fecha de cálculo es <strong>posterior a F<sub>k</sub></strong> (período ya cerrado):
+                                            <code>días = D</code> (cupo anual completo de ese tramo).
+                                        </li>
+                                        <li>
+                                            Si el período está <strong>en curso</strong>: sea <strong>M</strong> la cantidad de meses cumplidos
+                                            desde <code>I<sub>k</sub></code> hasta la fecha de cálculo (tope 12), con regla de alineación al día de ingreso.
+                                            Entonces <code>días = (M ÷ 12) × D</code> (redondeo del sistema).
+                                        </li>
+                                    </ul>
+                                </div>
+                                <separator string="Forma «Diario»"/>
+                                <div class="text-muted">
+                                    <p>
+                                        Igual que en mensual, <strong>una asignación por año laboral</strong>, pero el cupo crece cada día:
+                                    </p>
+                                    <ul>
+                                        <li>
+                                            Período cerrado: <code>días = D</code>.
+                                        </li>
+                                        <li>
+                                            Período abierto: sea <strong>T</strong> = días naturales del intervalo
+                                            [<code>I<sub>k</sub></code>, <code>F<sub>k</sub></code>] y <strong>t</strong> = días desde
+                                            <code>I<sub>k</sub></code> hasta el mínimo entre la fecha de cálculo y <code>F<sub>k</sub></code>
+                                            (ambos inclusive). Entonces <code>días = (t ÷ T) × D</code>.
+                                        </li>
+                                    </ul>
+                                </div>
+                                <separator string="Temporales y proporcional"/>
+                                <div class="text-muted">
+                                    <p>
+                                        Con <strong>Permitir proporcional</strong> y empleado temporal que <strong>termina contrato hoy</strong> sin
+                                        completar ~360 días, puede generarse una asignación proporcional tipo
+                                        <code>(días trabajados ÷ 360) × D(año 1)</code> según la implementación HN (solo si aplica política del plan).
+                                    </p>
+                                </div>
+                                <separator string="Ficha del empleado (pestaña vacaciones)"/>
+                                <div class="text-muted">
+                                    <p>
+                                        «<strong>Días que le corresponden</strong>» suele ser la suma de <code>number_of_days</code> de las asignaciones
+                                        de vacaciones HN validadas; «<strong>Saldo de vacaciones</strong>» descuenta saldos iniciales mostrados y
+                                        ausencias HN validadas. Las fórmulas anteriores alimentan esas asignaciones según el modo del plan.
+                                    </p>
+                                </div>
+                                </div>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_gn_hn_vacation_plan" model="ir.actions.act_window">
+        <field name="name">Planes de Vacaciones</field>
+        <field name="res_model">gn.hn.vacation.plan</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crear un plan de vacaciones
+            </p>
+            <p>
+                Los planes definen las reglas de antigüedad (días por año) y se asignan a los empleados.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_gn_vacation_config_plans"
+        name="Planes de vacaciones"
+        parent="hr_holidays.menu_hr_holidays_configuration"
+        action="action_gn_hn_vacation_plan"
+        sequence="21"
+        groups="hr_holidays.group_hr_holidays_manager"/>
+</odoo>

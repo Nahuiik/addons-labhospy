@@ -1,0 +1,265 @@
+// Scroll del action lo maneja .o_gn_dashboard_root (dashboard_common.scss).
+
+.o_gn_traffic {
+    padding: 20px 24px 40px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #eef1f5;
+
+    .o_gn_traffic_header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+    .o_gn_traffic_title {
+        margin: 0;
+        font-size: 22px;
+        font-weight: 700;
+        color: #1a2332;
+    }
+    .o_gn_traffic_sub {
+        margin: 4px 0 0;
+        color: #6b7280;
+        font-size: 14px;
+    }
+    .o_gn_traffic_cutoff {
+        color: #6b7280;
+        font-size: 13px;
+    }
+    .o_gn_traffic_msg {
+        padding: 32px;
+        text-align: center;
+        color: #6b7280;
+    }
+
+    // --- KPI Cards ---
+    .o_gn_traffic_kpis {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 14px;
+        margin-bottom: 20px;
+    }
+    .o_gn_kpi_card {
+        background: #fff;
+        border-radius: 10px;
+        padding: 16px 18px;
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+        cursor: pointer;
+        border-left: 4px solid transparent;
+        transition: box-shadow .15s;
+
+        &:hover { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12); }
+        &.o_gn_kpi_total { cursor: default; border-left-color: #34495e; }
+    }
+    .o_gn_kpi_al_dia     { border-left-color: #27ae60; .o_gn_kpi_icon { color: #27ae60; } }
+    .o_gn_kpi_due_1_7    { border-left-color: #f1c40f; .o_gn_kpi_icon { color: #d4ac0d; } }
+    .o_gn_kpi_due_8_15   { border-left-color: #e67e22; .o_gn_kpi_icon { color: #e67e22; } }
+    .o_gn_kpi_overdue_15 { border-left-color: #e74c3c; .o_gn_kpi_icon { color: #e74c3c; } }
+    .o_gn_kpi_total      { .o_gn_kpi_icon { color: #34495e; } }
+
+    .o_gn_kpi_icon { font-size: 28px; line-height: 1; margin-top: 2px; }
+    .o_gn_kpi_label { font-size: 12px; color: #6b7280; text-transform: uppercase; letter-spacing: .3px; }
+    .o_gn_kpi_count { font-size: 13px; color: #9ca3af; margin: 2px 0; }
+    .o_gn_kpi_amount { font-size: 20px; font-weight: 700; color: #1a2332; }
+
+    // --- Resumen textual vencen hoy ---
+    .o_gn_due_today_text {
+        background: #fff;
+        border-radius: 10px;
+        padding: 14px 18px;
+        margin-bottom: 16px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+        border-left: 4px solid #27ae60;
+
+        h4 {
+            margin: 0 0 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a2332;
+        }
+        &.o_gn_due_today_alert {
+            border-left-color: #e67e22;
+            background: #fffbf0;
+            h4 { color: #d35400; }
+        }
+        &.o_gn_due_today_ok {
+            border-left-color: #27ae60;
+            background: #f0faf4;
+            h4 { color: #1e8449; }
+        }
+    }
+    .o_gn_due_today_pre {
+        margin: 0;
+        font-family: inherit;
+        font-size: 13px;
+        line-height: 1.6;
+        white-space: pre-wrap;
+        color: #2c3e50;
+        background: transparent;
+        border: none;
+        padding: 0;
+    }
+
+    // --- Panel tabla ---
+    .o_gn_traffic_panel {
+        background: #fff;
+        border-radius: 10px;
+        padding: 16px 20px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+        margin-bottom: 20px;
+
+        h3 { margin: 0 0 12px; font-size: 16px; font-weight: 600; color: #1a2332; }
+    }
+    .o_gn_traffic_panel_head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 12px;
+    }
+    .o_gn_traffic_filters .btn { margin-left: 4px; }
+    .btn-orange { background: #e67e22; color: #fff; border-color: #e67e22; }
+
+    .o_gn_traffic_table {
+        margin: 0;
+        font-size: 13px;
+        th {
+            color: #6b7280;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: .3px;
+            border-top: none;
+            white-space: nowrap;
+        }
+        .o_gn_traffic_row { cursor: pointer; }
+        .o_gn_traffic_child {
+            background: #fafbfc;
+            td { border-top: none; }
+        }
+        .o_gn_child_indent {
+            width: 28px;
+            border-left: 3px solid #dee2e6;
+        }
+    }
+
+    .o_gn_group_header {
+        background: #f0f3f7;
+        cursor: pointer;
+        font-size: 13px;
+        td {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-top: 2px solid #dee2e6;
+        }
+        &:hover { background: #e8ecf1; }
+    }
+    .o_gn_group_badge {
+        display: inline-block;
+        background: #dee2e6;
+        color: #495057;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 2px 8px;
+        border-radius: 10px;
+    }
+
+    // Pills y semaforo
+    .o_gn_pill {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+    .o_gn_pill_al_dia     { background: #d5f5e3; color: #1e8449; }
+    .o_gn_pill_due_1_7    { background: #fef9e7; color: #9a7d0a; }
+    .o_gn_pill_due_8_15   { background: #fdebd0; color: #d35400; }
+    .o_gn_pill_overdue_15 { background: #fadbd8; color: #c0392b; }
+
+    .o_gn_dot {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+    }
+    .o_gn_dot_al_dia     { background: #27ae60; }
+    .o_gn_dot_due_1_7    { background: #f1c40f; }
+    .o_gn_dot_due_8_15   { background: #e67e22; }
+    .o_gn_dot_overdue_15 { background: #e74c3c; }
+
+    // --- Footer widgets ---
+    .o_gn_traffic_footer {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 14px;
+    }
+    .o_gn_footer_widget {
+        background: #fff;
+        border-radius: 10px;
+        padding: 16px 18px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    }
+    .o_gn_footer_label { font-size: 12px; color: #6b7280; text-transform: uppercase; }
+    .o_gn_footer_value { font-size: 22px; font-weight: 700; margin: 6px 0 10px; }
+    .o_gn_footer_pct { margin: 6px 0; }
+    .o_gn_pct_value { font-size: 28px; font-weight: 700; color: #e74c3c; }
+
+    .o_gn_mini_chart { height: 48px; }
+    .o_gn_mini_area {
+        background: linear-gradient(180deg, rgba(231, 76, 60, .25) 0%, rgba(231, 76, 60, 0) 100%);
+        border-radius: 4px;
+        position: relative;
+        overflow: hidden;
+        .o_gn_area_fill {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 70%;
+            background: linear-gradient(180deg, rgba(231, 76, 60, .5) 0%, rgba(231, 76, 60, .1) 100%);
+            clip-path: polygon(0 80%, 15% 60%, 30% 70%, 50% 40%, 70% 55%, 85% 30%, 100% 45%, 100% 100%, 0 100%);
+        }
+    }
+    .o_gn_mini_bars {
+        display: flex;
+        align-items: flex-end;
+        gap: 6px;
+        padding-top: 8px;
+        .o_gn_bar {
+            flex: 1;
+            background: #f39c12;
+            border-radius: 3px 3px 0 0;
+            opacity: .85;
+        }
+    }
+    .o_gn_donut {
+        position: relative;
+        width: 80px;
+        height: 80px;
+        margin: 0 auto;
+    }
+    .o_gn_donut_ring {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: conic-gradient(
+            #e74c3c calc(var(--pct, 0) * 1%),
+            #ecf0f1 calc(var(--pct, 0) * 1%)
+        );
+        mask: radial-gradient(farthest-side, transparent 58%, #000 59%);
+        -webkit-mask: radial-gradient(farthest-side, transparent 58%, #000 59%);
+    }
+    .o_gn_donut_label {
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 14px;
+        font-weight: 700;
+        color: #e74c3c;
+    }
+}

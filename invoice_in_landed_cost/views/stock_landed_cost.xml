@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Vista list para el modelo transitorio -->
+        <record id="view_landed_cost_product_summary_tree" model="ir.ui.view">
+            <field name="name">landed.cost.product.summary.tree</field>
+            <field name="model">landed.cost.product.summary</field>
+            <field name="type">list</field>
+            <field name="arch" type="xml">
+                <list string="Costos por Producto" decoration-success="final_value > 0" decoration-danger="margin_on_cost_percent &lt; 0" decoration-warning="margin_price_drift">
+                    <field name="currency_id" readonly="1" string="Moneda (cía.)" optional="show"/>
+                    <field name="product_name" readonly="1" string="Producto"/>
+                    <field name="quantity" readonly="1" string="Cantidad" sum="Total"/>
+                    <field name="original_value" readonly="1" string="Valor Original" sum="Total" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="total_landed_cost" readonly="1" string="Costo en Destino" sum="Total" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="final_value" readonly="1" string="Costo Final" sum="Total" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="unit_cost" readonly="1" string="Costo por Unidad" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="margin_is_applied" column_invisible="True"/>
+                    <field name="margin_price_drift" column_invisible="True"/>
+                    <field name="list_price" string="PVP aplicado" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="margin_on_cost_percent" string="% Margen aplicado"/>
+                    <field name="list_price_current" string="PVP (actual hoy)" optional="hide" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="margin_current_percent" string="% Margen actual" optional="hide"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="stock_landed_cost_line_add_invoice" model="ir.ui.view">
+            <field name="name">stock.landed.cost.line.add.invoice</field>
+            <field name="model">stock.landed.cost</field>
+            <field name="inherit_id" ref="stock_landed_costs.view_stock_landed_cost_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='vendor_bill_id']" position="replace">
+                    <field name="vendor_bill_id" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='vendor_bill_id']" position="after">
+                    <field name="vendor_bills_ids" widget="many2many_tags"/>
+                </xpath>
+                <xpath expr="//field[@name='picking_ids']" position="replace">
+                    <field name="picking_ids" widget="many2many_tags"
+                        options="{'no_create_edit': True}" invisible="target_model != 'picking'"
+                        readonly="state == 'done'"
+                        domain="[('company_id', '=', company_id), ('picking_type_id.code', '=', 'incoming')]"/>
+                </xpath>
+                <xpath expr="//page[@name='additional_costs']/field[@name='cost_lines']/list/field[@name='account_id']" position="after">
+                    <field name="type_document_bill"/>
+                    <field name="vendor_bill_id_lc"/>
+                    <field name="vendor_id_lc"/>
+                    <field name="vendor_bill_line_id_lc" column_invisible="True"/>
+                    <field name="date_currency_rate"/>
+                    <field name="currency_id_lc"/>
+                    <field name="invoice_amount_lc" column_invisible="True"/>
+                    <field name="currency_usd" column_invisible="True"/>
+                    <field name="amount_dollar"/>
+                    <field name="currency_rate_lc"/>
+                </xpath>
+                <xpath expr="//page[@name='additional_costs']/field[@name='cost_lines']/form/group" position="inside">
+                    <group>
+                        <field name="type_document_bill"/>
+                        <field name="vendor_bill_id_lc"/>
+                        <field name="vendor_id_lc"/>
+                        <field name="vendor_bill_line_id_lc" invisible="1"/>
+                        <field name="date_currency_rate"/>
+                        <field name="currency_id_lc"/>
+                        <field name="invoice_amount_lc"/>
+                        <field name="currency_usd"/>
+                        <field name="amount_dollar"/>
+                        <field name="currency_rate_lc"/>
+                    </group>
+                </xpath>
+                <xpath expr="//header/button[@name='button_validate']" position="attributes">
+                    <attribute name="groups">invoice_in_landed_cost.group_landed_cost_validate</attribute>
+                </xpath>
+                <xpath expr="//header" position="inside">
+                    <button name="action_report_landed_cost"
+                        class="btn btn-primary"
+                        type="object"
+                        string="Report Landed Cost"
+                        icon="fa-file-pdf-o"/>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Costos por Producto" name="costs_by_product">
+                        <field name="product_summary_ids" nolabel="1" readonly="1" context="{'default_landed_cost_id': id}"/>
+                    </page>
+                    <page string="Margen venta" name="sale_margin">
+                        <p class="text-muted mb-2" invisible="state == 'done'">
+                            Mientras el costeo esté en borrador, el margen referencial (PVP y % s/ costo) está en
+                            <strong>Costos por Producto</strong> tras pulsar <strong>Calcular</strong>.
+                            El asistente para actualizar PVP se habilita al <strong>validar</strong> el costeo.
+                        </p>
+                        <group invisible="state != 'done'">
+                            <field name="margin_last_applied_on" readonly="1"/>
+                        </group>
+                        <div class="mb-3">
+                            <button name="action_open_sale_margin_wizard"
+                                type="object"
+                                string="Aplicar margen de venta"
+                                class="btn-primary"
+                                groups="invoice_in_landed_cost.group_landed_cost_apply_sale_margin"
+                                invisible="state != 'done'"/>
+                        </div>
+                        <p class="text-muted" invisible="state != 'done'">
+                            Tras <strong>validar</strong> el costeo en destino, abra el asistente para definir un margen
+                            global o por producto y actualizar el PVP. Se registrará el cambio en el producto y en este costeo.
+                            Cada aplicación queda en el histórico inferior (detalle por producto al abrir la fila).
+                        </p>
+                        <separator string="Histórico de aplicaciones" invisible="state != 'done'"/>
+                        <field name="sale_margin_history_ids" nolabel="1" readonly="1" invisible="state != 'done'">
+                            <list string="Aplicaciones de margen">
+                                <field name="applied_on"/>
+                                <field name="applied_by_id" widget="many2one_avatar_user" optional="show"/>
+                                <field name="global_margin_percent" optional="show"/>
+                                <field name="currency_id" column_invisible="1"/>
+                            </list>
+                            <form string="Detalle aplicación margen">
+                                <group>
+                                    <field name="applied_on"/>
+                                    <field name="applied_by_id"/>
+                                    <field name="global_margin_percent"/>
+                                    <field name="currency_id" invisible="1"/>
+                                </group>
+                                <field name="line_ids" nolabel="1" readonly="1">
+                                    <list string="Productos">
+                                        <field name="currency_id" column_invisible="1"/>
+                                        <field name="product_id"/>
+                                        <field name="quantity" sum="Total"/>
+                                        <field name="unit_cost" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                        <field name="price_before_apply" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                        <field name="margin_percent"/>
+                                        <field name="price_target" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                        <field name="price_applied" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    </list>
+                                </field>
+                            </form>
+                        </field>
+                    </page>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Información" name="picking_info">
+                        <group>
+                            <field name="picking_purchase_order_ids" widget="many2many_tags" readonly="1"/>
+                            <field name="picking_vendor_ids" widget="many2many_tags" readonly="1"/>
+                        </group>
+                        <field name="picking_ids" readonly="1" nolabel="1">
+                            <list string="Transferencias del costeo" create="0" delete="0" edit="0">
+                                <field name="name"/>
+                                <field name="partner_id" string="Proveedor"/>
+                                <field name="purchase_id" string="Orden de compra"/>
+                                <field name="origin"/>
+                                <field name="scheduled_date"/>
+                                <field name="state" widget="badge"/>
+                            </list>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_stock_landed_cost_tree_picking_info" model="ir.ui.view">
+            <field name="name">stock.landed.cost.list.picking.info</field>
+            <field name="model">stock.landed.cost</field>
+            <field name="inherit_id" ref="stock_landed_costs.view_stock_landed_cost_tree"/>
+            <field name="arch" type="xml">
+                <field name="state" position="after">
+                    <field name="picking_vendor_display" string="Proveedores" optional="show"/>
+                    <field name="picking_purchase_order_display" string="Órdenes de compra" optional="show"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_stock_landed_cost_tree2_picking_info" model="ir.ui.view">
+            <field name="name">stock.landed.cost.list2.picking.info</field>
+            <field name="model">stock.landed.cost</field>
+            <field name="inherit_id" ref="stock_landed_costs.view_stock_landed_cost_tree2"/>
+            <field name="arch" type="xml">
+                <field name="state" position="after">
+                    <field name="picking_vendor_display" string="Proveedores" optional="show"/>
+                    <field name="picking_purchase_order_display" string="Órdenes de compra" optional="show"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

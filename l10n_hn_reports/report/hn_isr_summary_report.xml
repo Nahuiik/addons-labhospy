@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="isr_summary_report">
+        <t t-call="web.basic_layout">
+            <div class="article nh-report nh-report--legal" t-att-style="report_branding_style">
+                <div class="nh-motif nh-header-brand">
+                    <div>
+                        <img t-if="report_logo_src or report_logo_http_src or nh_report_logo_src" t-att-src="nh_report_logo_src or report_logo_src or report_logo_http_src" alt="" class="nh-logo"/>
+                    </div>
+                    <div class="text-end">
+                        <p class="nh-title mb-0">Impuesto sobre la renta — resumen de movimientos</p>
+                        <p class="nh-period" t-if="docs[:1]">
+                            <strong><span t-esc="docs[:1].company_id.name"/></strong><br/>
+                            Período: <span t-esc="date_from_fmt"/> — <span t-esc="date_to_fmt"/>
+                            (<span t-esc="docs[:1].month"/> / <span t-esc="docs[:1].year"/>)
+                        </p>
+                    </div>
+                </div>
+                <p class="nh-period" t-if="accounts_label">
+                    <strong>Cuentas:</strong> <span t-esc="accounts_label"/>
+                </p>
+                <div class="nh-table-wrap">
+                    <table class="nh-table">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Asiento</th>
+                                <th>Diario</th>
+                                <th>Cuenta</th>
+                                <th>Contacto</th>
+                                <th>Etiqueta</th>
+                                <th class="text-end">Debe</th>
+                                <th class="text-end">Haber</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="lines" t-as="line">
+                                <td><span t-esc="line['fecha_fmt']"/></td>
+                                <td><span t-esc="line['asiento']"/></td>
+                                <td><span t-esc="line['diario']"/></td>
+                                <td><span t-esc="line['cuenta']"/></td>
+                                <td><span t-esc="line['contacto']"/></td>
+                                <td><span t-esc="line['etiqueta']"/></td>
+                                <td class="text-end"><span t-esc="line['debe_fmt']"/></td>
+                                <td class="text-end"><span t-esc="line['haber_fmt']"/></td>
+                            </tr>
+                            <tr t-if="not lines">
+                                <td colspan="8" class="text-center text-muted">Sin movimientos en el período para las cuentas seleccionadas.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="nh-period fw-bold">
+                    Totales — Debe: <span t-esc="total_debe_fmt"/>,
+                    Haber: <span t-esc="total_haber_fmt"/>
+                </p>
+                <p class="nh-period text-muted small">
+                    Reporte de apoyo para control interno. No sustituye la declaración jurada ni el criterio del contador.
+                    Configure las cuentas relevantes en la compañía o en el asistente.
+                </p>
+            </div>
+        </t>
+    </template>
+
+    <record id="action_report_isr_summary_pdf" model="ir.actions.report">
+        <field name="name">ISR — resumen (PDF)</field>
+        <field name="model">hn.isr.summary.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hn_reports.isr_summary_report</field>
+        <field name="report_file">l10n_hn_reports.isr_summary_report</field>
+        <field name="binding_model_id" ref="l10n_hn_reports.model_hn_isr_summary_wizard"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+    </record>
+
+    <record id="action_report_isr_summary_html" model="ir.actions.report">
+        <field name="name">ISR — resumen (HTML)</field>
+        <field name="model">hn.isr.summary.wizard</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">l10n_hn_reports.isr_summary_report</field>
+        <field name="report_file">l10n_hn_reports.isr_summary_report</field>
+    </record>
+</odoo>

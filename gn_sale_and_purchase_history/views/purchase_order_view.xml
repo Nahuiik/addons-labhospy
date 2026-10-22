@@ -1,0 +1,16 @@
+<odoo>
+    <record id="purchase_order_form_sale_price" model="ir.ui.view">
+        <field name="name">purchase.order.price</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <field name="date_order" position="after">
+                <field name="exclude_from_sale_price"/>
+            </field>
+            <xpath expr="//field[@name='order_line']/list/field[@name='price_subtotal']" position="after">
+                <field name="exclude_from_sale_price" column_invisible="True"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

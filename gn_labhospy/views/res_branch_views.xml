@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_res_branch_form_gn_labhospy_sc" model="ir.ui.view">        <field name="name">res.branch.form.gn.labhospy.sc</field>
+        <field name="model">res.branch</field>
+        <field name="inherit_id" ref="gts_branch_management.view_res_branch_form"/>
+        <field name="arch" type="xml">
+            <field name="address" position="after">
+                <field name="gn_labhospy_sanitary_license_no"/>
+                <field name="gn_labhospy_sanitary_license_document"
+                       filename="gn_labhospy_sanitary_license_document_filename"/>
+                <field name="gn_labhospy_sanitary_license_document_filename" invisible="1"/>
+            </field>
+        </field>
+    </record>
+</odoo>

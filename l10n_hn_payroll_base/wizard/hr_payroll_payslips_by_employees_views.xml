@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_payslip_by_employees" model="ir.ui.view">
+        <field name="name">hr.payslip.employees.form</field>
+        <field name="model">hr.payslip.employees</field>
+        <field name="arch" type="xml">
+            <form string="Generate payslips">
+                <group>
+                    <field name="employee_ids" widget="many2many_tags" placeholder="Employees"
+                        options="{'no_create': True}"/>
+                </group>
+                <footer>
+                    <button name="compute_sheet" type="object" string="Generate" class="btn-primary" data-hotkey="q"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="x"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hr_payslip_by_employees" model="ir.actions.act_window">
+        <field name="name">Generate payslips</field>
+        <field name="res_model">hr.payslip.employees</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_hn_payslip_generate"
+              name="Generate payslips"
+              action="action_hr_payslip_by_employees"
+              parent="menu_hn_payroll_payslips"
+              sequence="15"
+              groups="l10n_hn_payroll_base.group_hn_payroll_user"/>
+</odoo>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<record model="ir.ui.view" id="company_LO_l10n_sv_form">
+		<field name="name">Empresa</field>
+		<field name="model">res.company</field>
+		<field name="inherit_id" ref="base.view_company_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='vat']" position="attributes">
+                <attribute name="string">RTN</attribute>
+            </xpath>
+			<field name="company_registry" position="after">
+				<field name="industry_id"/>
+				<field name="nombre_comercial"/>
+				<field name="is_withholding_agent"/>
+			</field>
+		</field>
+	</record>
+</odoo>
+    

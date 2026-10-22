@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_gn_qif_bank_statement_layout_list" model="ir.ui.view">
+        <field name="name">gn.qif.bank.statement.layout.list</field>
+        <field name="model">gn.qif.bank.statement.layout</field>
+        <field name="arch" type="xml">
+            <list string="Layouts extracto IA">
+                <field name="sequence" widget="handle"/>
+                <field name="active"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="file_format_key"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_gn_qif_bank_statement_layout_form" model="ir.ui.view">
+        <field name="name">gn.qif.bank.statement.layout.form</field>
+        <field name="model">gn.qif.bank.statement.layout</field>
+        <field name="arch" type="xml">
+            <form string="Layout extracto IA">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                        <field name="file_format_key"/>
+                        <field name="sequence"/>
+                        <field name="active"/>
+                    </group>
+                    <notebook>
+                        <page string="Documentación técnica" name="spec">
+                            <field name="specification" colspan="4" nolabel="1" widget="html"/>
+                        </page>
+                        <page string="Prompt IA (contexto extra)" name="ai">
+                            <field name="ai_context" colspan="4" nolabel="1"/>
+                            <separator string="Notas solo internos"/>
+                            <field name="notes" colspan="4" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_gn_qif_bank_statement_layout" model="ir.actions.act_window">
+        <field name="name">Layouts extractos (IA por banco)</field>
+        <field name="res_model">gn.qif.bank.statement.layout</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_active': 1}</field>
+    </record>
+
+    <menuitem id="menu_gn_qif_bank_statement_layout"
+              name="Layouts extractos IA (por banco)"
+              parent="account.account_transactions_menu"
+              action="action_gn_qif_bank_statement_layout"
+              sequence="88"/>
+
+</odoo>

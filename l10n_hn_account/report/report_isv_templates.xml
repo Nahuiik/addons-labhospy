@@ -1,0 +1,124 @@
+<odoo>
+    <template id="isv_report_view">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page" >
+                   <!--  <t t-foreach="docs" t-as="o">-->
+                        <table style="width:100%">
+                            <tr>
+                                <td style="width:30%;">
+                                    <table style="width:100%%;">
+                                        <td>
+                                            <!--<img t-if="user.company_id.logo" t-att-src="'data:image/png;base64,%s' % to_text(user.company_id.logo)" style="height:100px;"/>-->
+                                        </td>
+                                    </table>
+                                </td>
+                                <td style="width:70%">
+                                    <table style="width:100%;">
+                                        <tr>
+                                            <td style="width:100%;font-size:18px;text-align:center"><strong><!--<span t-field="user.company_id.name"/>--></strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:100%;font-size:18px;text-align:center"><strong>Sales Tax Report</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:100%;font-size:18px;text-align:center"><strong>Month:<!--<span t-esc="o.get('month')"/> <span t-esc="o.get('year')"/> --> </strong></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        <table style="width:80%;margin-top:2%;border:1px solid black;margin-left:10%">
+                            <thead>
+                                <th colspan="2" style="text-align:center">Sales Summary</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                     <td style="width:50%">Net Sale <span t-field="user.company_id.name"/></td>
+                                    <!-- <td style="width:50%;text-align:right"><t t-esc="'{0:,.2f}'.format(o.get('net_sale'))"/></td> -->
+                                </tr>
+                                <tr>
+                                    <td style="width:50%">Taxed Sale 15%</td>
+                                    <!-- <td style="width:50%;text-align:right"><t t-esc="'{0:,.2f}'.format(o.get('taxed_sale'))"/></td> -->
+                                </tr>
+                                <tr>
+                                    <td style="width:50%">Exonerated Sale</td>
+                                    <!-- <td style="width:50%;text-align:right"><t t-esc="'{0:,.2f}'.format(o.get('exonerated_sale'))"/></td> -->
+                                </tr>
+                                <tr>
+                                    <td style="width:50%">Total Sale</td>
+                                    <!-- <td style="width:50%;text-align:right"><t t-esc="'{0:,.2f}'.format(o.get('total_sale'))"/></td> -->
+                                </tr>
+                            </tbody>
+                        </table>
+
+                         <table style="width:80%;margin-top:2%;border:1px solid black;margin-left:10%">
+                            <thead>
+                                <th colspan="2" style="text-align:center">Importation Summary</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="width:50%">Importation</td>
+                                    <td style="width:50%;text-align:right"><t t-esc="'{0:,.2f}'.format(0)"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%">Taxed Purchase 15%</td>
+                                    <td style="width:50%;text-align:right"><t t-esc="'{0:,.2f}'.format(0)"/></td>
+                                </tr>
+                                
+                                <tr>
+                                    <td style="width:50%">Total Purchase</td>
+                                    <td style="width:50%;text-align:right"><t t-esc="'{0:,.2f}'.format(0)"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <table style="width:80%;margin-top:2%;border:1px solid black;margin-left:10%">
+                            <thead>
+                                <th colspan="2" style="text-align:center">Purchase Summary</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="width:50%">Net Purchase <span t-field="user.company_id.name"/></td>
+                                    <!--<td style="width:50%;text-align:right"><t t-esc="'{0:,.2f}'.format(o.get('net_purchase'))"/></td>-->
+                                </tr>
+                                <tr>
+                                    <td style="width:50%">Taxed Purchase 15%</td>
+                                    <!-- <td style="width:50%;text-align:right"><t t-esc="'{0:,.2f}'.format(o.get('taxed_purchase'))"/></td> -->
+                                </tr>
+                                <tr>
+                                    <td style="width:50%"><br></br></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%">Total Purchase</td>
+                                    <!-- <td style="width:50%;text-align:right"><t t-esc="'{0:,.2f}'.format(o.get('total_purchase'))"/></td> -->
+                                </tr>
+                            </tbody>
+                        </table> 
+
+                        <table style="width:80%;margin-top:2%;margin-left:10%">
+                            <tbody>
+                                <tr>
+                                    <td style="width:50%">Total to Pay</td>
+                                    <!-- <td style="width:50%;text-align:right"><t t-esc="'{0:,.2f}'.format(o.get('to_pay'))"/></td> -->
+                                </tr>
+                                <tr>
+                                    <td style="width:50%">(-) Previous Period Tax Credit</td>
+                                    <!-- <td style="width:50%;text-align:right"><t t-esc="'{0:,.2f}'.format(o.get('credit_fiscal'))"/></td> -->
+                                </tr>
+                                <tr>
+                                    <td style="width:50%">(-) Tax Withheld POS</td>
+                                    <!-- <td style="width:50%;text-align:right"><t t-esc="'{0:,.2f}'.format(o.get('pos'))"/></td> -->
+                                </tr>
+                                <tr>
+                                    <td style="width:50%;font-size:20px"><strong>Total Tax to be Paid</strong></td>
+                                    <!-- <td style="width:50%;text-align:right"><strong><t t-esc="'{0:,.2f}'.format(o.get('total'))"/></strong></td> -->
+                                </tr>
+                            </tbody>
+                        </table> 
+                   <!-- </t>-->
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

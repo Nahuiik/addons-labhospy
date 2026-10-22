@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_gn_hr_employee_portal_invite_wizard_form" model="ir.ui.view">
+        <field name="name">gn.hr.employee.portal.invite.wizard.form</field>
+        <field name="model">gn.hr.employee.portal.invite.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Invitar al portal">
+                <group>
+                    <field name="employee_id"/>
+                    <field name="send_email"/>
+                </group>
+                <group invisible="not invitation_link">
+                    <field name="invitation_link" widget="CopyClipboardChar" readonly="1"/>
+                </group>
+                <field name="info_message" invisible="not info_message" readonly="1" nolabel="1"/>
+                <footer>
+                    <button name="action_send_invitation" type="object" string="Crear usuario y generar enlace"
+                            class="btn-primary" data-hotkey="q"/>
+                    <button string="Cerrar" class="btn-secondary" special="cancel" data-hotkey="x"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

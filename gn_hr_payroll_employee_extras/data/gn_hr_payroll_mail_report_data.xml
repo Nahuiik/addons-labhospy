@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+      Correos salientes (mail.mail) — ecosistema nómina / RRHH GN.
+      Envíos con seguimiento estándar Odoo (mass_mailing: mailing.trace, píxel /mail/track/…).
+      Auditoría send_mail_payroll_tracked en: gn_employee_data (gn.employee.application),
+      l10n_hn_hr_payroll (hr.employee, hr.leave, vacaciones HN), l10n_sv_hr_payroll
+      (hr.employee — período de prueba), gn_hn_hr_employee_portal + auth_signup (res.users),
+      hr_payroll enterprise (hr.payslip). Otros avisos solo chatter no aparecen aquí.
+    -->
+    <record id="view_mail_mail_gn_hr_employee_report_list" model="ir.ui.view">
+        <field name="name">mail.mail.list.gn.hr.employee.report</field>
+        <field name="model">mail.mail</field>
+        <field name="arch" type="xml">
+            <list string="Correos"
+                  create="0" edit="0" delete="0" sample="1">
+                <field name="date"/>
+                <field name="subject"/>
+                <field name="email_from"/>
+                <field name="email_to"/>
+                <field name="model" string="Modelo origen"/>
+                <field name="res_id" string="ID registro"/>
+                <field name="mailing_id" optional="show" string="Mailing"/>
+                <field name="gn_mailing_trace_status" optional="hide" string="Estado rastreo"/>
+                <field name="gn_mailing_open_datetime" optional="hide" string="Apertura"/>
+                <field name="state" widget="badge"
+                       decoration-muted="state in ('sent', 'cancel')"
+                       decoration-info="state == 'outgoing'"
+                       decoration-danger="state == 'exception'"/>
+                <field name="failure_type" optional="hide" string="Tipo fallo"/>
+                <button name="action_gn_retry_send_payroll_report" type="object"
+                        string="Reintentar" icon="fa-repeat"
+                        invisible="state not in ('exception', 'cancel')"
+                        groups="l10n_hn_payroll_base.group_hn_payroll_user,l10n_hn_payroll_base.group_hn_payroll_manager"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_mail_mail_gn_hr_employee_report_form" model="ir.ui.view">
+        <field name="name">mail.mail.form.gn.hr.employee.report</field>
+        <field name="model">mail.mail</field>
+        <field name="inherit_id" ref="mail.view_mail_form"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="attributes">
+                <attribute name="create">false</attribute>
+                <attribute name="edit">false</attribute>
+                <attribute name="delete">false</attribute>
+            </xpath>
+            <xpath expr="//header" position="replace">
+                <header>
+                    <button name="action_gn_preview_email" type="object"
+                            string="Vista previa" class="btn-secondary"
+                            groups="l10n_hn_payroll_base.group_hn_payroll_user,l10n_hn_payroll_base.group_hn_payroll_manager"/>
+                    <button name="action_gn_retry_send_payroll_report" type="object"
+                            string="Reintentar envío" class="btn-primary"
+                            invisible="state not in ('exception', 'cancel')"
+                            groups="l10n_hn_payroll_base.group_hn_payroll_user,l10n_hn_payroll_base.group_hn_payroll_manager"/>
+                    <field name="state" widget="statusbar" statusbar_visible="outgoing,sent,received,exception,cancel"/>
+                </header>
+            </xpath>
+            <xpath expr="//sheet/group[1]" position="after">
+                <group string="Envío y rastreo (Email Marketing)" colspan="2">
+                    <field name="failure_type" invisible="state != 'exception'"/>
+                    <field name="failure_reason" invisible="state != 'exception'"/>
+                    <field name="mailing_id"/>
+                    <field name="gn_mailing_trace_status"/>
+                    <field name="gn_mailing_open_datetime"/>
+                    <field name="gn_mailing_trace_failure_type"/>
+                    <field name="gn_mailing_trace_failure_reason"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_mail_mail_gn_hr_employee_report_search" model="ir.ui.view">
+        <field name="name">mail.mail.search.gn.hr.employee.report</field>
+        <field name="model">mail.mail</field>
+        <field name="inherit_id" ref="mail.view_mail_search"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <field name="model"/>
+                <field name="res_id"/>
+                <separator/>
+                <filter string="Empleado" name="model_hr_employee" domain="[('model', '=', 'hr.employee')]"/>
+                <filter string="Nómina / recibo" name="model_hr_payslip" domain="[('model', '=', 'hr.payslip')]"/>
+                <filter string="Ausencias / vacaciones" name="model_hr_leave" domain="[('model', '=', 'hr.leave')]"/>
+                <filter string="Solicitud ingreso (GN)" name="model_gn_application" domain="[('model', '=', 'gn.employee.application')]"/>
+                <filter string="Usuario / portal" name="model_res_users" domain="[('model', '=', 'res.users')]"/>
+                <filter string="Contrato (versión)" name="model_hr_version" domain="[('model', '=', 'hr.version')]"/>
+                <filter string="Cita / calendario" name="model_calendar_event" domain="[('model', '=', 'calendar.event')]"/>
+                <filter string="Encuesta (respuesta)" name="model_survey_user_input" domain="[('model', '=', 'survey.user_input')]"/>
+                <separator/>
+                <filter string="Con error de envío" name="filter_exception" domain="[('state', '=', 'exception')]"/>
+                <filter string="Con rastreo (mailing)" name="filter_has_mailing" domain="[('mailing_id', '!=', False)]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_gn_hr_employee_mail_outgoing_report" model="ir.actions.act_window">
+        <field name="name">Correos (nómina y RRHH)</field>
+        <field name="res_model">mail.mail</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'list', 'view_id': ref('view_mail_mail_gn_hr_employee_report_list')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_mail_mail_gn_hr_employee_report_form')}),
+        ]"/>
+        <field name="search_view_id" ref="view_mail_mail_gn_hr_employee_report_search"/>
+        <field name="domain">[
+            ('model', 'in', (
+                'calendar.event',
+                'gn.employee.application',
+                'gn.employee.complaint',
+                'hr.applicant',
+                'hr.contract',
+                'hr.employee',
+                'hr.leave',
+                'hr.payslip',
+                'hr.payslip.run',
+                'hr.version',
+                'res.users',
+                'salary.advance',
+                'survey.user_input',
+            ))
+        ]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Historial de correos salientes
+            </p>
+            <p>
+                Incluye empleados, contrato (versión), nómina y lotes, vacaciones, postulantes,
+                citas, respuestas de encuesta (reclutamiento u otros), solicitudes GN, quejas,
+                anticipos, invitaciones portal y mensajes estándar de recibo. Los avisos que solo
+                usan el chatter (sin correo) no aparecen aquí.
+            </p>
+            <p>
+                <em>Estado «Enviado» en Odoo no garantiza recepción en la bandeja del destinatario.</em>
+                La apertura se registra con el píxel estándar de Email Marketing (si el cliente muestra imágenes);
+                puede ser aproximada. Rebotes precisos requieren configuración de alias / puerta de enlace de correo.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_gn_hr_employee_mail_outgoing_report"
+              name="Correos (nómina y RRHH)"
+              parent="menu_gn_hr_correos"
+              action="action_gn_hr_employee_mail_outgoing_report"
+              sequence="10"
+              groups="l10n_hn_payroll_base.group_hn_payroll_user,l10n_hn_payroll_base.group_hn_payroll_manager"/>
+</odoo>

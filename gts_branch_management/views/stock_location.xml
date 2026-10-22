@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_location_form_extended" model="ir.ui.view">
+        <field name="name">view.location.form.form.extended</field>
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_form"/>
+        <field name="arch" type="xml">
+            <field name="usage" position="after">
+                <field name="gts_no_exigir_sucursal" widget="boolean_toggle"/>
+                <field name="branch_id" string="Sucursal"
+                       options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'
+                       required="not gts_no_exigir_sucursal"/>
+            </field>
+        </field>
+    </record>
+</odoo>

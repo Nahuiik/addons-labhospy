@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="hr_applicant_view_form_inherit">
+            <field name="name">Jobs - Recruitment Form Inherit</field>
+            <field name="model">hr.applicant</field>
+            <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_send_survey']" position="after">
+                    <button name="action_show_survey_url" string="Ver URL entrevista" type="object"
+                        invisible="not active or not survey_id"/>
+                </xpath>
+                <xpath expr="//form/sheet" position="inside">
+                    <div invisible="not missing_checklist_line_names">
+                        <field name="missing_checklist_line_names" nolabel="1" readonly="1"/>
+                    </div>
+                </xpath>
+                <xpath expr="//page[@name='application_details']//label[@for='salary_expected']" position="attributes">
+                    <attribute name="string">Salario Esperado (min)</attribute>
+                </xpath>
+                <xpath expr="//page[@name='application_details']//field[@name='salary_expected']/.." position="after">
+                    <label for="salary_expected_max" string="Salario Esperado (max)"/>
+                    <div class="o_row">
+                        <field name="salary_expected_max"/>
+                    </div>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Información Personal HN">
+                        <group>
+                            <group string="Dirección">
+                                <div class="o_address_format">
+                                    <field name="street" placeholder="Street..." class="o_address_street"/>
+                                    <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+                                    <field name="city" placeholder="City" class="o_address_city"/>
+                                    <field name="municipality" placeholder="Municipalidad"/>
+                                    <field name="state_id" class="o_address_state" placeholder="State" options="{'no_open': True}"/>
+                                    <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                                    <field name="country_id" placeholder="Country" class="o_address_country" options="{'no_open': True}"/>
+                                </div>
+                            </group>
+                            <group string="Identificación">
+                                <field name="identification_id"/>
+                                <field name="insurance_id"/>
+                                <field name="rtn"/>
+                                <field name="passport_id"/>
+                                <field name="nationality_id"/>
+                                <field name="has_license" widget="radio" options="{'horizontal': true}"/>
+                                <field name="class_license" modifiers="{'invisible': [('has_license', '!=', 'yes')]}"/>
+                                <field name="number_license" modifiers="{'invisible': [('has_license', '!=', 'yes')]}"/>
+                                <field name="document_work"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Datos Generales">
+                                <field name="birth_date"/>
+                                <field name="age"/>
+                                <field name="gender" widget="radio" options="{'horizontal': true}"/>
+                                <field name="marital_status_id"/>
+                                <field name="others_marital" invisible="marital != 'other'"/>
+                                <field name="live_with" widget="radio" options="{'horizontal': true}"/>
+                                <field name="dependent_people" widget="radio" options="{'horizontal': true}"/>
+                                <field name="height"/>
+                                <field name="weight"/>
+                                <field name="place_of_birth"/>
+                            </group>
+                            <group string="Contacto de Emergencia">
+                                <field name="emergency_contact"/>
+                                <field name="emergency_phone"/>
+                                <field name="name_emergency"/>
+                                <field name="number_emergency2"/>
+                                <field name="relation_emergency_id"/>
+                                <field name="relation_emergency_2_id"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Competencias">
+                        <group>
+                            <group>
+                                <field name="department_function"/>
+                                <field name="work_other"/>
+                                <field name="software"/>
+                                <field name="machine"/>
+                            </group>
+                            <group>
+                                <field name="language_ids">
+                                    <list editable="bottom">
+                                        <field name="applicant_id" invisible="1"/>
+                                        <field name="lang_id"/>
+                                        <field name="level"/>
+                                    </list>
+                                    <form>
+                                        <group>
+                                            <field name="applicant_id" invisible="1"/>
+                                            <field name="lang_id"/>
+                                            <field name="level"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Documentos">
+                        <field name="doc_ids">
+                            <list editable="bottom">
+                                <field name="name"/>
+                                <field name="store_fname" invisible="1"/>
+                                <field name="document" filename="store_fname" widget="binary"/>
+                            </list>
+                            <form>
+                                <group>
+                                    <field name="name"/>
+                                    <field name="document" filename="store_fname" widget="binary" invisible="1"/>
+                                    <field name="store_fname" invisible="1"/>
+                                </group>
+                                <field name="document" filename="store_fname" widget="pdf_viewer" nolabel="1"/>
+                            </form>
+                        </field>
+                    </page>
+                    <page string="Familia">
+                        <group>
+                            <group string="Padre">
+                                <field name="name_father"/>
+                                <field name="address_father"/>
+                                <field name="occupation_father"/>
+                            </group>
+                            <group string="Madre">
+                                <field name="name_mother"/>
+                                <field name="address_mother"/>
+                                <field name="occupation_mother"/>
+                            </group>
+                            <group string="Cónyuge">
+                                <field name="name_wife"/>
+                                <field name="address_wife"/>
+                                <field name="occupation_wife"/>
+                            </group>
+                        </group>
+                        <group string="Hijos">
+                            <field name="son_name_age" nolabel="1"/>
+                        </group>
+                        <field name="family_information_id">
+                            <list editable="bottom">
+                                <field name="relation"/>
+                                <field name="name"/>
+                                <field name="age"/>
+                                <field name="domicile"/>
+                                <field name="ocupation"/>
+                            </list>
+                            <form>
+                                <group>
+                                    <field name="relation"/>
+                                    <field name="name"/>
+                                    <field name="age"/>
+                                    <field name="domicile"/>
+                                    <field name="ocupation"/>
+                                </group>
+                            </form>
+                        </field>
+                    </page>
+                    <page string="Educación">
+                        <field name="academic_training_id">
+                            <list editable="bottom">
+                                <field name="name"/>
+                                <field name="field_of_study_id"/>
+                                <field name="address"/>
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+                                <field name="title_received"/>
+                            </list>
+                            <form>
+                                <group>
+                                    <field name="name"/>
+                                    <field name="field_of_study_id"/>
+                                    <field name="address"/>
+                                    <field name="date_from"/>
+                                    <field name="date_to"/>
+                                    <field name="title_received"/>
+                                </group>
+                            </form>
+                        </field>
+                        <group>
+                            <group>
+                                <field name="study_current"/>
+                                <field name="school_study_current"/>
+                                <field name="work_calendar"/>
+                                <field name="course_carrera"/>
+                                <field name="grade"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Experiencia Laboral">
+                        <field name="job_current_ids">
+                            <list editable="bottom">
+                                <field name="name"/>
+                                <field name="company"/>
+                                <field name="from_1"/>
+                                <field name="to_1"/>
+                                <field name="job_id"/>
+                                <field name="wage" string="Sueldo"/>
+                                <field name="motive_separate"/>
+                                <field name="superior_boss"/>
+                                <field name="information"/>
+                            </list>
+                            <form>
+                                <group>
+                                    <field name="name"/>
+                                    <field name="company"/>
+                                    <field name="address"/>
+                                    <field name="phone"/>
+                                    <field name="from_1"/>
+                                    <field name="to_1"/>
+                                    <field name="job_id"/>
+                                    <field name="wage" string="Sueldo"/>
+                                    <field name="superior_boss"/>
+                                    <field name="job_superior_boss"/>
+                                    <field name="information"/>
+                                    <field name="comment_boss"/>
+                                </group>
+                            </form>
+                        </field>
+                        <field name="reference_ids">
+                            <list editable="bottom">
+                                <field name="name"/>
+                                <field name="reference_kind"/>
+                                <field name="address"/>
+                                <field name="phone"/>
+                                <field name="occupation"/>
+                                <field name="time"/>
+                            </list>
+                            <form>
+                                <group>
+                                    <field name="name"/>
+                                    <field name="reference_kind"/>
+                                    <field name="address"/>
+                                    <field name="phone"/>
+                                    <field name="occupation"/>
+                                    <field name="time"/>
+                                </group>
+                            </form>
+                        </field>
+                        <field name="course_ids">
+                            <list editable="bottom">
+                                <field name="name"/>
+                                <field name="institution"/>
+                                <field name="date"/>
+                                <field name="duration_hours"/>
+                                <field name="document" column_invisible="1"/>
+                                <field name="document_filename" string="Comprobante" optional="show"/>
+                                <field name="file_extension" column_invisible="1"/>
+                                <field name="l10n_hn_can_preview" column_invisible="1"/>
+                                <field name="attachment_ids" column_invisible="1"/>
+                                <button name="action_l10n_hn_download_document" type="object" title="Descargar" icon="fa-download" invisible="not document"/>
+                                <button name="action_l10n_hn_preview_document" type="object" string="Ver" title="Vista previa" icon="fa-eye" class="text-primary" invisible="not l10n_hn_can_preview or not document"/>
+                            </list>
+                            <form>
+                                <group>
+                                    <field name="name"/>
+                                    <field name="institution"/>
+                                    <field name="date"/>
+                                    <field name="duration_hours"/>
+                                    <field name="document" filename="document_filename" string="Documento"/>
+                                    <field name="document_filename" invisible="1"/>
+                                    <field name="l10n_hn_can_preview" invisible="1"/>
+                                    <field name="file_extension" invisible="1"/>
+                                    <field name="attachment_ids" invisible="1" groups="base.group_no_one"/>
+                                </group>
+                            </form>
+                        </field>
+                    </page>
+                    <page string="Estado de Salud">
+                        <group>
+                            <group>
+                                <field name="health_status" widget="radio" options="{'horizontal': true}"/>
+                                <field name="chronic_illness" widget="radio" options="{'horizontal': true}"/>
+                                <field name="chronic_illness_observation" modifiers="{'invisible': [('chronic_illness', '=', 'not')]}" placeholder="Detalle de la enfermedad crónica"/>
+                                <field name="practice_sport" widget="radio" options="{'horizontal': true}"/>
+                                <field name="sport_ids" widget="many2many_tags" modifiers="{'invisible': [('practice_sport', '=', 'not')]}"/>
+                                <field name="club_social_deport" widget="radio" options="{'horizontal': true}"/>
+                                <field name="social_club_ids" widget="many2many_tags" options="{'color_field': 'color'}" modifiers="{'invisible': [('club_social_deport', '=', 'not')]}"/>
+                                <field name="favorite_hobby"/>
+                                <field name="surgery_ids" widget="many2many_tags"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Checklist">
+                        <field name="line_ids">
+                            <list editable="bottom">
+                                <field name="name"/>
+                                <field name="is_required"/>
+                                <field name="necessary"/>
+                                <field name="attachment_ids" widget="binary"/>
+                            </list>
+                            <form>
+                                <group>
+                                    <field name="name"/>
+                                    <field name="is_required"/>
+                                    <field name="necessary"/>
+                                    <field name="attachment_ids" widget="binary"/>
+                                </group>
+                            </form>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

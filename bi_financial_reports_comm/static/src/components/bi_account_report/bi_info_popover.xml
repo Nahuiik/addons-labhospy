@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="bi_financial_reports_comm.BiInfoPopover">
+        <div class="o_bi_info_popover">
+            <table class="o_bi_info_popover_table">
+                <tbody>
+                    <tr t-if="props.motor">
+                        <td class="o_bi_info_popover_label">Motor</td>
+                        <td class="o_bi_info_popover_value"><t t-esc="props.motor"/></td>
+                    </tr>
+                    <tr t-if="props.label">
+                        <td class="o_bi_info_popover_label">Etiqueta</td>
+                        <td class="o_bi_info_popover_value"><t t-esc="props.label"/></td>
+                    </tr>
+                    <tr t-if="props.formula">
+                        <td class="o_bi_info_popover_label align-top">Fórmula</td>
+                        <td class="o_bi_info_popover_formula"><t t-esc="props.formula"/></td>
+                    </tr>
+                    <tr t-if="props.value">
+                        <td class="o_bi_info_popover_label">Valor</td>
+                        <td class="o_bi_info_popover_value"><t t-esc="props.value"/></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </t>
+
+</templates>

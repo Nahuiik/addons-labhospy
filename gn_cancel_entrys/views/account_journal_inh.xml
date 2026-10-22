@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="inherit_view_account_journal_form_gn_cancel_entry" model="ir.ui.view">
+        <field name="name">account.journal.form.inherit.gn</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="arch" type="xml">
+            
+            <xpath expr="//field[@name='restrict_mode_hash_table']" position="replace">
+                <field name="restrict_mode_hash_table" groups="account.group_account_readonly"/>
+            </xpath>
+            
+        </field>
+    </record>
+</odoo>

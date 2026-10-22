@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_labhospy_sales_xlsx" model="ir.actions.report">
+        <field name="name">Reporte ventas LabHosPy (XLSX)</field>
+        <field name="model">labhospy.sales.report.wizard</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">labhospy_sales_report.labhospy_sales_report_xlsx</field>
+        <field name="report_file">labhospy_sales_report_ventas</field>
+    </record>
+</odoo>

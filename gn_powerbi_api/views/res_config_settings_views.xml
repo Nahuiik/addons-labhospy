@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista que agrega el bloque de Power BI, visible solo cuando se accede desde el menú de Power BI -->
+    <record id="res_config_settings_view_form_powerbi" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.powerbi</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <!-- Agregar bloque de Power BI, visible solo cuando se accede desde el menú de Power BI -->
+            <xpath expr="//form" position="inside">
+                <div class="app_settings_block" data-string="Power BI" string="Power BI" data-key="powerbi" invisible="not context.get('module') or context.get('module') != 'gn_powerbi_api'">
+                    <h2>Power BI</h2>
+                    <div class="row mt16 o_settings_container">
+                        <!-- Exportación -->
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="powerbi_default_batch_size"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="powerbi_default_batch_size"/>
+                                <div class="text-muted">
+                                    Tamaño por defecto de los lotes de exportación
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="powerbi_default_cron_mode"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="powerbi_default_cron_mode"/>
+                                <div class="text-muted">
+                                    Modo por defecto para exportaciones automáticas
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="powerbi_use_write_date_default" widget="boolean_toggle"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="powerbi_use_write_date_default"/>
+                                <div class="text-muted">
+                                    Usar write_date en sincronización incremental
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="powerbi_preview_limit"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="powerbi_preview_limit"/>
+                                <div class="text-muted">
+                                    Límite de registros para vista previa
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Tokens y Autenticación -->
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="powerbi_token_expiration_buffer"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="powerbi_token_expiration_buffer"/>
+                                <div class="text-muted">
+                                    Buffer de tiempo antes de expirar el token (segundos)
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Alertas -->
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="powerbi_enable_auto_alerts" widget="boolean_toggle"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="powerbi_enable_auto_alerts"/>
+                                <div class="text-muted">
+                                    Habilitar alertas automáticas
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="powerbi_show_advanced_alerts" widget="boolean_toggle"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="powerbi_show_advanced_alerts"/>
+                                <div class="text-muted">
+                                    Mostrar opciones avanzadas de alertas
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="powerbi_slow_export_threshold"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="powerbi_slow_export_threshold"/>
+                                <div class="text-muted">
+                                    Umbral para considerar exportación como lenta (segundos)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="powerbi_low_record_threshold"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="powerbi_low_record_threshold"/>
+                                <div class="text-muted">
+                                    Umbral mínimo de registros para generar alerta
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="powerbi_alert_window_hours"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="powerbi_alert_window_hours"/>
+                                <div class="text-muted">
+                                    Ventana de tiempo para evaluar alertas (horas)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Acción de configuración independiente para Power BI -->
+    <record id="action_res_config_settings" model="ir.actions.act_window">
+        <field name="name">Configuración Power BI</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+        <field name="context">{'module': 'gn_powerbi_api'}</field>
+    </record>
+</odoo>

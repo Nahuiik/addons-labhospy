@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_customer_due_alerts.CxcPartnerListRenderer" t-inherit="web.ListRenderer" t-inherit-mode="primary">
+        <xpath expr="//div[contains(@class, 'o_list_renderer')]" position="before">
+            <CxcPartnerListBanner state="dashboardState"
+                                  onReload="onReloadDashboard"
+                                  isGroupedView="isGroupedView"
+                                  allGroupsExpanded="allGroupsExpanded"
+                                  onToggleGroups="onToggleAllGroups"/>
+        </xpath>
+    </t>
+
+</templates>

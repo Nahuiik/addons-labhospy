@@ -1,0 +1,52 @@
+.o_payroll_generation_wizard {
+    padding: 1rem;
+    max-width: 900px;
+    margin: 0 auto;
+    height: 100%;
+    overflow-y: auto;
+
+    .o_wizard_header {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        background: var(--o-view-background-color, #fff);
+        padding-bottom: 0.5rem;
+
+        h2 {
+            margin-bottom: 1rem;
+        }
+
+        .nav-pills .nav-link {
+            cursor: default;
+        }
+    }
+
+    .o_wizard_body {
+        min-height: 200px;
+        padding-bottom: 2rem;
+    }
+
+    .o_step_config,
+    .o_step_employees,
+    .o_step_review {
+        padding: 0.5rem 0;
+    }
+
+    .o_step_employees {
+        .table-responsive {
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .table {
+            font-size: 0.9rem;
+
+            thead {
+                position: sticky;
+                top: 0;
+                z-index: 1;
+                background: var(--o-view-background-color, #fff);
+            }
+        }
+    }
+}

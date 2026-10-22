@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_product_traceability_widget.TraceabilityFlowMap">
+        <div class="gn_traceability_flowmap" t-if="flowLayout.nodes.length">
+            <svg t-att-width="flowLayout.width" t-att-height="flowLayout.height"
+                 t-att-viewBox="'0 0 ' + flowLayout.width + ' ' + flowLayout.height"
+                 class="gn_traceability_flowmap__svg">
+                <defs>
+                    <marker id="gn_traceability_arrow" markerWidth="8" markerHeight="8"
+                            refX="6" refY="3" orient="auto">
+                        <path d="M0,0 L6,3 L0,6 Z" fill="#64748b"/>
+                    </marker>
+                </defs>
+                <t t-foreach="flowLayout.edges" t-as="edge" t-key="edge.id">
+                    <path t-att-d="edge.path"
+                          class="gn_traceability_flowmap__edge"
+                          t-att-class="edge.dashed ? 'gn_traceability_flowmap__edge--dashed' : ''"
+                          marker-end="url(#gn_traceability_arrow)"/>
+                    <text t-if="edge.label"
+                          t-att-x="edge.labelX" t-att-y="edge.labelY"
+                          class="gn_traceability_flowmap__edge-label"
+                          t-esc="edge.label"/>
+                </t>
+            </svg>
+            <div class="gn_traceability_flowmap__overlay"
+                 t-att-style="'width:' + flowLayout.width + 'px;height:' + flowLayout.height + 'px'">
+                <t t-foreach="flowLayout.nodes" t-as="node" t-key="node.id">
+                    <div t-att-class="nodeClass(node)"
+                         t-att-style="'left:' + node.x + 'px;top:' + node.y + 'px;width:' + node.w + 'px;min-height:' + node.h + 'px'"
+                         t-on-click="() => this.onClick(node)">
+                        <div class="gn_traceability_flowmap__node-label" t-esc="node.label"/>
+                        <small t-if="node.subtitle" class="gn_traceability_flowmap__node-sub" t-esc="node.subtitle"/>
+                        <small t-if="node.supplier" class="gn_traceability_flowmap__node-sub">
+                            Comprado a: <t t-esc="node.supplier"/>
+                        </small>
+                        <small t-if="node.customer" class="gn_traceability_flowmap__node-sub">
+                            Vendido a: <t t-esc="node.customer"/>
+                        </small>
+                        <small t-if="node.value_fmt" class="gn_traceability_flowmap__node-sub gn_traceability_cost" t-esc="node.value_fmt"/>
+                    </div>
+                </t>
+            </div>
+            <t t-if="props.graph?.branches?.length">
+                <div class="gn_traceability_flowmap__legend mt-2">
+                    <span class="badge text-bg-info">
+                        <t t-esc="props.graph.branches.length"/> ramificación(es) detectada(s)
+                    </span>
+                </div>
+            </t>
+        </div>
+        <div t-else="" class="text-muted py-3">Sin datos para el mapa de flujo.</div>
+    </t>
+
+</templates>

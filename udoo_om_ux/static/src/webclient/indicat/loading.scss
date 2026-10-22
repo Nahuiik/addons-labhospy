@@ -1,0 +1,27 @@
+.u_loading_indicator_wrap {
+    top: -2px;
+    left: 50%;
+    bottom: auto;
+    width: fit-content;
+    transform: translateX(-50%);
+    z-index: $zindex-toast + 1;
+
+    .spinner-border {
+        --#{$prefix}spinner-height: 1em;
+        --#{$prefix}spinner-width: 1em;
+        --#{$prefix}spinner-border-width: #{$border-width * 2};
+        --#{$prefix}spinner-animation-speed: .7s;
+    }
+
+    .u_loading_indicator {
+        transition: all .2s ease;
+    }
+
+    &.o_translate-leave, &.o_translate-enter {
+        .u_loading_indicator {
+            transform: scale(.95);
+            opacity: 0;
+            transition-delay: .5s;
+        }
+    }
+}

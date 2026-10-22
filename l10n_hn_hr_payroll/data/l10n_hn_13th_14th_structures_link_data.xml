@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- ============================================ -->
+        <!-- ASOCIAR REGLAS A ESTRUCTURAS 13TH Y 14TH -->
+        <!-- ============================================ -->
+        <!-- Este archivo se carga después de crear las estructuras y las reglas -->
+        <!-- Usamos (6, 0, [...]) para reemplazar todas las reglas con solo las que necesitamos -->
+        
+        <!-- Actualizar Estructura Décimo Tercer Mes con sus reglas -->
+        <record id="structure_13th_month" model="hr.payroll.structure">
+            <field name="rule_ids" eval="[
+                (6, 0, [
+                    ref('l10n_hn_hr_payroll.salary_rule_basic_13th'),
+                    ref('l10n_hn_hr_payroll.salary_rule_gross_13th'),
+                    ref('l10n_hn_hr_payroll.salary_rule_13th_month_advance'),
+                    ref('l10n_hn_hr_payroll.salary_rule_net_13th'),
+                ])
+            ]"/>
+        </record>
+        
+        <!-- Actualizar Estructura Décimo Cuarto Mes con sus reglas -->
+        <record id="structure_14th_month" model="hr.payroll.structure">
+            <field name="rule_ids" eval="[
+                (6, 0, [
+                    ref('l10n_hn_hr_payroll.salary_rule_basic_14th'),
+                    ref('l10n_hn_hr_payroll.salary_rule_gross_14th'),
+                    ref('l10n_hn_hr_payroll.salary_rule_14th_month_advance'),
+                    ref('l10n_hn_hr_payroll.salary_rule_net_14th'),
+                ])
+            ]"/>
+        </record>
+    </data>
+</odoo>

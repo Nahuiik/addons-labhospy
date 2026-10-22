@@ -1,0 +1,196 @@
+.s-js-animation {
+    position: relative;
+    display: block;
+    width: 100%;
+    min-height: 420px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: #05070f;
+
+    .js-animation-container {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        min-height: inherit;
+
+        .js-animation-fallback {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background:
+                radial-gradient(circle at 30% 30%, rgba(89, 216, 255, 0.55), rgba(89, 216, 255, 0))
+                , radial-gradient(circle at 70% 65%, rgba(31, 74, 168, 0.35), rgba(31, 74, 168, 0));
+            background-color: #05070f;
+            transition: opacity 0.35s ease;
+            pointer-events: none;
+        }
+
+        .js-animation-fallback.is-hidden {
+            opacity: 0;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            position: relative;
+            z-index: 1;
+        }
+    }
+
+    .o_gn_plexus_content {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        min-height: inherit;
+        padding: 4rem 2rem;
+        pointer-events: auto;
+    }
+
+    &.o_editable {
+        cursor: move;
+    }
+}
+
+.s-js-animation[data-panel-hidden="1"] .o_gn_plexus_panel {
+    display: none;
+}
+
+.s-js-animation .o_gn_plexus_panel {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 5;
+    min-width: 220px;
+    padding: 0.75rem;
+    border-radius: 0.75rem;
+    background: rgba(20, 22, 36, 0.88);
+    color: #f3f4f9;
+    box-shadow: 0 12px 35px rgba(12, 22, 40, 0.35);
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+}
+
+.o_gn_plexus_panel_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.o_gn_plexus_panel_title {
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+}
+
+.o_gn_plexus_panel_close {
+    appearance: none;
+    border: none;
+    border-radius: 999px;
+    padding: 0.25rem 0.65rem;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    background: rgba(255, 255, 255, 0.14);
+    color: inherit;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.o_gn_plexus_panel_close:hover,
+.o_gn_plexus_panel_close:focus {
+    background: rgba(255, 255, 255, 0.28);
+    color: #fff;
+}
+
+.o_gn_plexus_panel_row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+}
+
+.o_gn_plexus_value {
+    align-self: flex-end;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.o_gn_plexus_input {
+    width: 100%;
+}
+
+.o_gn_plexus_reset {
+    margin-top: 0.3rem;
+}
+
+.o_gn_plexus_panel_toggle {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 6;
+    display: none;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(20, 22, 36, 0.9);
+    color: #f3f4f9;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    box-shadow: 0 10px 28px rgba(12, 22, 40, 0.28);
+}
+
+.o_gn_plexus_panel_toggle:hover,
+.o_gn_plexus_panel_toggle:focus {
+    background: rgba(36, 40, 66, 0.95);
+    color: #fff;
+}
+
+.s-js-animation[data-panel-hidden="1"] .o_gn_plexus_panel_toggle {
+    display: inline-flex;
+}
+
+:root:not([data-editable="1"]) .s-js-animation .o_gn_plexus_panel,
+:root:not([data-editable="1"]) .s-js-animation .o_gn_plexus_panel_toggle {
+    display: none;
+}
+
+/* legacy option helpers preserved for compatibility */
+.o_gn_plexus_options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.o_gn_option_row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.o_gn_option_label {
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: rgba(0, 0, 0, 0.65);
+}
+
+.o_gn_option_value {
+    font-size: 0.75rem;
+    color: rgba(0, 0, 0, 0.55);
+}
+
+.o_gn_option_input {
+    width: 100%;
+}

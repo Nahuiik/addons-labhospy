@@ -1,0 +1,81 @@
+.o_form_view:not(.o_field_highlight) {
+
+    .o_cell {
+        --omux-input-bg: #{rgba($o-gray-300, .2)};
+        --omux-input-lh: 2.25;
+
+        &.o_wrap_label:has(+ .o_cell .o_input, + .o_cell select) {
+            align-self: center;
+        }
+
+        .d-inline-flex {
+            align-items: baseline;
+        }
+
+        .o_field_widget:not([class*="many2"]):has(.o_input) {
+            background-color: var(--omux-input-bg);
+            border-radius: $o-border-radius;
+            padding-inline: 5px;
+
+            .o_input {
+                line-height: var(--omux-input-lh, $o-line-height-lg);
+            }
+        }
+
+        .o_field_widget[class*="many2one"]:has(.o_input),
+        .o_field_widget:has(.o_field_many2one_selection):has(.o_input) {
+            &:not([class*="many2one_avatar"]) {
+                background-color: var(--omux-input-bg);
+                border-radius: $o-border-radius;
+                padding-inline: 5px;
+            }
+
+            &[class*="many2one_avatar"] {
+                .o_field_many2one_selection {
+                    background-color: var(--omux-input-bg);
+                    border-radius: $o-border-radius;
+                    padding-inline: 5px;
+                }
+
+                &:has(img) .o_field_many2one_selection {
+                    padding-right: 0px;
+                }
+            }
+
+            &:has(.o_external_button) {
+                padding-right: 0;
+            }
+
+            .o_input {
+                line-height: var(--omux-input-lh, $o-line-height-lg);
+            }
+
+            .o_dropdown_button {
+                margin-top: .35em;
+            }
+        }
+
+        .o_field_widget[class*="many2many_tags"]:has(.o_input) {
+            background-color: var(--omux-input-bg);
+            border-radius: $o-border-radius;
+            padding-inline: 5px;
+
+            .o_input {
+                line-height: var(--omux-input-lh, $o-line-height-lg);
+            }
+
+            .o_dropdown_button {
+                margin-top: -1px;
+            }
+
+            .o_field_tags.o_input:not(.many2many_tags_avatar_field_container) {
+                align-items: center;
+            }
+        }
+
+        .o_field_widget[class*="many2many_avatar"]:has(.o_input) {
+            background-color: var(--omux-input-bg);
+            border-radius: $o-border-radius;
+        }
+    }
+}

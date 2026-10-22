@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem id="menu_main_banks"
+              name="Banks"
+              sequence="5"
+              web_icon="gn_banks,static/description/icon.png"
+              groups="gn_banks.banks_debit_credit_user,gn_banks.banks_check_user"/>
+
+    <record id="credit_debit_form_view" model="ir.ui.view">
+        <field name="name">debit.credit.form</field>
+        <field name="model">debit.credit</field>
+        <field name="arch" type="xml">
+            <form string="Credit Debit">
+                <header>
+                    <button name="action_validate" string="Validate" type="object" class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_print_journal_entry" string="Imprimir asiento contable" type="object" class="btn-secondary" invisible="not move_id"/>
+                    <button name="action_cancel" string="Cancel" type="object" groups="gn_banks.banks_cancel_documents" class="btn-primary" invisible="state != 'validated'"/>
+                    <button name="print_voucher" string="Print Voucher" type="object" invisible="(move_type != 'deposit') or (not is_advance)"/>
+                    <button name="action_set_to_draft" string="Set To Draft" type="object" class="btn-primary" invisible="state != 'cancel'"/>
+                    <button name="%(action_wizard_crear_plantilla)d" type="action" string="Create Template"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,validated"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" text="Borrador" bg_color="bg-primary" invisible="state != 'draft'"/>
+                    <widget name="web_ribbon" text="Validado" invisible="state != 'validated'"/>
+                    <widget name="web_ribbon" text="Cancelado" bg_color="bg-danger" invisible="state != 'cancel'"/>
+
+                    <div class="oe_title">
+                        <h1 invisible="name != '/'">
+                            <field name="dummy_name" readonly="1"/>
+                        </h1>
+                        <h1 invisible="name == '/'">
+                            <field name="name" readonly="1" force_save="1"/>
+                        </h1>
+                    </div>
+                    <field name="error_msg" readonly="1" force_save="1" invisible="name == '/'"/>
+
+                    <group col="2">
+                        <group>
+                            <field name="company_id" widget="selection" readonly="(state != 'draft') and (name != '/')"/>
+                            <field name="journal_id" options="{'no_create': True}" domain="[('type', 'in', ['bank']), ('company_id', '=', company_id)]" readonly="(state != 'draft') and (name != '/')"/>
+                            <field name="total" readonly="state != 'draft'"/>
+                            <field name="description" readonly="state != 'draft'"/>
+                            <field name="amount_in_words" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="date" readonly="state != 'draft'"/>
+                            <field name="currency_id" readonly="state != 'draft'"/>
+                            <field name="show_currency_rate" invisible="1"/>
+                            <field name="move_type" readonly="(state != 'draft') and (name != '/')" required="1"/>
+                            <field name="template_id" domain="[('move_type', 'in', ['debit', 'credit', 'deposit'])]" readonly="state != 'draft'"/>
+                            <field name="currency_rate" force_save="1" readonly="1"
+                                   invisible="not show_currency_rate"/>
+                        </group>
+                    </group>
+                    <group col="2">
+                        <group>
+                            <field name="is_advance" readonly="state != 'draft'" invisible="move_type != 'deposit'"/>
+                            <field name="partner_id" readonly="state != 'draft'" invisible="not is_advance" required="is_advance"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Transaction Detail">
+                            <group>
+                                <group>
+                                    <field name="total_debit"/>
+                                </group>
+                                <group>
+                                    <field name="total_credit"/>
+                                </group>
+                            </group>
+                            <field name="debit_line_ids">
+                                <list editable="bottom" options="{'no_open': True}">
+                                    <field name="account_id" options="{'no_create': True}"/>
+                                    <field name="name"/>
+                                    <field name="partner_id" options="{'no_create': True}"/>
+                                    <field name="analytic_distribution" widget="analytic_distribution" options="{'can_delete': False}"/>
+                                    <field name="amount" string="Importe"/>
+                                    <field name="move_type" column_invisible="1" force_save="1"/>
+                                    <field name="type" force_save="1" required="1"
+                                           column_invisible="parent.move_type in ('debit', 'credit', 'deposit')"/>
+                                </list>
+                                <form string="Details">
+                                    <group>
+                                        <group>
+                                            <field name="account_id" options="{'no_create': True}"/>
+                                            <field name="name"/>
+                                            <field name="partner_id" options="{'no_create': True}"/>
+                                            <field name="amount" string="Importe"/>
+                                        </group>
+                                        <group string="Analytic">
+                                            <field name="analytic_distribution" widget="analytic_distribution" options="{'can_delete': False}"/>
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Account Move" invisible="state != 'validated'">
+                            <group>
+                                <field name="move_id" readonly="1"/>
+                            </group>
+                        </page>
+                        <page string="Documents">
+                            <field name="document_ids">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="file_name" invisible="1"/>
+                                    <field name="file" filename="file_name"/>
+                                </list>
+                                <form string="Document">
+                                    <group>
+                                        <group>
+                                            <field name="name"/>
+                                            <field name="file_name" invisible="1"/>
+                                            <field name="file" filename="file_name"/>
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                    <group class="oe_subtotal_footer oe_right">
+                        <field name="amount_residual" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    </group>
+                </sheet>
+                
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- credit debit list view -->
+    <record model="ir.ui.view" id="debit_credit_list_view">
+        <field name="name">debit.credit.list</field>
+        <field name="model">debit.credit</field>
+        <field name="arch" type="xml">
+            <list string="Debits and Credits">
+                <field name="name" string="Number"/>
+                <field name="dummy_name" string="Next Number" invisible="name != '/'" optional="show"/>
+                <field name="description" optional="show"/>
+                <field name="date" optional="show"/>
+                <field name="journal_id" widget="selection" optional="show"/>
+                <field name="total" sum="total" optional="show"/>
+                <field name="currency_id" optional="show"/>
+                <field name="state" widget="badge" decoration-success="state == 'validated'" decoration-info="state == 'draft'" decoration-danger="state == 'cancel'" optional="show"/>
+                <field name="company_id" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_debit_credit" model="ir.actions.act_window">
+        <field name="name">Debit/Credit</field>
+        <field name="res_model">debit.credit</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('move_type','=','debit')]</field>
+        <field name="context">{'default_move_type':'debit'}</field>
+        <field name="group_ids" eval="[(6, 0, [ref('gn_banks.banks_debit_credit_manager')])]"/>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to record for debit/credit.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_debit" model="ir.actions.act_window">
+        <field name="name">Debit</field>
+        <field name="res_model">debit.credit</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('move_type','=','debit')]</field>
+        <field name="context">{'default_move_type':'debit'}</field>
+        <field name="group_ids" eval="[(6, 0, [ref('gn_banks.banks_debit_credit_user')])]"/>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to record for credit/debit/deposit.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_credit" model="ir.actions.act_window">
+        <field name="name">Credit</field>
+        <field name="res_model">debit.credit</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('move_type','=','credit')]</field>
+        <field name="context">{'default_move_type':'credit'}
+        </field>
+        <field name="group_ids" eval="[(6, 0, [ref('gn_banks.banks_debit_credit_user')])]"/>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to record for credit/debit/deposit.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_credit_card" model="ir.actions.act_window">
+        <field name="name">POS Settlements</field>
+        <field name="res_model">debit.credit</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('move_type','=','credit_card')]</field>
+        <field name="context">{'default_move_type':'credit_card'}
+        </field>
+        <field name="group_ids" eval="[(6, 0, [ref('gn_banks.banks_debit_credit_user')])]"/>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to record a POS settlement.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_deposit" model="ir.actions.act_window">
+        <field name="name">Deposit</field>
+        <field name="res_model">debit.credit</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('move_type','=','deposit')]</field>
+        <field name="context">{'default_move_type':'deposit'}
+        </field>
+        <field name="group_ids" eval="[(6, 0, [ref('gn_banks.banks_debit_credit_user')])]"/>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to record for credit/debit/deposit.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_sub_banks" name="Banks" parent="menu_main_banks" sequence="5"
+              groups="gn_banks.banks_debit_credit_user"/>
+    <menuitem action="action_debit" id="menu_debit" name="Debit" parent="menu_sub_banks" sequence="10"
+              groups="gn_banks.banks_debit_credit_user"/>
+    <menuitem action="action_credit" id="menu_credit" name="Credit" parent="menu_sub_banks" sequence="20"
+              groups="gn_banks.banks_debit_credit_user"/>
+    <menuitem action="action_credit_card" id="menu_credit_card" name="POS Settlements" parent="menu_sub_banks" sequence="25"
+              groups="gn_banks.banks_debit_credit_user"/>
+    <menuitem action="action_deposit" id="menu_deposit" name="Deposit" parent="menu_sub_banks" sequence="30"
+              groups="gn_banks.banks_debit_credit_user"/>
+</odoo>

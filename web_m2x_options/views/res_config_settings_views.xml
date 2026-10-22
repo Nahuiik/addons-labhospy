@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.web.m2x.options</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//app[@name='general_settings']" position="inside">
+
+                <block title="Many2one / Many2many Options" name="m2x_options_setting_container">
+
+                    <setting id="m2x_create_setting" string="Create" help="Show the 'Create' option in relational field dropdowns.">
+                        <field name="m2x_create"/>
+                    </setting>
+
+                    <setting id="m2x_create_edit_setting" string="Create and Edit" help="Show the 'Create and Edit...' option in relational field dropdowns.">
+                        <field name="m2x_create_edit"/>
+                    </setting>
+
+                    <setting id="m2x_open_setting" string="Open" help="Show the 'Open' option in relational field dropdowns.">
+                        <field name="m2x_open"/>
+                    </setting>
+
+                    <setting id="m2x_search_more_setting" string="Search More" help="Always show the 'Search More...' button in dropdowns.">
+                        <field name="m2x_search_more"/>
+                    </setting>
+
+                    <setting id="m2x_limit_setting" help="Maximum number of records shown in relational field dropdowns (default: 8).">
+                        <field name="m2x_limit"/>
+                    </setting>
+
+                    <setting id="m2x_field_limit_entries_setting" help="Maximum number of lines shown in One2many subviews (0 = unlimited).">
+                        <field name="m2x_field_limit_entries"/>
+                    </setting>
+
+                </block>
+
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_payslip_input_type_tree" model="ir.ui.view">
+        <field name="name">hr.payslip.input.type.list</field>
+        <field name="model">hr.payslip.input.type</field>
+        <field name="arch" type="xml">
+            <list string="Payslip input types">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="country_id" optional="hide"/>
+                <field name="available_in_attachments"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_hr_payslip_input_type_form" model="ir.ui.view">
+        <field name="name">hr.payslip.input.type.form</field>
+        <field name="model">hr.payslip.input.type</field>
+        <field name="arch" type="xml">
+            <form string="Payslip input type">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                        <field name="country_id"/>
+                        <field name="active"/>
+                    </group>
+                    <group string="Behavior">
+                        <field name="available_in_attachments"/>
+                        <field name="is_quantity"/>
+                        <field name="default_no_end_date"/>
+                    </group>
+                    <group string="Structures">
+                        <field name="struct_ids" widget="many2many_tags"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hr_payslip_input_type" model="ir.actions.act_window">
+        <field name="name">Payslip input types</field>
+        <field name="res_model">hr.payslip.input.type</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_hn_payslip_input_type"
+              name="Payslip input types"
+              parent="menu_hn_payroll_configuration"
+              action="action_hr_payslip_input_type"
+              sequence="15"/>
+</odoo>

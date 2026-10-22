@@ -1,0 +1,53 @@
+<odoo>
+
+    <record id="view_analytic_distribution_template_list" model="ir.ui.view">
+        <field name="name">analytic.distribution.template.list</field>
+        <field name="model">analytic.distribution.template</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="name"/>
+                <field name="analytic_distribution" widget="analytic_distribution"
+                       options="{'business_domain': 'bill'}"/>
+                <field name="company_id" optional="hide" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_analytic_distribution_template_form" model="ir.ui.view">
+        <field name="name">analytic.distribution.template.form</field>
+        <field name="model">analytic.distribution.template</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="Nombre de la plantilla"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="analytic_distribution" widget="analytic_distribution"
+                                   options="{'business_domain': 'bill'}"/>
+                        </group>
+                        <group>
+                            <field name="active"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_analytic_distribution_template" model="ir.actions.act_window">
+        <field name="name">Plantillas de Distribución Analítica</field>
+        <field name="res_model">analytic.distribution.template</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_analytic_distribution_template"
+              name="Plantillas de Distribución Analítica"
+              parent="account.menu_analytic_accounting"
+              action="action_analytic_distribution_template"
+              sequence="30"/>
+
+</odoo>

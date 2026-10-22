@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_sale_receipt_invoice_assign_wizard" model="ir.ui.view">
+            <field name="name">sale.receipt.invoice.assign.wizard.form</field>
+            <field name="model">sale.receipt.invoice.assign.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Asignar facturas">
+                    <group>
+                        <field name="receipt_id" readonly="1"/>
+                    </group>
+                    <field name="line_ids" editable="bottom" views="{'list': 'gn_sale_receipt.view_sale_receipt_invoice_assign_line_list'}"/>
+                    <footer>
+                        <button string="Aplicar" type="object" name="action_apply" class="btn-primary"/>
+                        <button string="Cancelar" special="cancel" class="btn-secondary"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_sale_receipt_invoice_assign_line_list" model="ir.ui.view">
+            <field name="name">sale.receipt.invoice.assign.line.list</field>
+            <field name="model">sale.receipt.invoice.assign.line</field>
+            <field name="arch" type="xml">
+                <list editable="bottom" string="Facturas disponibles">
+                    <field name="invoice_id"/>
+                    <field name="residual" readonly="1"/>
+                    <field name="assigned_amount"/>
+                </list>
+            </field>
+        </record>
+    </data>
+</odoo>

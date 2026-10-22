@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<record id="plantillas_banco_form_view" model="ir.ui.view">
+			<field name="name">Bank Template</field>
+			<field name="model">bank.template</field>
+			<field name="arch" type="xml">
+				<form string="Banks Template">
+					<sheet>
+						<group colspan="4">
+							<group cols="2">
+								<field name="name" />
+								<field name="company_id" widget="selection" />
+								<field name="journal_id" domain="[('type', '=', 'bank'), '|', ('company_id', '=', False), ('company_id', '=', company_id)]" />
+								<field name="total" />
+							</group>
+							<group cols="2">
+								<field name="currency_id" options="{'no_create': True}" />
+								<field name="show_currency_rate" invisible="1"/>
+								<field name="move_type" required="1"/>
+								<field name="currency_rate" readonly="1" force_save="1"
+									invisible="not show_currency_rate"/>
+							</group>
+						</group>
+						<group col="2" colspan="4">
+							<group cols="2">
+								<field name="partner_id" />
+							</group>
+							<group cols="2">
+								<field name="description"
+									placeholder="Descripción de Cheque Emitido" />
+							</group>
+							<group cols="2" string="Analytic" groups="analytic.group_analytic_accounting">
+								<field name="analytic_distribution" widget="analytic_distribution"/>
+								<field name="analytic_account_id"/>
+							</group>
+						</group>
+						<notebook>
+							<page string="Detalle de Transacción">
+								<field name="template_lines">
+									<list editable="top">
+										<field name="company_id" column_invisible="1"/>
+										<field name="account_id" options="{'no_create': True}"
+											domain="[('company_ids', 'in', [parent.company_id]), ('active', '=', True)]" />
+										<field name="name" />
+										<field name="partner_id" options="{'no_create': True}" />
+										<field name="amount" />
+										<field name="move_type1" />
+										<field name="analytic_distribution" widget="analytic_distribution" optional="show" groups="analytic.group_analytic_accounting"/>
+										<field name="analytic_account_id" optional="show" groups="analytic.group_analytic_accounting"/>
+									</list>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+
+		<record model="ir.ui.view" id="banks_template_view_tree">
+			<field name="name">Plantillas de bancos</field>
+			<field name="model">bank.template</field>
+			<field name="arch" type="xml">
+				<list>
+					<field name="move_type" />
+					<field name="name" />
+					<field name="partner_id" />
+					<field name="journal_id" />
+					<field name="total" sum="total" />
+					<field name="currency_id" />
+					<field name="company_id" />
+				</list>
+			</field>
+		</record>
+
+		<record id="action_plantilla_bancaria"
+			model="ir.actions.act_window">
+			<field name="name">Plantillas Bancarias</field>
+			<field name="res_model">bank.template</field>
+			<field name="view_mode">list,form</field>
+			<field name="group_ids" eval="[(6, 0, [ref('gn_banks.banks_debit_credit_manager'), ref('gn_banks.banks_check_manager')])]"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click para crear un nuevo registro.
+				</p>
+			</field>
+		</record>
+
+		<menuitem action="action_plantilla_bancaria"
+			id="menu_plantillas_bancos" parent="menu_main_banks"
+			sequence="100"
+			groups="gn_banks.banks_debit_credit_manager,gn_banks.banks_check_manager" />
+
+
+	</data>
+</odoo>

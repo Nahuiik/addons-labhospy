@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_recurring_concept_assign_wizard_form" model="ir.ui.view">
+        <field name="name">hr.employee.recurring.concept.assign.wizard.form</field>
+        <field name="model">hr.employee.recurring.concept.assign.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Conceptos recurrentes — asignación / desasignación masiva">
+                <sheet>
+                    <field name="concept_id_locked" invisible="1"/>
+                    <field name="available_concept_ids" invisible="1"/>
+                    <group string="Operación">
+                        <field name="wizard_type" readonly="concept_id_locked"/>
+                    </group>
+                    <group string="Ámbito" invisible="wizard_type not in ('assign', 'unassign')">
+                        <field name="company_id"/>
+                        <field name="assignment_scope"/>
+                        <field name="department_ids" widget="many2many_tags"
+                               invisible="assignment_scope != 'departments'"
+                               domain="[('company_id', '=', company_id)]"
+                               placeholder="Departamentos..."
+                               colspan="2"/>
+                        <field name="employee_ids" widget="many2many_tags"
+                               invisible="assignment_scope != 'employees'"
+                               domain="[('company_id', '=', company_id)]"
+                               placeholder="Empleados..."
+                               colspan="2"/>
+                    </group>
+                    <group string="Desasignar" invisible="wizard_type != 'unassign'">
+                        <field name="unassign_match"/>
+                        <field name="unassign_template_id"
+                               invisible="unassign_match != 'shared_template'"
+                               colspan="2"/>
+                        <field name="unassign_code"
+                               invisible="unassign_match != 'code'"
+                               colspan="2"/>
+                    </group>
+                    <group string="Vigencia y valores de la asignación" invisible="wizard_type != 'assign'">
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                        <field name="assign_amount"/>
+                        <field name="assign_apply_biweek"/>
+                        <field name="loan_split_quota_across_biweeks"
+                               invisible="wizard_type != 'assign' or assign_apply_biweek != 'both'"/>
+                        <field name="loan_first_biweek_amount"
+                               invisible="wizard_type != 'assign' or not loan_split_quota_across_biweeks"/>
+                        <field name="first_quota_differentiated" widget="boolean_toggle"
+                               invisible="wizard_type != 'assign' or (source_mode == 'shared' and (not concept_id or not concept_id.is_loan)) or (source_mode == 'inline' and not inline_is_loan)"/>
+                        <field name="first_quota_amount"
+                               invisible="wizard_type != 'assign' or not first_quota_differentiated or (source_mode == 'shared' and (not concept_id or not concept_id.is_loan)) or (source_mode == 'inline' and not inline_is_loan)"/>
+                        <span class="text-muted" invisible="wizard_type != 'assign' or not loan_split_quota_across_biweeks">
+                            0 = mitad y mitad; si indica monto, la 2.ª quincena será el resto del periodo mensual.
+                        </span>
+                        <field name="assign_installments_preview"/>
+                        <field name="for_payroll"/>
+                    </group>
+                    <group string="Vista previa de la asignación" invisible="wizard_type != 'assign'">
+                        <field name="preview_employee_count" readonly="1"/>
+                        <field name="preview_will_create_count" readonly="1"/>
+                        <field name="preview_skip_duplicate_count" readonly="1"/>
+                        <field name="preview_skip_structure_count" readonly="1"/>
+                        <field name="preview_employee_sample" readonly="1" colspan="2"/>
+                        <field name="preview_warning_html" readonly="1" colspan="2" invisible="not preview_warning_html"/>
+                    </group>
+                    <group string="Concepto a replicar" invisible="wizard_type != 'assign'">
+                        <field name="source_mode" readonly="concept_id_locked"/>
+                    </group>
+                    <group invisible="wizard_type != 'assign' or source_mode != 'shared'">
+                        <field name="concept_id" readonly="concept_id_locked" colspan="2"/>
+                        <field name="shared_loan_installments"
+                               invisible="not concept_id or not concept_id.is_loan"/>
+                        <field name="initial_paid_installments"
+                               invisible="not concept_id or not concept_id.is_loan"/>
+                    </group>
+                    <group invisible="wizard_type != 'assign' or source_mode != 'inline'">
+                        <group>
+                            <field name="inline_name"/>
+                            <field name="inline_code"/>
+                            <field name="inline_concept_type"/>
+                            <field name="inline_amount_type"/>
+                        </group>
+                        <group>
+                            <field name="inline_is_loan"/>
+                            <field name="inline_installments" invisible="not inline_is_loan"/>
+                            <field name="initial_paid_installments" invisible="not inline_is_loan"/>
+                        </group>
+                        <field name="inline_structure_type_ids" widget="many2many_tags" colspan="2"
+                               placeholder="Opcional: solo empleados con estos tipos de estructura"/>
+                    </group>
+                    <group invisible="wizard_type != 'assign' or source_mode != 'shared'" string="Filtro por estructura (plantilla)">
+                        <div class="text-muted" colspan="2">
+                            Si el concepto compartido tiene «Tipos de Estructura», solo se asignará a empleados cuya versión de contrato use uno de esos tipos.
+                        </div>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_assign" string="Asignar" type="object" class="btn-primary"
+                            invisible="wizard_type != 'assign'"/>
+                    <button name="action_unassign" string="Desasignar (inactivar líneas)" type="object" class="btn-primary"
+                            invisible="wizard_type != 'unassign'"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hr_recurring_concept_assign_wizard" model="ir.actions.act_window">
+        <field name="name">Asignación masiva de conceptos</field>
+        <field name="res_model">hr.employee.recurring.concept.assign.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_wizard_type': 'assign'}</field>
+    </record>
+
+    <record id="action_hr_recurring_concept_unassign_wizard" model="ir.actions.act_window">
+        <field name="name">Desasignación masiva de conceptos</field>
+        <field name="res_model">hr.employee.recurring.concept.assign.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_wizard_type': 'unassign'}</field>
+    </record>
+</odoo>

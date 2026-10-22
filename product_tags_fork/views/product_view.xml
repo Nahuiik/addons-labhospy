@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_product_template_tags_inherit_form" model="ir.ui.view">
+        <field name="name">product.template.tags.inherit.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='general_information']//group[@name='group_general']" position="inside">
+                <field name="legacy_tag_ids" widget="many2many_tags" string="Legacy Tags" options="{'no_create': False, 'edit_tags': True}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_tags_kanban_inherit" model="ir.ui.view">
+        <field name="name">product.product.kanban.inherit.tags</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_kanban_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_template_variant_value_ids']" position="after">
+                <div class="o_tags_list">
+                    <field name="all_product_tag_ids"
+                           widget="many2many_tags"
+                           readonly="1"
+                           options="{'no_create': False, 'color_field': 'color'}"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_template_tags_kanban_inherit" model="ir.ui.view">
+        <field name="name">product.template.kanban.inherit.tags</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_kanban_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_properties']" position="before">
+                <div class="o_tags_list">
+                    <field name="product_tag_ids"
+                           widget="many2many_tags"
+                           readonly="1"
+                           options="{'no_create': False, 'color_field': 'color'}"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

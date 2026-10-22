@@ -1,0 +1,5 @@
+// Mismo criterio que el systray del core: color del navbar según el tema activo.
+.o_main_navbar .o_menu_systray .o_gn_systray_brand {
+    color: var(--NavBar-entry-color, #{$o-navbar-entry-color});
+    font-weight: 600;
+}

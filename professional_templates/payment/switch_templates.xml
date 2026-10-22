@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_payment_receipt_document">
+            <t t-set="o" t-value="o.with_context(lang=lang)" />
+            <t t-set="style" t-value="o.style or res_company.df_style or user.env.ref('professional_templates.df_style_for_all_reports')"/>
+            <t t-if="style.template_payment.key =='professional_templates.PAYMENT_0_document'" t-call="professional_templates.PAYMENT_0_document" t-lang="lang"/>
+            <t t-if="style.template_payment.key =='professional_templates.PAYMENT_1_document'" t-call="professional_templates.PAYMENT_1_document" t-lang="lang"/>
+            <t t-if="not style" t-call="account.report_payment_receipt_document" t-lang="lang"/>
+        </template>
+        <template id="report_payment_receipt">
+            <t t-call="web.html_container">
+                    <t t-foreach="docs" t-as="o">
+                        <t t-set="lang" t-value="o.partner_id.lang or o.company_id.partner_id.lang"/>
+                        <t t-call="professional_templates.report_payment_receipt_document" t-lang="lang"/>
+                    </t>
+                </t>
+            </template>
+        </data>
+    </odoo>

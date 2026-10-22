@@ -1,0 +1,304 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* gts_multiple_invoice_payment_currency
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-10-21 23:13+0000\n"
+"PO-Revision-Date: 2020-10-21 23:13+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: gts_multiple_invoice_payment_currency
+#: code:addons/gts_multiple_invoice_payment_currency/models/account_payment.py:0
+#, python-format
+msgid ""
+"\"Amount to pay\" can not be greater than than \"Amount Due\" ! (Invoice "
+"code: %s)"
+msgstr ""
+
+#. module: gts_multiple_invoice_payment_currency
+#: model:ir.model.fields,field_description:gts_multiple_invoice_payment_currency.field_payment_invoice_line__actual_amount
+msgid "Actual amount paid"
+msgstr "Monto Actual Pagado"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model:ir.model.fields,help:gts_multiple_invoice_payment_currency.field_payment_invoice_line__actual_amount
+msgid "Actual amount paid in journal currency"
+msgstr "Monto Actual pagado en la moneda del diario"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model:ir.model.fields,field_description:gts_multiple_invoice_payment_currency.field_payment_invoice_line__residual
+msgid "Amount Due"
+msgstr "Monto Adeudado"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model:ir.model.fields,field_description:gts_multiple_invoice_payment_currency.field_payment_invoice_line__amount
+msgid "Amount To Pay"
+msgstr "Monto a Pagar"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model:ir.model.fields,field_description:gts_multiple_invoice_payment_currency.field_payment_invoice_line__amount_total
+msgid "Amount Total"
+msgstr "Monto Total"
+
+#. module: gts_multiple_invoice_payment_currency
+#: code:addons/gts_multiple_invoice_payment_currency/models/account_payment.py:0
+#, python-format
+msgid "Amount to pay can not be less than 0! (Invoice code: %s)"
+msgstr "Monto a pagar no puede ser menor que 0! (Factura: %s)"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model:ir.model.fields,field_description:gts_multiple_invoice_payment_currency.field_account_payment__selected_inv_total
+msgid "Assigned Amount"
+msgstr "Monto Asignado"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model:ir.model.fields,field_description:gts_multiple_invoice_payment_currency.field_account_payment__balance
+msgid "Balance"
+msgstr "Saldo"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model:ir.model.fields,field_description:gts_multiple_invoice_payment_currency.field_account_payment__is_cancel
+msgid "Cancelled"
+msgstr "Cancelado"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model:ir.model.fields.selection,name:gts_multiple_invoice_payment_currency.selection__account_payment__payment_move_type__cash
+#: model:ir.model.fields.selection,name:gts_multiple_invoice_payment_currency.selection__account_payment_register__payment_move_type__cash
+msgid "Cash"
+msgstr "Caja"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model:ir.model.fields.selection,name:gts_multiple_invoice_payment_currency.selection__account_payment__payment_move_type__check
+#: model:ir.model.fields.selection,name:gts_multiple_invoice_payment_currency.selection__account_payment_register__payment_move_type__check
+msgid "Cheques"
+msgstr "Cheques"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model:ir.model.fields,field_description:gts_multiple_invoice_payment_currency.field_payment_invoice_line__company_id
+msgid "Company"
+msgstr "Compañia"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model:ir.model.fields,help:gts_multiple_invoice_payment_currency.field_payment_invoice_line__company_id
+msgid "Company related to this journal"
+msgstr "Compañia relacionada a este Diario"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model:ir.model.fields,field_description:gts_multiple_invoice_payment_currency.field_payment_invoice_line__create_uid
+msgid "Created by"
+msgstr "Creado Por"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model:ir.model.fields,field_description:gts_multiple_invoice_payment_currency.field_payment_invoice_line__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: gts_multiple_invoice_payment_currency
+#: model:ir.model.fields,field_description:gts_multiple_invoice_payment_currency.field_payment_invoice_line__currency_id
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model:ir.model.fields.selection,name:gts_multiple_invoice_payment_currency.selection__account_payment__payment_move_type_dep__deposit
+#: model:ir.model.fields.selection,name:gts_multiple_invoice_payment_currency.selection__account_payment_register__payment_move_type_dep__deposit
+msgid "Deposit"
+msgstr "Deposito"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model:ir.model.fields,field_description:gts_multiple_invoice_payment_currency.field_account_payment__display_name
+#: model:ir.model.fields,field_description:gts_multiple_invoice_payment_currency.field_account_payment_register__display_name
+#: model:ir.model.fields,field_description:gts_multiple_invoice_payment_currency.field_payment_invoice_line__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model:ir.model.fields,help:gts_multiple_invoice_payment_currency.field_payment_invoice_line__amount
+msgid "Enter amount to pay for this invoice, supports partial payment"
+msgstr "Ingrese el monto para pagar esta factura, permite pago parcial"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model:ir.model.fields,field_description:gts_multiple_invoice_payment_currency.field_account_payment__id
+#: model:ir.model.fields,field_description:gts_multiple_invoice_payment_currency.field_account_payment_register__id
+#: model:ir.model.fields,field_description:gts_multiple_invoice_payment_currency.field_payment_invoice_line__id
+msgid "ID"
+msgstr ""
+
+#. module: gts_multiple_invoice_payment_currency
+#: model:ir.model.fields,field_description:gts_multiple_invoice_payment_currency.field_payment_invoice_line__invoice_id
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model:ir.model.fields,field_description:gts_multiple_invoice_payment_currency.field_payment_invoice_line__date_invoice
+msgid "Invoice Date"
+msgstr "Fecha de Factura"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model:ir.model.fields,field_description:gts_multiple_invoice_payment_currency.field_account_payment__invoice_lines
+msgid "Invoice Lines"
+msgstr "Lineas de Factura"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model:ir.model.fields,field_description:gts_multiple_invoice_payment_currency.field_payment_invoice_line__supplier_invoice_number
+msgid "Invoice Nº"
+msgstr "Factura Nº"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model_terms:ir.ui.view,arch_db:gts_multiple_invoice_payment_currency.view_account_payment_form_inherit_gts
+msgid "Invoices"
+msgstr "Facturas"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model_terms:ir.ui.view,arch_db:gts_multiple_invoice_payment_currency.view_account_payment_form_inherit_gts
+msgid "Journal Items"
+msgstr "Diario"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model:ir.model.fields,field_description:gts_multiple_invoice_payment_currency.field_account_payment____last_update
+#: model:ir.model.fields,field_description:gts_multiple_invoice_payment_currency.field_account_payment_register____last_update
+#: model:ir.model.fields,field_description:gts_multiple_invoice_payment_currency.field_payment_invoice_line____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model:ir.model.fields,field_description:gts_multiple_invoice_payment_currency.field_payment_invoice_line__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: gts_multiple_invoice_payment_currency
+#: model:ir.model.fields,field_description:gts_multiple_invoice_payment_currency.field_payment_invoice_line__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: gts_multiple_invoice_payment_currency
+#: model_terms:ir.ui.view,arch_db:gts_multiple_invoice_payment_currency.view_account_payment_form_inherit_gts
+msgid "Memo"
+msgstr "Memo"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model:ir.model.fields,field_description:gts_multiple_invoice_payment_currency.field_account_payment_register__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model:ir.model.fields,field_description:gts_multiple_invoice_payment_currency.field_account_payment__old_number
+msgid "Old Number"
+msgstr "Número Anterior"
+
+#. module: gts_multiple_invoice_payment_currency
+#: code:addons/gts_multiple_invoice_payment_currency/models/account_payment.py:0
+#, python-format
+msgid "Only 'Deposit' Payment type allowed for customer payment."
+msgstr "Solo pagos tipo 'Deposito' son permitidos para pago de clientes."
+
+#. module: gts_multiple_invoice_payment_currency
+#: model:ir.model.fields.selection,name:gts_multiple_invoice_payment_currency.selection__account_payment__payment_move_type__otro
+#: model:ir.model.fields.selection,name:gts_multiple_invoice_payment_currency.selection__account_payment_register__payment_move_type__otro
+msgid "Otro"
+msgstr "Otro"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model:ir.model.fields,field_description:gts_multiple_invoice_payment_currency.field_payment_invoice_line__partner_id
+msgid "Partner"
+msgstr "Empresa"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model:ir.model,name:gts_multiple_invoice_payment_currency.model_payment_invoice_line
+msgid "Payment Invoice Lines"
+msgstr "Pago Lineas de Factura"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model:ir.model.fields,field_description:gts_multiple_invoice_payment_currency.field_account_payment__payment_move_type
+#: model:ir.model.fields,field_description:gts_multiple_invoice_payment_currency.field_account_payment__payment_move_type_dep
+#: model:ir.model.fields,field_description:gts_multiple_invoice_payment_currency.field_account_payment_register__payment_move_type
+#: model:ir.model.fields,field_description:gts_multiple_invoice_payment_currency.field_account_payment_register__payment_move_type_dep
+msgid "Payment Transaction Type"
+msgstr "Tipo de Transaccion de Pago"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model:ir.model,name:gts_multiple_invoice_payment_currency.model_account_payment
+msgid "Payments"
+msgstr "Pagos"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model_terms:ir.ui.view,arch_db:gts_multiple_invoice_payment_currency.view_account_payment_form_inherit_gts
+msgid "Please enter amount in invoices to pay"
+msgstr "Por favor ingrese el monto en las facturas a pagar"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model:ir.model.fields,help:gts_multiple_invoice_payment_currency.field_account_payment__invoice_lines
+msgid "Please select invoices for this partner for the payment"
+msgstr "Por favor selecciones facturas para este cliente/proveedor para el pago"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model:ir.model,name:gts_multiple_invoice_payment_currency.model_account_payment_register
+msgid "Register Payment"
+msgstr "Registrar pago"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model:ir.model.fields,field_description:gts_multiple_invoice_payment_currency.field_payment_invoice_line__payment_id
+msgid "Related Payment"
+msgstr "Pago Relacionado"
+
+#. module: gts_multiple_invoice_payment_currency
+#: code:addons/gts_multiple_invoice_payment_currency/models/account_payment.py:0
+#: code:addons/gts_multiple_invoice_payment_currency/models/account_payment.py:0
+#, python-format
+msgid ""
+"Sequence not configure for payment journal '%s', Transaction Type: '%s'"
+msgstr "No hay secuencia configurada para el diario de pago '%s', Tipo de Transaccion: '%s'"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model:ir.model.fields.selection,name:gts_multiple_invoice_payment_currency.selection__account_payment__payment_move_type__transference
+#: model:ir.model.fields.selection,name:gts_multiple_invoice_payment_currency.selection__account_payment_register__payment_move_type__transference
+msgid "Transfer"
+msgstr "Transferencia"
+
+#. module: gts_multiple_invoice_payment_currency
+#: code:addons/gts_multiple_invoice_payment_currency/models/account_payment.py:0
+#, python-format
+msgid "You cannot select more value invoices than the payment amount"
+msgstr "No puede seleccionar facturas de mayor valor que el monto del pago"
+
+#. module: gts_multiple_invoice_payment_currency
+#: code:addons/gts_multiple_invoice_payment_currency/models/account_payment.py:0
+#, python-format
+msgid ""
+"No se encontró un número de secuencia libre tras %(attempts)s intentos "
+"en el diario %(journal)s. Resincronice la secuencia."
+msgstr ""
+"No se encontró un número de secuencia libre tras %(attempts)s intentos "
+"en el diario %(journal)s. Resincronice la secuencia."
+
+#. module: gts_multiple_invoice_payment_currency
+#: model_terms:ir.ui.view,arch_db:gts_multiple_invoice_payment_currency.view_account_payment_form_inherit_gts
+msgid "actual_amount"
+msgstr "monto actual"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model_terms:ir.ui.view,arch_db:gts_multiple_invoice_payment_currency.view_account_payment_form_inherit_gts
+msgid "amount"
+msgstr "monto"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model_terms:ir.ui.view,arch_db:gts_multiple_invoice_payment_currency.view_account_payment_form_inherit_gts
+msgid "amount_total"
+msgstr "monto total"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model:ir.model.fields,help:gts_multiple_invoice_payment_currency.field_account_payment__old_number
+msgid "hold value of number field"
+msgstr "mantener el valor del campo numérico"
+
+#. module: gts_multiple_invoice_payment_currency
+#: model_terms:ir.ui.view,arch_db:gts_multiple_invoice_payment_currency.view_account_payment_form_inherit_gts
+msgid "residual"
+msgstr "saldo"

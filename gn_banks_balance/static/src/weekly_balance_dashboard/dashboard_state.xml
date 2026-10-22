@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_banks_balance.DashboardStatePanel">
+        <div t-att-class="'gn-wb-state gn-wb-state--' + (props.variant || 'empty') + (props.compact ? ' gn-wb-state--compact' : '')">
+            <i t-att-class="'fa gn-wb-state__icon ' + iconClass"/>
+            <p class="gn-wb-state__message" t-esc="message"/>
+            <button t-if="props.onRetry and props.variant === 'error'"
+                    type="button"
+                    class="btn btn-sm btn-outline-primary mt-2"
+                    t-on-click="props.onRetry">
+                Reintentar
+            </button>
+        </div>
+    </t>
+
+</templates>

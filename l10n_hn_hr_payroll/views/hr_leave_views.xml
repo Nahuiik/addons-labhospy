@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_leave_form_hn" model="ir.ui.view">
+        <field name="name">hr.leave.form.hn</field>
+        <field name="model">hr.leave</field>
+        <field name="inherit_id" ref="hr_holidays.hr_leave_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header/button[@name='action_refuse']" position="after">
+                <button name="action_print_solicitud" type="object" string="Imprimir solicitud"
+                    class="btn-secondary" invisible="not gn_vacation_is_primary or not id"/>
+                <button name="action_hn_reintegro_wizard" type="object" string="Reintegro por urgencia"
+                    class="btn-warning" invisible="not gn_vacation_is_primary or not hn_can_reintegro or not id"/>
+            </xpath>
+            <xpath expr="//group[@name='col_left']/field[@name='holiday_status_id']" position="after">
+                <field name="gn_allow_before_anniversary_vacation"
+                    invisible="not gn_vacation_is_primary"
+                    readonly="state in ('cancel', 'refuse', 'validate', 'validate1')"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

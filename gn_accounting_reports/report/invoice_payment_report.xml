@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="paperformat_gn_invoice_payment_report" model="report.paperformat">
+            <field name="name">Reporte facturas pagos horizontal</field>
+            <field name="format">A4</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">8</field>
+            <field name="margin_bottom">8</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="action_report_gn_invoice_payment" model="ir.actions.report">
+            <field name="name">Reporte premium facturas y pagos</field>
+            <field name="model">gn.accounting.invoice.payment.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">gn_accounting_reports.report_invoice_payment_document</field>
+            <field name="report_file">gn_accounting_reports.report_invoice_payment_document</field>
+            <field name="paperformat_id" ref="paperformat_gn_invoice_payment_report"/>
+        </record>
+
+        <record id="action_report_gn_invoice_payment_html" model="ir.actions.report">
+            <field name="name">Reporte premium facturas y pagos (HTML)</field>
+            <field name="model">gn.accounting.invoice.payment.report.wizard</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">gn_accounting_reports.report_invoice_payment_html</field>
+            <field name="report_file">gn_accounting_reports.report_invoice_payment_html</field>
+        </record>
+    </data>
+</odoo>

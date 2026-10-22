@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_hn_libro_dashboard_compras" model="ir.actions.client">
+        <field name="name">Libro de compras</field>
+        <field name="tag">l10n_hn_reports_libro_dashboard</field>
+        <field name="context" eval="{'libro_default_tipo': 'compras'}"/>
+        <field name="path">libro-compras</field>
+    </record>
+
+    <record id="action_hn_libro_dashboard_ventas" model="ir.actions.client">
+        <field name="name">Libro de ventas</field>
+        <field name="tag">l10n_hn_reports_libro_dashboard</field>
+        <field name="context" eval="{'libro_default_tipo': 'ventas'}"/>
+        <field name="path">libro-ventas</field>
+    </record>
+
+    <menuitem id="menu_hn_libro_compras"
+              name="Libro de compras"
+              parent="menu_hn_reports_root"
+              action="action_hn_libro_dashboard_compras"
+              sequence="18"/>
+
+    <menuitem id="menu_hn_libro_ventas"
+              name="Libro de ventas"
+              parent="menu_hn_reports_root"
+              action="action_hn_libro_dashboard_ventas"
+              sequence="19"/>
+
+    <menuitem id="menu_hn_libro_report_wizard"
+              name="Libro (asistente)"
+              parent="menu_hn_reports_root"
+              action="action_hn_libro_report"
+              sequence="21"/>
+</odoo>

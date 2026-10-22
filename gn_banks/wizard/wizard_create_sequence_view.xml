@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+    <record id="view_wizard_create_sequence_form" model="ir.ui.view">
+      <field name="name">wizard.create.sequence.form</field>
+      <field name="model">wizard.create.sequence</field>
+      <field name="arch" type="xml">
+        <form>
+          <header>
+            <h1>
+              <span invisible="sequence_id">Crear Secuencia</span>
+              <span invisible="not sequence_id">Editar Secuencia</span>
+            </h1>
+          </header>
+          <sheet>
+            <field name="sequence_id" invisible="1"/>
+            <group>
+              <group>
+                <field name="journal_id" readonly="1"/>
+                <field name="name" required="1"/>
+                <field name="move_type" required="1"/>
+                <field name="implementation" required="1"/>
+                <field name="code"/>
+                <field name="active"/>
+              </group>
+              <group>
+                <field name="prefix" required="1"/>
+                <field name="suffix"/>
+                <field name="padding" required="1"/>
+                <field name="number_increment" required="1"/>
+                <field name="number_next" required="1"/>
+                <field name="use_date_range"/>
+              </group>
+            </group>
+            <group>
+              <div class="oe_read_only">
+                <h3>Leyenda (para prefijo, sufijo)</h3>
+                <ul>
+                  <li>Año actual con el siglo: %%(year)s</li>
+                  <li>Mes: %%(month)s</li>
+                  <li>Día: %%(day)s</li>
+                  <li>Día del año: %%(doy)s</li>
+                  <li>Semana del año: %%(woy)s</li>
+                  <li>Día de la semana (0: Lunes): %%(weekday)s</li>
+                  <li>Hora 00-&gt;24: %%(h24)s</li>
+                  <li>Hora 00-&gt;12: %%(h12)s</li>
+                  <li>Minuto: %%(min)s</li>
+                  <li>Segundo: %%(sec)s</li>
+                  <li>ISO 8601 Semana Año con Siglo: %%(isoyear)s</li>
+                  <li>ISO 8601 Semana Año sin Siglo: %%(isoy)s</li>
+                  <li>ISO 8601 Número de la semana: %%(isoweek)s</li>
+                </ul>
+              </div>
+            </group>
+          </sheet>
+          <footer>
+            <button name="action_create_sequence" string="Guardar y Nuevo" type="object" class="btn-primary" invisible="sequence_id"/>
+            <button name="action_create_and_close" string="Guardar y Cerrar" type="object" class="btn-primary"/>
+            <button string="Descartar" class="btn-secondary" special="cancel"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_wizard_create_sequence" model="ir.actions.act_window">
+      <field name="name">Crear Secuencia</field>
+      <field name="res_model">wizard.create.sequence</field>
+      <field name="view_mode">form</field>
+      <field name="target">new</field>
+      <field name="context">{'default_journal_id': active_id}</field>
+    </record>
+  </data>
+</odoo>
+

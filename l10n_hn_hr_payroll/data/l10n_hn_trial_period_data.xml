@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Plantilla de correo: alerta período de prueba -->
+        <record id="mail_template_trial_period_alert" model="mail.template">
+            <field name="name">Honduras Payroll: Período de Prueba Completado</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="subject">Período de prueba completado - {{ object.name }}</field>
+            <field name="email_from">{{ (object.company_id.email or user.email) }}</field>
+            <field name="email_to">{{ ctx.get('email_to', '') }}</field>
+            <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px; font-size: 13px;">
+    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+        Estimado(a),
+    </p>
+    <br/>
+    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+        Le informamos que el empleado <strong>{{ object.name }}</strong>
+        ha completado su período de prueba de <strong>{{ ctx.get('trial_days', 45) }} días calendario</strong>.
+    </p>
+    <br/>
+    <table style="border-collapse: collapse; font-size: 13px;">
+        <tr>
+            <td style="padding: 4px 12px 4px 0; font-weight: bold;">Empleado:</td>
+            <td style="padding: 4px 0;">{{ object.name }}</td>
+        </tr>
+        <tr>
+            <td style="padding: 4px 12px 4px 0; font-weight: bold;">DNI:</td>
+            <td style="padding: 4px 0;">{{ object.identification_id or 'N/A' }}</td>
+        </tr>
+        <tr>
+            <td style="padding: 4px 12px 4px 0; font-weight: bold;">Departamento:</td>
+            <td style="padding: 4px 0;">{{ object.department_id.name or 'N/A' }}</td>
+        </tr>
+        <tr>
+            <td style="padding: 4px 12px 4px 0; font-weight: bold;">Cargo:</td>
+            <td style="padding: 4px 0;">{{ object.job_id.name or 'N/A' }}</td>
+        </tr>
+        <tr>
+            <td style="padding: 4px 12px 4px 0; font-weight: bold;">Jefe Inmediato:</td>
+            <td style="padding: 4px 0;">{{ object.parent_id.name or 'N/A' }}</td>
+        </tr>
+        <tr>
+            <td style="padding: 4px 12px 4px 0; font-weight: bold;">Fecha de Ingreso:</td>
+            <td style="padding: 4px 0;">{{ object.contract_date_start or 'N/A' }}</td>
+        </tr>
+    </table>
+    <br/>
+    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+        Por favor tome las acciones correspondientes según la política de la empresa.
+    </p>
+    <br/>
+    <p style="margin: 0px; padding: 0px; font-size: 13px; color: #888;">
+        Este es un mensaje automático generado por el sistema de nómina.
+    </p>
+</div>
+            </field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+
+        <!-- Cron diario: verificar períodos de prueba -->
+        <record id="ir_cron_trial_period_alert" model="ir.cron">
+            <field name="name">Honduras Payroll: Alerta período de prueba</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_trial_period_alert()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="nextcall" eval="(DateTime.now() + relativedelta(days=1)).strftime('%Y-%m-%d 07:00:00')"/>
+        </record>
+    </data>
+</odoo>

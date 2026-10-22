@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_gn_hr_employee_warnings" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.gn.hr.employee.warnings</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="l10n_hn_payroll_base.res_config_settings_view_payroll"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@id='hr_payroll_settings']" position="inside">
+                <setting string="Alerta contrato por vencer"
+                         id="gn_hr_contract_expiration_settings"
+                         help="Días antes del vencimiento para mostrar alerta e icono en empleados (catálogo compartido HN/SV)."
+                         groups="hr.group_hr_manager">
+                    <div class="content-group">
+                        <label for="gn_hr_contract_expiration_warning_days"/>
+                        <field name="gn_hr_contract_expiration_warning_days" class="oe_inline" style="width: 5ch;"/>
+                        <span class="ms-2">días antes del vencimiento</span>
+                    </div>
+                </setting>
+                <setting string="Préstamo en contrato: cuotas por terminar"
+                         id="gn_hr_loan_ending_installments_settings"
+                         help="Avisa cuando un concepto recurrente marcado como préstamo tiene pocas cuotas pendientes."
+                         groups="hr.group_hr_manager">
+                    <div class="content-group">
+                        <label for="gn_hr_loan_ending_installments_threshold"/>
+                        <field name="gn_hr_loan_ending_installments_threshold" class="oe_inline" style="width: 5ch;"/>
+                        <span class="ms-2">cuotas restantes o menos (0 = no alertar)</span>
+                    </div>
+                </setting>
+                <setting string="Líquido quincenal muy bajo (HN/SV)"
+                         id="gn_hr_low_net_pay_quincena_settings"
+                         help="Umbral para alertar cuando deducciones legales + recurrentes dejan poco salario en la quincena."
+                         groups="hr.group_hr_manager">
+                    <div class="content-group">
+                        <label for="gn_hr_low_net_pay_remaining_percent"/>
+                        <field name="gn_hr_low_net_pay_remaining_percent" class="oe_inline" style="width: 5ch;"/>
+                        <span class="ms-2">% del bruto (o menos) tras estimar deducciones</span>
+                    </div>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+</odoo>

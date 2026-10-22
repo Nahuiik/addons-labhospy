@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_powerbi_connection_tree" model="ir.ui.view">
+        <field name="name">powerbi.connection.tree</field>
+        <field name="model">powerbi.connection</field>
+        <field name="arch" type="xml">
+            <list string="Conexiones Power BI">
+                <field name="name"/>
+                <field name="state" widget="badge" decoration-success="state == 'connected'" decoration-danger="state == 'failed'"/>
+                <field name="active" widget="boolean_toggle"/>
+                <field name="last_test_date"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_powerbi_connection_form" model="ir.ui.view">
+        <field name="name">powerbi.connection.form</field>
+        <field name="model">powerbi.connection</field>
+        <field name="arch" type="xml">
+            <form string="Conexión Power BI">
+                <header>
+                    <button name="action_test_connection" string="Probar Conexión" type="object" class="btn-primary"/>
+                    <button name="action_import_workspaces" string="Importar Workspaces" type="object"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,connected,failed"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="active" widget="boolean_toggle"/>
+                            <field name="user_id" options="{'no_create': True}"/>
+                        </group>
+                        <group>
+                            <field name="api_url"/>
+                            <field name="auth_url"/>
+                        </group>
+                    </group>
+                    <group string="Filtros de Workspaces" col="2">
+                        <group>
+                            <field name="workspace_filter_name" placeholder="Ej: Producción, Desarrollo..."/>
+                            <div class="text-muted">
+                                Filtrar workspaces por nombre (opcional). Dejar vacío para importar todos.
+                            </div>
+                        </group>
+                        <group>
+                            <field name="workspace_filter_type"/>
+                            <div class="text-muted">
+                                Filtrar por tipo de workspace. "Todos" importa todos los tipos disponibles.
+                            </div>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Credenciales Azure AD">
+                            <div class="alert alert-info" role="alert">
+                                <strong>¿Necesitas ayuda para configurar los permisos en Azure AD?</strong><br/>
+                                Consulta la guía completa en: <code>docs/AZURE_AD_SETUP.md</code><br/>
+                                <strong>Resumen rápido:</strong>
+                                <ul>
+                                    <li>Registra la aplicación en Azure AD y crea un Client Secret</li>
+                                    <li>Agrega permisos de Power BI (Tenant.Read.All y Tenant.ReadWrite.All)</li>
+                                    <li>Otorga el consentimiento del administrador</li>
+                                    <li>En Power BI Admin Portal > Tenant settings > Admin API settings, habilita:
+                                        <ul>
+                                            <li>"Service principals can access read-only admin APIs"</li>
+                                            <li>"Service principals can access admin APIs used for updates"</li>
+                                        </ul>
+                                        <strong>Nota:</strong> Si "Entire organization" está deshabilitado, necesitas crear un grupo de seguridad en Azure AD y agregar tu aplicación (Object ID) a ese grupo.
+                                    </li>
+                                    <li>Agrega la aplicación a los workspaces deseados en Power BI</li>
+                                </ul>
+                            </div>
+                            <group>
+                                <group>
+                                    <field name="tenant_id"/>
+                                    <field name="client_id"/>
+                                </group>
+                                <group>
+                                    <field name="client_secret" password="True"/>
+                                    <field name="redirect_uri"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Información de Prueba">
+                            <group>
+                                <field name="last_test_date" readonly="1"/>
+                                <field name="last_test_message" readonly="1" nolabel="1"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_powerbi_connection" model="ir.actions.act_window">
+        <field name="name">Conexiones Power BI</field>
+        <field name="res_model">powerbi.connection</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crear primera conexión Power BI
+            </p>
+            <p>
+                Configure las credenciales de Azure AD para conectar Odoo con Power BI.
+            </p>
+        </field>
+    </record>
+</odoo>
+

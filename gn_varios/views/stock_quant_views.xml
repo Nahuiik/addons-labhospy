@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Existencias por ubicación / listas stock.quant (vista simple y principal) -->
+    <record id="view_stock_quant_tree_simple_gn_varios_labhospy" model="ir.ui.view">
+        <field name="name">stock.quant.list.gn.varios.labhospy</field>
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.view_stock_quant_tree_simple"/>
+        <field name="arch" type="xml">
+            <field name="product_id" position="after">
+                <field name="gn_labhospy_supplier_id" optional="show"
+                       options="{'no_open': True, 'no_create': True, 'no_create_edit': True}"/>
+                <field name="gn_labhospy_catalog_code" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Inventario / ajustes (lista editable con ubicación + producto) -->
+    <record id="view_stock_quant_tree_editable_gn_varios_labhospy" model="ir.ui.view">
+        <field name="name">stock.quant.list.editable.gn.varios.labhospy</field>
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.view_stock_quant_tree_editable"/>
+        <field name="arch" type="xml">
+            <field name="product_id" position="after">
+                <field name="gn_labhospy_supplier_id" optional="show"
+                       options="{'no_open': True, 'no_create': True, 'no_create_edit': True}"/>
+                <field name="gn_labhospy_catalog_code" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_stock_quant_tree_inventory_editable_gn_varios_labhospy" model="ir.ui.view">
+        <field name="name">stock.quant.inventory.list.gn.varios.labhospy</field>
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.view_stock_quant_tree_inventory_editable"/>
+        <field name="arch" type="xml">
+            <field name="product_id" position="after">
+                <field name="gn_labhospy_supplier_id" optional="show"
+                       options="{'no_open': True, 'no_create': True, 'no_create_edit': True}"/>
+                <field name="gn_labhospy_catalog_code" optional="show"/>
+            </field>
+        </field>
+    </record>
+</odoo>

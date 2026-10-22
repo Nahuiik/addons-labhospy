@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- ============================================================
+             Benchmarks sectoriales (V20 Fase 5, #18)
+             ============================================================ -->
+        <record id="view_gn_fd_benchmark_list" model="ir.ui.view">
+            <field name="name">gn.financial.dashboard.benchmark.list</field>
+            <field name="model">gn.financial.dashboard.benchmark</field>
+            <field name="arch" type="xml">
+                <list string="Benchmarks sectoriales">
+                    <field name="sector"/>
+                    <field name="sector_label"/>
+                    <field name="kpi_code"/>
+                    <field name="target_value"/>
+                    <field name="min_value"/>
+                    <field name="max_value"/>
+                    <field name="direction"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="active" widget="boolean_toggle"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_gn_fd_benchmark_form" model="ir.ui.view">
+            <field name="name">gn.financial.dashboard.benchmark.form</field>
+            <field name="model">gn.financial.dashboard.benchmark</field>
+            <field name="arch" type="xml">
+                <form string="Benchmark sectorial">
+                    <sheet>
+                        <group>
+                            <group string="Identificación">
+                                <field name="sector" placeholder="hospital, lab, distribution, services…"/>
+                                <field name="sector_label" placeholder="Hospital privado"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                                <field name="active"/>
+                            </group>
+                            <group string="KPI">
+                                <field name="kpi_code"/>
+                                <field name="direction"/>
+                                <field name="target_value"/>
+                                <field name="min_value"/>
+                                <field name="max_value"/>
+                            </group>
+                        </group>
+                        <group string="Procedencia">
+                            <field name="source"/>
+                            <field name="notes"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_gn_fd_benchmark_search" model="ir.ui.view">
+            <field name="name">gn.financial.dashboard.benchmark.search</field>
+            <field name="model">gn.financial.dashboard.benchmark</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="sector"/>
+                    <field name="sector_label"/>
+                    <field name="kpi_code"/>
+                    <filter name="active" string="Activos" domain="[('active','=',True)]"/>
+                    <filter name="inactive" string="Inactivos" domain="[('active','=',False)]"/>
+                    <separator/>
+                    <filter name="group_sector" string="Agrupar por sector" context="{'group_by': 'sector_label'}"/>
+                    <filter name="group_kpi" string="Agrupar por KPI" context="{'group_by': 'kpi_code'}"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_gn_fd_benchmarks" model="ir.actions.act_window">
+            <field name="name">Benchmarks sectoriales</field>
+            <field name="res_model">gn.financial.dashboard.benchmark</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="view_gn_fd_benchmark_search"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Configura los valores de referencia (benchmark) por sector y KPI.
+                </p>
+                <p>
+                    El tablero financiero comparará automáticamente tus KPIs con
+                    el sector seleccionado y mostrará una semaforización con la
+                    brecha y una recomendación.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_gn_fd_benchmarks"
+                  name="Benchmarks sectoriales"
+                  parent="account.menu_finance_configuration"
+                  action="action_gn_fd_benchmarks"
+                  sequence="143"/>
+    </data>
+</odoo>

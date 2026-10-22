@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista de formulario del wizard de reversión -->
+    <record id="view_reverse_advance_wizard_form" model="ir.ui.view">
+        <field name="name">reverse.advance.wizard.form</field>
+        <field name="model">reverse.advance.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Revertir Aplicación de Abono/Anticipo">
+                <group>
+                    <group>
+                        <field name="link_id" readonly="1"/>
+                        <field name="original_amount" readonly="1"/>
+                        <field name="reverse_date"/>
+                    </group>
+                    <group>
+                        <field name="reverse_partial"/>
+                        <field name="reverse_amount" 
+                               invisible="not reverse_partial"
+                               required="reverse_partial"/>
+                    </group>
+                </group>
+                <group>
+                    <field name="reason" placeholder="Explique el motivo de la reversión..." nolabel="1"/>
+                </group>
+                <footer>
+                    <button name="action_reverse" string="Revertir" type="object" class="oe_highlight"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

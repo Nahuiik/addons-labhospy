@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_gn_banks_treasury_dashboard" model="ir.actions.client">
+        <field name="name">Treasury Dashboard</field>
+        <field name="tag">gn_banks_dashboard</field>
+        <field name="path">gn-banks-treasury-dashboard</field>
+    </record>
+
+    <menuitem id="menu_gn_banks_treasury_dashboard"
+              name="Treasury Dashboard"
+              parent="gn_banks.menu_main_banks"
+              action="action_gn_banks_treasury_dashboard"
+              sequence="1"
+              groups="gn_banks.banks_debit_credit_user,gn_banks.banks_check_user,gn_banks.banks_import_credit_card"/>
+
+</odoo>

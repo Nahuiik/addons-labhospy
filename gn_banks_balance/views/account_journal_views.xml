@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Checkbox en diario tipo banco: incluir fila en Bancos › Balances -->
+    <record id="view_account_journal_form_gn_balance" model="ir.ui.view">
+        <field name="name">account.journal.form.gn.balance.dashboard</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="arch" type="xml">
+            <!-- Debajo del diario cuenta banco (liquidación): saldo igual que Balance en cuenta contable -->
+            <xpath expr="//page[@name='bank_account']/group/group[1]/field[@name='suspense_account_id']" position="before">
+                <field name="gn_default_account_balance" invisible="type not in ('bank', 'cash')" readonly="1"/>
+            </xpath>
+            <!-- Checkbox anclado a la cuenta de liquidez (presente en banco y caja),
+                 de modo que un diario de caja también pueda marcarse. -->
+            <xpath expr="//field[@name='default_account_id']" position="after">
+                <field name="gn_include_in_balance_dashboard"
+                       invisible="type not in ('bank', 'cash')"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,10 @@
+// Líneas con producto controlado: la vista aplica decoration-warning (clase .text-warning en <tr>).
+// Resaltado naranja/ámbar de fila, manteniendo legibilidad del texto.
+.o_list_table tbody tr.text-warning {
+    background-color: rgba(253, 186, 33, 0.22) !important;
+
+    > td,
+    > th {
+        color: var(--body-color, #212529) !important;
+    }
+}

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_gn_stock_kardex_wizard_form" model="ir.ui.view">
+        <field name="name">gn.stock.kardex.wizard.form</field>
+        <field name="model">gn.stock.kardex.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Kardex (AVCO / FIFO)">
+                <group>
+                    <group string="FILTRO">
+                        <field name="filter_type" widget="radio"/>
+                        <field name="filter_month"
+                               invisible="filter_type != 'month'"/>
+                        <field name="filter_year"
+                               invisible="filter_type != 'month'"/>
+                        <field name="date_from" string="Desde"
+                               invisible="filter_type != 'range'"/>
+                        <field name="date_to" string="Hasta"
+                               invisible="filter_type != 'range'"/>
+                    </group>
+                    <group string="ALCANCE">
+                        <field name="company_id" groups="base.group_multi_company"/>
+                        <field name="branch_id" string="Sucursal"
+                               options="{'no_create': True, 'no_open': True}"/>
+                        <field name="warehouse_id" string="Almacén"
+                               options="{'no_create': True, 'no_open': True}"/>
+                        <field name="location_id" string="Ubicación"
+                               options="{'no_create': True, 'no_open': True}"/>
+                    </group>
+                </group>
+                <separator string="Categorías (vacío = todas)"/>
+                <field name="categ_ids" widget="many2many_tags" nolabel="1"
+                       options="{'no_create': True}"
+                       placeholder="Seleccionar categorías…"/>
+                <separator string="Productos (vacío = todos con movimiento)"/>
+                <field name="product_ids" widget="many2many_tags" nolabel="1"
+                       options="{'no_create': True}"
+                       placeholder="Buscar productos…"/>
+                <footer>
+                    <button name="action_open_kardex_preview" type="object"
+                            string="Kardex" class="btn-primary"
+                            icon="fa-bar-chart"/>
+                    <button name="action_open_summary" type="object"
+                            string="Resumen" class="btn-primary"
+                            icon="fa-list"/>
+                    <span class="mx-1"/>
+                    <button name="action_print_pdf" type="object"
+                            string="Kardex PDF" class="btn-secondary"
+                            icon="fa-file-pdf-o"/>
+                    <button name="action_print_xlsx" type="object"
+                            string="Kardex Excel" class="btn-secondary"
+                            icon="fa-file-excel-o"/>
+                    <span class="mx-1"/>
+                    <button name="action_print_summary_pdf" type="object"
+                            string="Resumen PDF" class="btn-secondary"
+                            icon="fa-file-pdf-o"/>
+                    <button name="action_print_summary_xlsx" type="object"
+                            string="Resumen Excel" class="btn-secondary"
+                            icon="fa-file-excel-o"/>
+                    <button string="Cerrar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_gn_stock_kardex_wizard" model="ir.actions.act_window">
+        <field name="name">Kardex (AVCO)</field>
+        <field name="res_model">gn.stock.kardex.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

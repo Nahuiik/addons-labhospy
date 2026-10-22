@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Dentro del submenú "Banks"/"Bancos" junto con Débito, Tarjetas de crédito, etc. -->
+    <menuitem id="menu_import_atlantida_pos"
+              name="Importar Liquidaciones Atlántida"
+              parent="gn_banks.menu_sub_banks"
+              sequence="31"
+              action="gn_banks_atlantida.action_atlantida_pos_import_wizard"/>
+
+    <menuitem id="menu_atlantida_pos_import_history"
+              name="Historial importaciones Atlántida POS"
+              parent="gn_banks.menu_sub_banks"
+              sequence="32"
+              action="gn_banks_atlantida.action_atlantida_pos_import_history"/>
+</odoo>

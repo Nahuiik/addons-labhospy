@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_salary_increase_form_hn" model="ir.ui.view">
+        <field name="name">hr.salary.increase.form.hn</field>
+        <field name="model">hr.salary.increase</field>
+        <field name="inherit_id" ref="gn_hr_payroll_salary_management.view_hr_salary_increase_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/group[1]" position="before">
+                <div class="alert alert-info mb-3" role="alert" invisible="not effective_period_warning">
+                    <i class="fa fa-info-circle me-2" title="Información"/>
+                    <field name="effective_period_warning" nolabel="1" class="mb-0"/>
+                </div>
+                <field name="effective_period_id" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

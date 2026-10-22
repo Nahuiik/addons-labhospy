@@ -1,0 +1,10 @@
+/* Enterprise-like soft alert for permanent (hard) lock section */
+.o_lock_journal_hard_alert {
+    background-color: rgba(var(--danger-rgb), 0.08);
+    border-color: rgba(var(--danger-rgb), 0.25);
+    color: var(--body-color);
+}
+
+.o_lock_journal_entries_modal {
+    min-width: unquote("min(100%, 32rem)");
+}

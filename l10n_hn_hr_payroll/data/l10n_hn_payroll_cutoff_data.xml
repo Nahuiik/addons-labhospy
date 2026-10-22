@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <data>
+        <!-- Configuración por defecto: 2da quincena = HE del 21 mes ant al 20 mes actual -->
+        <record id="cutoff_config_second_quincena" model="l10n.hn.payroll.cutoff.config">
+            <field name="company_id" ref="base.main_company"/>
+            <field name="year">2026</field>
+            <field name="period_number">2</field>
+            <field name="cutoff_start_day">21</field>
+            <field name="cutoff_end_day">20</field>
+            <field name="cutoff_from_previous_month" eval="True"/>
+        </record>
+        <!-- Configuración por defecto: 1ra quincena = HE del 6 mes ant al 5 mes actual -->
+        <record id="cutoff_config_first_quincena" model="l10n.hn.payroll.cutoff.config">
+            <field name="company_id" ref="base.main_company"/>
+            <field name="year">2026</field>
+            <field name="period_number">1</field>
+            <field name="cutoff_start_day">6</field>
+            <field name="cutoff_end_day">5</field>
+            <field name="cutoff_from_previous_month" eval="True"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_financial_dashboard.HealthBreakdown">
+        <div t-att-class="'gn-fd-health gn-fd-health--' + (props.health.level || 'good')">
+            <div class="gn-fd-health__score gn-fd-health__score--clickable" t-on-click="() => this.toggle()" tabindex="0"
+                 t-att-title="props.health.label">
+                <span class="gn-fd-health__num" t-esc="props.health.score"/>
+                <span class="gn-fd-health__max">/100</span>
+            </div>
+            <div class="gn-fd-health__meta">
+                <div class="gn-fd-health__label">Salud financiera: <strong t-esc="props.health.label"/></div>
+                <div class="gn-fd-health__period" t-if="props.period">
+                    <t t-esc="fmtDate(props.period.date_from)"/> — <t t-esc="fmtDate(props.period.date_to)"/>
+                </div>
+            </div>
+            <div class="gn-fd-health__actions">
+                <span class="badge text-bg-danger me-2" t-if="props.health.alerts and props.health.alerts.length">
+                    <i class="fa fa-bell me-1"/><t t-esc="props.health.alerts.length"/> alertas
+                </span>
+                <button class="btn btn-sm btn-link" t-on-click="() => this.toggle()">
+                    <i t-att-class="'fa me-1 ' + (ui.expanded ? 'fa-chevron-up' : 'fa-chevron-down')"/>
+                    <t t-if="ui.expanded">Ocultar desglose</t>
+                    <t t-else="">¿Por qué este puntaje?</t>
+                </button>
+            </div>
+        </div>
+
+        <section class="gn-fd-panel gn-fd-breakdown mt-2" t-if="ui.expanded">
+            <header class="gn-fd-panel__head">
+                <span><i class="fa fa-heartbeat me-2"/>Desglose del score (ponderado)</span>
+            </header>
+            <ul class="gn-fd-breakdown__list">
+                <li t-foreach="categories" t-as="cat" t-key="cat.key" class="gn-fd-breakdown__item">
+                    <div class="gn-fd-breakdown__row" t-on-click="() => this.openCategory(cat.key)">
+                        <div class="gn-fd-breakdown__bar">
+                            <div class="gn-fd-breakdown__bar-fill" t-att-style="'width:' + cat.score + '%'"/>
+                        </div>
+                        <div class="gn-fd-breakdown__head">
+                            <span class="gn-fd-breakdown__label">
+                                <i t-att-class="'fa me-2 ' + (ui.openCategory === cat.key ? 'fa-chevron-down' : 'fa-chevron-right')"/>
+                                <strong t-esc="cat.label"/>
+                                <span class="gn-fd-breakdown__weight">peso <t t-esc="cat.weight"/>%</span>
+                            </span>
+                            <span class="gn-fd-breakdown__score"><t t-esc="cat.score"/>/100</span>
+                            <span t-att-class="pointsClass(cat.points)">
+                                <t t-esc="pointsLabel(cat.points)"/> pts
+                            </span>
+                        </div>
+                    </div>
+                    <ul class="gn-fd-breakdown__criteria" t-if="ui.openCategory === cat.key">
+                        <li t-foreach="cat.criteria" t-as="crit" t-key="crit_index"
+                            t-att-class="'gn-fd-breakdown__crit ' + criterionClass(crit)">
+                            <i t-att-class="'fa me-2 ' + criterionIcon(crit)"/>
+                            <div class="gn-fd-breakdown__crit-body">
+                                <div>
+                                    <strong t-esc="crit.label"/>
+                                    <span t-att-class="pointsClass(crit.points) + ' ms-2'">
+                                        <t t-esc="pointsLabel(crit.points)"/> pts
+                                    </span>
+                                </div>
+                                <div class="gn-fd-breakdown__crit-msg" t-esc="crit.detail or crit.message"/>
+                            </div>
+                        </li>
+                        <li class="gn-fd-breakdown__crit gn-fd-breakdown__crit--info" t-if="!cat.criteria.length">
+                            <i class="fa fa-info-circle me-2"/>Sin criterios evaluados.
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+    </t>
+
+</templates>

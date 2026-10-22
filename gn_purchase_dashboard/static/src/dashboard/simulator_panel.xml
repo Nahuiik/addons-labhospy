@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_purchase_dashboard.SimulatorPanel">
+        <div t-if="props.open" class="gn-pd-modal">
+            <div class="gn-pd-modal__backdrop" t-on-click="onCloseClick"/>
+            <div class="gn-pd-modal__dialog">
+                <header class="gn-pd-modal__head">
+                    <h2>Simulador what-if</h2>
+                    <button type="button" class="btn btn-link" t-on-click="onCloseClick">×</button>
+                </header>
+                <div class="gn-pd-modal__body">
+                    <label>Escenario</label>
+                    <select class="form-select mb-2" t-model="state.scenario">
+                        <option value="price_increase">Sube precio %</option>
+                        <option value="lead_time_increase">Aumenta lead time</option>
+                        <option value="vendor_change">Cambia proveedor</option>
+                        <option value="centralize">Centraliza compras</option>
+                    </select>
+                    <div t-if="state.scenario === 'price_increase'" class="mb-2">
+                        <label>Incremento %</label>
+                        <input type="number" class="form-control" t-model.number="state.percent"/>
+                    </div>
+                    <div t-if="state.scenario === 'lead_time_increase'" class="mb-2">
+                        <label>Días adicionales</label>
+                        <input type="number" class="form-control" t-model.number="state.days"/>
+                    </div>
+                    <button type="button" class="btn btn-primary" t-att-disabled="state.loading" t-on-click="runSimulation">
+                        Simular impacto
+                    </button>
+                    <div t-if="state.result" class="gn-pd-simulator__result mt-3">
+                        <p t-esc="state.result.summary"/>
+                        <ul>
+                            <li t-if="state.result.impact.base_total">Base: <t t-esc="fmt(state.result.impact.base_total)"/></li>
+                            <li t-if="state.result.impact.simulated_total">Simulado: <t t-esc="fmt(state.result.impact.simulated_total)"/></li>
+                            <li t-if="state.result.impact.delta">Delta: <t t-esc="fmt(state.result.impact.delta)"/></li>
+                            <li t-if="state.result.impact.projected_savings">Ahorro proyectado: <t t-esc="fmt(state.result.impact.projected_savings)"/></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

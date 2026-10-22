@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Dentro del submenú "Banks"/"Bancos" junto con Débito, Tarjetas de crédito, etc. -->
+    <menuitem id="menu_import_bac_pos"
+              name="Importar Liquidaciones"
+              parent="gn_banks.menu_sub_banks"
+              sequence="27"
+              action="gn_banks_pos.action_bac_pos_import_wizard"/>
+
+    <menuitem id="menu_bac_pos_import_history"
+              name="Historial importaciones BAC POS"
+              parent="gn_banks.menu_sub_banks"
+              sequence="28"
+              action="gn_banks_pos.action_bac_pos_import_history"/>
+</odoo>

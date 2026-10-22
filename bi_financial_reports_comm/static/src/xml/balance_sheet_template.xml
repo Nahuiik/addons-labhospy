@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="BalanceSheetReport" owl="1">
+        <div class="report-button-container">
+            <div class="d-flex justify-content-between align-items-center mb-3 mt-3">
+                <div>
+                    <h2 style="margin-left: 45px;">Balance Sheet</h2>
+                </div>
+
+                <div>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-primary" style="margin-right: 7px;" t-on-click="openBalanceSheetPopup">
+                            <i class="fa fa-filter"></i> Filters
+                        </button>
+                        <button class="btn btn-primary" style="margin-right: 7px;" t-on-click="printBalanceSheet">
+                            <i class="fa fa-print"></i> Print
+                        </button>
+                        <button class="btn btn-primary" style="margin-right: 20px;" t-on-click="xlsxBalanceSheet">
+                            <i class="fa fa-file-excel-o"></i> XLS
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+            <hr/>
+            <div class="report-container">
+                <div class="table-responsive report-table-container">
+                    <table class="table table-hover report-table">
+                        <thead class="table-header">
+                            <th style="text-align: center;width: 3%;"/>
+                            <th style="text-align: center;width: 72%;"/>
+                            <th style="text-align: center;width: 25%;"/>
+                        </thead>
+                        
+                        <tbody>
+                            <t t-value="state.balanceSheetData.assets" t-set="assets"/>
+                            <t t-value="state.balanceSheetData.liabilities" t-set="liabilities"/>
+                            <t t-value="state.balanceSheetData.equity" t-set="equity"/>
+
+                            <tr class="pt-3">
+                                <td style="padding: 6px 5px;"/>
+                                <td style="padding: 6px 5px;">
+                                    <t t-if="state.balanceSheetData.date_from or state.balanceSheetData.date_to">
+                                        <h4 style="padding-left:280px;">
+                                            <t t-if="state.balanceSheetData.date_from">
+                                                Date From: <t t-esc="state.balanceSheetData.date_from"/> 
+                                            </t>
+                                            <t t-if="state.balanceSheetData.date_to">
+                                                Date To: <t t-esc="state.balanceSheetData.date_to"/>
+                                            </t>
+                                        </h4>
+                                    </t>
+                                </td>
+                                <td style="padding: 6px 5px;"/>
+                            </tr>
+
+                            <tr style="background-color: #B2BEB5;">
+                                <td style="padding: 6px 5px;"/>
+                                <td style="text-align: left;padding: 6px 5px;font-weight: bold;">Assets</td>
+                                <td style="text-align: right;padding: 6px 5px;padding-right:110px;" t-esc="formatCurrency(state.totals.assets)"/>
+                            </tr>
+                            <tr>
+                                <td style="padding: 6px 5px;"/>
+                                <td style="text-align: left;padding: 6px 5px;font-weight: bold;padding-left:25px;">Current Assets</td>
+                                <td style="text-align: right;padding: 6px 5px;padding-right:110px;" t-esc="formatCurrency(currentAssetsTotal)"/>
+                            </tr>
+                            <tr t-att-data-type="'bank_cash'">
+                                <td style="padding: 6px 5px;">
+                                    <t t-if="assets.bank_cash.accounts.length > 0">
+                                        <button data-id="btn_foldable" class="btn btn_foldable" tabindex="-1" t-on-click="toggleLines" style="margin-left:8px">
+                                            <i class="fa fa-caret-right dropdowntoggle"></i>
+                                        </button>
+                                    </t>
+                                </td>
+                                <td style="text-align: left;padding-left:45px;">
+                                    Bank and Cash Accounts
+                                </td>
+                                <td style="text-align: right;padding: 6px 5px;padding-right:110px;" t-esc="formatCurrency(assets.bank_cash.total)"/>
+                            </tr>
+                            <t t-if="state.expandedType['bank_cash']">
+                                <t t-if="assets.bank_cash.accounts">
+                                    <t t-foreach="assets.bank_cash.accounts" t-as="account" t-key="account.id">
+                                        <tr t-att-data-account="account.name" t-att-data-id="account.id">
+                                            <td style="padding: 6px 5px;"/>
+                                            <td style="text-align: left;padding: 6px 5px;padding-left:55px;">
+                                                <div class="wrapper">
+                                                    <t t-esc="account.code"/> <t t-esc="account.name"/>
+                                                    <button class="btn btn_general_ledger" t-on-click="_onClick_GeneralLedger"> General Ledger </button>
+                                                </div>
+                                            </td>
+                                            <td style="text-align:right; padding: 6px 5px;padding-right:110px;" t-esc="formatCurrency(account.balance)"/>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </t>
+
+                            <tr t-att-data-type="'receivables'">
+                                <td style="padding: 6px 5px;">
+                                    <t t-if="assets.receivables.accounts.length > 0">
+                                        <button data-id="btn_foldable" class="btn btn_foldable" tabindex="-1" t-on-click="toggleLines" style="margin-left:8px">
+                                            <i class="fa fa-caret-right dropdowntoggle"></i>
+                                        </button>
+                                    </t>
+                                </td>
+                                <td style="text-align: left;padding: 6px 5px;padding-left:45px;">
+                                    Receivables
+                                </td>
+                                <td style="text-align: right;padding: 6px 5px;padding-right:110px;" t-esc="formatCurrency(assets.receivables.total)"/>
+                            </tr>
+                            <t t-if="state.expandedType['receivables']">
+                                <t t-foreach="assets.receivables.accounts" t-as="account" t-key="account.id">
+                                    <tr t-att-data-account="account.name" t-att-data-id="account.id">
+                                        <td style="padding: 6px 5px;"/>
+                                        <td style="text-align: left;padding: 6px 5px;padding-left:55px;">
+                                            <div class="wrapper">
+                                                <t t-esc="account.code"/><t t-esc="account.name"/>
+                                                <button class="btn btn_general_ledger" t-on-click="_onClick_GeneralLedger"> General Ledger </button>
+                                            </div>
+                                        </td>
+                                        <td style="text-align: right; padding: 6px 5px;padding-right:110px;" t-esc="formatCurrency(account.balance)"/>
+                                    </tr>
+                                </t>
+                            </t>
+
+                            <tr t-att-data-type="'current_assets'">
+                                <td style="padding: 6px 5px;">
+                                    <t t-if="assets.current_assets.accounts.length > 0">
+                                        <button data-id="btn_foldable" class="btn btn_foldable" tabindex="-1" t-on-click="toggleLines" style="margin-left:8px">
+                                            <i class="fa fa-caret-right dropdowntoggle"></i>
+                                        </button>
+                                    </t>
+                                </td>
+                                 <td style="text-align: left;padding: 6px 5px;padding-left:45px;">
+                                    Current Assets
+                                </td>
+                                <td style="text-align: right;padding-right:110px;" t-esc="formatCurrency(assets.current_assets.total)"/>
+                            </tr>
+                            <t t-if="state.expandedType['current_assets']">
+                                <t t-foreach="assets.current_assets.accounts" t-as="account" t-key="account.id">
+                                    <tr t-att-data-account="account.name" t-att-data-id="account.id">
+                                        <td style="padding: 6px 5px;"/>
+                                        <td style="text-align: left;padding: 6px 5px;padding-left:55px;">
+                                            <div class="wrapper">
+                                                <t t-esc="account.code"/><t t-esc="account.name"/>
+                                                <button class="btn btn_general_ledger" t-on-click="_onClick_GeneralLedger"> General Ledger </button>
+                                            </div>
+                                        </td>
+                                        <td style="text-align: right;padding: 6px 5px;padding-right:110px;" t-esc="formatCurrency(account.balance)"/>
+                                    </tr>
+                                </t>
+                            </t>
+                            
+                            <tr t-att-data-type="'prepayments'">
+                                <td style="padding: 6px 5px;">
+                                    <t t-if="assets.prepayments.accounts.length > 0">
+                                        <button data-id="btn_foldable" class="btn btn_foldable" tabindex="-1" t-on-click="toggleLines" style="margin-left:8px">
+                                            <i class="fa fa-caret-right dropdowntoggle"></i>
+                                        </button>
+                                    </t>
+                                </td>
+                                 <td style="text-align: left;padding: 6px 5px;padding-left:45px;">
+                                    Prepayments
+                                </td>
+                                <td style="text-align: right;padding: 6px 5px;padding-right:110px;" t-esc="formatCurrency(assets.prepayments.total)"/>
+                            </tr>
+                            <t t-if="state.expandedType['prepayments']">
+                                <t t-foreach="assets.prepayments.accounts" t-as="account" t-key="account.id">
+                                    <tr t-att-data-account="account.name" t-att-data-id="account.id">
+                                        <td style="padding: 6px 5px;"/>
+                                        <td style="text-align: left;padding: 6px 5px;padding-left:55px;">
+                                            <div class="wrapper">
+                                                <t t-esc="account.code"/><t t-esc="account.name"/>
+                                                <button class="btn btn_general_ledger" t-on-click="_onClick_GeneralLedger"> General Ledger </button>
+                                            </div>
+                                        </td>
+                                        <td style="text-align: right; padding: 6px 5px;padding-right:110px;" t-esc="formatCurrency(account.balance)"/>
+                                    </tr>
+                                </t>
+                            </t>
+                            <tr t-att-data-type="'fixed_assets'">
+                                <td style="padding: 6px 5px;">
+                                    <t t-if="assets.fixed_assets.accounts.length > 0">
+                                        <button data-id="btn_foldable" class="btn btn_foldable" tabindex="-1" t-on-click="toggleLines" style="margin-right:15px">
+                                            <i class="fa fa-caret-right dropdowntoggle"></i>
+                                        </button>
+                                    </t>
+                                </td>
+                                <td style="text-align: left;padding: 6px 5px;padding-left:25px;">
+                                    Plus Fixed Assets
+                                </td>
+                                <td style="text-align: right;padding: 6px 5px;padding-right:110px;" t-esc="formatCurrency(assets.fixed_assets.total)"/>
+                            </tr>
+                            <t t-if="state.expandedType['fixed_assets']">
+                                <t t-foreach="assets.fixed_assets.accounts" t-as="account" t-key="account.id">
+                                    <tr t-att-data-account="account.name" t-att-data-id="account.id">   
+                                        <td style="padding: 6px 5px;"/>
+                                        <td style="text-align: left;padding: 6px 5px;padding-left:55px;">
+                                            <div class="wrapper">
+                                                <t t-esc="account.code"/><t t-esc="account.name"/>
+                                                <button class="btn btn_general_ledger" t-on-click="_onClick_GeneralLedger"> General Ledger </button>
+                                            </div>
+                                        </td>
+                                        <td style="text-align: right; padding: 6px 5px;padding-right:110px;" t-esc="formatCurrency(account.balance)"/>
+                                    </tr>
+                                </t>
+                            </t>
+
+                            <tr t-att-data-type="'non_current'">
+                                <td style="padding: 6px 5px;">
+                                    <t t-if="assets.non_current.accounts.length > 0">
+                                        <button data-id="btn_foldable" class="btn btn_foldable" tabindex="-1" t-on-click="toggleLines" style="margin-right:15px">
+                                            <i class="fa fa-caret-right dropdowntoggle"></i>
+                                        </button>
+                                    </t>
+                                </td>
+                                <td style="text-align: left;padding: 6px 5px;padding-left:25px;">
+                                    Plus Non-current Assets
+                                </td>
+                                <td style="text-align: right;padding: 6px 5px;padding-right:110px;" t-esc="formatCurrency(assets.non_current.total)"/>
+                            </tr>
+                            <t t-if="state.expandedType['non_current']">
+                                <t t-foreach="assets.non_current.accounts" t-as="account" t-key="account.id">
+                                    <tr t-att-data-account="account.name" t-att-data-id="account.id">
+                                        <td style="padding: 6px 5px;"/>
+                                        <td style="text-align: left;padding: 6px 5px;padding-left:55px;">
+                                            <div class="wrapper">
+                                                <t t-esc="account.code"/><t t-esc="account.name"/>
+                                                <button class="btn btn_general_ledger" t-on-click="_onClick_GeneralLedger"> General Ledger </button>
+                                            </div>
+                                        </td>
+                                        <td style="text-align: right;padding: 6px 5px; padding-right:110px;" t-esc="formatCurrency(account.balance)"/>
+                                    </tr>
+                                </t>
+                            </t>
+
+                            <tr style="background-color: #B2BEB5;">
+                                <td style="padding: 6px 5px;"/>
+                                <td style="text-align: left;font-weight: bold;padding: 6px 5px;">LIABILITIES</td>
+                                <td style="text-align: right;font-weight: bold;padding: 6px 5px;padding-right:110px;" t-esc="formatCurrency(state.totals.liabilities)"/>
+                            </tr>
+
+                            <tr>
+                                <td style="padding: 6px 5px;"/>
+                                <td style="text-align: left;font-weight: bold;padding: 6px 5px;padding-left:25px;">Current Liabilities</td>
+                                <td style="text-align: right; padding: 6px 5px;padding-right:110px;" t-esc="formatCurrency(currentLiabilitiesTotal)"/>
+                            </tr>
+                            
+                            <tr t-att-data-type="'current_liabilities'">
+                                <td style="padding: 6px 5px;">
+                                    <t t-if="liabilities.current_liabilities.accounts.length > 0">
+                                        <button data-id="btn_foldable" class="btn btn_foldable" tabindex="-1" t-on-click="toggleLines" style="margin-left:8px">
+                                            <i class="fa fa-caret-right dropdowntoggle"></i>
+                                        </button>
+                                    </t></td>
+                                <td style="text-align: left;padding: 6px 5px;padding-left:45px;">
+                                    Current Liabilities
+                                </td>
+                                <td style="text-align: right;padding: 6px 5px;padding-right:110px;" t-esc="formatCurrency(liabilities.current_liabilities.total)"/>
+                            </tr>
+
+                            <t t-if="state.expandedType['current_liabilities']">
+                                <t t-foreach="liabilities.current_liabilities.accounts" t-as="account" t-key="account.id">
+                                    <tr t-att-data-account="account.name" t-att-data-id="account.id">
+                                        <td style="padding: 6px 5px;"/>
+                                        <td style="text-align: left;padding: 6px 5px;padding-left:55px;">
+                                            <div class="wrapper">
+                                                <t t-esc="account.code"/><t t-esc="account.name"/>
+                                                <button class="btn btn_general_ledger" t-on-click="_onClick_GeneralLedger"> General Ledger </button>
+                                            </div>
+                                        </td>
+                                        <td style="text-align: right;padding: 6px 5px;padding-right:110px;" t-esc="formatCurrency(account.balance)"/>
+                                    </tr>
+                                </t>
+                            </t>
+
+                            <tr t-att-data-type="'payables'">
+                                <td style="padding: 6px 5px;">
+                                    <t t-if="liabilities.payables.accounts.length > 0">
+                                        <button data-id="btn_foldable" class="btn btn_foldable" tabindex="-1" t-on-click="toggleLines" style="margin-left:8px">
+                                            <i class="fa fa-caret-right dropdowntoggle"></i>
+                                        </button>
+                                    </t>
+                                </td>
+                                 <td style="text-align: left;padding: 6px 5px;padding-right:110px;padding-left:45px;">
+                                    Payables
+                                </td>
+                                <td style="text-align: right;padding: 6px 5px;padding-right:110px;" t-esc="formatCurrency(liabilities.payables.total)"/>
+                            </tr>
+                            <t t-if="state.expandedType['payables']">
+                                <t t-foreach="liabilities.payables.accounts" t-as="account" t-key="account.id">
+                                    <tr t-att-data-account="account.name" t-att-data-id="account.id">
+                                        <td style="padding: 6px 5px;"/>
+                                        <td style="text-align: left;padding: 6px 5px;padding-left:55px;">
+                                            <div class="wrapper">
+                                                <t t-esc="account.code"/><t t-esc="account.name"/>
+                                                <button class="btn btn_general_ledger" t-on-click="_onClick_GeneralLedger"> General Ledger </button>
+                                            </div>
+                                        </td>
+                                        <td style="text-align: right;padding: 6px 5px; padding-right:110px;" t-esc="formatCurrency(account.balance)"/>
+                                    </tr>
+                                </t>
+                            </t>
+
+                            <tr t-att-data-type="'credit_card'">
+                                <td style="padding: 6px 5px;">
+                                    <t t-if="liabilities.credit_card.accounts.length > 0">
+                                        <button data-id="btn_foldable" class="btn btn_foldable" tabindex="-1" t-on-click="toggleLines" style="margin-left:8px">
+                                            <i class="fa fa-caret-right dropdowntoggle"></i>
+                                        </button>
+                                    </t>
+                                </td>
+                                 <td style="text-align: left;padding: 6px 5px;padding-left:45px;">
+                                    Credit Card
+                                </td>
+                                <td style="text-align: right;padding: 6px 5px;padding-right:110px;" t-esc="formatCurrency(liabilities.credit_card.total)"/>
+                            </tr>
+                            <t t-if="state.expandedType['credit_card']">
+                                <t t-foreach="liabilities.credit_card.accounts" t-as="account" t-key="account.id">
+                                    <tr t-att-data-account="account.name" t-att-data-id="account.id">
+                                        <td style="padding: 6px 5px;"/>
+                                        <td style="text-align: left;padding: 6px 5px;padding-left:55px;">
+                                            <div class="wrapper">
+                                                <t t-esc="account.code"/><t t-esc="account.name"/>
+                                                <button class="btn btn_general_ledger" t-on-click="_onClick_GeneralLedger"> General Ledger </button>
+                                            </div>
+                                        </td>
+                                        <td style="text-align: right; padding: 6px 5px;padding-right:110px;" t-esc="formatCurrency(account.balance)"/>
+                                    </tr>
+                                </t>
+                            </t>
+
+                            <tr t-att-data-type="'non_current_liabilities'">
+                                <td style="padding: 6px 5px;">
+                                    <t t-if="liabilities.non_current_liabilities.accounts.length > 0">
+                                        <button data-id="btn_foldable" class="btn btn_foldable" tabindex="-1" t-on-click="toggleLines" style="margin-right:15px">
+                                            <i class="fa fa-caret-right dropdowntoggle"></i>
+                                        </button>
+                                    </t>
+                                </td>
+                                <td style="text-align: left;padding: 6px 5px;padding-left:25px">
+                                    Plus Non-current Liabilities
+                                </td>
+                                <td style="text-align:right;padding: 6px 5px;padding-right:110px" t-esc="formatCurrency(liabilities.non_current_liabilities.total)"/>
+                            </tr>
+                            <t t-if="state.expandedType['non_current_liabilities']">
+                                <t t-foreach="liabilities.non_current_liabilities.accounts" t-as="account" t-key="account.id">
+                                    <tr t-att-data-account="account.name" t-att-data-id="account.id">
+                                        <td style="padding: 6px 5px;"/>
+                                        <td style="text-align: left;padding: 6px 5px;padding-left:55px">
+                                            <div class="wrapper">
+                                                <t t-esc="account.code"/><t t-esc="account.name"/>
+                                                <button class="btn btn_general_ledger" t-on-click="_onClick_GeneralLedger"> General Ledger </button>
+                                            </div>
+                                        </td>
+                                        <td style="text-align: right;padding: 6px 5px; padding-right:110px" t-esc="formatCurrency(account.balance)"/>
+                                    </tr>
+                                </t>
+                            </t>
+
+                            <tr style="background-color: #B2BEB5;">
+                                <td style="padding: 6px 5px;"/>
+                                <td style="text-align: left;font-weight: bold;padding: 6px 5px;">EQUITY</td>
+                                <td style="text-align: right;font-weight: bold;padding: 6px 5px;padding-right:110px" t-esc="formatCurrency(state.totals.equity)"/>
+                            </tr>
+                            <tr t-att-data-type="'equity'">
+                                <td style="padding: 6px 5px;">
+                                    <t t-if="equity.equity.accounts.length > 0">
+                                        <button data-id="btn_foldable" class="btn btn_foldable" tabindex="-1" t-on-click="toggleLines" style="margin-left:8px">
+                                            <i class="fa fa-caret-right dropdowntoggle"></i>
+                                        </button>
+                                    </t>
+                                </td>
+                                 <td style="text-align: left;padding: 6px 5px;padding-left:25px">
+                                    Equity
+                                </td>
+                                <td style="text-align: right;padding: 6px 5px;padding-right:110px" t-esc="formatCurrency(equity.equity.total)"/>
+                            </tr>
+                            <t t-if="state.expandedType['equity']">
+                                <t t-foreach="equity.equity.accounts" t-as="account" t-key="account.id">
+                                    <tr t-att-data-account="account.name" t-att-data-id="account.id">
+                                        <td style="padding: 6px 5px;"/>
+                                        <td style="text-align: left;padding: 6px 5px;padding-left:55px">
+                                            <div class="wrapper">
+                                                <t t-esc="account.code"/><t t-esc="account.name"/>
+                                                <button class="btn btn_general_ledger" t-on-click="_onClick_GeneralLedger"> General Ledger </button>
+                                            </div>
+                                        </td>
+                                        <td style="text-align: right;padding: 6px 5px;padding-right:110px;" t-esc="formatCurrency(account.balance)"/>
+                                    </tr>
+                                </t>
+                            </t>
+                            <tr t-att-data-type="'current_year_earnings'">
+                                <td style="padding: 6px 5px;">
+                                    <t t-if="equity.current_year_earnings.accounts.length > 0">
+                                        <button data-id="btn_foldable" class="btn btn_foldable" tabindex="-1" t-on-click="toggleLines" style="margin-left:8px">
+                                            <i class="fa fa-caret-right dropdowntoggle"></i>
+                                        </button>
+                                    </t>
+                                </td>
+                                 <td style="text-align: left;padding: 6px 5px;padding-left:25px;">
+                                    Current Year Earnings
+                                </td>
+                                <td style="text-align: right;padding: 6px 5px;padding-right:110px;" t-esc="formatCurrency(equity.current_year_earnings.total)"/>
+                            </tr>
+                            <t t-if="state.expandedType['current_year_earnings']">
+                                <t t-foreach="equity.current_year_earnings.accounts" t-as="account" t-key="account.id">
+                                    <tr t-att-data-account="account.name" t-att-data-id="account.id">
+                                        <td style="padding: 6px 5px;"/>
+                                        <td style="text-align: left;padding: 6px 5px;padding-left:55px;">
+                                            <div class="wrapper">
+                                                <t t-esc="account.code"/><t t-esc="account.name"/>
+                                                <button class="btn btn_general_ledger" t-on-click="_onClick_GeneralLedger"> General Ledger </button>
+                                            </div>
+                                        </td>
+                                        <td style="text-align: right; padding: 6px 5px;padding-left:125px;" t-esc="formatCurrency(account.balance)"/>
+                                    </tr>
+                                </t>
+                            </t>
+
+                            <tr style="background-color: #B2BEB5;">
+                                <td style="padding: 6px 5px;"/>
+                                <td style="text-align: left;font-weight: bold;padding: 6px 5px;">LIABILITIES + EQUITY</td>
+                                <td style="text-align: right;font-weight: bold;padding: 6px 5px;padding-right:110px;" t-esc="formatCurrency(state.totals.liabilities_equity)"/>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+            </div>
+        </div>
+    </t>
+</templates>

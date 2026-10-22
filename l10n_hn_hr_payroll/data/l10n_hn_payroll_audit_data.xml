@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Tipo de actividad para auditoría de nómina -->
+        <record id="mail_activity_type_payroll_audit" model="mail.activity.type">
+            <field name="name">Auditoría de Nómina</field>
+            <field name="summary">Auditoría de Nómina</field>
+            <field name="icon">fa-check-square</field>
+        </record>
+
+        <!-- Items plantilla - Auditoría Mensual -->
+        <record id="audit_item_monthly_isr" model="l10n.hn.payroll.audit.item">
+            <field name="name">Revisar auditoría ISR del período</field>
+            <field name="sequence">10</field>
+            <field name="audit_type">monthly</field>
+            <field name="action_id" ref="l10n_hn_hr_payroll.action_l10n_hn_isr_audit_report"/>
+        </record>
+        <record id="audit_item_monthly_payslips" model="l10n.hn.payroll.audit.item">
+            <field name="name">Verificar planillas cerradas del período</field>
+            <field name="sequence">20</field>
+            <field name="audit_type">monthly</field>
+        </record>
+        <record id="audit_item_monthly_concepts" model="l10n.hn.payroll.audit.item">
+            <field name="name">Revisar conceptos recurrentes y préstamos</field>
+            <field name="sequence">30</field>
+            <field name="audit_type">monthly</field>
+        </record>
+
+        <!-- Items plantilla - Auditoría Anual -->
+        <record id="audit_item_annual_isr" model="l10n.hn.payroll.audit.item">
+            <field name="name">Resumen anual ISR</field>
+            <field name="sequence">10</field>
+            <field name="audit_type">annual</field>
+            <field name="action_id" ref="l10n_hn_hr_payroll.action_l10n_hn_isr_audit_report"/>
+        </record>
+        <record id="audit_item_annual_ihss_rap" model="l10n.hn.payroll.audit.item">
+            <field name="name">Verificar cumplimiento IHSS/RAP</field>
+            <field name="sequence">20</field>
+            <field name="audit_type">annual</field>
+        </record>
+        <record id="audit_item_annual_liquidations" model="l10n.hn.payroll.audit.item">
+            <field name="name">Revisar liquidaciones del año</field>
+            <field name="sequence">30</field>
+            <field name="audit_type">annual</field>
+        </record>
+        <record id="audit_item_annual_salary_increases" model="l10n.hn.payroll.audit.item">
+            <field name="name">Historial de aumentos salariales</field>
+            <field name="sequence">40</field>
+            <field name="audit_type">annual</field>
+        </record>
+    </data>
+</odoo>

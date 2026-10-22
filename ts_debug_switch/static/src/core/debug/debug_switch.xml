@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="ts_debug_switch.debugswitch" owl="1">
+
+        <!-- checks if user has access and displays button in systray according to debug mode -->
+        <t t-if="this.has_debug_access">
+            <button
+                class="o_nav_entry"
+                t-on-click="() => this.switchDebugMode()"
+                title="Debug Mode">
+                <t t-if="isDebug">
+                    <i class="fa fa-fw fa-solid fa-toggle-on fa-lg"
+                        style="color:green;"></i>
+                </t>
+                <t t-else="">
+                    <i class="fa fa-fw fa-solid fa-toggle-off fa-lg"></i>
+                </t>
+            </button>
+        </t>
+
+    </t>
+
+</templates>

@@ -1,0 +1,2042 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* gn_hn_hr_employee_portal
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-04 16:46+0000\n"
+"PO-Revision-Date: 2026-04-04 16:46+0000\n"
+"Last-Translator: \n"
+"Language-Team: Spanish (Guatemala) <es_GT@li.org>\n"
+"Language: es_GT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_attendance_correction_new
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_certificates_new
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_leaves_new
+msgid "<option value=\"\">-- Seleccione --</option>"
+msgstr "<option value=\"\">-- Seleccione --</option>"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_certificates_new
+msgid "<option value=\"\">-- Seleccione destinatario --</option>"
+msgstr "<option value=\"\">-- Seleccione destinatario --</option>"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_team_leaves
+msgid "<option value=\"\">Todos</option>"
+msgstr "<option value=\"\">Todos</option>"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_leaves_new
+msgid ""
+"<select name=\"request_date_from_period\" class=\"form-select\">\n"
+"                                                <option value=\"am\">Mañana</option>\n"
+"                                                <option value=\"pm\">Tarde</option>\n"
+"                                            </select>"
+msgstr ""
+"<select name=\"request_date_from_period\" class=\"form-select\">\n"
+"                                                <option value=\"am\">Mañana</option>\n"
+"                                                <option value=\"pm\">Tarde</option>\n"
+"                                            </select>"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_leaves_new
+msgid ""
+"<select name=\"request_date_to_period\" class=\"form-select\">\n"
+"                                                <option value=\"am\">Mañana</option>\n"
+"                                                <option value=\"pm\">Tarde</option>\n"
+"                                            </select>"
+msgstr ""
+"<select name=\"request_date_to_period\" class=\"form-select\">\n"
+"                                                <option value=\"am\">Mañana</option>\n"
+"                                                <option value=\"pm\">Tarde</option>\n"
+"                                            </select>"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_leaves_new
+msgid "<small class=\"text-muted\">Déjelo vacío si es un solo día.</small>"
+msgstr "<small class=\"text-muted\">Déjelo vacío si es un solo día.</small>"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+msgid ""
+"<span class=\"badge bg-secondary\">Borrador</span>\n"
+"                                        <span class=\"badge bg-warning\">Por aprobar</span>\n"
+"                                        <span class=\"badge bg-info\">En revisión</span>\n"
+"                                        <span class=\"badge bg-success\">Aprobada</span>\n"
+"                                        <span class=\"badge bg-danger\">Rechazada</span>"
+msgstr ""
+"<span class=\"badge bg-secondary\">Borrador</span>\n"
+"                                        <span class=\"badge bg-warning\">Por aprobar</span>\n"
+"                                        <span class=\"badge bg-info\">En revisión</span>\n"
+"                                        <span class=\"badge bg-success\">Aprobada</span>\n"
+"                                        <span class=\"badge bg-danger\">Rechazada</span>"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_policies
+msgid "<span class=\"badge bg-success\">Aceptada</span>"
+msgstr "<span class=\"badge bg-success\">Aceptada</span>"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_leaves_new
+msgid "<strong>Disponibles:</strong>"
+msgstr "<strong>Disponibles:</strong>"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.module.category,description:gn_hn_hr_employee_portal.module_category_employee_portal
+msgid "Acceso al portal de autoservicio para empleados"
+msgstr "Acceso al portal de autoservicio para empleados"
+
+#. module: gn_hn_hr_employee_portal
+#: model:res.groups,comment:gn_hn_hr_employee_portal.group_employee_portal_user
+msgid ""
+"Acceso al portal de autoservicio para empleados (perfil, constancias, "
+"ausencias, etc.)"
+msgstr ""
+"Acceso al portal de autoservicio para empleados (perfil, constancias, "
+"ausencias, etc.)"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_portal_audit_log__action
+msgid "Acción"
+msgstr "Acción"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.actions.act_window,name:gn_hn_hr_employee_portal.action_gn_hr_document_acceptance
+msgid "Aceptaciones de políticas"
+msgstr "Aceptaciones de políticas"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model,name:gn_hn_hr_employee_portal.model_gn_hr_document_acceptance
+msgid "Aceptación de políticas por empleados"
+msgstr "Aceptación de políticas por empleados"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_document_acceptance__accepted_by
+msgid "Aceptado por"
+msgstr "Aceptado por"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_policies
+msgid "Aceptar"
+msgstr "Aceptar"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__message_needaction
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__message_needaction
+msgid "Action Needed"
+msgstr "Action Needed"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_document_policy__active
+msgid "Active"
+msgstr "Active"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__activity_ids
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__activity_ids
+msgid "Activities"
+msgstr "Activities"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__activity_exception_decoration
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Activity Exception Decoration"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__activity_state
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__activity_state
+msgid "Activity State"
+msgstr "Activity State"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__activity_type_icon
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Activity Type Icon"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__attachment_ids
+msgid "Adjuntos"
+msgstr "Adjuntos"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_leaves_new
+msgid "Adjuntos (opcional)"
+msgstr "Adjuntos (opcional)"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_res_config_settings__enable_portal_leave_attachments
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.res_config_settings_view_form_portal_hr
+msgid "Adjuntos en solicitudes de ausencia"
+msgstr "Adjuntos en solicitudes de ausencia"
+
+#. module: gn_hn_hr_employee_portal
+#. odoo-python
+#: code:addons/gn_hn_hr_employee_portal/wizard/gn_hr_employee_portal_invite_wizard.py:0
+msgid ""
+"Advertencia: no se pudo enviar el correo. Comparta el enlace manualmente."
+msgstr ""
+"Advertencia: no se pudo enviar el correo. Comparta el enlace manualmente."
+
+#. module: gn_hn_hr_employee_portal
+#. odoo-python
+#: code:addons/gn_hn_hr_employee_portal/wizard/gn_hr_employee_portal_invite_wizard.py:0
+msgid "Advertencia: no se pudo enviar el correo. Use el enlace de abajo."
+msgstr "Advertencia: no se pudo enviar el correo. Use el enlace de abajo."
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_requests
+msgid "Anticipo de salario"
+msgstr "Anticipo de salario"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advance_detail
+msgid "Anticipos"
+msgstr "Anticipos"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advances
+msgid "Anticipos de salario"
+msgstr "Anticipos de salario"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields.selection,name:gn_hn_hr_employee_portal.selection__gn_hr_attendance_correction_request__state__approved
+#: model:ir.model.fields.selection,name:gn_hn_hr_employee_portal.selection__gn_hr_profile_change_request__state__approved
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_attendance_corrections
+msgid "Aprobada"
+msgstr "Aprobada"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advances
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_team_leaves
+msgid "Aprobado"
+msgstr "Aprobado"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_attendance_correction_request__approver_id
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__approver_id
+msgid "Aprobado por"
+msgstr "Aprobado por"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.gn_hr_profile_change_request_view_form
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.view_gn_hr_attendance_correction_request_form
+msgid "Aprobar"
+msgstr "Aprobar"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+msgid "Asignadas"
+msgstr "Asignadas"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__message_attachment_count
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__message_attachment_count
+msgid "Attachment Count"
+msgstr "Attachment Count"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.actions.act_window,name:gn_hn_hr_employee_portal.gn_hr_portal_audit_log_action
+msgid "Auditoría del portal"
+msgstr "Auditoría del portal"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.ui.menu,name:gn_hn_hr_employee_portal.menu_gn_hr_portal_audit_log
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.gn_hr_portal_audit_log_view_tree
+msgid "Auditoría portal"
+msgstr "Auditoría portal"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_requests
+msgid "Ausencia"
+msgstr "Ausencia"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_team_leaves
+msgid "Ausencias de mi equipo"
+msgstr "Ausencias de mi equipo"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+msgid "Ausencias del equipo"
+msgstr "Ausencias del equipo"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+msgid "Ausencias del equipo en calendario"
+msgstr "Ausencias del equipo en calendario"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+msgid "Bienvenido,"
+msgstr "Bienvenido,"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advances
+msgid "Borrador"
+msgstr "Borrador"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_team_calendar
+msgid "Calendario de ausencias del equipo"
+msgstr "Calendario de ausencias del equipo"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.res_config_settings_view_form_portal_hr
+msgid "Calendario de equipo para jefes"
+msgstr "Calendario de equipo para jefes"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+msgid "Calendario del equipo"
+msgstr "Calendario del equipo"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_requests
+msgid "Cambio de perfil"
+msgstr "Cambio de perfil"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields.selection,name:gn_hn_hr_employee_portal.selection__gn_hr_work_certificate_request__state__cancelled
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+msgid "Cancelada"
+msgstr "Cancelada"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advances
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_team_leaves
+msgid "Cancelado"
+msgstr "Cancelado"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_leaves_new
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advances_new
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.view_gn_hr_attendance_correction_reject_wizard_form
+msgid "Cancelar"
+msgstr "Cancelar"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.view_gn_hr_employee_portal_invite_wizard_form
+msgid "Cerrar"
+msgstr "Cerrar"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__company_id
+msgid "Compañía"
+msgstr "Compañía"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_attendance_correction_new
+msgid "Complete todos los campos obligatorios."
+msgstr "Complete todos los campos obligatorios."
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model,name:gn_hn_hr_employee_portal.model_res_config_settings
+msgid "Config Settings"
+msgstr "Ajustes de configuración"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_requests
+msgid "Constancia"
+msgstr "Constancia"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__work_certificate_id
+msgid "Constancia emitida"
+msgstr "Constancia emitida"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__emergency_contact
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_profile
+msgid "Contacto de emergencia"
+msgstr "Contacto de emergencia"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_document_policy__content
+msgid "Contenido"
+msgstr "Contenido"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_policies
+msgid "Continuar al portal"
+msgstr "Continuar al portal"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__version_id
+msgid "Contrato relacionado"
+msgstr "Contrato relacionado"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.actions.act_window,name:gn_hn_hr_employee_portal.action_gn_hr_attendance_correction_request
+#: model:ir.ui.menu,name:gn_hn_hr_employee_portal.menu_gn_hr_attendance_correction_request
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.view_gn_hr_attendance_correction_request_tree
+msgid "Correcciones de asistencia"
+msgstr "Correcciones de asistencia"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.view_hr_employee_form_portal_invite_button
+msgid ""
+"Crea el usuario portal del empleado, envía la invitación por correo y "
+"muestra un enlace para compartir."
+msgstr ""
+"Crea el usuario portal del empleado, envía la invitación por correo y "
+"muestra un enlace para compartir."
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.view_gn_hr_employee_portal_invite_wizard_form
+msgid "Crear usuario y generar enlace"
+msgstr "Crear usuario y generar enlace"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_attendance_correction_reject_wizard__create_uid
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_attendance_correction_request__create_uid
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_document_acceptance__create_uid
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_document_policy__create_uid
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_employee_portal_invite_wizard__create_uid
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_portal_audit_log__create_uid
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__create_uid
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__create_uid
+msgid "Created by"
+msgstr "Created by"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_attendance_correction_reject_wizard__create_date
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_attendance_correction_request__create_date
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_document_acceptance__create_date
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_document_policy__create_date
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_employee_portal_invite_wizard__create_date
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_portal_audit_log__create_date
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__create_date
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__create_date
+msgid "Created on"
+msgstr "Created on"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__quality_ids
+msgid "Cualidades"
+msgstr "Cualidades"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,help:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__quality_ids
+msgid "Cualidades asociadas para constancias de exempleados."
+msgstr "Cualidades asociadas para constancias de exempleados."
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_policies
+msgid "Debe aceptar las siguientes políticas para continuar usando el portal."
+msgstr ""
+"Debe aceptar las siguientes políticas para continuar usando el portal."
+
+#. module: gn_hn_hr_employee_portal
+#. odoo-python
+#: code:addons/gn_hn_hr_employee_portal/models/gn_hr_work_certificate_request.py:0
+msgid ""
+"Debe indicar el destinatario (Dirigido a) para este tipo de constancia."
+msgstr ""
+"Debe indicar el destinatario (Dirigido a) para este tipo de constancia."
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_not_linked
+msgid ""
+"Debe tener el mismo correo electrónico en su usuario y en la ficha del "
+"empleado."
+msgstr ""
+"Debe tener el mismo correo electrónico en su usuario y en la ficha del "
+"empleado."
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.actions.act_window,help:gn_hn_hr_employee_portal.action_gn_hr_document_policy
+msgid "Defina políticas que los empleados deben aceptar desde el portal."
+msgstr "Defina políticas que los empleados deben aceptar desde el portal."
+
+#. module: gn_hn_hr_employee_portal
+#. odoo-python
+#: code:addons/gn_hn_hr_employee_portal/wizard/gn_hr_employee_portal_invite_wizard.py:0
+msgid "Defina un correo laboral válido para el empleado."
+msgstr "Defina un correo laboral válido para el empleado."
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_certificates
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_payslips
+msgid "Descargar"
+msgstr "Descargar"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_certificate_detail
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_payslip_detail
+msgid "Descargar PDF"
+msgstr "Descargar PDF"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_leaves
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_team_leaves
+msgid "Desde"
+msgstr "Desde"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_employee_portal_invite_wizard__info_message
+msgid "Detalle"
+msgstr "Detalle"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+msgid "Detalle por tipo"
+msgstr "Detalle por tipo"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__address
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_profile
+msgid "Dirección"
+msgstr "Dirección"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__recipient_id
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_certificate_detail
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_certificates
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_certificates_new
+msgid "Dirigido a"
+msgstr "Dirigido a"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_attendance_correction_reject_wizard__display_name
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_attendance_correction_request__display_name
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_document_acceptance__display_name
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_document_policy__display_name
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_employee_portal_invite_wizard__display_name
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_portal_audit_log__display_name
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__display_name
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__display_name
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_hr_employee__display_name
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_hr_version__display_name
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_salary_advance__display_name
+msgid "Display Name"
+msgstr "Mostrar nombre"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+msgid "Disponibles"
+msgstr "Disponibles"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__issued_document_id
+msgid "Documento emitido"
+msgstr "Documento emitido"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advances
+msgid "Décimo cuarto mes"
+msgstr "Décimo cuarto mes"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advances_new
+msgid "Décimo cuarto: hasta"
+msgstr "Décimo cuarto: hasta"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advances
+msgid "Décimo tercer mes"
+msgstr "Décimo tercer mes"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advances_new
+msgid "Décimo tercero: hasta"
+msgstr "Décimo tercero: hasta"
+
+#. module: gn_hn_hr_employee_portal
+#. odoo-python
+#: code:addons/gn_hn_hr_employee_portal/models/portal_upload_utils.py:0
+msgid "El archivo \"%s\" excede el tamaño máximo permitido (%s MB)."
+msgstr "El archivo \"%s\" excede el tamaño máximo permitido (%s MB)."
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.constraint,message:gn_hn_hr_employee_portal.constraint_gn_hr_document_acceptance_employee_policy_unique
+msgid "El empleado ya aceptó esta política."
+msgstr "El empleado ya aceptó esta política."
+
+#. module: gn_hn_hr_employee_portal
+#. odoo-python
+#: code:addons/gn_hn_hr_employee_portal/controllers/portal_employee.py:0
+msgid "El monto solicitado (%.2f) supera el máximo permitido (%.2f)."
+msgstr "El monto solicitado (%.2f) supera el máximo permitido (%.2f)."
+
+#. module: gn_hn_hr_employee_portal
+#. odoo-python
+#: code:addons/gn_hn_hr_employee_portal/wizard/gn_hr_employee_portal_invite_wizard.py:0
+msgid "El usuario vinculado no es de tipo portal. Revise el usuario %s."
+msgstr "El usuario vinculado no es de tipo portal. Revise el usuario %s."
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields.selection,name:gn_hn_hr_employee_portal.selection__gn_hr_work_certificate_request__state__issued
+msgid "Emitida"
+msgstr "Emitida"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__issued_by
+msgid "Emitido por"
+msgstr "Emitido por"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.gn_hr_work_certificate_request_view_form
+msgid "Emitir"
+msgstr "Emitir"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_attendance_correction_request__employee_id
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_document_acceptance__employee_id
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_employee_portal_invite_wizard__employee_id
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_portal_audit_log__employee_id
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__employee_id
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__employee_id
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_team_leaves
+msgid "Empleado"
+msgstr "Empleado"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model,name:gn_hn_hr_employee_portal.model_hr_employee
+msgid "Employee"
+msgstr "Empleado"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model,name:gn_hn_hr_employee_portal.model_hr_version
+msgid "Employee Contract"
+msgstr "Contrato del empleado"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,help:gn_hn_hr_employee_portal.field_hr_employee__wage
+#: model:ir.model.fields,help:gn_hn_hr_employee_portal.field_hr_version__wage
+msgid "Employee's monthly gross wage."
+msgstr "Salario bruto mensual del empleado."
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advances
+msgid "En espera de aprobación"
+msgstr "En espera de aprobación"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields.selection,name:gn_hn_hr_employee_portal.selection__gn_hr_work_certificate_request__state__in_review
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.gn_hr_work_certificate_request_view_form
+msgid "En revisión"
+msgstr "En revisión"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_employee_portal_invite_wizard__invitation_link
+msgid "Enlace para compartir"
+msgstr "Enlace para compartir"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_attendances
+msgid "Entrada"
+msgstr "Entrada"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_attendance_correction_request__current_check_in
+msgid "Entrada actual"
+msgstr "Entrada actual"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_attendance_correction_request__requested_check_in
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_attendance_corrections
+msgid "Entrada solicitada"
+msgstr "Entrada solicitada"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_attendance_correction_new
+msgid "Entrada:"
+msgstr "Entrada:"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields.selection,name:gn_hn_hr_employee_portal.selection__gn_hr_attendance_correction_request__state__submitted
+#: model:ir.model.fields.selection,name:gn_hn_hr_employee_portal.selection__gn_hr_profile_change_request__state__submitted
+#: model:ir.model.fields.selection,name:gn_hn_hr_employee_portal.selection__gn_hr_work_certificate_request__state__submitted
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_attendance_corrections
+msgid "Enviada"
+msgstr "Enviada"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advances
+msgid "Enviado"
+msgstr "Enviado"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_employee_portal_invite_wizard__send_email
+msgid "Enviar invitación por correo"
+msgstr "Enviar invitación por correo"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_profile
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_attendance_correction_new
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_certificates_new
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_leaves_new
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advances_new
+msgid "Enviar solicitud"
+msgstr "Enviar solicitud"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_attendance_correction_request__state
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__state
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__state
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_attendance_corrections
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_certificate_detail
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_certificates
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_leaves
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_payslip_detail
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_payslips
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_requests
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advance_detail
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advances
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_team_leaves
+msgid "Estado"
+msgstr "Estado"
+
+#. module: gn_hn_hr_employee_portal
+#. odoo-python
+#: code:addons/gn_hn_hr_employee_portal/wizard/gn_hr_employee_portal_invite_wizard.py:0
+msgid ""
+"Este empleado ya tiene un usuario interno (%s). No se puede usar la "
+"invitación automática al portal."
+msgstr ""
+"Este empleado ya tiene un usuario interno (%s). No se puede usar la "
+"invitación automática al portal."
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.res_config_settings_view_form_portal_hr
+msgid "Exportación CSV desde portal"
+msgstr "Exportación CSV desde portal"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_certificate_detail
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_certificates
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_requests
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advances
+msgid "Fecha"
+msgstr "Fecha"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_attendance_correction_request__approved_on
+msgid "Fecha aprobación"
+msgstr "Fecha aprobación"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_document_acceptance__accepted_on
+msgid "Fecha de aceptación"
+msgstr "Fecha de aceptación"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__approved_on
+msgid "Fecha de aprobación"
+msgstr "Fecha de aprobación"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__issued_on
+msgid "Fecha de emisión"
+msgstr "Fecha de emisión"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__requested_on
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__request_date
+msgid "Fecha de solicitud"
+msgstr "Fecha de solicitud"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_leaves_new
+msgid "Fecha fin"
+msgstr "Fecha fin"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_leaves_new
+msgid "Fecha inicio"
+msgstr "Fecha inicio"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_attendance_correction_request__request_date
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_attendance_corrections
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advance_detail
+msgid "Fecha solicitud"
+msgstr "Fecha solicitud"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_portal_audit_log__timestamp
+msgid "Fecha/Hora"
+msgstr "Fecha/Hora"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_team_leaves
+msgid "Filtrar"
+msgstr "Filtrar"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__message_follower_ids
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__message_follower_ids
+msgid "Followers"
+msgstr "Followers"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__message_partner_ids
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Followers (Partners)"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,help:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__activity_type_icon
+#: model:ir.model.fields,help:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Font awesome icon e.g. fa-tasks"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_res_config_settings__enable_team_calendar
+msgid "Habilitar calendario de equipo para jefes"
+msgstr "Habilitar calendario de equipo para jefes"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_res_config_settings__enable_portal_exports
+msgid "Habilitar exportación CSV desde portal"
+msgstr "Habilitar exportación CSV desde portal"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_res_config_settings__enable_portal_attendance_punch
+msgid "Habilitar registro de asistencia desde portal"
+msgstr "Habilitar registro de asistencia desde portal"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__has_message
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__has_message
+msgid "Has Message"
+msgstr "Has Message"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_leaves
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_team_leaves
+msgid "Hasta"
+msgstr "Hasta"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_leaves_new
+msgid "Hora desde"
+msgstr "Hora desde"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_leaves_new
+msgid "Hora hasta"
+msgstr "Hora hasta"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_attendance_correction_reject_wizard__id
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_attendance_correction_request__id
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_document_acceptance__id
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_document_policy__id
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_employee_portal_invite_wizard__id
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_portal_audit_log__id
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__id
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__id
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_hr_employee__id
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_hr_version__id
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_res_config_settings__id
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_salary_advance__id
+msgid "ID"
+msgstr "ID"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_portal_audit_log__res_id
+msgid "ID Registro"
+msgstr "ID Registro"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_document_acceptance__ip
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_portal_audit_log__ip
+msgid "IP"
+msgstr "IP"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__activity_exception_icon
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__activity_exception_icon
+msgid "Icon"
+msgstr "Icon"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,help:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__activity_exception_icon
+#: model:ir.model.fields,help:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Icon to indicate an exception activity."
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,help:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__message_needaction
+#: model:ir.model.fields,help:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "If checked, new messages require your attention."
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,help:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__message_has_error
+#: model:ir.model.fields,help:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__message_has_sms_error
+#: model:ir.model.fields,help:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__message_has_error
+#: model:ir.model.fields,help:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "If checked, some messages have a delivery error."
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_attendance_correction_new
+msgid "Indique el motivo de la corrección"
+msgstr "Indique el motivo de la corrección"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_leaves_new
+msgid "Indique el motivo de su solicitud..."
+msgstr "Indique el motivo de su solicitud..."
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.view_gn_hr_attendance_correction_reject_wizard_form
+msgid "Indique el motivo del rechazo..."
+msgstr "Indique el motivo del rechazo..."
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advances_new
+msgid ""
+"Indique el tipo de anticipo y el monto. RRHH validará límites y completará "
+"la aprobación en el sistema."
+msgstr ""
+"Indique el tipo de anticipo y el monto. RRHH validará límites y completará "
+"la aprobación en el sistema."
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.view_gn_hr_employee_portal_invite_wizard_form
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.view_hr_employee_form_portal_invite_button
+msgid "Invitar al portal"
+msgstr "Invitar al portal"
+
+#. module: gn_hn_hr_employee_portal
+#. odoo-python
+#: code:addons/gn_hn_hr_employee_portal/wizard/gn_hr_employee_portal_invite_wizard.py:0
+msgid "Invitar al portal del empleado"
+msgstr "Invitar al portal del empleado"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model,name:gn_hn_hr_employee_portal.model_gn_hr_employee_portal_invite_wizard
+msgid "Invitar empleado al portal"
+msgstr "Invitar empleado al portal"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__message_is_follower
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__message_is_follower
+msgid "Is Follower"
+msgstr "Is Follower"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advances
+msgid ""
+"Las solicitudes se envían a Recursos Humanos para aprobación y registro "
+"contable."
+msgstr ""
+"Las solicitudes se envían a Recursos Humanos para aprobación y registro "
+"contable."
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_attendance_correction_reject_wizard__write_uid
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_attendance_correction_request__write_uid
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_document_acceptance__write_uid
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_document_policy__write_uid
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_employee_portal_invite_wizard__write_uid
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_portal_audit_log__write_uid
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__write_uid
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__write_uid
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_attendance_correction_reject_wizard__write_date
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_attendance_correction_request__write_date
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_document_acceptance__write_date
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_document_policy__write_date
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_employee_portal_invite_wizard__write_date
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_portal_audit_log__write_date
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__write_date
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__write_date
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_team_leaves
+msgid "Limpiar"
+msgstr "Limpiar"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.actions.act_window,help:gn_hn_hr_employee_portal.action_gn_hr_attendance_correction_request
+msgid ""
+"Los empleados pueden solicitar correcciones desde el portal cuando detecten "
+"errores en sus registros de entrada/salida."
+msgstr ""
+"Los empleados pueden solicitar correcciones desde el portal cuando detecten "
+"errores en sus registros de entrada/salida."
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_leaves_new
+msgid ""
+"Los tipos marcados como <strong>Sin límite</strong> pueden solicitarse sin "
+"saldo disponible."
+msgstr ""
+"Los tipos marcados como <strong>Sin límite</strong> pueden solicitarse sin "
+"saldo disponible."
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.res_config_settings_view_form_portal_hr
+msgid "Límites de adjuntos"
+msgstr "Límites de adjuntos"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_leaves_new
+msgid "Límites por tipo de ausencia"
+msgstr "Límites por tipo de ausencia"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_res_config_settings__allowed_mimetypes
+msgid "MIME types permitidos (separados por coma)"
+msgstr "MIME types permitidos (separados por coma)"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__message_has_error
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__message_has_error
+msgid "Message Delivery error"
+msgstr "Message Delivery error"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__message_ids
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__message_ids
+msgid "Messages"
+msgstr "Messages"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+msgid "Mi Calendario"
+msgstr "Mi Calendario"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_profile
+msgid "Mi Perfil"
+msgstr "Mi Perfil"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_calendar
+msgid "Mi calendario de ausencias"
+msgstr "Mi calendario de ausencias"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_attendances
+msgid "Mis Asistencias"
+msgstr "Mis Asistencias"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_leaves
+msgid "Mis Ausencias"
+msgstr "Mis Ausencias"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_certificates
+msgid "Mis Constancias"
+msgstr "Mis Constancias"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_payslips
+msgid "Mis Nóminas"
+msgstr "Mis Nóminas"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_requests
+msgid "Mis Solicitudes"
+msgstr "Mis Solicitudes"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__mobile_phone
+msgid "Mobile"
+msgstr "Mobile"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_portal_audit_log__model
+msgid "Modelo"
+msgstr "Modelo"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advance_detail
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advances
+msgid "Monto"
+msgstr "Monto"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advances_new
+msgid "Monto solicitado"
+msgstr "Monto solicitado"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_attendance_correction_request__reason
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_attendance_correction_new
+msgid "Motivo"
+msgstr "Motivo"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_leaves_new
+msgid "Motivo (opcional)"
+msgstr "Motivo (opcional)"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_attendance_correction_reject_wizard__rejection_reason
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_attendance_correction_request__rejection_reason
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__rejection_reason
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__rejected_reason
+msgid "Motivo de rechazo"
+msgstr "Motivo de rechazo"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__my_activity_date_deadline
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "My Activity Deadline"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_profile
+msgid "Móvil"
+msgstr "Móvil"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__activity_calendar_event_id
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Next Activity Calendar Event"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__activity_date_deadline
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Next Activity Deadline"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__activity_summary
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__activity_summary
+msgid "Next Activity Summary"
+msgstr "Next Activity Summary"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__activity_type_id
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__activity_type_id
+msgid "Next Activity Type"
+msgstr "Next Activity Type"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_leaves
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_team_leaves
+msgid "No hay ausencias"
+msgstr "No hay ausencias"
+
+#. module: gn_hn_hr_employee_portal
+#. odoo-python
+#: code:addons/gn_hn_hr_employee_portal/models/salary_advance_portal.py:0
+msgid "No hay empleado vinculado a su usuario de portal."
+msgstr "No hay empleado vinculado a su usuario de portal."
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_payslips
+msgid "No hay nóminas"
+msgstr "No hay nóminas"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_attendances
+msgid "No hay registros"
+msgstr "No hay registros"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_attendance_corrections
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_certificates
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_requests
+msgid "No hay solicitudes"
+msgstr "No hay solicitudes"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advances
+msgid "No hay solicitudes de anticipo"
+msgstr "No hay solicitudes de anticipo"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.actions.act_window,help:gn_hn_hr_employee_portal.action_gn_hr_attendance_correction_request
+msgid "No hay solicitudes de corrección de asistencia."
+msgstr "No hay solicitudes de corrección de asistencia."
+
+#. module: gn_hn_hr_employee_portal
+#. odoo-python
+#: code:addons/gn_hn_hr_employee_portal/controllers/portal_employee.py:0
+msgid "No puede descargar esta nómina."
+msgstr "No puede descargar esta nómina."
+
+#. module: gn_hn_hr_employee_portal
+#. odoo-python
+#: code:addons/gn_hn_hr_employee_portal/controllers/portal_employee.py:0
+msgid "No puede descargar este documento."
+msgstr "No puede descargar este documento."
+
+#. module: gn_hn_hr_employee_portal
+#. odoo-python
+#: code:addons/gn_hn_hr_employee_portal/models/salary_advance_portal.py:0
+msgid "No puede modificar un anticipo en estado «%s»."
+msgstr "No puede modificar un anticipo en estado «%s»."
+
+#. module: gn_hn_hr_employee_portal
+#. odoo-python
+#: code:addons/gn_hn_hr_employee_portal/wizard/gn_hr_employee_portal_invite_wizard.py:0
+msgid ""
+"No se encontró la plantilla de correo \"Portal: nuevo usuario\" "
+"(auth_signup)."
+msgstr ""
+"No se encontró la plantilla de correo \"Portal: nuevo usuario\" "
+"(auth_signup)."
+
+#. module: gn_hn_hr_employee_portal
+#. odoo-python
+#: code:addons/gn_hn_hr_employee_portal/models/gn_hr_work_certificate_request.py:0
+msgid "No se puede emitir en el estado actual."
+msgstr "No se puede emitir en el estado actual."
+
+#. module: gn_hn_hr_employee_portal
+#. odoo-python
+#: code:addons/gn_hn_hr_employee_portal/models/gn_hr_work_certificate_request.py:0
+msgid "No se puede rechazar en el estado actual."
+msgstr "No se puede rechazar en el estado actual."
+
+#. module: gn_hn_hr_employee_portal
+#. odoo-python
+#: code:addons/gn_hn_hr_employee_portal/models/salary_advance_portal.py:0
+msgid "No tiene permiso para modificar esos datos del anticipo."
+msgstr "No tiene permiso para modificar esos datos del anticipo."
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_not_linked
+msgid "No tiene un empleado vinculado"
+msgstr "No tiene un empleado vinculado"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_document_policy__name
+msgid "Nombre"
+msgstr "Nombre"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__notes
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_certificates_new
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advance_detail
+msgid "Notas"
+msgstr "Notas"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advances_new
+msgid "Notas (opcional)"
+msgstr "Notas (opcional)"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_calendar
+msgid "Nueva ausencia"
+msgstr "Nueva ausencia"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_attendance_correction_new
+msgid "Nueva hora de entrada"
+msgstr "Nueva hora de entrada"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_attendance_correction_new
+msgid "Nueva hora de salida (opcional)"
+msgstr "Nueva hora de salida (opcional)"
+
+#. module: gn_hn_hr_employee_portal
+#. odoo-python
+#: code:addons/gn_hn_hr_employee_portal/models/gn_hr_work_certificate_request.py:0
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_attendance_corrections
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_certificates
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_leaves
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advances
+msgid "Nueva solicitud"
+msgstr "Nueva solicitud"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_certificates_new
+msgid "Nueva solicitud de constancia"
+msgstr "Nueva solicitud de constancia"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_attendance_correction_new
+msgid "Nueva solicitud de corrección"
+msgstr "Nueva solicitud de corrección"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__message_needaction_counter
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Number of Actions"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__message_has_error_counter
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__message_has_error_counter
+msgid "Number of errors"
+msgstr "Number of errors"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,help:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__message_needaction_counter
+#: model:ir.model.fields,help:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Number of messages requiring action"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,help:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__message_has_error_counter
+#: model:ir.model.fields,help:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Number of messages with delivery error"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_payslip_detail
+msgid "Nómina"
+msgstr "Nómina"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advance_detail
+msgid ""
+"Para cualquier gestión adicional contacte a Recursos Humanos. El flujo de "
+"aprobación y pago se realiza en el sistema administrativo."
+msgstr ""
+"Para cualquier gestión adicional contacte a Recursos Humanos. El flujo de "
+"aprobación y pago se realiza en el sistema administrativo."
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+msgid "Pendientes"
+msgstr "Pendientes"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.res_config_settings_view_form_portal_hr
+msgid "Permitir a los empleados registrar entrada/salida desde el portal"
+msgstr "Permitir a los empleados registrar entrada/salida desde el portal"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_payslip_detail
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_payslips
+msgid "Período"
+msgstr "Período"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_leaves_new
+msgid "Período fin"
+msgstr "Período fin"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_leaves_new
+msgid "Período inicio"
+msgstr "Período inicio"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__footer_id
+msgid "Pie de documento"
+msgstr "Pie de documento"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advances_new
+msgid "Planilla: hasta"
+msgstr "Planilla: hasta"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_document_acceptance__policy_id
+msgid "Política"
+msgstr "Política"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model,name:gn_hn_hr_employee_portal.model_gn_hr_document_policy
+msgid "Política o documento a aceptar por empleados"
+msgstr "Política o documento a aceptar por empleados"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.actions.act_window,name:gn_hn_hr_employee_portal.action_gn_hr_document_policy
+msgid "Políticas de documento"
+msgstr "Políticas de documento"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_policies
+msgid "Políticas y documentos"
+msgstr "Políticas y documentos"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_team_leaves
+msgid "Por aprobar"
+msgstr "Por aprobar"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.module.category,name:gn_hn_hr_employee_portal.module_category_employee_portal
+#: model:res.groups.privilege,name:gn_hn_hr_employee_portal.privilege_employee_portal
+msgid "Portal de Empleados"
+msgstr "Portal de Empleados"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+msgid "Portal de autoservicio para empleados"
+msgstr "Portal de autoservicio para empleados"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.res_config_settings_view_form_portal_hr
+msgid "Portal del Empleado"
+msgstr "Portal del Empleado"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__purpose
+msgid "Propósito"
+msgstr "Propósito"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_leaves_new
+msgid "Puedes solicitar hasta"
+msgstr "Puedes solicitar hasta"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__rating_ids
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__rating_ids
+msgid "Ratings"
+msgstr "Ratings"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields.selection,name:gn_hn_hr_employee_portal.selection__gn_hr_attendance_correction_request__state__rejected
+#: model:ir.model.fields.selection,name:gn_hn_hr_employee_portal.selection__gn_hr_profile_change_request__state__rejected
+#: model:ir.model.fields.selection,name:gn_hn_hr_employee_portal.selection__gn_hr_work_certificate_request__state__rejected
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_attendance_corrections
+msgid "Rechazada"
+msgstr "Rechazada"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advances
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_team_leaves
+msgid "Rechazado"
+msgstr "Rechazado"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.gn_hr_profile_change_request_view_form
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.gn_hr_work_certificate_request_view_form
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.view_gn_hr_attendance_correction_reject_wizard_form
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.view_gn_hr_attendance_correction_request_form
+msgid "Rechazar"
+msgstr "Rechazar"
+
+#. module: gn_hn_hr_employee_portal
+#. odoo-python
+#: code:addons/gn_hn_hr_employee_portal/models/gn_hr_attendance_correction_request.py:0
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.view_gn_hr_attendance_correction_reject_wizard_form
+msgid "Rechazar solicitud"
+msgstr "Rechazar solicitud"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model,name:gn_hn_hr_employee_portal.model_gn_hr_attendance_correction_reject_wizard
+msgid "Rechazar solicitud de corrección"
+msgstr "Rechazar solicitud de corrección"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__name
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__name
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_certificates
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advances
+msgid "Referencia"
+msgstr "Referencia"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_attendances
+msgid "Registrar entrada"
+msgstr "Registrar entrada"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_attendances
+msgid "Registrar salida"
+msgstr "Registrar salida"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_attendance_corrections
+msgid "Registro"
+msgstr "Registro"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_attendance_correction_new
+msgid "Registro a corregir"
+msgstr "Registro a corregir"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_attendance_correction_request__attendance_id
+msgid "Registro de asistencia"
+msgstr "Registro de asistencia"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.res_config_settings_view_form_portal_hr
+msgid "Registro de asistencia desde portal"
+msgstr "Registro de asistencia desde portal"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model,name:gn_hn_hr_employee_portal.model_gn_hr_portal_audit_log
+msgid "Registro de auditoría del portal de empleados"
+msgstr "Registro de auditoría del portal de empleados"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+msgid "Registro de entrada y salida"
+msgstr "Registro de entrada y salida"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_document_policy__required_for_portal
+msgid "Requerida para portal"
+msgstr "Requerida para portal"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__activity_user_id
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__activity_user_id
+msgid "Responsible User"
+msgstr "Responsible User"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__message_has_sms_error
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "SMS Delivery error"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advances
+msgid "Salario (planilla)"
+msgstr "Salario (planilla)"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model,name:gn_hn_hr_employee_portal.model_salary_advance
+msgid "Salary Advance"
+msgstr "Anticipo de Salario"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_hr_employee__structure_type_id
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_hr_version__structure_type_id
+msgid "Salary Structure Type"
+msgstr "Tipo de estructura salarial"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_attendances
+msgid "Salida"
+msgstr "Salida"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_attendance_correction_request__current_check_out
+msgid "Salida actual"
+msgstr "Salida actual"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_attendance_correction_request__requested_check_out
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_attendance_corrections
+msgid "Salida solicitada"
+msgstr "Salida solicitada"
+
+#. module: gn_hn_hr_employee_portal
+#. odoo-python
+#: code:addons/gn_hn_hr_employee_portal/wizard/gn_hr_employee_portal_invite_wizard.py:0
+msgid ""
+"Se renovó el enlace de acceso. El empleado ya tenía usuario portal "
+"vinculado."
+msgstr ""
+"Se renovó el enlace de acceso. El empleado ya tenía usuario portal "
+"vinculado."
+
+#. module: gn_hn_hr_employee_portal
+#. odoo-python
+#: code:addons/gn_hn_hr_employee_portal/wizard/gn_hr_employee_portal_invite_wizard.py:0
+msgid ""
+"Se vinculó al empleado un usuario portal que ya existía con ese correo. "
+"Comparta el enlace si hace falta."
+msgstr ""
+"Se vinculó al empleado un usuario portal que ya existía con ese correo. "
+"Comparta el enlace si hace falta."
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_team_leaves
+msgid "Segunda aprobación"
+msgstr "Segunda aprobación"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_document_policy__sequence
+msgid "Sequence"
+msgstr "Sequence"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,help:gn_hn_hr_employee_portal.field_gn_hr_document_policy__required_for_portal
+msgid "Si está activo, el empleado debe aceptar antes de usar el portal."
+msgstr "Si está activo, el empleado debe aceptar antes de usar el portal."
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,help:gn_hn_hr_employee_portal.field_gn_hr_employee_portal_invite_wizard__send_email
+msgid ""
+"Si está marcado, se envía el correo con la plantilla de portal de Odoo. El "
+"enlace también queda disponible abajo por si el correo no llega."
+msgstr ""
+"Si está marcado, se envía el correo con la plantilla de portal de Odoo. El "
+"enlace también queda disponible abajo por si el correo no llega."
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+msgid "Sin tipos con asignación"
+msgstr "Sin tipos con asignación"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+msgid "Solicitables"
+msgstr "Solicitables"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+msgid "Solicitables:"
+msgstr "Solicitables:"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__requested_by
+msgid "Solicitado por"
+msgstr "Solicitado por"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+msgid "Solicitar anticipo (13°, 14° o planilla); aprobación en RRHH"
+msgstr "Solicitar anticipo (13°, 14° o planilla); aprobación en RRHH"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advances_new
+msgid "Solicitar anticipo de salario"
+msgstr "Solicitar anticipo de salario"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+msgid "Solicitar cambios de datos personales"
+msgstr "Solicitar cambios de datos personales"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_profile
+msgid ""
+"Solicitar cambios en sus datos personales. Los cambios requieren aprobación "
+"de RRHH."
+msgstr ""
+"Solicitar cambios en sus datos personales. Los cambios requieren aprobación "
+"de RRHH."
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+msgid "Solicitar constancias de trabajo"
+msgstr "Solicitar constancias de trabajo"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_attendances
+msgid "Solicitar corrección"
+msgstr "Solicitar corrección"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_leaves_new
+msgid "Solicitar por varios días"
+msgstr "Solicitar por varios días"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_leaves_new
+msgid "Solicitar vacaciones"
+msgstr "Solicitar vacaciones"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_attendance_correction_reject_wizard__request_id
+msgid "Solicitud"
+msgstr "Solicitud"
+
+#. module: gn_hn_hr_employee_portal
+#. odoo-python
+#: code:addons/gn_hn_hr_employee_portal/models/gn_hr_profile_change_request.py:0
+msgid "Solicitud %s - %s"
+msgstr "Solicitud %s - %s"
+
+#. module: gn_hn_hr_employee_portal
+#. odoo-python
+#: code:addons/gn_hn_hr_employee_portal/models/gn_hr_profile_change_request.py:0
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.gn_hr_profile_change_request_view_form
+msgid "Solicitud de cambio de perfil"
+msgstr "Solicitud de cambio de perfil"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model,name:gn_hn_hr_employee_portal.model_gn_hr_profile_change_request
+msgid "Solicitud de cambio de perfil del empleado"
+msgstr "Solicitud de cambio de perfil del empleado"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.gn_hr_work_certificate_request_view_form
+msgid "Solicitud de constancia"
+msgstr "Solicitud de constancia"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model,name:gn_hn_hr_employee_portal.model_gn_hr_work_certificate_request
+msgid "Solicitud de constancia de trabajo"
+msgstr "Solicitud de constancia de trabajo"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.view_gn_hr_attendance_correction_request_form
+msgid "Solicitud de corrección"
+msgstr "Solicitud de corrección"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model,name:gn_hn_hr_employee_portal.model_gn_hr_attendance_correction_request
+msgid "Solicitud de corrección de asistencia"
+msgstr "Solicitud de corrección de asistencia"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_requests
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advances
+msgid "Solicitud enviada correctamente."
+msgstr "Solicitud enviada correctamente."
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.actions.act_window,name:gn_hn_hr_employee_portal.gn_hr_profile_change_request_action
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.gn_hr_profile_change_request_view_tree
+msgid "Solicitudes de cambio de perfil"
+msgstr "Solicitudes de cambio de perfil"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.actions.act_window,name:gn_hn_hr_employee_portal.gn_hr_work_certificate_request_action
+#: model:ir.ui.menu,name:gn_hn_hr_employee_portal.menu_gn_hr_work_certificate_request
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.gn_hr_work_certificate_request_view_tree
+msgid "Solicitudes de constancias"
+msgstr "Solicitudes de constancias"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_attendance_corrections
+msgid "Solicitudes de corrección de asistencia"
+msgstr "Solicitudes de corrección de asistencia"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.ui.menu,name:gn_hn_hr_employee_portal.menu_gn_hr_profile_change_request
+msgid "Solicitudes de perfil"
+msgstr "Solicitudes de perfil"
+
+#. module: gn_hn_hr_employee_portal
+#. odoo-python
+#: code:addons/gn_hn_hr_employee_portal/models/salary_advance_portal.py:0
+msgid "Solo puede actualizar las notas mientras RRHH procesa la solicitud."
+msgstr "Solo puede actualizar las notas mientras RRHH procesa la solicitud."
+
+#. module: gn_hn_hr_employee_portal
+#. odoo-python
+#: code:addons/gn_hn_hr_employee_portal/models/salary_advance_portal.py:0
+msgid "Solo puede enviar la solicitud para aprobación."
+msgstr "Solo puede enviar la solicitud para aprobación."
+
+#. module: gn_hn_hr_employee_portal
+#. odoo-python
+#: code:addons/gn_hn_hr_employee_portal/models/gn_hr_profile_change_request.py:0
+msgid "Solo se pueden aprobar solicitudes en estado Enviada."
+msgstr "Solo se pueden aprobar solicitudes en estado Enviada."
+
+#. module: gn_hn_hr_employee_portal
+#. odoo-python
+#: code:addons/gn_hn_hr_employee_portal/models/gn_hr_work_certificate_request.py:0
+msgid "Solo se pueden pasar a revisión solicitudes enviadas."
+msgstr "Solo se pueden pasar a revisión solicitudes enviadas."
+
+#. module: gn_hn_hr_employee_portal
+#. odoo-python
+#: code:addons/gn_hn_hr_employee_portal/models/gn_hr_profile_change_request.py:0
+msgid "Solo se pueden rechazar solicitudes en estado Enviada."
+msgstr "Solo se pueden rechazar solicitudes en estado Enviada."
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,help:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__activity_state
+#: model:ir.model.fields,help:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_not_linked
+msgid ""
+"Su cuenta de portal no está asociada a ningún empleado. Contacte a Recursos "
+"Humanos para que le vinculen su usuario al registro de empleado "
+"correspondiente."
+msgstr ""
+"Su cuenta de portal no está asociada a ningún empleado. Contacte a Recursos "
+"Humanos para que le vinculen su usuario al registro de empleado "
+"correspondiente."
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_res_config_settings__max_upload_mb
+msgid "Tamaño máximo de adjuntos (MB)"
+msgstr "Tamaño máximo de adjuntos (MB)"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__emergency_contact_phone
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_profile
+msgid "Teléfono emergencia"
+msgstr "Teléfono emergencia"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__phone_personal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_profile
+msgid "Teléfono personal"
+msgstr "Teléfono personal"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_certificate_detail
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_certificates
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_leaves
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_requests
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advance_detail
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advances
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_team_leaves
+msgid "Tipo"
+msgstr "Tipo"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advances_new
+msgid "Tipo de anticipo"
+msgstr "Tipo de anticipo"
+
+#. module: gn_hn_hr_employee_portal
+#. odoo-python
+#: code:addons/gn_hn_hr_employee_portal/models/portal_upload_utils.py:0
+msgid "Tipo de archivo \"%s\" no permitido. Permitidos: %s"
+msgstr "Tipo de archivo \"%s\" no permitido. Permitidos: %s"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_leaves_new
+msgid "Tipo de ausencia"
+msgstr "Tipo de ausencia"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__certificate_type_id
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_certificates_new
+msgid "Tipo de constancia"
+msgstr "Tipo de constancia"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+msgid "Tomadas"
+msgstr "Tomadas"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advances_new
+msgid ""
+"Tope orientativo por tipo de anticipo (según políticas en cada tipo de "
+"estructura):"
+msgstr ""
+"Tope orientativo por tipo de anticipo (según políticas en cada tipo de "
+"estructura):"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_leaves_new
+msgid "Tu saldo actual"
+msgstr "Tu saldo actual"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_leaves_new
+msgid "Tus solicitudes se calculan en la zona horaria"
+msgstr "Tus solicitudes se calculan en la zona horaria"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,help:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__activity_exception_decoration
+#: model:ir.model.fields,help:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Type of the exception activity on record."
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_document_acceptance__user_agent
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_portal_audit_log__user_agent
+msgid "User Agent"
+msgstr "User Agent"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_portal_audit_log__user_id
+msgid "Usuario"
+msgstr "Usuario"
+
+#. module: gn_hn_hr_employee_portal
+#: model:res.groups,name:gn_hn_hr_employee_portal.group_employee_portal_user
+msgid "Usuario Portal Empleado"
+msgstr "Usuario Portal Empleado"
+
+#. module: gn_hn_hr_employee_portal
+#. odoo-python
+#: code:addons/gn_hn_hr_employee_portal/wizard/gn_hr_employee_portal_invite_wizard.py:0
+msgid ""
+"Usuario portal creado y vinculado al empleado. Comparta el enlace si el "
+"correo no llega o el empleado no lo encuentra."
+msgstr ""
+"Usuario portal creado y vinculado al empleado. Comparta el enlace si el "
+"correo no llega o el empleado no lo encuentra."
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+msgid "Vacaciones y Ausencias"
+msgstr "Vacaciones y Ausencias"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+msgid "Vacaciones y permisos"
+msgstr "Vacaciones y permisos"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_certificates
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_payslips
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_requests
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advances
+msgid "Ver"
+msgstr "Ver"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+msgid "Ver ausencias en calendario"
+msgstr "Ver ausencias en calendario"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+msgid "Ver estado de todas mis solicitudes"
+msgstr "Ver estado de todas mis solicitudes"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_leaves_new
+msgid "Ver historial"
+msgstr "Ver historial"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_calendar
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_team_calendar
+msgid "Ver lista"
+msgstr "Ver lista"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+msgid "Ver nóminas y descargar"
+msgstr "Ver nóminas y descargar"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+msgid "Ver todas"
+msgstr "Ver todas"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+msgid "Ver vacaciones de mi equipo"
+msgstr "Ver vacaciones de mi equipo"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_document_policy__version
+msgid "Versión"
+msgstr "Versión"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_certificate_detail
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_payslip_detail
+msgid "Volver"
+msgstr "Volver"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advance_detail
+msgid "Volver al listado"
+msgstr "Volver al listado"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_hr_employee__wage
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_hr_version__wage
+msgid "Wage"
+msgstr "Salario"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__website_message_ids
+#: model:ir.model.fields,field_description:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__website_message_ids
+msgid "Website Messages"
+msgstr "Website Messages"
+
+#. module: gn_hn_hr_employee_portal
+#: model:ir.model.fields,help:gn_hn_hr_employee_portal.field_gn_hr_profile_change_request__website_message_ids
+#: model:ir.model.fields,help:gn_hn_hr_employee_portal.field_gn_hr_work_certificate_request__website_message_ids
+msgid "Website communication history"
+msgstr "Website communication history"
+
+#. module: gn_hn_hr_employee_portal
+#. odoo-python
+#: code:addons/gn_hn_hr_employee_portal/wizard/gn_hr_employee_portal_invite_wizard.py:0
+msgid ""
+"Ya existe otro usuario con el correo %s. Use otro correo o vincule ese "
+"usuario manualmente."
+msgstr ""
+"Ya existe otro usuario con el correo %s. Use otro correo o vincule ese "
+"usuario manualmente."
+
+#. module: gn_hn_hr_employee_portal
+#. odoo-python
+#: code:addons/gn_hn_hr_employee_portal/wizard/gn_hr_employee_portal_invite_wizard.py:0
+msgid ""
+"Ya existe un usuario interno con el correo %s. No se puede usar para el "
+"portal del empleado."
+msgstr ""
+"Ya existe un usuario interno con el correo %s. No se puede usar para el "
+"portal del empleado."
+
+#. module: gn_hn_hr_employee_portal
+#. odoo-python
+#: code:addons/gn_hn_hr_employee_portal/models/portal_upload_utils.py:0
+msgid "archivo"
+msgstr "archivo"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_salary_advance_detail
+msgid "breadcrumb"
+msgstr "breadcrumb"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_leaves_new
+msgid "dd/mm/aaaa"
+msgstr "dd/mm/aaaa"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_leaves_new
+msgid "días"
+msgstr "días"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_leaves_new
+msgid "días considerando solicitudes pendientes."
+msgstr "días considerando solicitudes pendientes."
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_attendance_correction_new
+msgid "| Salida:"
+msgstr "| Salida:"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_employee_home
+msgid "Últimas solicitudes"
+msgstr "Últimas solicitudes"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_attendance_correction_new
+msgid "← Volver"
+msgstr "← Volver"
+
+#. module: gn_hn_hr_employee_portal
+#: model_terms:ir.ui.view,arch_db:gn_hn_hr_employee_portal.portal_my_attendance_corrections
+msgid "← Volver a asistencias"
+msgstr "← Volver a asistencias"

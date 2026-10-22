@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_sales_dashboard.SalesAlertsPanel">
+        <section t-att-class="'gn-sd-panel gn-sd-alerts-panel gn-sd-level-2' + (props.compact ? ' gn-sd-alerts-panel--compact' : '')">
+            <header class="gn-sd-alerts-panel__head">
+                <h3 class="gn-sd-panel__title">
+                    Alertas comerciales
+                    <span t-if="props.alerts?.unread_count" class="gn-sd-badge gn-sd-badge--danger" t-esc="props.alerts.unread_count"/>
+                </h3>
+                <div class="gn-sd-alerts-panel__tools">
+                    <div t-if="props.alerts?.counts" class="gn-sd-alerts-panel__counts">
+                        <span t-if="props.alerts.counts.critical" class="gn-sd-badge gn-sd-badge--danger" t-esc="props.alerts.counts.critical + ' crít.'"/>
+                        <span t-if="props.alerts.counts.warning" class="gn-sd-badge gn-sd-badge--warning" t-esc="props.alerts.counts.warning + ' adv.'"/>
+                        <span t-if="props.alerts.counts.info" class="gn-sd-badge gn-sd-badge--info" t-esc="props.alerts.counts.info + ' info'"/>
+                    </div>
+                    <button t-if="props.compact and props.onViewAll" type="button"
+                            class="gn-sd-alerts-panel__link" t-on-click="onViewAllClick">Ver todas</button>
+                </div>
+            </header>
+            <div t-if="props.loading" class="gn-sd-skeleton gn-sd-skeleton--alerts"/>
+            <SalesEmptyState t-elif="!(props.alerts?.items?.length)"
+                icon="'fa-check-circle'"
+                title="'Sin alertas activas'"
+                description="'No se detectaron situaciones críticas en el período.'"
+                compact="true"/>
+            <div t-else="" class="gn-sd-alerts">
+                <article t-foreach="visibleItems" t-as="a" t-key="a.title + (a.metric or '')"
+                         class="gn-sd-alerts__item" t-att-class="'gn-sd-alerts__item--' + a.severity"
+                         t-on-click="(ev) => this.onClick(a, ev)">
+                    <i t-att-class="'fa ' + severityIcon(a.severity)" aria-hidden="true"/>
+                    <div class="gn-sd-alerts__body">
+                        <strong t-esc="a.title"/>
+                        <p t-esc="a.explanation"/>
+                        <div class="gn-sd-alerts__meta">
+                            <small t-if="a.metric">KPI: <t t-esc="a.metric"/></small>
+                            <span class="gn-sd-alerts__action" t-esc="a.action_label or 'Analizar'"/>
+                        </div>
+                    </div>
+                </article>
+                <button t-if="props.compact and sortedItems.length > 3" type="button"
+                        class="btn btn-link btn-sm" t-on-click="toggleExpanded"
+                        t-esc="state.expanded ? 'Ver menos' : 'Ver más alertas'"/>
+            </div>
+        </section>
+    </t>
+</templates>

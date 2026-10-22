@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_gn_fd_budget_form" model="ir.ui.view">
+        <field name="name">gn.financial.dashboard.budget.form</field>
+        <field name="model">gn.financial.dashboard.budget</field>
+        <field name="arch" type="xml">
+            <form string="Presupuesto del Tablero Financiero">
+                <header>
+                    <button name="action_generate_lines" type="object"
+                            string="Generar líneas mensuales" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="company_id" options="{'no_create': True}"/>
+                            <field name="year"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="total_income" widget="monetary"/>
+                            <field name="total_cogs" widget="monetary"/>
+                            <field name="total_expenses" widget="monetary"/>
+                            <field name="total_net" widget="monetary"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Líneas mensuales" name="lines">
+                            <field name="line_ids">
+                                <list editable="bottom" default_order="category,month">
+                                    <field name="category"/>
+                                    <field name="month"/>
+                                    <field name="amount"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_gn_fd_budget_list" model="ir.ui.view">
+        <field name="name">gn.financial.dashboard.budget.list</field>
+        <field name="model">gn.financial.dashboard.budget</field>
+        <field name="arch" type="xml">
+            <list string="Presupuestos">
+                <field name="year"/>
+                <field name="company_id"/>
+                <field name="total_income" widget="monetary"/>
+                <field name="total_expenses" widget="monetary"/>
+                <field name="total_net" widget="monetary"/>
+                <field name="currency_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_gn_fd_budget" model="ir.actions.act_window">
+        <field name="name">Presupuestos del Tablero Financiero</field>
+        <field name="res_model">gn.financial.dashboard.budget</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_gn_fd_budget"
+              name="Presupuestos del Tablero"
+              parent="account.menu_finance_configuration"
+              action="action_gn_fd_budget"
+              sequence="101"
+              groups="account.group_account_manager"/>
+</odoo>

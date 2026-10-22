@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_banks_balance.WbEmptyState">
+        <div t-att-class="'gn-empty ' + toneClass + (props.compact ? ' gn-empty--compact' : '')">
+            <div class="gn-empty__icon">
+                <i t-att-class="'fa ' + props.icon"/>
+            </div>
+            <h4 class="gn-empty__title" t-if="props.title" t-esc="props.title"/>
+            <p class="gn-empty__description" t-if="props.description" t-esc="props.description"/>
+            <p class="gn-empty__hint" t-if="props.hint">
+                <i class="fa fa-lightbulb-o me-2"/><span t-esc="props.hint"/>
+            </p>
+            <button type="button"
+                    class="btn btn-primary btn-sm gn-empty__action"
+                    t-if="props.actionLabel and props.onAction"
+                    t-on-click="props.onAction"
+                    t-esc="props.actionLabel"/>
+        </div>
+    </t>
+
+    <t t-name="gn_banks_balance.WbLoadingSkeleton">
+        <div t-att-class="'gn-skeleton gn-skeleton--' + props.variant">
+            <t t-if="props.variant === 'gauges'">
+                <div class="gn-skeleton__gauges-grid">
+                    <t t-foreach="rowsArray" t-as="i" t-key="i_index">
+                        <div class="gn-skeleton__gauge">
+                            <div class="gn-skeleton__line gn-skeleton__line--sm gn-skeleton-shimmer"/>
+                            <div class="gn-skeleton__semicircle gn-skeleton-shimmer"/>
+                            <div class="gn-skeleton__line gn-skeleton__line--md gn-skeleton-shimmer"/>
+                        </div>
+                    </t>
+                </div>
+            </t>
+            <t t-else="">
+                <div class="gn-skeleton__card">
+                    <t t-foreach="rowsArray" t-as="i" t-key="i_index">
+                        <div class="gn-skeleton__line gn-skeleton-shimmer"/>
+                    </t>
+                </div>
+            </t>
+        </div>
+    </t>
+
+</templates>

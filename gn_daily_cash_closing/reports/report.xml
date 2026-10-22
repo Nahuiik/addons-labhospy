@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="paperformat_portrait_cash" model="report.paperformat">
+        <field name="name">US Letter Portrait (Cierre Caja)</field>
+        <field name="default" eval="False"/>
+        <field name="format">Letter</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">8</field>
+        <field name="margin_bottom">8</field>
+        <field name="margin_left">8</field>
+        <field name="margin_right">8</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">5</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_cash_closing_report" model="ir.actions.report">
+        <field name="name">Cierre de Caja Diario</field>
+        <field name="model">gn.cash.closing.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">gn_daily_cash_closing.cash_closing_template</field>
+        <field name="report_file">Cierre de Caja</field>
+        <field name="paperformat_id" ref="gn_daily_cash_closing.paperformat_portrait_cash"/>
+    </record>
+    <record id="action_cash_closing_report_persistent" model="ir.actions.report">
+        <field name="name">Cierre de Caja Diario</field>
+        <field name="model">gn.cash.closing</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">gn_daily_cash_closing.cash_closing_template</field>
+        <field name="report_file">Cierre de Caja</field>
+        <field name="paperformat_id" ref="gn_daily_cash_closing.paperformat_portrait_cash"/>
+    </record>
+    <record id="action_cash_closing_report_xlsx" model="ir.actions.report">
+        <field name="name">Cierre de Caja Diario (Excel)</field>
+        <field name="model">gn.cash.closing</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">gn_daily_cash_closing.cash_closing_report_xlsx</field>
+        <field name="report_file">Cierre de Caja</field>
+    </record>
+    <record id="action_blind_closing_voucher" model="ir.actions.report">
+        <field name="name">Voucher Cierre a Ciegas</field>
+        <field name="model">gn.cash.closing.blind.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">gn_daily_cash_closing.blind_closing_voucher</field>
+        <field name="report_file">Voucher Cierre a Ciegas</field>
+        <field name="paperformat_id" ref="gn_daily_cash_closing.paperformat_portrait_cash"/>
+    </record>
+</odoo>

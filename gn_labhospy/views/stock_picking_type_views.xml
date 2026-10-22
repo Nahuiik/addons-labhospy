@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_picking_type_form_inherit_gn_labhospy_account" model="ir.ui.view">
+        <field name="name">stock.picking.type.form.gn_labhospy.account</field>
+        <field name="model">stock.picking.type</field>
+        <field name="inherit_id" ref="stock.view_picking_type_form"/>
+        <field name="arch" type="xml">
+            <field name="move_type" position="after">
+                <field
+                    name="use_in_consume_product"
+                    invisible="code != 'internal'"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>

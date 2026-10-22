@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="l10n_hn_hr_payroll.PayrollGenerationWizard">
+        <div class="o_payroll_generation_wizard">
+            <div class="o_wizard_header">
+                <h2>Generar Nómina</h2>
+                <ul class="nav nav-pills nav-fill mb-3">
+                    <t t-foreach="stepTitles" t-as="item" t-key="item_index">
+                        <li class="nav-item" role="presentation">
+                            <span t-att-class="item.num === state.step ? 'nav-link active' : (item.num &lt; state.step ? 'nav-link text-success' : 'nav-link disabled')">
+                                <t t-esc="item.num"/>. <t t-esc="item.label"/>
+                            </span>
+                        </li>
+                    </t>
+                </ul>
+            </div>
+            <div class="o_wizard_body">
+                <t t-if="state.step === 1">
+                    <StepConfig config="state.config" onConfigChange="onConfigChange"/>
+                    <div class="mt-3">
+                        <button class="btn btn-primary" t-on-click="goToStep2" t-att-disabled="!state.config.company_id || !state.config.structure_id || !state.config.schedule_pay || !state.config.date_start || !state.config.date_end || state.loading">
+                            <t t-if="state.loading">Cargando...</t>
+                            <t t-else="">Continuar</t>
+                        </button>
+                    </div>
+                </t>
+                <t t-elif="state.step === 2">
+                    <StepEmployees
+                        versions="state.versions"
+                        selectedIds="state.selectedIds"
+                        searchQuery="state.searchQuery"
+                        onToggle="onToggle"
+                        onToggleAll="onToggleAll"
+                        onSearchChange="onSearchChange"
+                    />
+                    <div class="mt-3 d-flex gap-2">
+                        <button class="btn btn-secondary" t-on-click="goBack">Atrás</button>
+                        <button class="btn btn-primary" t-on-click="goToStep3" t-att-disabled="selectedCount === 0">
+                            Continuar (<t t-esc="selectedCount"/> seleccionados)
+                        </button>
+                    </div>
+                </t>
+                <t t-elif="state.step === 3">
+                    <StepReview
+                        config="state.config"
+                        selectedCount="selectedCount"
+                        structureName="state.config.structure_id"
+                        companyName="state.config.company_id"
+                    />
+                    <div class="mt-3 d-flex gap-2">
+                        <button class="btn btn-secondary" t-on-click="goBack" t-att-disabled="state.generating">Atrás</button>
+                        <button class="btn btn-primary oe_highlight" t-on-click="generate" t-att-disabled="state.generating">
+                            <t t-if="state.generating">Generando...</t>
+                            <t t-else="">Generar nóminas</t>
+                        </button>
+                    </div>
+                </t>
+            </div>
+        </div>
+    </t>
+</templates>

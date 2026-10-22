@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="labhospy_contactus" inherit_id="website.contactus" name="LABHOSPY Contacto">
+        <xpath expr="//t[@t-set='contactus_form_values']" position="replace">
+            <t t-set="contactus_form_values" t-value="{
+                'email_to': 'info@labhospy.hn',
+                'name': request.params.get('name', ''),
+                'phone': request.params.get('phone', ''),
+                'email_from': request.params.get('email_from', ''),
+                'company': request.params.get('company', ''),
+                'subject': request.params.get('subject', ''),
+            }"/>
+        </xpath>
+        <xpath expr="//div[@id='wrap']" position="replace">
+            <div id="wrap" class="oe_structure labhospy-contact">
+
+                <!-- Título -->
+                <section class="labhospy-contact-hero pt48 pb32">
+                    <div class="container text-center labhospy-section-title">
+                        <h1>CONTÁCTANOS</h1>
+                    </div>
+                </section>
+
+                <!-- Oficinas (3 columnas como labhospy.hn) -->
+                <section class="labhospy-contact-offices pb48">
+                    <div class="container">
+                        <div class="row g-4">
+                            <div class="col-md-4">
+                                <div class="labhospy-office-card h-100">
+                                    <img src="/website_labhospy/static/src/img/contact/icono-contacto.jpg" alt="Oficina Principal" class="labhospy-office-icon" width="150" height="150"/>
+                                    <h3>Oficina Principal</h3>
+                                    <p>
+                                        Bo. La Moncada 2da. Ave, 3era. Calle<br/>
+                                        Edificio Gómez Andino No.1009,<br/>
+                                        Contiguo Escuela Estados Unidos,<br/>
+                                        Tegucigalpa, Honduras C.A.<br/>
+                                        Tel. (504) 2237-5423 / 2237-3997<br/>
+                                        2220-7125 / 2237-1634<br/>
+                                        Fax. (504) 2237-5567
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="labhospy-office-card h-100">
+                                    <img src="/website_labhospy/static/src/img/contact/icono-contacto.jpg" alt="Sucursal Tegucigalpa" class="labhospy-office-icon" width="150" height="150"/>
+                                    <h3>Sucursal Tegucigalpa</h3>
+                                    <p>
+                                        Centro Comercial Plaza San José, 2do Nivel<br/>
+                                        Blvd. Suyapa Frente Hospital Materno Infantil,<br/>
+                                        Tegucigalpa M.D.C.<br/>
+                                        Tel. (504) 2239-5926 / 2243-4612<br/>
+                                        Fax. (504) 2235-7125
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="labhospy-office-card h-100">
+                                    <img src="/website_labhospy/static/src/img/contact/icono-contacto.jpg" alt="Sucursal San Pedro Sula" class="labhospy-office-icon" width="150" height="150"/>
+                                    <h3>Sucursal San Pedro Sula</h3>
+                                    <p>
+                                        Centro Comercial Santa Anita, 1er. Nivel, Local No.10<br/>
+                                        Bo. Concepción, 1ra. Calle, 6ta Ave. S.E.<br/>
+                                        San Pedro Sula.<br/>
+                                        Tel. (504) 2553-0099 / 2552-9515<br/>
+                                        Fax: (504) 2553-0100
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Formulario -->
+                <section class="labhospy-contact-form-section pt16 pb64">
+                    <div class="container">
+                        <div class="text-center labhospy-section-title mb-4">
+                            <h2>Escríbenos por cualquier duda, consulta o sugerencia</h2>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-lg-10">
+                                <section class="s_website_form labhospy-contact-form" data-vcss="001" data-snippet="s_website_form">
+                                    <form id="contactus_form" action="/website/form/" method="post" enctype="multipart/form-data"
+                                          class="o_mark_required" data-mark="*" data-model_name="mail.mail"
+                                          data-success-mode="redirect" data-success-page="/contactus-thank-you" data-pre-fill="true">
+                                        <div class="s_website_form_rows row s_col_no_bgcolor">
+                                            <div class="mb-3 col-md-6 s_website_form_field s_website_form_custom s_website_form_required" data-type="char" data-name="Field">
+                                                <label class="s_website_form_label" for="contact4">
+                                                    <span class="s_website_form_label_content">Empresa</span>
+                                                    <span class="s_website_form_mark"> *</span>
+                                                </label>
+                                                <input id="contact4" type="text" class="form-control s_website_form_input" name="company" required="" data-fill-with="commercial_company_name" placeholder="Empresa"/>
+                                            </div>
+                                            <div class="mb-3 col-md-6 s_website_form_field s_website_form_custom s_website_form_required" data-type="char" data-name="Field">
+                                                <label class="s_website_form_label" for="contact1">
+                                                    <span class="s_website_form_label_content">Nombre completo</span>
+                                                    <span class="s_website_form_mark"> *</span>
+                                                </label>
+                                                <input id="contact1" type="text" class="form-control s_website_form_input" name="name" required="" data-fill-with="name" placeholder="Nombre completo"/>
+                                            </div>
+                                            <div class="mb-3 col-md-6 s_website_form_field s_website_form_required s_website_form_model_required" data-type="email" data-name="Field">
+                                                <label class="s_website_form_label" for="contact3">
+                                                    <span class="s_website_form_label_content">Correo electrónico</span>
+                                                    <span class="s_website_form_mark"> *</span>
+                                                </label>
+                                                <input id="contact3" type="email" class="form-control s_website_form_input" name="email_from" required="" data-fill-with="email" placeholder="Correo electrónico"/>
+                                            </div>
+                                            <div class="mb-3 col-md-6 s_website_form_field s_website_form_custom s_website_form_required" data-type="char" data-name="Field">
+                                                <label class="s_website_form_label" for="contact2">
+                                                    <span class="s_website_form_label_content">Teléfono</span>
+                                                    <span class="s_website_form_mark"> *</span>
+                                                </label>
+                                                <input id="contact2" type="tel" class="form-control s_website_form_input" name="phone" required="" data-fill-with="phone" placeholder="Teléfono"/>
+                                            </div>
+                                            <div class="mb-3 col-12 s_website_form_field s_website_form_required s_website_form_model_required" data-type="char" data-name="Field">
+                                                <label class="s_website_form_label" for="contact5">
+                                                    <span class="s_website_form_label_content">Asunto</span>
+                                                    <span class="s_website_form_mark"> *</span>
+                                                </label>
+                                                <input id="contact5" type="text" class="form-control s_website_form_input" name="subject" required="" placeholder="Asunto"/>
+                                            </div>
+                                            <div class="mb-3 col-12 s_website_form_field s_website_form_custom s_website_form_required" data-type="text" data-name="Field">
+                                                <label class="s_website_form_label" for="contact6">
+                                                    <span class="s_website_form_label_content">Mensaje</span>
+                                                    <span class="s_website_form_mark"> *</span>
+                                                </label>
+                                                <textarea id="contact6" class="form-control s_website_form_input" name="description" required="" rows="6" placeholder="Mensaje"/>
+                                            </div>
+                                            <div class="mb-3 col-12 s_website_form_field s_website_form_dnone">
+                                                <input id="contact7" type="hidden" class="form-control s_website_form_input" name="email_to" value="info@labhospy.hn"/>
+                                            </div>
+                                            <div class="mb-0 py-2 col-12 s_website_form_submit s_website_form_no_submit_label text-center" data-name="Submit Button">
+                                                <a href="#" role="button" class="btn btn-primary btn-lg s_website_form_send labhospy-btn-cta px-5">Enviar</a>
+                                                <span id="s_website_form_result" class="d-block mt-2"/>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </section>
+                            </div>
+                        </div>
+
+                        <!-- Horario + contacto rápido -->
+                        <div class="row justify-content-center mt-5 g-4">
+                            <div class="col-md-5 col-lg-4">
+                                <div class="labhospy-contact-info-box h-100">
+                                    <h3>Horario de Atención</h3>
+                                    <ul class="list-unstyled mb-0">
+                                        <li>Lunes-Viernes: 8:00 am a 4:30 pm</li>
+                                        <li>Sábado: 8:00 am a 12:00 pm</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-5 col-lg-4">
+                                <div class="labhospy-contact-info-box h-100">
+                                    <h3>Contacto directo</h3>
+                                    <p class="mb-1">
+                                        <i class="fa fa-phone fa-fw me-2"/>
+                                        <a href="tel:+50422375567" class="o_force_ltr labhospy-footer-contact">(504) 2237-5567 – 2237-3997</a>
+                                    </p>
+                                    <p class="mb-0">
+                                        <i class="fa fa-envelope fa-fw me-2"/>
+                                        <a href="mailto:info@labhospy.hn" class="labhospy-footer-contact">info@labhospy.hn</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </xpath>
+    </template>
+
+    <!-- Página de gracias -->
+    <record id="website.contactus_thanks" model="website.page">
+        <field name="arch" type="xml">
+            <t name="Thanks (Contact us)" t-name="website.contactus_thanks">
+                <t t-call="website.layout">
+                    <div id="wrap" class="oe_structure labhospy-contact">
+                        <section class="labhospy-contact-hero pt64 pb64">
+                            <div class="container text-center labhospy-section-title">
+                                <i class="fa fa-paper-plane fa-3x mb-4" style="color: var(--labhospy-accent);"/>
+                                <h1>¡Gracias!</h1>
+                                <p class="lead mt-3">Su mensaje ha sido enviado exitosamente.<br/>Nos pondremos en contacto con usted a la brevedad posible.</p>
+                                <a href="/" class="btn btn-primary labhospy-btn-cta mt-4 px-5">Volver al inicio</a>
+                            </div>
+                        </section>
+                    </div>
+                </t>
+            </t>
+        </field>
+    </record>
+</odoo>

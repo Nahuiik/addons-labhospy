@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_employee_view_form_hide_create_user" model="ir.ui.view">
+        <field name="name">hr.employee.form.hide.create.user</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/div[@name='button_box']" position="before">
+                <field name="gn_hide_create_user_button" invisible="1"/>
+            </xpath>
+            <xpath expr="//sheet/div[@name='button_box']" position="inside">
+                <button name="action_open_recurring_concepts" type="object"
+                        class="oe_stat_button" icon="fa-list-alt"
+                        groups="l10n_hn_payroll_base.group_hn_payroll_user">
+                    <field name="recurring_concept_active_count" widget="statinfo" string="Conceptos"/>
+                </button>
+                <button name="action_open_recurring_loans" type="object"
+                        class="oe_stat_button" icon="fa-money"
+                        groups="l10n_hn_payroll_base.group_hn_payroll_user"
+                        invisible="recurring_concept_loan_active_count == 0">
+                    <field name="recurring_concept_loan_active_count" widget="statinfo" string="Préstamos"/>
+                </button>
+            </xpath>
+            <xpath expr="//sheet/div[@name='button_box']" position="before">
+                <field name="recurring_concept_active_count" invisible="1"/>
+                <field name="recurring_concept_loan_active_count" invisible="1"/>
+            </xpath>
+            <xpath expr="//header/button[@name='action_create_user']" position="attributes">
+                <attribute name="invisible">user_id or gn_hide_create_user_button</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- HN/SV: con un solo contrato y sin recibos, el resumen de contrato solo se edita vía asistente -->
+    <record id="hr_employee_view_form_l10n_gn_contract_overview_readonly" model="ir.ui.view">
+        <field name="name">hr.employee.form.l10n.gn.contract.overview.readonly</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="l10n_hn_payroll_base.payroll_hr_employee_view_form"/>
+        <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='payroll_information']/field[@name='currency_id']" position="after">
+                <field name="l10n_gn_contract_overview_readonly" invisible="1"/>
+            </xpath>
+            <xpath expr="//page[@name='payroll_information']//div[hasclass('o_horizontal_separator')]//button[@type='action']" position="attributes">
+                <attribute name="invisible">l10n_gn_contract_overview_readonly</attribute>
+            </xpath>
+            <field name="contract_date_start" position="attributes">
+                <attribute name="readonly">l10n_gn_contract_overview_readonly</attribute>
+            </field>
+            <field name="contract_date_end" position="attributes">
+                <attribute name="readonly">l10n_gn_contract_overview_readonly</attribute>
+            </field>
+            <field name="wage" position="attributes">
+                <attribute name="readonly">l10n_gn_contract_overview_readonly</attribute>
+            </field>
+            <field name="schedule_pay" position="attributes">
+                <attribute name="readonly">l10n_gn_contract_overview_readonly</attribute>
+            </field>
+            <field name="employee_type" position="attributes">
+                <attribute name="readonly">l10n_gn_contract_overview_readonly</attribute>
+            </field>
+            <field name="contract_type_id" position="attributes">
+                <attribute name="readonly">l10n_gn_contract_overview_readonly</attribute>
+            </field>
+            <field name="structure_type_id" position="attributes">
+                <attribute name="readonly">l10n_gn_contract_overview_readonly</attribute>
+            </field>
+            <xpath expr="//page[@name='payroll_information']//field[@name='resource_calendar_id']" position="attributes">
+                <attribute name="readonly">l10n_gn_contract_overview_readonly</attribute>
+            </xpath>
+            <widget name="button_new_contract" position="attributes">
+                <attribute name="invisible">l10n_gn_contract_overview_readonly</attribute>
+            </widget>
+        </field>
+    </record>
+</odoo>

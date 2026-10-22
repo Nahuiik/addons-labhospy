@@ -1,0 +1,2171 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_hn_stock
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-30 03:19+0000\n"
+"PO-Revision-Date: 2026-04-30 03:19+0000\n"
+"Last-Translator: \n"
+"Language-Team: es_GT\n"
+"Language: es_GT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inventory_adjustment_name.py:0
+msgid " (y %s productos más)"
+msgstr " (y %s productos más)"
+
+#. module: l10n_hn_stock
+#: model:ir.actions.report,print_report_name:l10n_hn_stock.action_report_remission_inter_store
+msgid "'Remision-Traslado-%s' % (object.hn_remission_number or object.name)"
+msgstr "'Remision-Traslado-%s' % (object.hn_remission_number or object.name)"
+
+#. module: l10n_hn_stock
+#: model:ir.actions.report,print_report_name:l10n_hn_stock.action_report_remission
+msgid "'Remission-%s' % (object.hn_remission_number or object.name)"
+msgstr "'Remission-%s' % (object.hn_remission_number or object.name)"
+
+#. module: l10n_hn_stock
+#: model:ir.actions.report,print_report_name:l10n_hn_stock.action_report_inter_store_transfer
+msgid "'Traslado-%s' % (object.name)"
+msgstr "'Traslado-%s' % (object.name)"
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer_line.py:0
+msgid "(sin referencia)"
+msgstr "(sin referencia)"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_inter_store_template
+msgid "- al -"
+msgstr "- al -"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_inter_store_template
+msgid ""
+"<br/>\n"
+"                                CAI:"
+msgstr ""
+"<br/>\n"
+"                                CAI:"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_inter_store_template
+msgid ""
+"<br/>\n"
+"                                Rango Autorizado:"
+msgstr ""
+"<br/>\n"
+"                                Rango Autorizado:"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_inter_store_template
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_template
+msgid "<br/>CATALOGO:"
+msgstr "<br/>CATALOGO:"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_inter_store_template
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_template
+msgid "<br/>MODELO:"
+msgstr "<br/>MODELO:"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_template
+msgid "<br/>SERIE:"
+msgstr "<br/>SERIE:"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.consume_product_form_view
+msgid "<span class=\"o_stat_text\">Asientos contables</span>"
+msgstr "<span class=\"o_stat_text\">Asientos contables</span>"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_inter_store_template
+msgid "<span> al </span>"
+msgstr "<span> al </span>"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_inter_store_template
+msgid "<strong>Picking envío:</strong>"
+msgstr "<strong>Picking envío:</strong>"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_template
+msgid "<strong>Picking:</strong>"
+msgstr "<strong>Picking:</strong>"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_inter_store_transfer_template
+msgid "<strong>Destino:</strong>"
+msgstr "<strong>Destino:</strong>"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_inter_store_template
+msgid "<strong>Estado traslado:</strong>"
+msgstr "<strong>Estado traslado:</strong>"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_inter_store_transfer_template
+msgid "<strong>Estado:</strong>"
+msgstr "<strong>Estado:</strong>"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_template
+msgid "<strong>Factura:</strong>"
+msgstr "<strong>Factura:</strong>"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_inter_store_template
+msgid ""
+"<strong>Factura:</strong>\n"
+"                                        <span>-</span>\n"
+"                                        <span class=\"text-muted small\"> (traslado interno)</span>"
+msgstr ""
+"<strong>Factura:</strong>\n"
+"                                        <span>-</span>\n"
+"                                        <span class=\"text-muted small\"> (traslado interno)</span>"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_inter_store_transfer_template
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_inter_store_template
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_template
+msgid "<strong>Fecha:</strong>"
+msgstr "<strong>Fecha:</strong>"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.actions.act_window,help:l10n_hn_stock.action_stock_inter_store_transfer
+msgid "<strong>Flujo:</strong>"
+msgstr "<strong>Flujo:</strong>"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_inter_store_template
+msgid "<strong>GUÍA DE REMISIÓN</strong>"
+msgstr "<strong>GUÍA DE REMISIÓN</strong>"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_inter_store_template
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_template
+msgid "<strong>Guía:</strong>"
+msgstr "<strong>Guía:</strong>"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_inter_store_template
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_template
+msgid "<strong>Observaciones:</strong>"
+msgstr "<strong>Observaciones:</strong>"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_inter_store_transfer_template
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_template
+msgid "<strong>Origen:</strong>"
+msgstr "<strong>Origen:</strong>"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_inter_store_transfer_template
+msgid "<strong>Referencia:</strong>"
+msgstr "<strong>Referencia:</strong>"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_inter_store_template
+msgid "<strong>Responsable envío:</strong>"
+msgstr "<strong>Responsable envío:</strong>"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_inter_store_transfer_template
+msgid "<strong>Sucursal Origen:</strong>"
+msgstr "<strong>Sucursal Origen:</strong>"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_inter_store_template
+msgid "<strong>Sucursales:</strong>"
+msgstr "<strong>Sucursales:</strong>"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_inter_store_template
+msgid "<strong>Traslado:</strong>"
+msgstr "<strong>Traslado:</strong>"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_inter_store_template
+msgid "<strong>Ubicación destino:</strong>"
+msgstr "<strong>Ubicación destino:</strong>"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_inter_store_template
+msgid "<strong>Ubicación origen:</strong>"
+msgstr "<strong>Ubicación origen:</strong>"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_template
+msgid "<strong>Vendedor:</strong>"
+msgstr "<strong>Vendedor:</strong>"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,help:l10n_hn_stock.field_product_product__description_sale
+#: model:ir.model.fields,help:l10n_hn_stock.field_product_template__description_sale
+msgid ""
+"A description of the Product that you want to communicate to your customers."
+" This description will be copied to every Sales Order, Delivery Order and "
+"Customer Invoice/Credit Note"
+msgstr ""
+"La descripción del producto que le quiera dar a sus clientes. Se copiará "
+"esta descripción a cada orden de venta y entrega, así como a las facturas de"
+" cliente y las notas de crédito."
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_consume_product_line__account_id
+msgid "Account"
+msgstr "Cuenta"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__message_needaction
+msgid "Action Needed"
+msgstr "Acción requerida"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,help:l10n_hn_stock.field_res_config_settings__l10n_hn_stock_inventory_accounting_dates
+msgid ""
+"Activa la lógica de Honduras para alinear fechas contables y de stock en "
+"ajustes, y el reintento de asiento de valoración. Desactivado = "
+"comportamiento estándar de Odoo."
+msgstr ""
+"Activa la lógica de Honduras para alinear fechas contables y de stock en "
+"ajustes, y el reintento de asiento de valoración. Desactivado = "
+"comportamiento estándar de Odoo."
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_product_product__active
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_product_template__active
+msgid "Active"
+msgstr "Activo"
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer.py:0
+msgid "Active «Guía de remisión» en el traslado para generar el número."
+msgstr "Active «Guía de remisión» en el traslado para generar el número."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer.py:0
+msgid "Active «Guía de remisión» para imprimir."
+msgstr "Active «Guía de remisión» para imprimir."
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__activity_ids
+msgid "Activities"
+msgstr "Actividades"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Decoración de excepción de actividad"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__activity_state
+msgid "Activity State"
+msgstr "Estado de actividad"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Icono de tipo de actividad"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,help:l10n_hn_stock.field_stock_inter_store_transfer_line__gn_labhospy_is_controlled
+msgid "Actívelo si el producto requiere controles adicionales."
+msgstr "Actívelo si el producto requiere controles adicionales."
+
+#. module: l10n_hn_stock
+#: model:res.groups,comment:l10n_hn_stock.group_edit_product_cost
+msgid ""
+"Además de ver costos, permite modificar el costo. Incluye permisos de "
+"lectura/escritura en lotes/series (requerido por Odoo al propagar el costo "
+"en productos trazables con valoración)."
+msgstr ""
+"Además de ver costos, permite modificar el costo. Incluye permisos de "
+"lectura/escritura en lotes/series (requerido por Odoo al propagar el costo "
+"en productos trazables con valoración)."
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_res_config_settings__l10n_hn_stock_inventory_accounting_dates
+msgid "Ajustes de inventario: fechas contables alineadas (HN)"
+msgstr "Ajustes de inventario: fechas contables alineadas (HN)"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_location__allow_negative_stock
+msgid "Allow Negative Stock"
+msgstr "Permitir stock negativo"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__message_attachment_count
+msgid "Attachment Count"
+msgstr "Número de adjuntos"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,help:l10n_hn_stock.field_stock_inventory_adjustment_name__periodic_valuation_warning
+msgid ""
+"Aviso cuando la valoración no es en tiempo real (no se generan asientos "
+"automáticos)."
+msgstr ""
+"Aviso cuando la valoración no es en tiempo real (no se generan asientos "
+"automáticos)."
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_product_product__barcode
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_product_template__barcode
+msgid "Barcode"
+msgstr "Código de barras"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields.selection,name:l10n_hn_stock.selection__stock_inter_store_transfer__state__draft
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_stock_inter_store_transfer_search
+msgid "Borrador"
+msgstr "Borrador"
+
+#. module: l10n_hn_stock
+#: model:ir.model,name:l10n_hn_stock.model_res_branch
+msgid "Branch"
+msgstr "Sucursal"
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/product_chatter_log.py:0
+msgid "Cambio de precio de costo: %(old)s → %(new)s %(sym)s"
+msgstr "Cambio de precio de costo: %(old)s → %(new)s %(sym)s"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.consume_product_form_view
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields.selection,name:l10n_hn_stock.selection__stock_inter_store_transfer__state__cancel
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_stock_inter_store_transfer_search
+msgid "Cancelado"
+msgstr "Cancelado"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_stock_inter_store_transfer_form
+msgid "Cancelar"
+msgstr "Cancelar"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer_line__product_uom_qty
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_inter_store_transfer_template
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_inter_store_template
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_template
+msgid "Cantidad"
+msgstr "Cantidad"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,help:l10n_hn_stock.field_stock_inter_store_transfer_line__qty_available
+msgid ""
+"Cantidad disponible (libre) en la ubicación origen del traslado; con lote, "
+"del lote en origen."
+msgstr ""
+"Cantidad disponible (libre) en la ubicación origen del traslado; con lote, "
+"del lote en origen."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer_line.py:0
+msgid "Cantidad mayor al disponible"
+msgstr "Cantidad mayor al disponible"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_location__check_serial_no
+msgid "Check Serial No."
+msgstr "Verificar n.º de serie"
+
+#. module: l10n_hn_stock
+#: model:ir.model,name:l10n_hn_stock.model_res_company
+msgid "Companies"
+msgstr "Empresas"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,help:l10n_hn_stock.field_stock_picking__move_ids_without_package
+msgid ""
+"Compatible con plantillas QWeb que usan move_ids_without_package (Odoo ≤16)."
+msgstr ""
+"Compatible con plantillas QWeb que usan move_ids_without_package (Odoo ≤16)."
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__company_id
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer_line__company_id
+msgid "Compañía"
+msgstr "Compañía"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.actions.act_window,help:l10n_hn_stock.action_stock_inter_store_transfer
+msgid "Complete origen, destino y productos."
+msgstr "Complete origen, destino y productos."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer_line.py:0
+msgid ""
+"Con trazado por número de serie, la cantidad en cada línea debe ser 1. Use "
+"varias líneas para varias unidades de %(product)s."
+msgstr ""
+"Con trazado por número de serie, la cantidad en cada línea debe ser 1. Use "
+"varias líneas para varias unidades de %(product)s."
+
+#. module: l10n_hn_stock
+#: model:ir.model,name:l10n_hn_stock.model_res_config_settings
+msgid "Config Settings"
+msgstr "Ajustes de configuración"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.consume_product_form_view
+msgid "Confirm"
+msgstr "Confirmar"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields.selection,name:l10n_hn_stock.selection__stock_inter_store_transfer__state__confirmed
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_stock_inter_store_transfer_search
+msgid "Confirmado"
+msgstr "Confirmado"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_stock_inter_store_transfer_form
+msgid "Confirmar"
+msgstr "Confirmar"
+
+#. module: l10n_hn_stock
+#: model:res.groups.privilege,name:l10n_hn_stock.privilege_confirm_sale
+msgid "Confirmar venta"
+msgstr "Confirmar venta"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_account_bank_statement_line__consume_id
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_account_move__consume_id
+msgid "Consume Document"
+msgstr "Documento de consumo"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.consume_product_form_view
+msgid "Consume Line"
+msgstr "Línea de consumo"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.consume_product_form_view
+msgid "Consume Lines"
+msgstr "Líneas de consumo"
+
+#. module: l10n_hn_stock
+#: model:ir.model,name:l10n_hn_stock.model_consume_product
+msgid "Consume Product"
+msgstr "Producto de consumo"
+
+#. module: l10n_hn_stock
+#: model:ir.model,name:l10n_hn_stock.model_consume_product_line
+msgid "Consume Product Line"
+msgstr "Línea de producto de consumo"
+
+#. module: l10n_hn_stock
+#: model:ir.actions.act_window,name:l10n_hn_stock.action_consume_products
+#: model:ir.ui.menu,name:l10n_hn_stock.menu_consume_products
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.consume_product_form_view
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.consume_product_tree_view
+msgid "Consume Products"
+msgstr "Productos de consumo"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_picking__product_consume_id
+msgid "Consumo / ingreso interno"
+msgstr "Consumo / ingreso interno"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_inter_store_template
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_template
+msgid "Copia 1: Emisor"
+msgstr "Copia 1: Emisor"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_inter_store_template
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_template
+msgid "Copia 2: Servicio de Administración de Rentas"
+msgstr "Copia 2: Servicio de Administración de Rentas"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_product_product__standard_price
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_product_template__standard_price
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_sale_order_line__purchase_price
+msgid "Cost"
+msgstr "Costo"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.actions.act_window,help:l10n_hn_stock.action_stock_inter_store_transfer
+msgid "Crear un traslado entre tiendas"
+msgstr "Crear un traslado entre tiendas"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer_line__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__create_date
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer_line__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_inter_store_transfer_template
+msgid "Cód. catálogo"
+msgstr "Cód. catálogo"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_consume_product_line__gn_labhospy_catalog_code
+msgid "Código catálogo"
+msgstr "Código catálogo"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer_line__gn_labhospy_catalog_code
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_stock_inter_store_transfer_form
+msgid "Código de Catálogo"
+msgstr "Código de Catálogo"
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer.py:0
+msgid "Debe agregar al menos una línea de producto."
+msgstr "Debe agregar al menos una línea de producto."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer_line.py:0
+msgid ""
+"Debe indicar lote/serie en la línea de %(product)s para que el traslado "
+"conserve el coste del lote al validar el inventario."
+msgstr ""
+"Debe indicar lote/serie en la línea de %(product)s para que el traslado "
+"conserve el coste del lote al validar el inventario."
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_product_product__split_method_landed_cost
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_product_template__split_method_landed_cost
+msgid "Default Split Method"
+msgstr "Método de división predeterminado"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,help:l10n_hn_stock.field_product_product__split_method_landed_cost
+#: model:ir.model.fields,help:l10n_hn_stock.field_product_template__split_method_landed_cost
+msgid "Default Split Method when used for Landed Cost"
+msgstr "Método de división predeterminado cuando se usa para costo en destino"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,help:l10n_hn_stock.field_stock_inter_store_transfer_line__product_uom
+msgid "Default unit of measure used for all stock operations."
+msgstr ""
+"Unidad de medida predeterminada para todas las operaciones de inventario."
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_stock_inter_store_transfer_form
+msgid "Destino"
+msgstr "Destino"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.product_category_form_inherit_l10n_hn_stock_journal
+msgid "Diario de inventario"
+msgstr "Diario de inventario"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_account_invoice_report__display_name
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_account_move__display_name
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_account_move_line__display_name
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_consume_product__display_name
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_consume_product_line__display_name
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_ir_actions_report__display_name
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_mail_message__display_name
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_product_product__display_name
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_product_template__display_name
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_res_branch__display_name
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_res_company__display_name
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_sale_order__display_name
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_sale_order_line__display_name
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_sale_report__display_name
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__display_name
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer_line__display_name
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inventory_adjustment_name__display_name
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_location__display_name
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_lot__display_name
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_move__display_name
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_picking__display_name
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_quant__display_name
+msgid "Display Name"
+msgstr "Nombre en pantalla"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer_line__qty_available
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_stock_inter_store_transfer_form
+msgid "Disponible"
+msgstr "Disponible"
+
+#. module: l10n_hn_stock
+#: model:res.groups,name:l10n_hn_stock.group_edit_product_cost
+#: model:res.groups.privilege,name:l10n_hn_stock.privilege_edit_product_cost
+msgid "Editar costo de producto"
+msgstr "Editar costo de producto"
+
+#. module: l10n_hn_stock
+#: model:res.groups.privilege,name:l10n_hn_stock.privilege_edit_invoice_price
+msgid "Editar precio factura cliente"
+msgstr "Editar precio factura cliente"
+
+#. module: l10n_hn_stock
+#: model:res.groups.privilege,name:l10n_hn_stock.privilege_edit_sale_price
+msgid "Editar precio venta"
+msgstr "Editar precio venta"
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/ir_actions_report.py:0
+msgid "El PDF de plantilla tiene restricciones de seguridad: %s"
+msgstr "El PDF de plantilla tiene restricciones de seguridad: %s"
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/consume_product.py:0
+msgid ""
+"El picking vinculado estaba vacío o no tiene movimientos. Use «Cancelar» en "
+"este documento y luego «Confirmar» de nuevo para generar un nuevo traslado, "
+"o abra «Pickings» y revise el estado."
+msgstr ""
+"El picking vinculado estaba vacío o no tiene movimientos. Use «Cancelar» en "
+"este documento y luego «Confirmar» de nuevo para generar un nuevo traslado, "
+"o abra «Pickings» y revise el estado."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer_line.py:0
+msgid ""
+"El lote o número de serie «%(lot)s» ya figura en la línea %(line_no)s del "
+"traslado %(doc)s (mismo producto)."
+msgstr ""
+"El lote o número de serie «%(lot)s» ya figura en la línea %(line_no)s del "
+"traslado %(doc)s (mismo producto)."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer_line.py:0
+msgid "El lote «%(lot)s» no corresponde al producto «%(product)s»."
+msgstr "El lote «%(lot)s» no corresponde al producto «%(product)s»."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/sale_order_line.py:0
+msgid ""
+"El permiso de restricción de precio de venta está activo, no puedes "
+"modificar el precio en las cotizaciones."
+msgstr ""
+"El permiso de restricción de precio de venta está activo, no puedes "
+"modificar el precio en las cotizaciones."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/account_move_line.py:0
+msgid ""
+"El permiso de restricción de precio de venta está activo, no puedes "
+"modificar el precio en las facturas de cliente."
+msgstr ""
+"El permiso de restricción de precio de venta está activo, no puedes "
+"modificar el precio en las facturas de cliente."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer_line.py:0
+msgid ""
+"El producto '%(product)s' (Ref: %(ref)s) ya figura con la misma trazabilidad en la línea %(line_no)s del traslado %(doc)s.\n"
+"\n"
+"Ajuste la cantidad o use otra fila con distinto lote/serie según corresponda."
+msgstr ""
+"El producto '%(product)s' (Ref: %(ref)s) ya figura con la misma trazabilidad en la línea %(line_no)s del traslado %(doc)s.\n"
+"\n"
+"Ajuste la cantidad o use otra fila con distinto lote/serie según corresponda."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer_line.py:0
+msgid ""
+"El producto «%(name)s» con el lote/serie indicado ya figura en la línea "
+"%(line_no)s del traslado %(doc)s."
+msgstr ""
+"El producto «%(name)s» con el lote/serie indicado ya figura en la línea "
+"%(line_no)s del traslado %(doc)s."
+
+#. module: l10n_hn_stock
+#: model_terms:ir.actions.act_window,help:l10n_hn_stock.action_stock_inter_store_transfer
+msgid ""
+"En la tienda destino, haga clic en <strong>Recibir</strong> para que los "
+"productos lleguen."
+msgstr ""
+"En la tienda destino, haga clic en <strong>Recibir</strong> para que los "
+"productos lleguen."
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,help:l10n_hn_stock.field_stock_inter_store_transfer_line__product_tracking
+msgid "Ensure the traceability of a storable product in your warehouse."
+msgstr "Garantiza la trazabilidad de un producto almacenable en su almacén."
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields.selection,name:l10n_hn_stock.selection__stock_inter_store_transfer__state__sent
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_stock_inter_store_transfer_search
+msgid "Enviado"
+msgstr "Enviado"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__sent_by_user_id
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_inter_store_template
+msgid "Enviado por"
+msgstr "Enviado por"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_stock_inter_store_transfer_form
+msgid "Enviar"
+msgstr "Enviar"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_stock_inter_store_transfer_form
+msgid "Envío"
+msgstr "Envío"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__picking_out_id
+msgid "Envío (Origen)"
+msgstr "Envío (Origen)"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_stock_inter_store_transfer_search
+msgid "Estado"
+msgstr "Estado"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.res_config_settings_view_form_l10n_hn_stock_negative
+msgid ""
+"Evita que se generen existencias negativas en las ubicaciones internas."
+msgstr ""
+"Evita que se generen existencias negativas en las ubicaciones internas."
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__date
+msgid "Fecha Programada"
+msgstr "Fecha Programada"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.stock_inventory_adjustment_name_form_view_inherit_l10n_hn
+msgid ""
+"Fecha del asiento de valoración. Con la opción de Honduras activa en Ajustes"
+" &gt; Inventario, la fecha del movimiento de inventario (programada y "
+"efectiva) puede alinearse con esta fecha contable."
+msgstr ""
+"Fecha del asiento de valoración. Con la opción de Honduras activa en Ajustes"
+" &gt; Inventario, la fecha del movimiento de inventario (programada y "
+"efectiva) puede alinearse con esta fecha contable."
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (contactos)"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,help:l10n_hn_stock.field_stock_inter_store_transfer__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Icono Font Awesome, p. ej. fa-tasks"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_picking_form_l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_stock_inter_store_transfer_form
+msgid "Generar guía de remisión"
+msgstr "Generar guía de remisión"
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_picking.py:0
+msgid "Generate the remission sequence before printing."
+msgstr "Genera la secuencia de remisión antes de imprimir."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer.py:0
+msgid "Genere la secuencia de remisión antes de imprimir."
+msgstr "Genere la secuencia de remisión antes de imprimir."
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,help:l10n_hn_stock.field_product_product__type
+#: model:ir.model.fields,help:l10n_hn_stock.field_product_template__type
+msgid ""
+"Goods are tangible materials and merchandise you provide.\n"
+"A service is a non-material product you provide."
+msgstr ""
+"Los bienes son productos materiales tangibles que usted proporciona.\n"
+"Los servicios son productos inmateriales que usted proporciona."
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_template
+msgid "Guía de Remisión"
+msgstr "Guía de Remisión"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__hn_remission_enabled
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_picking__hn_remission_enabled
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_stock_inter_store_transfer_form
+msgid "Guía de remisión"
+msgstr "Guía de remisión"
+
+#. module: l10n_hn_stock
+#: model:ir.actions.report,name:l10n_hn_stock.action_report_remission_inter_store
+msgid "Guía de remisión (traslado entre tiendas)"
+msgstr "Guía de remisión (traslado entre tiendas)"
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer.py:0
+msgid "Guía de remisión generada: <strong>%s</strong>"
+msgstr "Guía de remisión generada: <strong>%s</strong>"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.actions.act_window,help:l10n_hn_stock.action_stock_inter_store_transfer
+msgid "Haga clic en <strong>Confirmar</strong> para crear los movimientos."
+msgstr "Haga clic en <strong>Confirmar</strong> para crear los movimientos."
+
+#. module: l10n_hn_stock
+#: model_terms:ir.actions.act_window,help:l10n_hn_stock.action_stock_inter_store_transfer
+msgid ""
+"Haga clic en <strong>Enviar</strong> para que los productos salgan del "
+"origen (irán a tránsito)."
+msgstr ""
+"Haga clic en <strong>Enviar</strong> para que los productos salgan del "
+"origen (irán a tránsito)."
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__has_message
+msgid "Has Message"
+msgstr "Tiene mensaje"
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_quant.py:0
+msgid ""
+"Has configurado evitar inventario negativo. Quedan %(qty)s unidades de "
+"%(product)s en la ubicación %(location)s. Ajusta tus cantidades o corrige el"
+" inventario con un ajuste."
+msgstr ""
+"Has configurado evitar inventario negativo. Quedan %(qty)s unidades de "
+"%(product)s en la ubicación %(location)s. Ajusta tus cantidades o corrige el"
+" inventario con un ajuste."
+
+#. module: l10n_hn_stock
+#: model:ir.module.category,name:l10n_hn_stock.module_category_honduras_stock
+msgid "Honduras Stock"
+msgstr "Inventario Honduras"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_account_invoice_report__id
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_account_move__id
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_account_move_line__id
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_consume_product__id
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_consume_product_line__id
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_ir_actions_report__id
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_mail_message__id
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_product_product__id
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_product_template__id
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_res_branch__id
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_res_company__id
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_res_config_settings__id
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_sale_order__id
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_sale_order_line__id
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_sale_report__id
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__id
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer_line__id
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inventory_adjustment_name__id
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_location__id
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_lot__id
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_move__id
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_picking__id
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_quant__id
+msgid "ID"
+msgstr "ID"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__activity_exception_icon
+msgid "Icon"
+msgstr "Icono"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,help:l10n_hn_stock.field_stock_inter_store_transfer__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Icono para indicar una actividad con excepción."
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,help:l10n_hn_stock.field_consume_product_line__gn_labhospy_catalog_code
+#: model:ir.model.fields,help:l10n_hn_stock.field_stock_inter_store_transfer_line__gn_labhospy_catalog_code
+msgid "Identificador de catálogo proporcionado por el proveedor."
+msgstr "Identificador de catálogo proporcionado por el proveedor."
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,help:l10n_hn_stock.field_stock_inter_store_transfer__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcado, los mensajes nuevos requieren su atención."
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,help:l10n_hn_stock.field_stock_inter_store_transfer__message_has_error
+#: model:ir.model.fields,help:l10n_hn_stock.field_stock_inter_store_transfer__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si está marcado, algunos mensajes tienen error de entrega."
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,help:l10n_hn_stock.field_product_product__active
+#: model:ir.model.fields,help:l10n_hn_stock.field_product_template__active
+msgid ""
+"If unchecked, it will allow you to hide the product without removing it."
+msgstr "Si no está marcado, permitirá ocultar el producto sin eliminarlo."
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_stock_inter_store_transfer_form
+msgid "Imprimir guía de remisión"
+msgstr "Imprimir guía de remisión"
+
+#. module: l10n_hn_stock
+#: model:ir.actions.act_window,name:l10n_hn_stock.action_income_products
+#: model:ir.ui.menu,name:l10n_hn_stock.menu_income_products
+msgid "Incoming Products"
+msgstr "Productos entrantes"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,help:l10n_hn_stock.field_product_product__landed_cost_ok
+#: model:ir.model.fields,help:l10n_hn_stock.field_product_template__landed_cost_ok
+msgid ""
+"Indicates whether the product is a landed cost: when receiving a vendor "
+"bill, you can allocate this cost on preceding receipts."
+msgstr ""
+"Indica si el producto es un costo en destino: al recibir una factura de "
+"proveedor, puede asignar este costo en recibos precedentes."
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_product_product__default_code
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_product_template__default_code
+msgid "Internal Reference"
+msgstr "Referencia Interna"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,help:l10n_hn_stock.field_product_product__barcode
+msgid "International Article Number used for product identification."
+msgstr ""
+"Número Internacional de Artículo utilizado para la identificación del "
+"producto."
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_company_form_inherit_l10n_hn_stock_journal
+msgid "Inventario (contabilidad)"
+msgstr "Inventario (contabilidad)"
+
+#. module: l10n_hn_stock
+#: model:ir.model,name:l10n_hn_stock.model_stock_inventory_adjustment_name
+msgid "Inventory Adjustment Reference / Reason"
+msgstr "Referencia/motivo del ajuste de inventario"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_consume_product__journal_id
+msgid "Inventory Journal"
+msgstr "Diario de inventario"
+
+#. module: l10n_hn_stock
+#: model:ir.model,name:l10n_hn_stock.model_stock_location
+msgid "Inventory Locations"
+msgstr "Ubicaciones de inventario"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_picking__invoice_name
+msgid "Invoice Number"
+msgstr "Número de factura"
+
+#. module: l10n_hn_stock
+#: model:ir.model,name:l10n_hn_stock.model_account_invoice_report
+msgid "Invoices Statistics"
+msgstr "Estadísticas de facturas"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__message_is_follower
+msgid "Is Follower"
+msgstr "Es seguidor"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_product_product__landed_cost_ok
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_product_template__landed_cost_ok
+msgid "Is a Landed Cost"
+msgstr "Es un costo en destino"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_consume_product__journal_entry_ids
+msgid "Journal Entries"
+msgstr "Asientos contables"
+
+#. module: l10n_hn_stock
+#: model:ir.model,name:l10n_hn_stock.model_account_move
+msgid "Journal Entry"
+msgstr "Asiento contable"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_consume_product__journal_entry_count
+msgid "Journal Entry Count"
+msgstr "Número de asientos contables"
+
+#. module: l10n_hn_stock
+#: model:ir.model,name:l10n_hn_stock.model_account_move_line
+msgid "Journal Item"
+msgstr "Apunte contable"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_product_product__l10n_hn_standard_price_readonly
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_product_template__l10n_hn_standard_price_readonly
+msgid "L10N Hn Standard Price Readonly"
+msgstr "Precio estándar solo lectura (HN)"
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer_line.py:0
+msgid ""
+"La cantidad (%(qty)s) no puede ser mayor que la disponible en origen "
+"(%(avail)s) para el producto %(product)s."
+msgstr ""
+"La cantidad (%(qty)s) no puede ser mayor que la disponible en origen "
+"(%(avail)s) para el producto %(product)s."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer_line.py:0
+msgid ""
+"La cantidad (%(qty)s) supera lo disponible en origen (%(avail)s) para "
+"%(product)s. Ajuste la cantidad antes de guardar."
+msgstr ""
+"La cantidad (%(qty)s) supera lo disponible en origen (%(avail)s) para "
+"%(product)s. Ajuste la cantidad antes de guardar."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer.py:0
+msgid "La cantidad debe ser positiva en la línea de %s."
+msgstr "La cantidad debe ser positiva en la línea de %s."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer.py:0
+msgid "La secuencia de remisión ya fue generada."
+msgstr "La secuencia de remisión ya fue generada."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer.py:0
+msgid "La ubicación origen y destino no pueden ser la misma."
+msgstr "La ubicación origen y destino no pueden ser la misma."
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer_line__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__write_date
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer_line__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_account_move_line__hn_readonly_price
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_sale_order_line__hn_readonly_price
+msgid "Locked Price"
+msgstr "Precio bloqueado"
+
+#. module: l10n_hn_stock
+#: model:ir.model,name:l10n_hn_stock.model_stock_lot
+msgid "Lot/Serial"
+msgstr "Número de serie/lote"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_consume_product_line__lot_id
+msgid "Lote"
+msgstr "Lote"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer_line__lot_id
+msgid "Lote / Serie"
+msgstr "Lote / Serie"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__lot_id
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_inter_store_transfer_template
+msgid "Lote / serie"
+msgstr "Lote / serie"
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer_line.py:0
+msgid "Lote / serie duplicado"
+msgstr "Lote / serie duplicado"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_stock_inter_store_transfer_form
+msgid "Lote/serie"
+msgstr "Lote/serie"
+
+#. module: l10n_hn_stock
+#: model:ir.model,name:l10n_hn_stock.model_stock_inter_store_transfer_line
+msgid "Línea de Traslado entre Tiendas"
+msgstr "Línea de Traslado entre Tiendas"
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer_line.py:0
+msgid "Línea duplicada"
+msgstr "Línea duplicada"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__line_ids
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_stock_inter_store_transfer_form
+msgid "Líneas"
+msgstr "Líneas"
+
+#. module: l10n_hn_stock
+#: model:res.groups,name:l10n_hn_stock.group_allow_confirm_sale_view_docs
+#: model:res.groups,name:l10n_hn_stock.group_allow_edit_sale_price_invoice
+#: model:res.groups,name:l10n_hn_stock.group_allow_edit_sale_price_quotation
+msgid "Manager"
+msgstr "Responsable"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_account_invoice_report__price_margin
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_sale_order__margin
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_sale_order_line__margin
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_sale_report__margin
+msgid "Margin"
+msgstr "Margen"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_sale_order__margin_percent
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_sale_order_line__margin_percent
+msgid "Margin (%)"
+msgstr "Margen (%)"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.consume_product_form_view
+msgid "Mark As Done"
+msgstr "Marcar como hecho"
+
+#. module: l10n_hn_stock
+#: model:ir.model,name:l10n_hn_stock.model_mail_message
+msgid "Message"
+msgstr "Mensaje"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__message_has_error
+msgid "Message Delivery error"
+msgstr "Error de entrega del mensaje"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_picking__move_ids_without_package
+msgid "Movimientos (sin paquete, compat. reporte)"
+msgstr "Movimientos (sin paquete, compat. reporte)"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Fecha límite de mi actividad"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_product_product__name
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_product_template__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Evento de calendario de la siguiente actividad"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Fecha límite de la siguiente actividad"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__activity_summary
+msgid "Next Activity Summary"
+msgstr "Resumen de la siguiente actividad"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__activity_type_id
+msgid "Next Activity Type"
+msgstr "Tipo de la siguiente actividad"
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer.py:0
+msgid ""
+"No hay cantidad suficiente del lote/serie en origen para «%(product)s» (lote"
+" «%(lot)s»): disponible %(avail)s, solicitado %(need)s."
+msgstr ""
+"No hay cantidad suficiente del lote/serie en origen para «%(product)s» (lote"
+" «%(lot)s»): disponible %(avail)s, solicitado %(need)s."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer.py:0
+msgid "No hay líneas de producto para la guía de remisión."
+msgstr "No hay líneas de producto para la guía de remisión."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer.py:0
+msgid ""
+"No hay número disponible: configure la secuencia global hn.remission o la "
+"«Secuencia guía de remisión (traslados)» en la sucursal de origen (%s)."
+msgstr ""
+"No hay número disponible: configure la secuencia global hn.remission o la "
+"«Secuencia guía de remisión (traslados)» en la sucursal de origen (%s)."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer_line.py:0
+msgid ""
+"No indique lote/serie en %(product)s: el producto no usa trazado por "
+"lote/serie."
+msgstr ""
+"No indique lote/serie en %(product)s: el producto no usa trazado por "
+"lote/serie."
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_res_company__no_negative_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_res_config_settings__no_negative_stock
+msgid "No negative stock"
+msgstr "Sin stock negativo"
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer.py:0
+msgid ""
+"No puede recibir este traslado porque usted mismo lo envió. La recepción "
+"debe ser realizada por otro usuario."
+msgstr ""
+"No puede recibir este traslado porque usted mismo lo envió. La recepción "
+"debe ser realizada por otro usuario."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/account_move_line.py:0
+#: code:addons/l10n_hn_stock/models/sale_order_line.py:0
+msgid "No puedes vender por debajo del costo."
+msgstr "No puedes vender por debajo del costo."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer.py:0
+msgid "No se encontró el picking de envío."
+msgstr "No se encontró el picking de envío."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer.py:0
+msgid "No se encontró el picking de recepción."
+msgstr "No se encontró el picking de recepción."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer.py:0
+msgid "No se encontró un tipo de operación interna configurado."
+msgstr "No se encontró un tipo de operación interna configurado."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer.py:0
+msgid "No se encontró una ubicación de tránsito configurada."
+msgstr "No se encontró una ubicación de tránsito configurada."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/consume_product.py:0
+msgid ""
+"No se generó ningún asiento contable porque el importe total es cero. "
+"Configure el coste estándar de los productos o revise las cantidades."
+msgstr ""
+"No se generó ningún asiento contable porque el importe total es cero. "
+"Configure el coste estándar de los productos o revise las cantidades."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/ir_actions_report.py:0
+msgid "No se pudo cargar la plantilla PDF o imagen."
+msgstr "No se pudo cargar la plantilla PDF o imagen."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer_line.py:0
+msgid ""
+"No se puede agregar el producto «%(name)s» dos veces en el traslado %(doc)s: ya figura en la línea %(line_no)s.\n"
+"\n"
+"Modifique la cantidad en la línea existente."
+msgstr ""
+"No se puede agregar el producto «%(name)s» dos veces en el traslado %(doc)s: ya figura en la línea %(line_no)s.\n"
+"\n"
+"Modifique la cantidad en la línea existente."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer.py:0
+msgid "No se puede cancelar un traslado ya recibido."
+msgstr "No se puede cancelar un traslado ya recibido."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer.py:0
+msgid ""
+"No se puede confirmar el traslado. Los siguientes productos no tienen stock disponible en la ubicación origen:\n"
+"\n"
+"• %(products)s\n"
+"\n"
+"Elimine estas líneas o agregue stock en origen antes de confirmar."
+msgstr ""
+"No se puede confirmar el traslado. Los siguientes productos no tienen stock disponible en la ubicación origen:\n"
+"\n"
+"• %(products)s\n"
+"\n"
+"Elimine estas líneas o agregue stock en origen antes de confirmar."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer.py:0
+msgid "No se puede eliminar un traslado en estado %s."
+msgstr "No se puede eliminar un traslado en estado %s."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/consume_product.py:0
+msgid "No stock journal configured for the product category %(category)s."
+msgstr ""
+"No hay diario de stock configurado para la categoría de producto "
+"%(category)s."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer.py:0
+msgid ""
+"No tiene permiso para %(action)s este traslado. Su usuario no pertenece a la"
+" sucursal %(branch)s."
+msgstr ""
+"No tiene permiso para %(action)s este traslado. Su usuario no pertenece a la"
+" sucursal %(branch)s."
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_res_branch__pdf_watermark_fname_branch_remission
+msgid "Nombre archivo plantilla guía remisión"
+msgstr "Nombre archivo plantilla guía remisión"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.consume_product_form_view
+msgid "Notas"
+msgstr "Notas"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.consume_product_form_view
+msgid "Notas internas del documento..."
+msgstr "Notas internas del documento..."
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de acciones"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__message_has_error_counter
+msgid "Number of errors"
+msgstr "Número de errores"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,help:l10n_hn_stock.field_stock_inter_store_transfer__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Mensajes que requieren acción"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,help:l10n_hn_stock.field_stock_inter_store_transfer__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Mensajes con error de entrega"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,help:l10n_hn_stock.field_stock_inter_store_transfer_line__sequence_number
+msgid "Número de línea"
+msgstr "Número de línea"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__hn_remission_number
+msgid "Número de remisión"
+msgstr "Número de remisión"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__hn_remission_note
+msgid "Observaciones (guía)"
+msgstr "Observaciones (guía)"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_stock_inter_store_transfer_form
+msgid "Observaciones que aparecerán en el PDF..."
+msgstr "Observaciones que aparecerán en el PDF..."
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_stock_inter_store_transfer_form
+msgid "Origen"
+msgstr "Origen"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_inter_store_template
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_template
+msgid "Original: Destinatario"
+msgstr "Original: Destinatario"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,help:l10n_hn_stock.field_res_branch__pdf_watermark_branch_remission
+msgid ""
+"PDF o imagen usada como fondo (marca de agua) al imprimir la guía de "
+"remisión de traslados entre tiendas originados en esta sucursal. Solo se usa"
+" la primera página del PDF."
+msgstr ""
+"PDF o imagen usada como fondo (marca de agua) al imprimir la guía de "
+"remisión de traslados entre tiendas originados en esta sucursal. Solo se usa"
+" la primera página del PDF."
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inventory_adjustment_name__periodic_valuation_warning
+msgid "Periodic Valuation Warning"
+msgstr "Aviso de valoración periódica"
+
+#. module: l10n_hn_stock
+#: model:ir.module.category,description:l10n_hn_stock.module_category_honduras_stock
+msgid "Permisos específicos de Honduras Stock"
+msgstr "Permisos específicos de Honduras Stock"
+
+#. module: l10n_hn_stock
+#: model:res.groups,comment:l10n_hn_stock.group_view_costs_margins
+msgid ""
+"Permite ver costo estándar, márgenes en ventas y columnas de valoración. No "
+"habilita editar el costo; use también «Editar costo de producto»."
+msgstr ""
+"Permite ver costo estándar, márgenes en ventas y columnas de valoración. No "
+"habilita editar el costo; use también «Editar costo de producto»."
+
+#. module: l10n_hn_stock
+#: model:res.groups,name:l10n_hn_stock.group_allow_sell_below_cost
+msgid "Permitir vender debajo del costo"
+msgstr "Permitir vender debajo del costo"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.consume_product_form_view
+msgid "Pickings"
+msgstr "Pickings"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_res_branch__pdf_watermark_branch_remission
+msgid "Plantilla PDF traslados (guía de remisión)"
+msgstr "Plantilla PDF traslados (guía de remisión)"
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/consume_product.py:0
+msgid "Please set an account on each consume line."
+msgstr "Defina una cuenta en cada línea de consumo."
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.consume_product_form_view
+msgid "Poner en borrador"
+msgstr "Poner en borrador"
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/account_move_line.py:0
+#: code:addons/l10n_hn_stock/models/sale_order_line.py:0
+msgid "Precio menor al costo"
+msgstr "Precio menor al costo"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,help:l10n_hn_stock.field_product_product__list_price
+#: model:ir.model.fields,help:l10n_hn_stock.field_product_template__list_price
+msgid "Price at which the product is sold to customers."
+msgstr "Precio al que se vende el producto a los clientes."
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_picking_form_l10n_hn_stock
+msgid "Print Remission Guide"
+msgstr "Imprimir guía de remisión"
+
+#. module: l10n_hn_stock
+#: model:ir.model,name:l10n_hn_stock.model_product_template
+msgid "Product"
+msgstr "Producto"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_product_product__categ_id
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_product_template__categ_id
+msgid "Product Category"
+msgstr "Categoría del producto"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_product_product__type
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_product_template__type
+msgid "Product Type"
+msgstr "Tipo de producto"
+
+#. module: l10n_hn_stock
+#: model:ir.model,name:l10n_hn_stock.model_product_product
+msgid "Product Variant"
+msgstr "Variante del producto"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__product_id
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer_line__product_id
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_inter_store_transfer_template
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_inter_store_template
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_template
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_stock_inter_store_transfer_form
+msgid "Producto"
+msgstr "Producto"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer_line__gn_labhospy_is_controlled
+msgid "Producto controlado"
+msgstr "Producto controlado"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_stock_inter_store_transfer_form
+msgid "Productos"
+msgstr "Productos"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,help:l10n_hn_stock.field_stock_inter_store_transfer__allowed_product_ids
+#: model:ir.model.fields,help:l10n_hn_stock.field_stock_inter_store_transfer_line__allowed_product_ids
+msgid ""
+"Productos almacenables con cantidad disponible (no reservada) en la "
+"ubicación origen."
+msgstr ""
+"Productos almacenables con cantidad disponible (no reservada) en la "
+"ubicación origen."
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__allowed_product_ids
+msgid "Productos con stock en origen"
+msgstr "Productos con stock en origen"
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inventory_adjustment_name.py:0
+msgid ""
+"Productos con valoración de inventario PERIÓDICA: %(names)s.\n"
+"\n"
+"En este modo Odoo no genera asientos contables al validar el ajuste de inventario (solo movimientos de stock). Para asientos automáticos, en la categoría del producto configure «Valoración de inventario: Automatizada», con cuentas de valoración de stock y diario de existencias en la categoría o en la compañía."
+msgstr ""
+"Productos con valoración de inventario PERIÓDICA: %(names)s.\n"
+"\n"
+"En este modo Odoo no genera asientos contables al validar el ajuste de inventario (solo movimientos de stock). Para asientos automáticos, en la categoría del producto configure «Valoración de inventario: Automatizada», con cuentas de valoración de stock y diario de existencias en la categoría o en la compañía."
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer_line__allowed_product_ids
+msgid "Productos permitidos en origen"
+msgstr "Productos permitidos en origen"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,help:l10n_hn_stock.field_res_company__no_negative_stock
+#: model:ir.model.fields,help:l10n_hn_stock.field_res_config_settings__no_negative_stock
+msgid ""
+"Prohíbe que los movimientos generen existencias negativas en las ubicaciones"
+" internas."
+msgstr ""
+"Prohíbe que los movimientos generen existencias negativas en las ubicaciones"
+" internas."
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer_line__gn_labhospy_supplier_id
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_inter_store_transfer_template
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_stock_inter_store_transfer_form
+msgid "Proveedor (LabHosPy)"
+msgstr "Proveedor (LabHosPy)"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_consume_product_line__gn_labhospy_supplier_id
+msgid "Proveedor Labhospy"
+msgstr "Proveedor Labhospy"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,help:l10n_hn_stock.field_consume_product_line__gn_labhospy_supplier_id
+#: model:ir.model.fields,help:l10n_hn_stock.field_stock_inter_store_transfer_line__gn_labhospy_supplier_id
+msgid "Proveedor del catálogo definido en la configuración."
+msgstr "Proveedor del catálogo definido en la configuración."
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_product_product__purchase_ok
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_product_template__purchase_ok
+msgid "Purchase"
+msgstr "Compras"
+
+#. module: l10n_hn_stock
+#: model:ir.model,name:l10n_hn_stock.model_stock_quant
+msgid "Quants"
+msgstr "Cantidades"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_stock_inter_store_transfer_form
+msgid "Recepción"
+msgstr "Recepción"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__picking_in_id
+msgid "Recepción (Destino)"
+msgstr "Recepción (Destino)"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields.selection,name:l10n_hn_stock.selection__stock_inter_store_transfer__state__received
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_stock_inter_store_transfer_search
+msgid "Recibido"
+msgstr "Recibido"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_inter_store_template
+msgid "Recibido por"
+msgstr "Recibido por"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_stock_inter_store_transfer_form
+msgid "Recibir"
+msgstr "Recibir"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__name
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_inter_store_transfer_template
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_stock_inter_store_transfer_search
+msgid "Referencia"
+msgstr "Referencia"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_stock_inter_store_transfer_search
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_stock_inter_store_transfer_tree
+msgid "Remisión"
+msgstr "Remisión"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_picking_form_l10n_hn_stock
+msgid "Remission"
+msgstr "Remisión"
+
+#. module: l10n_hn_stock
+#: model:ir.actions.report,name:l10n_hn_stock.action_report_remission
+msgid "Remission Guide"
+msgstr "Guía de remisión"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_picking__hn_remission_number
+msgid "Remission Number"
+msgstr "Número de remisión"
+
+#. module: l10n_hn_stock
+#: model:ir.model,name:l10n_hn_stock.model_ir_actions_report
+msgid "Report Action"
+msgstr "Acción de reporte"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__activity_user_id
+msgid "Responsible User"
+msgstr "Usuario responsable"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Error de entrega de SMS"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_product_product__sale_ok
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_product_template__sale_ok
+msgid "Sales"
+msgstr "Ventas"
+
+#. module: l10n_hn_stock
+#: model:ir.model,name:l10n_hn_stock.model_sale_report
+msgid "Sales Analysis Report"
+msgstr "Reporte del análisis de ventas"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_product_product__description_sale
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_product_template__description_sale
+msgid "Sales Description"
+msgstr "Descripción de ventas"
+
+#. module: l10n_hn_stock
+#: model:ir.model,name:l10n_hn_stock.model_sale_order
+msgid "Sales Order"
+msgstr "Orden de venta"
+
+#. module: l10n_hn_stock
+#: model:ir.model,name:l10n_hn_stock.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Línea de la orden de venta"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_product_product__list_price
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_product_template__list_price
+msgid "Sales Price"
+msgstr "Precio de venta"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_picking__salesperson_id
+msgid "Salesperson"
+msgstr "Vendedor"
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/product_chatter_log.py:0
+msgid "Se actualizó la configuración de coste en destino (landed cost)."
+msgstr "Se actualizó la configuración de coste en destino (landed cost)."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer.py:0
+msgid ""
+"Se eliminaron líneas cuyo producto no tiene stock disponible en la nueva "
+"ubicación origen: %s"
+msgstr ""
+"Se eliminaron líneas cuyo producto no tiene stock disponible en la nueva "
+"ubicación origen: %s"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer_line__sequence
+msgid "Secuencia"
+msgstr "Secuencia"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_res_branch__transfer_sequence_id
+msgid "Secuencia de Traslado"
+msgstr "Secuencia de Traslado"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_res_branch__hn_remission_sequence_id
+msgid "Secuencia guía de remisión (traslados)"
+msgstr "Secuencia guía de remisión (traslados)"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_inter_store_template
+msgid "Serie / Lote"
+msgstr "Serie / Lote"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,help:l10n_hn_stock.field_consume_product__gts_no_exigir_sucursal
+msgid ""
+"Si está activo, el campo Sucursal deja de ser obligatorio en el picking "
+"generado."
+msgstr ""
+"Si está activo, el campo Sucursal deja de ser obligatorio en el picking "
+"generado."
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,help:l10n_hn_stock.field_stock_inter_store_transfer__hn_remission_enabled
+msgid ""
+"Si está activo, puede generar e imprimir la guía de remisión para este "
+"traslado."
+msgstr ""
+"Si está activo, puede generar e imprimir la guía de remisión para este "
+"traslado."
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,help:l10n_hn_stock.field_res_branch__hn_remission_sequence_id
+msgid ""
+"Si está definida, el número de guía de remisión de los traslados entre "
+"tiendas con origen en esta sucursal se toma de esta secuencia. Si no, se usa"
+" la secuencia global hn.remission."
+msgstr ""
+"Si está definida, el número de guía de remisión de los traslados entre "
+"tiendas con origen en esta sucursal se toma de esta secuencia. Si no, se usa"
+" la secuencia global hn.remission."
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,help:l10n_hn_stock.field_stock_location__check_serial_no
+msgid ""
+"Si está marcado, se validará que los números de serie estén disponibles al "
+"reservar o mover productos; se lanzará un error si el número de serie está "
+"reservado en otro movimiento o no está disponible."
+msgstr ""
+"Si está marcado, se validará que los números de serie estén disponibles al "
+"reservar o mover productos; se lanzará un error si el número de serie está "
+"reservado en otro movimiento o no está disponible."
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.stock_inventory_adjustment_name_form_view_inherit_l10n_hn
+msgid ""
+"Si no rellena fecha contable, el asiento de valoración usa el mismo día que "
+"esta fecha de conteo cuando la opción de Honduras está activa; si no, aplica"
+" el comportamiento estándar de Odoo."
+msgstr ""
+"Si no rellena fecha contable, el asiento de valoración usa el mismo día que "
+"esta fecha de conteo cuando la opción de Honduras está activa; si no, aplica"
+" el comportamiento estándar de Odoo."
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.res_config_settings_view_form_l10n_hn_stock_negative
+msgid ""
+"Solo con esta opción activa se aplica la alineación de fechas "
+"contables/conteo/asiento y el reintento de asiento en ajustes de inventario."
+" Desactivada, Odoo se comporta de forma estándar."
+msgstr ""
+"Solo con esta opción activa se aplica la alineación de fechas "
+"contables/conteo/asiento y el reintento de asiento en ajustes de inventario."
+" Desactivada, Odoo se comporta de forma estándar."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer.py:0
+msgid ""
+"Solo puede generar la guía de remisión con el traslado confirmado o en "
+"envío/recepción."
+msgstr ""
+"Solo puede generar la guía de remisión con el traslado confirmado o en "
+"envío/recepción."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer.py:0
+msgid "Solo se puede enviar un traslado en estado Confirmado."
+msgstr "Solo se puede enviar un traslado en estado Confirmado."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer.py:0
+msgid "Solo se puede recibir un traslado en estado Enviado."
+msgstr "Solo se puede recibir un traslado en estado Enviado."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer.py:0
+msgid "Solo se puede revertir un traslado en estado Cancelado."
+msgstr "Solo se puede revertir un traslado en estado Cancelado."
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__state
+msgid "State"
+msgstr "Estado"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,help:l10n_hn_stock.field_stock_inter_store_transfer__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+
+#. module: l10n_hn_stock
+#: model:ir.model,name:l10n_hn_stock.model_stock_move
+msgid "Stock Move"
+msgstr "Movimiento de stock"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_consume_product__branch_id
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_stock_inter_store_transfer_form
+msgid "Sucursal"
+msgstr "Sucursal"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__branch_dest_id
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_stock_inter_store_transfer_tree
+msgid "Sucursal Destino"
+msgstr "Sucursal Destino"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_consume_product__gts_no_exigir_sucursal
+msgid "Sucursal Opcional"
+msgstr "Sucursal Opcional"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__branch_id
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_stock_inter_store_transfer_tree
+msgid "Sucursal Origen"
+msgstr "Sucursal Origen"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_stock_inter_store_transfer_search
+msgid "Sucursal destino"
+msgstr "Sucursal destino"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_stock_inter_store_transfer_search
+msgid "Sucursal origen"
+msgstr "Sucursal origen"
+
+#. module: l10n_hn_stock
+#: model:res.groups,name:l10n_hn_stock.group_transfer_supervisor
+#: model:res.groups.privilege,name:l10n_hn_stock.privilege_transfer_supervisor
+msgid "Supervisor de traslados entre tiendas"
+msgstr "Supervisor de traslados entre tiendas"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,help:l10n_hn_stock.field_stock_inter_store_transfer__hn_remission_note
+msgid "Texto opcional que aparece en el pie del PDF de la guía de remisión."
+msgstr "Texto opcional que aparece en el pie del PDF de la guía de remisión."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/consume_product.py:0
+msgid ""
+"The product %(product)s does not have an inventory valuation account "
+"configured."
+msgstr ""
+"The product %(product)s does not have an inventory valuation account "
+"configured."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_picking.py:0
+msgid "The remission sequence is already generated."
+msgstr "La secuencia de remisión ya fue generada."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_picking.py:0
+msgid "The remission sequence is not configured."
+msgstr "La secuencia de remisión no está configurada."
+
+#. module: l10n_hn_stock
+#: model:ir.model,name:l10n_hn_stock.model_stock_picking
+msgid "Transfer"
+msgstr "Trasladar"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer_line__transfer_id
+msgid "Traslado"
+msgstr "Traslado"
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer.py:0
+msgid ""
+"Traslado <strong>Confirmado</strong>. Documento listo para enviar. Requiere "
+"validación del picking de origen."
+msgstr ""
+"Traslado <strong>Confirmado</strong>. Documento listo para enviar. Requiere "
+"validación del picking de origen."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer.py:0
+msgid ""
+"Traslado <strong>Enviado</strong> por %s. Productos en tránsito. Pendiente "
+"de recepción en destino."
+msgstr ""
+"Traslado <strong>Enviado</strong> por %s. Productos en tránsito. Pendiente "
+"de recepción en destino."
+
+#. module: l10n_hn_stock
+#: model:ir.actions.report,name:l10n_hn_stock.action_report_inter_store_transfer
+#: model:ir.model,name:l10n_hn_stock.model_stock_inter_store_transfer
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_inter_store_transfer_template
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_stock_inter_store_transfer_form
+msgid "Traslado entre Tiendas"
+msgstr "Traslado entre Tiendas"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_inter_store_template
+msgid "Traslado entre tiendas"
+msgstr "Traslado entre tiendas"
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer.py:0
+msgid "Traslado entre tiendas «%(name)s»: %(fase)s."
+msgstr "Traslado entre tiendas «%(name)s»: %(fase)s."
+
+#. module: l10n_hn_stock
+#: model:ir.actions.act_window,name:l10n_hn_stock.action_stock_inter_store_transfer
+#: model:ir.ui.menu,name:l10n_hn_stock.menu_stock_inter_store_transfer
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_stock_inter_store_transfer_search
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_stock_inter_store_transfer_tree
+msgid "Traslados entre Tiendas"
+msgstr "Traslados entre Tiendas"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer_line__product_tracking
+msgid "Trazado"
+msgstr "Trazado"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,help:l10n_hn_stock.field_stock_inter_store_transfer__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Tipo de actividad con excepción en el registro."
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,help:l10n_hn_stock.field_product_template__l10n_hn_standard_price_readonly
+msgid ""
+"Técnico: la interfaz deja el costo en solo lectura si el usuario no puede "
+"editarlo (grupo Editar costo de producto)."
+msgstr ""
+"Técnico: la interfaz deja el costo en solo lectura si el usuario no puede "
+"editarlo (grupo Editar costo de producto)."
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__location_dest_id
+msgid "Ubicación Destino"
+msgstr "Ubicación Destino"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__location_src_id
+msgid "Ubicación Origen"
+msgstr "Ubicación Origen"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__transit_location_id
+msgid "Ubicación Tránsito"
+msgstr "Ubicación Tránsito"
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer.py:0
+msgid "Ubicación origen"
+msgstr "Ubicación origen"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer_line__product_uom
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_inter_store_transfer_template
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_inter_store_template
+msgid "UdM"
+msgstr "UdM"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.report_remission_template
+msgid "UoM"
+msgstr "UdM"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.actions.act_window,help:l10n_hn_stock.action_stock_inter_store_transfer
+msgid ""
+"Use este formulario para trasladar productos de una ubicación a otra.\n"
+"                Los productos quedarán en tránsito hasta que se reciban en la ubicación destino.\n"
+"                No es necesario digitar el traslado dos veces."
+msgstr ""
+"Use este formulario para trasladar productos de una ubicación a otra.\n"
+"                Los productos quedarán en tránsito hasta que se reciban en la ubicación destino.\n"
+"                No es necesario digitar el traslado dos veces."
+
+#. module: l10n_hn_stock
+#: model:res.groups,name:l10n_hn_stock.group_allow_confirm_sale_view_docs_user
+#: model:res.groups,name:l10n_hn_stock.group_allow_edit_sale_price_invoice_user
+#: model:res.groups,name:l10n_hn_stock.group_allow_edit_sale_price_quotation_user
+msgid "Usuario"
+msgstr "Usuario"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_company_form_inherit_l10n_hn_stock_journal
+msgid "Valoración de inventario"
+msgstr "Valoración de inventario"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,help:l10n_hn_stock.field_product_product__standard_price
+#: model:ir.model.fields,help:l10n_hn_stock.field_product_template__standard_price
+msgid ""
+"Value of the product (automatically computed in AVCO).\n"
+"        Used to value the product when the purchase cost is not known (e.g. inventory adjustment).\n"
+"        Used to compute margins on sale orders."
+msgstr ""
+"El valor del producto (calculado de forma automática con AVCO).\n"
+"        Se utiliza para valorar el producto cuando se desconoce el costo de compra (por ejemplo, en un ajuste de inventario).\n"
+"        Se utiliza para calcular los márgenes de las órdenes de venta."
+
+#. module: l10n_hn_stock
+#: model:res.groups.privilege,name:l10n_hn_stock.privilege_sell_below_cost
+msgid "Vender por debajo del costo"
+msgstr "Vender por debajo del costo"
+
+#. module: l10n_hn_stock
+#: model:res.groups,name:l10n_hn_stock.group_view_costs_margins
+#: model:res.groups.privilege,name:l10n_hn_stock.privilege_view_costs
+msgid "Ver costos y márgenes"
+msgstr "Ver costos y márgenes"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_stock_inter_store_transfer_form
+msgid "Volver a borrador"
+msgstr "Volver a borrador"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,field_description:l10n_hn_stock.field_stock_inter_store_transfer__website_message_ids
+msgid "Website Messages"
+msgstr "Mensajes del sitio web"
+
+#. module: l10n_hn_stock
+#: model:ir.model.fields,help:l10n_hn_stock.field_stock_inter_store_transfer__website_message_ids
+msgid "Website communication history"
+msgstr "Historial de comunicación del sitio web"
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_quant.py:0
+msgid "You cannot search for available quantity across several companies."
+msgstr "No puede buscar la cantidad disponible entre varias compañías."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/sale_order.py:0
+msgid "You do not have the permission to confirm sales orders."
+msgstr "No tienes permiso para confirmar ventas."
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer.py:0
+msgid "enviar"
+msgstr "enviar"
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer.py:0
+msgid "recibir"
+msgstr "recibir"
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer.py:0
+msgid "sin sucursal"
+msgstr "sin sucursal"
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer.py:0
+msgid "validación envío (origen → tránsito)"
+msgstr "validación envío (origen → tránsito)"
+
+#. module: l10n_hn_stock
+#. odoo-python
+#: code:addons/l10n_hn_stock/models/stock_inter_store_transfer.py:0
+msgid "validación recepción (tránsito → destino)"
+msgstr "validación recepción (tránsito → destino)"
+
+#. module: l10n_hn_stock
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock.view_stock_inter_store_transfer_form
+msgid "¿Está seguro de querer cancelar el traslado?"
+msgstr "¿Está seguro de querer cancelar el traslado?"

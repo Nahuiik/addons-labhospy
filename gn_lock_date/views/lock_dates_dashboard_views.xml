@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_lock_dates_dashboard" model="ir.actions.client">
+        <field name="name">Lock Dates</field>
+        <field name="tag">gn_lock_date.dashboard</field>
+    </record>
+
+    <record id="action_lock_journal_entries" model="ir.actions.client">
+        <field name="name">Bloquear asientos contables</field>
+        <field name="tag">gn_lock_date.lock_journal_entries</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

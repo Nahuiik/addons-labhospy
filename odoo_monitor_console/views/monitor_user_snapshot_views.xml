@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista de lista para snapshots -->
+    <record id="view_monitor_user_snapshot_tree" model="ir.ui.view">
+        <field name="name">monitor.user_snapshot.list</field>
+        <field name="model">monitor.user_snapshot</field>
+        <field name="arch" type="xml">
+            <list string="Snapshots de Métricas">
+                <field name="instance_id"/>
+                <field name="snapshot_date"/>
+                <field name="users_total"/>
+                <field name="users_active"/>
+                <field name="active_last_hour_total"/>
+                <field name="active_last_hour_portal"/>
+                <field name="active_last_hour_internal"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Vista de gráfico -->
+    <record id="view_monitor_user_snapshot_graph" model="ir.ui.view">
+        <field name="name">monitor.user_snapshot.graph</field>
+        <field name="model">monitor.user_snapshot</field>
+        <field name="arch" type="xml">
+            <graph string="Evolución de Usuarios Activos" type="line">
+                <field name="snapshot_date" type="row"/>
+                <field name="active_last_hour_total" type="measure"/>
+                <field name="active_last_hour_portal" type="measure"/>
+                <field name="active_last_hour_internal" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Acción para snapshots -->
+    <record id="action_monitor_user_snapshot" model="ir.actions.act_window">
+        <field name="name">Snapshots de Métricas</field>
+        <field name="res_model">monitor.user_snapshot</field>
+        <field name="view_mode">list,graph</field>
+        <field name="context">{'search_default_last_24h': 1}</field>
+    </record>
+</odoo>
+

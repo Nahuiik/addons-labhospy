@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="l10n_hn_payroll_base.HnTimeoffGanttRenderer">
+        <div t-att-class="tableRootClass()" t-att-style="tableCssVarsStyle()">
+            <div class="o_hn_leave_tl_months_row d-flex align-items-stretch border-bottom bg-100">
+                <div class="o_hn_leave_tl_corner o_hn_leave_tl_corner--tall o_hn_leave_tl_corner--with_nav d-flex flex-column justify-content-center px-1 py-1 gap-1">
+                    <div t-if="props.showGridNav" class="o_hn_tl_corner_nav_stack">
+                        <div class="o_hn_tl_corner_nav_top d-flex align-items-center flex-wrap gap-1">
+                            <div class="btn-group btn-group-sm" role="group">
+                                <button type="button" class="btn btn-secondary" t-on-click="() => props.onNavigateStep(-1)">‹</button>
+                                <button type="button" class="btn btn-secondary" t-on-click="() => props.onNavigateStep(1)">›</button>
+                            </div>
+                            <button type="button" class="btn btn-secondary btn-sm" t-on-click="props.onJumpToday">
+                                <t t-esc="props.todayLabel"/>
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" t-on-click="props.onToggleFullscreen"
+                                    t-att-title="props.labelFullscreen"
+                                    t-att-aria-label="props.labelFullscreen">
+                                <i class="fa fa-arrows-alt" aria-hidden="true"/>
+                            </button>
+                        </div>
+                        <span class="form-control form-control-sm o_hn_tl_range_readout o_hn_tl_range_readout--in_grid d-flex align-items-center justify-content-between gap-1 text-muted border bg-100 py-1">
+                            <span class="text-truncate" t-esc="props.rangeSummary"/>
+                            <i class="fa fa-caret-down text-muted small flex-shrink-0" aria-hidden="true"/>
+                        </span>
+                    </div>
+                </div>
+                <div class="o_hn_leave_tl_track flex-grow-1 d-flex min-w-0 position-relative">
+                    <t t-foreach="props.state.monthBands" t-as="band" t-key="band.key + '-' + band.start">
+                        <div class="o_hn_tl_month_band text-start small fw-semibold text-muted py-1 border-start"
+                             t-att-style="monthBandStyle(band)">
+                            <span t-esc="band.label"/>
+                        </div>
+                    </t>
+                </div>
+            </div>
+            <div class="o_hn_leave_tl_head d-flex align-items-stretch border-bottom">
+                <div class="o_hn_leave_tl_corner o_hn_leave_tl_corner--days_label d-flex align-items-center justify-content-center w-100">
+                    <span class="small text-muted fw-semibold text-center" t-esc="props.daysColumnLabel"/>
+                </div>
+                <div class="o_hn_leave_tl_track flex-grow-1 d-flex min-w-0 position-relative">
+                    <div class="o_hn_leave_tl_cells_row flex-grow-1">
+                        <t t-foreach="props.state.slotCells" t-as="cell" t-key="'h-' + cell.si">
+                            <div t-attf-class="o_hn_leave_tl_slothead {{ cell.isWeekend ? 'o_hn_tl_weekend' : '' }} {{ isTodayCell(cell) ? 'o_hn_tl_today_head' : '' }}">
+                                <span class="small text-muted" t-if="cell.dom !== null and cell.dom !== undefined" t-esc="cell.dom"/>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </div>
+            <div t-att-style="'height:' + rowWindow().topPad + 'px'"/>
+            <t t-foreach="visibleEmployeeRows()" t-as="row" t-key="row.id">
+                <div class="o_hn_leave_tl_row d-flex align-items-stretch">
+                    <div class="o_hn_leave_tl_side o_hn_leave_tl_side--employee d-flex align-items-center gap-2 w-100 min-w-0">
+                        <Avatar t-props="avatarProps(row)"/>
+                        <div class="d-flex flex-column min-w-0 flex-grow-1">
+                            <span class="text-truncate fw-medium" t-att-title="row.name" t-esc="row.name"/>
+                        </div>
+                        <span t-if="row.sidebar_hours" class="o_hn_tl_sidebar_meta small text-muted text-nowrap flex-shrink-0" t-esc="row.sidebar_hours"/>
+                        <span t-elif="row.sidebar_note" class="o_hn_tl_sidebar_meta small text-muted text-nowrap flex-shrink-0" t-esc="row.sidebar_note"/>
+                    </div>
+                    <div class="o_hn_leave_tl_track flex-grow-1 position-relative min-w-0">
+                        <div class="o_hn_leave_tl_cells_row">
+                            <t t-foreach="props.state.slotCells" t-as="cell" t-key="cell.si + '-' + row.id">
+                                <div t-attf-class="o_hn_leave_tl_cell {{ cell.isWeekend ? 'o_hn_tl_weekend' : '' }} {{ nonworkAt(row, cell.si) ? 'o_hn_tl_nonwork' : '' }} {{ isTodayCell(cell) ? 'o_hn_tl_today_cell' : '' }} {{ isSelectingCell(row.id, cell.si) ? 'o_hn_tl_selecting' : '' }} {{ isSelectedCell(row.id, cell.si) ? 'o_hn_tl_selected' : '' }}"
+                                     t-on-pointerdown="(ev) => props.onCellPointerDown(ev, row, cell)"
+                                     t-on-pointerenter="(ev) => props.onCellPointerEnter(ev, row, cell)"
+                                     t-on-dblclick="() => props.onTrackCellDblClick(row.id, cell.iso)"/>
+                            </t>
+                        </div>
+                        <div class="o_hn_leave_tl_lane">
+                            <t t-foreach="blocksFor(row.id)" t-as="blk" t-key="blk.id">
+                                <div class="o_hn_tl_pill_slot" t-att-style="pillAbsStyle(blk, props.state.drag)">
+                                    <Dropdown>
+                                        <button type="button"
+                                                t-attf-class="{{ pillClass(blk, props.state.drag and props.state.drag.resId === blk.res_id ? 'o_hn_tl_pill_drag' : '') }}"
+                                                t-on-pointerdown.stop="(ev) => props.onPillPointerDown(ev, blk, row)"
+                                                t-on-pointermove="(ev) => props.onPillPointerMove(ev, blk)"
+                                                t-on-pointerup="(ev) => props.onPillPointerUp(ev)">
+                                            <span class="text-truncate d-block" t-att-title="blk.type_name" t-esc="blk.label"/>
+                                        </button>
+                                    <t t-set-slot="content">
+                                        <div class="dropdown-header text-truncate" t-att-title="blk.type_name" t-esc="blk.type_name"/>
+                                        <DropdownItem class="'o-navigable'" onSelected="() => props.openRecord(blk)">
+                                            <t t-esc="props.labelOpenForm"/>
+                                        </DropdownItem>
+                                        <DropdownItem t-if="showApproveInMenu(blk)" class="'o-navigable'" onSelected="() => props.quickAction(blk, 'action_approve')">
+                                            <t t-esc="props.labelApprove"/>
+                                        </DropdownItem>
+                                        <DropdownItem t-if="showValidateInMenu(blk)" class="'o-navigable'" onSelected="() => props.quickAction(blk, 'action_approve')">
+                                            <t t-esc="props.labelValidate"/>
+                                        </DropdownItem>
+                                        <DropdownItem t-if="showRefuseInMenu(blk)" class="'o-navigable text-danger'" onSelected="() => props.quickAction(blk, 'action_refuse')">
+                                            <t t-esc="props.labelRefuse"/>
+                                        </DropdownItem>
+                                    </t>
+                                    </Dropdown>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </t>
+            <div t-att-style="'height:' + rowWindow().botPad + 'px'"/>
+            <div t-if="props.state.employees.length and props.state.slotCells.length" class="o_hn_leave_tl_foot d-flex align-items-stretch border-top">
+                <div class="o_hn_leave_tl_side fw-semibold text-muted d-flex align-items-center">
+                    <t t-esc="props.totalRowLabel"/>
+                </div>
+                <div class="o_hn_leave_tl_track flex-grow-1 position-relative min-w-0">
+                    <div class="o_hn_leave_tl_cells_row o_hn_leave_tl_foot_cells">
+                        <t t-foreach="props.state.slotCells" t-as="cell" t-key="'tot-' + cell.si">
+                            <div t-if="cell.unit === 0"
+                                 class="o_hn_leave_tl_totalcell"
+                                 t-attf-class="{{ cell.isWeekend ? 'o_hn_tl_weekend' : '' }} {{ isTodayCell(cell) ? 'o_hn_tl_today_cell' : '' }}"
+                                 t-att-style="dayTotalCellSpanStyle()">
+                                <div class="o_hn_leave_tl_total_hist">
+                                    <span t-if="cell.dayTotal" class="o_hn_leave_tl_totalnum" t-esc="cell.dayTotal"/>
+                                    <div class="o_hn_leave_tl_totalbar_track">
+                                        <div class="o_hn_leave_tl_totalbar_fill" t-att-style="totalBarFillStyle(cell.dayTotal)"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

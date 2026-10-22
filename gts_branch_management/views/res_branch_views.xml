@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_res_branch_form" model="ir.ui.view">
+            <field name="name">res.branch.form</field>
+            <field name="model">res.branch</field>
+            <field name="arch" type="xml">
+                <form string="Branch List">
+                    <sheet>
+                        <group cols="4">
+                            <group>
+                                <field name="name"/>
+                                <field name="company_id"/>
+                                <field name="telephone_no"/>
+                                <field name="gst_no"/>
+                                <field name="state_id" required="1"/>
+                                <field name="term_conditions_proforma"/>
+                                <field name="term_conditions_purchase"/>
+                                <field name="principal"/>
+                                <field name="sale_sequence_id"/>
+                                <field name="purchase_sequence_id"/>
+                            </group>
+                            <group>
+                                <field name="branch_code" required="1"/>
+                                <field name="address"/>
+                                <field name="term_conditions"/>
+                                <field name="term_conditions1"/>
+                                <field name="journal_id"/>
+                                <field name="purchase_journal_id"/>
+                                <field name="pdf_watermark_branch" filename="pdf_watermark_fname"
+                                       groups="base.group_no_one"/>
+                                <field name="pdf_watermark_fname_branch" class="oe_inline" invisible="1"/>
+                                <field name="pdf_watermark_branch_order" filename="pdf_watermark_fname"
+                                       groups="base.group_no_one"/>
+                                <field name="pdf_watermark_fname_branch_order" class="oe_inline" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_branch_tree" model="ir.ui.view">
+            <field name="name">res.branch.list</field>
+            <field name="model">res.branch</field>
+            <field name="arch" type="xml">
+                <list string="Branches">
+                    <field name="branch_code"/>
+                    <field name="name"/>
+                    <field name="company_id"/>
+                    <field name="address"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="action_res_branch" model="ir.actions.act_window">
+            <field name="name">Branches</field>
+            <field name="res_model">res.branch</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem action="action_res_branch" id="main_menu_res_branch" parent="base.menu_users"/>
+
+    </data>
+</odoo>

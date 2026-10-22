@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_purchase_dashboard.PurchaseEmptyState">
+        <div t-att-class="'gn-pd-empty-state' + (props.compact ? ' gn-pd-empty-state--compact' : '')" role="status">
+            <i t-if="props.icon" t-att-class="'fa ' + props.icon + ' gn-pd-empty-state__icon'" aria-hidden="true"/>
+            <strong t-if="props.title" class="gn-pd-empty-state__title" t-esc="props.title"/>
+            <p t-if="props.description" class="gn-pd-empty-state__desc" t-esc="props.description"/>
+            <button t-if="props.actionLabel and props.onAction"
+                    type="button"
+                    class="btn btn-sm btn-primary gn-pd-empty-state__action"
+                    t-on-click="onActionClick"
+                    t-esc="props.actionLabel"/>
+        </div>
+    </t>
+</templates>

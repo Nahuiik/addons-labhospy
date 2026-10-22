@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vistas lista para reportes onscreen -->
+    <record id="view_hr_employee_list_report_tallas" model="ir.ui.view">
+        <field name="name">hr.employee.list.report.tallas</field>
+        <field name="model">hr.employee</field>
+        <field name="arch" type="xml">
+            <list string="Tallas" create="0" edit="0" delete="0">
+                <field name="name"/>
+                <field name="department_id"/>
+                <field name="assignment_id"/>
+                <field name="identification_id"/>
+                <field name="shirt_size" string="Talla Camisa"/>
+                <field name="pants_size" string="Talla Pantalón"/>
+                <field name="shoe_size" string="Talla Calzado"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_hr_employee_list_report_birthdays" model="ir.ui.view">
+        <field name="name">hr.employee.list.report.birthdays</field>
+        <field name="model">hr.employee</field>
+        <field name="arch" type="xml">
+            <list string="Cumpleaños" create="0" edit="0" delete="0">
+                <field name="name"/>
+                <field name="department_id"/>
+                <field name="assignment_id"/>
+                <field name="identification_id"/>
+                <field name="birthday" string="Fecha Cumpleaños"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_hr_employee_list_report_seniority" model="ir.ui.view">
+        <field name="name">hr.employee.list.report.seniority</field>
+        <field name="model">hr.employee</field>
+        <field name="arch" type="xml">
+            <list string="Antigüedad" create="0" edit="0" delete="0">
+                <field name="name"/>
+                <field name="department_id"/>
+                <field name="assignment_id"/>
+                <field name="identification_id"/>
+                <field name="contract_date_start" string="Fecha Ingreso"/>
+                <field name="job_id" string="Cargo Actual"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_hr_employee_list_report_warnings" model="ir.ui.view">
+        <field name="name">hr.employee.list.report.warnings</field>
+        <field name="model">hr.employee</field>
+        <field name="arch" type="xml">
+            <list string="Empleados con Alertas Activas" create="0" edit="0" delete="0"
+                  decoration-danger="active_warnings_display">
+                <field name="name" string="Nombre"/>
+                <field name="department_id" string="Departamento"/>
+                <field name="assignment_id"/>
+                <field name="identification_id" string="DNI"/>
+                <field name="active_warnings_display" string="Alertas Activas"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_hr_employee_report_wizard_form" model="ir.ui.view">
+        <field name="name">hr.employee.report.wizard.form</field>
+        <field name="model">hr.employee.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Reporte de Empleados">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="company_id"/>
+                            <field name="employee_ids" widget="many2many_tags"
+                                   placeholder="Dejar vacío para todos los empleados activos"/>
+                        </group>
+                    </group>
+                    <group string="Tipos de reporte a incluir">
+                        <group>
+                            <field name="report_tallas"/>
+                            <field name="report_emergency_contacts"/>
+                            <field name="report_licenses"/>
+                            <field name="report_birthdays"/>
+                            <field name="report_family"/>
+                            <field name="report_beneficiaries"/>
+                            <field name="report_documents"/>
+                            <field name="report_loans"/>
+                        </group>
+                        <group>
+                            <field name="report_contracts"/>
+                            <field name="report_salary_increases"/>
+                            <field name="report_seniority"/>
+                            <field name="report_headcount"/>
+                            <field name="report_references"/>
+                            <field name="report_health_status"/>
+                            <field name="report_warnings"/>
+                            <field name="report_trial_period"/>
+                            <field name="report_hires_departures"/>
+                        </group>
+                    </group>
+                    <group string="Rango de fechas" invisible="not report_hires_departures">
+                        <group>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                        </group>
+                    </group>
+                    <group string="Cumpleaños — filtrar por fechas"
+                           invisible="not report_birthdays">
+                        <group>
+                            <field name="birthday_range_from"/>
+                            <field name="birthday_range_to"/>
+                        </group>
+                        <p colspan="2" class="text-muted small mb-0">
+                            Opcional: incluye empleados cuyo cumpleaños (día y mes) ocurre dentro del intervalo en el calendario (puede cruzar fin de año). Si lo deja vacío, el Excel incluye todos y una hoja adicional con los del mes actual.
+                        </p>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_view_onscreen" string="Ver en pantalla" type="object" class="btn-secondary" icon="fa-list"/>
+                    <button name="action_export_excel" string="Generar Excel" type="object" class="btn-primary" icon="fa-file-excel-o"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hr_employee_report_wizard" model="ir.actions.act_window">
+        <field name="name">Reporte de Empleados</field>
+        <field name="res_model">hr.employee.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

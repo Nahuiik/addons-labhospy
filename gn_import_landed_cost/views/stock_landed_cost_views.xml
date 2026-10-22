@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_stock_landed_cost_form_scope" model="ir.ui.view">
+        <field name="name">stock.landed.cost.form.scope</field>
+        <field name="model">stock.landed.cost</field>
+        <field name="inherit_id" ref="invoice_in_landed_cost.stock_landed_cost_line_add_invoice"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='additional_costs']/field[@name='cost_lines']/list/field[@name='split_method']" position="before">
+                <field name="expense_scope"/>
+                <field name="picking_id"
+                       domain="[('id', 'in', parent.picking_ids)]"
+                       invisible="expense_scope != 'picking'"
+                       required="expense_scope == 'picking'"/>
+            </xpath>
+            <xpath expr="//page[@name='additional_costs']/field[@name='cost_lines']/form/group" position="inside">
+                <group string="Alcance del gasto (importación)">
+                    <field name="expense_scope"/>
+                    <field name="picking_id"
+                           domain="[('id', 'in', parent.picking_ids)]"
+                           invisible="expense_scope != 'picking'"
+                           required="expense_scope == 'picking'"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="account_report_add_lots" inherit_id="account.report_invoice_document">
+        <xpath expr="//th[@name='th_priceunit']" position="after">
+            <th name="th_lot_number" t-attf-class="text-center {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                <span>Lot / Serial</span>
+            </th>
+            <th name="th_lot_expiration" t-attf-class="text-center {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                <span>Expiry Date</span>
+            </th>
+        </xpath>
+
+        <xpath expr="//t[@t-if='is_product']//td[@name='td_price_unit']" position="after">
+            <td name="td_lot_numbers" t-attf-class="text-center {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                <t t-if="line.lot_ids">
+                    <t t-foreach="line.lot_ids" t-as="lot">
+                        <div t-out="lot.name"/>
+                    </t>
+                </t>
+            </td>
+            <td name="td_lot_expiration" t-attf-class="text-center {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                <t t-if="line.lot_ids">
+                    <t t-foreach="line.lot_ids" t-as="lot">
+                        <div>
+                            <t t-if="lot.expiration_date">
+                                <span t-out="lot.expiration_date.date()"/>
+                            </t>
+                        </div>
+                    </t>
+                </t>
+            </td>
+        </xpath>
+
+        <xpath expr="//td[@name='td_price_unit_grouped']" position="after">
+            <td name="td_lot_numbers_grouped"
+                colspan="1"
+                t-if="grouped_line['display_type'] not in ('line_section', 'line_subsection')"
+                t-attf-class="text-center {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+            </td>
+            <td name="td_lot_expiration_grouped"
+                colspan="1"
+                t-if="grouped_line['display_type'] not in ('line_section', 'line_subsection')"
+                t-attf-class="text-center {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+            </td>
+        </xpath>
+
+        <xpath expr="//td[@name='line_name_td']" position="attributes">
+            <attribute name="t-att-colspan">(1 if is_product else ((6 if display_discount else 5) + 2)) - line_colspan</attribute>
+        </xpath>
+    </template>
+</odoo>

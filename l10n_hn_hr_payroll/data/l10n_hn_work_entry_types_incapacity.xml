@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Honduras IHSS Incapacity - Work Entry Types -->
+        <!-- Días 1-3 calendario: Patrono paga salario completo -->
+        <record id="work_entry_type_hn_incap_pat" model="hr.work.entry.type">
+            <field name="name">Incapacidad IHSS - Patrono (D1-3)</field>
+            <field name="code">HN_INCAP_PAT</field>
+            <field name="display_code">INC-PAT</field>
+            <field name="color">5</field>
+            <field name="is_leave" eval="True"/>
+            <field name="amount_rate">1.0</field>
+        </record>
+
+        <!-- Días 4+ calendario: IHSS paga subsidio (66%), patrono paga complemento (34%) -->
+        <record id="work_entry_type_hn_incap_ihss" model="hr.work.entry.type">
+            <field name="name">Incapacidad IHSS - Subsidio (D4+)</field>
+            <field name="code">HN_INCAP_IHSS</field>
+            <field name="display_code">INC-IHSS</field>
+            <field name="color">6</field>
+            <field name="is_leave" eval="True"/>
+            <field name="amount_rate">0.34</field>
+        </record>
+    </data>
+</odoo>

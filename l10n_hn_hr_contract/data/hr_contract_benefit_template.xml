@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="benefit_template_meal_voucher" model="l10n.hn.contract.benefit.template">
+            <field name="name">Vales de alimentación</field>
+            <field name="code">MEAL</field>
+            <field name="structure_type_id" ref="hr.structure_type_employee"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="periodicity">monthly</field>
+            <field name="default_amount_employee">1500.0</field>
+            <field name="default_amount_company">1500.0</field>
+            <field name="include_in_payslip">True</field>
+            <field name="input_code">MEAL</field>
+            <field name="description">Asignación mensual para vales de supermercado.</field>
+        </record>
+
+        <record id="benefit_template_transport" model="l10n.hn.contract.benefit.template">
+            <field name="name">Viáticos de transporte</field>
+            <field name="code">TRANS</field>
+            <field name="structure_type_id" ref="hr.structure_type_employee"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="periodicity">monthly</field>
+            <field name="default_amount_employee">800.0</field>
+            <field name="default_amount_company">800.0</field>
+            <field name="include_in_payslip">True</field>
+            <field name="input_code">TRANS</field>
+            <field name="description">Apoyo mensual para transporte o combustible.</field>
+        </record>
+
+        <record id="benefit_template_school_bonus" model="l10n.hn.contract.benefit.template">
+            <field name="name">Bono escolar</field>
+            <field name="code">SCHBON</field>
+            <field name="structure_type_id" ref="hr.structure_type_employee"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="periodicity">yearly</field>
+            <field name="default_amount_employee">2500.0</field>
+            <field name="default_amount_company">2500.0</field>
+            <field name="include_in_payslip">False</field>
+            <field name="description">Pago anual para útiles escolares.</field>
+        </record>
+    </data>
+</odoo>
+
+
+

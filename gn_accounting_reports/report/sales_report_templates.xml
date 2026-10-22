@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_sales_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <div class="article">
+                    <div class="page" style="font-size:9px;">
+                        <h3 style="text-align:center;margin-bottom:10px;">
+                            <span t-esc="report_title"/>
+                        </h3>
+                        <table style="width:100%;margin-bottom:10px;border-collapse:collapse;font-size:10px;">
+                            <tr>
+                                <td style="width:50%;vertical-align:top;padding:4px;">
+                                    <strong>Compañía:</strong> <span t-esc="company.name"/>
+                                    <br/>
+                                    <strong>Período:</strong>
+                                    <span t-esc="period_from"/> — <span t-esc="period_to"/>
+                                    <br/>
+                                    <strong>Agrupación:</strong> <span t-esc="group_by_label"/>
+                                </td>
+                                <td style="width:50%;vertical-align:top;padding:4px;">
+                                    <strong>Sucursales:</strong> <span t-esc="branch_label"/>
+                                    <br/>
+                                    <strong>Vendedores:</strong> <span t-esc="user_label"/>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <t t-if="not rows">
+                            <p>No hay líneas de venta en el período con los filtros seleccionados.</p>
+                        </t>
+
+                        <div style="overflow-x:auto;width:100%;">
+                            <table style="width:100%;border-collapse:collapse;font-size:8px;min-width:900px;" border="1">
+                                <thead style="background-color:#e8e8e8;">
+                                    <tr>
+                                        <th rowspan="2">Proveedor</th>
+                                        <th rowspan="2">Código</th>
+                                        <th rowspan="2">Catálogo</th>
+                                        <th rowspan="2">Modelo</th>
+                                        <th rowspan="2">Descripción</th>
+                                        <th rowspan="2">Categoría</th>
+                                        <th rowspan="2">Comercial</th>
+                                        <th rowspan="2">Cliente</th>
+                                        <th rowspan="2">Sucursal</th>
+                                        <t t-foreach="periods" t-as="period">
+                                            <th t-att-colspan="2 if include_untaxed else 1" style="text-align:center;">
+                                                <span t-esc="period['label']"/>
+                                            </th>
+                                        </t>
+                                        <th rowspan="2">Cant. total</th>
+                                        <th t-if="include_untaxed" rowspan="2">Valor s/imp.</th>
+                                        <th rowspan="2">Promedio</th>
+                                        <th rowspan="2">En mano</th>
+                                    </tr>
+                                    <tr>
+                                        <t t-foreach="periods" t-as="period">
+                                            <th>Cant.</th>
+                                            <th t-if="include_untaxed">Valor</th>
+                                        </t>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="rows" t-as="row">
+                                        <tr>
+                                            <td><span t-esc="row['supplier']"/></td>
+                                            <td><span t-esc="row['code']"/></td>
+                                            <td><span t-esc="row['catalog']"/></td>
+                                            <td><span t-esc="row['model']"/></td>
+                                            <td><span t-esc="row['name']"/></td>
+                                            <td><span t-esc="row['categ']"/></td>
+                                            <td><span t-esc="row['user']"/></td>
+                                            <td><span t-esc="row['partner']"/></td>
+                                            <td><span t-esc="row['branch']"/></td>
+                                            <t t-foreach="row['period_cells']" t-as="cell">
+                                                <td style="text-align:right;">
+                                                    <span t-out="fmt_qty(cell['qty'])"/>
+                                                </td>
+                                                <td t-if="include_untaxed" style="text-align:right;">
+                                                    <span t-out="fmt_money(cell['untaxed'])"/>
+                                                </td>
+                                            </t>
+                                            <td style="text-align:right;">
+                                                <span t-out="fmt_qty(row['total_qty'])"/>
+                                            </td>
+                                            <td t-if="include_untaxed" style="text-align:right;">
+                                                <span t-out="fmt_money(row['total_untaxed'])"/>
+                                            </td>
+                                            <td style="text-align:right;">
+                                                <span t-out="fmt_qty(row['avg_qty'])"/>
+                                            </td>
+                                            <td style="text-align:right;">
+                                                <span t-out="fmt_qty(row['qty_on_hand'])"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                                <tfoot t-if="rows">
+                                    <tr style="font-weight:bold;background-color:#f3f3f3;">
+                                        <td colspan="9">Totales</td>
+                                        <t t-foreach="period_totals" t-as="pt">
+                                            <td style="text-align:right;">
+                                                <span t-out="fmt_qty(pt['qty'])"/>
+                                            </td>
+                                            <td t-if="include_untaxed" style="text-align:right;">
+                                                <span t-out="fmt_money(pt['untaxed'])"/>
+                                            </td>
+                                        </t>
+                                        <td style="text-align:right;">
+                                            <span t-out="fmt_qty(total_qty)"/>
+                                        </td>
+                                        <td t-if="include_untaxed" style="text-align:right;">
+                                            <span t-out="fmt_money(total_untaxed)"/>
+                                        </td>
+                                        <td colspan="2"/>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                        <div style="margin-top:8px;font-size:8px;color:#666;text-align:right;">
+                            <span>Impreso el </span><span t-out="print_date"/>
+                            <span> a las </span><span t-out="print_time"/>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_sales_html">
+        <t t-call="gn_accounting_reports.report_sales_document"/>
+    </template>
+</odoo>

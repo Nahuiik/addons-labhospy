@@ -1,0 +1,36 @@
+<odoo>
+    <record id="res_config_settings_view_form_l10n_hn_stock_negative" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.l10n.hn.stock.negative</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="stock.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@id='production_lot_info']" position="inside">
+                <setting company_dependent="1" help="Evita que se generen existencias negativas en las ubicaciones internas.">
+                    <field name="no_negative_stock"/>
+                </setting>
+                <setting
+                    company_dependent="1"
+                    help="Solo con esta opción activa se aplica la alineación de fechas contables/conteo/asiento y el reintento de asiento en ajustes de inventario. Desactivada, Odoo se comporta de forma estándar."
+                >
+                    <field name="l10n_hn_stock_inventory_accounting_dates"/>
+                </setting>
+                <setting
+                    company_dependent="1"
+                    string="Consumo: destino Desecho"
+                    help="Ubicación de inventario (descarte) que se propone como destino al crear una salida por consumo. Origen, destino y tipo de operación se pueden cambiar en el documento."
+                >
+                    <div class="content-group">
+                        <div class="row mt16">
+                            <label class="col-lg-4 o_light_label" string="Ubicación destino" for="hn_consume_dest_location_id"/>
+                            <field name="hn_consume_dest_location_id" class="col-lg-8" options="{'no_create': True}"/>
+                        </div>
+                    </div>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+
+
+
+

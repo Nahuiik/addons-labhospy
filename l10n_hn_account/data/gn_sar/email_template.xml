@@ -1,0 +1,51 @@
+<odoo>
+    <data noupdate="0">
+        <record id="cai_expiry_notify_mail_template" model="mail.template">
+            <field name="name">Cai Expiry</field>
+            <field name="model_id" ref="l10n_hn_account.model_dei_cai"/>
+            <field name="subject">CAI Expiry Notification Email</field>
+            <field name="body_html" type="html">
+                <div>
+                    <p>
+                        Hello,
+                        <br/>
+                        <br/>
+                        This is a gentle reminder to CAI expiry.
+                        <br/>
+                        <br/>
+                        CAI Number: ${object.name} is going to expire on
+                        ${object.expiration_date}.
+                        <br/>
+                        <br/>
+                    </p>
+                    Thanks.
+                </div>
+            </field>
+        </record>
+
+
+        <record id="cai_sequence_limit_notify_mail_template" model="mail.template">
+            <field name="name">Cai Sequence Limit Notification</field>
+            <field name="model_id" ref="base.model_ir_sequence"/>
+            <field name="subject">CAI Sequence Limit Notification</field>
+            <field name="body_html" type="html">
+                <div>
+                    <p>
+                        Hello,
+                        <br/>
+                        <br/>
+                        This is a gentle reminder about your CAI Sequence.
+                        <br/>
+                        <br/>
+                        CAI Number: ${object.fiscal_regime.cai.name or ''}, max sequence number is about to exceed.<br/>
+                        Max Number is ${object.max_value or ''} current number is ${object.l_number_next_actual or ''}
+                        <br/>
+                        <br/>
+                    </p>
+                    Thanks.
+                </div>
+            </field>
+        </record>
+
+    </data>
+</odoo>

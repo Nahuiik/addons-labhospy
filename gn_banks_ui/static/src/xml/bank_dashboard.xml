@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_banks_ui.BankDashboard">
+        <Layout display="{ controlPanel: {} }">
+            <div class="gn-bk-dashboard">
+                <div class="gn-bk-dashboard__hero">
+                    <h1>Tesorería Bancaria</h1>
+                    <p>Panel ejecutivo de operaciones, saldos y flujo de efectivo.</p>
+                </div>
+                <div class="gn-bk-dashboard__toolbar">
+                    <button class="btn btn-primary" t-on-click="refresh">
+                        <i class="fa fa-refresh"/> Actualizar
+                    </button>
+                    <button class="btn btn-secondary" t-on-click="openWeeklyBalance">
+                        <i class="fa fa-bar-chart"/> Balance semanal
+                    </button>
+                    <button class="btn btn-secondary" t-on-click="openReports">
+                        <i class="fa fa-file-excel-o"/> Reportes
+                    </button>
+                </div>
+                <div t-if="state.loading" class="text-center p-5">
+                    <i class="fa fa-spinner fa-spin fa-2x"/>
+                </div>
+                <div t-elif="state.error" class="alert alert-danger" t-esc="state.error"/>
+                <t t-else="">
+                    <div class="gn-bk-kpi-grid">
+                        <t t-foreach="state.data.kpis" t-as="kpi" t-key="kpi.key">
+                            <BankKpiCard
+                                label="kpi.label"
+                                value="formatKpiValue(kpi)"
+                                icon="kpi.icon"
+                                tone="kpi.tone"/>
+                        </t>
+                    </div>
+                    <div class="gn-bk-charts-grid">
+                        <div class="gn-bk-chart-card">
+                            <div class="gn-bk-chart-card__title">Flujo semanal</div>
+                            <canvas t-ref="cashflowChart" height="220"/>
+                        </div>
+                        <div class="gn-bk-chart-card">
+                            <div class="gn-bk-chart-card__title">Cheques por estado</div>
+                            <canvas t-ref="checksChart" height="220"/>
+                        </div>
+                        <div class="gn-bk-chart-card">
+                            <div class="gn-bk-chart-card__title">Liquidaciones POS</div>
+                            <canvas t-ref="posChart" height="220"/>
+                        </div>
+                        <div class="gn-bk-chart-card">
+                            <div class="gn-bk-chart-card__title">Saldos por banco</div>
+                            <canvas t-ref="balancesChart" height="220"/>
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </Layout>
+    </t>
+</templates>

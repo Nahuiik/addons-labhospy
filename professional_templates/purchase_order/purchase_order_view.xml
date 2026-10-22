@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+    <data>
+        <record id="purchase_order_inherited_customized" model="ir.ui.view">
+            <field name="name">PO CUSTOMIZED</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date_order']" position="after">
+                    <field name="po_style" invisible="state not in ['purchase', 'done', 'to approve', 'cancel']"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="purchase.report_purchaseorder_document" model="ir.ui.view">
+  <field name="name">Odoo Template</field>
+</record>
+            <record id="view_purchase_order_amount_words" model="ir.ui.view">
+            <field name="name">purchase.order.amount.words</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='note']" position="before">
+                    <field colspan="2" name="amount_words" string="Cantidad en Letras" readonly="1"/>
+                </xpath>
+                <!-- <field name="note" position="before">
+                    <div class="o_col mb-2"><label for="amount_words" class="o_form_label" justify="right">Cantidad en letras:</label><field name="amount_words" readonly="1" class="o_text" string="Amount in Words:"/></div>
+                </field> -->
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_invoice_due_alerts.AgingDashboard">
+        <div class="o_gn_dashboard_root o_gn_aging">
+            <!-- Encabezado -->
+            <div class="o_gn_aging_header">
+                <div>
+                    <h2 class="o_gn_aging_title">Tablero de Pagos a Proveedores</h2>
+                    <p class="o_gn_aging_sub">Semáforo de Antiguedad de Cuentas por Pagar</p>
+                </div>
+                <div class="o_gn_aging_header_right">
+                    <span class="o_gn_aging_company">
+                        <i class="fa fa-building-o mr-1"/>
+                        <t t-esc="state.data ? state.data.company : ''"/>
+                    </span>
+                    <span class="o_gn_aging_cutoff ml-3">
+                        <i class="fa fa-calendar mr-1"/>
+                        <t t-esc="state.data ? state.data.today : ''"/>
+                    </span>
+                    <button class="btn btn-secondary btn-sm ml-2" t-on-click="onReload">
+                        <i class="fa fa-refresh"/>
+                    </button>
+                </div>
+            </div>
+
+            <div t-if="state.loading" class="o_gn_aging_msg">
+                <i class="fa fa-spinner fa-spin mr-2"/>Cargando...
+            </div>
+            <div t-if="state.error" class="o_gn_aging_msg text-danger">
+                <t t-esc="state.error"/>
+            </div>
+
+            <t t-if="!state.loading and !state.error and state.data">
+                <!-- KPI Cards por antiguedad -->
+                <div class="o_gn_kpi_scroll">
+                <div class="o_gn_aging_kpis">
+                    <t t-foreach="agingOrder" t-as="key" t-key="key">
+                        <div t-attf-class="o_gn_aging_card o_gn_age_{{ key }}">
+                            <div class="o_gn_aging_card_top">
+                                <span t-attf-class="o_gn_age_badge o_gn_age_badge_{{ key }}"
+                                      t-esc="state.data.cards[key].short"/>
+                            </div>
+                            <div class="o_gn_aging_card_range">
+                                (<t t-esc="state.data.cards[key].range"/>)
+                            </div>
+                            <div class="o_gn_aging_card_count">
+                                <t t-esc="state.data.cards[key].partner_count"/> proveedores
+                            </div>
+                            <div class="o_gn_aging_card_amount">
+                                <t t-esc="state.data.cards[key].total_str"/>
+                            </div>
+                            <div class="o_gn_aging_card_pct">
+                                <t t-esc="state.data.cards[key].pct"/>% del total
+                            </div>
+                        </div>
+                    </t>
+                </div>
+                </div>
+
+                <!-- Resumen secundario -->
+                <div class="o_gn_aging_summary">
+                    <div class="o_gn_sum_box">
+                        <div class="o_gn_sum_label">Total a Pagar</div>
+                        <div class="o_gn_sum_value" t-esc="state.data.summary.grand_total_str"/>
+                        <div class="o_gn_sum_sub">
+                            <t t-esc="state.data.summary.partner_count"/> proveedores
+                        </div>
+                    </div>
+                    <div class="o_gn_sum_box">
+                        <div class="o_gn_sum_label">Factura Mas Antigua</div>
+                        <div class="o_gn_sum_value text-danger">
+                            <t t-esc="state.data.summary.oldest_days"/> dias
+                        </div>
+                        <div class="o_gn_sum_sub" t-esc="state.data.summary.oldest_partner"/>
+                    </div>
+                    <div class="o_gn_sum_box">
+                        <div class="o_gn_sum_label">Proximos a Vencer (7 dias)</div>
+                        <div class="o_gn_sum_value text-warning"
+                             t-esc="state.data.summary.due_7_total_str"/>
+                        <div class="o_gn_sum_sub">
+                            <t t-esc="state.data.summary.due_7_count"/> facturas
+                        </div>
+                    </div>
+                    <div class="o_gn_sum_box o_gn_sum_dist">
+                        <div class="o_gn_sum_label">Distribucion por Antiguedad</div>
+                        <div class="o_gn_dist_bar">
+                            <t t-foreach="state.data.distribution" t-as="seg" t-key="seg.key">
+                                <div t-attf-class="o_gn_dist_seg o_gn_dist_{{ seg.key }}"
+                                     t-attf-style="width: {{ seg.pct }}%"
+                                     t-att-title="seg.label + ': ' + seg.pct + '%'"/>
+                            </t>
+                        </div>
+                        <div class="o_gn_dist_labels">
+                            <t t-foreach="state.data.distribution" t-as="seg" t-key="seg.key">
+                                <span t-attf-class="o_gn_dist_lbl o_gn_dist_{{ seg.key }}">
+                                    <t t-esc="seg.pct"/>%
+                                </span>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabla por proveedor -->
+                <div class="o_gn_aging_panel">
+                    <h3>Detalle por Proveedor</h3>
+                    <div class="o_gn_table_wrap">
+                        <table class="table table-sm table-hover o_gn_aging_table">
+                            <thead>
+                                <tr>
+                                    <th>Proveedor</th>
+                                    <th class="text-center">N Facturas</th>
+                                    <th class="text-right">Monto Total</th>
+                                    <th class="text-right">0-30 dias</th>
+                                    <th class="text-right">31-60 dias</th>
+                                    <th class="text-right">61-90 dias</th>
+                                    <th class="text-right">+ 90 dias</th>
+                                    <th class="text-center">Antig. Max.</th>
+                                    <th class="text-center">Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="state.data.partners" t-as="p" t-key="p.id">
+                                    <tr class="o_gn_aging_row" t-on-click="() => this.openPartner(p.id)">
+                                        <td class="o_gn_cell_wrap">
+                                            <i class="fa fa-building-o mr-1 text-muted"/>
+                                            <t t-esc="p.name"/>
+                                        </td>
+                                        <td class="text-center" t-esc="p.invoice_count"/>
+                                        <td class="text-right font-weight-bold" t-esc="p.total_str"/>
+                                        <td class="text-right" t-esc="p.b0_30_str"/>
+                                        <td class="text-right" t-esc="p.b31_60_str"/>
+                                        <td class="text-right" t-esc="p.b61_90_str"/>
+                                        <td class="text-right" t-esc="p.b90_plus_str"/>
+                                        <td class="text-center">
+                                            <t t-esc="p.max_age"/> dias
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-attf-class="o_gn_status o_gn_status_{{ p.worst }}"
+                                                  t-esc="p.status"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Leyenda -->
+                <div class="o_gn_aging_legend">
+                    <span class="o_gn_legend_item"><span class="o_gn_dot o_gn_dot_b0_30"/> 0-30 dias</span>
+                    <span class="o_gn_legend_item"><span class="o_gn_dot o_gn_dot_b31_60"/> 31-60 dias</span>
+                    <span class="o_gn_legend_item"><span class="o_gn_dot o_gn_dot_b61_90"/> 61-90 dias</span>
+                    <span class="o_gn_legend_item"><span class="o_gn_dot o_gn_dot_b90_plus"/> +90 dias</span>
+                    <span class="o_gn_legend_note ml-auto">
+                        Los montos estan expresados en la moneda de la compania.
+                    </span>
+                </div>
+            </t>
+        </div>
+    </t>
+
+</templates>

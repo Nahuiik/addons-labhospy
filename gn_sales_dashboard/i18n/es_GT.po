@@ -1,0 +1,1458 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* gn_sales_dashboard
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-23 04:54+0000\n"
+"PO-Revision-Date: 2026-07-23 04:54+0000\n"
+"Last-Translator: \n"
+"Language-Team: Grupo Nahuiik / es_GT\n"
+"Language: es_GT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "% Margen"
+msgstr "% Margen"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "%(n)s facturas con saldo pendiente en el período."
+msgstr "%(n)s facturas con saldo pendiente en el período."
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "%(n)s oportunidades sin avance en %(d)s+ días."
+msgstr "%(n)s oportunidades sin avance en %(d)s+ días."
+
+#. module: gn_sales_dashboard
+#: model:ir.actions.report,print_report_name:gn_sales_dashboard.action_report_sales_executive
+msgid "'Ventas_Ejecutivo_%s' % (object.name)"
+msgstr "'Ventas_Ejecutivo_%s' % (object.name)"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "30 días"
+msgstr "30 días"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "7 días"
+msgstr "7 días"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "90 días"
+msgstr "90 días"
+
+#. module: gn_sales_dashboard
+#: model_terms:ir.ui.view,arch_db:gn_sales_dashboard.report_sales_exec
+msgid "<strong>Generado por:</strong>"
+msgstr "<strong>Generado por:</strong>"
+
+#. module: gn_sales_dashboard
+#: model_terms:ir.ui.view,arch_db:gn_sales_dashboard.report_sales_exec
+msgid "<strong>Sales Health Score:</strong>"
+msgstr "<strong>Sales Health Score:</strong>"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.xml:0
+msgid "Actualizando…"
+msgstr "Actualizando…"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.js:0
+msgid "Actualizar"
+msgstr "Actualizar"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.js:0
+#: model_terms:ir.ui.view,arch_db:gn_sales_dashboard.report_sales_exec
+msgid "Alertas"
+msgstr "Alertas"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_alerts_panel.xml:0
+msgid "Alertas comerciales"
+msgstr "Alertas comerciales"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "Alta concentración de clientes"
+msgstr "Alta concentración de clientes"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "Alta concentración en pocos clientes: diversificar cartera."
+msgstr "Alta concentración en pocos clientes: diversificar cartera."
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields.selection,name:gn_sales_dashboard.selection__sales_dashboard_target__period_type__yearly
+msgid "Anual"
+msgstr "Anual"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.js:0
+msgid "Análisis"
+msgstr "Análisis"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.xml:0
+msgid "Análisis RFM"
+msgstr "Análisis RFM"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.js:0
+msgid "Aplicar"
+msgstr "Aplicar"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Ayer"
+msgstr "Ayer"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Año actual"
+msgstr "Año actual"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Bloqueado"
+msgstr "Bloqueado"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "Bueno"
+msgstr "Bueno"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Cantidad de documentos contables publicados en el período."
+msgstr "Cantidad de documentos contables publicados en el período."
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_target__category_id
+msgid "Categoría"
+msgstr "Categoría"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "Caída significativa de ventas"
+msgstr "Caída significativa de ventas"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.xml:0
+msgid "Cliente"
+msgstr "Cliente"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.js:0
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.xml:0
+msgid "Clientes"
+msgstr "Clientes"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Clientes activos"
+msgstr "Clientes activos"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Clientes con al menos una factura en el período."
+msgstr "Clientes con al menos una factura en el período."
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Clientes cuya primera factura cae en el período."
+msgstr "Clientes cuya primera factura cae en el período."
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Clientes nuevos"
+msgstr "Clientes nuevos"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "Clientes recurrentes"
+msgstr "Clientes recurrentes"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "Cobertura pipeline"
+msgstr "Cobertura pipeline"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.xml:0
+msgid "Cohortes de clientes"
+msgstr "Cohortes de clientes"
+
+#. module: gn_sales_dashboard
+#: model:ir.ui.menu,name:gn_sales_dashboard.menu_gn_sales_command_center_root
+msgid "Command Center"
+msgstr "Command Center"
+
+#. module: gn_sales_dashboard
+#: model:ir.model,name:gn_sales_dashboard.model_res_company
+msgid "Companies"
+msgstr "Empresas"
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_config__company_id
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_target__company_id
+msgid "Company"
+msgstr "Company"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Comparación"
+msgstr "Comparación"
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_res_config_settings__sales_concentration_max_pct
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_config__concentration_max_pct
+msgid "Concentración máxima (%)"
+msgstr "Concentración máxima (%)"
+
+#. module: gn_sales_dashboard
+#: model:ir.model,name:gn_sales_dashboard.model_res_config_settings
+msgid "Config Settings"
+msgstr "Ajustes de configuración"
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_res_company__sales_dashboard_config_id
+msgid "Config. dashboard ventas"
+msgstr "Config. dashboard ventas"
+
+#. module: gn_sales_dashboard
+#: model:ir.ui.menu,name:gn_sales_dashboard.menu_sales_dashboard_config
+msgid "Configuración"
+msgstr "Configuración"
+
+#. module: gn_sales_dashboard
+#: model_terms:ir.ui.view,arch_db:gn_sales_dashboard.res_config_settings_view_form_sales_dashboard
+msgid "Configuración completa"
+msgstr "Configuración completa"
+
+#. module: gn_sales_dashboard
+#: model:ir.actions.act_window,name:gn_sales_dashboard.action_sales_dashboard_config
+msgid "Configuración dashboard ventas"
+msgstr "Configuración dashboard ventas"
+
+#. module: gn_sales_dashboard
+#: model:ir.model,name:gn_sales_dashboard.model_sales_dashboard_config
+msgid "Configuración del dashboard de ventas"
+msgstr "Configuración del dashboard de ventas"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "Control devoluciones"
+msgstr "Control devoluciones"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "Conversión CRM"
+msgstr "Conversión CRM"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "Costo"
+msgstr "Costo"
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_config__create_uid
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_target__create_uid
+msgid "Created by"
+msgstr "Created by"
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_config__create_date
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_target__create_date
+msgid "Created on"
+msgstr "Created on"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Crecimiento"
+msgstr "Crecimiento"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "Crecimiento de ventas"
+msgstr "Crecimiento de ventas"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "Crítico"
+msgstr "Crítico"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Cumplimiento de meta"
+msgstr "Cumplimiento de meta"
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_target__currency_id
+msgid "Currency"
+msgstr "Currency"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+#: model:ir.ui.menu,name:gn_sales_dashboard.menu_gn_sales_command_center
+msgid "Dashboard de Ventas"
+msgstr "Dashboard de Ventas"
+
+#. module: gn_sales_dashboard
+#: model:ir.actions.client,name:gn_sales_dashboard.action_gn_sales_command_center
+#: model_terms:ir.ui.view,arch_db:gn_sales_dashboard.res_config_settings_view_form_sales_dashboard
+msgid "Dashboard de Ventas Premium"
+msgstr "Dashboard de Ventas Premium"
+
+#. module: gn_sales_dashboard
+#: model:res.groups,name:gn_sales_dashboard.group_sales_dashboard_admin
+msgid "Dashboard de Ventas: Administrador"
+msgstr "Dashboard de Ventas: Administrador"
+
+#. module: gn_sales_dashboard
+#: model:res.groups,name:gn_sales_dashboard.group_sales_dashboard_manager
+msgid "Dashboard de Ventas: Gerente comercial"
+msgstr "Dashboard de Ventas: Gerente comercial"
+
+#. module: gn_sales_dashboard
+#: model:res.groups,name:gn_sales_dashboard.group_sales_dashboard_user
+msgid "Dashboard de Ventas: Usuario"
+msgstr "Dashboard de Ventas: Usuario"
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_target__date_from
+msgid "Date From"
+msgstr "Date From"
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_target__date_to
+msgid "Date To"
+msgstr "Date To"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "Datos históricos insuficientes para pronosticar."
+msgstr "Datos históricos insuficientes para pronosticar."
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.xml:0
+msgid "Datos insuficientes"
+msgstr "Datos insuficientes"
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_config__default_period
+msgid "Default Period"
+msgstr "Default Period"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.xml:0
+msgid "Detalle por etapa"
+msgstr "Detalle por etapa"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Devoluciones"
+msgstr "Devoluciones"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.js:0
+msgid "Diario"
+msgstr "Diario"
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_res_company__display_name
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_config__display_name
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_service__display_name
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_target__display_name
+msgid "Display Name"
+msgstr "Nombre en pantalla"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "Diversificación clientes"
+msgstr "Diversificación clientes"
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_res_config_settings__sales_inactive_customer_days
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_config__inactive_customer_days
+msgid "Días cliente inactivo"
+msgstr "Días cliente inactivo"
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_config__stalled_opportunity_days
+msgid "Días oportunidad estancada"
+msgstr "Días oportunidad estancada"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "En crecimiento"
+msgstr "En crecimiento"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_analytics.py:0
+msgid "En riesgo"
+msgstr "En riesgo"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.js:0
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_target__team_id
+msgid "Equipo comercial"
+msgstr "Equipo comercial"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.xml:0
+msgid "Esperado"
+msgstr "Esperado"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.xml:0
+msgid "Etapa"
+msgstr "Etapa"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "Excelente"
+msgstr "Excelente"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.js:0
+msgid "Exportar"
+msgstr "Exportar"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Facturación bruta"
+msgstr "Facturación bruta"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "Facturación pendiente de cobro"
+msgstr "Facturación pendiente de cobro"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Facturas"
+msgstr "Facturas"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Facturas publicadas (out_invoice/out_refund)"
+msgstr "Facturas publicadas (out_invoice/out_refund)"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid ""
+"Facturas publicadas menos notas de crédito (sin impuestos). Fuente: "
+"contabilidad."
+msgstr ""
+"Facturas publicadas menos notas de crédito (sin impuestos). Fuente: "
+"contabilidad."
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.js:0
+msgid "Forecast"
+msgstr "Forecast"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_analytics.py:0
+msgid "Frecuente"
+msgstr "Frecuente"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_export.py:0
+msgid "Fuente"
+msgstr "Fuente"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Fuente: facturas publicadas (sin impuestos)"
+msgstr "Fuente: facturas publicadas (sin impuestos)"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Hoy"
+msgstr "Hoy"
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_res_company__id
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_res_config_settings__id
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_config__id
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_service__id
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_target__id
+msgid "ID"
+msgstr "ID"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "Impuestos"
+msgstr "Impuestos"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_analytics.py:0
+msgid "Inactivo"
+msgstr "Inactivo"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "Incremento de devoluciones"
+msgstr "Incremento de devoluciones"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_export.py:0
+#: model_terms:ir.ui.view,arch_db:gn_sales_dashboard.report_sales_exec
+msgid "Indicador"
+msgstr "Indicador"
+
+#. module: gn_sales_dashboard
+#: model_terms:ir.ui.view,arch_db:gn_sales_dashboard.report_sales_exec
+msgid "KPIs"
+msgstr "KPIs"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_target.py:0
+msgid "La fecha inicial debe ser anterior a la final."
+msgstr "La fecha inicial debe ser anterior a la final."
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "La fecha inicial no puede ser posterior a la final."
+msgstr "La fecha inicial no puede ser posterior a la final."
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "La meta del período está encaminada."
+msgstr "La meta del período está encaminada."
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid ""
+"La proyección indica un cierre de %(proj)s por debajo de la meta "
+"(%(target)s)."
+msgstr ""
+"La proyección indica un cierre de %(proj)s por debajo de la meta "
+"(%(target)s)."
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "Las ventas netas cayeron %(pct).1f%% vs el período anterior."
+msgstr "Las ventas netas cayeron %(pct).1f%% vs el período anterior."
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_config__write_uid
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_target__write_uid
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_config__write_date
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_target__write_date
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "Margen actual %(m).1f%% · umbral %(u).1f%%."
+msgstr "Margen actual %(m).1f%% · umbral %(u).1f%%."
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Margen bruto"
+msgstr "Margen bruto"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Margen bruto / ventas netas × 100."
+msgstr "Margen bruto / ventas netas × 100."
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_res_config_settings__sales_margin_min_pct
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_config__margin_min_pct
+msgid "Margen mínimo (%)"
+msgstr "Margen mínimo (%)"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "Margen por debajo del umbral"
+msgstr "Margen por debajo del umbral"
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields.selection,name:gn_sales_dashboard.selection__sales_dashboard_target__period_type__monthly
+msgid "Mensual"
+msgstr "Mensual"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+#: model:ir.model.fields.selection,name:gn_sales_dashboard.selection__res_config_settings__sales_default_period__this_month
+#: model:ir.model.fields.selection,name:gn_sales_dashboard.selection__sales_dashboard_config__default_period__this_month
+msgid "Mes actual"
+msgstr "Mes actual"
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_target__target_new_customers
+msgid "Meta clientes nuevos"
+msgstr "Meta clientes nuevos"
+
+#. module: gn_sales_dashboard
+#: model:ir.model,name:gn_sales_dashboard.model_sales_dashboard_target
+msgid "Meta comercial del dashboard"
+msgstr "Meta comercial del dashboard"
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_target__target_conversion
+msgid "Meta conversión (%)"
+msgstr "Meta conversión (%)"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Meta diaria"
+msgstr "Meta diaria"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "Meta en riesgo"
+msgstr "Meta en riesgo"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "Meta en riesgo: intensificar actividad comercial."
+msgstr "Meta en riesgo: intensificar actividad comercial."
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_target__target_margin
+msgid "Meta margen"
+msgstr "Meta margen"
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_target__target_orders
+msgid "Meta pedidos"
+msgstr "Meta pedidos"
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_target__target_sales
+msgid "Meta ventas"
+msgstr "Meta ventas"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.xml:0
+msgid "Meta vs real"
+msgstr "Meta vs real"
+
+#. module: gn_sales_dashboard
+#: model_terms:ir.ui.view,arch_db:gn_sales_dashboard.view_sales_dashboard_target_form
+msgid "Metas"
+msgstr "Metas"
+
+#. module: gn_sales_dashboard
+#: model:ir.actions.act_window,name:gn_sales_dashboard.action_sales_dashboard_target
+#: model:ir.ui.menu,name:gn_sales_dashboard.menu_sales_dashboard_targets
+#: model_terms:ir.ui.view,arch_db:gn_sales_dashboard.res_config_settings_view_form_sales_dashboard
+msgid "Metas comerciales"
+msgstr "Metas comerciales"
+
+#. module: gn_sales_dashboard
+#: model_terms:ir.ui.view,arch_db:gn_sales_dashboard.res_config_settings_view_form_sales_dashboard
+msgid "Metas y configuración avanzada"
+msgstr "Metas y configuración avanzada"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Mismo período año anterior"
+msgstr "Mismo período año anterior"
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_res_config_settings__sales_forecast_method
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_config__forecast_method
+#: model_terms:ir.ui.view,arch_db:gn_sales_dashboard.res_config_settings_view_form_sales_dashboard
+msgid "Método de pronóstico"
+msgstr "Método de pronóstico"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_forecast_chart.xml:0
+msgid "Método:"
+msgstr "Método:"
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_target__name
+msgid "Name"
+msgstr "Name"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "No tiene permiso para acceder al Dashboard de Ventas."
+msgstr "No tiene permiso para acceder al Dashboard de Ventas."
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Notas de crédito"
+msgstr "Notas de crédito"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Notas de crédito del período."
+msgstr "Notas de crédito del período."
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Notas de crédito publicadas del período (valor absoluto)."
+msgstr "Notas de crédito publicadas del período (valor absoluto)."
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "Notas de crédito representan %(p).1f%% de ventas."
+msgstr "Notas de crédito representan %(p).1f%% de ventas."
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_analytics.py:0
+msgid "Nuevo"
+msgstr "Nuevo"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.js:0
+msgid "Operaciones"
+msgstr "Operaciones"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.xml:0
+msgid "Oport."
+msgstr "Oport."
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_analytics.py:0
+msgid "Oportunidades"
+msgstr "Oportunidades"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Oportunidades CRM abiertas"
+msgstr "Oportunidades CRM abiertas"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_analytics.py:0
+msgid "Oportunidades abiertas por etapa"
+msgstr "Oportunidades abiertas por etapa"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "Oportunidades estancadas"
+msgstr "Oportunidades estancadas"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Oportunidades ganadas / oportunidades creadas en el período."
+msgstr "Oportunidades ganadas / oportunidades creadas en el período."
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.js:0
+msgid "PDF ejecutivo"
+msgstr "PDF ejecutivo"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/hero_chart.xml:0
+msgid "PNG"
+msgstr "PNG"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.xml:0
+msgid "Pareto clientes"
+msgstr "Pareto clientes"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.xml:0
+msgid "Pareto productos"
+msgstr "Pareto productos"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Pedido de venta"
+msgstr "Pedido de venta"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.xml:0
+msgid "Pedidos"
+msgstr "Pedidos"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Pedidos confirmados (sale/done)"
+msgstr "Pedidos confirmados (sale/done)"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Pedidos confirmados (sale/done) por fecha del pedido."
+msgstr "Pedidos confirmados (sale/done) por fecha del pedido."
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_target__period_type
+msgid "Period Type"
+msgstr "Period Type"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Personalizado"
+msgstr "Personalizado"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Período anterior"
+msgstr "Período anterior"
+
+#. module: gn_sales_dashboard
+#: model_terms:ir.ui.view,arch_db:gn_sales_dashboard.res_config_settings_view_form_sales_dashboard
+msgid "Período inicial al abrir el dashboard"
+msgstr "Período inicial al abrir el dashboard"
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_res_config_settings__sales_default_period
+#: model_terms:ir.ui.view,arch_db:gn_sales_dashboard.res_config_settings_view_form_sales_dashboard
+msgid "Período predeterminado"
+msgstr "Período predeterminado"
+
+#. module: gn_sales_dashboard
+#: model_terms:ir.ui.view,arch_db:gn_sales_dashboard.view_sales_dashboard_config_form
+msgid "Pesos Sales Health Score"
+msgstr "Pesos Sales Health Score"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.js:0
+msgid "Pipeline"
+msgstr "Pipeline"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Pipeline abierto"
+msgstr "Pipeline abierto"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "Pipeline abierto cubre menos del 50%% de ventas del período."
+msgstr "Pipeline abierto cubre menos del 50%% de ventas del período."
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_analytics.py:0
+msgid "Pipeline comercial"
+msgstr "Pipeline comercial"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "Pipeline insuficiente"
+msgstr "Pipeline insuficiente"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.xml:0
+msgid "Ponderado"
+msgstr "Ponderado"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.xml:0
+msgid "Prob."
+msgstr "Prob."
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_target__product_id
+msgid "Producto"
+msgstr "Producto"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.js:0
+msgid "Productos"
+msgstr "Productos"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.xml:0
+msgid "Productos más vendidos"
+msgstr "Productos más vendidos"
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields.selection,name:gn_sales_dashboard.selection__res_config_settings__sales_forecast_method__moving_avg
+#: model:ir.model.fields.selection,name:gn_sales_dashboard.selection__sales_dashboard_config__forecast_method__moving_avg
+msgid "Promedio móvil"
+msgstr "Promedio móvil"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "Pronóstico basado en ventas netas facturadas. No utiliza IA."
+msgstr "Pronóstico basado en ventas netas facturadas. No utiliza IA."
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Pronóstico de cierre"
+msgstr "Pronóstico de cierre"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_forecast_chart.xml:0
+msgid "Pronóstico de ventas"
+msgstr "Pronóstico de ventas"
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_config__rfm_recency_days
+msgid "RFM recencia (días)"
+msgstr "RFM recencia (días)"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_analytics.py:0
+msgid "Registros"
+msgstr "Registros"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "Regular"
+msgstr "Regular"
+
+#. module: gn_sales_dashboard
+#: model:ir.actions.report,name:gn_sales_dashboard.action_report_sales_executive
+#: model_terms:ir.ui.view,arch_db:gn_sales_dashboard.report_sales_exec
+msgid "Reporte ejecutivo de ventas"
+msgstr "Reporte ejecutivo de ventas"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.js:0
+msgid "Restablecer"
+msgstr "Restablecer"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.js:0
+msgid "Resumen"
+msgstr "Resumen"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "Revisar precios o costos: margen por debajo del umbral."
+msgstr "Revisar precios o costos: margen por debajo del umbral."
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields.selection,name:gn_sales_dashboard.selection__res_config_settings__sales_forecast_method__daily_pace
+#: model:ir.model.fields.selection,name:gn_sales_dashboard.selection__sales_dashboard_config__forecast_method__daily_pace
+msgid "Ritmo diario"
+msgstr "Ritmo diario"
+
+#. module: gn_sales_dashboard
+#: model:ir.model,name:gn_sales_dashboard.model_sales_dashboard_service
+msgid "Sales Dashboard Premium Data Service"
+msgstr "Sales Dashboard Premium Data Service"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "Se necesitan ventas promedio de %(req)s por día para alcanzar la meta."
+msgstr ""
+"Se necesitan ventas promedio de %(req)s por día para alcanzar la meta."
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.xml:0
+msgid "Segmento"
+msgstr "Segmento"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Semana actual"
+msgstr "Semana actual"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_alerts_panel.xml:0
+msgid "Sin alertas activas"
+msgstr "Sin alertas activas"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Sin comparación"
+msgstr "Sin comparación"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_ranking_panel.xml:0
+msgid "Sin datos"
+msgstr "Sin datos"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.xml:0
+msgid "Sin datos RFM"
+msgstr "Sin datos RFM"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/hero_chart.xml:0
+msgid "Sin datos para el período seleccionado"
+msgstr "Sin datos para el período seleccionado"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_analytics.py:0
+msgid "Sin equipo"
+msgstr "Sin equipo"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_analytics.py:0
+msgid "Sin etapa"
+msgstr "Sin etapa"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "Sin meta configurada"
+msgstr "Sin meta configurada"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.xml:0
+msgid "Sin movimiento de productos"
+msgstr "Sin movimiento de productos"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_pipeline_chart.xml:0
+msgid "Sin oportunidades abiertas"
+msgstr "Sin oportunidades abiertas"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_data_table.xml:0
+msgid "Sin registros para los filtros actuales"
+msgstr "Sin registros para los filtros actuales"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_analytics.py:0
+msgid "Sin vendedor"
+msgstr "Sin vendedor"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_config.py:0
+msgid "Solo puede existir una configuración por compañía."
+msgstr "Solo puede existir una configuración por compañía."
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields.selection,name:gn_sales_dashboard.selection__res_config_settings__sales_forecast_method__exp_smoothing
+#: model:ir.model.fields.selection,name:gn_sales_dashboard.selection__sales_dashboard_config__forecast_method__exp_smoothing
+msgid "Suavizado exponencial"
+msgstr "Suavizado exponencial"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Subtotal de líneas − costo estándar × cantidad. Fuente: facturas."
+msgstr "Subtotal de líneas − costo estándar × cantidad. Fuente: facturas."
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.js:0
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_target__branch_id
+msgid "Sucursal"
+msgstr "Sucursal"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Suma de ingreso esperado × probabilidad de oportunidades abiertas."
+msgstr "Suma de ingreso esperado × probabilidad de oportunidades abiertas."
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Tasa de conversión"
+msgstr "Tasa de conversión"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Tendencia de ventas netas"
+msgstr "Tendencia de ventas netas"
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields.selection,name:gn_sales_dashboard.selection__res_config_settings__sales_forecast_method__linear
+#: model:ir.model.fields.selection,name:gn_sales_dashboard.selection__sales_dashboard_config__forecast_method__linear
+msgid "Tendencia lineal"
+msgstr "Tendencia lineal"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "Tendencia ticket"
+msgstr "Tendencia ticket"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Ticket promedio"
+msgstr "Ticket promedio"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.xml:0
+msgid "Top clientes"
+msgstr "Top clientes"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "Top clientes concentran %(p).1f%% de ventas."
+msgstr "Top clientes concentran %(p).1f%% de ventas."
+
+#. module: gn_sales_dashboard
+#: model_terms:ir.ui.view,arch_db:gn_sales_dashboard.view_sales_dashboard_target_tree
+msgid "Total"
+msgstr "Total"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Total facturas de cliente publicadas, sin restar notas de crédito."
+msgstr "Total facturas de cliente publicadas, sin restar notas de crédito."
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields.selection,name:gn_sales_dashboard.selection__sales_dashboard_target__period_type__quarterly
+msgid "Trimestral"
+msgstr "Trimestral"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+#: model:ir.model.fields.selection,name:gn_sales_dashboard.selection__res_config_settings__sales_default_period__this_quarter
+#: model:ir.model.fields.selection,name:gn_sales_dashboard.selection__sales_dashboard_config__default_period__this_quarter
+msgid "Trimestre actual"
+msgstr "Trimestre actual"
+
+#. module: gn_sales_dashboard
+#: model_terms:ir.ui.view,arch_db:gn_sales_dashboard.res_config_settings_view_form_sales_dashboard
+msgid "Umbrales comerciales"
+msgstr "Umbrales comerciales"
+
+#. module: gn_sales_dashboard
+#: model_terms:ir.ui.view,arch_db:gn_sales_dashboard.view_sales_dashboard_config_form
+msgid "Umbrales de alertas"
+msgstr "Umbrales de alertas"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_analytics.py:0
+msgid "VIP"
+msgstr "VIP"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_export.py:0
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.xml:0
+#: model_terms:ir.ui.view,arch_db:gn_sales_dashboard.report_sales_exec
+msgid "Valor"
+msgstr "Valor"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_analytics.py:0
+msgid "Valor esperado"
+msgstr "Valor esperado"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Valor esperado de oportunidades abiertas (CRM)."
+msgstr "Valor esperado de oportunidades abiertas (CRM)."
+
+#. module: gn_sales_dashboard
+#: model_terms:ir.ui.view,arch_db:gn_sales_dashboard.report_sales_exec
+msgid "Var %"
+msgstr "Var %"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_export.py:0
+msgid "Variación %"
+msgstr "Variación %"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Variación de ventas netas vs período de comparación."
+msgstr "Variación de ventas netas vs período de comparación."
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.js:0
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_target__user_id
+msgid "Vendedor"
+msgstr "Vendedor"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.js:0
+msgid "Vendedores"
+msgstr "Vendedores"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "Venta bruta"
+msgstr "Venta bruta"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_advanced.py:0
+msgid "Venta neta"
+msgstr "Venta neta"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.xml:0
+msgid "Ventas"
+msgstr "Ventas"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Ventas netas"
+msgstr "Ventas netas"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Ventas netas / cantidad de facturas publicadas."
+msgstr "Ventas netas / cantidad de facturas publicadas."
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Ventas netas vs meta del período (commission.target si existe)."
+msgstr "Ventas netas vs meta del período (commission.target si existe)."
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.xml:0
+msgid "Waterfall de ingresos"
+msgstr "Waterfall de ingresos"
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_config__weight_activity
+msgid "Weight Activity"
+msgstr "Weight Activity"
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_config__weight_concentration
+msgid "Weight Concentration"
+msgstr "Weight Concentration"
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_config__weight_conversion
+msgid "Weight Conversion"
+msgstr "Weight Conversion"
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_config__weight_growth
+msgid "Weight Growth"
+msgstr "Weight Growth"
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_config__weight_margin
+msgid "Weight Margin"
+msgstr "Weight Margin"
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_config__weight_pipeline
+msgid "Weight Pipeline"
+msgstr "Weight Pipeline"
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_config__weight_recurring
+msgid "Weight Recurring"
+msgstr "Weight Recurring"
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_config__weight_returns
+msgid "Weight Returns"
+msgstr "Weight Returns"
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_config__weight_target
+msgid "Weight Target"
+msgstr "Weight Target"
+
+#. module: gn_sales_dashboard
+#: model:ir.model.fields,field_description:gn_sales_dashboard.field_sales_dashboard_config__weight_ticket
+msgid "Weight Ticket"
+msgstr "Weight Ticket"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_target.py:0
+msgid "Ya existe una meta para la misma combinación de alcance y período."
+msgstr "Ya existe una meta para la misma combinación de alcance y período."
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.xml:0
+msgid "días restantes"
+msgstr "días restantes"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_forecast_chart.xml:0
+msgid "· Confianza:"
+msgstr "· Confianza:"
+
+#. module: gn_sales_dashboard
+#. odoo-javascript
+#: code:addons/gn_sales_dashboard/static/src/dashboard/sales_dashboard.xml:0
+msgid "Última compra"
+msgstr "Última compra"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+#: model:ir.model.fields.selection,name:gn_sales_dashboard.selection__res_config_settings__sales_default_period__last_30
+#: model:ir.model.fields.selection,name:gn_sales_dashboard.selection__sales_dashboard_config__default_period__last_30
+msgid "Últimos 30 días"
+msgstr "Últimos 30 días"
+
+#. module: gn_sales_dashboard
+#. odoo-python
+#: code:addons/gn_sales_dashboard/models/sales_dashboard_service.py:0
+msgid "Últimos 90 días"
+msgstr "Últimos 90 días"

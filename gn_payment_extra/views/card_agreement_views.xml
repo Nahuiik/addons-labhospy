@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vista de lista de Convenios de Tarjetas -->
+        <record id="view_card_agreement_tree" model="ir.ui.view">
+            <field name="name">card.agreement.tree</field>
+            <field name="model">card.agreement</field>
+            <field name="arch" type="xml">
+                <list string="Convenios de Tarjetas">
+                    <field name="name"/>
+                    <field name="journal_id"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="active" widget="boolean_toggle"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Vista de formulario de Convenios de Tarjetas -->
+        <record id="view_card_agreement_form" model="ir.ui.view">
+            <field name="name">card.agreement.form</field>
+            <field name="model">card.agreement</field>
+            <field name="arch" type="xml">
+                <form string="Convenio de Tarjetas">
+                    <header>
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive" 
+                                invisible="not active">
+                            <field name="active" widget="boolean_button" options="{'terminology': 'archive'}"/>
+                        </button>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Nombre del Convenio"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="journal_id" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                            </group>
+                            <group>
+                                <field name="active" widget="boolean_toggle"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Matriz de Comisiones" name="commission_matrix">
+                                <field name="agreement_line_ids" nolabel="1">
+                                    <list string="Líneas de Comisión" editable="bottom">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="payment_method_type" required="1"/>
+                                        <field name="months" 
+                                               invisible="payment_method_type not in ('extra_financiamiento',)"
+                                               required="payment_method_type == 'extra_financiamiento'"
+                                               help="Número de meses para financiamiento (3, 6, 9, 12)"/>
+                                        <field name="commission_percentage" required="1"/>
+                                        <field name="name" readonly="1"/>
+                                        <field name="active" widget="boolean_toggle"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vista de búsqueda de Convenios de Tarjetas -->
+        <record id="view_card_agreement_search" model="ir.ui.view">
+            <field name="name">card.agreement.search</field>
+            <field name="model">card.agreement</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="journal_id"/>
+                    <filter string="Activos" name="active" domain="[('active', '=', True)]"/>
+                    <filter string="Inactivos" name="inactive" domain="[('active', '=', False)]"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Acción para Convenios de Tarjetas -->
+        <record id="action_card_agreement" model="ir.actions.act_window">
+            <field name="name">Convenios de Tarjetas</field>
+            <field name="res_model">card.agreement</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="view_card_agreement_tree"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Crear un Convenio de Tarjetas
+                </p>
+                <p>
+                    Configure los convenios de tarjetas de crédito con sus respectivas matrices de comisiones.
+                    Cada convenio está asociado a un diario y contiene diferentes tipos de métodos de pago con sus porcentajes de comisión.
+                </p>
+            </field>
+        </record>
+
+        <!-- Menú en Configuración > Pagos en línea -->
+        <menuitem id="menu_card_agreement"
+                  name="Convenio de Tarjetas"
+                  parent="account.root_payment_menu"
+                  action="action_card_agreement"
+                  sequence="10"
+                  groups="account.group_account_manager"/>
+    </data>
+</odoo>

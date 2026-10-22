@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_banks_balance.KpiCards">
+        <div class="gn-wb-kpi-section">
+            <div class="gn-wb-kpi-grid gn-wb-kpi-grid--primary">
+                <t t-foreach="props.primaryCards" t-as="kpi" t-key="kpi.id">
+                    <BanksWeeklyBalanceKpiCard
+                        label="kpi.label"
+                        value="kpi.value"
+                        subValue="kpi.subValue"
+                        icon="kpi.icon"
+                        tone="kpi.tone"
+                        trend="kpi.trend"
+                        size="'primary'"
+                        tooltip="kpi.tooltip"
+                    />
+                </t>
+            </div>
+            <div class="gn-wb-kpi-grid gn-wb-kpi-grid--secondary" t-if="props.secondaryCards.length">
+                <t t-foreach="props.secondaryCards" t-as="kpi" t-key="kpi.id">
+                    <BanksWeeklyBalanceKpiCard
+                        label="kpi.label"
+                        value="kpi.value"
+                        subValue="kpi.subValue"
+                        icon="kpi.icon"
+                        tone="kpi.tone"
+                        trend="kpi.trend"
+                        size="'secondary'"
+                        tooltip="kpi.tooltip"
+                    />
+                </t>
+            </div>
+        </div>
+    </t>
+</templates>

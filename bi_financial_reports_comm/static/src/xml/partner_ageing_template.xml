@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="PartnerAgeing">
+        <div class="report-button-container">
+            <div class="d-flex justify-content-between align-items-center mb-3 mt-3">
+                <div>
+                    <h2 style="margin-left: 45px;">Partner Ageing</h2>
+                </div>
+
+                <div>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-primary" style="margin-right: 7px;" t-on-click="openAgeingPopup">
+                            <i class="fa fa-filter"></i> Filters
+                        </button>
+                        <button class="btn btn-primary" style="margin-right: 7px;" t-on-click="printAgeingReport">
+                            <i class="fa fa-print"></i> Print
+                        </button>
+                        <button class="btn btn-primary" style="margin-right: 20px;" t-on-click="printAgeingXls">
+                            <i class="fa fa-file-excel-o"></i> XLS
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            
+            <div class="report-container">
+                <div class="table-responsive report-table-container">
+                    <table class="table table-hover report-table">
+                        <thead class="table-header">
+                            <tr>
+                                <th style="text-align: center;width: 1%;"></th>
+                                <th style="text-align: center;width: 20%;">Move</th>
+                                <th style="text-align: center;width: 20%;">Invoice Date</th>
+                                <th style="text-align: center;width: 10%;">Due Date</th>
+                                <th style="text-align: center;width: 10%;">Journal</th>
+                                <th style="text-align: center;width: 10%;">Account</th>
+                                <th style="text-align: center;width: 12%;">
+                                    <t t-esc="state.periods['0'] ? state.periods['0'].name : 'At Date'"/>
+                                </th>
+                                <th style="text-align: center;width: 12%;">
+                                    <t t-esc="state.periods['1'] ? state.periods['1'].name : '1-30'"/>
+                                </th>
+                                <th style="text-align: center;width: 12%;">
+                                    <t t-esc="state.periods['2'] ? state.periods['2'].name : '31-60'"/>
+                                </th>
+                                <th style="text-align: center;width: 12%;">
+                                    <t t-esc="state.periods['3'] ? state.periods['3'].name : '61-90'"/>
+                                </th>
+                                <th style="text-align: center;width: 12%;">
+                                    <t t-esc="state.periods['4'] ? state.periods['4'].name : '91-120'"/>
+                                </th>
+                                <th style="text-align: center;width: 12%;">
+                                    <t t-esc="state.periods['5'] ? state.periods['5'].name : '120+'"/>
+                                </th>
+                                <th style="text-align: center;width: 12%;">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="state.partners" t-as="partner" t-key="partner.id">
+                                <tr class="toggle-row" t-att-data-partner="partner.name" t-att-data-account-type="partner.account_type">
+                                    <td style="padding: 6px 5px;" class="text unfoldable">
+                                        <t t-if="partner.journal_items and partner.journal_items.length > 0">
+                                            <button class="btn btn_foldable" t-on-click="toggleLines">
+                                                <i t-att-class="state.expandedPartners[partner.name] ? 'fa fa-caret-down' : 'fa fa-caret-right'"/>
+                                            </button>
+                                        </t>
+                                    </td>
+                                    
+                                    <td style="padding: 6px 5px;" class="text unfoldable">
+                                        <div class="wrapper" style="padding-left: 10px;">
+                                            <div class="partner_name">
+                                                <t t-esc="partner.name"/>
+                                            </div>
+                                            <button class="btn btn_viewpartner" t-on-click="_onClickPartner"> Partner </button>
+                                            <button class="btn btn_journalentry" t-on-click="_onClickJournalItems"> Journal Items </button>
+                                        </div>
+                                    </td>
+                                    
+                                    <!-- Partner Totals -->
+                                    <td style="padding: 6px 5px;" /><td style="padding: 6px 5px;" /><td style="padding: 6px 5px;" /><td style="padding: 6px 5px;" />
+                                    <td style="padding: 6px 5px;"  class="text-right" t-esc="partner.period0"/>
+                                    <td style="padding: 6px 5px;"  class="text-right" t-esc="partner.period1"/>
+                                    <td style="padding: 6px 5px;"  class="text-right" t-esc="partner.period2"/>
+                                    <td style="padding: 6px 5px;"  class="text-right" t-esc="partner.period3"/>
+                                    <td style="padding: 6px 5px;"  class="text-right" t-esc="partner.period4"/>
+                                    <td style="padding: 6px 5px;"  class="text-right" t-esc="partner.period5"/>
+                                    <td style="padding: 6px 5px;font-weight: bold;"  class="text-right" t-esc="partner.total"/>
+                                </tr>
+                                
+                                <t t-if="state.expandedPartners[partner.name]">
+                                    <t t-foreach="partner.journal_items" t-as="item" t-key="item.id">
+                                        <tr t-att-data-id="item.id">
+                                            <td style="padding: 6px 5px;" />
+                                            <td style="padding: 6px 5px;" >
+                                                <div class="wrapper">
+                                                    <div><t t-esc="item.move_name"/></div>
+                                                    <button class="btn btn_entry" t-on-click="_onClickEntry"> Entry </button>
+                                                </div>
+                                            </td>
+                                            <td style="padding: 6px 5px;" ><t t-esc="item.invoice_date"/></td>
+                                            <td style="padding: 6px 5px;" ><t t-esc="item.due_date"/></td>
+                                            <td style="padding: 6px 5px;" ><t t-esc="item.journal_id ? item.journal_id : ''"/></td>
+                                            <td style="padding: 6px 5px;" ><t t-esc="item.account_code"/></td>
+                                            <td style="padding: 6px 5px;"  class="text-right">
+                                                <t t-if="item.period_key === 'period0'" t-esc="item.amount"/>
+                                                <t t-else=""><t t-esc="item.currency_symbol"/> 0.00</t>
+                                            </td>
+                                            <td style="padding: 6px 5px;"  class="text-right">
+                                                <t t-if="item.period_key === 'period1'" t-esc="item.amount"/>
+                                                <t t-else=""><t t-esc="item.currency_symbol"/> 0.00</t>
+                                            </td>
+                                            <td style="padding: 6px 5px;"  class="text-right">
+                                                <t t-if="item.period_key === 'period2'" t-esc="item.amount"/>
+                                                <t t-else=""><t t-esc="item.currency_symbol"/> 0.00</t>
+                                            </td>
+                                            <td style="padding: 6px 5px;"  class="text-right">
+                                                <t t-if="item.period_key === 'period3'" t-esc="item.amount"/>
+                                                <t t-else=""><t t-esc="item.currency_symbol"/> 0.00</t>
+                                            </td>
+                                            <td style="padding: 6px 5px;"  class="text-right">
+                                                <t t-if="item.period_key === 'period4'" t-esc="item.amount"/>
+                                                <t t-else=""><t t-esc="item.currency_symbol"/> 0.00</t>
+                                            </td>
+                                            <td style="padding: 6px 5px;"  class="text-right">
+                                                <t t-if="item.period_key === 'period5'" t-esc="item.amount"/>
+                                                <t t-else=""><t t-esc="item.currency_symbol"/> 0.00</t>
+                                            </td>
+                                            <td style="padding: 6px 5px;"  class="text-right" t-esc="item.amount"/>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </t>
+                            <tr>
+                                <td style="padding: 6px 5px;" />
+                                <td style="padding: 6px 5px; text-align:left;font-weight:bold;">Total</td>
+                                <td style="padding: 6px 5px;" /><td style="padding: 6px 5px;" /><td style="padding: 6px 5px;" /><td style="padding: 6px 5px;" />
+                                <td class="text-right" style="padding: 6px 5px;font-weight: bold;" t-esc="state.PeriodTotal.period0"/>
+                                <td class="text-right" style="padding: 6px 5px;font-weight: bold;" t-esc="state.PeriodTotal.period1"/>
+                                <td class="text-right" style="padding: 6px 5px;font-weight: bold;" t-esc="state.PeriodTotal.period2"/>
+                                <td class="text-right" style="padding: 6px 5px;font-weight: bold;" t-esc="state.PeriodTotal.period3"/>
+                                <td class="text-right" style="padding: 6px 5px;font-weight: bold;" t-esc="state.PeriodTotal.period4"/>
+                                <td class="text-right" style="padding: 6px 5px;font-weight: bold;" t-esc="state.PeriodTotal.period5"/>
+                                <td class="text-right" style="padding: 6px 5px;font-weight: bold;" t-esc="state.PeriodTotal.total"/>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--
+            Anticipo originado en salary.advance para nómina quincenal (HN_BIWEEKLY).
+            Misma lógica que la regla AS (adelanto manual), pero con código dedicado para
+            enlazar la solicitud de anticipo al voucher sin mezclar otros adelantos.
+        -->
+        <record id="input_type_adv_biweekly_salary" model="hr.payslip.input.type">
+            <field name="name">Anticipo salarial quincenal (solicitud)</field>
+            <field name="code">ADV_BIWEEKLY_SALARY</field>
+        </record>
+
+        <record id="salary_rule_adv_biweekly_salary_from_request" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">Anticipo salarial quincenal (solicitud)</field>
+            <field name="code">ADV_BIWEEKLY_SALARY</field>
+            <field name="sequence">79</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'ADV_BIWEEKLY_SALARY' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -abs(inputs.get('ADV_BIWEEKLY_SALARY', 0).amount) if 'ADV_BIWEEKLY_SALARY' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+
+        <record id="structure_biweekly" model="hr.payroll.structure">
+            <field name="input_line_type_ids" eval="[(4, ref('l10n_hn_hr_payroll.input_type_adv_biweekly_salary'))]"/>
+        </record>
+    </data>
+</odoo>

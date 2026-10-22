@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_l10n_hn_isr_calculation_wizard_form" model="ir.ui.view">
+        <field name="name">l10n.hn.isr.calculation.wizard.form</field>
+        <field name="model">l10n.hn.isr.calculation.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Calcular ISR para Revisión">
+                <group>
+                    <group>
+                        <field name="config_id" invisible="1"/>
+                        <field name="company_id"/>
+                        <field name="period_type"/>
+                        <field name="year"/>
+                        <field name="month" required="period_type != 'annual'"
+                               invisible="period_type == 'annual'"/>
+                    </group>
+                    <group>
+                        <field name="employee_ids" widget="many2many_tags"
+                               options="{'no_create': True}"
+                               placeholder="Todos los empleados con contrato activo"/>
+                    </group>
+                </group>
+                <p class="text-muted">
+                    Con "Año completo" se calcula el ISR para todos los períodos del año.
+                    Con períodos específicos solo se calcula ese mes o quincena.
+                    Los resultados se guardarán en Auditoría ISR para revisión antes de generar la nómina.
+                </p>
+                <footer>
+                    <button name="action_calculate" string="Calcular ISR" type="object" class="btn-primary"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

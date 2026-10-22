@@ -1,0 +1,17 @@
+// primary_variables_print.scss sets $grid-breakpoints in mm for print/PDF-oriented assets.
+// Bootstrap utilities/_api.scss then does: map-get($grid-breakpoints, $bp) < $rfs-breakpoint
+// where $rfs-breakpoint is a unitless px-derived number → incompatible units / compile error.
+// Before utilities/_api, fall back to the standard screen map so RFS + utilities compile;
+// earlier imports (e.g. grid) already saw the mm map when needed for print layout.
+$-omux-sm: map-get($grid-breakpoints, sm);
+
+@if $-omux-sm != null and type-of($-omux-sm) == number and unit($-omux-sm) == mm {
+    $grid-breakpoints: (
+        xs: 0,
+        sm: 576px,
+        md: 768px,
+        lg: 992px,
+        xl: 1200px,
+        xxl: 1400px,
+    );
+}

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Contabilidad (app) > Contabilidad > Bloqueando / Closing — same placement as CE+Enterprise UX -->
+    <menuitem id="menu_gn_lock_journal_entries"
+              name="Fechas de bloqueo..."
+              parent="account.account_closing_menu"
+              action="action_lock_journal_entries"
+              sequence="15"
+              groups="account.group_account_manager"/>
+
+    <!-- Advanced: dashboard, journal period locks, exceptions -->
+    <menuitem id="menu_gn_lock_dates_root"
+              name="Lock Dates"
+              parent="account.menu_finance_configuration"
+              sequence="95"
+              groups="gn_lock_date.group_period_lock_user,account.group_account_manager"/>
+
+    <menuitem id="menu_gn_lock_dates_dashboard"
+              name="Dashboard"
+              parent="menu_gn_lock_dates_root"
+              action="action_lock_dates_dashboard"
+              sequence="10"
+              groups="account.group_account_manager"/>
+
+    <menuitem id="menu_gn_period_lock"
+              name="Period Locks (by journal)"
+              parent="menu_gn_lock_dates_root"
+              action="action_gn_period_lock"
+              sequence="30"
+              groups="gn_lock_date.group_period_lock_user"/>
+
+    <menuitem id="menu_gn_lock_exception"
+              name="Lock Exceptions"
+              parent="menu_gn_lock_dates_root"
+              action="action_account_lock_exception_gn"
+              sequence="40"
+              groups="account.group_account_manager"/>
+</odoo>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista de lista para presencia de dispositivos -->
+    <record id="view_monitor_device_presence_tree" model="ir.ui.view">
+        <field name="name">monitor.device_presence.list</field>
+        <field name="model">monitor.device_presence</field>
+        <field name="arch" type="xml">
+            <list string="Presencia de Dispositivos" decoration-danger="is_archived == True">
+                <field name="user_id"/>
+                <field name="user_type" widget="badge" decoration-info="user_type == 'internal'" decoration-success="user_type == 'portal'"/>
+                <field name="device_id"/>
+                <field name="last_seen"/>
+                <field name="ip_address"/>
+                <field name="is_archived" invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Vista de formulario para presencia de dispositivos -->
+    <record id="view_monitor_device_presence_form" model="ir.ui.view">
+        <field name="name">monitor.device_presence.form</field>
+        <field name="model">monitor.device_presence</field>
+        <field name="arch" type="xml">
+            <form string="Presencia de Dispositivo">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="user_id"/>
+                            <field name="user_type" widget="radio" options="{'horizontal': true}"/>
+                            <field name="device_id"/>
+                        </group>
+                        <group>
+                            <field name="last_seen"/>
+                            <field name="is_archived"/>
+                            <field name="ip_address"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="user_agent" widget="text"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vista de búsqueda -->
+    <record id="view_monitor_device_presence_search" model="ir.ui.view">
+        <field name="name">monitor.device_presence.search</field>
+        <field name="model">monitor.device_presence</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="user_id"/>
+                <field name="device_id"/>
+                <field name="ip_address"/>
+                <field name="last_seen"/>
+                <filter string="Activos" name="active_users" domain="[('is_archived', '=', False)]"/>
+                <filter string="Archivados" name="archived_users" domain="[('is_archived', '=', True)]"/>
+                <filter string="Internos" name="internal" domain="[('user_type', '=', 'internal')]"/>
+                <filter string="Portal" name="portal" domain="[('user_type', '=', 'portal')]"/>
+                <separator/>
+                <filter string="Activos Última Hora" name="active_last_hour" 
+                        domain="[('is_archived', '=', False)]"/>
+                <group>
+                    <filter string="Usuario" name="group_user" domain="[]" context="{'group_by': 'user_id'}"/>
+                    <filter string="Tipo" name="group_type" domain="[]" context="{'group_by': 'user_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Acción para vista de lista -->
+    <record id="action_monitor_device_presence" model="ir.actions.act_window">
+        <field name="name">Presencia de Dispositivos</field>
+        <field name="res_model">monitor.device_presence</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_monitor_device_presence_search"/>
+        <field name="context">{'search_default_active_last_hour': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay registros de presencia aún
+            </p>
+            <p>
+                Los registros de presencia se crean automáticamente cuando los usuarios
+                navegan por la aplicación. El sistema envía heartbeats periódicos desde
+                cada dispositivo.
+            </p>
+        </field>
+    </record>
+
+    <!-- Vista Kanban para dashboard -->
+    <record id="view_monitor_device_presence_kanban" model="ir.ui.view">
+        <field name="name">monitor.device_presence.kanban</field>
+        <field name="model">monitor.device_presence</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_dashboard">
+                <field name="user_id"/>
+                <field name="user_type"/>
+                <field name="last_seen"/>
+                <field name="device_id"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <div class="oe_kanban_content">
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            <field name="user_id"/>
+                                        </strong>
+                                        <span class="o_kanban_record_subtitle">
+                                            <field name="user_type" widget="badge"/>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_record_body">
+                                    <div>
+                                        <span>Dispositivo: </span><field name="device_id"/>
+                                    </div>
+                                    <div>
+                                        <span>Última actividad: </span><field name="last_seen"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+</odoo>
+

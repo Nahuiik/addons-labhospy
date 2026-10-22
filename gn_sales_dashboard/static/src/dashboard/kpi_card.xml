@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_sales_dashboard.SalesKpiCard">
+        <article t-att-class="cardClass"
+                 t-att-title="props.kpi.tooltip"
+                 t-on-click="onCardClick"
+                 t-on-keydown="onCardKeydown"
+                 tabindex="0"
+                 role="button"
+                 t-att-aria-label="props.kpi.label">
+            <div t-att-class="'gn-sd-kpi__accent ' + accentClass"/>
+            <div class="gn-sd-kpi__head">
+                <span class="gn-sd-kpi__icon-wrap">
+                    <i t-att-class="'fa ' + (props.kpi.icon || 'fa-circle')" aria-hidden="true"/>
+                </span>
+                <span class="gn-sd-kpi__label" t-esc="props.kpi.label"/>
+            </div>
+            <div class="gn-sd-kpi__value" t-esc="formattedValue"/>
+            <div class="gn-sd-kpi__footer">
+                <span t-att-class="'gn-sd-kpi__var ' + variationClass" t-esc="variationLabel"/>
+                <svg t-if="sparklinePath" class="gn-sd-kpi__spark" t-att-viewBox="isPrimary ? '0 0 120 32' : '0 0 72 24'" preserveAspectRatio="none" aria-hidden="true">
+                    <path t-att-d="sparklinePath" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+            </div>
+            <div t-if="props.kpi.target and props.kpi.has_data" class="gn-sd-kpi__progress">
+                <div class="gn-sd-kpi__progress-bar" t-att-style="'width:' + progressPct + '%'"/>
+            </div>
+        </article>
+    </t>
+</templates>

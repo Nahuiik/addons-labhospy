@@ -1,0 +1,1512 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* gn_hr_payroll_employee_extras
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-04 16:47+0000\n"
+"PO-Revision-Date: 2026-04-04 16:47+0000\n"
+"Last-Translator: \n"
+"Language-Team: Spanish (Guatemala) <es_GT@li.org>\n"
+"Language: es_GT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_assign_wizard.py:0
+msgid ""
+" %d empleado(s) fueron omitidos (ya tienen el concepto o no cumplen los "
+"criterios)."
+msgstr ""
+" %d empleado(s) fueron omitidos (ya tienen el concepto o no cumplen los "
+"criterios)."
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+msgid "# Conceptos"
+msgstr "# Conceptos"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+msgid "1ra"
+msgstr "1ra"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+msgid "2da"
+msgstr "2da"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_employee_recurring_concept_form
+msgid ""
+"<i class=\"fa fa-info-circle me-2\"/>Este es un concepto compartido. Puede "
+"asignarse a múltiples empleados usando el botón \"Asignar a Empleados\"."
+msgstr ""
+"<i class=\"fa fa-info-circle me-2\"/>Este es un concepto compartido. Puede "
+"asignarse a múltiples empleados usando el botón \"Asignar a Empleados\"."
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.actions.act_window,help:gn_hr_payroll_employee_extras.action_hr_employee_recurring_concept
+msgid ""
+"<strong>Compartidos:</strong> Dejar el campo \"Empleado\" vacío. Pueden "
+"asignarse a múltiples empleados usando criterios de aplicabilidad o "
+"selección manual."
+msgstr ""
+"<strong>Compartidos:</strong> Dejar el campo \"Empleado\" vacío. Pueden "
+"asignarse a múltiples empleados usando criterios de aplicabilidad o "
+"selección manual."
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/models/hr_employee.py:0
+msgid "<strong>Documentos obligatorios faltantes:</strong> %s"
+msgstr "<strong>Documentos obligatorios faltantes:</strong> %s"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.actions.act_window,help:gn_hr_payroll_employee_extras.action_hr_employee_recurring_concept
+msgid ""
+"<strong>Por Empleado:</strong> Asignar un empleado específico. Se aplican "
+"automáticamente en las nóminas del empleado."
+msgstr ""
+"<strong>Por Empleado:</strong> Asignar un empleado específico. Se aplican "
+"automáticamente en las nóminas del empleado."
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/models/hr_employee.py:0
+msgid ""
+"<strong>Préstamos con fechas incompletas:</strong> %s. Configure fecha de "
+"inicio y fecha de fin para calcular correctamente las cuotas."
+msgstr ""
+"<strong>Préstamos con fechas incompletas:</strong> %s. Configure fecha de "
+"inicio y fecha de fin para calcular correctamente las cuotas."
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.hr_documents_download_wizard_view_form
+msgid ""
+"<strong>Todos los documentos:</strong> Deje el tipo vacío y use \"Descargar "
+"ZIP\"."
+msgstr ""
+"<strong>Todos los documentos:</strong> Deje el tipo vacío y use \"Descargar "
+"ZIP\"."
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.hr_documents_download_wizard_view_form
+msgid ""
+"<strong>Un solo tipo:</strong> Seleccione el tipo y use \"Descargar tipo "
+"seleccionado\"."
+msgstr ""
+"<strong>Un solo tipo:</strong> Seleccione el tipo y use \"Descargar tipo "
+"seleccionado\"."
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__active
+msgid "Active"
+msgstr "Activo"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_document_type__active
+msgid "Activo"
+msgstr "Activo"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_employee_recurring_concept_search
+msgid "Activos"
+msgstr "Activos"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee__loan_missing_dates_warning
+msgid "Alerta préstamo sin fechas"
+msgstr "Alerta préstamo sin fechas"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+msgid "Ambas"
+msgstr "Ambas"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields.selection,name:gn_hr_payroll_employee_extras.selection__hr_employee_recurring_concept__apply_biweek__both
+msgid "Ambas Quincenas"
+msgstr "Ambas Quincenas"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__amount
+msgid "Amount"
+msgstr "Monto"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__amount_type
+msgid "Amount Type"
+msgstr "Tipo de Monto"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_employee_recurring_concept_list
+msgid "Aplica a Todos"
+msgstr "Aplica a Todos"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__applies_to_all
+msgid "Aplica a Todos los Empleados"
+msgstr "Aplica a Todos los Empleados"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+msgid "Aplicar Quincena"
+msgstr "Aplicar Quincena"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__apply_biweek
+msgid "Aplicar en Quincena"
+msgstr "Aplicar en Quincena"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.hr_document_type_view_form
+msgid "Archivado"
+msgstr "Archivado"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+msgid "Asignación"
+msgstr "Asignación"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_recurring_concept_assign_wizard_form
+msgid "Asignar"
+msgstr "Asignar"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/models/hr_employee_recurring_concept.py:0
+#: model:ir.actions.act_window,name:gn_hr_payroll_employee_extras.action_hr_recurring_concept_assign_wizard
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_recurring_concept_assign_wizard_form
+msgid "Asignar Concepto a Empleados"
+msgstr "Asignar Concepto a Empleados"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_employee_recurring_concept_form
+msgid "Asignar a Empleados"
+msgstr "Asignar a Empleados"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_employee_recurring_concept_form
+msgid "Asignar este concepto compartido a múltiples empleados"
+msgstr "Asignar este concepto compartido a múltiples empleados"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model,name:gn_hr_payroll_employee_extras.model_hr_employee_recurring_concept_assign_wizard
+msgid "Assign Recurring Concept to Employees Wizard"
+msgstr "Asistente para Asignar Concepto Recurrente a Empleados"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_employee_recurring_concept_search
+msgid "Buscar Conceptos Recurrentes"
+msgstr "Buscar Conceptos Recurrentes"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,help:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__template_concept_id
+msgid ""
+"Campo oculto para compatibilidad. Use name_from_concept_id en su lugar."
+msgstr ""
+"Campo oculto para compatibilidad. Use name_from_concept_id en su lugar."
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.hr_documents_download_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_recurring_concept_assign_wizard_form
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_recurring_concept_report_form
+msgid "Cancelar"
+msgstr "Cancelar"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee__document_missing_required_count
+msgid "Cantidad documentos obligatorios faltantes"
+msgstr "Cantidad documentos obligatorios faltantes"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_employee_recurring_concept_list
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_employee_recurring_concept_search
+msgid "Compartido"
+msgstr "Compartido"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_employee_recurring_concept_search
+msgid "Compartidos"
+msgstr "Compartidos"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_documents_download_wizard__company_id
+msgid "Compañía"
+msgstr "Compañía"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,help:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__company_id
+msgid "Compañía del empleado o compañía actual si es concepto compartido"
+msgstr "Compañía del empleado o compañía actual si es concepto compartido"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__name_from_concept_id
+msgid "Concept Name"
+msgstr "Nombre del Concepto"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept_assign_wizard__concept_id
+msgid "Concepto"
+msgstr "Concepto"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_employee_recurring_concept_form
+msgid "Concepto Recurrente"
+msgstr "Concepto Recurrente"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,help:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept_assign_wizard__concept_id
+msgid "Concepto compartido a asignar"
+msgstr "Concepto compartido a asignar"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/models/hr_employee_recurring_concept.py:0
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_assign_wizard.py:0
+msgid "Conceptos Asignados"
+msgstr "Conceptos Asignados"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_employee_recurring_concept_list
+msgid "Conceptos Recurrentes"
+msgstr "Conceptos Recurrentes"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.actions.act_window,name:gn_hr_payroll_employee_extras.action_hr_employee_recurring_concept
+msgid "Conceptos recurrentes (todos)"
+msgstr "Conceptos recurrentes (todos)"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.actions.act_window,name:gn_hr_payroll_employee_extras.action_hr_employee_recurring_concept_template
+#: model:ir.ui.menu,name:gn_hr_payroll_employee_extras.menu_gn_hr_recurring_concept_templates
+msgid "Plantillas de conceptos recurrentes"
+msgstr "Plantillas de conceptos recurrentes"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.actions.act_window,name:gn_hr_payroll_employee_extras.action_hr_employee_recurring_concept_employee
+#: model:ir.ui.menu,name:gn_hr_payroll_employee_extras.menu_gn_hr_recurring_concept_by_employee
+msgid "Conceptos recurrentes por empleado"
+msgstr "Conceptos recurrentes por empleado"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee__recurring_concept_ids
+msgid "Conceptos recurrentes"
+msgstr "Conceptos recurrentes"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.ui.menu,name:gn_hr_payroll_employee_extras.menu_gn_hr_payroll_employee_extras_root
+msgid "Conceptos y documentos"
+msgstr "Conceptos y documentos"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+msgid "Conceptos_Recurrentes"
+msgstr "Conceptos_Recurrentes"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.actions.act_window,help:gn_hr_payroll_employee_extras.hr_document_type_action
+msgid ""
+"Configure los tipos de documentos requeridos para el expediente de "
+"empleados."
+msgstr ""
+"Configure los tipos de documentos requeridos para el expediente de "
+"empleados."
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__template_concept_id
+msgid "Copiar de Concepto Recurrente"
+msgstr "Copiar de Concepto Recurrente"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.actions.act_window,help:gn_hr_payroll_employee_extras.action_hr_employee_recurring_concept
+msgid "Crear un nuevo concepto recurrente"
+msgstr "Crear un nuevo concepto recurrente"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.actions.act_window,help:gn_hr_payroll_employee_extras.hr_document_type_action
+msgid "Crear un tipo de documento"
+msgstr "Crear un tipo de documento"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_document_type__create_uid
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_documents_download_wizard__create_uid
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_document__create_uid
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__create_uid
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept_assign_wizard__create_uid
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept_report__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_document_type__create_date
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_documents_download_wizard__create_date
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_document__create_date
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__create_date
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept_assign_wizard__create_date
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept_report__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_employee_recurring_concept_form
+msgid "Criterios de Aplicabilidad"
+msgstr "Criterios de Aplicabilidad"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+msgid "Cuotas"
+msgstr "Cuotas"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__initial_paid_installments
+msgid "Cuotas iniciales pagadas"
+msgstr "Cuotas iniciales pagadas"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,help:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__paid_installments
+msgid "Cuotas pagadas = Cuotas iniciales pagadas + cuotas pagadas en nómina."
+msgstr "Cuotas pagadas = Cuotas iniciales pagadas + cuotas pagadas en nómina."
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_employee_recurring_concept_form
+msgid "Cuotas pagadas antes de incluir al empleado en nómina"
+msgstr "Cuotas pagadas antes de incluir al empleado en nómina"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,help:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__initial_paid_installments
+msgid ""
+"Cuotas pagadas antes de que el empleado fuera incluido en la nómina (ej: "
+"préstamo iniciado en otro sistema)."
+msgstr ""
+"Cuotas pagadas antes de que el empleado fuera incluido en la nómina (ej: "
+"préstamo iniciado en otro sistema)."
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__manual_paid_installments
+msgid "Cuotas pagadas en nómina"
+msgstr "Cuotas pagadas en nómina"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,help:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__manual_paid_installments
+msgid ""
+"Cuotas pagadas mediante nómina (Marcar cuota pagada o deducciones "
+"aplicadas)."
+msgstr ""
+"Cuotas pagadas mediante nómina (Marcar cuota pagada o deducciones "
+"aplicadas)."
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__code
+msgid "Código"
+msgstr "Código"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_employee_recurring_concept_form
+msgid "Código para reglas salariales (requerido para conceptos compartidos)"
+msgstr "Código para reglas salariales (requerido para conceptos compartidos)"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,help:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__code
+msgid ""
+"Código único para identificar este concepto en las reglas salariales. "
+"Requerido para conceptos compartidos. Se puede copiar desde otro concepto "
+"recurrente o especificar manualmente."
+msgstr ""
+"Código único para identificar este concepto en las reglas salariales. "
+"Requerido para conceptos compartidos. Se puede copiar desde otro concepto "
+"recurrente o especificar manualmente."
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/models/hr_employee_recurring_concept.py:0
+msgid "Debe especificar el número de cuotas."
+msgstr "Debe especificar el número de cuotas."
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_assign_wizard.py:0
+msgid "Debe seleccionar al menos un empleado."
+msgstr "Debe seleccionar al menos un empleado."
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_assign_wizard.py:0
+msgid "Debe seleccionar un concepto."
+msgstr "Debe seleccionar un concepto."
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_documents_download_wizard.py:0
+msgid "Debe seleccionar un tipo de documento a eliminar."
+msgstr "Debe seleccionar un tipo de documento a eliminar."
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_documents_download_wizard.py:0
+msgid "Debe seleccionar un tipo de documento para descargar."
+msgstr "Debe seleccionar un tipo de documento para descargar."
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields.selection,name:gn_hr_payroll_employee_extras.selection__hr_employee_recurring_concept_report__concept_type__deduction
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_employee_recurring_concept_search
+msgid "Deducciones"
+msgstr "Deducciones"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+msgid "Deducción"
+msgstr "Deducción"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields.selection,name:gn_hr_payroll_employee_extras.selection__hr_employee_recurring_concept__concept_type__deduction
+msgid "Deduction"
+msgstr "Deducción"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_employee_recurring_concept_form
+msgid "Dejar vacío para crear un concepto compartido"
+msgstr "Dejar vacío para crear un concepto compartido"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,help:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__employee_id
+msgid ""
+"Dejar vacío para crear un concepto compartido que puede asignarse a "
+"múltiples empleados"
+msgstr ""
+"Dejar vacío para crear un concepto compartido que puede asignarse a "
+"múltiples empleados"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_recurring_concept_report_form
+msgid "Dejar vacío para incluir todos"
+msgstr "Dejar vacío para incluir todos"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,help:gn_hr_payroll_employee_extras.field_hr_documents_download_wizard__department_id
+msgid "Dejar vacío para incluir todos los departamentos."
+msgstr "Dejar vacío para incluir todos los departamentos."
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,help:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept_report__employee_ids
+msgid "Dejar vacío para incluir todos los empleados"
+msgstr "Dejar vacío para incluir todos los empleados"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_documents_download_wizard__department_id
+msgid "Departamento"
+msgstr "Departamento"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__department_ids
+msgid "Departamentos"
+msgstr "Departamentos"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.ui.menu,name:gn_hr_payroll_employee_extras.menu_gn_hr_documents_download
+msgid "Descarga documentos de empleados"
+msgstr "Descarga documentos de empleados"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model,name:gn_hr_payroll_employee_extras.model_hr_documents_download_wizard
+msgid "Descargar Documentos de Empleados"
+msgstr "Descargar Documentos de Empleados"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.hr_documents_download_wizard_view_form
+msgid "Descargar ZIP (todos)"
+msgstr "Descargar ZIP (todos)"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.hr_documents_download_wizard_view_form
+msgid "Descargar documentos"
+msgstr "Descargar documentos"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.hr_documents_download_wizard_view_form
+msgid "Descargar tipo seleccionado"
+msgstr "Descargar tipo seleccionado"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.actions.act_window,help:gn_hr_payroll_employee_extras.action_hr_documents_download_wizard
+msgid ""
+"Descargue todos los documentos en un ZIP o elimine un tipo de documento de "
+"todos los empleados."
+msgstr ""
+"Descargue todos los documentos en un ZIP o elimine un tipo de documento de "
+"todos los empleados."
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__description
+msgid "Descripción"
+msgstr "Descripción"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_employee_recurring_concept_form
+msgid "Descripción del concepto..."
+msgstr "Descripción del concepto..."
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,help:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__description
+msgid "Descripción detallada del concepto"
+msgstr "Descripción detallada del concepto"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+msgid "Detalle"
+msgstr "Detalle"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_employee_recurring_concept_form
+msgid "Determina cuántas cuotas se aplican por mes"
+msgstr "Determina cuántas cuotas se aplican por mes"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_document_type__display_name
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_documents_download_wizard__display_name
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee__display_name
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_document__display_name
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__display_name
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept_assign_wizard__display_name
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept_report__display_name
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_payslip__display_name
+msgid "Display Name"
+msgstr "Nombre para Mostrar"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_document__document
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.hr_employee_document_view_form
+msgid "Documento"
+msgstr "Documento"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model,name:gn_hr_payroll_employee_extras.model_hr_employee_document
+msgid "Documento de Empleado"
+msgstr "Documento de Empleado"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.hr_employee_document_view_list
+msgid "Documentos"
+msgstr "Documentos"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee__missing_documents_warning
+msgid "Documentos Faltantes"
+msgstr "Documentos Faltantes"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.actions.act_window,name:gn_hr_payroll_employee_extras.action_hr_documents_download_wizard
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.hr_documents_download_wizard_view_form
+msgid "Documentos de Empleados"
+msgstr "Documentos de Empleados"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee__document_ids
+msgid "Documentos de Entrada"
+msgstr "Documentos de Entrada"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.actions.act_window,help:gn_hr_payroll_employee_extras.action_hr_documents_download_wizard
+msgid "Documentos de empleados"
+msgstr "Documentos de empleados"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/models/hr_employee.py:0
+msgid "Documentos de entrada"
+msgstr "Documentos de entrada"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_documents_download_wizard.py:0
+msgid "Documentos eliminados"
+msgstr "Documentos eliminados"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/models/hr_employee_recurring_concept.py:0
+msgid "El concepto debe estar activo para asignarlo a empleados."
+msgstr "El concepto debe estar activo para asignarlo a empleados."
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_assign_wizard.py:0
+msgid ""
+"El concepto seleccionado no es compartido. Solo se pueden asignar conceptos "
+"compartidos."
+msgstr ""
+"El concepto seleccionado no es compartido. Solo se pueden asignar conceptos "
+"compartidos."
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/models/hr_employee.py:0
+msgid "El empleado no tiene documentos cargados para descargar."
+msgstr "El empleado no tiene documentos cargados para descargar."
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.constraint,message:gn_hr_payroll_employee_extras.constraint_hr_document_type_name_uniq
+msgid "El nombre del tipo de documento debe ser único."
+msgstr "El nombre del tipo de documento debe ser único."
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/models/hr_employee_recurring_concept.py:0
+msgid "El porcentaje debe estar entre 0 y 100."
+msgstr "El porcentaje debe estar entre 0 y 100."
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.hr_documents_download_wizard_view_form
+msgid "Eliminar tipo"
+msgstr "Eliminar tipo"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.hr_documents_download_wizard_view_form
+msgid "Eliminar tipo de documento"
+msgstr "Eliminar tipo de documento"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_document__employee_id
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_employee_recurring_concept_search
+msgid "Empleado"
+msgstr "Empleado"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept_assign_wizard__employee_ids
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept_report__employee_ids
+msgid "Empleados"
+msgstr "Empleados"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,help:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept_assign_wizard__employee_ids
+msgid "Empleados a los que se asignará el concepto"
+msgstr "Empleados a los que se asignará el concepto"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model,name:gn_hr_payroll_employee_extras.model_hr_employee
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__employee_id
+msgid "Employee"
+msgstr "Empleado"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model,name:gn_hr_payroll_employee_extras.model_hr_employee_recurring_concept
+msgid "Employee Recurring Concept"
+msgstr "Concepto Recurrente de Empleado"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept_report__company_id
+msgid "Empresa"
+msgstr "Empresa"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__date_end
+msgid "End Date"
+msgstr "Fecha Fin"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__is_shared
+msgid "Es Compartido"
+msgstr "Es Compartido"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+msgid "Es Préstamo"
+msgstr "Es Préstamo"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,help:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__apply_biweek
+msgid ""
+"Especifica en qué quincena aplicar este concepto cuando la estructura es "
+"quincenal. Para estructuras mensuales se ignora."
+msgstr ""
+"Especifica en qué quincena aplicar este concepto cuando la estructura es "
+"quincenal. Para estructuras mensuales se ignora."
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept_report__active_filter
+msgid "Estado"
+msgstr "Estado"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/models/hr_employee_recurring_concept.py:0
+msgid ""
+"Este concepto ya está asignado a un empleado específico. Solo los conceptos "
+"compartidos pueden asignarse a múltiples empleados."
+msgstr ""
+"Este concepto ya está asignado a un empleado específico. Solo los conceptos "
+"compartidos pueden asignarse a múltiples empleados."
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_recurring_concept_report_form
+msgid "Exportar a Excel"
+msgstr "Exportar a Excel"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_document__file_extension
+msgid "Extensión"
+msgstr "Extensión"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_document__is_missing
+msgid "Faltante"
+msgstr "Faltante"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+msgid "Fecha Fin"
+msgstr "Fecha Fin"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+msgid "Fecha Inicio"
+msgstr "Fecha Inicio"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept_assign_wizard__date_end
+msgid "Fecha de Fin"
+msgstr "Fecha de Fin"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept_assign_wizard__date_start
+msgid "Fecha de Inicio"
+msgstr "Fecha de Inicio"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,help:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept_assign_wizard__date_end
+msgid "Fecha de fin del concepto (opcional)"
+msgstr "Fecha de fin del concepto (opcional)"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,help:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept_assign_wizard__date_start
+msgid "Fecha de inicio del concepto para los empleados seleccionados"
+msgstr "Fecha de inicio del concepto para los empleados seleccionados"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+msgid "Fijo"
+msgstr "Fijo"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields.selection,name:gn_hr_payroll_employee_extras.selection__hr_employee_recurring_concept__amount_type__fixed
+msgid "Fixed Amount"
+msgstr "Monto Fijo"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,help:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__amount
+msgid "Fixed amount or percentage value"
+msgstr "Valor de monto fijo o porcentaje"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/models/hr_document.py:0
+msgid "Formato no permitido"
+msgstr "Formato no permitido"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_document_type__id
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_documents_download_wizard__id
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee__id
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_document__id
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__id
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept_assign_wizard__id
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept_report__id
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_payslip__id
+msgid "ID"
+msgstr "ID"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_documents_download_wizard__include_archived
+msgid "Incluir empleados archivados"
+msgstr "Incluir empleados archivados"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_employee_recurring_concept_form
+msgid ""
+"Incluir en el selector de conceptos de Beneficios/Deducciones en la Planilla"
+msgstr ""
+"Incluir en el selector de conceptos de Beneficios/Deducciones en la Planilla"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,help:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__for_payroll
+msgid "Incluir en selector de conceptos de Beneficios/Deducciones en Planilla"
+msgstr ""
+"Incluir en selector de conceptos de Beneficios/Deducciones en Planilla"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields.selection,name:gn_hr_payroll_employee_extras.selection__hr_employee_recurring_concept__concept_type__income
+msgid "Income"
+msgstr "Ingreso"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,help:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__is_shared
+msgid "Indica si este concepto es compartido (sin empleado específico)"
+msgstr "Indica si este concepto es compartido (sin empleado específico)"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+msgid "Ingreso"
+msgstr "Ingreso"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields.selection,name:gn_hr_payroll_employee_extras.selection__hr_employee_recurring_concept_report__concept_type__income
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_employee_recurring_concept_search
+msgid "Ingresos"
+msgstr "Ingresos"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__is_loan
+msgid "Is Loan"
+msgstr "Es Préstamo"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_document_type__write_uid
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_documents_download_wizard__write_uid
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_document__write_uid
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__write_uid
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept_assign_wizard__write_uid
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept_report__write_uid
+msgid "Last Updated by"
+msgstr "Última Actualización por"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_document_type__write_date
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_documents_download_wizard__write_date
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_document__write_date
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__write_date
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept_assign_wizard__write_date
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept_report__write_date
+msgid "Last Updated on"
+msgstr "Última Actualización el"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/models/hr_employee_recurring_concept.py:0
+msgid ""
+"Los conceptos compartidos deben tener un código para las reglas salariales."
+msgstr ""
+"Los conceptos compartidos deben tener un código para las reglas salariales."
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/models/hr_employee_recurring_concept.py:0
+msgid "Los conceptos compartidos deben tener un nombre."
+msgstr "Los conceptos compartidos deben tener un nombre."
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.actions.act_window,help:gn_hr_payroll_employee_extras.action_hr_employee_recurring_concept
+msgid "Los conceptos recurrentes pueden ser:"
+msgstr "Los conceptos recurrentes pueden ser:"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_employee_recurring_concept_form
+msgid "Marcar Cuota Pagada"
+msgstr "Marcar Cuota Pagada"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+msgid "Monto"
+msgstr "Monto"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,help:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__total_amount
+msgid ""
+"Monto total del préstamo. Se calcula automáticamente como amount × "
+"installments cuando es préstamo con monto fijo."
+msgstr ""
+"Monto total del préstamo. Se calcula automáticamente como amount × "
+"installments cuando es préstamo con monto fijo."
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_documents_download_wizard.py:0
+msgid "Ningún empleado tiene documentos con archivos cargados."
+msgstr "Ningún empleado tiene documentos con archivos cargados."
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+msgid "No"
+msgstr "No"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+msgid "No hay conceptos recurrentes que coincidan con los filtros."
+msgstr "No hay conceptos recurrentes que coincidan con los filtros."
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_documents_download_wizard.py:0
+msgid ""
+"No hay documentos del tipo \"%s\" cargados en los empleados que coinciden "
+"con el filtro."
+msgstr ""
+"No hay documentos del tipo \"%s\" cargados en los empleados que coinciden "
+"con el filtro."
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_documents_download_wizard.py:0
+msgid ""
+"No hay documentos del tipo \"%s\" en los empleados que coinciden con el "
+"filtro."
+msgstr ""
+"No hay documentos del tipo \"%s\" en los empleados que coinciden con el "
+"filtro."
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_documents_download_wizard.py:0
+msgid "No hay empleados con documentos que coincidan con el filtro."
+msgstr "No hay empleados con documentos que coincidan con el filtro."
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_documents_download_wizard.py:0
+msgid "No hay empleados que coincidan con el filtro."
+msgstr "No hay empleados que coincidan con el filtro."
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_document_type__name
+msgid "Nombre"
+msgstr "Nombre"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.hr_documents_download_wizard_view_form
+msgid "Nombre de archivos: <code>Nombre empleado - Tipo documento.ext</code>"
+msgstr "Nombre de archivos: <code>Nombre empleado - Tipo documento.ext</code>"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_document__document_filename
+msgid "Nombre del Archivo"
+msgstr "Nombre del Archivo"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__name
+msgid "Nombre del Concepto"
+msgstr "Nombre del Concepto"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,help:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__name
+msgid ""
+"Nombre del concepto. Se llena automáticamente al seleccionar un concepto "
+"recurrente existente arriba"
+msgstr ""
+"Nombre del concepto. Se llena automáticamente al seleccionar un concepto "
+"recurrente existente arriba"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_employee_recurring_concept_form
+msgid "Notas adicionales..."
+msgstr "Notas adicionales..."
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__notes
+msgid "Notes"
+msgstr "Notas"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__installments
+msgid "Number of Installments"
+msgstr "Número de Cuotas"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,help:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__installments
+msgid ""
+"Número de cuotas. Se calcula automáticamente desde fecha inicio, fecha fin y"
+" aplicar en quincena cuando están definidos."
+msgstr ""
+"Número de cuotas. Se calcula automáticamente desde fecha inicio, fecha fin y"
+" aplicar en quincena cuando están definidos."
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_employee_recurring_concept_form
+msgid ""
+"O escriba un nombre nuevo aquí (se llenará automáticamente si selecciona "
+"arriba)"
+msgstr ""
+"O escriba un nombre nuevo aquí (se llenará automáticamente si selecciona "
+"arriba)"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_document_type__is_required
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_document__is_required
+msgid "Obligatorio"
+msgstr "Obligatorio"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.hr_documents_download_wizard_view_form
+msgid "Opcional: seleccione para descargar solo un tipo"
+msgstr "Opcional: seleccione para descargar solo un tipo"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+msgid "Pagadas"
+msgstr "Pagadas"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__paid_installments
+msgid "Paid Installments"
+msgstr "Cuotas Pagadas"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__for_payroll
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_employee_recurring_concept_form
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_employee_recurring_concept_list
+msgid "Para Planilla"
+msgstr "Para Planilla"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,help:gn_hr_payroll_employee_extras.field_hr_documents_download_wizard__document_type_id
+msgid ""
+"Para eliminar: seleccione y use \"Eliminar tipo\". Para descargar solo este "
+"tipo: seleccione y use \"Descargar tipo seleccionado\"."
+msgstr ""
+"Para eliminar: seleccione y use \"Eliminar tipo\". Para descargar solo este "
+"tipo: seleccione y use \"Descargar tipo seleccionado\"."
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model,name:gn_hr_payroll_employee_extras.model_hr_payslip
+msgid "Pay Slip"
+msgstr "Recibo de nómina"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields.selection,name:gn_hr_payroll_employee_extras.selection__hr_employee_recurring_concept__amount_type__percentage
+msgid "Percentage of Base Salary"
+msgstr "Porcentaje del Salario Base"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_employee_recurring_concept_search
+msgid "Por Empleado"
+msgstr "Por Empleado"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+msgid "Porcentaje"
+msgstr "Porcentaje"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields.selection,name:gn_hr_payroll_employee_extras.selection__hr_employee_recurring_concept__apply_biweek__first
+msgid "Primera Quincena (1-15)"
+msgstr "Primera Quincena (1-15)"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+msgid "Proyecto"
+msgstr "Proyecto"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_employee_recurring_concept_form
+msgid "Préstamo"
+msgstr "Préstamo"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee__has_loan_missing_dates_warning
+msgid "Préstamo sin fechas"
+msgstr "Préstamo sin fechas"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_employee_recurring_concept_search
+msgid "Préstamos"
+msgstr "Préstamos"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_document__can_preview
+msgid "Puede Previsualizar"
+msgstr "Puede Previsualizar"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__job_ids
+msgid "Puestos de Trabajo"
+msgstr "Puestos de Trabajo"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__remaining_amount
+msgid "Remaining Amount"
+msgstr "Monto Restante"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.actions.act_window,name:gn_hr_payroll_employee_extras.action_hr_recurring_concept_report
+msgid "Reporte Conceptos Recurrentes"
+msgstr "Reporte Conceptos Recurrentes"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model,name:gn_hr_payroll_employee_extras.model_hr_employee_recurring_concept_report
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_recurring_concept_report_form
+msgid "Reporte de Conceptos Recurrentes"
+msgstr "Reporte de Conceptos Recurrentes"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+msgid "Restante"
+msgstr "Restante"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+msgid "Resumen por Departamento"
+msgstr "Resumen por Departamento"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+msgid "Resumen por Empleado"
+msgstr "Resumen por Empleado"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+msgid "Resumen por Tipo"
+msgstr "Resumen por Tipo"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/models/hr_employee_recurring_concept.py:0
+msgid ""
+"Se asignaron %d conceptos a empleados elegibles basados en los criterios de "
+"aplicabilidad."
+msgstr ""
+"Se asignaron %d conceptos a empleados elegibles basados en los criterios de "
+"aplicabilidad."
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_assign_wizard.py:0
+msgid "Se asignó el concepto \"%s\" a %d empleado(s)."
+msgstr "Se asignó el concepto \"%s\" a %d empleado(s)."
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_employee_recurring_concept_form
+msgid "Se calcula como monto × cuotas"
+msgstr "Se calcula como monto × cuotas"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_documents_download_wizard.py:0
+msgid "Se eliminaron %d documento(s) del tipo \"%s\"."
+msgstr "Se eliminaron %d documento(s) del tipo \"%s\"."
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+msgid "Se requiere openpyxl. Instale: pip install openpyxl"
+msgstr "Se requiere openpyxl. Instale: pip install openpyxl"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_document_type__sequence
+msgid "Secuencia"
+msgstr "Secuencia"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields.selection,name:gn_hr_payroll_employee_extras.selection__hr_employee_recurring_concept__apply_biweek__second
+msgid "Segunda Quincena (16-fin)"
+msgstr "Segunda Quincena (16-fin)"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_recurring_concept_assign_wizard_form
+msgid "Seleccione los empleados a los que se asignará el concepto..."
+msgstr "Seleccione los empleados a los que se asignará el concepto..."
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_employee_recurring_concept_form
+msgid ""
+"Seleccione un concepto recurrente existente del mismo empleado o "
+"compartido..."
+msgstr ""
+"Seleccione un concepto recurrente existente del mismo empleado o "
+"compartido..."
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,help:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__name_from_concept_id
+msgid ""
+"Seleccione un concepto recurrente existente del mismo empleado o un concepto"
+" compartido, o escriba un nombre nuevo abajo"
+msgstr ""
+"Seleccione un concepto recurrente existente del mismo empleado o un concepto"
+" compartido, o escriba un nombre nuevo abajo"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.hr_documents_download_wizard_view_form
+msgid ""
+"Seleccione un tipo arriba y use \"Eliminar tipo\" para borrar ese tipo de "
+"documento de todos los empleados del filtro."
+msgstr ""
+"Seleccione un tipo arriba y use \"Eliminar tipo\" para borrar ese tipo de "
+"documento de todos los empleados del filtro."
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,help:gn_hr_payroll_employee_extras.field_hr_document_type__is_required
+#: model:ir.model.fields,help:gn_hr_payroll_employee_extras.field_hr_employee_document__is_required
+msgid "Si está marcado, el documento será requerido para todos los empleados"
+msgstr "Si está marcado, el documento será requerido para todos los empleados"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,help:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__applies_to_all
+msgid "Si está marcado, este concepto puede asignarse a todos los empleados"
+msgstr "Si está marcado, este concepto puede asignarse a todos los empleados"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,help:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__department_ids
+msgid "Si no aplica a todos, especificar departamentos específicos"
+msgstr "Si no aplica a todos, especificar departamentos específicos"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,help:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__job_ids
+msgid "Si no aplica a todos, especificar puestos específicos"
+msgstr "Si no aplica a todos, especificar puestos específicos"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+msgid "Sin departamento"
+msgstr "Sin departamento"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+msgid "Sin nombre"
+msgstr "Sin nombre"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields.selection,name:gn_hr_payroll_employee_extras.selection__hr_employee_recurring_concept_report__active_filter__active_only
+msgid "Solo Activos"
+msgstr "Solo Activos"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields.selection,name:gn_hr_payroll_employee_extras.selection__hr_employee_recurring_concept_report__active_filter__inactive_only
+msgid "Solo Inactivos"
+msgstr "Solo Inactivos"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_employee_recurring_concept_form
+msgid "Solo relevante para estructuras quincenales"
+msgstr "Solo relevante para estructuras quincenales"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/models/hr_document.py:0
+msgid ""
+"Solo se permiten archivos PDF, JPG, PNG o Word (doc, docx). El archivo "
+"\"%s\" no será guardado."
+msgstr ""
+"Solo se permiten archivos PDF, JPG, PNG o Word (doc, docx). El archivo "
+"\"%s\" no será guardado."
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/models/hr_document.py:0
+msgid ""
+"Solo se permiten archivos PDF, JPG, PNG o Word (doc, docx). El archivo "
+"\"%s\" tiene un formato no permitido."
+msgstr ""
+"Solo se permiten archivos PDF, JPG, PNG o Word (doc, docx). El archivo "
+"\"%s\" tiene un formato no permitido."
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/models/hr_employee_recurring_concept.py:0
+msgid "Solo se pueden marcar cuotas para conceptos de préstamo."
+msgstr "Solo se pueden marcar cuotas para conceptos de préstamo."
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__date_start
+msgid "Start Date"
+msgstr "Fecha Inicio"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+msgid "Sí"
+msgstr "Sí"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+msgid "TOTAL"
+msgstr "TOTAL"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee__has_missing_documents
+msgid "Tiene Documentos Faltantes"
+msgstr "Tiene Documentos Faltantes"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_employee_recurring_concept_search
+msgid "Tipo"
+msgstr "Tipo"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+msgid "Tipo Monto"
+msgstr "Tipo Monto"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept_report__concept_type
+msgid "Tipo de Concepto"
+msgstr "Tipo de Concepto"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model,name:gn_hr_payroll_employee_extras.model_hr_document_type
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_document__document_type_id
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.hr_document_type_view_form
+msgid "Tipo de Documento"
+msgstr "Tipo de Documento"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_documents_download_wizard__document_type_id
+msgid "Tipo de documento"
+msgstr "Tipo de documento"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.actions.act_window,name:gn_hr_payroll_employee_extras.hr_document_type_action
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.hr_document_type_view_list
+msgid "Tipos de Documento"
+msgstr "Tipos de Documento"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__structure_type_ids
+msgid "Tipos de Estructura"
+msgstr "Tipos de Estructura"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.ui.menu,name:gn_hr_payroll_employee_extras.menu_gn_hr_document_type
+msgid "Tipos de documento"
+msgstr "Tipos de documento"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,help:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__structure_type_ids
+msgid "Tipos de estructura de nómina donde aplica este concepto"
+msgstr "Tipos de estructura de nómina donde aplica este concepto"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/models/hr_employee_recurring_concept.py:0
+msgid "Todas las cuotas ya han sido pagadas."
+msgstr "Todas las cuotas ya han sido pagadas."
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields.selection,name:gn_hr_payroll_employee_extras.selection__hr_employee_recurring_concept_report__active_filter__all
+#: model:ir.model.fields.selection,name:gn_hr_payroll_employee_extras.selection__hr_employee_recurring_concept_report__concept_type__all
+msgid "Todos"
+msgstr "Todos"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.view_hr_employee_recurring_concept_list
+msgid "Total"
+msgstr "Total"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+msgid "Total Deducciones"
+msgstr "Total Deducciones"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+msgid "Total Ingresos"
+msgstr "Total Ingresos"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__total_amount
+msgid "Total Loan Amount"
+msgstr "Monto Total del Préstamo"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+msgid "Total Monto"
+msgstr "Total Monto"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/wizard/hr_recurring_concept_report.py:0
+msgid "Total Restante Préstamos"
+msgstr "Total Restante Préstamos"
+
+#. module: gn_hr_payroll_employee_extras
+#: model:ir.model.fields,field_description:gn_hr_payroll_employee_extras.field_hr_employee_recurring_concept__concept_type
+msgid "Type"
+msgstr "Tipo"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.hr_employee_document_view_form
+msgid "Vista Previa"
+msgstr "Vista Previa"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/models/hr_document.py:0
+#: model:ir.actions.act_window,name:gn_hr_payroll_employee_extras.hr_employee_document_action_preview
+msgid "Vista Previa del Documento"
+msgstr "Vista Previa del Documento"
+
+#. module: gn_hr_payroll_employee_extras
+#. odoo-python
+#: code:addons/gn_hr_payroll_employee_extras/models/hr_employee.py:0
+msgid "employee_id"
+msgstr "employee_id"
+
+#. module: gn_hr_payroll_employee_extras
+#: model_terms:ir.ui.view,arch_db:gn_hr_payroll_employee_extras.hr_documents_download_wizard_view_form
+msgid ""
+"¿Está seguro? Se eliminarán todos los documentos del tipo seleccionado. Esta"
+" acción no se puede deshacer."
+msgstr ""
+"¿Está seguro? Se eliminarán todos los documentos del tipo seleccionado. Esta"
+" acción no se puede deshacer."
+
+#. module: gn_hr_payroll_employee_extras
+#: model:res.groups,name:gn_hr_payroll_employee_extras.group_gn_edit_initial_contract
+msgid "Nómina: editar contrato inicial (asistente)"
+msgstr "Nómina: editar contrato inicial (asistente)"

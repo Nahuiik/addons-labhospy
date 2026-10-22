@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_purchase_dashboard.EntitySidePanel">
+        <aside t-if="props.open" class="gn-pd-side-panel" role="complementary">
+            <div class="gn-pd-side-panel__backdrop" t-on-click="onCloseClick"/>
+            <div class="gn-pd-side-panel__drawer">
+                <header class="gn-pd-side-panel__head">
+                    <div class="gn-pd-side-panel__head-main">
+                        <span class="gn-pd-side-panel__icon"><i class="fa fa-line-chart"/></span>
+                        <div>
+                            <h2 class="gn-pd-side-panel__title" t-esc="state.data?.title or 'Detalle'"/>
+                            <p class="gn-pd-side-panel__subtitle" t-esc="state.data?.subtitle"/>
+                        </div>
+                    </div>
+                    <button type="button" class="gn-pd-side-panel__close" t-on-click="onCloseClick" aria-label="Cerrar">
+                        <i class="fa fa-times"/>
+                    </button>
+                </header>
+                <div class="gn-pd-side-panel__body">
+                    <div t-if="state.loading" class="gn-pd-skeleton gn-pd-skeleton--panel"/>
+                    <t t-else="">
+                        <section class="gn-pd-side-panel__section gn-pd-side-panel__section--kpis">
+                            <h3 class="gn-pd-side-panel__section-title">Resumen</h3>
+                            <div class="gn-pd-side-panel__kpis">
+                                <div t-foreach="state.data?.kpis or []" t-as="kpi" t-key="kpi.label" class="gn-pd-side-panel__kpi">
+                                    <span class="gn-pd-side-panel__kpi-label" t-esc="kpi.label"/>
+                                    <strong t-esc="fmtValue(kpi)"/>
+                                </div>
+                            </div>
+                        </section>
+                        <section t-if="state.data?.scorecard" class="gn-pd-side-panel__section">
+                            <h3 class="gn-pd-side-panel__section-title">Scorecard proveedor</h3>
+                            <PurchaseChartPanel optionBuilder="radarOptionBuilder" darkMode="props.darkMode" height="'220px'"/>
+                            <p class="gn-pd-side-panel__score-note">
+                                Score global: <strong t-esc="state.data.scorecard.overall_score"/> / 100
+                            </p>
+                        </section>
+                        <section t-if="state.data?.timeline?.length" class="gn-pd-side-panel__section">
+                            <h3 class="gn-pd-side-panel__section-title">Timeline</h3>
+                            <ul class="gn-pd-timeline gn-pd-timeline--panel">
+                                <li t-foreach="state.data.timeline" t-as="ev" t-key="ev.id" class="gn-pd-timeline__item">
+                                    <span class="gn-pd-timeline__date" t-esc="ev.date"/>
+                                    <span class="gn-pd-timeline__label" t-esc="ev.label"/>
+                                </li>
+                            </ul>
+                        </section>
+                        <section t-if="state.data?.documents" class="gn-pd-side-panel__section">
+                            <h3 class="gn-pd-side-panel__section-title">Documentos</h3>
+                            <div class="gn-pd-side-panel__docs">
+                                <button t-foreach="state.data.documents.orders or []" t-as="doc" t-key="'o'+doc.id"
+                                        type="button" class="gn-pd-doc-chip" t-on-click="() => this.onDocClick(doc, 'order')">
+                                    <i class="fa fa-file-text-o"/> <t t-esc="doc.name"/>
+                                </button>
+                            </div>
+                        </section>
+                        <section t-if="state.data?.alerts?.length" class="gn-pd-side-panel__section">
+                            <h3 class="gn-pd-side-panel__section-title">Alertas</h3>
+                            <div t-foreach="state.data.alerts" t-as="alert" t-key="alert.title" class="gn-pd-side-alert">
+                                <strong t-esc="alert.title"/>
+                                <p t-esc="alert.explanation"/>
+                            </div>
+                        </section>
+                        <section t-if="state.data?.documents?.orders?.length" class="gn-pd-side-panel__section gn-pd-side-panel__section--actions">
+                            <h3 class="gn-pd-side-panel__section-title">Acciones</h3>
+                            <div class="gn-pd-side-panel__actions">
+                                <button type="button" class="gn-pd-btn gn-pd-btn--sm gn-pd-btn--primary"
+                                        t-on-click="() => this.onDocClick(state.data.documents.orders[0], 'order')">
+                                    <i class="fa fa-external-link"/> Abrir última OC
+                                </button>
+                            </div>
+                        </section>
+                    </t>
+                </div>
+            </div>
+        </aside>
+    </t>
+</templates>

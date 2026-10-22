@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_banks_dashboard.GnEmptyState">
+        <div t-att-class="'gn-empty ' + toneClass + (props.compact ? ' gn-empty--compact' : '')">
+            <div class="gn-empty__icon">
+                <i t-att-class="'fa ' + props.icon"/>
+            </div>
+            <h4 class="gn-empty__title" t-if="props.title" t-esc="props.title"/>
+            <p class="gn-empty__description" t-if="props.description" t-esc="props.description"/>
+            <p class="gn-empty__hint" t-if="props.hint">
+                <i class="fa fa-lightbulb-o me-2"/><span t-esc="props.hint"/>
+            </p>
+            <button type="button"
+                    class="btn btn-primary btn-sm gn-empty__action"
+                    t-if="props.actionLabel and props.onAction"
+                    t-on-click="props.onAction"
+                    t-esc="props.actionLabel"/>
+        </div>
+    </t>
+
+    <t t-name="gn_banks_dashboard.GnLoadingSkeleton">
+        <div t-att-class="'gn-skeleton gn-skeleton--' + props.variant">
+                    <t t-if="props.variant === 'gauges'">
+                <div class="gn-skeleton__gauges-grid">
+                    <t t-foreach="rowsArray" t-as="i" t-key="i_index">
+                        <div class="gn-skeleton__gauge">
+                            <div class="gn-skeleton__line gn-skeleton__line--sm gn-skeleton-shimmer"/>
+                            <div class="gn-skeleton__line gn-skeleton__line--lg gn-skeleton-shimmer"/>
+                            <div class="gn-skeleton__line gn-skeleton__line--xs gn-skeleton-shimmer" style="height:4px"/>
+                        </div>
+                    </t>
+                </div>
+            </t>
+            <t t-elif="props.variant === 'chart'">
+                <div class="gn-skeleton__chart">
+                    <div class="gn-skeleton__line gn-skeleton__line--md gn-skeleton-shimmer mb-3"/>
+                    <div class="gn-skeleton__chart-area gn-skeleton-shimmer"/>
+                </div>
+            </t>
+            <t t-elif="props.variant === 'kpi'">
+                <div class="gn-skeleton__kpi-grid">
+                    <t t-foreach="rowsArray" t-as="i" t-key="i_index">
+                        <div class="gn-skeleton__kpi">
+                            <div class="gn-skeleton__line gn-skeleton__line--xs gn-skeleton-shimmer"/>
+                            <div class="gn-skeleton__line gn-skeleton__line--lg gn-skeleton-shimmer"/>
+                            <div class="gn-skeleton__line gn-skeleton__line--sm gn-skeleton-shimmer"/>
+                        </div>
+                    </t>
+                </div>
+            </t>
+            <t t-else="">
+                <div class="gn-skeleton__card">
+                    <t t-foreach="rowsArray" t-as="i" t-key="i_index">
+                        <div class="gn-skeleton__line gn-skeleton-shimmer"
+                             t-attf-style="width: {{ 100 - (i_index * 12) }}%"/>
+                    </t>
+                </div>
+            </t>
+        </div>
+    </t>
+
+    <t t-name="gn_banks_dashboard.GnChartEmpty">
+        <div class="gn-chart-empty">
+            <svg class="gn-chart-empty__axes" viewBox="0 0 400 200" preserveAspectRatio="none">
+                <line x1="40" y1="180" x2="400" y2="180" stroke="#e5e7eb" stroke-width="1.5"/>
+                <line x1="40" y1="20" x2="40" y2="180" stroke="#e5e7eb" stroke-width="1.5"/>
+                <line x1="40" y1="140" x2="400" y2="140" stroke="#f3f4f6" stroke-width="1" stroke-dasharray="4 4"/>
+                <line x1="40" y1="100" x2="400" y2="100" stroke="#f3f4f6" stroke-width="1" stroke-dasharray="4 4"/>
+                <line x1="40" y1="60" x2="400" y2="60" stroke="#f3f4f6" stroke-width="1" stroke-dasharray="4 4"/>
+                <text x="20" y="184" font-size="9" fill="#9ca3af" text-anchor="end">0</text>
+                <text x="20" y="144" font-size="9" fill="#9ca3af" text-anchor="end">·</text>
+                <text x="20" y="104" font-size="9" fill="#9ca3af" text-anchor="end">·</text>
+                <text x="20" y="64" font-size="9" fill="#9ca3af" text-anchor="end">·</text>
+            </svg>
+            <div class="gn-chart-empty__overlay">
+                <div class="gn-chart-empty__icon">
+                    <i t-att-class="'fa ' + props.icon"/>
+                </div>
+                <h5 class="gn-chart-empty__title" t-if="props.title" t-esc="props.title"/>
+                <p class="gn-chart-empty__description" t-if="props.description" t-esc="props.description"/>
+            </div>
+        </div>
+    </t>
+
+</templates>

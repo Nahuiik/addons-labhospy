@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_purchase_dashboard.PurchaseFilterBar">
+        <div t-att-class="'gn-pd-filters-panel gn-pd-filters-panel--compact' + (props.expanded ? ' gn-pd-filters-panel--expanded' : ' gn-pd-filters-panel--collapsed')">
+            <div class="gn-pd-filters-panel__bar">
+                <button type="button" class="gn-pd-filters-panel__toggle gn-pd-btn gn-pd-btn--xs gn-pd-btn--ghost"
+                        t-on-click="onToggleExpandedClick" t-att-title="collapseLabel">
+                    <i t-att-class="props.expanded ? 'fa fa-chevron-up' : 'fa fa-sliders'"/>
+                    <span t-esc="collapseLabel"/>
+                    <span t-if="activeFilterCount" class="gn-pd-filters-panel__count" t-esc="activeFilterCount"/>
+                </button>
+
+                <div t-if="props.activeChips?.length" class="gn-pd-filters-panel__chips">
+                    <span t-foreach="props.activeChips" t-as="chip" t-key="chip.field" class="gn-pd-chip gn-pd-chip--sm">
+                        <t t-esc="chip.label"/>
+                        <button type="button" class="gn-pd-chip__remove" t-on-click="(ev) => this.onRemoveChipClick(chip.field, ev)">×</button>
+                    </span>
+                    <button type="button" class="gn-pd-chip gn-pd-chip--sm gn-pd-chip--clear" t-on-click="() => props.onReset()">Limpiar</button>
+                </div>
+
+                <div class="gn-pd-filters-panel__actions">
+                    <button type="button" class="gn-pd-btn gn-pd-btn--xs gn-pd-btn--ghost" title="Guardar filtros"
+                            t-on-click="onSaveFavoriteClick"><i class="fa fa-bookmark-o"/></button>
+                    <div class="gn-pd-filters-panel__fav-wrap">
+                        <button type="button" class="gn-pd-btn gn-pd-btn--xs gn-pd-btn--ghost"
+                                t-att-class="props.favoritesOpen ? ' active' : ''"
+                                t-on-click="onToggleFavoritesClick" title="Favoritos">
+                            <i class="fa fa-star"/>
+                        </button>
+                        <div t-if="props.favoritesOpen and props.favorites?.length" class="gn-pd-filters-panel__fav-menu">
+                            <button t-foreach="props.favorites" t-as="fav" t-key="fav.id"
+                                    type="button" class="gn-pd-filters-panel__fav-item"
+                                    t-on-click="() => this.onApplyFavoriteClick(fav)">
+                                <span t-esc="fav.name"/>
+                                <span class="gn-pd-filters-panel__fav-remove"
+                                      t-on-click="(ev) => this.onRemoveFavoriteClick(fav.id, ev)">×</span>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="button" class="gn-pd-btn gn-pd-btn--xs gn-pd-btn--primary"
+                            t-att-disabled="props.applying" t-on-click="() => props.onApply()">
+                        <t t-esc="props.applying ? '…' : props.labels.apply"/>
+                    </button>
+                </div>
+            </div>
+
+            <div t-if="props.expanded" class="gn-pd-filters-wrap">
+                <div class="gn-pd-filters gn-pd-filters--inline gn-pd-filters--primary">
+                    <div class="gn-pd-filters__group">
+                        <label class="gn-pd-filters__label">Período</label>
+                        <select class="gn-pd-filters__control" t-on-change="onPeriodChange">
+                            <t t-foreach="props.filterOptions.period_presets or []" t-as="p" t-key="p.id">
+                                <option t-att-value="p.id" t-att-selected="props.draftFilters.period === p.id" t-esc="p.label"/>
+                            </t>
+                        </select>
+                    </div>
+                    <div t-if="props.filterOptions.multi_company" class="gn-pd-filters__group">
+                        <label class="gn-pd-filters__label">Empresa</label>
+                        <select class="gn-pd-filters__control" t-on-change="onCompanyChange">
+                            <t t-foreach="props.filterOptions.companies or []" t-as="co" t-key="co.id">
+                                <option t-att-value="co.id" t-att-selected="props.draftFilters.company_id === co.id" t-esc="co.name"/>
+                            </t>
+                        </select>
+                    </div>
+                    <div t-if="props.filterOptions.branches?.length" class="gn-pd-filters__group">
+                        <label class="gn-pd-filters__label">Sucursal</label>
+                        <select class="gn-pd-filters__control" t-on-change="onBranchChange">
+                            <option value="">Sucursal</option>
+                            <t t-foreach="props.filterOptions.branches" t-as="b" t-key="b.id">
+                                <option t-att-value="b.id" t-att-selected="props.draftFilters.branch_id === b.id" t-esc="b.name"/>
+                            </t>
+                        </select>
+                    </div>
+                    <div t-if="props.filterOptions.buyers?.length" class="gn-pd-filters__group">
+                        <label class="gn-pd-filters__label">Comprador</label>
+                        <select class="gn-pd-filters__control" t-on-change="onBuyerChange">
+                            <option value="">Comprador</option>
+                            <t t-foreach="props.filterOptions.buyers" t-as="u" t-key="u.id">
+                                <option t-att-value="u.id" t-att-selected="props.draftFilters.buyer_id === u.id" t-esc="u.name"/>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="gn-pd-filters__actions">
+                        <button type="button" class="gn-pd-btn gn-pd-btn--xs gn-pd-btn--ghost gn-pd-filters__more-btn"
+                                t-att-class="state.showMore ? ' active' : ''"
+                                t-on-click="toggleMore" t-esc="moreFiltersLabel"/>
+                    </div>
+                </div>
+                <div t-if="state.showMore" class="gn-pd-filters gn-pd-filters--inline gn-pd-filters--drawer">
+                    <div t-if="props.filterOptions.vendors?.length" class="gn-pd-filters__group">
+                        <label class="gn-pd-filters__label">Proveedor</label>
+                        <select class="gn-pd-filters__control" t-on-change="onVendorChange">
+                            <option value="">Proveedor</option>
+                            <t t-foreach="props.filterOptions.vendors" t-as="v" t-key="v.id">
+                                <option t-att-value="v.id" t-att-selected="props.draftFilters.vendor_id === v.id" t-esc="v.name"/>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="gn-pd-filters__group">
+                        <label class="gn-pd-filters__label">Comparación</label>
+                        <select class="gn-pd-filters__control" t-on-change="onCompareChange">
+                            <t t-foreach="props.filterOptions.compare_modes or []" t-as="c" t-key="c.id">
+                                <option t-att-value="c.id" t-att-selected="props.draftFilters.compare_mode === c.id" t-esc="c.label"/>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="gn-pd-filters__group">
+                        <label class="gn-pd-filters__label">Desde</label>
+                        <input type="date" class="gn-pd-filters__control"
+                               t-att-value="props.draftFilters.date_from or ''" t-on-change="onDateFromChange"/>
+                    </div>
+                    <div class="gn-pd-filters__group">
+                        <label class="gn-pd-filters__label">Hasta</label>
+                        <input type="date" class="gn-pd-filters__control"
+                               t-att-value="props.draftFilters.date_to or ''" t-on-change="onDateToChange"/>
+                    </div>
+                    <div t-if="props.filterOptions.warehouses?.length" class="gn-pd-filters__group">
+                        <label class="gn-pd-filters__label">Almacén</label>
+                        <select class="gn-pd-filters__control" t-on-change="onWarehouseChange">
+                            <option value="">Almacén</option>
+                            <t t-foreach="props.filterOptions.warehouses" t-as="w" t-key="w.id">
+                                <option t-att-value="w.id" t-att-selected="props.draftFilters.warehouse_id === w.id" t-esc="w.name"/>
+                            </t>
+                        </select>
+                    </div>
+                    <div t-if="props.filterOptions.categories?.length" class="gn-pd-filters__group">
+                        <label class="gn-pd-filters__label">Categoría</label>
+                        <select class="gn-pd-filters__control" t-on-change="onCategoryChange">
+                            <option value="">Categoría</option>
+                            <t t-foreach="props.filterOptions.categories" t-as="c" t-key="c.id">
+                                <option t-att-value="c.id" t-att-selected="props.draftFilters.category_id === c.id" t-esc="c.name"/>
+                            </t>
+                        </select>
+                    </div>
+                    <div t-if="props.filterOptions.po_states?.length" class="gn-pd-filters__group">
+                        <label class="gn-pd-filters__label">Estado</label>
+                        <select class="gn-pd-filters__control" t-on-change="onPoStateChange">
+                            <option value="">Estado</option>
+                            <t t-foreach="props.filterOptions.po_states" t-as="st" t-key="st.id">
+                                <option t-att-value="st.id" t-att-selected="props.draftFilters.po_state === st.id" t-esc="st.label"/>
+                            </t>
+                        </select>
+                    </div>
+                    <div t-if="props.filterOptions.projects?.length" class="gn-pd-filters__group">
+                        <label class="gn-pd-filters__label">Proyecto</label>
+                        <select class="gn-pd-filters__control" t-on-change="onProjectChange">
+                            <option value="">Proyecto / Analítica</option>
+                            <t t-foreach="props.filterOptions.projects" t-as="pr" t-key="pr.id">
+                                <option t-att-value="pr.id" t-att-selected="props.draftFilters.project_id === pr.id" t-esc="pr.name"/>
+                            </t>
+                        </select>
+                    </div>
+                    <div t-if="props.filterOptions.tags?.length" class="gn-pd-filters__group">
+                        <label class="gn-pd-filters__label">Etiquetas</label>
+                        <select class="gn-pd-filters__control" t-on-change="onTagChange">
+                            <option value="">Etiqueta proveedor</option>
+                            <t t-foreach="props.filterOptions.tags" t-as="tg" t-key="tg.id">
+                                <option t-att-value="tg.id" t-att-selected="props.draftFilters.tag_id === tg.id" t-esc="tg.name"/>
+                            </t>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

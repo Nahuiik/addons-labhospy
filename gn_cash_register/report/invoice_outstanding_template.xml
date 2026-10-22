@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="invoice_outstanding">
+        <t t-call="web.basic_layout">
+            <t t-set="docs" t-value="docs.with_context()"/>
+            <div class="page">
+                <div class="row" style="border-radius: 10px; border:1px solid #AAA;">
+                    <div class="col-xs-1 col-1">
+                        <img t-if="docs.company_id.logo" t-att-src="'data:image/png;base64,%s' % to_text(docs.company_id.logo)" style="height:90px; border:1px; margin:5px 0px 5px 10px;"/>
+                    </div>
+                    <div class="col-xs-11 col-11 mb8" style="padding-bottom:2px;padding-right:0px; text-align:center;">
+                        <table style="widht:100%">
+                            <tr style="text-align:center;">
+                                <td style="font-size:20px;text-align:center;">
+                                    <strong  style="text-align:center;">
+                                        <span t-field="docs.company_id.name"/>
+                                    </strong>
+                                </td>
+                            </tr>
+                            <tr style="font-size:14px; text-align:center;">
+                                <td>
+                                    <t t-if="docs.company_id.street">
+                                        <span t-field="docs.company_id.street"/>,
+                                    </t>
+                                    <t t-if="docs.company_id.street2">
+                                        <span t-field="docs.company_id.street2"/>,
+                                    </t>
+                                    <t t-if="docs.company_id.state_id.name">
+                                        <span t-field="docs.company_id.state_id.name"/>,
+                                    </t>
+                                    <t t-if="docs.company_id.country_id.name">
+                                        <span t-field="docs.company_id.country_id.name"/>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="font-size:14px; text-align:center;">
+                                <td>
+                                    <br/>
+                                    <t t-if="docs.company_id.phone">Tel:<span t-field="docs.company_id.phone"/>, </t>
+                                    <t t-if="docs.company_id.email">Email:<span t-field="docs.company_id.email"/>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="font-size:15px;text-align:center;">
+                                <td>
+                                    <t t-if="docs.company_id.vat">RTN: <span t-field="docs.company_id.vat"/>
+                                    </t>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="oe_structure"/>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+
+                </div>
+                <div align="center">
+
+                    <h1>ARQUEO DE CAJA DIARIO</h1>
+                    <h6>Del  <span t-esc="docs.s_date"/> 
+                    <span>   al  </span>
+                    <span t-esc="docs.e_date"/>
+                </h6>
+                <t t-if="docs.partner_id">
+                    CAJERO: <span t-esc="docs.partner_id.name"/>
+                </t>
+            </div>
+            <br/>
+            <br/>
+            <table class="table table-condensed" style="border:1px solid black" width="100%">
+                <thead>
+                    <tr style="background-color:#1E91ED">
+                        <th style="border:1px solid black">#</th>
+                        <th style="border:1px solid black">NUMERO DE PAGO</th>
+                        <th style="border:1px solid black">FECHA DE PAGO</th>
+                        <th style="border:1px solid black">FACTURA</th>
+                        <th style="border:1px solid black">FECHA DE LA FACTURA</th>
+                        <th style="border:1px solid black">DIARIO DE PAGO</th>
+                        <th style="border:1px solid black">MONTO</th>
+                    </tr>
+                </thead>
+                <tbody class="sale_tbody">
+                    <t t-set="item" t-value="0"/>
+                    <t t-set="sum_invoice" t-value="0"/>
+                    <!-- Recorre solo las líneas de pago por cada factura -->
+                    <t t-foreach="invoice_lines_summary" t-as="lines">
+                        <tr>
+                            <td style="border:1px solid black">
+                                <t t-set="item" t-value="item + 1"/>
+                                <span t-esc="item"/>
+                            </td>
+                            <td style="border:1px solid black">
+                                <t t-esc="lines['payment_name']"/>
+                            </td>
+                            <td style="border:1px solid black">
+                                <t t-esc="lines['payment_date']"/>
+                            </td>
+                            <td style="border:1px solid black">
+                                <t t-esc="lines['move_name']"/>
+                            </td>
+                            <td style="border:1px solid black">
+                                <t t-esc="lines['date_invoice']"/>
+                            </td>
+                            <td style="border:1px solid black">
+                                <t t-esc="lines['journal_id']"/>
+                            </td>
+                            <td style="border:1px solid black">
+                                <t t-esc="lines['subtotal']" t-options='{"widget": "monetary", "display_currency": docs.company_id.currency_id}'/>
+                                <t t-set="sum_invoice" t-value="sum_invoice + lines['subtotal']"/>
+                            </td>
+                        </tr>
+                    </t>
+                    <tr style="border:1px solid black">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>TOTAL</td>
+                        <td style="border:1px solid black">
+                            <span t-esc="sum_invoice" t-options='{"widget": "monetary", "display_currency": docs.company_id.currency_id}'/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br/>
+            <br/>
+            <!-- <table width="100%" class="table table-condensed" style="margin-top:7%">
+                <tr>
+                    <td width="33%" style="border:none"></td>
+                    <td width="34%" style="border:1px solid black;background-color:#1E91ED;">CAJA GENERAL</td>
+                    <td width="33%" style="border:1px solid black"><span t-esc="sum_invoice" t-options='{"widget": "monetary", "display_currency": docs.company_id.currency_id}'/></td>
+                </tr>
+                    
+            </table> -->
+            <table class="table table-condensed" style="margin-top:7%" width="100%">
+                <!-- <thead>
+                    <tr style="background-color:#1E91ED">
+                        <td width="33%" style="border:none"></td>
+                        <th style="border:1px solid black">DIARIO DE PAGO</th>
+                        <th style="border:1px solid black">MONTO</th>
+                    </tr>
+                </thead> -->
+                <tbody>
+                    <t t-set="total_amount_sum" t-value="sum(journal['total_amount'] for journal in journal_summary)"/>
+                    <t t-foreach="journal_summary" t-as="journal">
+                        <tr>
+                            <td width="33%" style="border:none"></td>
+                            <td width="34%" style="border:1px solid black;">
+                                <span t-esc="journal['journal_name']"/>
+                            </td>                            <!-- Nombre del diario -->
+                            <td width="33%" style="border:1px solid black">
+                                <span t-esc="journal['total_amount']" t-options='{"widget": "monetary", "display_currency": docs.company_id.currency_id}'/>
+                            </td>                            <!-- Suma asociada al diario -->
+                        </tr>
+                    </t>
+                    <tr>
+                        <td width="33%" style="border:none"></td>
+                        <td width="34%" style="border:1px solid black; font-weight:bold; text-align:right;">TOTAL</td>
+                        <td width="33%" style="border:1px solid black; font-weight:bold;">
+                            <span t-esc="total_amount_sum" t-options='{"widget": "monetary", "display_currency": docs.company_id.currency_id}'/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br/>
+            <table width="100%" style="margin-top:7%">
+                <tr>
+                    <td width="33%" style="border-top:1px solid black; text-align:center;">Firma de Cajero</td>
+                    <td width="34%"></td>
+                    <td width="33%" style="border-top:1px solid black; text-align:center;">Firma de Supervisor</td>
+                </tr>
+
+            </table>
+        </div>
+
+        <t t-if="docs.print_f">
+
+
+            <div style="page-break-before: always;">
+                <div class="row" style="border-radius: 10px; border:1px solid #AAA;">
+                    <div class="col-xs-1 col-1">
+                        <img t-if="docs.company_id.logo" t-att-src="'data:image/png;base64,%s' % to_text(docs.company_id.logo)" style="height:90px; border:1px; margin:5px 0px 5px 10px;"/>
+                    </div>
+                    <div class="col-xs-11 col-11 mb8" style="padding-bottom:2px;padding-right:0px; text-align:center;">
+                        <table style="widht:100%">
+                            <tr>
+                                <td style="font-size:20px;text-align:center;">
+                                    <strong>
+                                        <span t-field="docs.company_id.name"/>
+                                    </strong>
+                                </td>
+                            </tr>
+                            <tr style="font-size:14px; text-align:center;">
+                                <td>
+                                    <t t-if="docs.company_id.street">
+                                        <span t-field="docs.company_id.street"/>
+,
+                                    </t>
+                                    <t t-if="docs.company_id.street2">
+                                        <span t-field="docs.company_id.street2"/>
+,
+                                    </t>
+                                    <t t-if="docs.company_id.state_id.name">
+                                        <span t-field="docs.company_id.state_id.name"/>
+,
+                                    </t>
+                                    <t t-if="docs.company_id.country_id.name">
+                                        <span t-field="docs.company_id.country_id.name"/>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="font-size:14px; text-align:center;">
+                                <td>
+                                    <br/>
+                                    <t t-if="docs.company_id.phone">Tel:<span t-field="docs.company_id.phone"/>
+, </t>
+                                    <t t-if="docs.company_id.email">Email:<span t-field="docs.company_id.email"/>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr style="font-size:15px;text-align:center;">
+                                <td>
+                                    <t t-if="docs.company_id.vat">RTN: <span t-field="docs.company_id.vat"/>
+                                    </t>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="oe_structure"/>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+
+                </div>
+                <div align="center">
+
+                    <h1>FACTURAS DE CREDITO</h1>
+                    <h6>Del  <span t-esc="docs.s_date"/>
+  al  <t t-esc="docs.e_date"/>
+                </h6>
+                <t t-if="docs.partner_id">
+                    CAJERO: <span t-esc="docs.partner_id.name"/>
+                </t>
+            </div>
+            <br/>
+            <br/>
+            <table class="table table-condensed" style="border:1px solid black" width="100%">
+                <thead>
+                    <tr style="background-color:#1E91ED">
+                        <th style="border:1px solid black">#</th>
+                        <th style="border:1px solid black">FACTURA</th>
+                        <th style="border:1px solid black">PACIENTE</th>
+                        <th style="border:1px solid black">FECHA DE FACTURA</th>
+                        <th style="border:1px solid black">TOTAL</th>
+                    </tr>
+                </thead>
+                <tbody class="sale_tbody">
+                    <t t-set="count" t-value="0"/>
+                    <t t-foreach="credit" t-as="credit">
+                        <t t-set="count" t-value="count +1"/>
+                        <tr>
+                            <td style="border:1px solid black">
+                                <span t-esc="count"/>
+                            </td>
+                            <td style="border:1px solid black">
+                                <span t-field="credit.move_name"/>
+                            </td>
+                            <td style="border:1px solid black">
+                                <span t-field="credit.patient_id.name"/>
+                            </td>
+                            <td style="border:1px solid black">
+                                <span t-field="credit.date_invoice"/>
+                            </td>
+                            <td style="border:1px solid black">
+                                <span t-field="credit.amount_total"/>
+                            </td>
+                        </tr>
+                    </t>
+                    <tr style="border:1px solid black">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>TOTAL</td>
+                        <td style="border:1px solid black">
+                            <span t-field="docs.total_amount_due" t-options='{"widget": "monetary", "display_currency": docs.company_id.currency_id}'/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br/>
+            <br/>
+
+            <table width="100%" style="margin-top:7%">
+                <tr>
+                    <td width="33%" style="border-top:1px solid black; text-align:center;">Firma de Cajero</td>
+                    <td width="34%"></td>
+                    <td width="33%" style="border-top:1px solid black; text-align:center;">Firma de Supervisor</td>
+                </tr>
+
+            </table>
+        </div>
+    </t>
+</t>
+</template>
+</odoo>

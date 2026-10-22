@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_purchase_order_form_import_split" model="ir.ui.view">
+        <field name="name">purchase.order.form.import.split</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_gn_import_split_reception"
+                        type="object"
+                        string="Dividir recepción en dos"
+                        invisible="not gn_import_split_available"/>
+                <field name="gn_import_split_available" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

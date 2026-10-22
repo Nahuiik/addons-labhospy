@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_purchase_dashboard.NarrativeBanner">
+        <section t-if="hasNarrative or props.loading" class="gn-pd-narrative gn-pd-narrative--compact"
+                 t-att-class="state.expanded ? ' gn-pd-narrative--expanded' : ''">
+            <span class="gn-pd-narrative__badge"><i class="fa fa-magic"/> IA</span>
+            <div class="gn-pd-narrative__body">
+                <span class="gn-pd-narrative__label">Resumen</span>
+                <div t-if="props.loading" class="gn-pd-skeleton gn-pd-skeleton--narrative"/>
+                <p t-else="" class="gn-pd-narrative__text" t-esc="displayText"/>
+            </div>
+            <button t-if="showToggle and !props.loading" type="button"
+                    class="gn-pd-narrative__toggle" t-on-click="toggleExpand" t-esc="toggleLabel"/>
+        </section>
+    </t>
+</templates>

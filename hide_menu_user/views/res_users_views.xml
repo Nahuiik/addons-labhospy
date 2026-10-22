@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Vista heredada de res.users -->
+    <record id="view_users_form_inherit_hide_menu" model="ir.ui.view">
+        <field name="name">res.users.view.form.inherit.hide.menu.user</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Menús restringidos">
+                    <group>
+                        <field name="hide_menu_ids" widget="many2many_tags"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Vista heredada de ir.ui.menu -->
+    <record id="edit_menu_access_inherit_hide_menu" model="ir.ui.view">
+        <field name="name">ir.ui.menu.view.form.inherit.hide.menu.user</field>
+        <field name="model">ir.ui.menu</field>
+        <field name="inherit_id" ref="base.edit_menu_access"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Usuarios restringidos" name="restrict_users">
+                    <group>
+                        <field name="restrict_user_ids" widget="many2many_tags"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

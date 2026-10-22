@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <!-- Ubicación de tránsito para traslados entre tiendas.
+             El stock en ubicaciones con usage='transit' no cuenta como disponible
+             en el inventario (free_qty) hasta que se reciba en destino.
+             La compañía debe coincidir con la de las ubicaciones internas: si el tránsito
+             no está valorado (sin company_id), stock_account trata el movimiento como
+             «salida» y recalcula standard_price; con company_id, origen y tránsito son
+             valorados y el costo no se altera por el traslado. -->
+        <record id="stock_location_inter_store_transit" model="stock.location">
+            <field name="name">Tránsito entre tiendas</field>
+            <field name="usage">transit</field>
+            <field name="company_id" ref="base.main_company"/>
+        </record>
+    </data>
+</odoo>

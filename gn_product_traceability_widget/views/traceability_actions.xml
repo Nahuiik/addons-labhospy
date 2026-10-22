@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_product_traceability_dashboard" model="ir.actions.client">
+        <field name="name">Trazabilidad del producto</field>
+        <field name="tag">gn_product_traceability_dashboard</field>
+        <field name="target">current</field>
+    </record>
+
+    <menuitem id="menu_product_traceability"
+              name="Trazabilidad"
+              parent="stock.menu_stock_inventory_control"
+              action="action_product_traceability_dashboard"
+              groups="gn_product_traceability_widget.group_traceability_user"
+              sequence="3"/>
+</odoo>

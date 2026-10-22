@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="gn_cash_closing_search">
+        <field name="name">gn.cash.closing.search</field>
+        <field name="model">gn.cash.closing</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Cierres">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="branch_id"/>
+                <field name="user_id"/>
+                <separator/>
+                <filter string="Borrador" name="filter_draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="En Proceso" name="filter_in_progress" domain="[('state', '=', 'in_progress')]"/>
+                <filter string="Finalizado" name="filter_done" domain="[('state', '=', 'done')]"/>
+                <filter string="Anulado" name="filter_cancel" domain="[('state', '=', 'cancel')]"/>
+                <separator/>
+                <filter string="Sucursal" name="group_branch" context="{'group_by': 'branch_id'}"/>
+                <filter string="Vendedor" name="group_user" context="{'group_by': 'user_id'}"/>
+                <filter string="Fecha" name="group_date" context="{'group_by': 'date'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="gn_cash_closing_list">
+        <field name="name">gn.cash.closing.list</field>
+        <field name="model">gn.cash.closing</field>
+        <field name="arch" type="xml">
+            <list string="Cierres de Caja" create="1" delete="1">
+                <field name="name"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'draft'"
+                       decoration-warning="state == 'in_progress'"
+                       decoration-success="state == 'done'"
+                       decoration-danger="state == 'cancel'"/>
+                <field name="date"/>
+                <field name="branch_id"/>
+                <field name="user_id" string="Vendedor"/>
+                <field name="observaciones"/>
+            </list>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="gn_cash_closing_form">
+        <field name="name">gn.cash.closing.form</field>
+        <field name="model">gn.cash.closing</field>
+        <field name="arch" type="xml">
+            <form string="Cierre de Caja">
+                <header>
+                    <button name="action_confirm" type="object"
+                            string="Confirmar" class="oe_highlight"
+                            icon="fa-check"
+                            invisible="state != 'draft'"
+                            groups="gn_daily_cash_closing.group_cash_closing_generate"/>
+                    <button name="action_done" type="object"
+                            string="Finalizar" class="oe_highlight"
+                            icon="fa-check-circle"
+                            invisible="state != 'in_progress'"
+                            groups="gn_daily_cash_closing.group_cash_closing_generate"/>
+                    <button name="action_cancel" type="object"
+                            string="Anular"
+                            icon="fa-times"
+                            invisible="state in ('cancel', 'done')"
+                            groups="gn_daily_cash_closing.group_cash_closing_generate"
+                            confirm="¿Está seguro de anular este cierre de caja?"/>
+                    <button name="action_restore_to_draft" type="object"
+                            string="Restablecer a Borrador"
+                            icon="fa-undo"
+                            invisible="not can_restore_to_draft"
+                            groups="gn_daily_cash_closing.group_cash_closing_restore_draft"/>
+                    <button name="action_generate_move" type="object"
+                            string="Generar Asiento"
+                            icon="fa-book"
+                            invisible="state != 'done'"
+                            groups="gn_daily_cash_closing.group_cash_closing_generate"/>
+                    <button name="action_print_closing" type="object"
+                            string="Cierre PDF"
+                            class="oe_highlight"
+                            icon="fa-file-pdf-o"
+                            invisible="state == 'cancel'"
+                            groups="gn_daily_cash_closing.group_cash_closing_generate"/>
+                    <button name="action_print_xlsx" type="object"
+                            string="Cierre XLS"
+                            icon="fa-file-excel-o"
+                            invisible="state == 'cancel'"
+                            groups="gn_daily_cash_closing.group_cash_closing_generate"/>
+                </header>
+                <sheet>
+                    <div class="oe_statusbar" role="status">
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,in_progress,done"
+                               options="{'clickable': '0'}"/>
+                    </div>
+                    <group col="2">
+                        <group>
+                            <field name="name"/>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                            <field name="branch_id" options="{'no_create': True}"/>
+                            <field name="user_id" string="Vendedor" options="{'no_create': True}"/>
+                            <field name="move_id" readonly="1" options="{'no_create': True}"/>
+                            <field name="can_edit" invisible="1"/>
+                            <field name="can_restore_to_draft" invisible="1"/>
+                            <field name="has_cierre_inicial" invisible="1"/>
+                            <field name="cierre_inicial_efectivo_falta" invisible="1"/>
+                            <field name="cierre_inicial_tarjeta_falta" invisible="1"/>
+                            <field name="cierre_inicial_transferencia_falta" invisible="1"/>
+                        </group>
+                    </group>
+                    <div class="oe_button_box">
+                        <button name="action_load_data" type="object"
+                                string="Obtener datos" class="oe_highlight"
+                                icon="fa-download"
+                                invisible="state != 'draft'"/>
+                    </div>
+                    <notebook>
+                        <page string="Resumen" name="resumen">
+                            <group col="2">
+                                <group>
+                                    <group col="2" string="VENTAS">
+                                        <field name="resumen_ventas_contado" readonly="1"/>
+                                        <field name="resumen_ventas_contra_entrega" readonly="1"/>
+                                        <field name="resumen_ventas_creditos" readonly="1"/>
+                                        <field name="resumen_ventas_total" readonly="1"/>
+                                    </group>
+                                    <group col="2" string="ANULACIONES Y REBAJAS">
+                                        <field name="resumen_anulaciones_ventas" readonly="1"/>
+                                        <field name="resumen_anulaciones_anticipos" readonly="1"/>
+                                        <field name="resumen_anulaciones_rebajas" readonly="1"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group col="2" string="INGRESOS">
+                                        <field name="resumen_ingresos_efectivo" readonly="1"/>
+                                        <field name="resumen_ingresos_tarjeta" readonly="1"/>
+                                        <field name="resumen_ingresos_transferencia" readonly="1"/>
+                                        <field name="resumen_ingresos_anticipos" readonly="1"/>
+                                        <field name="resumen_ingresos_sobrantes" readonly="1"/>
+                                        <field name="resumen_ingresos_total" readonly="1"/>
+                                    </group>
+                                    <group col="2" string="REMESADO">
+                                        <field name="resumen_remesado_total" readonly="1"/>
+                                        <field name="resumen_no_remesado" readonly="1"/>
+                                    </group>
+                                    <group col="2" string="LIQUIDACIÓN DE TARJETAS">
+                                        <field name="resumen_liquidacion_monto" readonly="1"/>
+                                    </group>
+                                </group>
+                            </group>
+                            <group col="2" string="COMPARATIVA CIERRE INICIAL" invisible="not has_cierre_inicial">
+                                <group string="Cierre Inicial (digitado)">
+                                    <field name="cierre_inicial_efectivo" string="Efectivo" readonly="1"/>
+                                    <field name="cierre_inicial_tarjeta" string="Tarjeta" readonly="1"/>
+                                    <field name="cierre_inicial_transferencia" string="Transferencia" readonly="1"/>
+                                </group>
+                                <group col="2" string="Formulario / Diferencia">
+                                    <field name="resumen_ingresos_efectivo" string="Efectivo (formulario)" readonly="1"/>
+                                    <field name="cierre_inicial_efectivo_diferencia" string="Diferencia" readonly="1" decoration-danger="cierre_inicial_efectivo_falta"/>
+                                    <field name="resumen_ingresos_tarjeta" string="Tarjeta (formulario)" readonly="1"/>
+                                    <field name="cierre_inicial_tarjeta_diferencia" string="Diferencia" readonly="1" decoration-danger="cierre_inicial_tarjeta_falta"/>
+                                    <field name="resumen_ingresos_transferencia" string="Transferencia (formulario)" readonly="1"/>
+                                    <field name="cierre_inicial_diferencia_efectivo_tarjeta" string="Diferencia (Efectivo + Tarjeta)" readonly="1" decoration-danger="cierre_inicial_diferencia_efectivo_tarjeta_falta"/>
+                                    <field name="resumen_ingresos_total" string="Total Ingresos" readonly="1"/>
+                                    <field name="cierre_inicial_diferencia_total" string="Diferencia (Total - Efectivo - Tarjeta)" readonly="1"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Facturas Abiertas" name="invoice_open">
+                            <field name="invoice_open_ids" nolabel="1">
+                                <list create="0" edit="0" delete="0" default_order="closing_line_sequence">
+                                    <field name="closing_line_sequence" string="#" readonly="1" />
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="amount_total_signed" sum="Total"/>
+                                    <field name="amount_residual_signed" string="Saldo" sum="Total"/>
+                                    <field name="invoice_date"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Facturas Pagadas" name="invoice_paid">
+                            <field name="invoice_paid_ids" nolabel="1">
+                                <list create="0" edit="0" delete="0" default_order="closing_line_sequence">
+                                    <field name="closing_line_sequence" string="#" readonly="1" />
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="amount_total_signed" sum="Total"/>
+                                    <field name="invoice_date"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Facturas Anuladas" name="invoice_cancelled">
+                            <field name="invoice_cancelled_ids" nolabel="1">
+                                <list create="0" edit="0" delete="0" default_order="closing_line_sequence">
+                                    <field name="closing_line_sequence" string="#" readonly="1" />
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="amount_total_signed" sum="Total"/>
+                                    <field name="invoice_date"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Pagos Realizados" name="payment_posted">
+                            <field name="payment_posted_ids" nolabel="1">
+                                <list create="0" edit="0" delete="0" default_order="closing_line_sequence">
+                                    <field name="closing_line_sequence" string="#" readonly="1" />
+                                    <field name="journal_id" string="Diario"/>
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="amount" sum="Total"/>
+                                    <field name="date"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Pagos Anulados" name="payment_cancelled">
+                            <field name="payment_cancelled_ids" nolabel="1">
+                                <list create="0" edit="0" delete="0" default_order="closing_line_sequence">
+                                    <field name="closing_line_sequence" string="#" readonly="1" />
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="amount" sum="Total"/>
+                                    <field name="date"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Anticipos" name="advances">
+                            <field name="advance_presupuesto_ids" nolabel="1">
+                                <list create="0" edit="0" delete="0" default_order="closing_line_sequence">
+                                    <field name="closing_line_sequence" string="#" readonly="1" />
+                                    <field name="journal_id" string="Diario"/>
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="amount" sum="Total"/>
+                                    <field name="date"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Anticipos Pre-Factura" name="advances_prefactura">
+                            <field name="advance_prefactura_ids" nolabel="1">
+                                <list create="0" edit="0" delete="0" default_order="closing_line_sequence">
+                                    <field name="closing_line_sequence" string="#" readonly="1" />
+                                    <field name="journal_id" string="Diario"/>
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="amount" sum="Total"/>
+                                    <field name="date"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Remesas Sobrantes" name="remesas_sobrantes">
+                            <field name="remesa_sobrante_line_ids" readonly="not can_edit">
+                                <list editable="bottom" default_order="sequence, id">
+                                    <field name="branch_id" column_invisible="1"/>
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="sequence_number" string="#" readonly="1"/>
+                                    <field name="journal_id" string="Diario"
+                                           options="{'no_create': True}"
+                                           domain="[('type', '=', 'cash'), '|', ('branch_id', '=', False), ('branch_id', '=', branch_id)]"/>
+                                    <field name="bank_name"/>
+                                    <field name="account_number" string="No. Cuenta" readonly="1"/>
+                                    <field name="reference"/>
+                                    <field name="date"/>
+                                    <field name="amount" sum="Total"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Remesas Bancarias" name="remesas">
+                            <group>
+                                <button name="action_load_remesas_from_system" type="object"
+                                        string="Cargar remesas del día"
+                                        icon="fa-download"
+                                        invisible="not can_edit or state not in ('draft', 'in_progress')"
+                                        groups="gn_daily_cash_closing.group_cash_closing_edit"/>
+                            </group>
+                            <field name="remesa_line_ids" readonly="not can_edit">
+                                <list editable="bottom" default_order="sequence, id">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="sequence_number" string="#" readonly="1"/>
+                                    <field name="journal_id" string="Diario" options="{'no_create': True}"/>
+                                    <field name="bank_name"/>
+                                    <field name="account_number" string="No. Cuenta" readonly="1"/>
+                                    <field name="reference"/>
+                                    <field name="date"/>
+                                    <field name="amount" sum="Total"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Observaciones" name="observaciones">
+                            <field name="observaciones" placeholder="Ingrese observaciones del cierre de caja..." readonly="not can_edit"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+                <footer>
+                    <button name="action_print_closing" type="object" default_focus="1"
+                            string="Cierre PDF" class="oe_highlight"
+                            icon="fa-file-pdf-o"
+                            invisible="state == 'cancel'"
+                            groups="gn_daily_cash_closing.group_cash_closing_generate"/>
+                    <button name="action_print_xlsx" type="object"
+                            string="Cierre XLS"
+                            icon="fa-file-excel-o"
+                            invisible="state == 'cancel'"
+                            groups="gn_daily_cash_closing.group_cash_closing_generate"/>
+                    <button string="Cerrar" class="btn btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_gn_cash_closing">
+        <field name="name">Cierres de Caja</field>
+        <field name="res_model">gn.cash.closing</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="gn_cash_closing_search"/>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crear un nuevo Cierre de Caja
+            </p>
+            <p>
+                Seleccione fecha y sucursal, luego haga clic en "Obtener datos" para cargar
+                las facturas y pagos del día. Puede editar remesas y observaciones si tiene permiso.
+                Finalmente, genere el PDF del reporte.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_gn_cash_closing"
+              name="Cierres de Caja"
+              parent="sale.menu_sale_report"
+              action="action_gn_cash_closing"
+              groups="gn_daily_cash_closing.group_cash_closing_generate"
+              sequence="99"/>
+</odoo>

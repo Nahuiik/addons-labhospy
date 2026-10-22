@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <!-- Entrevista Inicial -->
+        <record id="survey_interview_inicial" model="survey.survey">
+            <field name="survey_type">recruitment</field>
+            <field name="title">Entrevista Inicial</field>
+            <field name="user_id" ref="base.user_admin"/>
+            <field name="access_mode">token</field>
+            <field name="users_can_go_back" eval="True"/>
+            <field name="description" type="html">
+                <p>Responda las siguientes preguntas para la entrevista inicial de reclutamiento.</p>
+            </field>
+            <field name="description_done" type="html">
+                <p>Gracias por completar la entrevista. Nos pondremos en contacto con usted pronto.</p>
+            </field>
+            <field name="lang_ids" eval="False"/>
+        </record>
+        <record id="survey_interview_inicial_p1" model="survey.question">
+            <field name="title">Datos generales</field>
+            <field name="survey_id" ref="survey_interview_inicial"/>
+            <field name="is_page" eval="True"/>
+            <field name="question_type" eval="False"/>
+            <field name="sequence">1</field>
+        </record>
+        <record id="survey_interview_inicial_q1" model="survey.question">
+            <field name="survey_id" ref="survey_interview_inicial"/>
+            <field name="sequence">2</field>
+            <field name="title">¿Cuéntanos brevemente sobre tu experiencia laboral?</field>
+            <field name="question_type">text_box</field>
+        </record>
+        <record id="survey_interview_inicial_q2" model="survey.question">
+            <field name="survey_id" ref="survey_interview_inicial"/>
+            <field name="sequence">3</field>
+            <field name="title">¿Por qué te interesa esta posición?</field>
+            <field name="question_type">text_box</field>
+        </record>
+        <record id="survey_interview_inicial_q3" model="survey.question">
+            <field name="survey_id" ref="survey_interview_inicial"/>
+            <field name="sequence">4</field>
+            <field name="title">¿Cuál es tu disponibilidad para iniciar?</field>
+            <field name="question_type">char_box</field>
+        </record>
+
+        <!-- Entrevista Técnica -->
+        <record id="survey_interview_tecnica" model="survey.survey">
+            <field name="survey_type">recruitment</field>
+            <field name="title">Entrevista Técnica</field>
+            <field name="user_id" ref="base.user_admin"/>
+            <field name="access_mode">token</field>
+            <field name="users_can_go_back" eval="True"/>
+            <field name="description" type="html">
+                <p>Esta entrevista evalúa conocimientos técnicos y competencias para el puesto.</p>
+            </field>
+            <field name="description_done" type="html">
+                <p>Gracias por completar la entrevista técnica. Evaluaremos sus respuestas.</p>
+            </field>
+            <field name="lang_ids" eval="False"/>
+        </record>
+        <record id="survey_interview_tecnica_p1" model="survey.question">
+            <field name="title">Competencias técnicas</field>
+            <field name="survey_id" ref="survey_interview_tecnica"/>
+            <field name="is_page" eval="True"/>
+            <field name="question_type" eval="False"/>
+            <field name="sequence">1</field>
+        </record>
+        <record id="survey_interview_tecnica_q1" model="survey.question">
+            <field name="survey_id" ref="survey_interview_tecnica"/>
+            <field name="sequence">2</field>
+            <field name="title">¿Cuáles son tus principales habilidades para este puesto?</field>
+            <field name="question_type">text_box</field>
+        </record>
+        <record id="survey_interview_tecnica_q2" model="survey.question">
+            <field name="survey_id" ref="survey_interview_tecnica"/>
+            <field name="sequence">3</field>
+            <field name="title">Describe un proyecto o logro del que te sientas orgulloso</field>
+            <field name="question_type">text_box</field>
+        </record>
+        <record id="survey_interview_tecnica_q3" model="survey.question">
+            <field name="survey_id" ref="survey_interview_tecnica"/>
+            <field name="sequence">4</field>
+            <field name="title">¿Tienes alguna certificación o formación adicional relevante?</field>
+            <field name="question_type">char_box</field>
+        </record>
+    </data>
+</odoo>

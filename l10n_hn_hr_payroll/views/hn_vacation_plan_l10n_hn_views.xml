@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_gn_hn_vacation_plan_form_inherit_l10n_hn" model="ir.ui.view">
+        <field name="name">gn.hn.vacation.plan.form.inherit.l10n.hn</field>
+        <field name="model">gn.hn.vacation.plan</field>
+        <field name="inherit_id" ref="gn_hr_vacation.view_gn_hn_vacation_plan_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button
+                    name="action_run_hn_vacation_allocations"
+                    type="object"
+                    string="Generar asignaciones ahora"
+                    class="btn-primary"
+                    groups="hr_holidays.group_hr_holidays_manager"
+                    help="Equivale a ejecutar los trabajos programados de vacaciones Honduras en este momento (aniversario/catch-up según modo del plan, proporcional temporal, devengo mensual o diario). Aplica a todos los empleados elegibles, no solo a quienes usan este plan."
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>

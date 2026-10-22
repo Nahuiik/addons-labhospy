@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_groups_privilege_read_only" model="res.groups.privilege">
+            <field name="name">Read-only mode</field>
+            <field name="category_id" ref="base.module_category_extra"/>
+        </record>
+        <record id="group_read_only_user" model="res.groups">
+            <field name="name">Read Only Access</field>
+            <field name="sequence">10</field>
+            <field name="privilege_id" ref="res_groups_privilege_read_only"/>
+        </record>
+        <record id="read_only_rights_rule" model="ir.rule">
+            <field name="name">ir.readonly.user.rights</field>
+            <field name="model_id" ref="base.model_ir_model_access"/>
+            <field name="groups" eval="[(4, ref('group_read_only_user'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+    </data>
+</odoo>

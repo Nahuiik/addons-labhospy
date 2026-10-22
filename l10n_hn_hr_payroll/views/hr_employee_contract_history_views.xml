@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- View for contract history list -->
+    <record id="view_hr_employee_contract_history_list" model="ir.ui.view">
+        <field name="name">hr.employee.contract.history.list</field>
+        <field name="model">hr.employee.contract.history</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="wage"/>
+                <field name="periodicity"/>
+                <field name="job_id"/>
+                <field name="department_id"/>
+            </list>
+        </field>
+    </record>
+</odoo>

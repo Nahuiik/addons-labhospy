@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_gts_advance_dashboard" model="ir.actions.client">
+        <field name="name">Dashboard de Abonos/Anticipos</field>
+        <field name="tag">gts_advance_dashboard</field>
+        <field name="path">advance-dashboard</field>
+    </record>
+
+    <menuitem id="menu_gts_advance_dashboard"
+              name="Dashboard de Abonos/Anticipos"
+              parent="sale.menu_sale_report"
+              action="action_gts_advance_dashboard"
+              sequence="50"
+              groups="gts_customer_advance.group_advance_customers_manager"/>
+
+</odoo>

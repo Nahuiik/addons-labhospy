@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_payroll_structure_form_hn_vacation" model="ir.ui.view">
+        <field name="name">hr.payroll.structure.form.hn.vacation</field>
+        <field name="model">hr.payroll.structure</field>
+        <field name="inherit_id" ref="l10n_hn_payroll_base.view_hr_payroll_structure_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='parent_id']" position="after">
+                <field name="hn_vacation_payroll_kind"/>
+                <div class="alert alert-info mb-3" role="status"
+                     colspan="2" invisible="not hn_vacation_payroll_kind">
+                    <div class="fw-bold mb-1 text-body o_hn_vac_structure_heading">Nómina de vacaciones</div>
+                    <p class="mb-0 small">
+                        El recibo paga los <strong>días acumulados</strong> de las asignaciones HN validadas
+                        (días otorgados menos “Días liquidados nómina vacaciones” en cada asignación).
+                        Las <strong>ausencias ya registradas</strong> no bajan este importe: deben afectar la
+                        <strong>nómina regular</strong>. El saldo para pedir tiempo libre en Ausencias puede ser otro
+                        (asignación − gozados − liquidado nómina).
+                    </p>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

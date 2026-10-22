@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_gn_inventory_adjustment" model="ir.actions.client">
+        <field name="name">Wizard Inventario</field>
+        <field name="tag">gn_inventory_ajustment.inventory_adjustment</field>
+    </record>
+
+    <menuitem
+        id="menu_gn_inventory_adjustment"
+        name="Wizard Inventario"
+        parent="stock.menu_stock_warehouse_mgmt"
+        action="action_gn_inventory_adjustment"
+        sequence="35"
+        groups="stock.group_stock_user"/>
+</odoo>

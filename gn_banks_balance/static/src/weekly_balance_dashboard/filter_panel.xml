@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_banks_balance.BanksWeeklyBalanceFilterPanel">
+        <div class="gn-wb-filters">
+            <div class="gn-wb-filters__header">
+                <i class="fa fa-sliders me-1"/>
+                <span>Filtros</span>
+            </div>
+
+            <div class="gn-wb-filters__section" t-if="showCompany">
+                <label class="gn-wb-filters__label">Compañía</label>
+                <select class="form-select form-select-sm"
+                        t-att-value="props.filters.company_id"
+                        t-on-change="onCompanyChange">
+                    <t t-foreach="companies" t-as="co" t-key="co.id">
+                        <option t-att-value="co.id" t-att-selected="co.id === props.filters.company_id">
+                            <t t-esc="co.name"/>
+                        </option>
+                    </t>
+                </select>
+            </div>
+
+            <div class="gn-wb-filters__quick">
+                <button type="button" class="btn btn-sm btn-outline-secondary"
+                        t-on-click="() => this.onQuickPeriod('this_month')">Este mes</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary"
+                        t-on-click="() => this.onQuickPeriod('last_month')">Mes anterior</button>
+            </div>
+
+            <div class="gn-wb-filters__section" t-if="!useCustomRange">
+                <label class="gn-wb-filters__label">Año</label>
+                <input type="number" class="form-control form-control-sm"
+                       t-att-value="props.filters.year"
+                       min="2000" max="2100"
+                       t-on-change="onYearChange"/>
+            </div>
+
+            <div class="gn-wb-filters__section" t-if="!useCustomRange">
+                <label class="gn-wb-filters__label">Mes</label>
+                <select class="form-select form-select-sm"
+                        t-att-value="props.filters.month"
+                        t-on-change="onMonthChange">
+                    <t t-foreach="months" t-as="mo" t-key="mo.id">
+                        <option t-att-value="mo.id" t-att-selected="mo.id === props.filters.month">
+                            <t t-esc="mo.name"/>
+                        </option>
+                    </t>
+                </select>
+            </div>
+
+            <div class="gn-wb-filters__section">
+                <label class="form-check form-check-sm">
+                    <input type="checkbox" class="form-check-input"
+                           t-att-checked="useCustomRange"
+                           t-on-change="onCustomRangeToggle"/>
+                    <span class="form-check-label">Rango personalizado</span>
+                </label>
+            </div>
+
+            <t t-if="useCustomRange">
+                <div class="gn-wb-filters__section">
+                    <label class="gn-wb-filters__label">Desde</label>
+                    <DateTimeInput type="'date'" value="dateFromValue" onChange.bind="onDateFromChange"/>
+                </div>
+                <div class="gn-wb-filters__section">
+                    <label class="gn-wb-filters__label">Hasta</label>
+                    <DateTimeInput type="'date'" value="dateToValue" onChange.bind="onDateToChange"/>
+                </div>
+            </t>
+
+            <div class="gn-wb-filters__section">
+                <label class="form-check form-check-sm">
+                    <input type="checkbox" class="form-check-input"
+                           t-att-checked="props.filters.compare_previous"
+                           t-on-change="onCompareToggle"/>
+                    <span class="form-check-label">Comparar mes anterior</span>
+                </label>
+            </div>
+
+            <div class="gn-wb-filters__section">
+                <label class="gn-wb-filters__label">Agrupación</label>
+                <select class="form-select form-select-sm"
+                        t-att-value="props.filters.group_by"
+                        t-on-change="onGroupByChange">
+                    <t t-foreach="groupByOptions" t-as="gb" t-key="gb.id">
+                        <option t-att-value="gb.id" t-att-selected="gb.id === props.filters.group_by">
+                            <t t-esc="gb.name"/>
+                        </option>
+                    </t>
+                </select>
+            </div>
+
+            <div class="gn-wb-filters__section">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <label class="gn-wb-filters__label mb-0">Bancos</label>
+                    <div>
+                        <button type="button" class="btn btn-link btn-sm p-0 me-2"
+                                t-on-click="onSelectAllJournals">Todos</button>
+                        <button type="button" class="btn btn-link btn-sm p-0"
+                                t-on-click="onClearJournals">Ninguno</button>
+                    </div>
+                </div>
+                <div class="gn-wb-filters__bank-summary"
+                     t-att-class="{'gn-wb-filters__bank-summary--empty': hasNoBanksSelected}">
+                    <i class="fa fa-university me-1"/>
+                    <t t-esc="bankSelectionLabel"/>
+                </div>
+                <div class="gn-wb-filters__journals">
+                    <t t-foreach="journals" t-as="j" t-key="j.id">
+                        <label class="form-check form-check-sm d-block gn-wb-filters__journal-item"
+                               t-att-class="{'gn-wb-filters__journal-item--selected': isJournalSelected(j.id)}">
+                            <input type="checkbox" class="form-check-input"
+                                   t-att-checked="isJournalSelected(j.id)"
+                                   t-on-change="() => this.onJournalToggle(j.id)"/>
+                            <span class="form-check-label" t-att-class="{'text-muted': !j.has_liquidity_account}">
+                                <t t-esc="j.name"/>
+                            </span>
+                        </label>
+                    </t>
+                </div>
+            </div>
+
+            <div class="gn-wb-filters__actions">
+                <button type="button"
+                        t-att-class="'btn btn-sm w-100 mb-2 ' + (props.dirty ? 'btn-primary' : 'btn-outline-primary')"
+                        t-on-click="props.onApply">
+                    Aplicar filtros
+                </button>
+                <button type="button" class="btn btn-sm btn-outline-secondary w-100"
+                        t-on-click="props.onClear">
+                    Limpiar filtros
+                </button>
+            </div>
+        </div>
+    </t>
+
+</templates>

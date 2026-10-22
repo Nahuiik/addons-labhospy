@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_employee_form_portal_invite_button" model="ir.ui.view">
+        <field name="name">hr.employee.form.portal.invite.button</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header[@groups='hr.group_hr_user']" position="inside">
+                <button name="action_open_portal_invite_wizard" type="object"
+                        string="Invitar al portal"
+                        class="btn-secondary"
+                        groups="hr.group_hr_user"
+                        invisible="not id"
+                        help="Crea el usuario portal del empleado, envía la invitación por correo y muestra un enlace para compartir."/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

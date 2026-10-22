@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="l10n_hn_hr_payroll.StepEmployees">
+        <div class="o_step_employees">
+            <div class="mb-3">
+                <input type="text" class="form-control" placeholder="Buscar por empleado, departamento o puesto..."
+                       t-att-value="props.searchQuery" t-on-input="(ev) => this.props.onSearchChange(ev)"/>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th style="width: 40px;">
+                                <input type="checkbox" class="form-check-input"
+                                       t-att-checked="allSelected"
+                                       t-att-indeterminate="someSelected &amp;&amp; !allSelected"
+                                       t-on-change="() => this.props.onToggleAll()"/>
+                            </th>
+                            <th>Empleado</th>
+                            <th>Departamento</th>
+                            <th>Puesto</th>
+                            <th>Salario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-if="filteredVersions.length === 0">
+                            <tr>
+                                <td colspan="5" class="text-center text-muted py-4">
+                                    No hay empleados disponibles para este período.
+                                </td>
+                            </tr>
+                        </t>
+                        <t t-else="">
+                            <t t-foreach="filteredVersions" t-as="version" t-key="version.id">
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" class="form-check-input"
+                                               t-att-checked="props.selectedIds[version.id]"
+                                               t-on-change="() => this.props.onToggle(version.id)"/>
+                                    </td>
+                                    <td t-esc="getEmployeeName(version)"/>
+                                    <td t-esc="getDepartmentName(version)"/>
+                                    <td t-esc="getJobName(version)"/>
+                                    <td t-esc="formatWage(version)"/>
+                                </tr>
+                            </t>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </t>
+</templates>

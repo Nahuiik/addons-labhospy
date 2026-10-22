@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_leave_allocation_form_hn" model="ir.ui.view">
+        <field name="name">hr.leave.allocation.form.hn</field>
+        <field name="model">hr.leave.allocation</field>
+        <field name="inherit_id" ref="hr_holidays.hr_leave_allocation_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='notes']" position="after">
+                <group string="Vacaciones" invisible="not gn_vacation_is_primary">
+                    <div class="alert alert-info mb-2" role="status" colspan="2">
+                        <p class="mb-0 small">
+                            <strong>Liquidado nómina vacaciones:</strong> días de esta línea ya pagados en la
+                            estructura de vacaciones HN. El cálculo del recibo de vacaciones usa
+                            <em>días otorgados − este valor</em>; los días gozados (ausencias) siguen contando en
+                            la nómina regular y no reducen ese importe de liquidación.
+                        </p>
+                    </div>
+                    <group>
+                        <field name="hn_vacation_period_start"/>
+                        <field name="hn_vacation_period_end"/>
+                        <field name="hn_vac_payroll_settled_days" readonly="1"/>
+                        <field name="hn_allow_accumulation"/>
+                        <field name="hn_accumulation_reason" invisible="not hn_allow_accumulation"/>
+                        <field name="hn_accumulation_date" invisible="not hn_allow_accumulation"/>
+                        <field name="hn_accumulation_approved_by" invisible="not hn_allow_accumulation"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

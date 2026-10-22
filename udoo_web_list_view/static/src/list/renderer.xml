@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+<t t-inherit="web.ListRenderer" t-inherit-mode="extension">
+    <!-- Inject adjacent to the optional columns dropdown -->
+    <xpath expr="//div[contains(@class, 'o_optional_columns_dropdown')]" position="before">
+        <div t-if="isUdooEditable()" class="o_udoo_manage_cols_wrapper">
+            <button class="btn btn-light o_udoo_manage_cols" t-on-click="openColumnManager" title="Manage Columns">
+                <i class="fa fa-wrench"/>
+            </button>
+        </div>
+    </xpath>
+    
+    <!-- Try to force the original dropdown to behave inline if it isn't -->
+    <xpath expr="//div[contains(@class, 'o_optional_columns_dropdown')]" position="attributes">
+        <attribute name="class" add="d-inline-block align-top" separator=" "/>
+    </xpath>
+</t>
+
+</templates>

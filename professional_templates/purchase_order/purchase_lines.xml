@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="purchase_lines" name="Datos de Compra">
+            <t t-set="display_taxes" t-value="any([y.tax_ids for y in o.order_line])"/>
+            <table class="table mb-0" t-attf-style="color:{{style.text_color}};" >
+                <thead>
+                    <tr t-attf-style="page-break-inside:avoid !important;border-bottom:2px solid #7d7b7b;font-size:{{int(style.body_font)+2}}px;background-color:{{style.theme_color if not style.transparent else 'transparent'}};color:{{style.theme_txt_color if not style.transparent else style.text_color}};">
+                        <th style="border:none;"><i class="fa fa-list-ol"/> <strong>Item</strong></th>
+                        <th style="border:none;"><i class="fa fa-th-large"/> <strong>Descripción</strong></th>
+                        <th t-if="display_taxes" class="text-center" style="border:none;"><i class="fa fa-pencil-square"/> <strong>Impuestos</strong></th>
+                        <th class="text-center" style="border:none;"><i class="fa fa-calendar"/> <strong>Fecha Requerida</strong></th>
+                        <th class="text-end" style="border:none;"><i class="fa fa-sort-amount-asc"/> <strong>Cant.</strong></th>
+                        <th class="text-end" style="border:none;"><i class="fa fa-tags"/> <strong>PU</strong></th>
+                        <th class="text-end" style="border:none;"><i class="fa fa-money"/> <strong>Monto</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-set="current_subtotal" t-value="0"/>
+                    <t t-foreach="o.order_line" t-as="line">
+                        <tr t-attf-style="border-bottom: 1px solid #adadad;background-color:{{style.odd if (line_parity in 'odd' and not style.transparent) else (not style.transparent and style.even)  or 'transparent'}}; page-break-inside:avoid !important;">
+                            <td style="border: none;"><span t-esc="line_index + 1"/></td>
+                            <td style="border: none;">
+                                <span t-field="line.name"/>
+                            </td>
+                            <td t-if="display_taxes" t-attf-class="text-center {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}" style="border: none;">
+                                <span t-out="', '.join(map(lambda x: (x.invoice_label or x.name), line.tax_ids))" id="line_tax_ids"></span>
+                            </td>
+                            <td class="text-center" style="border: none;">
+                                <span t-field="line.date_planned"/>
+                            </td>
+                            <td class="text-end" style="border: none;">
+                                <span t-field="line.product_qty"/>
+                                <span t-field="line.product_uom_id.name" groups="uom.group_uom"/>
+                            </td>
+                            <td class="text-end" style="border: none;">
+                                <span t-field="line.price_unit"  t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                            </td>
+                            <td class="text-end" style="border: none;">
+                                <span t-field="line.price_subtotal" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                            </td>
+                            <t t-if="line.display_type == 'line_section'">
+                                <td colspan="99" id="section" style="border: none;">
+                                    <span t-field="line.product_id.name"/>
+                                    <t t-if="line.product_id.gn_labhospy_catalog_code">
+                                        | CATALOGO: <span t-field="line.product_id.gn_labhospy_catalog_code"/>
+                                    </t>
+                                    <t t-if="line.product_id.gn_labhospy_model">
+                                        | MODELO: <span t-field="line.product_id.gn_labhospy_model"/>
+                                    </t>
+                                </td>
+                                <t t-set="current_section" t-value="line"/>
+                                <t t-set="current_subtotal" t-value="0"/>
+                            </t>
+                            <t t-if="line.display_type == 'line_note'">
+                                <td colspan="99" id="note" style="border: none;">
+                                    <span t-field="line.name"/>
+                                </td>
+                            </t>
+                        </tr>
+                        <t t-if="current_section and (line_last or o.order_line[line_index+1].display_type == 'line_section')">
+                            <tr class="is-subtotal text-end">
+                                <td colspan="99" id="subtotal">
+                                    <strong class="mr16">Subtotal</strong>
+                                    <span
+                                        t-esc="current_subtotal"
+                                        t-options='{"widget": "monetary", "display_currency": o.currency_id}'
+                                        />
+                                </td>
+                            </tr>
+                        </t>
+                    </t>
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-between col-12" style="width:100%">
+                <div t-if="style.aiw_report" class="col-8" style="padding-left:0; padding-right:0; page-break-inside: avoid;">
+                    <br/>
+                    <p>
+                        <strong>Monto en Letras: </strong><span style="text-decoration:underline;" t-field="o.amount_words"/>
+                    </p> 
+                    <p t-if="o.incoterm_id">
+                        <span>Envio:</span><span t-field="o.incoterm_id"/>
+                    </p>
+                    <t t-set="order_note" t-value="('notes' in o._fields and o.notes) or ('note' in o._fields and o.note)"/>
+                    <p t-if="order_note">
+                        Notas: <span t-esc="order_note"/>
+                    </p>   
+                </div>
+            <!-- <div id="total" class="row justify-content-end"> -->
+                <div class="col-4">
+                    <table  class="table table-sm table-borderless" t-attf-style="color:{{style.text_color}};">
+                        <t t-set="tax_totals" t-value="o.tax_totals"/>
+                        <t t-set="currency" t-value="o.currency_id"/>
+                        <t t-call="account.document_tax_totals"/>
+                    </table>
+                </div>
+            <!-- </div> -->
+            </div>
+            
+            <div class="col-12" style="margin-top:90px;">
+                <div class="row">
+                    <div class="col-4"></div>
+                    <div class="col-4" style="text-align:center;border-top:1px solid #000;">Autorización de Compras</div>
+                    <div class="col-4"></div>
+                </div>
+            </div>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="purchase_res_config_view" model="ir.ui.view">
+        <field name="name">purchase.res.config.view</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="purchase.res_config_settings_view_form_purchase"/>
+        <field name="arch" type="xml">
+            <xpath expr="//setting[@id='manage_purchase_agreements']" position="after">
+                <div class="col-12 col-lg-6 o_setting_box" id="merge_duplicate_line">
+                    <div class="o_setting_left_pane">
+                        <field name="po_merge_duplicate_line" string="Merge Duplicate Products"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="po_merge_duplicate_line"/>
+                        <span title="Values set here are company-specific." aria-label="Values set here are company-specific." groups="base.group_multi_company" role="img"/>
+                        <div class="text-muted">
+                            Automatic merge the duplicate purchase order line when order create or edit
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

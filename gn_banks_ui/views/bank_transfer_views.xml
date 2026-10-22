@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="bank_transfer_form_view_ui" model="ir.ui.view">
+        <field name="name">bank.transfer.form.ui</field>
+        <field name="model">bank.transfer</field>
+        <field name="inherit_id" ref="gn_banks.bank_account_transfer_view"/>
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <xpath expr="//header/button[@name='action_validate']" position="before">
+                <button name="action_submit_for_approval" string="Enviar a aprobación" type="object"
+                        class="btn-secondary"
+                        invisible="state != 'draft' or not approval_required or workflow_state != 'draft'"
+                        groups="gn_banks.banks_debit_credit_user"/>
+                <button name="action_approve" string="Aprobar" type="object"
+                        class="btn-success"
+                        invisible="workflow_state != 'pending_approval'"
+                        groups="gn_banks_ui.banks_approval_manager"/>
+                <button name="action_reject_approval" string="Rechazar" type="object"
+                        class="btn-warning"
+                        invisible="workflow_state != 'pending_approval'"
+                        groups="gn_banks_ui.banks_approval_manager"/>
+            </xpath>
+            <xpath expr="//header/field[@name='state']" position="replace">
+                <field name="workflow_state" invisible="1"/>
+                <field name="approval_required" invisible="1"/>
+                <widget name="bank_status_steps" class="gn-bk-steps--header"/>
+            </xpath>
+            <xpath expr="//sheet/div[hasclass('oe_title')]" position="before">
+                <div class="oe_button_box" name="button_box">
+                    <button name="action_view_account_move" type="object" class="oe_stat_button" icon="fa-book"
+                            invisible="not move_id">
+                        <div class="o_stat_info">
+                            <span class="o_stat_text">Asiento</span>
+                        </div>
+                    </button>
+                    <button name="action_view_attachments" type="object" class="oe_stat_button" icon="fa-paperclip"
+                            invisible="attachment_count == 0">
+                        <field name="attachment_count" widget="statinfo" string="Adjuntos"/>
+                    </button>
+                </div>
+            </xpath>
+            <xpath expr="//widget[@name='web_ribbon' and @text='Borrador']" position="replace"/>
+            <xpath expr="//widget[@name='web_ribbon' and @text='Validado']" position="replace"/>
+            <xpath expr="//widget[@name='web_ribbon' and @text='Cancelado']" position="replace"/>
+            <xpath expr="//div[hasclass('oe_title')]" position="replace">
+                <div class="gn-bk-form-shell">
+                    <field name="ui_operation_type_key" invisible="1"/>
+                    <field name="ui_operation_type_label" invisible="1"/>
+                    <field name="ui_operation_icon" invisible="1"/>
+                    <field name="dest_journal_id" invisible="1"/>
+                    <field name="ui_partner_id" invisible="1"/>
+                    <field name="reconciliation_status" invisible="1"/>
+                    <field name="attachment_count" invisible="1"/>
+                    <field name="validated_by" invisible="1"/>
+                    <field name="validated_date" invisible="1"/>
+                    <field name="approved_by" invisible="1"/>
+                    <field name="submitted_by" invisible="1"/>
+                    <field name="create_uid" invisible="1"/>
+                    <field name="write_uid" invisible="1"/>
+                    <field name="write_date" invisible="1"/>
+                    <field name="create_date" invisible="1"/>
+                    <field name="state" invisible="1"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="ui_document_number" invisible="1"/>
+                    <field name="name" invisible="1"/>
+                    <field name="dummy_name" invisible="1"/>
+                    <field name="error_msg" invisible="1"/>
+                    <widget name="bank_operation_header"/>
+                </div>
+            </xpath>
+            <xpath expr="//group[@name='main_information']" position="after">
+                <div class="gn-bk-layout mt-3">
+                    <div class="gn-bk-aside">
+                        <field name="move_id" invisible="1"/>
+                        <field name="move_type" invisible="1"/>
+                        <widget name="bank_side_panel"/>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="//sheet/group[last()]" position="after">
+                <separator string="Historial"/>
+                <widget name="bank_timeline"/>
+            </xpath>
+            <xpath expr="//field[@name='move_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="bank_transfer_list_view_ui" model="ir.ui.view">
+        <field name="name">bank.transfer.list.ui</field>
+        <field name="model">bank.transfer</field>
+        <field name="inherit_id" ref="gn_banks.bank_account_transfer_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//list" position="attributes">
+                <attribute name="decoration-info">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='state']" position="replace">
+                <field name="workflow_state" string="Estado" widget="badge"
+                       decoration-info="workflow_state == 'draft'"
+                       decoration-warning="workflow_state in ('pending_approval', 'approved')"
+                       decoration-success="workflow_state in ('validated', 'posted', 'reconciled')"
+                       decoration-danger="workflow_state == 'cancelled'"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="gn_banks.action_bank_account_transfer" model="ir.actions.act_window">
+        <field name="view_mode">list,kanban,form</field>
+    </record>
+</odoo>

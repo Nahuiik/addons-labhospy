@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_gn_hr_attendance_correction_request_tree" model="ir.ui.view">
+        <field name="name">gn.hr.attendance.correction.request.tree</field>
+        <field name="model">gn.hr.attendance.correction.request</field>
+        <field name="arch" type="xml">
+            <list string="Correcciones de asistencia" decoration-muted="state in ('rejected',)" decoration-success="state == 'approved'">
+                <field name="employee_id"/>
+                <field name="attendance_id"/>
+                <field name="request_date"/>
+                <field name="current_check_in"/>
+                <field name="current_check_out"/>
+                <field name="requested_check_in"/>
+                <field name="requested_check_out"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_gn_hr_attendance_correction_request_form" model="ir.ui.view">
+        <field name="name">gn.hr.attendance.correction.request.form</field>
+        <field name="model">gn.hr.attendance.correction.request</field>
+        <field name="arch" type="xml">
+            <form string="Solicitud de corrección">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="attendance_id"/>
+                            <field name="request_date"/>
+                            <field name="state"/>
+                            <field name="reason"/>
+                        </group>
+                        <group>
+                            <field name="current_check_in"/>
+                            <field name="current_check_out"/>
+                            <field name="requested_check_in"/>
+                            <field name="requested_check_out"/>
+                            <field name="approver_id" invisible="state != 'approved' and state != 'rejected'"/>
+                            <field name="approved_on" invisible="state != 'approved' and state != 'rejected'"/>
+                            <field name="rejection_reason" invisible="state != 'rejected'"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="action_approve" string="Aprobar" type="object" class="btn-primary"
+                                invisible="state != 'submitted'"/>
+                        <button name="action_reject" string="Rechazar" type="object" class="btn-secondary"
+                                invisible="state != 'submitted'"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_gn_hr_attendance_correction_request" model="ir.actions.act_window">
+        <field name="name">Correcciones de asistencia</field>
+        <field name="res_model">gn.hr.attendance.correction.request</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_submitted': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay solicitudes de corrección de asistencia.
+            </p>
+            <p>
+                Los empleados pueden solicitar correcciones desde el portal cuando detecten errores en sus registros de entrada/salida.
+            </p>
+        </field>
+    </record>
+
+    <!-- Wizard rechazo -->
+    <record id="view_gn_hr_attendance_correction_reject_wizard_form" model="ir.ui.view">
+        <field name="name">gn.hr.attendance.correction.reject.wizard.form</field>
+        <field name="model">gn.hr.attendance.correction.reject.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Rechazar solicitud">
+                <group>
+                    <field name="request_id" invisible="1"/>
+                    <field name="rejection_reason" placeholder="Indique el motivo del rechazo..."/>
+                </group>
+                <footer>
+                    <button name="action_reject" string="Rechazar" type="object" class="btn-danger"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <menuitem id="menu_gn_hr_attendance_correction_request"
+        name="Correcciones de asistencia"
+        parent="hr.menu_human_resources_configuration"
+        action="action_gn_hr_attendance_correction_request"
+        sequence="55"/>
+</odoo>

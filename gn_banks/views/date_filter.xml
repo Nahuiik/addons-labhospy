@@ -1,0 +1,84 @@
+<odoo>
+	<!--  banks debit date filter -->
+	<record id="view_banks_debit_search" model="ir.ui.view">
+   		<field name="name">debit.credit.search</field>
+     	<field name="model">debit.credit</field>
+     	<field name="arch" type="xml">
+     	<search>
+		 	<field name="name"/>
+			<field name="company_id"/>
+			<field name='journal_id'/>
+			<field name="date"/>
+			<field name='description'/>
+			<separator/>
+			<filter name="date" string="Date" date="date"/>
+	        <filter string="Yesterday" name="Yesterday" domain="[('date','=', ((context_today()-datetime.timedelta(days=1)).strftime('%Y-%m-%d 00:00:00')))]"/>
+	        <filter string="Today" name="Today" domain="[('date', '&gt;=', datetime.datetime.now().strftime('%Y-%m-%d 00:00:00')),('date', '&lt;=',datetime.datetime.now().strftime('%Y-%m-%d 23:23:59'))]"/>
+			<filter string="Last 7 Days"  name="Last 7 Days"
+				domain="[('date','&gt;=', ((context_today()+datetime.timedelta(days=-7)).strftime('%Y-%m-%d 00:00:00'))), ('date','&lt;', ((context_today()).strftime('%Y-%m-%d 00:00:00')))]"/>
+	                    
+	        <filter string="Last 30 Days" name="Last 30 Days"
+				domain="[('date','&gt;=', ((context_today()+datetime.timedelta(days=-30)).strftime('%Y-%m-%d 00:00:00'))), ('date','&lt;', ((context_today()).strftime('%Y-%m-%d 00:00:00')))]"/>
+			 		
+			<filter string="This weeks" name="this_week" 
+				domain="[('date','&gt;=',(context_today()+relativedelta(weeks=-1,days=1,weekday=-1)).strftime('%Y-%m-%d 00:00:00')),
+						('date','&lt;',(context_today()+relativedelta(weeks=0, weekday=6)).strftime('%Y-%m-%d 23:59:59'))]" />
+	     					  
+			<filter string="Last weeks" name="last_week" 
+				domain="[('date','&gt;=',(context_today()+relativedelta(weeks=-2,days=-1,weekday=-1)).strftime('%Y-%m-%d 00:00:00')),
+				('date','&lt;',(context_today()+relativedelta(weeks=-1, weekday=6)).strftime('%Y-%m-%d 23:59:59'))]" />
+			 		
+			<filter string="This Year"  name="Year" domain="[('date','&lt;=', time.strftime('%%Y-12-31 00:00:00')),('date','&gt;=',time.strftime('%%Y-01-01 23:59:59'))]"/>
+			<separator/>
+         	<filter string="Bank Debits Weekly" name="Bank Debits Weekly" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'date:week'}"/>
+			<filter string="Bank Debits Year" name="Bank Debits Year" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'date:year'}"/>
+			<filter string="Banco" name="Banco" domain="[]" context="{'group_by': 'journal_id'}"/>
+			<filter string="Compañia" name="Compañia" domain="[]" context="{'group_by': 'company_id'}"/>
+			<filter string="Moneda" name="Moneda" domain="[]" context="{'group_by': 'currency_id'}"/>
+		</search>
+     	</field>
+	</record>
+	
+	<record id="view_check_search" model="ir.ui.view">
+   		<field name="name">bank.check.search</field>
+     	<field name="model">bank.check</field>
+     	<field name="arch" type="xml">
+     	<search>
+		 	<field name="name"/>
+			<field name="company_id"/>
+			<field name='journal_id'/>
+			<field name="date"/>
+			<field name='description'/>
+			<separator/>
+			<filter name="date" string="Date" date="date"/>
+	        <filter string="Yesterday" name="Yesterday" domain="[('date','=', ((context_today()-datetime.timedelta(days=1)).strftime('%Y-%m-%d 00:00:00')))]"/>
+	        <filter string="Today" name="Today" domain="[('date', '&gt;=', datetime.datetime.now().strftime('%Y-%m-%d 00:00:00')),('date', '&lt;=',datetime.datetime.now().strftime('%Y-%m-%d 23:23:59'))]"/>
+			<filter string="Last 7 Days"  name="Last 7 Days"
+				domain="[('date','&gt;=', ((context_today()+datetime.timedelta(days=-7)).strftime('%Y-%m-%d 00:00:00'))), ('date','&lt;', ((context_today()).strftime('%Y-%m-%d 00:00:00')))]"/>
+	                    
+	        <filter string="Last 30 Days" name="Last 30 Days"
+				domain="[('date','&gt;=', ((context_today()+datetime.timedelta(days=-30)).strftime('%Y-%m-%d 00:00:00'))), ('date','&lt;', ((context_today()).strftime('%Y-%m-%d 00:00:00')))]"/>
+			 		
+			<filter string="This weeks" name="this_week" 
+				domain="[('date','&gt;=',(context_today()+relativedelta(weeks=-1,days=1,weekday=-1)).strftime('%Y-%m-%d 00:00:00')),
+						('date','&lt;',(context_today()+relativedelta(weeks=0, weekday=6)).strftime('%Y-%m-%d 23:59:59'))]" />
+	     					  
+			<filter string="Last weeks" name="last_week" 
+				domain="[('date','&gt;=',(context_today()+relativedelta(weeks=-2,days=-1,weekday=-1)).strftime('%Y-%m-%d 00:00:00')),
+				('date','&lt;',(context_today()+relativedelta(weeks=-1, weekday=6)).strftime('%Y-%m-%d 23:59:59'))]" />
+			 		
+			<filter string="This Year"  name="Year" domain="[('date','&lt;=', time.strftime('%%Y-12-31 00:00:00')),('date','&gt;=',time.strftime('%%Y-01-01 23:59:59'))]"/>
+			<separator/>
+         	<filter string="Bank Debits Weekly" name="Bank Debits Weekly" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'date:week'}"/>
+			<filter string="Bank Debits Year" name="Bank Debits Year" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'date:year'}"/>
+			<filter string="Banco" name="Banco" domain="[]" context="{'group_by': 'journal_id'}"/>
+			<filter string="Partner" name="Partner" domain="[]" context="{'group_by': 'partner_id'}"/>
+			<filter string="Compañia" name="Compañia" domain="[]" context="{'group_by': 'company_id'}"/>
+			<filter string="Moneda" name="Moneda" domain="[]" context="{'group_by': 'currency_id'}"/>
+		</search>
+     	</field>
+	</record>
+	
+	
+
+</odoo>

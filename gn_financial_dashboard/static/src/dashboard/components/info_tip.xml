@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_financial_dashboard.InfoTip">
+        <span class="gn-fd-infotip" tabindex="0">
+            <i class="fa fa-question-circle-o"/>
+            <span class="gn-fd-infotip__tooltip" role="tooltip">
+                <strong t-if="props.title" class="d-block mb-1" t-esc="props.title"/>
+                <span t-if="props.desc" class="d-block mb-1" t-esc="props.desc"/>
+                <span t-if="props.formula" class="d-block"><b>Cálculo: </b><t t-esc="props.formula"/></span>
+                <span t-if="props.accounts" class="d-block"><b>Cuentas: </b><t t-esc="props.accounts"/></span>
+                <span t-if="props.hint" class="d-block mt-1 fst-italic" t-esc="props.hint"/>
+            </span>
+        </span>
+    </t>
+
+</templates>

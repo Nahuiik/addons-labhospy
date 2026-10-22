@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista de lista para actividad de usuarios -->
+    <record id="view_monitor_user_activity_line_tree" model="ir.ui.view">
+        <field name="name">monitor.user_activity_line.list</field>
+        <field name="model">monitor.user_activity_line</field>
+        <field name="arch" type="xml">
+            <list string="Usuarios Activos" decoration-danger="archived == True">
+                <field name="instance_id"/>
+                <field name="user_login"/>
+                <field name="user_name"/>
+                <field name="user_type" widget="badge" 
+                       decoration-info="user_type == 'internal'"
+                       decoration-success="user_type == 'portal'"/>
+                <field name="devices_count"/>
+                <field name="last_activity"/>
+                <field name="archived" invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Vista de búsqueda -->
+    <record id="view_monitor_user_activity_line_search" model="ir.ui.view">
+        <field name="name">monitor.user_activity_line.search</field>
+        <field name="model">monitor.user_activity_line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="user_login"/>
+                <field name="user_name"/>
+                <field name="instance_id"/>
+                <field name="last_activity"/>
+                <filter string="Internos" name="internal" domain="[('user_type', '=', 'internal')]"/>
+                <filter string="Portal" name="portal" domain="[('user_type', '=', 'portal')]"/>
+                <group>
+                    <filter string="Instancia" name="group_instance" domain="[]" context="{'group_by': 'instance_id'}"/>
+                    <filter string="Tipo" name="group_type" domain="[]" context="{'group_by': 'user_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Acción para actividad de usuarios -->
+    <record id="action_monitor_user_activity_line" model="ir.actions.act_window">
+        <field name="name">Usuarios Activos</field>
+        <field name="res_model">monitor.user_activity_line</field>
+        <field name="view_mode">list</field>
+        <field name="search_view_id" ref="view_monitor_user_activity_line_search"/>
+        <field name="context">{'search_default_last_hour': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay usuarios activos en este momento
+            </p>
+            <p>
+                Los usuarios aparecerán aquí cuando tengan actividad en las últimas horas.
+            </p>
+        </field>
+    </record>
+</odoo>
+

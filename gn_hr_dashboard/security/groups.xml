@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="res.groups.privilege" id="res_groups_privilege_gn_hr_dashboard">
+        <field name="name">GN HR Dashboard</field>
+        <field name="sequence">31</field>
+        <field name="category_id" ref="base.module_category_human_resources"/>
+    </record>
+
+    <record id="group_gn_hr_dashboard_regional" model="res.groups">
+        <field name="name">Dashboard regional HR (multi-compañía)</field>
+        <field name="sequence">10</field>
+        <field name="privilege_id" ref="res_groups_privilege_gn_hr_dashboard"/>
+        <field name="implied_ids" eval="[(4, ref('hr.group_hr_user')), (4, ref('hr.group_hr_manager'))]"/>
+        <field name="comment">Acceso a la pestaña y datos JSON del dashboard regional. Incluye Responsable RRHH para poder leer campos de contrato (contract_date_*) usados en KPIs y dominios.</field>
+    </record>
+</odoo>

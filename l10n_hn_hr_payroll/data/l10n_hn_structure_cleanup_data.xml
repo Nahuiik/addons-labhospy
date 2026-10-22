@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- ============================================ -->
+        <!-- LIMPIEZA DE REGLAS DUPLICADAS -->
+        <!-- ============================================ -->
+        <!-- Este archivo elimina reglas duplicadas que vienen del módulo base -->
+        <!-- Se ejecuta después de crear todas las reglas -->
+        
+        <function model="hr.payroll.structure" name="cleanup_duplicate_rules"/>
+    </data>
+</odoo>

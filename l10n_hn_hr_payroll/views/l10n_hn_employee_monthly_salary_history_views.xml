@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_l10n_hn_employee_monthly_salary_history_list" model="ir.ui.view">
+        <field name="name">l10n.hn.employee.monthly.salary.history.list</field>
+        <field name="model">l10n.hn.employee.monthly.salary.history</field>
+        <field name="arch" type="xml">
+            <list string="Historial salarial mensual" sample="1">
+                <field name="year"/>
+                <field name="month"/>
+                <field name="employee_id"/>
+                <field name="identification_snapshot" string="DNI"/>
+                <field name="hire_date_snapshot" string="Fecha ingreso"/>
+                <field name="department_id" optional="show"/>
+                <field name="job_id" optional="show"/>
+                <field name="periodicity_snapshot" optional="hide"/>
+                <field name="amount_net" widget="monetary" sum="Total neto"/>
+                <field name="amount_commission" widget="monetary" optional="show" sum="Total com."/>
+                <field name="amount_monthly_display" widget="monetary" string="Salario mensual" sum="Total mostrado"/>
+                <field name="historical_increase_count" string="# Aumentos"/>
+                <field name="delta_vs_previous" widget="monetary" optional="hide"/>
+                <field name="data_source" optional="show"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_l10n_hn_employee_monthly_salary_history_form" model="ir.ui.view">
+        <field name="name">l10n.hn.employee.monthly.salary.history.form</field>
+        <field name="model">l10n.hn.employee.monthly.salary.history</field>
+        <field name="arch" type="xml">
+            <form string="Historial salarial mensual">
+                <sheet>
+                    <group>
+                        <group string="Empleado y período">
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="employee_id"/>
+                            <field name="year"/>
+                            <field name="month"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group string="Datos (instantánea)">
+                            <field name="identification_snapshot"/>
+                            <field name="hire_date_snapshot"/>
+                            <field name="department_id"/>
+                            <field name="job_id"/>
+                            <field name="periodicity_snapshot"/>
+                            <field name="data_source"/>
+                        </group>
+                    </group>
+                    <group string="Montos">
+                        <group>
+                            <field name="amount_net" widget="monetary"/>
+                            <field name="amount_commission" widget="monetary"/>
+                            <field name="amount_monthly_display" widget="monetary" string="Salario mensual (mostrado)"/>
+                        </group>
+                        <group string="Comparativo">
+                            <field name="previous_month_display" widget="monetary"/>
+                            <field name="delta_vs_previous" widget="monetary"/>
+                            <field name="historical_increase_count" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Aumentos salariales del mes">
+                            <field name="historical_increase_ids" nolabel="1" readonly="1">
+                                <list>
+                                    <field name="date"/>
+                                    <field name="previous_wage"/>
+                                    <field name="new_wage"/>
+                                    <field name="increase_amount"/>
+                                    <field name="increase_percentage" optional="show"/>
+                                    <field name="previous_job_id" optional="hide"/>
+                                    <field name="new_job_id" optional="hide"/>
+                                    <field name="previous_department_id" optional="hide"/>
+                                    <field name="new_department_id" optional="hide"/>
+                                    <field name="increase_id" optional="show"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Recibos agregados" invisible="data_source != 'payslip'">
+                            <field name="payslip_ids" nolabel="1" readonly="1">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="date_from"/>
+                                    <field name="date_to"/>
+                                    <field name="state"/>
+                                    <field name="payslip_net_total" widget="monetary" string="Neto"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notas">
+                            <field name="notes" placeholder="Observaciones internas…"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_l10n_hn_employee_monthly_salary_history_search" model="ir.ui.view">
+        <field name="name">l10n.hn.employee.monthly.salary.history.search</field>
+        <field name="model">l10n.hn.employee.monthly.salary.history</field>
+        <field name="arch" type="xml">
+            <search string="Historial salarial mensual">
+                <field name="employee_id"/>
+                <field name="identification_snapshot"/>
+                <field name="year"/>
+                <field name="month"/>
+                <field name="department_id"/>
+                <field name="job_id"/>
+                <filter string="Desde nómina" name="src_payslip" domain="[('data_source', '=', 'payslip')]"/>
+                <filter string="Importación" name="src_import" domain="[('data_source', '=', 'import')]"/>
+                <separator/>
+                <group>
+                    <filter string="Año" name="gyear" context="{'group_by': 'year'}"/>
+                    <filter string="Mes" name="gmonth" context="{'group_by': 'month'}"/>
+                    <filter string="Empleado" name="gemp" context="{'group_by': 'employee_id'}"/>
+                    <filter string="Departamento" name="gdep" context="{'group_by': 'department_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_l10n_hn_employee_monthly_salary_history" model="ir.actions.act_window">
+        <field name="name">Historial salarial mensual</field>
+        <field name="res_model">l10n.hn.employee.monthly.salary.history</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_l10n_hn_employee_monthly_salary_history_search"/>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Registre el salario mensual consolidado por empleado
+            </p>
+            <p>
+                Use <strong>Generar desde nómina</strong> para crear filas a partir de recibos
+                (suma de netos quincenales en el mes o mensual).
+                Los aumentos validados aparecen enlazados por mes. Importe datos previos con el asistente Excel.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_l10n_hn_monthly_salary_history_import_wizard" model="ir.actions.act_window">
+        <field name="name">Importar historial salarial</field>
+        <field name="res_model">l10n.hn.monthly.salary.history.import.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="action_l10n_hn_monthly_salary_history_generate_wizard" model="ir.actions.act_window">
+        <field name="name">Generar historial desde nómina</field>
+        <field name="res_model">l10n.hn.monthly.salary.history.generate.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

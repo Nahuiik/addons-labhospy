@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_financial_dashboard.VariancePanel">
+        <section class="gn-fd-panel gn-fd-variance">
+            <header class="gn-fd-panel__head">
+                <span>
+                    <i class="fa fa-exchange me-2"/>Análisis de variaciones
+                </span>
+                <small class="text-muted">Top cuentas y terceros que explican los deltas</small>
+            </header>
+            <div t-if="!props.items.length" class="gn-fd-analysis__item gn-fd-analysis__item--info">
+                <i class="fa fa-info-circle me-2"/>
+                Sin variaciones relevantes vs el período comparativo.
+            </div>
+            <div t-foreach="props.items" t-as="item" t-key="item.kpi" class="gn-fd-variance__item">
+                <div class="gn-fd-variance__head">
+                    <strong t-esc="item.label"/>
+                    <span t-att-class="'gn-fd-variance__delta ' + directionCls(item)">
+                        <t t-esc="fmt(item.delta)"/><t t-esc="pctTxt(item)"/>
+                    </span>
+                </div>
+                <p class="gn-fd-variance__narrative" t-esc="item.narrative"/>
+
+                <div t-if="item.accounts.length" class="gn-fd-variance__group">
+                    <span class="gn-fd-variance__group-title">Cuentas que más cambiaron</span>
+                    <ul class="gn-fd-variance__list">
+                        <li t-foreach="item.accounts" t-as="acc" t-key="acc.account_id"
+                            class="gn-fd-variance__row"
+                            t-on-click="() => this.onAccountClick(acc, item)">
+                            <span class="gn-fd-variance__row-name" t-esc="acc.name"/>
+                            <span class="gn-fd-variance__row-delta" t-esc="fmt(acc.delta)"/>
+                            <span class="gn-fd-variance__row-share">
+                                <t t-esc="acc.share"/>%
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div t-if="item.partners.length" class="gn-fd-variance__group">
+                    <span class="gn-fd-variance__group-title">Terceros que más cambiaron</span>
+                    <ul class="gn-fd-variance__list">
+                        <li t-foreach="item.partners" t-as="p" t-key="p.partner_id"
+                            class="gn-fd-variance__row"
+                            t-on-click="() => this.onPartnerClick(p, item)">
+                            <span class="gn-fd-variance__row-name" t-esc="p.name"/>
+                            <span class="gn-fd-variance__row-delta" t-esc="fmt(p.delta)"/>
+                            <span class="gn-fd-variance__row-share">
+                                <t t-esc="p.share"/>%
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </t>
+
+</templates>

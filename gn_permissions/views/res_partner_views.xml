@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_property_form_payment_terms_permission" model="ir.ui.view">
+        <field name="name">res.partner.property.form.payment.terms.permission</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.view_partner_property_form"/>
+        <field name="priority">50</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='property_payment_term_id']" position="before">
+                <field name="gn_can_edit_payment_terms" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='property_payment_term_id']" position="attributes">
+                <attribute name="readonly">not gn_can_edit_payment_terms</attribute>
+            </xpath>
+            <xpath expr="//field[@name='property_supplier_payment_term_id']" position="attributes">
+                <attribute name="readonly">not gn_can_edit_payment_terms</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

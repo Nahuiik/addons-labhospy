@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hn_vacation_status_report_wizard_form" model="ir.ui.view">
+        <field name="name">hn.vacation.status.report.wizard.form</field>
+        <field name="model">hn.vacation.status.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Exportar Estatus Vacaciones a Excel">
+                <sheet>
+                    <group string="Tipo de Reporte">
+                        <group>
+                            <field name="report_type" widget="radio"/>
+                            <field name="project_available" invisible="1"/>
+                        </group>
+                    </group>
+                    <group string="Opciones">
+                        <group>
+                            <field name="only_with_plan"/>
+                            <field name="only_with_contract"/>
+                            <field name="sort_by"/>
+                        </group>
+                    </group>
+                    <group string="Filtros opcionales">
+                        <group>
+                            <field name="company_ids" widget="many2many_tags" options="{'no_create': True}"
+                                groups="base.group_multi_company"/>
+                            <field name="department_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                            <field name="employee_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_generate_excel" type="object" string="GENERAR EXCEL" class="btn-primary" icon="fa-file-excel-o"/>
+                    <button name="action_show_onscreen" type="object" string="Ver en pantalla" class="btn-secondary"/>
+                    <button special="cancel" string="CANCELAR"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hn_vacation_status_report_wizard" model="ir.actions.act_window">
+        <field name="name">Exportar estatus vacaciones</field>
+        <field name="res_model">hn.vacation.status.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Acción para reporte por departamento/asignación/proyecto (usada en dashboard empleados) -->
+    <record id="action_hn_vacation_report_by_dept_project" model="ir.actions.act_window">
+        <field name="name">Reporte vacaciones por departamento, asignación, proyecto</field>
+        <field name="res_model">hn.vacation.status.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_report_type': 'department'}</field>
+    </record>
+</odoo>

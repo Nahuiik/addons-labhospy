@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_banks_balance.WeeklySummaryTable">
+        <div class="gn-wb-summary-table-wrap">
+            <table class="table table-sm gn-wb-summary-table mb-0">
+                <thead>
+                    <tr>
+                        <th class="gn-wb-summary-table__sticky"/>
+                        <th class="gn-wb-summary-table__sticky">Semana</th>
+                        <th class="gn-wb-summary-table__sticky">Rango</th>
+                        <th class="gn-wb-summary-table__sticky text-end">Saldo ini.</th>
+                        <th class="gn-wb-summary-table__sticky text-end gn-wb-cell--inflow">Ingresos</th>
+                        <th class="gn-wb-summary-table__sticky text-end gn-wb-cell--outflow">Salidas</th>
+                        <th class="gn-wb-summary-table__sticky text-end">Neto</th>
+                        <th class="gn-wb-summary-table__sticky text-end">Saldo final</th>
+                        <th class="gn-wb-summary-table__sticky text-end">DIF ant.</th>
+                        <th class="gn-wb-summary-table__sticky">Banco principal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="props.weeks" t-as="week" t-key="week.key">
+                        <tr t-attf-class="gn-wb-summary-table__row {{ isHighlighted(week) ? 'gn-wb-summary-table__row--highlight' : '' }}"
+                            t-on-mouseenter="() => this.onRowEnter(week)"
+                            t-on-mouseleave="onRowLeave">
+                            <td>
+                                <button type="button" class="btn btn-link btn-sm p-0"
+                                        t-on-click="() => this.toggleExpand(week.key)">
+                                    <i t-att-class="isExpanded(week.key) ? 'fa fa-chevron-down' : 'fa fa-chevron-right'"/>
+                                </button>
+                            </td>
+                            <td class="fw-semibold" t-esc="week.label"/>
+                            <td class="text-muted small text-nowrap" t-esc="week.period_label"/>
+                            <td class="text-end gn-wb-num gn-wb-clickable"
+                                t-on-click="() => this.onCellClick(week, 'opening')">
+                                <t t-esc="fmt(week.initial_balance)"/>
+                            </td>
+                            <td class="text-end gn-wb-num gn-wb-cell--inflow gn-wb-clickable"
+                                t-on-click="() => this.onCellClick(week, 'inflow')">
+                                <t t-esc="fmt(week.inflows)"/>
+                            </td>
+                            <td class="text-end gn-wb-num gn-wb-cell--outflow gn-wb-clickable"
+                                t-on-click="() => this.onCellClick(week, 'outflow')">
+                                <t t-esc="fmt(week.outflows)"/>
+                            </td>
+                            <td class="text-end gn-wb-num gn-wb-clickable"
+                                t-att-class="week.net_flow >= 0 ? 'gn-wb-cell--inflow' : 'gn-wb-cell--outflow'"
+                                t-on-click="() => this.onCellClick(week, 'net')">
+                                <t t-esc="fmt(week.net_flow)"/>
+                            </td>
+                            <td class="text-end gn-wb-num fw-semibold gn-wb-clickable"
+                                t-on-click="() => this.onCellClick(week, 'closing')">
+                                <t t-esc="fmt(week.final_balance)"/>
+                            </td>
+                            <td t-attf-class="text-end gn-wb-num {{ deltaClass(week.difference_previous_week) }}">
+                                <i t-att-class="'fa me-1 ' + deltaIcon(week.difference_previous_week)"/>
+                                <t t-esc="fmt(week.difference_previous_week)"/>
+                            </td>
+                            <td class="text-truncate" t-att-title="week.main_bank" t-esc="week.main_bank"/>
+                        </tr>
+                        <tr t-if="isExpanded(week.key)">
+                            <td t-att-colspan="10" class="p-0">
+                                <BankDetailExpandable
+                                    week="week"
+                                    currencyId="props.currencyId"
+                                    onDrilldown.bind="props.onDrilldown"
+                                />
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_sales_dashboard.SalesForecastChart">
+        <section class="gn-sd-panel">
+            <h3 class="gn-sd-panel__title">Pronóstico de ventas</h3>
+            <p t-if="props.config?.method_label" class="gn-sd-panel__subtitle">
+                Método: <t t-esc="props.config.method_label"/>
+                · Confianza: <t t-esc="props.config?.confidence or 0"/>%
+            </p>
+            <div t-if="props.loading" class="gn-sd-skeleton gn-sd-skeleton--chart"/>
+            <div t-elif="props.config?.insufficient_data" class="gn-sd-empty gn-sd-empty--sm">
+                <p t-esc="props.config?.message or 'Datos insuficientes'"/>
+            </div>
+            <div t-else="" class="gn-sd-hero__canvas" t-ref="chartRoot"/>
+        </section>
+    </t>
+</templates>

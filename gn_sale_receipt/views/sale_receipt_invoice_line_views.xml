@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_sale_receipt_invoice_line_list" model="ir.ui.view">
+            <field name="name">sale.receipt.invoice.line.list</field>
+            <field name="model">sale.receipt.invoice.line</field>
+            <field name="arch" type="xml">
+                <list string="Asignaciones de facturas">
+                    <field name="receipt_id"/>
+                    <field name="invoice_id"/>
+                    <field name="assigned_amount"/>
+                </list>
+            </field>
+        </record>
+    </data>
+</odoo>

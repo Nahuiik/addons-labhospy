@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_gn_fd_user_pref_form" model="ir.ui.view">
+        <field name="name">gn.financial.dashboard.user.pref.form</field>
+        <field name="model">gn.financial.dashboard.user.pref</field>
+        <field name="arch" type="xml">
+            <form string="Mis preferencias del Tablero Financiero">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="user_id" readonly="1"/>
+                            <field name="company_id" options="{'no_create': True}"/>
+                        </group>
+                        <group>
+                            <field name="compact_mode"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Visibilidad" name="visibility">
+                            <group>
+                                <group string="Pestañas">
+                                    <field name="show_overview"/>
+                                    <field name="show_profitability"/>
+                                    <field name="show_liquidity"/>
+                                    <field name="show_cashflow"/>
+                                    <field name="show_aging"/>
+                                </group>
+                                <group string="Secciones">
+                                    <field name="show_expense_ranking"/>
+                                    <field name="show_partner_ranking"/>
+                                    <field name="show_analysis"/>
+                                    <field name="show_data_quality"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Orden" name="order">
+                            <p class="text-muted">
+                                Dejar en 0 para usar el orden definido por la compañía.
+                            </p>
+                            <group>
+                                <group string="Pestañas">
+                                    <field name="seq_overview"/>
+                                    <field name="seq_profitability"/>
+                                    <field name="seq_liquidity"/>
+                                    <field name="seq_cashflow"/>
+                                    <field name="seq_aging"/>
+                                </group>
+                                <group string="Secciones">
+                                    <field name="seq_expense_ranking"/>
+                                    <field name="seq_partner_ranking"/>
+                                    <field name="seq_analysis"/>
+                                    <field name="seq_data_quality"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_gn_fd_user_pref_my" model="ir.actions.server">
+        <field name="name">Mis preferencias del Tablero Financiero</field>
+        <field name="model_id" ref="model_gn_financial_dashboard_user_pref"/>
+        <field name="state">code</field>
+        <field name="code">
+pref = env['gn.financial.dashboard.user.pref'].get_or_create_for()
+action = {
+    'type': 'ir.actions.act_window',
+    'name': 'Mis preferencias del Tablero Financiero',
+    'res_model': 'gn.financial.dashboard.user.pref',
+    'view_mode': 'form',
+    'res_id': pref.id,
+    'target': 'current',
+}
+        </field>
+    </record>
+
+    <menuitem id="menu_gn_fd_user_pref_my"
+              name="Mis preferencias del Tablero"
+              parent="account.menu_finance_configuration"
+              action="action_gn_fd_user_pref_my"
+              sequence="100"/>
+</odoo>

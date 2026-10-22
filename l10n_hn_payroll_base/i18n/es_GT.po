@@ -1,0 +1,2610 @@
+# Translation of Odoo Server.
+# This file translates the l10n_hn_payroll_base module for Spanish (Guatemala) es_GT.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-16 12:00+0000\n"
+"PO-Revision-Date: 2026-05-16 12:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Spanish (Guatemala)\n"
+"Language: es_GT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.module.category,name:l10n_hn_payroll_base.module_category_l10n_hn_payroll_base
+msgid "Payroll (HN Base)"
+msgstr "Nómina (base HN)"
+
+#. module: l10n_hn_payroll_base
+#: model:res.groups.privilege,name:l10n_hn_payroll_base.res_groups_privilege_hn_payroll
+msgid "Honduras Payroll Base"
+msgstr "Nómina Honduras (base)"
+
+#. module: l10n_hn_payroll_base
+#: model:res.groups,name:l10n_hn_payroll_base.group_hn_payroll_user
+msgid "Payroll officer"
+msgstr "Oficial de nómina"
+
+#. module: l10n_hn_payroll_base
+#: model:res.groups,name:l10n_hn_payroll_base.group_hn_payroll_manager
+msgid "Payroll manager"
+msgstr "Responsable de nómina"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.ui.menu,name:l10n_hn_payroll_base.menu_hn_payroll_root
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.res_config_settings_view_payroll
+msgid "Payroll"
+msgstr "Nómina"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.ui.menu,name:l10n_hn_payroll_base.menu_hn_payroll_configuration
+#: model:ir.ui.menu,name:l10n_hn_payroll_base.menu_hr_payroll_configuration
+msgid "Configuration"
+msgstr "Configuración"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.ui.menu,name:l10n_hn_payroll_base.menu_hn_payroll_dashboard
+msgid "Dashboard"
+msgstr "Tablero"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.actions.client,name:l10n_hn_payroll_base.action_payroll_hub
+#: model:ir.ui.menu,name:l10n_hn_payroll_base.menu_hn_payroll_dashboard
+msgid "Dashboard"
+msgstr "Tablero"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.actions.act_window,name:l10n_hn_payroll_base.action_view_hr_payslip_form
+msgid "Employee Payslips"
+msgstr "Recibos de empleados"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.actions.act_window,name:l10n_hn_payroll_base.action_hr_payslip_new
+#: model:ir.ui.menu,name:l10n_hn_payroll_base.menu_hn_payslip_new
+msgid "New Payslip"
+msgstr "Nuevo recibo"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+#: model:ir.actions.act_window,name:l10n_hn_payroll_base.action_hr_payroll_structure
+#: model:ir.ui.menu,name:l10n_hn_payroll_base.menu_hn_structure
+msgid "Pay structures"
+msgstr "Estructuras salariales"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.actions.act_window,name:l10n_hn_payroll_base.action_hr_contribution_register
+#: model:ir.ui.menu,name:l10n_hn_payroll_base.menu_hn_contrib
+msgid "Contribution registers"
+msgstr "Registros de aportaciones"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.actions.act_window,name:l10n_hn_payroll_base.action_hr_salary_rule_category
+#: model:ir.ui.menu,name:l10n_hn_payroll_base.menu_hn_rule_cat
+msgid "Salary categories"
+msgstr "Categorías salariales"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.actions.act_window,name:l10n_hn_payroll_base.action_hr_salary_rule
+msgid "Salary rules"
+msgstr "Reglas salariales"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.actions.act_window,name:l10n_hn_payroll_base.action_hr_version_advantage_template
+#: model:ir.ui.menu,name:l10n_hn_payroll_base.menu_hr_version_advantage_template
+msgid "Contract advantage templates"
+msgstr "Plantillas de beneficios de contrato"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.actions.act_window,name:l10n_hn_payroll_base.action_hr_payslip_by_employees
+msgid "Generate payslips"
+msgstr "Generar recibos de pago"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.actions.act_window,name:l10n_hn_payroll_base.action_payslip_contribution_register
+msgid "Contribution register"
+msgstr "Registro de aportaciones"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.actions.report,name:l10n_hn_payroll_base.action_report_contribution_register
+msgid "Contribution register"
+msgstr "Registro de aportaciones"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.actions.report,name:l10n_hn_payroll_base.action_report_payslip
+msgid "Payslip"
+msgstr "Recibo de pago"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.actions.report,name:l10n_hn_payroll_base.action_report_payslip_details
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.report_payslipdetails
+msgid "Payslip details"
+msgstr "Detalle del recibo de pago"
+
+#. module: l10n_hn_payroll_base
+#. odoo-javascript
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+#: code:addons/l10n_hn_payroll_base/static/src/payroll_hub/payroll_hub.js:0
+msgid "Today"
+msgstr "Hoy"
+
+#. module: l10n_hn_payroll_base
+#. odoo-javascript
+#: code:addons/l10n_hn_payroll_base/static/src/payroll_hub/payroll_hub.js:0
+msgid "Loading…"
+msgstr "Cargando…"
+
+#. module: l10n_hn_payroll_base
+#. odoo-javascript
+#: code:addons/l10n_hn_payroll_base/static/src/payroll_hub/payroll_hub.js:0
+msgid "Could not load payroll alerts."
+msgstr "No se pudieron cargar las alertas de nómina."
+
+#. module: l10n_hn_payroll_base
+#. odoo-javascript
+#: code:addons/l10n_hn_payroll_base/static/src/payroll_hub/payroll_hub.js:0
+msgid "No alerts for now. Your payroll data looks up to date."
+msgstr "Sin alertas por ahora. Los datos de nómina están al día."
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.res_config_settings_view_payroll
+msgid "Payroll (HN)"
+msgstr "Nómina (HN)"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.res_config_settings_view_payroll
+msgid "Reports"
+msgstr "Reportes"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.res_config_settings_view_payroll
+msgid "Payslip PDF layout"
+msgstr "Diseño PDF del recibo de pago"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.res_config_settings_view_payroll
+msgid "Company-wide payslip print style."
+msgstr "Estilo de impresión del recibo para toda la compañía."
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_payslip_contribution_register
+msgid "Contribution register"
+msgstr "Registro de aportaciones"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_form
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_payslip_contribution_register
+msgid "Print"
+msgstr "Imprimir"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_by_employees
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_payslip_contribution_register
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.actions.report,name:l10n_hn_payroll_base.action_report_payslip
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_input__payslip_id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_worked_days__payslip_id
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.report_payslip
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_form
+msgid "Payslip"
+msgstr "Recibo de pago"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_form
+msgid "Validate"
+msgstr "Validar"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_form
+msgid "Compute"
+msgstr "Calcular"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_form
+msgid "Refund"
+msgstr "Nota de crédito"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_form
+msgid "Set to draft"
+msgstr "Restablecer a borrador"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_form
+msgid "Reject"
+msgstr "Rechazar"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__payslip_line_stats
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_form
+msgid "Lines"
+msgstr "Líneas"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_payslip_run_form
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_form
+msgid "Period"
+msgstr "Periodo"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__total_worked_days
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_form
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_tree
+msgid "Worked days"
+msgstr "Días trabajados"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__input_line_ids
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__input_ids
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule__input_ids
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_form
+msgid "Inputs"
+msgstr "Entradas"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_form
+msgid "Computation"
+msgstr "Cómputo"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_form
+msgid "Notes"
+msgstr "Notas"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields.selection,name:l10n_hn_payroll_base.selection__hr_payslip__state__draft
+#: model:ir.model.fields.selection,name:l10n_hn_payroll_base.selection__hr_payslip_run__state__draft
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_payslip_run_search
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_search
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields.selection,name:l10n_hn_payroll_base.selection__hr_payslip__state__done
+#: model:ir.model.fields.selection,name:l10n_hn_payroll_base.selection__hr_payslip_run__state__done
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_payslip_run_search
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_search
+msgid "Done"
+msgstr "Hecho"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_payslip_run_tree
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_payslip_run_form
+msgid "Generate payslips"
+msgstr "Generar recibos de pago"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_payslip_run_form
+msgid "Reset to draft"
+msgstr "Restablecer a borrador"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_payslip_run_form
+msgid "Payslips"
+msgstr "Recibos de pago"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields.selection,name:l10n_hn_payroll_base.selection__hr_salary_attachment__state__close
+msgid "Closed"
+msgstr "Cerrado"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_by_employees
+msgid "Generate"
+msgstr "Generar"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_by_employees
+msgid "Generate payslips"
+msgstr "Generar recibos de pago"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.actions.act_window,name:l10n_hn_payroll_base.action_hr_salary_rule
+#: model:ir.ui.menu,name:l10n_hn_payroll_base.menu_hn_salary_rule
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payroll_structure_form
+msgid "Salary rules"
+msgstr "Reglas salariales"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_salary_rule_form
+msgid "Conditions"
+msgstr "Condiciones"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_salary_rule_form
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_form
+msgid "Computation"
+msgstr "Cómputo"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_salary_rule_form
+msgid "Rules"
+msgstr "Reglas"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_salary_rule_form_account
+msgid "Accounting"
+msgstr "Contabilidad"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_employee_form_payroll_hn
+msgid "Payslips"
+msgstr "Recibos de pago"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_employee_form_payroll_hn
+msgid "Salary Structure"
+msgstr "Estructura salarial"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_employee__journal_id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__journal_id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_run__journal_id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_version__journal_id
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_employee_form_payroll_hn
+msgid "Salary Journal"
+msgstr "Diario de salarios"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model,name:l10n_hn_payroll_base.model_hr_payroll_structure
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_employee__struct_id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__struct_id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_run__structure_id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule__struct_id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_version__struct_id
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_contract_template_form_payroll
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_employee_form_payroll_hn
+msgid "Salary Structure"
+msgstr "Estructura salarial"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_employee_form_payroll_hn
+msgid "Salary Information"
+msgstr "Información salarial"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.ui.menu,name:l10n_hn_payroll_base.menu_hn_payroll_employees
+msgid "Employees"
+msgstr "Empleados"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_employees__employee_ids
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_run__employee_count
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__employee_ids
+#: model:ir.ui.menu,name:l10n_hn_payroll_base.menu_hn_payroll_employees
+#: model:ir.ui.menu,name:l10n_hn_payroll_base.menu_hn_payroll_employees_list
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_payslip_run_tree
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_by_employees
+msgid "Employees"
+msgstr "Empleados"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.ui.menu,name:l10n_hn_payroll_base.menu_hn_payroll_time_off
+msgid "Time Off"
+msgstr "Ausencias"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.ui.menu,name:l10n_hn_payroll_base.menu_hn_payroll_time_off_overview
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_salary_attachment_view_form
+msgid "Overview"
+msgstr "Resumen"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.ui.menu,name:l10n_hn_payroll_base.menu_hn_payroll_time_off_gantt
+msgid "Planning"
+msgstr "Planificación"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+#: code:addons/l10n_hn_payroll_base/models/hr_salary_attachment.py:0
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_employee__slip_ids
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_run__slip_ids
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__payslip_count
+#: model:ir.ui.menu,name:l10n_hn_payroll_base.menu_hn_payroll_payslips
+#: model:ir.ui.menu,name:l10n_hn_payroll_base.menu_hn_payslip
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_payslip_run_form
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_payslip_run_tree
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_salary_attachment_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_employee_form_payroll_hn
+msgid "Payslips"
+msgstr "Recibos de pago"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.ui.menu,name:l10n_hn_payroll_base.menu_hn_payroll_reporting
+msgid "Reporting"
+msgstr "Informes"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.actions.act_window,name:l10n_hn_payroll_base.action_payslip_contribution_register
+#: model:ir.actions.report,name:l10n_hn_payroll_base.action_report_contribution_register
+#: model:ir.ui.menu,name:l10n_hn_payroll_base.menu_hn_payroll_report_contribution_register
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_payslip_contribution_register
+msgid "Contribution register"
+msgstr "Registro de aportaciones"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.actions.act_window,name:l10n_hn_payroll_base.action_hr_payslip_by_employees
+#: model:ir.ui.menu,name:l10n_hn_payroll_base.menu_hn_payslip_generate
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_payslip_run_form
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_by_employees
+msgid "Generate payslips"
+msgstr "Generar recibos de pago"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "Create a salary structure"
+msgstr "Cree una estructura salarial"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid ""
+"Define at least one structure before running payslips for this company."
+msgstr ""
+"Defina al menos una estructura antes de ejecutar recibos para esta compañía."
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "Configure contract benefits"
+msgstr "Configure los beneficios del contrato"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "Add advantage templates to capture extras and benefits on contracts."
+msgstr ""
+"Añada plantillas de ventajas para registrar extras y beneficios en los "
+"contratos."
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+#: model:ir.ui.menu,name:l10n_hn_payroll_base.menu_hn_payroll_contract_templates
+msgid "Contract templates"
+msgstr "Plantillas de contrato"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "%(count)s employees without salary structure"
+msgstr "%(count)s empleados sin estructura salarial"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "Assign a structure on the contract so payslips can be computed."
+msgstr "Asigne una estructura en el contrato para poder calcular los recibos."
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "Review employees"
+msgstr "Revisar empleados"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "%(count)s employees without a current contract"
+msgstr "%(count)s empleados sin contrato vigente"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "Update contract dates so payroll can link the right version."
+msgstr ""
+"Actualice las fechas del contrato para que la nómina enlace la versión "
+"correcta."
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "Open employees"
+msgstr "Abrir empleados"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "%(count)s employees without salary journal"
+msgstr "%(count)s empleados sin diario de salarios"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "Pick the accrual journal used when payslips are posted to accounting."
+msgstr "Elija el diario de devengo usado al contabilizar los recibos."
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "%(count)s employees missing bank account"
+msgstr "%(count)s empleados sin cuenta bancaria"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "Bank details are required to pay net wages by transfer in most setups."
+msgstr ""
+"En la mayoría de los casos se necesitan datos bancarios para pagar la "
+"liquidación por transferencia."
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "Set bank details"
+msgstr "Establecer datos bancarios"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "%(count)s employees missing identification (VAT or badge)"
+msgstr "%(count)s empleados sin identificación (NIT o credencial)"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid ""
+"Complete tax ID on the work contact or set a badge ID for each employee."
+msgstr ""
+"Complete el NIT en el contacto laboral o asigne una credencial a cada "
+"empleado."
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "Configure IDs"
+msgstr "Configurar identificaciones"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "%(count)s draft payslips"
+msgstr "%(count)s recibos en borrador"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "Compute, review and validate slips that are still in draft."
+msgstr "Calcule, revise y valide los recibos que siguen en borrador."
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "Open payslips"
+msgstr "Abrir recibos"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "%(count)s payslips awaiting validation"
+msgstr "%(count)s recibos pendientes de validación"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "These payslips were computed and are waiting for approval."
+msgstr "Estos recibos fueron calculados y esperan aprobación."
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "Review payslips"
+msgstr "Revisar recibos"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "%(count)s open payroll batches"
+msgstr "%(count)s lotes de nómina abiertos"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "Close batches once all slips are validated."
+msgstr "Cierre los lotes cuando todos los recibos estén validados."
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "Open batches"
+msgstr "Abrir lotes"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "%(count)s validated payslips without accounting entry"
+msgstr "%(count)s recibos validados sin asiento contable"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid ""
+"Accounting entries are created when payslips are validated; check journal "
+"and salary rules."
+msgstr ""
+"Los asientos se generan al validar los recibos; revise el diario y las "
+"reglas salariales."
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_salary_rule.py:0
+msgid "%(msg)s %(rule)s: %(err)s"
+msgstr "%(msg)s %(rule)s: %(err)s"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_salary_rule.py:0
+msgid "%s (copy)"
+msgstr "%s (copia)"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.actions.report,print_report_name:l10n_hn_payroll_base.action_report_payslip
+msgid "'Payslip - %s' % (object.employee_id.name)"
+msgstr "'Recibo de pago - %s' % (object.employee_id.name)"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.actions.report,print_report_name:l10n_hn_payroll_base.action_report_payslip_details
+msgid "'Payslip details - %s' % (object.employee_id.name)"
+msgstr "'Detalle del recibo - %s' % (object.employee_id.name)"
+
+#. module: l10n_hn_payroll_base
+#: model:mail.template,body_html:l10n_hn_payroll_base.mail_template_new_payslip
+msgid ""
+"<div>\n"
+"                <p>Your payslip is available.</p>\n"
+"            </div>\n"
+"        "
+msgstr ""
+"<div>\n"
+"                <p>Su recibo de pago está disponible.</p>\n"
+"            </div>\n"
+"        "
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_payslip_run_view_kanban
+msgid "<i class=\"fa fa-calendar\" title=\"Dates\"/>"
+msgstr "<i class=\"fa fa-calendar\" title=\"Fechas\"/>"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_payslip_run_view_kanban
+msgid ""
+"<span class=\"mx-1\">·</span>\n"
+"                                    <span>Payslips:</span>"
+msgstr ""
+"<span class=\"mx-1\">·</span>\n"
+"                                    <span>Recibos:</span>"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_employee_form_payroll_hn
+msgid "<span class=\"mx-2\">/</span>"
+msgstr "<span class=\"mx-2\">/</span>"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_employee_form_payroll_hn
+msgid ""
+"<span class=\"o_stat_text\">Payslips</span>\n"
+"                        <span class=\"o_stat_value\">New</span>"
+msgstr ""
+"<span class=\"o_stat_text\">Recibos de pago</span>\n"
+"                        <span class=\"o_stat_value\">Nuevo</span>"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_payslip_run_form
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_form
+msgid "<span> - </span>"
+msgstr "<span> - </span>"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.report_payslip
+msgid "<strong>Employee</strong>"
+msgstr "<strong>Empleado</strong>"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.report_payslip
+msgid "<strong>Net (computed)</strong>"
+msgstr "<strong>Neto (calculado)</strong>"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.report_payslip
+msgid "<strong>Period</strong>"
+msgstr "<strong>Periodo</strong>"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.report_payslip
+msgid "<strong>Reference</strong>"
+msgstr "<strong>Referencia</strong>"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.report_payslipdetails
+msgid "<strong>Subtotal</strong>"
+msgstr "<strong>Subtotal</strong>"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.report_contributionregister
+msgid "<strong>Total</strong>"
+msgstr "<strong>Total</strong>"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__date
+msgid "Accounting Date"
+msgstr "Fecha contable"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__move_id
+msgid "Accounting Entry"
+msgstr "Asiento contable"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__message_needaction
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__message_needaction
+msgid "Action Needed"
+msgstr "Acción requerida"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payroll_structure__active
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_input_type__active
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__active
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule__active
+msgid "Active"
+msgstr "Activo"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__activity_ids
+msgid "Activities"
+msgstr "Actividades"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Decoración de excepción de actividad"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__activity_state
+msgid "Activity State"
+msgstr "Estado de actividad"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Icono de tipo de actividad"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_salary_attachment.py:0
+msgid "Adjustment"
+msgstr "Ajuste"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_salary_attachment.py:0
+msgid "Adjustment records"
+msgstr "Registros de ajustes"
+
+#. module: l10n_hn_payroll_base
+#: model:hr.salary.rule.category,name:l10n_hn_payroll_base.cat_allowance
+msgid "Allowance"
+msgstr "Subsidio"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_input__allowed_input_type_ids
+msgid "Allowed Input Type"
+msgstr "Tipo de entrada permitido"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields.selection,name:l10n_hn_payroll_base.selection__hr_payslip_line__condition_select__none
+#: model:ir.model.fields.selection,name:l10n_hn_payroll_base.selection__hr_salary_rule__condition_select__none
+msgid "Always True"
+msgstr "Siempre verdadero"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_input__amount
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__amount
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.report_payslip
+msgid "Amount"
+msgstr "Monto"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__amount_percentage_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule__amount_percentage_base
+msgid "Amount Percentage Base"
+msgstr "Base porcentual del monto"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__amount_python_compute
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule__amount_python_compute
+msgid "Amount Python Compute"
+msgstr "Cómputo en Python del monto"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__amount_select
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule__amount_select
+msgid "Amount Type"
+msgstr "Tipo de monto"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_salary_attachment__monthly_amount
+msgid "Amount to apply on each payslip while the adjustment is active."
+msgstr "Monto a aplicar en cada recibo mientras el ajuste esté activo."
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_salary_attachment_view_form
+msgid "Amounts"
+msgstr "Montos"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields.selection,name:l10n_hn_payroll_base.selection__hr_version__schedule_pay__annually
+msgid "Annually"
+msgstr "Anual"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__appears_on_payslip
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule__appears_on_payslip
+msgid "Appears On Payslip"
+msgstr "Aparece en el recibo"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__paid_amount
+msgid "Applied so far"
+msgstr "Aplicado hasta la fecha"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_salary_attachment.py:0
+msgid "Apply payments only when a single employee is linked."
+msgstr "Aplique pagos solo cuando esté vinculado un único empleado."
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_salary_attachment.py:0
+msgid "At least two employees are required to split this record."
+msgstr "Se requieren al menos dos empleados para dividir este registro."
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__message_attachment_count
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__message_attachment_count
+msgid "Attachment Count"
+msgstr "Número de adjuntos"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__attachment_name
+msgid "Attachment Name"
+msgstr "Nombre del adjunto"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_input_type__available_in_attachments
+msgid "Available in salary adjustments"
+msgstr "Disponible en ajustes salariales"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_salary_attachment_view_form
+msgid "Balances"
+msgstr "Saldos"
+
+#. module: l10n_hn_payroll_base
+#: model:hr.salary.rule.category,name:l10n_hn_payroll_base.cat_basic
+msgid "Basic"
+msgstr "Básico"
+
+#. module: l10n_hn_payroll_base
+#: model:hr.salary.rule,name:l10n_hn_payroll_base.rule_basic
+msgid "Basic Salary"
+msgstr "Salario base"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__basic_wage
+msgid "Basic wage"
+msgstr "Salario base"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_input_type_form
+msgid "Behavior"
+msgstr "Comportamiento"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields.selection,name:l10n_hn_payroll_base.selection__hr_version__schedule_pay__bi-monthly
+msgid "Bi-monthly"
+msgstr "Bimensual"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields.selection,name:l10n_hn_payroll_base.selection__hr_version__schedule_pay__bi-weekly
+msgid "Bi-weekly"
+msgstr "Quincenal / bisemanal"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__category_id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule__category_id
+msgid "Category"
+msgstr "Categoría"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__child_ids
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule__child_ids
+msgid "Child Rules"
+msgstr "Reglas hijas"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payroll_structure__children_ids
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule_category__children_ids
+msgid "Children"
+msgstr "Hijos"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields.selection,name:l10n_hn_payroll_base.selection__res_company__payslip_report_template__classic
+msgid "Classic"
+msgstr "Clásico"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_salary_attachment_view_form
+msgid "Close"
+msgstr "Cerrar"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payroll_structure__code
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_input__code
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_input_type__code
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__code
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_worked_days__code
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_rule_input__code
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule__code
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule_category__code
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_version_advantage_template__code
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.report_payslip
+msgid "Code"
+msgstr "Código"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_payslip_worked_days__code
+msgid "Code used in salary rules."
+msgstr "Código usado en las reglas salariales."
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model,name:l10n_hn_payroll_base.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_contribution_register__company_id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payroll_structure__company_id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__company_id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__company_id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_run__company_id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__company_id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule__company_id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule_category__company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: l10n_hn_payroll_base
+#: model:hr.salary.rule.category,name:l10n_hn_payroll_base.cat_comp
+msgid "Company Contribution"
+msgstr "Aporte patronal"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_payslip_run_form
+msgid "Complete"
+msgstr "Finalizar"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__condition_python
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule__condition_python
+msgid "Condition Python"
+msgstr "Condición Python"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__condition_range
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule__condition_range
+msgid "Condition Range"
+msgstr "Rango de condición"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__condition_range_max
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule__condition_range_max
+msgid "Condition Range Max"
+msgstr "Condición rango máx."
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__condition_range_min
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule__condition_range_min
+msgid "Condition Range Min"
+msgstr "Condición rango mín."
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__condition_select
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule__condition_select
+msgid "Condition Select"
+msgstr "Selección de condición"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model,name:l10n_hn_payroll_base.model_res_config_settings
+msgid "Config Settings"
+msgstr "Ajustes del sistema"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__contract_id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_input__contract_id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__contract_id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_worked_days__contract_id
+msgid "Contract"
+msgstr "Contrato"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model,name:l10n_hn_payroll_base.model_hr_version_advantage_template
+msgid "Contract Advantage Template"
+msgstr "Plantilla de ventajas del contrato"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_employee__contract_date_end
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_version__contract_date_end
+msgid "Contract End Date"
+msgstr "Fecha fin de contrato"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_employee__contract_date_start
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_version__contract_date_start
+msgid "Contract Start Date"
+msgstr "Fecha inicio de contrato"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_employee__contract_type_id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_version__contract_type_id
+msgid "Contract Type"
+msgstr "Tipo de contrato"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_employee__contract_wage
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_version__contract_wage
+msgid "Contract Wage"
+msgstr "Salario contractual"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.actions.act_window,name:l10n_hn_payroll_base.action_hr_version_payrun_select
+msgid "Contract versions"
+msgstr "Versiones de contrato"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model,name:l10n_hn_payroll_base.model_hr_contribution_register
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__register_id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule__register_id
+msgid "Contribution Register"
+msgstr "Registro de aportaciones"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model,name:l10n_hn_payroll_base.model_report_l10n_hn_payroll_base_report_contributionregister
+msgid "Contribution register PDF"
+msgstr "PDF del registro de aportaciones"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model,name:l10n_hn_payroll_base.model_payslip_lines_contribution_register
+msgid "Contribution register date range"
+msgstr "Rango de fechas del registro de aportaciones"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payroll_structure__country_id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_input_type__country_id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_run__country_id
+msgid "Country"
+msgstr "País"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_input_type__country_code
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_run__country_code
+msgid "Country Code"
+msgstr "Código de país"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_contribution_register__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payroll_structure__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_employees__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_input__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_input_type__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_run__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_worked_days__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_rule_input__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule_category__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_version_advantage_template__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_payslip_lines_contribution_register__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_contribution_register__create_date
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payroll_structure__create_date
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__create_date
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_employees__create_date
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_input__create_date
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_input_type__create_date
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__create_date
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_run__create_date
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_worked_days__create_date
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_rule_input__create_date
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__create_date
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule__create_date
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule_category__create_date
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_version_advantage_template__create_date
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_payslip_lines_contribution_register__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__account_credit
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule__account_credit
+msgid "Credit Account"
+msgstr "Cuenta de crédito"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__credit_note
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_run__credit_note
+msgid "Credit Note"
+msgstr "Nota de crédito"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__currency_id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__currency_id
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_run__date_end
+msgid "Date End"
+msgstr "Fecha fin"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__date_from
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_payslip_lines_contribution_register__date_from
+msgid "Date From"
+msgstr "Desde"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_run__date_start
+msgid "Date Start"
+msgstr "Fecha inicio"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__date_to
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_payslip_lines_contribution_register__date_to
+msgid "Date To"
+msgstr "Hasta"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_salary_attachment_view_form
+msgid "Dates"
+msgstr "Fechas"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__account_debit
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule__account_debit
+msgid "Debit Account"
+msgstr "Cuenta de débito"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__is_refund
+msgid "Deduct (negative sign)"
+msgstr "Deducción (signo negativo)"
+
+#. module: l10n_hn_payroll_base
+#: model:hr.salary.rule.category,name:l10n_hn_payroll_base.cat_ded
+msgid "Deduction"
+msgstr "Deducción"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_version_advantage_template__default_value
+msgid "Default Value"
+msgstr "Valor predeterminado"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_payroll_structure__schedule_pay
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_payroll_structure_type__default_schedule_pay
+msgid "Defines the frequency of the wage payment."
+msgstr "Define la frecuencia de pago del salario."
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_contribution_register__note
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payroll_structure__note
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_input_type__name
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule_category__note
+msgid "Description"
+msgstr "Descripción"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_contribution_register__display_name
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_employee__display_name
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payroll_structure__display_name
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payroll_structure_type__display_name
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__display_name
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_employees__display_name
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_input__display_name
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_input_type__display_name
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__display_name
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_run__display_name
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_worked_days__display_name
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_rule_input__display_name
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__display_name
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule__display_name
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule_category__display_name
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_version__display_name
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_version_advantage_template__display_name
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_payslip_lines_contribution_register__display_name
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_report_l10n_hn_payroll_base_report_contributionregister__display_name
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_report_l10n_hn_payroll_base_report_payslip__display_name
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_report_l10n_hn_payroll_base_report_payslipdetails__display_name
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_res_company__display_name
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_res_config_settings__display_name
+msgid "Display Name"
+msgstr "Nombre para mostrar"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_salary_attachment_view_form
+msgid "Document"
+msgstr "Documento"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_salary_attachment.py:0
+msgid "Each payslip amount must be greater than zero."
+msgstr "Cada monto por recibo debe ser mayor que cero."
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "Each payslip line requires a contract."
+msgstr "Cada línea de recibo requiere un contrato."
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model,name:l10n_hn_payroll_base.model_hr_employee
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__employee_id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__employee_id
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_form
+msgid "Employee"
+msgstr "Empleado"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model,name:l10n_hn_payroll_base.model_hr_version
+msgid "Employee Contract"
+msgstr "Contrato del empleado"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__employee_count
+msgid "Employee Count"
+msgstr "Número de empleados"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_employee__wage
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_version__wage
+msgid "Employee's monthly gross wage."
+msgstr "Salario bruto mensual del empleado."
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__date_end
+msgid "End date"
+msgstr "Fecha final"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_employee__contract_date_end
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_version__contract_date_end
+msgid "End date of the contract (if it's a fixed-term contract)."
+msgstr "Fecha de fin del contrato (si es plazo fijo)."
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_payroll_structure__input_line_type_ids
+msgid ""
+"Extra payslip inputs (by type) merged with rule-defined inputs when "
+"generating draft payslips."
+msgstr ""
+"Entradas extra al recibo (por tipo) combinadas con las definidas por reglas "
+"al generar borradores."
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields.selection,name:l10n_hn_payroll_base.selection__res_company__payslip_report_template__fancy
+msgid "Fancy"
+msgstr "Fancy"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__amount_fix
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule__amount_fix
+#: model:ir.model.fields.selection,name:l10n_hn_payroll_base.selection__hr_payslip_line__amount_select__fix
+#: model:ir.model.fields.selection,name:l10n_hn_payroll_base.selection__hr_salary_rule__amount_select__fix
+msgid "Fixed Amount"
+msgstr "Monto fijo"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields.selection,name:l10n_hn_payroll_base.selection__hr_payroll_structure_type__wage_type__monthly
+msgid "Fixed Wage"
+msgstr "Salario fijo"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__message_follower_ids
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__message_partner_ids
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (contactos)"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_payslip__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Icono Font Awesome, p. ej. fa-tasks"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_salary_attachment__total_amount
+msgid "For limited schedules: cap on what will be applied before closing."
+msgstr "En esquemas limitados: tope a aplicar antes de cerrar."
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model,name:l10n_hn_payroll_base.model_hr_payslip_employees
+msgid "Generate payslips from a batch"
+msgstr "Generar recibos desde un lote"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_payslip_run__credit_note
+msgid "Generated slips are refunds."
+msgstr "Los recibos generados son devoluciones."
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "Global Leaves"
+msgstr "Ausencias globales"
+
+#. module: l10n_hn_payroll_base
+#: model:hr.salary.rule,name:l10n_hn_payroll_base.rule_gross
+#: model:hr.salary.rule.category,name:l10n_hn_payroll_base.cat_gross
+msgid "Gross"
+msgstr "Bruto"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__gross_wage
+msgid "Gross wage"
+msgstr "Salario bruto"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__has_done_payslip
+msgid "Has Done Payslip"
+msgstr "Tiene recibo validado"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__has_message
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__has_message
+msgid "Has Message"
+msgstr "Tiene mensajes"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields.selection,name:l10n_hn_payroll_base.selection__hr_payroll_structure_type__wage_type__hourly
+msgid "Hourly Wage"
+msgstr "Salario por hora"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_contribution_register__id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_employee__id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payroll_structure__id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payroll_structure_type__id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_employees__id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_input__id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_input_type__id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_run__id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_worked_days__id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_rule_input__id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule__id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule_category__id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_version__id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_version_advantage_template__id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_payslip_lines_contribution_register__id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_report_l10n_hn_payroll_base_report_contributionregister__id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_report_l10n_hn_payroll_base_report_payslip__id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_report_l10n_hn_payroll_base_report_payslipdetails__id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_res_company__id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_res_config_settings__id
+msgid "ID"
+msgstr "ID"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__activity_exception_icon
+msgid "Icon"
+msgstr "Icono"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_payslip__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Icono que indica una actividad con excepción."
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_payslip__message_needaction
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_salary_attachment__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcado, los mensajes nuevos requieren su atención."
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_payslip__message_has_error
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_payslip__message_has_sms_error
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_salary_attachment__message_has_error
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_salary_attachment__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si está marcado, algunos mensajes tienen error de entrega."
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_payslip__date
+msgid "If empty, the payslip period end date is used."
+msgstr "Si está vacío, se usa la fecha fin del periodo del recibo."
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_payslip_input_type__is_quantity
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_salary_attachment__is_quantity
+msgid "If set, user-entered values represent a count rather than money."
+msgstr "Si está activo, los valores ingresados son una cantidad y no dinero."
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_payroll_structure__use_worked_day_lines
+msgid ""
+"If set, worked days lines drive absence-related day counts on payslips."
+msgstr ""
+"Si está activo, las líneas de días trabajados determinan días de ausencia en"
+" recibos."
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_payslip__is_off_cycle
+msgid ""
+"Indicates a payslip outside the regular payroll calendar (bonus, adjustment,"
+" etc.)."
+msgstr ""
+"Indica un recibo fuera del calendario regular de nómina (bono, ajuste, "
+"etc.)."
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__other_input_type_id
+msgid "Input type"
+msgstr "Tipo de entrada"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payroll_structure_form
+msgid "Input types"
+msgstr "Tipos de entrada"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__note
+msgid "Internal Note"
+msgstr "Nota interna"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_salary_rule.py:0
+msgid "Invalid percentage base or quantity:"
+msgstr "Base porcentual o cantidad no válida:"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_salary_rule.py:0
+msgid "Invalid python amount code:"
+msgstr "Código Python del monto no válido:"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_salary_rule.py:0
+msgid "Invalid quantity expression:"
+msgstr "Expresión de cantidad no válida:"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__message_is_follower
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__message_is_follower
+msgid "Is Follower"
+msgstr "Es seguidor"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_input_type__is_quantity
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__is_quantity
+msgid "Is quantity"
+msgstr "Es cantidad"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payroll_account.py:0
+msgid "Journal %(journal)s has no default account for rounding adjustments."
+msgstr ""
+"El diario %(journal)s no tiene cuenta predeterminada para diferencias de "
+"redondeo."
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_contribution_register__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payroll_structure__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_employees__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_input__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_input_type__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_run__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_worked_days__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_rule_input__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule_category__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_version_advantage_template__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_payslip_lines_contribution_register__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_contribution_register__write_date
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payroll_structure__write_date
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__write_date
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_employees__write_date
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_input__write_date
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_input_type__write_date
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__write_date
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_run__write_date
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_worked_days__write_date
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_rule_input__write_date
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__write_date
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule__write_date
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule_category__write_date
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_version_advantage_template__write_date
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_payslip_lines_contribution_register__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_res_company__payslip_report_template
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_res_config_settings__payslip_report_template
+msgid "Layout used by professional payslip PDF reports."
+msgstr "Diseño usado por los informes PDF profesionales del recibo."
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields.selection,name:l10n_hn_payroll_base.selection__hr_salary_attachment__duration_type__limited
+msgid "Limited"
+msgstr "Limitado"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__details_by_salary_rule_category
+msgid "Lines by Category"
+msgstr "Líneas por categoría"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__payslip_ids
+msgid "Linked payslips"
+msgstr "Recibos vinculados"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_input_type__struct_ids
+msgid "Linked structures"
+msgstr "Estructuras vinculadas"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_version_advantage_template__lower_bound
+msgid "Lower Bound"
+msgstr "Límite inferior"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_payslip_run_form
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_form
+msgid "Mark paid"
+msgstr "Marcar como pagado"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__message_has_error
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__message_has_error
+msgid "Message Delivery error"
+msgstr "Error de entrega de mensaje"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__message_ids
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/wizard/hr_payroll_payslips_by_employees.py:0
+msgid "Missing payslip batch."
+msgstr "Falta el lote de recibos."
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields.selection,name:l10n_hn_payroll_base.selection__res_company__payslip_report_template__modern
+msgid "Modern"
+msgstr "Moderno"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields.selection,name:l10n_hn_payroll_base.selection__hr_version__schedule_pay__monthly
+msgid "Monthly"
+msgstr "Mensual"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Fecha límite de mi actividad"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_contribution_register__name
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payroll_structure__name
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_input__name
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__name
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_run__name
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_worked_days__name
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_rule_input__name
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule__name
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule_category__name
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_version_advantage_template__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: l10n_hn_payroll_base
+#: model:hr.salary.rule.category,name:l10n_hn_payroll_base.cat_net
+msgid "Net"
+msgstr "Neto"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__payslip_net_total
+msgid "Net (computed)"
+msgstr "Neto (calculado)"
+
+#. module: l10n_hn_payroll_base
+#: model:hr.salary.rule,name:l10n_hn_payroll_base.rule_net
+msgid "Net Salary"
+msgstr "Salario neto"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_tree
+msgid "Net wage"
+msgstr "Salario neto"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.actions.act_window,name:l10n_hn_payroll_base.action_hr_payslip_new_off_cycle
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_tree
+msgid "New Off-Cycle"
+msgstr "Nuevo fuera de ciclo"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_salary_attachment_employee_view_list
+msgid "New adjustment"
+msgstr "Nuevo ajuste"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Siguiente evento del calendario de actividades"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Siguiente fecha límite de actividad"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__activity_summary
+msgid "Next Activity Summary"
+msgstr "Resumen de la siguiente actividad"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__activity_type_id
+msgid "Next Activity Type"
+msgstr "Siguiente tipo de actividad"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/report/report_contribution_register.py:0
+msgid "No data for this report."
+msgstr "No hay datos para este informe."
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_input_type__default_no_end_date
+msgid "No end date by default"
+msgstr "Sin fecha fin por defecto"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "No payslip report is configured."
+msgstr "No hay informe de recibo configurado."
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "Normal Working Days paid at 100%"
+msgstr "Días laborales normales pagados al 100 %"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__note
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__description
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule__note
+msgid "Note"
+msgstr "Nota"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_worked_days__number_of_days
+msgid "Number Of Days"
+msgstr "Número de días"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_worked_days__number_of_hours
+msgid "Number Of Hours"
+msgstr "Número de horas"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__message_needaction_counter
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de acciones"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__message_has_error_counter
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__message_has_error_counter
+msgid "Number of errors"
+msgstr "Número de errores"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_payslip__message_needaction_counter
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_salary_attachment__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Mensajes que requieren acción"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_payslip__message_has_error_counter
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_salary_attachment__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Mensajes con error de entrega"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__is_off_cycle
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_search
+msgid "Off-cycle"
+msgstr "Fuera de ciclo"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_salary_attachment_view_form
+msgid "One record per employee"
+msgstr "Un registro por empleado"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields.selection,name:l10n_hn_payroll_base.selection__hr_salary_attachment__duration_type__one
+msgid "One time"
+msgstr "Una sola vez"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "Only draft or cancelled payslips can be deleted."
+msgstr "Solo se pueden eliminar recibos en borrador o rechazados."
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "Only pay runs in Done can be marked as paid."
+msgstr "Solo las corridas en estado Hecho pueden marcarse como pagadas."
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "Only payslips in Done (not yet paid) can be refunded."
+msgstr "Solo los recibos en Hecho (aún no pagados) pueden devolverse."
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "Only payslips in Done can be marked as paid."
+msgstr "Solo los recibos en Hecho pueden marcarse como pagados."
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payroll_structure__input_line_type_ids
+msgid "Other input lines"
+msgstr "Otras líneas de entrada"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields.selection,name:l10n_hn_payroll_base.selection__hr_payslip__state__paid
+#: model:ir.model.fields.selection,name:l10n_hn_payroll_base.selection__hr_payslip_run__state__paid
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_payslip_run_search
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_search
+msgid "Paid"
+msgstr "Pagado"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payroll_structure__parent_id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule_category__parent_id
+msgid "Parent"
+msgstr "Padre"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__parent_rule_id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule__parent_rule_id
+msgid "Parent Salary Rule"
+msgstr "Regla salarial padre"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_contribution_register__partner_id
+msgid "Partner"
+msgstr "Contacto"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.actions.act_window,name:l10n_hn_payroll_base.action_hr_payslip_run_form_new
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_tree
+msgid "Pay Run"
+msgstr "Corrida de nómina"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_run__schedule_pay
+msgid "Pay Schedule"
+msgstr "Calendario de pago"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model,name:l10n_hn_payroll_base.model_hr_payslip
+msgid "Pay Slip"
+msgstr "Recibo de pago"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payroll_structure_type__default_struct_id
+msgid "Pay Structure"
+msgstr "Estructura de pago"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__payslip_run_id
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_tree
+msgid "Pay run"
+msgstr "Corrida de nómina"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_run__payrun_progress_payload
+msgid "Pay run progress"
+msgstr "Avance de la corrida"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.actions.act_window,name:l10n_hn_payroll_base.action_hr_payslip_run_tree
+#: model:ir.ui.menu,name:l10n_hn_payroll_base.menu_hn_payslip_run
+msgid "Pay runs"
+msgstr "Corridas de nómina"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__paid
+msgid "Payment Order"
+msgstr "Orden de pago"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_salary_attachment_view_form
+msgid "Payroll adjustment"
+msgstr "Ajuste de nómina"
+
+#. module: l10n_hn_payroll_base
+#. odoo-javascript
+#: code:addons/l10n_hn_payroll_base/static/src/fields/salary_attachment_many2many.js:0
+msgid "Payroll adjustment lines"
+msgstr "Líneas de ajuste de nómina"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.actions.act_window,name:l10n_hn_payroll_base.action_hr_salary_attachment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_salary_attachment_view_tree
+msgid "Payroll adjustments"
+msgstr "Ajustes de nómina"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_contract_template_form_payroll
+msgid "Payroll setup"
+msgstr "Configuración de nómina"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model,name:l10n_hn_payroll_base.model_hr_payslip_run
+msgid "Payslip Batch"
+msgstr "Lote de recibos"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_employee__payslip_count
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_run__payslip_count
+msgid "Payslip Count"
+msgstr "Cantidad de recibos"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model,name:l10n_hn_payroll_base.model_hr_payslip_input
+msgid "Payslip Input"
+msgstr "Entrada de recibo"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model,name:l10n_hn_payroll_base.model_hr_payslip_input_type
+msgid "Payslip Input Type"
+msgstr "Tipo de entrada de recibo"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model,name:l10n_hn_payroll_base.model_hr_payslip_line
+msgid "Payslip Line"
+msgstr "Línea de recibo"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__line_ids
+msgid "Payslip Lines"
+msgstr "Líneas de recibo"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__name
+msgid "Payslip Name"
+msgstr "Nombre del recibo"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model,name:l10n_hn_payroll_base.model_report_l10n_hn_payroll_base_report_payslip
+msgid "Payslip PDF"
+msgstr "PDF del recibo"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_res_company__payslip_report_template
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_res_config_settings__payslip_report_template
+msgid "Payslip PDF Layout"
+msgstr "Diseño PDF del recibo"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model,name:l10n_hn_payroll_base.model_hr_payslip_worked_days
+msgid "Payslip Worked Days"
+msgstr "Días trabajados del recibo"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_input_type_form
+msgid "Payslip input type"
+msgstr "Tipo de entrada del recibo"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.actions.act_window,name:l10n_hn_payroll_base.action_hr_payslip_input_type
+#: model:ir.ui.menu,name:l10n_hn_payroll_base.menu_hn_payslip_input_type
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_input_type_tree
+msgid "Payslip input types"
+msgstr "Tipos de entrada del recibo"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.report_contributionregister
+msgid "Payslip line"
+msgstr "Línea de recibo"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model,name:l10n_hn_payroll_base.model_report_l10n_hn_payroll_base_report_payslipdetails
+msgid "Payslip lines grouped for PDF"
+msgstr "Líneas de recibo agrupadas para PDF"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payroll_account.py:0
+msgid "Payslip of %s"
+msgstr "Recibo de pago de %s"
+
+#. module: l10n_hn_payroll_base
+#: model:mail.template,name:l10n_hn_payroll_base.mail_template_new_payslip
+msgid "Payslip: New payslip"
+msgstr "Recibo de pago: nuevo recibo"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_salary_attachment_view_form
+msgid "People & type"
+msgstr "Personas y tipo"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__monthly_amount
+msgid "Per-payslip amount"
+msgstr "Monto por recibo"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__amount_percentage
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule__amount_percentage
+#: model:ir.model.fields.selection,name:l10n_hn_payroll_base.selection__hr_payslip_line__amount_select__percentage
+#: model:ir.model.fields.selection,name:l10n_hn_payroll_base.selection__hr_salary_rule__amount_select__percentage
+msgid "Percentage (%)"
+msgstr "Porcentaje (%)"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_tree
+msgid "Period end"
+msgstr "Fin de periodo"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_tree
+msgid "Period start"
+msgstr "Inicio de periodo"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "Period start must be before end."
+msgstr "El inicio del periodo debe ser anterior al fin."
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__total_amount
+msgid "Planned total"
+msgstr "Total planificado"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_salary_attachment.py:0
+msgid "Planned total cannot be less than the per-payslip amount."
+msgstr "El total planificado no puede ser menor que el monto por recibo."
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_payslip_run_tree
+msgid "Progress"
+msgstr "Avance"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields.selection,name:l10n_hn_payroll_base.selection__hr_payslip_line__amount_select__code
+#: model:ir.model.fields.selection,name:l10n_hn_payroll_base.selection__hr_salary_rule__amount_select__code
+msgid "Python Code"
+msgstr "Código Python"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields.selection,name:l10n_hn_payroll_base.selection__hr_payslip_line__condition_select__python
+#: model:ir.model.fields.selection,name:l10n_hn_payroll_base.selection__hr_salary_rule__condition_select__python
+msgid "Python Expression"
+msgstr "Expresión Python"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_salary_rule__quantity
+msgid "Python expression for quantity (e.g. worked days)."
+msgstr "Expresión Python para la cantidad (p. ej. días trabajados)."
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__quantity
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule__quantity
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.report_payslip
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields.selection,name:l10n_hn_payroll_base.selection__hr_version__schedule_pay__quarterly
+msgid "Quarterly"
+msgstr "Trimestral"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields.selection,name:l10n_hn_payroll_base.selection__hr_payslip_line__condition_select__range
+#: model:ir.model.fields.selection,name:l10n_hn_payroll_base.selection__hr_salary_rule__condition_select__range
+msgid "Range"
+msgstr "Rango"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__rate
+msgid "Rate (%)"
+msgstr "Tasa (%)"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__number
+msgid "Reference"
+msgstr "Referencia"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_payslip_line__code
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_salary_rule__code
+msgid "Referenced by other rules (case sensitive)."
+msgstr "Referenciado por otras reglas (sensible a mayúsculas)."
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_payslip__credit_note
+msgid "Refund of another payslip."
+msgstr "Devolución de otro recibo de pago."
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "Refund payslips"
+msgstr "Devolver recibos"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "Refund: %s"
+msgstr "Devolución: %s"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_contribution_register__register_line_ids
+msgid "Register Lines"
+msgstr "Líneas de registro"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields.selection,name:l10n_hn_payroll_base.selection__hr_payslip__state__cancel
+msgid "Rejected"
+msgstr "Rechazado"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__remaining_amount
+msgid "Remaining balance"
+msgstr "Saldo pendiente"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_salary_attachment_view_form
+msgid "Reopen"
+msgstr "Reabrir"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__activity_user_id
+msgid "Responsible User"
+msgstr "Usuario responsable"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payroll_account.py:0
+msgid "Rounding adjustment"
+msgstr "Ajuste de redondeo"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.report_payslip
+msgid "Rule"
+msgstr "Regla"
+
+#. module: l10n_hn_payroll_base
+#: model:res.groups,comment:l10n_hn_payroll_base.group_hn_payroll_user
+msgid "Run payslips and post related journal entries."
+msgstr "Ejecuta recibos y registra los asientos contables relacionados."
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields.selection,name:l10n_hn_payroll_base.selection__hr_salary_attachment__state__open
+msgid "Running"
+msgstr "En curso"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__message_has_sms_error
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Error de entrega SMS"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model,name:l10n_hn_payroll_base.model_hr_salary_rule
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__salary_rule_id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_rule_input__input_id
+msgid "Salary Rule"
+msgstr "Regla salarial"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model,name:l10n_hn_payroll_base.model_hr_salary_rule_category
+msgid "Salary Rule Category"
+msgstr "Categoría de regla salarial"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model,name:l10n_hn_payroll_base.model_hr_rule_input
+msgid "Salary Rule Input"
+msgstr "Entrada de regla salarial"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payroll_structure__rule_ids
+msgid "Salary Rules"
+msgstr "Reglas salariales"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model,name:l10n_hn_payroll_base.model_hr_payroll_structure_type
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_employee__structure_type_id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_version__structure_type_id
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_employee_form_payroll_hn
+msgid "Salary Structure Type"
+msgstr "Tipo de estructura salarial"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model,name:l10n_hn_payroll_base.model_hr_salary_attachment
+msgid "Salary adjustment"
+msgstr "Ajuste salarial"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_employee__salary_attachment_ids
+msgid "Salary adjustments"
+msgstr "Ajustes salariales"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.ui.menu,name:l10n_hn_payroll_base.hr_menu_salary_attachments
+msgid "Salary attachments"
+msgstr "Adjuntos salariales"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_payslip__struct_id
+msgid "Salary rules applied to this payslip."
+msgstr "Reglas salariales aplicadas a este recibo."
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "Salary slip of %(employee)s for %(period)s"
+msgstr "Recibo de pago de %(employee)s para %(period)s"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.actions.act_window,name:l10n_hn_payroll_base.action_hr_payroll_structure_type
+#: model:ir.ui.menu,name:l10n_hn_payroll_base.menu_hn_structure_type
+msgid "Salary structure types"
+msgstr "Tipos de estructura salarial"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_payslip_input_type__struct_ids
+msgid ""
+"Salary structures that list this input; the inverse field on the structure "
+"selects inputs for payslips."
+msgstr ""
+"Estructuras que incluyen esta entrada; el campo inverso en la estructura "
+"selecciona entradas para recibos."
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__duration_type
+msgid "Schedule"
+msgstr "Programación"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_employee__schedule_pay
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_version__schedule_pay
+msgid "Schedule Pay"
+msgstr "Pago programado"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payroll_structure__schedule_pay
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payroll_structure_type__default_schedule_pay
+msgid "Scheduled Pay"
+msgstr "Pago programado"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/wizard/hr_payroll_payslips_by_employees.py:0
+msgid "Select at least one employee."
+msgstr "Seleccione al menos un empleado."
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields.selection,name:l10n_hn_payroll_base.selection__hr_version__schedule_pay__semi-annually
+msgid "Semi-annually"
+msgstr "Semestral"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payroll_structure_type__sequence
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_input__sequence
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__sequence
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_worked_days__sequence
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule__sequence
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__slip_id
+msgid "Slip"
+msgstr "Recibo"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_run__slip_count
+msgid "Slip Count"
+msgstr "Cantidad de recibos"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_payslip_input_type__code
+msgid ""
+"Stable code used in salary rules (e.g. inputs dictionary in python code)."
+msgstr ""
+"Código estable usado en reglas (p. ej. diccionario inputs en código Python)."
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields.selection,name:l10n_hn_payroll_base.selection__res_company__payslip_report_template__standard
+msgid "Standard"
+msgstr "Estándar"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__date_start
+msgid "Start date"
+msgstr "Fecha de inicio"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_run__state
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__state
+msgid "State"
+msgstr "Estado"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__state
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_payslip_run_search
+msgid "Status"
+msgstr "Estado"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_payslip__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Estado según actividades\n"
+"Atrasado: la fecha límite ya pasó\n"
+"Hoy: la actividad es hoy\n"
+"Planificado: actividades futuras."
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__struct_id
+msgid "Structure"
+msgstr "Estructura"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payroll_structure__type_id
+msgid "Structure Type"
+msgstr "Tipo de estructura"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payroll_structure_type__struct_type_count
+msgid "Structure Type Count"
+msgstr "Cantidad de tipos de estructura"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payroll_structure_type__struct_ids
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_input_type_form
+msgid "Structures"
+msgstr "Estructuras"
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_tree
+msgid "Sum"
+msgstr "Suma"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__attachment
+msgid "Supporting file"
+msgstr "Archivo de respaldo"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__account_tax_id
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_rule__account_tax_id
+msgid "Tax"
+msgstr "Impuesto"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_payslip_input_type__country_code
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_payslip_run__country_code
+msgid ""
+"The ISO country code in two chars. \n"
+"You can use this field for quick search."
+msgstr ""
+"Código ISO del país en dos caracteres.\n"
+"Puede usar este campo para búsquedas rápidas."
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid ""
+"There are conflicting work entries for %(employee)s in this period. "
+"Fix them before computing worked days on the payslip."
+msgstr ""
+"Hay entradas de trabajo en conflicto para %(employee)s en este periodo. "
+"Corríjalas antes de calcular los días trabajados en el recibo."
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_salary_attachment.py:0
+msgid "The end date cannot precede the start date."
+msgstr "La fecha de fin no puede ser anterior a la de inicio."
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip_input_type.py:0
+msgid "This input type is shipped as data; archive it instead of deleting."
+msgstr ""
+"Este tipo de entrada viene en datos; archívelo en lugar de eliminarlo."
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "Time"
+msgstr "Tiempo"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_line__total
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.report_contributionregister
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.report_payslip
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.view_hr_payslip_tree
+msgid "Total"
+msgstr "Total"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip_input__input_type_id
+msgid "Type"
+msgstr "Tipo"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_payslip__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Tipo de actividad con excepción en el registro."
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields.selection,name:l10n_hn_payroll_base.selection__hr_salary_attachment__duration_type__unlimited
+msgid "Unlimited"
+msgstr "Ilimitado"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payroll_structure__unpaid_work_entry_type_ids
+msgid "Unpaid Work Entry Types"
+msgstr "Tipos de entrada de trabajo no pagados"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_version_advantage_template__upper_bound
+msgid "Upper Bound"
+msgstr "Límite superior"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payroll_structure__use_worked_day_lines
+msgid "Use Worked Day Lines"
+msgstr "Usar líneas de días trabajados"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payroll_structure__worked_days_from_work_entries
+msgid "Worked days from work entries"
+msgstr "Días trabajados desde entradas de trabajo"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_payroll_structure__worked_days_from_work_entries
+msgid ""
+"Build payslip worked-day lines from validated hr.work.entry records for "
+"the contract version in the payslip period. Conflicting entries block payroll until resolved. "
+"If no validated entries exist in the period, the calendar-based calculation is used instead."
+msgstr ""
+"Construye las líneas de días trabajados del recibo a partir de registros "
+"hr.work.entry validados para la versión de contrato en el periodo del recibo. "
+"Las entradas en conflicto bloquean la nómina hasta resolverse. "
+"Si no hay entradas validadas en el periodo, se usa el cálculo basado en "
+"calendario."
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_salary_rule_category__parent_id
+msgid "Used for hierarchical reporting."
+msgstr "Usado para informes jerárquicos."
+
+#. module: l10n_hn_payroll_base
+#: model:ir.ui.menu,name:l10n_hn_payroll_base.hr_menu_versions
+msgid "Versions"
+msgstr "Versiones"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_employee__wage
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_version__wage
+msgid "Wage"
+msgstr "Salario"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payroll_structure_type__wage_type
+msgid "Wage Type"
+msgstr "Tipo de salario"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_employee__schedule_pay
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_version__schedule_pay
+msgid "Wage payment frequency."
+msgstr "Frecuencia de pago del salario."
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields.selection,name:l10n_hn_payroll_base.selection__hr_payslip__state__verify
+msgid "Waiting"
+msgstr "En espera"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__website_message_ids
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_salary_attachment__website_message_ids
+msgid "Website Messages"
+msgstr "Mensajes del sitio web"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_payslip__website_message_ids
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_salary_attachment__website_message_ids
+msgid "Website communication history"
+msgstr "Historial de comunicación del sitio"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields.selection,name:l10n_hn_payroll_base.selection__hr_version__schedule_pay__weekly
+msgid "Weekly"
+msgstr "Semanal"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_payslip_input_type__available_in_attachments
+msgid "When enabled, this type may be chosen on salary adjustment records."
+msgstr ""
+"Si está activo, este tipo puede elegirse en registros de ajuste salarial."
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_salary_attachment__is_refund
+msgid "When set, localization rules may interpret the amount as a deduction."
+msgstr ""
+"Si está activo, las reglas de localización pueden interpretar el monto como "
+"deducción."
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payroll_structure_type__default_work_entry_type_id
+msgid "Work Entry Type"
+msgstr "Tipo de entrada de trabajo"
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,help:l10n_hn_payroll_base.field_hr_payroll_structure_type__default_work_entry_type_id
+msgid "Work entry type for regular attendances."
+msgstr "Tipo de entrada para asistencias habituales."
+
+#. module: l10n_hn_payroll_base
+#: model:ir.model.fields,field_description:l10n_hn_payroll_base.field_hr_payslip__worked_days_line_ids
+msgid "Worked Days"
+msgstr "Días trabajados"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_salary_rule.py:0
+msgid "Wrong python condition for salary rule %(name)s (%(code)s): %(err)s"
+msgstr ""
+"Condición Python incorrecta para la regla %(name)s (%(code)s): %(err)s"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_salary_rule.py:0
+msgid "Wrong range condition for salary rule %(name)s (%(code)s): %(err)s"
+msgstr ""
+"Condición de rango incorrecta para la regla %(name)s (%(code)s): %(err)s"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "You cannot cancel a validated payslip."
+msgstr "No puede cancelar un recibo validado."
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_salary_rule.py:0
+msgid "You cannot create a recursive salary structure."
+msgstr "No puede crear una estructura salarial recursiva."
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_salary_rule.py:0
+msgid "You cannot create recursive salary categories."
+msgstr "No puede crear categorías salariales recursivas."
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "You must set a start and end date for the Pay Run"
+msgstr "Debe indicar fecha de inicio y fin para la corrida de nómina"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payroll_structure_type.py:0
+msgid "You should also be logged into a company in %s to set this country."
+msgstr "También debe estar en una compañía de %s para definir este país."
+
+#. module: l10n_hn_payroll_base
+#: model_terms:ir.ui.view,arch_db:l10n_hn_payroll_base.hr_payslip_run_view_kanban
+msgid "employees"
+msgstr "empleados"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+#: code:addons/l10n_hn_payroll_base/models/hr_salary_attachment.py:0
+msgid "id"
+msgstr "id"
+
+#. module: l10n_hn_payroll_base
+#. odoo-python
+#: code:addons/l10n_hn_payroll_base/models/hr_payslip.py:0
+msgid "slip_id"
+msgstr "recibo"
+
+#. module: l10n_hn_payroll_base
+#: model:mail.template,subject:l10n_hn_payroll_base.mail_template_new_payslip
+msgid "{{ object.name }} – Payslip"
+msgstr "{{ object.name }} – Recibo de pago"
+
+#~ msgid "Honduras / Community Payroll Base"
+#~ msgstr "Honduras / Nómina base (Comunidad)"
+
+#~ msgid ""
+#~ "Integrated CE payroll engine, accounting bridge, reports and Payroll Hub "
+#~ "(OWL)"
+#~ msgstr ""
+#~ "Motor de nómina CE integrado, enlace contable, informes y centro de nómina "
+#~ "(OWL)"
+
+#~ msgid "Payslip Batches"
+#~ msgstr "Lotes de recibos"
+
+#~ msgid "Close batch"
+#~ msgstr "Cerrar lote"
+
+#~ msgid "New"
+#~ msgstr "Nuevo"

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="l10n_hn_payroll_base.HrLeaveTimelineOss">
+        <div class="o_hn_tl_oss d-flex flex-column h-100 bg-view">
+            <div class="d-flex flex-wrap align-items-center gap-2 px-3 py-2 border-bottom">
+                <div class="btn-group btn-group-sm" role="group">
+                    <button type="button"
+                            t-attf-class="btn {{ state.engine === 'frappe' ? 'btn-primary' : 'btn-outline-primary' }}"
+                            t-on-click="() => this.setEngine('frappe')">
+                        Frappe Gantt
+                    </button>
+                    <button type="button"
+                            t-attf-class="btn {{ state.engine === 'vis' ? 'btn-primary' : 'btn-outline-primary' }}"
+                            t-on-click="() => this.setEngine('vis')">
+                        vis-timeline
+                    </button>
+                    <button type="button"
+                            t-attf-class="btn {{ state.engine === 'readme' ? 'btn-primary' : 'btn-outline-primary' }}"
+                            t-on-click="() => this.setEngine('readme')">
+                        Licencias
+                    </button>
+                </div>
+                <div class="input-group input-group-sm w-auto">
+                    <span class="input-group-text">Desde</span>
+                    <input type="date" class="form-control"
+                           t-att-value="state.rangeStart"
+                           t-on-change="(e) => this.onRangeStartChange(e)"/>
+                    <span class="input-group-text">Hasta</span>
+                    <input type="date" class="form-control"
+                           t-att-value="state.rangeEnd"
+                           t-on-change="(e) => this.onRangeEndChange(e)"/>
+                </div>
+                <select class="form-select form-select-sm w-auto" t-on-change="onDepartmentChange">
+                    <option value="">Todos los departamentos</option>
+                    <t t-foreach="state.departments" t-as="d" t-key="d.id">
+                        <option t-att-value="d.id" t-esc="d.name"/>
+                    </t>
+                </select>
+                <button type="button" class="btn btn-secondary btn-sm" t-on-click="() => this.reload()">
+                    Actualizar
+                </button>
+                <div class="ms-auto small text-muted" t-if="state.loading">Cargando…</div>
+                <div class="ms-auto small text-danger" t-if="state.error" t-esc="state.errorMessage"/>
+            </div>
+            <div class="o_hn_tl_oss_panel flex-grow-1 overflow-auto p-2">
+                <div t-if="state.engine === 'frappe'" class="o_hn_tl_oss_frappe" t-ref="frappeHost"/>
+                <div t-if="state.engine === 'vis'" class="o_hn_tl_oss_vis" t-ref="visHost"/>
+                <div t-if="state.engine === 'readme'" class="o_hn_tl_oss_readme p-3">
+                    <h5 class="mb-3">Librerías y licencias</h5>
+                    <ul class="mb-3">
+                        <li><strong>frappe-gantt</strong> (MIT): incluida en <code>static/lib/frappe-gantt/</code>.</li>
+                        <li><strong>vis-timeline</strong> (Apache-2.0 / proyecto visjs): incluida en <code>static/lib/vis-timeline/</code>.</li>
+                        <li><strong>dhtmlxGantt</strong>: modelo dual comercial/GPL; <em>no</em> se redistribuye aquí. Evaluar con legal antes de cualquier integración.</li>
+                        <li><strong>FullCalendar</strong> + vista tipo resource/timeline: el núcleo es abierto; muchas extensiones “Scheduler”/timeline de recursos son comerciales. <em>No</em> incluidas aquí.</li>
+                    </ul>
+                    <p class="text-muted mb-0">
+                        Los binarios se cargan vía <code>loadJS</code>/<code>loadCSS</code> para no inflar el bundle principal hasta que abres Frappe o vis.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

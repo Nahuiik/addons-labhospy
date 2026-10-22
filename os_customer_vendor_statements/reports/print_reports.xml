@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <template id="customer_statements_report">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <t t-call="os_customer_vendor_statements.customer_statements_report_template"/>
+                </t>
+            </t>
+        </template>
+
+        <template id="customer_overdue_report">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <t t-call="os_customer_vendor_statements.overdue_customer_statements_report_template"/>
+                </t>
+            </t>
+        </template>
+
+
+        <template id="vendor_statements_report">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <t t-call="os_customer_vendor_statements.vendor_statements_report_template"/>
+                </t>
+            </t>
+        </template>
+
+        <template id="filtered_customer_report">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <t t-call="os_customer_vendor_statements.filtered_customer_statements_report_template"/>
+                </t>
+            </t>
+        </template>
+
+        <template id="monthly_customer_report">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <t t-call="os_customer_vendor_statements.monthly_customer_statements_report_template"/>
+                </t>
+            </t>
+        </template>
+
+        <template id="custom_customer_report">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <t t-call="os_customer_vendor_statements.custom_customer_statements_report_template"/>
+                </t>
+            </t>
+        </template>
+
+        <template id="weekly_customer_report">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <t t-call="os_customer_vendor_statements.weekly_customer_statements_report_template"/>
+                </t>
+            </t>
+        </template>
+
+        <template id="filtered_vendor_report">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <t t-call="os_customer_vendor_statements.filtered_vendor_statements_report_template"/>
+                </t>
+            </t>
+        </template>
+
+        <record id="report_customer_statements" model="ir.actions.report">
+            <field name="name">Customer Statements</field>
+            <field name="model">res.partner</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">os_customer_vendor_statements.customer_statements_report</field>
+            <field name="report_file">os_customer_vendor_statements.customer_statements_report</field>
+            <field name="print_report_name">'Customer Statements - %s' % object.name</field>
+            <field name="binding_model_id" eval="False"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="report_customer_overdue_statements" model="ir.actions.report">
+            <field name="name">Customer Overdue Statements</field>
+            <field name="model">res.partner</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">os_customer_vendor_statements.customer_overdue_report</field>
+            <field name="report_file">os_customer_vendor_statements.customer_overdue_report</field>
+            <field name="print_report_name">'Customer Overdue Statements - %s' % object.name</field>
+            <field name="binding_model_id" eval="False"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="report_vendor_statements" model="ir.actions.report">
+            <field name="name">Vendor Statements</field>
+            <field name="model">res.partner</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">os_customer_vendor_statements.vendor_statements_report</field>
+            <field name="report_file">os_customer_vendor_statements.vendor_statements_report</field>
+            <field name="print_report_name">'Vendor Statements - %s' % object.name</field>
+            <field name="binding_model_id" eval="False"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="report_filtered_customer_statements" model="ir.actions.report">
+            <field name="name">Filtered Customer Statements</field>
+            <field name="model">res.partner</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">os_customer_vendor_statements.filtered_customer_report</field>
+            <field name="report_file">os_customer_vendor_statements.filtered_customer_report</field>
+            <field name="print_report_name">'Filtered Customer Statements - %s' % object.name</field>
+            <field name="binding_model_id" eval="False"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="report_filtered_vendor_statements" model="ir.actions.report">
+            <field name="name">Filtered Vendor Statements</field>
+            <field name="model">res.partner</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">os_customer_vendor_statements.filtered_vendor_report</field>
+            <field name="report_file">os_customer_vendor_statements.filtered_vendor_report</field>
+            <field name="print_report_name">'Filtered Vendor Statements - %s' % object.name</field>
+            <field name="binding_model_id" eval="False"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="report_monthly_customer_statements" model="ir.actions.report">
+            <field name="name">Monthly Customer Statements</field>
+            <field name="model">res.partner</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">os_customer_vendor_statements.monthly_customer_report</field>
+            <field name="report_file">os_customer_vendor_statements.monthly_customer_report</field>
+            <field name="print_report_name">'Monthly Customer Statements - %s' % object.name</field>
+            <field name="binding_model_id" ref="model_res_partner"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="report_weekly_customer_statements" model="ir.actions.report">
+            <field name="name">Weekly Customer Statements</field>
+            <field name="model">res.partner</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">os_customer_vendor_statements.weekly_customer_report</field>
+            <field name="report_file">os_customer_vendor_statements.weekly_customer_report</field>
+            <field name="print_report_name">'Weekly Customer Statements - %s' % object.name</field>
+            <field name="binding_model_id" ref="model_res_partner"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="report_custom_customer_statements" model="ir.actions.report">
+            <field name="name">Custom Customer Statements</field>
+            <field name="model">res.partner</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">os_customer_vendor_statements.custom_customer_report</field>
+            <field name="report_file">os_customer_vendor_statements.custom_customer_report</field>
+            <field name="print_report_name">'Custom Customer Statements - %s' % object.name</field>
+            <field name="binding_model_id" eval="False"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

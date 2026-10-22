@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_gn_audit_log_user,gn.audit.log.user,model_gn_audit_log,account.group_account_user,1,0,0,0
+access_gn_audit_log_readonly,gn.audit.log.readonly,model_gn_audit_log,account.group_account_readonly,1,0,0,0
+access_gn_audit_log_manager,gn.audit.log.manager,model_gn_audit_log,account.group_account_manager,1,0,0,1

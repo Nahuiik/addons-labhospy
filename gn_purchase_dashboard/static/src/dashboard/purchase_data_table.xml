@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_purchase_dashboard.PurchaseDataTable">
+        <section class="gn-pd-data-table gn-pd-data-table--premium">
+            <header class="gn-pd-data-table__head">
+                <div>
+                    <h3 class="gn-pd-data-table__title" t-esc="props.title or 'Tabla'"/>
+                    <p class="gn-pd-data-table__subtitle" t-esc="tableSubtitle"/>
+                </div>
+                <div class="gn-pd-data-table__tools">
+                    <div class="gn-pd-data-table__search-wrap">
+                        <i class="fa fa-search"/>
+                        <input type="search" class="gn-pd-data-table__search"
+                               placeholder="Buscar…" t-att-value="state.search" t-on-input="onSearchInput"/>
+                    </div>
+                    <button type="button" class="gn-pd-btn gn-pd-btn--sm gn-pd-btn--ghost"
+                            t-att-disabled="state.exporting" t-on-click="exportCsv">
+                        <i class="fa fa-download"/> CSV
+                    </button>
+                </div>
+            </header>
+            <div t-if="state.loading" class="gn-pd-skeleton gn-pd-skeleton--table"/>
+            <div t-elif="state.error" class="gn-pd-data-table__error" t-esc="state.error"/>
+            <div t-else="" class="gn-pd-data-table__scroll">
+                <table class="gn-pd-table gn-pd-table--premium">
+                    <thead>
+                        <tr>
+                            <th t-foreach="state.columns" t-as="col" t-key="col.key"
+                                t-att-class="colClass(col)"
+                                t-on-click="() => this.toggleSort(col)">
+                                <span t-esc="col.label"/>
+                                <i t-if="state.sortField === col.key"
+                                   t-att-class="'fa fa-sort-' + (state.sortDir === 'asc' ? 'asc' : 'desc')"/>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="state.rows" t-as="row" t-key="row_index"
+                            class="gn-pd-table__row" t-on-click="() => this.onRowClick(row)">
+                            <td t-foreach="state.columns" t-as="col" t-key="col.key"
+                                t-att-class="cellClass(col)">
+                                <t t-if="col.key === 'name'">
+                                    <span class="gn-pd-table__name">
+                                        <i t-if="row.partner_id" class="fa fa-truck gn-pd-table__row-icon"/>
+                                        <i t-elif="row.product_id" class="fa fa-cube gn-pd-table__row-icon"/>
+                                        <span t-esc="row.name"/>
+                                    </span>
+                                </t>
+                                <t t-elif="isBadgeColumn(col.key)">
+                                    <span t-att-class="'gn-pd-table__badge ' + badgeClass(row, col.key)" t-esc="badgeLabel(row, col.key)"/>
+                                </t>
+                                <t t-elif="isProgressColumn(col.key)">
+                                    <div class="gn-pd-table__progress">
+                                        <div class="gn-pd-table__progress-bar" t-att-style="'width:' + progressPct(row, col.key) + '%'"/>
+                                    </div>
+                                    <span class="gn-pd-table__progress-val" t-esc="formatCell(row, col)"/>
+                                </t>
+                                <t t-else="">
+                                    <span t-esc="formatCell(row, col)"/>
+                                </t>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot t-if="state.rows.length">
+                        <tr class="gn-pd-table__foot">
+                            <td t-foreach="state.columns" t-as="col" t-key="col.key">
+                                <strong t-if="col.key === 'name'">Total página</strong>
+                                <strong t-elif="col.type === 'currency' or col.type === 'number'" t-esc="footerCell(col)"/>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <footer class="gn-pd-data-table__pager">
+                <span class="gn-pd-data-table__count" t-esc="pagerLabel"/>
+                <div class="gn-pd-data-table__pager-btns">
+                    <button type="button" class="gn-pd-btn gn-pd-btn--sm gn-pd-btn--ghost"
+                            t-att-disabled="state.page &lt;= 1" t-on-click="() => this.goPage(-1)">Anterior</button>
+                    <button type="button" class="gn-pd-btn gn-pd-btn--sm gn-pd-btn--ghost"
+                            t-att-disabled="state.page >= state.pages" t-on-click="() => this.goPage(1)">Siguiente</button>
+                </div>
+            </footer>
+        </section>
+    </t>
+</templates>

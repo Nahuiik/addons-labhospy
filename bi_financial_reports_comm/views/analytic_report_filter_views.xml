@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_analytic_report_form" model="ir.ui.view">
+        <field name="name">analytic.report.form</field>
+        <field name="model">analytic.report</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="date_from"/>
+                        <field name="account_ids" widget="many2many_tags"/>
+                        <field name="partner_ids" widget="many2many_tags"/>
+                        <field name="analytic_account_ids" widget="many2many_tags"/>
+                        <newline/>
+                    </group>
+                    <group>
+                        <field name="date_to"/>
+                        <field name="account_tag_ids" widget="many2many_tags"/>
+                        <field name="plan_ids" widget="many2many_tags"/>
+                        <field name="journal_ids" widget="many2many_tags"/>
+                        <newline/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_apply_filters_analytic" type="object" class="oe_highlight" string="Apply"/>
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_analytic_report" model="ir.actions.act_window">
+        <field name="name">Analytic Report</field>
+        <field name="res_model">analytic.report</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'report': 'analytic_report'}</field>
+    </record>
+</odoo>

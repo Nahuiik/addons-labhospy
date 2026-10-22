@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hn_isv_closing_wizard_form" model="ir.ui.view">
+        <field name="name">hn.isv.closing.wizard.form</field>
+        <field name="model">hn.isv.closing.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Cierre ISV (borrador)">
+                <group>
+                    <group>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="year"/>
+                        <field name="month"/>
+                        <field name="journal_id"/>
+                        <field name="date"/>
+                        <field name="ref"/>
+                    </group>
+                    <group string="Referencia 904 (misma lógica que informe)">
+                        <field name="casilla_21" readonly="1"/>
+                        <field name="casilla_31" readonly="1"/>
+                        <field name="suggested_difference" readonly="1"/>
+                    </group>
+                </group>
+                <group>
+                    <field name="amount"/>
+                    <field name="debit_account_id"/>
+                    <field name="credit_account_id"/>
+                </group>
+                <footer>
+                    <button name="action_create_draft_move" type="object" string="Crear asiento en borrador" class="btn-primary"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hn_isv_closing_wizard" model="ir.actions.act_window">
+        <field name="name">Cierre ISV (asiento borrador)</field>
+        <field name="res_model">hn.isv.closing.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_hn_isv_closing_wizard"
+              name="Cierre ISV (borrador)"
+              parent="menu_hn_reports_root"
+              action="action_hn_isv_closing_wizard"
+              sequence="15"/>
+</odoo>

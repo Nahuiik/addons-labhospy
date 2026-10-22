@@ -1,0 +1,102 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* cancel_landed_cost_odoo
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-01 12:00+0000\n"
+"PO-Revision-Date: 2026-04-01 12:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Spanish (Guatemala)\n"
+"Language: es_GT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: cancel_landed_cost_odoo
+#: model:ir.module.module,shortdesc:cancel_landed_cost_odoo.__manifest__
+msgid "Landed Cost Cancellation"
+msgstr "Cancelación de costos en destino"
+
+#. module: cancel_landed_cost_odoo
+#: model:ir.module.module,summary:cancel_landed_cost_odoo.__manifest__
+msgid "Cancel posted landed costs and reverse valuation"
+msgstr "Cancela costos en destino publicados y revierte la valoración"
+
+#. module: cancel_landed_cost_odoo
+#: model:ir.module.module,description:cancel_landed_cost_odoo.__manifest__
+msgid ""
+"Cancel landed costs and reverse journal entries and stock valuation. "
+"Includes list actions: cancel only, cancel and reset to draft, cancel and delete; "
+"configurable mode in Settings."
+msgstr ""
+"Permite cancelar costos en destino y revertir asientos contables y valoración de inventario. "
+"Incluye acciones en lista: solo cancelar, cancelar y devolver a borrador, cancelar y eliminar; "
+"modo configurable en Ajustes."
+
+#. module: cancel_landed_cost_odoo
+#: model:res.groups,name:cancel_landed_cost_odoo.cancel_landed_cost_odoo_group_cancel_user
+msgid "Landed cost cancellation"
+msgstr "Cancelación de costos en destino"
+
+#. module: cancel_landed_cost_odoo
+#: model:ir.actions.server,name:cancel_landed_cost_odoo.stock_landed_cost_action_cancel
+#: model_terms:ir.ui.view,arch_db:cancel_landed_cost_odoo.view_stock_landed_cost_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: cancel_landed_cost_odoo
+#: model:ir.actions.server,name:cancel_landed_cost_odoo.stock_landed_cost_action_cancel_and_reset
+msgid "Cancel and reset to draft"
+msgstr "Cancelar y devolver a borrador"
+
+#. module: cancel_landed_cost_odoo
+#: model:ir.actions.server,name:cancel_landed_cost_odoo.stock_landed_cost_action_cancel_and_delete
+#: model:ir.model.fields.selection,name:cancel_landed_cost_odoo.selection__res_config_settings__land_cost_cancel_modes__cancel_delete
+msgid "Cancel and delete"
+msgstr "Cancelar y eliminar"
+
+#. module: cancel_landed_cost_odoo
+#: model:ir.model.fields,field_description:cancel_landed_cost_odoo.field_stock_landed_cost__is_cancel
+msgid "Cancelled"
+msgstr "Cancelado"
+
+#. module: cancel_landed_cost_odoo
+#: model:ir.model.fields,help:cancel_landed_cost_odoo.field_stock_landed_cost__is_cancel
+msgid "Hides the Cancel button on the form after it has been used once."
+msgstr "Oculta el botón Cancelar en el formulario después de usarlo una vez."
+
+#. module: cancel_landed_cost_odoo
+#: model:ir.model.fields,field_description:cancel_landed_cost_odoo.field_res_config_settings__land_cost_cancel_modes
+msgid "Landed cost cancellation mode"
+msgstr "Modo de cancelación de costos en destino"
+
+#. module: cancel_landed_cost_odoo
+#: model:ir.model.fields,help:cancel_landed_cost_odoo.field_res_config_settings__land_cost_cancel_modes
+msgid ""
+"Choose what happens when you cancel a validated landed cost from the form or the list."
+msgstr ""
+"Indica qué ocurre al cancelar un costo en destino ya validado desde el formulario o la lista."
+
+#. module: cancel_landed_cost_odoo
+#: model:ir.model.fields.selection,name:cancel_landed_cost_odoo.selection__res_config_settings__land_cost_cancel_modes__cancel
+msgid "Cancel only"
+msgstr "Solo cancelar"
+
+#. module: cancel_landed_cost_odoo
+#: model:ir.model.fields.selection,name:cancel_landed_cost_odoo.selection__res_config_settings__land_cost_cancel_modes__cancel_draft
+msgid "Cancel and reset to draft"
+msgstr "Cancelar y devolver a borrador"
+
+#. module: cancel_landed_cost_odoo
+#: code:addons/cancel_landed_cost_odoo/models/stock_landed_cost.py:0
+msgid "Delete sequence number"
+msgstr "Eliminar número de secuencia"
+
+#. module: cancel_landed_cost_odoo
+#: model_terms:ir.ui.view,arch_db:cancel_landed_cost_odoo.res_config_settings_view_form_inherit_cancel_landed_cost
+msgid "Behavior of the Cancel button on validated landed costs."
+msgstr "Comportamiento del botón Cancelar en costos en destino ya validados."

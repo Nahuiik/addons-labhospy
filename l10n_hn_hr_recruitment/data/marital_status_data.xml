@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="marital_status_single" model="l10n_hn_hr_recruitment.marital.status">
+        <field name="name">Soltero(a)</field>
+        <field name="code">single</field>
+        <field name="sequence">10</field>
+    </record>
+    <record id="marital_status_married" model="l10n_hn_hr_recruitment.marital.status">
+        <field name="name">Casado(a)</field>
+        <field name="code">married</field>
+        <field name="sequence">20</field>
+    </record>
+    <record id="marital_status_cohabitant" model="l10n_hn_hr_recruitment.marital.status">
+        <field name="name">Unión libre</field>
+        <field name="code">cohabitant</field>
+        <field name="sequence">30</field>
+    </record>
+    <record id="marital_status_widower" model="l10n_hn_hr_recruitment.marital.status">
+        <field name="name">Viudo(a)</field>
+        <field name="code">widower</field>
+        <field name="sequence">40</field>
+    </record>
+    <record id="marital_status_divorced" model="l10n_hn_hr_recruitment.marital.status">
+        <field name="name">Divorciado(a)</field>
+        <field name="code">divorced</field>
+        <field name="sequence">50</field>
+    </record>
+    <record id="marital_status_other" model="l10n_hn_hr_recruitment.marital.status">
+        <field name="name">Otro</field>
+        <field name="code">other</field>
+        <field name="sequence">90</field>
+    </record>
+</odoo>

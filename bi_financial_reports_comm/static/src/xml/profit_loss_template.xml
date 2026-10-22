@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="ProfitLossReport" owl="1">
+        <div class="report-button-container">
+            <div class="d-flex justify-content-between align-items-center mb-3 mt-3">
+                <div>
+                    <h2 style="margin-left: 45px;">Profit and Loss</h2>
+                </div>
+
+                <div>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-primary" style="margin-right: 7px;" t-on-click="openProfitLossPopup">
+                            <i class="fa fa-filter"></i> Filters
+                        </button>
+                        <button class="btn btn-primary" style="margin-right: 7px;" t-on-click="printProfitLoss">
+                            <i class="fa fa-print"></i> Print
+                        </button>
+                        <button class="btn btn-primary" style="margin-right: 20px;" t-on-click="xlsxProfitLoss">
+                            <i class="fa fa-file-excel-o"></i> XLS
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+            <hr style="margin: 5px 0;"/>
+            <div class="report-container">
+                <div class="table-responsive report-table-container">
+                    <table class="table table-sm table-hover report-table" style="margin-bottom: 5px;">
+                        <thead class="table-header">
+                            <th style="width: 3%; padding: 2px;"/>
+                            <th style="width: 72%; padding: 2px;"/>
+                            <th style="width: 25%; padding: 2px;"/>
+                        </thead>
+                        
+                        <tbody>
+                            <t t-value="state.ProfitLossData.income" t-set="income"/>
+                            <t t-value="state.ProfitLossData.expense" t-set="expense"/>
+
+                            <!-- Date Range -->
+                            <tr>
+                                <td style="padding: 2px;"/>
+                                <td style="padding: 2px; font-weight:bold;">
+                                    <t t-if="state.ProfitLossData.date_from or state.ProfitLossData.date_to">
+                                        <span style="font-size: 15px;padding-left: 207px;">
+                                            <t t-if="state.ProfitLossData.date_from">
+                                                Date From: <t t-esc="state.ProfitLossData.date_from"/> 
+                                            </t>
+                                            <t t-if="state.ProfitLossData.date_to">
+                                                Date To: <t t-esc="state.ProfitLossData.date_to"/>
+                                            </t>
+                                        </span>
+                                    </t>
+                                </td>
+                                <td style="padding: 2px;"/>
+                            </tr>
+
+                            <!-- Revenue Section -->
+                            <tr t-att-data-type="'income'">
+                                <td style="padding: 2px; text-align: right;">
+                                    <t t-if="income.income.accounts.length > 0">
+                                        <button data-id="btn_foldable" class="btn btn-sm btn_foldable" tabindex="-1" t-on-click="toggleLines" style="margin-right:15px; padding: 1px 5px;">
+                                            <i class="fa fa-caret-right dropdowntoggle" style="font-size: 15px;"></i>
+                                        </button>
+                                    </t>
+                                </td>
+                                <td style="text-align: left; padding: 6px 5px; font-size: 15px;">
+                                    Revenue
+                                </td>
+                                <td style="text-align: right; padding: 3px 15px; font-size: 15px;" t-esc="formatCurrency(income.income.total)"/>
+                            </tr>
+                            <t t-if="state.expandedType['income']">
+                                <t t-if="income.income.accounts">
+                                    <t t-foreach="income.income.accounts" t-as="account" t-key="account.id">
+                                        <tr t-att-data-account="account.name" t-att-data-id="account.id">
+                                            <td style="padding: 2px;"/>
+                                            <td style="text-align: left; padding: 6px 5px; font-size: 15px;">
+                                                <div class="wrapper">
+                                                    <t t-esc="account.code"/> - <t t-esc="account.name"/>
+                                                    <button class="btn btn-xs btn_general_ledger" style="padding: 1px 5px; font-size: 15px;" t-on-click="_onClick_GeneralLedger"> 
+                                                        General Ledger 
+                                                    </button>
+                                                </div>
+                                            </td>
+                                            <td style="text-align: right; padding: 3px 15px; font-size: 15px;" t-esc="formatCurrency(account.balance)"/>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </t>
+
+                            <!-- Cost of Revenue Section -->
+                            <tr t-att-data-type="'expense_direct_cost'">
+                                <td style="padding: 2px; text-align: right;">
+                                    <t t-if="expense.expense_direct_cost.accounts.length > 0">
+                                        <button data-id="btn_foldable" class="btn btn-sm btn_foldable" tabindex="-1" t-on-click="toggleLines" style="margin-right:15px; padding: 1px 5px;">
+                                            <i class="fa fa-caret-right dropdowntoggle" style="font-size: 15px;"></i>
+                                        </button>
+                                    </t>
+                                </td>
+                                <td style="text-align: left; padding: 6px 5px; font-size: 15px;">
+                                    Less Cost of Revenue
+                                </td>
+                                <td style="text-align: right; padding: 3px 15px; font-size: 15px;" t-esc="formatCurrency(expense.expense_direct_cost.total)"/>
+                            </tr>
+                            <t t-if="state.expandedType['expense_direct_cost']">
+                                <t t-foreach="expense.expense_direct_cost.accounts" t-as="account" t-key="account.id">
+                                    <tr t-att-data-account="account.name" t-att-data-id="account.id">
+                                        <td style="padding: 2px;"/>
+                                        <td style="text-align: left; padding: 6px 5px; font-size: 15px;">
+                                            <div class="wrapper">
+                                                <t t-esc="account.code"/> - <t t-esc="account.name"/>
+                                                <button class="btn btn-xs btn_general_ledger" style="padding: 1px 5px; font-size: 15px;" t-on-click="_onClick_GeneralLedger">
+                                                    General Ledger
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td style="text-align: right; padding: 3px 15px; font-size: 15px;" t-esc="formatCurrency(account.balance)"/>
+                                    </tr>
+                                </t>
+                            </t>
+
+                            <tr style="background-color: #B2BEB5;">
+                                <td style="padding: 2px;"/>
+                                <td style="text-align: left; padding: 6px 5px; font-size: 15px; font-weight: bold;">Gross Profit</td>
+                                <td style="text-align: right; padding: 3px 15px; font-size: 15px; font-weight: bold;" t-esc="formatCurrency(grossProfitTotal)"/>
+                            </tr>
+                            
+                            <tr t-att-data-type="'expense'">
+                                <td style="padding: 2px; text-align: right;">
+                                    <t t-if="expense.expense.accounts.length > 0">
+                                        <button data-id="btn_foldable" class="btn btn-sm btn_foldable" tabindex="-1" t-on-click="toggleLines" style="margin-right:15px; padding: 1px 5px;">
+                                            <i class="fa fa-caret-right dropdowntoggle" style="font-size: 15px;"></i>
+                                        </button>
+                                    </t>
+                                </td>
+                                <td style="text-align: left; padding: 6px 5px; font-size: 15px;">
+                                    Less Operating Expenses
+                                </td>
+                                <td style="text-align: right; padding: 3px 15px; font-size: 15px;" t-esc="formatCurrency(expense.expense.total)"/>
+                            </tr>
+                            <t t-if="state.expandedType['expense']">
+                                <t t-foreach="expense.expense.accounts" t-as="account" t-key="account.id">
+                                    <tr t-att-data-account="account.name" t-att-data-id="account.id">
+                                        <td style="padding: 2px;"/>
+                                        <td style="text-align: left; padding: 6px 5px; font-size: 15px;">
+                                            <div class="wrapper">
+                                                <t t-esc="account.code"/> - <t t-esc="account.name"/>
+                                                <button class="btn btn-xs btn_general_ledger" style="padding: 1px 5px; font-size: 15px;" t-on-click="_onClick_GeneralLedger">
+                                                    General Ledger
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td style="text-align: right; padding: 3px 15px; font-size: 15px;" t-esc="formatCurrency(account.balance)"/>
+                                    </tr>
+                                </t>
+                            </t>
+
+                            <!-- Operating Income -->
+                            <tr style="background-color: #B2BEB5;">
+                                <td style="padding: 2px;"/>
+                                <td style="text-align: left; padding: 6px 5px; font-size: 15px; font-weight: bold;">Operating Income (or Loss)</td>
+                                <td style="text-align: right; padding: 3px 15px; font-size: 15px; font-weight: bold;" t-esc="formatCurrency(operatingIncomeTotal)"/>
+                            </tr>
+                            
+                            <!-- Other Income -->
+                            <tr t-att-data-type="'income_other'">
+                                <td style="padding: 2px; text-align: right;">
+                                    <t t-if="income.income_other.accounts.length > 0">
+                                        <button data-id="btn_foldable" class="btn btn-sm btn_foldable" tabindex="-1" t-on-click="toggleLines" style="margin-right:15px; padding: 1px 5px;">
+                                            <i class="fa fa-caret-right dropdowntoggle" style="font-size: 15px;"></i>
+                                        </button>
+                                    </t>
+                                </td>
+                                <td style="text-align: left; padding: 6px 5px; font-size: 15px;">
+                                    Plus Other Income
+                                </td>
+                                <td style="text-align: right; padding: 3px 15px; font-size: 15px;" t-esc="formatCurrency(income.income_other.total)"/>
+                            </tr>
+                            <t t-if="state.expandedType['income_other']">
+                                <t t-foreach="income.income_other.accounts" t-as="account" t-key="account.id">
+                                    <tr t-att-data-account="account.name" t-att-data-id="account.id">
+                                        <td style="padding: 2px;"/>
+                                        <td style="text-align: left; padding: 6px 5px; font-size: 15px;">
+                                            <div class="wrapper">
+                                                <t t-esc="account.code"/> - <t t-esc="account.name"/>
+                                                <button class="btn btn-xs btn_general_ledger" style="padding: 1px 5px; font-size: 15px;" t-on-click="_onClick_GeneralLedger">
+                                                    General Ledger
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td style="text-align: right; padding: 3px 15px; font-size: 15px;" t-esc="formatCurrency(account.balance)"/>
+                                    </tr>
+                                </t>
+                            </t>
+                            
+                            <!-- Other Expenses -->
+                            <tr t-att-data-type="'expense_depreciation'">
+                                <td style="padding: 2px; text-align: right;">
+                                    <t t-if="expense.expense_depreciation.accounts.length > 0">
+                                        <button data-id="btn_foldable" class="btn btn-sm btn_foldable" tabindex="-1" t-on-click="toggleLines" style="margin-right:15px; padding: 1px 5px;">
+                                            <i class="fa fa-caret-right dropdowntoggle" style="font-size: 15px;"></i>
+                                        </button>
+                                    </t>
+                                </td>
+                                <td style="text-align: left; padding: 6px 5px; font-size: 15px;">
+                                    Less Other Expenses
+                                </td>
+                                <td style="text-align: right; padding: 3px 15px; font-size: 15px;" t-esc="formatCurrency(expense.expense_depreciation.total)"/>
+                            </tr>
+                            <t t-if="state.expandedType['expense_depreciation']">
+                                <t t-foreach="expense.expense_depreciation.accounts" t-as="account" t-key="account.id">
+                                    <tr t-att-data-account="account.name" t-att-data-id="account.id">
+                                        <td style="padding: 2px;"/>
+                                        <td style="text-align: left; padding: 6px 5px; font-size: 15px;">
+                                            <div class="wrapper">
+                                                <t t-esc="account.code"/> - <t t-esc="account.name"/>
+                                                <button class="btn btn-xs btn_general_ledger" style="padding: 1px 5px; font-size: 15px;" t-on-click="_onClick_GeneralLedger">
+                                                    General Ledger
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td style="text-align: right; padding: 3px 15px; font-size: 15px;" t-esc="formatCurrency(account.balance)"/>
+                                    </tr>
+                                </t>
+                            </t>
+
+                            <!-- Net Profit -->
+                            <tr style="background-color: #B2BEB5;">
+                                <td style="padding: 2px;"/>
+                                <td style="text-align: left; padding: 6px 5px; font-size: 15px; font-weight: bold;">Net Profit</td>
+                                <td style="text-align: right; padding: 3px 15px; font-size: 15px; font-weight: bold;" t-esc="formatCurrency(netProfitTotal)"/>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

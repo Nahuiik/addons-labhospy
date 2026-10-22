@@ -1,0 +1,20 @@
+/* Laboratorio OSS: contenedores para Frappe Gantt y vis-timeline */
+
+.o_hn_tl_oss {
+    min-height: 480px;
+
+    .o_hn_tl_oss_panel {
+        min-height: 420px;
+    }
+
+    .o_hn_tl_oss_frappe,
+    .o_hn_tl_oss_vis {
+        min-height: 400px;
+        overflow: auto;
+    }
+
+    .o_hn_tl_oss_readme {
+        max-width: 52rem;
+        font-size: 0.9rem;
+    }
+}

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Payroll Period Tree View -->
+    <record id="view_l10n_hn_payroll_period_tree" model="ir.ui.view">
+        <field name="name">l10n.hn.payroll.period.tree</field>
+        <field name="model">l10n.hn.payroll.period</field>
+        <field name="arch" type="xml">
+            <list string="Quincenas">
+                <field name="name"/>
+                <field name="year"/>
+                <field name="month"/>
+                <field name="period_number"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="send_payslip_email_on_validate" widget="boolean_toggle" optional="show"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_l10n_hn_payroll_period_kanban" model="ir.ui.view">
+        <field name="name">l10n.hn.payroll.period.kanban</field>
+        <field name="model">l10n.hn.payroll.period</field>
+        <field name="arch" type="xml">
+            <kanban default_order="year desc, month desc, period_number desc" quick_create="false">
+                <field name="name"/>
+                <field name="year"/>
+                <field name="month"/>
+                <field name="period_number"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="company_id"/>
+                <field name="send_payslip_email_on_validate"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="d-flex flex-column gap-2 w-100">
+                            <div class="fw-bold">
+                                <field name="name"/>
+                            </div>
+                            <div class="text-muted small">
+                                <field name="date_start"/> — <field name="date_end"/>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between gap-2 flex-wrap">
+                                <span class="text-muted small">Correo al validar recibos</span>
+                                <field name="send_payslip_email_on_validate" widget="boolean_toggle"/>
+                            </div>
+                            <div class="small text-muted" groups="base.group_multi_company">
+                                <field name="company_id"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    
+    <!-- Payroll Period Form View -->
+    <record id="view_l10n_hn_payroll_period_form" model="ir.ui.view">
+        <field name="name">l10n.hn.payroll.period.form</field>
+        <field name="model">l10n.hn.payroll.period</field>
+        <field name="arch" type="xml">
+            <form string="Quincena">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1"/>
+                            <field name="year"/>
+                            <field name="month"/>
+                            <field name="period_number"/>
+                        </group>
+                        <group>
+                            <field name="date_start" readonly="1"/>
+                            <field name="date_end" readonly="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="send_payslip_email_on_validate"/>
+                        </group>
+                    </group>
+                    <field name="payslip_run_ids" nolabel="1">
+                        <list>
+                            <field name="name"/>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="state"/>
+                        </list>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <!-- Payroll Period Search View -->
+    <record id="view_l10n_hn_payroll_period_search" model="ir.ui.view">
+        <field name="name">l10n.hn.payroll.period.search</field>
+        <field name="model">l10n.hn.payroll.period</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="year"/>
+                <field name="month"/>
+                <field name="period_number"/>
+                <filter string="Este Año" name="this_year" domain="[('year', '=', context_today().year)]"/>
+                <filter string="Este Mes" name="this_month" domain="[('year', '=', context_today().year), ('month', '=', context_today().month)]"/>
+                <separator/>
+                <filter string="Primera Quincena" name="first_period" domain="[('period_number', '=', '1')]"/>
+                <filter string="Segunda Quincena" name="second_period" domain="[('period_number', '=', '2')]"/>
+                <separator/>
+                <filter string="Año" name="group_by_year" context="{'group_by': 'year'}"/>
+                <filter string="Mes" name="group_by_month" context="{'group_by': 'month'}"/>
+                <filter string="Quincena" name="group_by_period" context="{'group_by': 'period_number'}"/>
+            </search>
+        </field>
+    </record>
+    
+    <!-- Action for Payroll Periods -->
+    <record id="action_l10n_hn_payroll_period" model="ir.actions.act_window">
+        <field name="name">Quincenas</field>
+        <field name="res_model">l10n.hn.payroll.period</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="search_view_id" ref="view_l10n_hn_payroll_period_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay quincenas configuradas.
+            </p>
+            <p>
+                Las quincenas se crean automáticamente cuando se genera una nómina quincenal.
+            </p>
+        </field>
+    </record>
+</odoo>

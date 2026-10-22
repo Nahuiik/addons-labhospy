@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+    <record id="action_invalidate_session" model="ir.actions.server">
+        <field name="name">Invalidate Session</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="base.model_res_users"/>
+        <field name="group_ids" eval="[(4, ref('base.group_system'))]"/>
+        <field name="binding_model_id" ref="base.model_res_users"/>
+        <field name="state">code</field>
+        <field name="binding_view_types">list</field>
+        <field name="code">
+if records:
+    action = records.invalidate_session()
+        </field>
+    </record>
+    </data>
+</odoo>

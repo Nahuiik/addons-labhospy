@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Acción del Reporte -->
+    <record id="action_stock_valuation_report" model="ir.actions.report">
+        <field name="name">Reporte de Valoración de Inventario</field>
+        <field name="model">stock.valuation.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">stock_valuation_report.stock_valuation_report_template</field>
+        <field name="report_file">stock_valuation_report.stock_valuation_report_template</field>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="base.paperformat_us"/>
+    </record>
+
+    <!-- Template del Reporte PDF - Formato original traducido -->
+    <template id="stock_valuation_report_template">
+        <t t-call="web.html_container">
+            <t t-set="data_report_margin_top" t-value="12"/>
+            <t t-set="data_report_header_spacing" t-value="9"/>
+            <t t-set="data_report_dpi" t-value="110"/>
+            <t t-call="web.internal_layout">
+                <t t-foreach="get_company(data['form']['company_id'])" t-as="obj_company">
+                    <div class="page">
+                        <!-- Título principal - Nombre de la compañía -->
+                        <h1 class="text-center" style="background-color: #C0C0C0; padding: 15px; margin-bottom: 20px; border: 1px solid #000;">
+                            <t t-esc="obj_company['name']"/>
+                        </h1>
+                        
+                        <!-- Encabezado con información del reporte -->
+                        <table class="table table-bordered" style="margin-bottom: 20px;">
+                            <thead style="background-color: #C0C0C0;">
+                                <tr>
+                                    <th class="text-center" style="width: 20%;">Fecha</th>
+                                    <th class="text-center" style="width: 25%;">Compañía</th>
+                                    <th class="text-center" style="width: 20%;">Almacén(es)</th>
+                                    <th class="text-center" style="width: 15%;">Moneda</th>
+                                    <th class="text-center" style="width: 20%;">Mostrar</th>
+                                </tr>
+                            </thead>
+                            <tbody style="background-color: #C0C0C0;">
+                                <tr>
+                                    <td class="text-center" style="color: #800080; font-weight: bold;">
+                                        <t t-esc="data['form']['start_date']"/> a <t t-esc="data['form']['end_date']"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <t t-esc="obj_company['name']"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <t t-esc="get_warehouses_block(data['form']['warehouse_ids'], obj_company['id'])"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <t t-esc="obj_company['currency_id'][1]"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <t t-if="data['form']['only_summary']">Reporte Resumen</t>
+                                        <t t-else="">Reporte Detallado</t>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Variables para totales generales -->
+                        <t t-set="c_total_begin" t-value="0"/>
+                        <t t-set="c_total_in" t-value="0"/>
+                        <t t-set="c_total_out" t-value="0"/>
+                        <t t-set="c_total_adj" t-value="0"/>
+                        <t t-set="c_total_end" t-value="0"/>
+                        <t t-set="c_total_subcost" t-value="0"/>
+
+                        <!-- MODO RESUMEN -->
+                        <t t-if="data['form']['only_summary']">
+                            <table class="table table-bordered table-sm">
+                                <thead style="background-color: #C0C0C0;">
+                                    <tr>
+                                        <th class="text-center">Categoría</th>
+                                        <th class="text-center">Inicial Total</th>
+                                        <th class="text-center">Entradas Total</th>
+                                        <th class="text-center">Salidas Total</th>
+                                        <th class="text-center">Ajustes Total</th>
+                                        <th class="text-center">Final Total</th>
+                                        <th class="text-center">Valor Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="get_lines(data, obj_company['id']).items()" t-as="categ">
+                                        <!-- Variables para totales de categoría -->
+                                        <t t-set="total_begin" t-value="0"/>
+                                        <t t-set="total_in" t-value="0"/>
+                                        <t t-set="total_out" t-value="0"/>
+                                        <t t-set="total_adj" t-value="0"/>
+                                        <t t-set="total_end" t-value="0"/>
+                                        <t t-set="total_subcost" t-value="0"/>
+                                        
+                                        <t t-foreach="categ[1]" t-as="l">
+                                            <t t-set="r" t-value="get_cost(obj_company['id'], l['product_id'], data['form']['end_date'], l['ending_qty']) or 0.0"/>
+                                            <t t-set="s" t-value="get_subtotal_cost(r, l['ending_qty'], l) or 0.0"/>
+                                            
+                                            <t t-set="total_begin" t-value="total_begin + (l['begining_qty'] or 0.0)"/>
+                                            <t t-set="total_in" t-value="total_in + (l['product_qty_in'] or 0.0)"/>
+                                            <t t-set="total_out" t-value="total_out + (l['product_qty_out'] or 0.0)"/>
+                                            <t t-set="total_adj" t-value="total_adj + (l['product_qty_adjustment'] or 0.0)"/>
+                                            <t t-set="total_end" t-value="total_end + (l['ending_qty'] or 0.0)"/>
+                                            <t t-set="total_subcost" t-value="total_subcost + s"/>
+                                        </t>
+                                        
+                                        <!-- Fila de categoría con totales -->
+                                        <t t-if="categ[1]">
+                                            <!-- Usar categ_name del SQL si está disponible -->
+                                            <t t-set="categ_display_name" t-value="categ[1][0].get('categ_name') if categ[1] else get_categ(categ[0])"/>
+                                            <tr style="background-color: #C0C0C0;">
+                                                <td class="text-center" t-esc="categ_display_name or 'Sin Categoría'"/>
+                                                <td class="text-right" style="color: #800080; font-weight: bold;">
+                                                    <t t-esc="'%.2f' % total_begin"/>
+                                                </td>
+                                                <td class="text-right" style="color: #800080; font-weight: bold;">
+                                                    <t t-esc="'%.2f' % total_in"/>
+                                                </td>
+                                                <td class="text-right" style="color: #800080; font-weight: bold;">
+                                                    <t t-esc="'%.2f' % total_out"/>
+                                                </td>
+                                                <td class="text-right" style="color: #800080; font-weight: bold;">
+                                                    <t t-esc="'%.2f' % total_adj"/>
+                                                </td>
+                                                <td class="text-right" style="color: #800080; font-weight: bold;">
+                                                    <t t-esc="'%.2f' % total_end"/>
+                                                </td>
+                                                <td class="text-right" style="color: #800080; font-weight: bold;">
+                                                    <t t-esc="'%.2f' % total_subcost"/>
+                                                </td>
+                                            </tr>
+                                            
+                                            <t t-set="c_total_begin" t-value="c_total_begin + total_begin"/>
+                                            <t t-set="c_total_in" t-value="c_total_in + total_in"/>
+                                            <t t-set="c_total_out" t-value="c_total_out + total_out"/>
+                                            <t t-set="c_total_adj" t-value="c_total_adj + total_adj"/>
+                                            <t t-set="c_total_end" t-value="c_total_end + total_end"/>
+                                            <t t-set="c_total_subcost" t-value="c_total_subcost + total_subcost"/>
+                                        </t>
+                                    </t>
+                                    
+                                    <!-- Gran Total -->
+                                    <tr style="background-color: #C0C0C0; border: 2px solid #000;">
+                                        <td class="text-center" style="color: #800080; font-weight: bold;">Gran Total</td>
+                                        <td class="text-right" style="color: #800080; font-weight: bold;">
+                                            <t t-esc="'%.2f' % c_total_begin"/>
+                                        </td>
+                                        <td class="text-right" style="color: #800080; font-weight: bold;">
+                                            <t t-esc="'%.2f' % c_total_in"/>
+                                        </td>
+                                        <td class="text-right" style="color: #800080; font-weight: bold;">
+                                            <t t-esc="'%.2f' % c_total_out"/>
+                                        </td>
+                                        <td class="text-right" style="color: #800080; font-weight: bold;">
+                                            <t t-esc="'%.2f' % c_total_adj"/>
+                                        </td>
+                                        <td class="text-right" style="color: #800080; font-weight: bold;">
+                                            <t t-esc="'%.2f' % c_total_end"/>
+                                        </td>
+                                        <td class="text-right" style="color: #800080; font-weight: bold;">
+                                            <t t-esc="'%.2f' % c_total_subcost"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </t>
+
+                        <!-- MODO DETALLE -->
+                        <t t-if="not data['form']['only_summary']">
+                            <table class="table table-bordered table-sm" style="font-size: 11px;">
+                                <thead style="background-color: #C0C0C0;">
+                                    <tr>
+                                        <th class="text-center">Categoría</th>
+                                        <th class="text-center">Producto</th>
+                                        <th class="text-center">Código Barras</th>
+                                        <th class="text-center">Referencia</th>
+                                        <th class="text-center">Proveedor (LabHosPy)</th>
+                                        <th class="text-center">Inicial</th>
+                                        <th class="text-center">Entradas</th>
+                                        <th class="text-center">Salidas</th>
+                                        <th class="text-center">Ajustes</th>
+                                        <th class="text-center">Final</th>
+                                        <th class="text-center">Costo</th>
+                                        <th class="text-center">Valor Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="get_lines(data, obj_company['id']).items()" t-as="categ">
+                                        <t t-foreach="categ[1]" t-as="l">
+                                            <t t-set="beginning" t-value="l['begining_qty'] or 0.0"/>
+                                            <t t-set="qty_in" t-value="l['product_qty_in'] or 0.0"/>
+                                            <t t-set="qty_out" t-value="l['product_qty_out'] or 0.0"/>
+                                            <t t-set="qty_adj" t-value="l['product_qty_adjustment'] or 0.0"/>
+                                            <t t-set="ending" t-value="l['ending_qty'] or 0.0"/>
+                                            
+                                            <!-- Solo mostrar si tiene valores (ya filtrado en SQL pero doble check) -->
+                                            <t t-if="beginning or qty_in or qty_out or qty_adj or ending">
+                                                <t t-set="cost" t-value="get_cost(obj_company['id'], l['product_id'], data['form']['end_date'], ending) or 0.0"/>
+                                                <t t-set="subtotal_cost" t-value="get_subtotal_cost(cost, ending, l) or 0.0"/>
+                                                
+                                                <!-- Usar datos directos de SQL cuando estén disponibles -->
+                                                <t t-set="categ_name" t-value="l.get('categ_name') or get_categ(categ[0])"/>
+                                                <t t-set="product_name" t-value="l.get('product_name') or ''"/>
+                                                <t t-set="barcode" t-value="l.get('barcode') or ''"/>
+                                                <t t-set="default_code" t-value="l.get('default_code') or ''"/>
+                                                <t t-set="labhospy_supplier_name" t-value="l.get('labhospy_supplier_name') or ''"/>
+                                                
+                                                <tr style="background-color: #C0C0C0;">
+                                                    <td class="text-center" t-esc="categ_name"/>
+                                                    <td class="text-center" t-esc="product_name"/>
+                                                    <td class="text-center" t-esc="barcode"/>
+                                                    <td class="text-center" t-esc="default_code"/>
+                                                    <td class="text-center" t-esc="labhospy_supplier_name"/>
+                                                    <td class="text-right" style="color: #800080; font-weight: bold;">
+                                                        <t t-esc="'%.2f' % beginning"/>
+                                                    </td>
+                                                    <td class="text-right" style="color: #800080; font-weight: bold;">
+                                                        <t t-esc="'%.2f' % qty_in"/>
+                                                    </td>
+                                                    <td class="text-right" style="color: #800080; font-weight: bold;">
+                                                        <t t-esc="'%.2f' % qty_out"/>
+                                                    </td>
+                                                    <td class="text-right" style="color: #800080; font-weight: bold;">
+                                                        <t t-esc="'%.2f' % qty_adj"/>
+                                                    </td>
+                                                    <td class="text-right" style="color: #800080; font-weight: bold;">
+                                                        <t t-esc="'%.2f' % ending"/>
+                                                    </td>
+                                                    <td class="text-right" style="color: #800080; font-weight: bold;">
+                                                        <t t-esc="'%.2f' % cost"/>
+                                                    </td>
+                                                    <td class="text-right" style="color: #800080; font-weight: bold;">
+                                                        <t t-esc="'%.2f' % subtotal_cost"/>
+                                                    </td>
+                                                </tr>
+                                                
+                                                <t t-set="c_total_begin" t-value="c_total_begin + beginning"/>
+                                                <t t-set="c_total_in" t-value="c_total_in + qty_in"/>
+                                                <t t-set="c_total_out" t-value="c_total_out + qty_out"/>
+                                                <t t-set="c_total_adj" t-value="c_total_adj + qty_adj"/>
+                                                <t t-set="c_total_end" t-value="c_total_end + ending"/>
+                                                <t t-set="c_total_subcost" t-value="c_total_subcost + subtotal_cost"/>
+                                            </t>
+                                        </t>
+                                    </t>
+                                    
+                                    <!-- Gran Total -->
+                                    <tr style="background-color: #C0C0C0; border: 2px solid #000;">
+                                        <td class="text-center"></td>
+                                        <td class="text-center"></td>
+                                        <td class="text-center"></td>
+                                        <td class="text-center" style="color: #800080; font-weight: bold;">Gran Total</td>
+                                        <td class="text-center"></td>
+                                        <td class="text-right" style="color: #800080; font-weight: bold;">
+                                            <t t-esc="'%.2f' % c_total_begin"/>
+                                        </td>
+                                        <td class="text-right" style="color: #800080; font-weight: bold;">
+                                            <t t-esc="'%.2f' % c_total_in"/>
+                                        </td>
+                                        <td class="text-right" style="color: #800080; font-weight: bold;">
+                                            <t t-esc="'%.2f' % c_total_out"/>
+                                        </td>
+                                        <td class="text-right" style="color: #800080; font-weight: bold;">
+                                            <t t-esc="'%.2f' % c_total_adj"/>
+                                        </td>
+                                        <td class="text-right" style="color: #800080; font-weight: bold;">
+                                            <t t-esc="'%.2f' % c_total_end"/>
+                                        </td>
+                                        <td class="text-right" style="color: #800080; font-weight: bold;">-</td>
+                                        <td class="text-right" style="color: #800080; font-weight: bold;">
+                                            <t t-esc="'%.2f' % c_total_subcost"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </t>
+                        
+                        <!-- Salto de página entre compañías -->
+                        <p style="page-break-before: always;"/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

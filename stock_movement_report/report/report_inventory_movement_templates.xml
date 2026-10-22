@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="filter_info_template">
+        <h2 style="text-align: center;"><t t-esc="report_name"></t></h2>
+            <div class="row print_only" style='margin-top: 20px; margin-bottom: 10px;'>
+                <div class="col-6">
+                    <b><t t-esc="report_labels['company']"/>: </b><span t-esc="res_company.name"/>
+                </div>
+                <div class="col-6" t-if="categories">
+                    <b><t t-esc="report_labels['categories']"/>: </b><span t-esc="categories"/>
+                </div>
+                <div class="col-6" t-if="warehouses">
+                    <b><t t-esc="report_labels['warehouses']"/>: </b><span t-esc="warehouses"/>
+                </div>
+                <div class="col-6" t-if="locations">
+                    <b><t t-esc="report_labels['locations']"/>: </b><span t-esc="locations"/>
+                </div>
+                <div class="col-6" t-if="options.get('date') and options.get('date').get('filter')">
+                    <t t-if="options['date']['filter'] == 'today'">
+                        <span><b><t t-esc="report_labels['period_as_of']"/></b> <t t-esc="options['date']['date_from']" t-options="{'widget': 'date'}"/></span>
+                    </t>
+                    <t t-if="options['date']['filter'] in ('month', 'week', 'custom')">
+                        <span><b><t t-esc="report_labels['period_as_of']"/></b> <t t-esc="options['date']['date_from']" t-options="{'widget': 'date'}"/> <b><t t-esc="report_labels['to']"/></b> <t t-esc="options['date']['date_to']" t-options="{'widget': 'date'}"/></span>
+                    </t>
+                </div>
+            </div>
+    </template>
+
+    <template id="report_inventory_movement">
+        <div class="o_inventory_movement_report">
+            <div class="container o_inventory_movement_page">
+                <div t-if="print_mode" class="o_stock_reports_header">
+                    <t t-call="stock_movement_report.filter_info_template"/>
+                </div>
+                <div class="on_screen_title">
+                    <span><t t-esc="report_name"/></span><br/><br/>
+                </div>
+                <div t-if="not print_mode" class="row o_header">
+                    <div class="col-md-3 o_section o_grey" t-att-title="report_labels['opening_qty']">
+                        <div class="o_highlight"><span t-esc="format_precision(header_vals['total_opening_qty'])"/></div>
+                        <t t-esc="report_labels['opening_qty']"/>
+                    </div>
+                    <div class="col-md-3 o_section o_green" t-att-title="report_labels['qty_in']">
+                        <div class="o_highlight"><span t-esc="format_precision(header_vals['total_incoming_qty'])"/></div>
+                        <t t-esc="report_labels['qty_in']"/>
+                    </div>
+                    <div class="col-md-3 o_section o_blue" t-att-title="report_labels['qty_out']">
+                        <div class="o_highlight"><span t-esc="format_precision(header_vals['total_outgoing_qty'])"/></div>
+                        <t t-esc="report_labels['qty_out']"/>
+                    </div>
+                    <div class="col-md-3 o_section o_grey o_invisible_border" t-att-title="report_labels['closing_qty']">
+                        <div class="o_highlight"><span t-esc="format_precision(header_vals['total_virtual_available'])"/></div>
+                        <t t-esc="report_labels['closing_qty']"/>
+                    </div>
+                    <div class="col-md-3 o_section o_grey" t-att-title="report_labels['opening_value']">
+                        <div class="o_highlight"><span t-esc="header_vals['total_stock_value']" t-options='{"widget": "monetary", "display_currency": currency_id}'/></div>
+                        <t t-esc="report_labels['opening_value']"/>
+                    </div>
+                    <div class="col-md-3 o_section o_green" t-att-title="report_labels['value_in']">
+                        <div class="o_highlight"><span t-esc="header_vals['total_incoming_value']" t-options='{"widget": "monetary", "display_currency": currency_id}'/></div>
+                        <t t-esc="report_labels['value_in']"/>
+                    </div>
+                    <div class="col-md-3 o_section o_blue" t-att-title="report_labels['value_out']">
+                        <div class="o_highlight"><span t-esc="header_vals['total_outgoing_value']" t-options='{"widget": "monetary", "display_currency": currency_id}'/></div>
+                        <t t-esc="report_labels['value_out']"/>
+                    </div>
+                    <div class="col-md-3 o_section o_grey o_invisible_border" t-att-title="report_labels['closing_value']">
+                        <div class="o_highlight"><span t-esc="header_vals['total_virtual_value']" t-options='{"widget": "monetary", "display_currency": currency_id}'/></div>
+                        <t t-esc="report_labels['closing_value']"/>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table width="100%" t-att-class="'%s table-striped o_stock_reports_table' % ('table table-sm' if print_mode else '')">
+                        <thead>
+                            <tr style="border-bottom: 1px solid !important;">
+                                <th style="text-align: left !important;"><t t-esc="report_labels['internal_reference']"/></th>
+                                <th style="text-align: left !important;"><t t-esc="report_labels['product']"/></th>
+                                <th style="text-align: left !important;"><t t-esc="report_labels['labhospy_supplier']"/></th>
+                                <th style="text-align: right !important;"><t t-esc="report_labels['opening_qty']"/></th>
+                                <th style="text-align: right !important;"><t t-esc="report_labels['qty_in']"/></th>
+                                <th style="text-align: right !important;"><t t-esc="report_labels['qty_out']"/></th>
+                                <th style="text-align: right !important;"><t t-esc="report_labels['closing_qty']"/></th>
+                                <th style="text-align: right !important;"><t t-esc="report_labels['opening_value']"/></th>
+                                <th style="text-align: right !important;"><t t-esc="report_labels['value_in']"/></th>
+                                <th style="text-align: right !important;"><t t-esc="report_labels['value_out']"/></th>
+                                <th style="text-align: right !important;"><t t-esc="report_labels['closing_value']"/></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="lines" t-as="line" >
+                                <td style="border-bottom: 1px solid;text-align: left !important;"><span t-esc="line['product_reference']"/></td>
+                                <td style="border-bottom: 1px solid;text-align: left !important;"><span t-att-class="'%s o_product_link' % ('' if print_mode else 'btn btn-sm btn-link')" t-att-data-product="line['id']" t-esc="line['product_name']"/></td>
+                                <td style="border-bottom: 1px solid;text-align: left !important;"><span t-esc="line.get('labhospy_supplier') or ''"/></td>
+                                <td style="border-bottom: 1px solid;text-align: right !important;" t-att-class="'text-right %s' % ('table-danger' if line['opening_qty'] &lt; 0 else '')"><span t-esc="format_precision(line['opening_qty'])"/></td>
+                                <td style="border-bottom: 1px solid;text-align: right !important;" t-att-class="'text-right %s' % ('table-danger' if line['incoming_qty'] &lt; 0 else '')"><span t-esc="format_precision(line['incoming_qty'])"/></td>
+                                <td style="border-bottom: 1px solid;text-align: right !important;" t-att-class="'text-right %s' % ('table-danger' if line['outgoing_qty'] &lt; 0 else '')"><span t-esc="format_precision(line['outgoing_qty'])"/></td>
+                                <td style="border-bottom: 1px solid;text-align: right !important;" t-att-class="'text-right %s' % ('table-danger' if line['virtual_available'] &lt; 0 else '')"><span t-esc="format_precision(line['virtual_available'])"/></td>
+                                <td style="border-bottom: 1px solid;text-align: right !important;" t-att-class="'text-right %s' % ('table-danger' if line['stock_value'] &lt; 0 else '')"><span t-esc="line['stock_value']" t-options='{"widget": "monetary", "display_currency": currency_id}'/></td>
+                                <td style="border-bottom: 1px solid;text-align: right !important;" t-att-class="'text-right %s' % ('table-danger' if line['incoming_value'] &lt; 0 else '')"><span t-esc="line['incoming_value']" t-options='{"widget": "monetary", "display_currency": currency_id}'/></td>
+                                <td style="border-bottom: 1px solid;text-align: right !important;" t-att-class="'text-right %s' % ('table-danger' if line['outgoing_value'] &lt; 0 else '')"><span t-esc="line['outgoing_value']" t-options='{"widget": "monetary", "display_currency": currency_id}'/></td>
+                                <td style="border-bottom: 1px solid;text-align: right !important;" t-att-class="'text-right %s' % ('table-danger' if line['virtual_value'] &lt; 0 else '')"><span t-esc="line['virtual_value']" t-options='{"widget": "monetary", "display_currency": currency_id}'/></td>
+                            </tr>
+                            <tr t-if="not lines and not print_mode">
+                                <td colspan="11" class="text-center table-danger"><t t-esc="report_labels['no_data']"/></td>
+                            </tr>
+                            <tr t-if="print_mode">
+                              <td colspan="11"></td>
+                            </tr>
+                            <tr t-if="print_mode" style="line-height: 20px;">
+                                <td/>
+                                <td style="text-align: right !important;" class="text-right font-weight-bold"><b><t t-esc="report_labels['total']"/></b></td>
+                                <td/>
+                                <td style="text-align: right !important;" class="text-right font-weight-bold"><b><span t-esc="format_precision(header_vals['total_opening_qty'])"/></b></td>
+                                <td style="text-align: right !important;" class="text-right font-weight-bold"><b><span t-esc="format_precision(header_vals['total_incoming_qty'])"/></b></td>
+                                <td style="text-align: right !important;" class="text-right font-weight-bold"><b><span t-esc="format_precision(header_vals['total_outgoing_qty'])"/></b></td>
+                                <td style="text-align: right !important;" class="text-right font-weight-bold"><b><span t-esc="format_precision(header_vals['total_virtual_available'])"/></b></td>
+                                <td style="text-align: right !important;" class="text-right font-weight-bold"><b><span t-esc="header_vals['total_stock_value']" t-options='{"widget": "monetary", "display_currency": currency_id}'/></b></td>
+                                <td style="text-align: right !important;" class="text-right font-weight-bold"><b><span t-esc="header_vals['total_incoming_value']" t-options='{"widget": "monetary", "display_currency": currency_id}'/></b></td>
+                                <td style="text-align: right !important;" class="text-right font-weight-bold"><b><span t-esc="header_vals['total_outgoing_value']" t-options='{"widget": "monetary", "display_currency": currency_id}'/></b></td>
+                                <td style="text-align: right !important;" class="text-right font-weight-bold"><b><span t-esc="header_vals['total_virtual_value']" t-options='{"widget": "monetary", "display_currency": currency_id}'/></b></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template id="print_template">
+        <t t-call="web.html_container">
+            <t t-set="head_start">
+                <base t-att-href="base_url"/>
+            </t>
+            <t t-set="head_end">
+                <t t-call-assets="stock.assets_stock_print_report" t-js="False"/>
+            </t>
+            <t t-call='stock_movement_report.report_inventory_movement'/>
+        </t>
+    </template>
+
+</odoo>

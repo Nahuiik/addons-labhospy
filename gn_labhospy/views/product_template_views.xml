@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_product_template_form_labhospy" model="ir.ui.view">
+        <field name="name">product.template.form.labhospy</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="LabHosPy" name="labhospy">
+                    <group string="Control LabHosPy" col="2">
+                        <field name="gn_labhospy_supplier_id" options="{'no_create': True, 'no_create_edit': True}"/>
+                        <field name="gn_labhospy_catalog_code"/>
+                        <field name="gn_labhospy_model"/>
+                        <field name="gn_labhospy_is_controlled"/>
+                        <field name="gn_labhospy_application_use_id"
+                               invisible="gn_labhospy_is_controlled == False"/>
+                        <field name="gn_labhospy_sc_presentation"/>
+                    </group>
+                </page>
+            </xpath>
+            <xpath expr="//div[hasclass('oe_title')]" position="after">
+                <div class="alert alert-danger" role="alert"
+                     invisible="gn_labhospy_is_controlled == False"
+                     style="margin-bottom:16px;">
+                    <strong>¡Este es un producto controlado!</strong>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_product_template_tree_labhospy" model="ir.ui.view">
+        <field name="name">product.template.tree.labhospy</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//list" position="attributes">
+                <attribute name="decoration-warning">gn_labhospy_is_controlled</attribute>
+            </xpath>
+            <xpath expr="//field[@name='categ_id']" position="after">
+                <field name="gn_labhospy_supplier_id" optional="show" options="{'no_create': True, 'no_create_edit': True}"/>
+                <field name="gn_labhospy_catalog_code" optional="show"/>
+                <field name="gn_labhospy_model" optional="show"/>
+                <field name="gn_labhospy_is_controlled" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_product_template_search_labhospy" model="ir.ui.view">
+        <field name="name">product.template.search.labhospy</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <field name="gn_labhospy_supplier_id" string="Proveedor (LabHosPy)"
+                       filter_domain="[('gn_labhospy_supplier_id', '=', self)]"/>
+                <field name="gn_labhospy_catalog_code" string="Código de Catálogo"
+                       filter_domain="[('gn_labhospy_catalog_code', 'ilike', self)]"/>
+                <field name="gn_labhospy_model" string="Modelo"
+                       filter_domain="[('gn_labhospy_model', 'ilike', self)]"/>
+                <filter string="Productos controlados"
+                        name="filter_gn_labhospy_controlled"
+                        domain="[('gn_labhospy_is_controlled', '=', True)]"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_l10n_hn_edit_initial_contract_wizard_form" model="ir.ui.view">
+        <field name="name">l10n.hn.edit.initial.contract.wizard.form</field>
+        <field name="model">l10n.hn.edit.initial.contract.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Editar contrato inicial">
+                <field name="currency_id" invisible="1"/>
+                <field name="company_id" invisible="1"/>
+                <group>
+                    <field name="employee_id" readonly="1" force_save="1"/>
+                    <field name="version_id" force_save="1"/>
+                </group>
+                <group string="Fechas del contrato">
+                    <field name="date_version"/>
+                    <field name="contract_date_start"/>
+                    <field name="contract_date_end"/>
+                    <field name="trial_date_end"/>
+                </group>
+                <group string="Nómina y puesto">
+                    <field name="structure_type_id"/>
+                    <field name="schedule_pay"/>
+                    <field name="periodicity"/>
+                    <field name="wage" widget="monetary"/>
+                    <field name="resource_calendar_id"/>
+                    <field name="department_id"/>
+                    <field name="job_id"/>
+                    <field name="contract_type_id"/>
+                </group>
+                <footer>
+                    <button name="action_apply" string="Aplicar" type="object" class="btn-primary" data-hotkey="q"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel" data-hotkey="x"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

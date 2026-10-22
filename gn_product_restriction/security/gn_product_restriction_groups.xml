@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="group_allow_product_create" model="res.groups">
+        <field name="name">Permitir crear productos (GN)</field>
+        <field name="comment">
+            Permite crear plantillas de producto y variantes. Es independiente del
+            permiso estándar «Crear» del privilegio Productos: ambos pueden ser
+            necesarios según la configuración de acceso del usuario.
+        </field>
+    </record>
+</odoo>

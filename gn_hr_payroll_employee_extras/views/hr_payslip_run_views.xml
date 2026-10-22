@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_payslip_run_kanban_gn_send_mail_toggle" model="ir.ui.view">
+        <field name="name">hr.payslip.run.kanban.gn.send.mail.toggle</field>
+        <field name="model">hr.payslip.run</field>
+        <field name="inherit_id" ref="l10n_hn_payroll_base.hr_payslip_run_view_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//kanban" position="inside">
+                <field name="send_payslip_email_on_validate"/>
+            </xpath>
+            <xpath expr="//div[hasclass('o_payrun_info')]" position="inside">
+                <div class="d-flex align-items-center gap-2 mt-2 flex-wrap">
+                    <span class="text-muted">Correo al validar recibos</span>
+                    <field name="send_payslip_email_on_validate" widget="boolean_toggle"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_hr_payslip_run_form_gn_send_mail_toggle" model="ir.ui.view">
+        <field name="name">hr.payslip.run.form.gn.send.mail.toggle</field>
+        <field name="model">hr.payslip.run</field>
+        <field name="inherit_id" ref="l10n_hn_payroll_base.hr_payslip_run_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='schedule_pay']" position="after">
+                <field name="send_payslip_email_on_validate"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

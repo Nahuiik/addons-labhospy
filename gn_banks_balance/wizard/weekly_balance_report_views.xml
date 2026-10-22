@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="banks_weekly_balance_report_view_form" model="ir.ui.view">
+        <field name="name">banks.weekly.balance.report.form</field>
+        <field name="model">banks.weekly.balance.report</field>
+        <field name="arch" type="xml">
+            <form string="Informe semanal de saldos bancarios (mes)">
+                <group col="4">
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="year"/>
+                    <field name="month"/>
+                    <field name="journal_ids" widget="many2many_tags"
+                           domain="[('type','in',('bank','cash')), ('company_id', '=', company_id)]"
+                           options="{'no_create': True}"
+                           colspan="4"/>
+                </group>
+                <footer>
+                    <button string="Excel" type="object" name="action_export_xlsx"
+                            class="btn-primary"/>
+                    <button string="Vista HTML (QWeb)" type="object" name="action_export_html"
+                            class="btn-secondary"/>
+                    <button string="Cancelar" special="cancel" class="btn-link"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_banks_weekly_balance_report_wizard" model="ir.actions.act_window">
+        <field name="name">Balance semanal por banco</field>
+        <field name="res_model">banks.weekly.balance.report</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_banks_weekly_balance_report"
+              name="Balance semanal (mes Excel)"
+              parent="gn_banks.menu_banks_reports"
+              action="action_banks_weekly_balance_report_wizard"
+              sequence="5"/>
+</odoo>

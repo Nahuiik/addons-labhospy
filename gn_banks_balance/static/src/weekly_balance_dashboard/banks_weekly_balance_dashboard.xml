@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_banks_balance.BanksWeeklyBalanceDashboard">
+        <Layout display="display">
+            <t t-set-slot="control-panel-always-buttons">
+                <button class="btn btn-sm btn-outline-secondary me-1"
+                        t-on-click="toggleSidebar"
+                        t-att-title="sidebarToggleTitle">
+                    <i t-att-class="state.sidebarVisible ? 'fa fa-chevron-left' : 'fa fa-sliders'"/>
+                </button>
+                <nav class="gn-wb-breadcrumb me-3" aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item">Bancos</li>
+                        <li class="breadcrumb-item">Reportes</li>
+                        <li class="breadcrumb-item active" t-esc="title"/>
+                    </ol>
+                </nav>
+                <button class="btn btn-sm btn-outline-secondary me-1" t-on-click="onRefresh" t-att-title="refreshTitle">
+                    <i class="fa fa-refresh"/>
+                </button>
+                <button class="btn btn-sm btn-outline-secondary me-1" t-on-click="toggleFullscreen" t-att-title="fullscreenTitle">
+                    <i class="fa fa-expand"/>
+                </button>
+                <button class="btn btn-sm btn-outline-secondary me-1" t-on-click="onShare" t-att-title="shareTitle">
+                    <i class="fa fa-share-alt"/>
+                </button>
+                <button class="btn btn-sm btn-outline-secondary me-2" t-on-click="onFavorite" t-att-title="favoritesTitle">
+                    <i class="fa fa-star-o"/>
+                </button>
+                <button class="btn btn-sm btn-outline-secondary gn-wb-btn--excel me-1"
+                        t-on-click="onExportXlsx" t-att-title="exportXlsxTitle">
+                    <i class="fa fa-file-excel-o"/> Excel
+                </button>
+                <button class="btn btn-sm btn-outline-secondary gn-wb-btn--pdf"
+                        t-on-click="onExportPdf" t-att-title="exportPdfTitle">
+                    <i class="fa fa-file-pdf-o"/> PDF
+                </button>
+            </t>
+
+            <div class="gn-wb-root" t-ref="root" t-att-class="{'gn-wb-root--fullscreen': state.fullscreen}">
+                <div class="gn-wb-layout">
+                    <aside class="gn-wb-layout__sidebar" t-if="state.sidebarVisible">
+                        <BanksWeeklyBalanceFilterPanel
+                            filters="state.draftFilters"
+                            filterOptions="state.filterOptions"
+                            dirty="state.filtersDirty"
+                            onDraftChanged.bind="onDraftFiltersChanged"
+                            onApply.bind="onApplyFilters"
+                            onClear.bind="onClearFilters"
+                        />
+                    </aside>
+
+                    <main class="gn-wb-layout__main" t-ref="mainScroll">
+                        <ExecutiveStickyBar
+                            visible="state.showStickyBar and state.activeMainTab === 'panel'"
+                            metrics="stickyMetrics"
+                            currencyId="currencyId"
+                        />
+
+                        <header class="gn-wb-hero" t-if="!state.loading and !state.loadError and state.data.company_name">
+                            <div class="gn-wb-hero__content">
+                                <div>
+                                    <h1 class="gn-wb-hero__title" t-esc="state.data.company_name"/>
+                                    <p class="gn-wb-hero__subtitle mb-0" t-if="state.data.subtitle"
+                                       t-esc="state.data.subtitle"/>
+                                </div>
+                                <div class="gn-wb-hero__meta text-end">
+                                    <span class="gn-wb-hero__period" t-if="state.data.month_year_title"
+                                          t-esc="state.data.month_year_title"/>
+                                    <small class="gn-wb-hero__generated d-block text-muted"
+                                           t-if="generatedAtLabel">
+                                        Generado: <t t-esc="generatedAtLabel"/>
+                                    </small>
+                                </div>
+                            </div>
+                        </header>
+
+                        <ul class="nav nav-tabs gn-wb-main-tabs gn-wb-main-tabs--premium"
+                            t-if="!state.loading and !state.loadError and state.data.has_data">
+                            <li class="nav-item">
+                                <button type="button"
+                                        t-att-class="'nav-link' + (state.activeMainTab === 'panel' ? ' active' : '')"
+                                        t-on-click="() => this.setMainTab('panel')">
+                                    Panel ejecutivo
+                                </button>
+                            </li>
+                            <li class="nav-item" t-if="canViewFinancialHealth">
+                                <button type="button"
+                                        t-att-class="'nav-link' + (state.activeMainTab === 'health' ? ' active' : '')"
+                                        t-on-click="() => this.setMainTab('health')">
+                                    Salud financiera
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button type="button"
+                                        t-att-class="'nav-link' + (state.activeMainTab === 'detail' ? ' active' : '')"
+                                        t-on-click="() => this.setMainTab('detail')">
+                                    Detalle contable
+                                </button>
+                            </li>
+                        </ul>
+
+                        <t t-if="state.loading">
+                            <BanksWeeklyBalanceSkeleton/>
+                        </t>
+                        <t t-elif="state.loadError">
+                            <DashboardErrorState
+                                message="state.loadError"
+                                onRetry.bind="onRefresh"
+                            />
+                        </t>
+                        <t t-elif="!state.data.has_data">
+                            <BanksWeeklyBalanceEmptyState
+                                message="state.data.error_message or emptyStateMessage"
+                                icon="'fa-filter'"
+                            />
+                        </t>
+                        <t t-elif="state.activeMainTab === 'panel'">
+                            <div class="gn-wb-panel gn-wb-fade-in">
+                            <KpiCards
+                                primaryCards="primaryKpiCards"
+                                secondaryCards="secondaryKpiCards"
+                            />
+
+                            <section class="gn-wb-section gn-wb-section--waterfall" t-if="waterfallData.steps.length">
+                                <h6 class="gn-wb-section__title">Cascada de liquidez</h6>
+                                <WaterfallCashflowChart
+                                    chartData="waterfallData"
+                                    currencySymbol="currencySymbol"
+                                />
+                            </section>
+
+                            <div class="gn-wb-charts-grid">
+                                <section class="gn-wb-section" t-if="state.data.charts?.cashflow">
+                                    <CashflowChart
+                                        chartData="state.data.charts.cashflow"
+                                        weekSync="weekSync"
+                                        currencySymbol="currencySymbol"
+                                    />
+                                </section>
+                                <section class="gn-wb-section" t-if="state.data.charts?.balance_evolution">
+                                    <BalanceEvolutionChart
+                                        chartData="state.data.charts.balance_evolution"
+                                        weekSync="weekSync"
+                                        currencySymbol="currencySymbol"
+                                    />
+                                </section>
+                            </div>
+
+                            <FinancialInsights
+                                insights="state.data.insights"
+                                currencyId="currencyId"
+                            />
+
+                            <t t-if="showExecutiveSections">
+                                <HistoricalComparisonPanel
+                                    t-if="executiveHealthSections.historicalComparison"
+                                    comparisonData="executiveHealthSections.historicalComparison"
+                                    currencyId="currencyId"
+                                />
+                                <SmartAlertsPanel
+                                    t-if="executiveHealthSections.alerts.length"
+                                    alerts="executiveHealthSections.alerts"
+                                    currencyId="currencyId"
+                                />
+                                <RecommendationsPanel
+                                    t-if="executiveHealthSections.recommendations.length"
+                                    recommendations="executiveHealthSections.recommendations"
+                                />
+                            </t>
+
+                            <section class="gn-wb-section gn-wb-section--summary" t-if="state.data.weeks?.length">
+                                <h6 class="gn-wb-section__title">Resumen por período</h6>
+                                <WeeklySummaryTable
+                                    weeks="state.data.weeks"
+                                    currencyId="currencyId"
+                                    weekSync="weekSync"
+                                    onDrilldown.bind="onDrilldown"
+                                />
+                            </section>
+                            </div>
+                        </t>
+                        <t t-elif="state.activeMainTab === 'health'">
+                            <FinancialHealthTab
+                                loading="state.healthLoading"
+                                loadError="state.healthLoadError"
+                                data="state.healthData"
+                                currencyId="currencyId"
+                                currencySymbol="currencySymbol"
+                                onRetry.bind="onRetryHealth"
+                            />
+                        </t>
+                        <t t-elif="state.activeMainTab === 'detail'">
+                            <BanksWeeklyBalanceTable
+                                data="state.data"
+                                currencyId="currencyId"
+                                onDrilldown.bind="onDrilldown"
+                                onStatementDrilldown.bind="onStatementDrilldown"
+                            />
+                        </t>
+                    </main>
+                </div>
+            </div>
+        </Layout>
+    </t>
+
+</templates>

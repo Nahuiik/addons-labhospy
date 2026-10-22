@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_config_professional_report_templates" model="ir.ui.view">
+            <field name="name">res.config.report.settings</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//block[@name='companies_setting_container']" position="inside">
+                    <setting string="Professional Report Templates" help="Company specific settings for printed reports" company_dependent="1" class="col-12 col-lg-6 o_setting_box" id="professional_templates_settings">
+                        <div class="content-group">
+                            <div class="mt16" groups="base.group_no_one">
+                                <label for="df_style" string="Style" class="col-3 col-lg-3 o_light_label"/>
+                                <field name="df_style" class="oe_inline"/>
+                            </div>
+                            <div class="mt16" groups="base.group_no_one">
+                                <label for="pdf_watermark" string="Watermark PDF" class="col-3 col-lg-3 o_light_label"/>
+                                <field name="pdf_watermark" class="oe_inline" filename="pdf_watermark_fname"/>
+                                <field name="pdf_watermark_fname" class="oe_inline" invisible="1"/>
+                            </div>
+                            <div class="mt16" groups="base.group_no_one">
+                                <label for="pdf_last_page" string="Attach PDF" class="col-3 col-lg-3 o_light_label"/>
+                                <field name="pdf_last_page" class="oe_inline" filename="pdf_last_page_fname"/>
+                                <field name="pdf_last_page_fname" class="oe_inline" invisible="1"/>
+                            </div>
+                        </div>
+                    </setting>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

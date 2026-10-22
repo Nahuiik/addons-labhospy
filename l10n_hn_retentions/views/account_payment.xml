@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inherit_view_account_payment_form_retentions" model="ir.ui.view">
+        <field name="name">account.payment.view.form.inherit.retentions</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group/div[@name='amount_div']" position="after">
+            <!-- <group name="main_group" position="after"> -->
+                <!-- <group string="Retención" col="2" colspan="2" class="o_inner_group" invisible="show_retention_option == False"> -->
+                    <field invisible="1" name="show_retention_option"/>
+                    <field invisible="1" name="show_retention_1"/>
+                    <field invisible="1" name="show_retention_12_5"/>
+                    <field invisible="1" name="show_retention_15"/>
+                    <field name="retention_sequence_id" readonly="1" optional="hide"/>
+                    <field name="retention_sequence_ids" readonly="1" optional="hide"/>
+                    <field name="apply_retentions" readonly="state != 'draft' or show_retention_option == False" optional="hide"/>
+                    <field name="apply_1" readonly="state != 'draft'" invisible="apply_retentions == False or show_retention_1 == False" optional="hide"/>
+                    <field name="apply_12_5" readonly="state != 'draft'" invisible="apply_retentions == False or show_retention_12_5 == False" optional="hide"/>
+                    <field name="apply_15" readonly="state != 'draft'" invisible="apply_retentions == False or show_retention_15 == False" optional="hide"/>
+                <!-- </group> -->
+            <!-- </group> -->
+            </xpath>
+            <xpath expr="//header[1]" position="inside">
+                <button class="oe_highlight btn btn-odoo border-radius" invisible="apply_retentions == False or payment_type == 'inbound' or show_retention_option == False" name="print_retention" string="Print Retention" type="object"/>
+                <!-- <button name="action_post_retenctions" string="Confirm" type="object" class="oe_highlight" invisible="state != 'draft'"/> -->
+            </xpath>
+        </field>
+    </record>
+    <!-- Heredar la vista tree de payment.invoice.line para agregar campos de retención -->
+    <record id="view_payment_invoice_line_tree_inherit_retentions" model="ir.ui.view">
+        <field name="name">payment.invoice.line.tree.inherit.retentions</field>
+        <field name="model">payment.invoice.line</field>
+        <field name="inherit_id" ref="gts_multiple_invoice_payment_currency.view_payment_invoice_line_tree"/>
+        <field name="arch" type="xml">
+            <field name="actual_amount" position="after">
+                <field column_invisible="parent.apply_1 == False or parent.show_retention_1 == False" name="amount_retention_1" sum="Total Ret 1%"/>
+                <field column_invisible="parent.apply_12_5 == False or parent.show_retention_12_5 == False" name="amount_retention_12_5" sum="Total Ret 12.5%"/>
+                <field column_invisible="parent.apply_15 == False or parent.show_retention_15 == False" name="amount_retention_15" sum="Total Ret 15%"/>
+            </field>
+        </field>
+    </record>
+    <data noupdate="1">
+        <record id="seq_retentions_supplier" model="ir.sequence">
+            <field name="name">Retenciones a Proveedores</field>
+            <field name="code">retention.seq.supplier</field>
+            <field name="active">True</field>
+            <field name="prefix">000-001-05-00</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">1</field>
+            <field name="padding">6</field>
+            <field name="implementation">standard</field>
+        </record>
+    </data>
+</odoo>

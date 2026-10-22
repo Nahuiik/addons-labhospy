@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_remission_inter_store_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.basic_layout">
+                    <t t-foreach="range(3)" t-as="i">
+                    
+                        <div class="page" t-att-style="('page-break-before: always; ' if i else '') + 'display:flex;flex-direction:column;min-height:100vh;box-sizing:border-box;'">
+                            <p class="text-center" style="font-size:18px;"><strong>GUÍA DE REMISIÓN</strong></p>
+                            <p class="text-center text-muted small mb16">Traslado entre tiendas
+                            <t t-set="rem_seq" t-value="doc.branch_id.hn_remission_sequence_id if doc.branch_id else False"/>
+                            <br/>
+                                CAI:
+                                <t t-if="rem_seq">
+                                    <t t-set="fr_sel" t-value="rem_seq.fiscal_regime.filtered(lambda r: r.selected)[:1]"/>
+                                    <span t-if="fr_sel.cai" t-field="fr_sel.cai.name"/>
+                                    <span t-else="">-</span>
+                                </t>
+                                <t t-else="">-</t>
+                                <br/>
+                                Rango Autorizado:
+                                <t t-if="rem_seq">
+                                    <span t-esc="rem_seq.dis_min_value or '-'"/>
+                                    <span> al </span>
+                                    <span t-esc="rem_seq.dis_max_value or '-'"/>
+                                </t>
+                                <t t-else="">- al -</t>
+                            </p>
+                            <div class="row mt16 mb16">
+                                <div class="col-6">
+                                    <p>
+                                        <strong>Guía:</strong>
+                                        <span t-esc="doc.hn_remission_number or '-'"/>
+                                    </p>
+                                    <p>
+                                        <strong>Traslado:</strong>
+                                        <span t-esc="doc.name"/>
+                                    </p>
+                                    <p>
+                                        <strong>Picking envío:</strong>
+                                        <span t-esc="doc.picking_out_id.name if doc.picking_out_id else '-'"/>
+                                    </p>
+                                    <p>
+                                        <strong>Responsable envío:</strong>
+                                        <span t-esc="doc.sent_by_user_id.name if doc.sent_by_user_id else '-'"/>
+                                    </p>
+                                    <p class="mb8">
+                                        <strong>Ubicación origen:</strong>
+                                        <span t-esc="doc.location_src_id.complete_name if doc.location_src_id else '-'"/>
+                                    </p>
+                                </div>
+                                <div class="col-6">
+                                    <p>
+                                        <strong>Factura:</strong>
+                                        <span>-</span>
+                                        <span class="text-muted small"> (traslado interno)</span>
+                                    </p>
+                                    <p>
+                                        <strong>Fecha:</strong>
+                                        <span t-if="doc.date" t-field="doc.date" t-options="{'widget': 'datetime'}"/>
+                                        <span t-else="">-</span>
+                                    </p>
+                                    <p>
+                                        <strong>Estado traslado:</strong>
+                                        <span t-field="doc.state"/>
+                                    </p>
+                                    <p t-if="doc.branch_id or doc.branch_dest_id">
+                                        <strong>Sucursales:</strong>
+                                        <span t-esc="doc.branch_id.name if doc.branch_id else '-'"/>
+                                        →
+                                        <span t-esc="doc.branch_dest_id.name if doc.branch_dest_id else '-'"/>
+                                    </p>
+                                    <p>
+                                        <strong>Ubicación destino:</strong>
+                                        <span t-esc="doc.location_dest_id.complete_name if doc.location_dest_id else '-'"/>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <table class="table table-sm" style="width:100%; border-collapse:collapse; border:2px solid #1a365d; margin:16px 0;">
+                                <thead>
+                                    <tr>
+                                        <th style="background-color:#2c5282;color:#fff;font-weight:600;padding:10px;text-align:left;border:1px solid #1a365d;text-transform:uppercase;">Producto</th>
+                                        <th class="text-end" style="background-color:#2c5282;color:#fff;font-weight:600;padding:10px;border:1px solid #1a365d;text-transform:uppercase;">Serie / Lote</th>
+                                        <th class="text-end" style="background-color:#2c5282;color:#fff;font-weight:600;padding:10px;border:1px solid #1a365d;text-transform:uppercase;">Cantidad</th>
+                                        <th style="background-color:#2c5282;color:#fff;font-weight:600;padding:10px;text-align:left;border:1px solid #1a365d;text-transform:uppercase;">UdM</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="doc.line_ids" t-as="line">
+                                        <td style="padding:9px 10px;border:1px solid #e2e8f0;vertical-align:top;">
+                                            <span t-esc="line.product_id.display_name if line.product_id else ''"/>
+                                            <t t-if="line.product_id.gn_labhospy_catalog_code">
+                                                <br/>CATALOGO: <span t-field="line.product_id.gn_labhospy_catalog_code"/>
+                                            </t>
+                                            <t t-if="line.product_id.gn_labhospy_model">
+                                                <br/>MODELO: <span t-field="line.product_id.gn_labhospy_model"/>
+                                            </t>
+                                        </td>
+                                        <td class="text-end" style="padding:9px 10px;border:1px solid #e2e8f0;vertical-align:top;">
+                                            <t t-if="line.lot_id">
+                                                <span t-esc="line.lot_id.name"/>
+                                            </t>
+                                            <t t-else="">
+                                                <t t-set="cand" t-value="doc.picking_out_id.move_ids.filtered(lambda m: m.product_id == line.product_id) if doc.picking_out_id else line.env['stock.move']"/>
+                                                <t t-set="out_move" t-value="cand[:1]"/>
+                                                <t t-set="lot_txt" t-value="', '.join([(ml.lot_id.name if ml.lot_id else (ml.lot_name or '')) for ml in out_move.move_line_ids if (ml.lot_id or ml.lot_name)])"/>
+                                                <span t-esc="lot_txt or '-'"/>
+                                            </t>
+                                        </td>
+                                        <td class="text-end" style="padding:9px 10px;border:1px solid #e2e8f0;vertical-align:top;" t-esc="line.product_uom_qty"/>
+                                        <td style="padding:9px 10px;border:1px solid #e2e8f0;vertical-align:top;" t-esc="line.product_uom.display_name if line.product_uom else '-'"/>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="mt32">
+                                <p>
+                                    <strong>Observaciones:</strong>
+                                </p>
+                                <p t-esc="doc.hn_remission_note or ''"/>
+                            </div>
+
+                            <div class="col-12" style="margin-top:90px;">
+                                <div class="row">
+                                    <div class="col-1"></div>
+                                    <div class="col-4" style="text-align:center;border-top:1px solid #000;">Enviado por</div>
+                                    <div class="col-2"></div>
+                                    <div class="col-4" style="text-align:center;border-top:1px solid #000;">Recibido por</div>
+                                    <div class="col-1"></div>
+                                </div>
+                            </div>
+
+                            <footer style="margin-top:50px;padding-top:10px;text-align:left;">
+                                <p class="mb-0" t-if="i == 0">Original: Destinatario</p>
+                                <p class="mb-0" t-if="i == 1">Copia 1: Emisor</p>
+                                <p class="mb-0" t-if="i == 2">Copia 2: Servicio de Administración de Rentas</p>
+                            </footer>
+                        </div>
+                        
+                    </t>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

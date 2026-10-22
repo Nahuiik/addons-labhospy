@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_sales_dashboard.SalesTopRankingCard">
+        <section class="gn-sd-rank-card">
+            <header class="gn-sd-rank-card__head">
+                <h3 class="gn-sd-rank-card__title" t-esc="props.title"/>
+                <button type="button" class="gn-sd-rank-card__link" t-on-click="onViewAllClick">Ver todos</button>
+            </header>
+            <div t-if="props.loading" class="gn-sd-skeleton gn-sd-skeleton--rank"/>
+            <SalesEmptyState t-elif="!(props.rows and props.rows.length)"
+                icon="'fa-bar-chart'"
+                title="'Sin datos en el período'"
+                compact="true"/>
+            <div t-else="" class="gn-sd-rank-card__list">
+                <article t-foreach="props.rows" t-as="row" t-key="row.user_id or row.product_id or row.partner_id or row.rank"
+                         class="gn-sd-rank-card__row" t-on-click="(ev) => this.onRowClick(row, ev)">
+                    <t t-if="props.type === 'sellers'">
+                        <span class="gn-sd-rank-card__pos" t-esc="row.rank"/>
+                        <div class="gn-sd-rank-card__info">
+                            <strong t-esc="row.name"/>
+                            <small t-if="row.team" t-esc="row.team"/>
+                        </div>
+                        <div class="gn-sd-rank-card__metrics">
+                            <strong t-esc="props.fmtMoney(row.sales)"/>
+                            <small t-if="row.margin != null" t-esc="'Margen ' + props.fmtMoney(row.margin)"/>
+                        </div>
+                    </t>
+                    <t t-elif="props.type === 'products'">
+                        <img t-if="row.image_url" t-att-src="row.image_url" class="gn-sd-rank-card__thumb" alt=""/>
+                        <div t-else="" class="gn-sd-rank-card__thumb gn-sd-rank-card__thumb--ph"><i class="fa fa-cube"/></div>
+                        <div class="gn-sd-rank-card__info">
+                            <strong t-esc="row.name"/>
+                            <small t-if="row.sku" t-esc="row.sku"/>
+                        </div>
+                        <div class="gn-sd-rank-card__metrics">
+                            <strong t-esc="props.fmtMoney(row.sales)"/>
+                            <small t-esc="'Qty ' + (row.qty or 0)"/>
+                        </div>
+                    </t>
+                    <t t-else="">
+                        <div class="gn-sd-rank-card__info gn-sd-rank-card__info--wide">
+                            <strong t-esc="row.name"/>
+                            <small t-if="row.last_purchase" t-esc="'Última: ' + row.last_purchase"/>
+                        </div>
+                        <div class="gn-sd-rank-card__metrics">
+                            <strong t-esc="props.fmtMoney(row.sales)"/>
+                            <small t-if="row.orders" t-esc="row.orders + ' pedidos'"/>
+                        </div>
+                    </t>
+                </article>
+            </div>
+        </section>
+    </t>
+</templates>

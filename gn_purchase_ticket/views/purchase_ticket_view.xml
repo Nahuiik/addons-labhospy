@@ -1,0 +1,84 @@
+<odoo>
+
+
+        <!-- <record id="view_debit_credit_tree_inherit" model="ir.ui.view">
+            <field name="name">debit.credit.tree</field>
+            <field name="model">debit.credit</field>
+            <field name="inherit_id" ref="gn_banks.debit_credit_tree_view"/>
+            <field name="arch" type="xml">
+               <field name="dummy_name" position="after">
+                     <field name="mtype"/> 
+                </field> 
+            </field>
+        </record> -->
+
+
+    <record id="credit_debit_form_view_purchase_ticket" model="ir.ui.view">
+        <field name="name">debit.credit.form</field>
+        <field name="model">debit.credit</field>
+        <field name="inherit_id" ref="gn_banks.credit_debit_form_view"/>
+        <field name="arch" type="xml">   
+
+            <xpath expr="//header" position="inside">
+                <button name="action_print_purchase_ticket" string="Imprimir Boleta de Compra" type="object" class="oe_highlight"  invisible="is_purchase_ticket == False"/>
+                <button name="action_print_check" string="Imprimir Cheque" type="object" class="oe_highlight" invisible="mtype != 'check'"/>
+            </xpath>
+
+            <field name="move_type" position="after">
+                <field name="is_purchase_ticket" invisible="1"/>
+            </field>
+            <field name="move_type" position="attributes">
+            
+                <attribute name="readonly">state != 'draft' or name != '/'</attribute>
+                <attribute name="invisible">is_purchase_ticket == True</attribute>
+            </field>
+            <field name="journal_id" position="after">
+                <field name="supplier_id" invisible="is_purchase_ticket == False" required="is_purchase_ticket == True" />
+                
+                <field name="ticket_seq_id" invisible="is_purchase_ticket == False" required="is_purchase_ticket == True"  readonly="1"/>
+                <field name="purchase_seq" invisible="is_purchase_ticket == False" readonly="1" force_save="1"/>
+
+            </field> 
+            <field name="template_id" position="after">
+
+                <field name="mtype" invisible="is_purchase_ticket == False" readonly="is_purchase_ticket_validated == True"/>
+                <field name="is_purchase_ticket_validated" invisible="1" />
+                
+                <!-- <field name="m_name" modifiers="{'invisible': [('mtype', '=', ''), ('is_purchase_ticket', '=', False)]}" readonly="1"/>
+                <p><field name="error_msgm" modifiers="{'invisible': [('is_purchase_ticket', '=', False),('m_name', '!=', ''),('mtype', '=', '')]}" readonly="1"/></p> -->
+            </field>
+        </field>
+    </record>
+
+    <record id="action_purchase_ticket" model="ir.actions.act_window">
+        <field name="name">Boletas de Compra</field>
+        <field name="res_model">debit.credit</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('move_type','=','debit'),('is_purchase_ticket', '=', True)]</field>
+        <field name="context">{'default_move_type':'debit', 'default_is_purchase_ticket': 1}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to record for credit/debit/deposit.
+            </p>
+        </field>
+    </record>
+
+    <menuitem action="action_purchase_ticket"
+              id="menu_purchase_ticket"
+              name="Boletas de Compra"
+              parent="gn_banks.menu_sub_banks" sequence="35"/>
+
+    <record id="gn_banks.action_debit" model="ir.actions.act_window">
+        <field name="name">Debit</field>
+        <field name="res_model">debit.credit</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('move_type','=','debit'),('is_purchase_ticket', '=', False)]</field>
+        <field name="context">{'default_move_type':'debit'}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to record for credit/debit/deposit.
+            </p>
+        </field>
+    </record>
+
+</odoo>

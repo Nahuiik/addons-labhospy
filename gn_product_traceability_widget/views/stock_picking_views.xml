@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_picking_form_traceability" model="ir.ui.view">
+        <field name="name">stock.picking.form.traceability</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button type="object"
+                        name="action_open_traceability"
+                        class="oe_stat_button"
+                        icon="fa-sitemap"
+                        groups="gn_product_traceability_widget.group_traceability_user"
+                        invisible="not move_ids">
+                    <div class="o_stat_info">
+                        <span class="o_stat_text">Trazabilidad</span>
+                    </div>
+                </button>
+            </div>
+        </field>
+    </record>
+
+    <record id="action_stock_picking_traceability" model="ir.actions.server">
+        <field name="name">Ver trazabilidad</field>
+        <field name="model_id" ref="stock.model_stock_picking"/>
+        <field name="binding_model_id" ref="stock.model_stock_picking"/>
+        <field name="binding_view_types">list,form</field>
+        <field name="group_ids" eval="[(4, ref('gn_product_traceability_widget.group_traceability_user'))]"/>
+        <field name="state">code</field>
+        <field name="code">action = records[:1].action_open_traceability()</field>
+    </record>
+</odoo>

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_purchase_dashboard.PurchaseWidgetContent">
+        <t t-if="props.widgetId === 'monthly_purchases'">
+            <PurchaseChartPanel config="props.widgets.monthly_purchases"
+                optionBuilder.bind="props.buildMonthlyOption" loading="props.widgetsLoading"
+                darkMode="props.darkMode"/>
+        </t>
+        <t t-elif="props.widgetId === 'top_categories'">
+            <PurchaseChartPanel config="props.widgets.top_categories"
+                optionBuilder.bind="props.buildTreemapOption" loading="props.widgetsLoading"
+                darkMode="props.darkMode" onChartClick.bind="props.onChartClick"/>
+        </t>
+        <t t-elif="props.widgetId === 'purchases_by_company'">
+            <PurchaseChartPanel config="props.widgets.purchases_by_company"
+                optionBuilder.bind="props.buildCompanyOption" loading="props.widgetsLoading"
+                darkMode="props.darkMode"/>
+        </t>
+        <t t-elif="props.widgetId === 'sankey_flow'">
+            <PurchaseChartPanel config="props.widgets.sankey_flow"
+                optionBuilder.bind="props.buildSankeyOption" loading="props.widgetsLoading"
+                darkMode="props.darkMode" height="'340px'" onChartClick.bind="props.onChartClick"
+                entityType="'vendor'"/>
+        </t>
+        <t t-elif="props.widgetId === 'waterfall_financial'">
+            <PurchaseChartPanel config="props.widgets.waterfall_financial"
+                optionBuilder.bind="props.buildWaterfallOption" loading="props.widgetsLoading"
+                darkMode="props.darkMode" height="'340px'"/>
+        </t>
+        <t t-elif="props.widgetId === 'top_vendors'">
+            <PurchaseDataTable tableKey="'top_vendors'" title="'Top proveedores'"
+                filters="props.appliedFilters" currencyId="props.currencyId"
+                onRowClick.bind="props.onTableRowClick"/>
+        </t>
+        <t t-elif="props.widgetId === 'heatmap'">
+            <section class="gn-pd-panel gn-pd-panel--flat">
+                <header class="gn-pd-panel__head">
+                    <div class="gn-pd-chart-tabs">
+                        <button t-foreach="Object.entries(props.widgets.heatmap?.dimensions or {})" t-as="dim" t-key="dim[0]"
+                                type="button" class="gn-pd-btn gn-pd-btn--sm gn-pd-btn--ghost"
+                                t-att-class="props.heatmapDimension === dim[0] ? ' active' : ''"
+                                t-on-click="() => props.setHeatmapDimension(dim[0])"
+                                t-esc="dim[1].label"/>
+                    </div>
+                </header>
+                <PurchaseChartPanel config="props.heatmapConfig"
+                    optionBuilder.bind="props.buildHeatmapOption" loading="props.widgetsLoading"
+                    darkMode="props.darkMode" height="'300px'" onChartClick.bind="props.onChartClick"
+                    entityType="'vendor'"/>
+            </section>
+        </t>
+        <t t-elif="props.widgetId === 'price_variation'">
+            <div class="gn-pd-main--stack">
+                <PurchaseDataTable tableKey="'price_variation'" title="'Variación de precios'"
+                    filters="props.appliedFilters" currencyId="props.currencyId"
+                    onRowClick.bind="props.onTableRowClick"/>
+                <PurchaseChartPanel title="'BoxPlot precios'" config="props.widgets.price_variation"
+                    optionBuilder.bind="props.buildBoxplotOption" loading="props.widgetsLoading"
+                    darkMode="props.darkMode" height="'200px'"/>
+            </div>
+        </t>
+        <t t-elif="props.widgetId === 'lead_time'">
+            <PurchaseLeadTimePanel
+                config="props.widgets.lead_time"
+                kpi="props.leadTimeKpi"
+                receipts="props.widgets.receipts"
+                urgentCount="props.urgentOrdersCount"
+                loading="props.widgetsLoading"
+                darkMode="props.darkMode"/>
+        </t>
+        <t t-elif="props.widgetId === 'lead_histogram'">
+            <PurchaseChartPanel title="'Distribución lead time'" config="props.widgets.lead_time"
+                optionBuilder.bind="props.buildLeadHistogramOption" loading="props.widgetsLoading"
+                darkMode="props.darkMode"/>
+        </t>
+        <t t-elif="props.widgetId === 'kanban_summary'">
+            <section class="gn-pd-panel gn-pd-kanban gn-pd-panel--flat">
+                <div class="gn-pd-kanban__board">
+                    <div t-foreach="props.kanbanColumns" t-as="col" t-key="col.key" class="gn-pd-kanban__col">
+                        <header class="gn-pd-kanban__col-head">
+                            <span t-esc="col.label"/><span class="gn-pd-badge" t-esc="col.cards.length"/>
+                        </header>
+                        <article t-foreach="col.cards.slice(0, 8)" t-as="card" t-key="card.id"
+                                 t-att-class="'gn-pd-kanban__card gn-pd-kanban__card--' + (card.color or 'neutral')"
+                                 t-on-click="() => props.onPoClick(card)">
+                            <div class="gn-pd-kanban__card-top">
+                                <div class="gn-pd-kanban__card-id">
+                                    <span class="gn-pd-kanban__avatar" t-esc="vendorInitial(card.vendor)"/>
+                                    <strong t-esc="card.name"/>
+                                </div>
+                                <span t-if="priorityLabel(card.priority)" class="gn-pd-kanban__chip gn-pd-kanban__chip--priority"
+                                      t-esc="priorityLabel(card.priority)"/>
+                            </div>
+                            <small class="gn-pd-kanban__vendor" t-esc="card.vendor"/>
+                            <div class="gn-pd-kanban__card-meta">
+                                <span class="gn-pd-kanban__amount" t-esc="props.fmtMoney(card.amount)"/>
+                                <span t-if="card.days_open" class="gn-pd-kanban__days">
+                                    <i class="fa fa-clock-o"/> <t t-esc="card.days_open + 'd'"/>
+                                </span>
+                            </div>
+                            <span t-if="card.state_label" class="gn-pd-kanban__state" t-esc="card.state_label"/>
+                        </article>
+                    </div>
+                </div>
+            </section>
+        </t>
+        <t t-elif="props.widgetId === 'receipts'">
+            <PurchaseChartPanel title="'Recepciones'" config="props.widgets.receipts"
+                optionBuilder.bind="props.buildReceiptsOption" loading="props.widgetsLoading"
+                darkMode="props.darkMode"/>
+        </t>
+        <t t-elif="props.widgetId === 'forecast'">
+            <PurchaseChartPanel title="'Forecast de compras'" config="props.widgets.forecast"
+                optionBuilder.bind="props.buildForecastOption" loading="props.widgetsLoading"
+                darkMode="props.darkMode"/>
+        </t>
+        <t t-elif="props.widgetId === 'abc_analysis'">
+            <section class="gn-pd-panel gn-pd-panel--flat">
+                <header class="gn-pd-panel__head">
+                    <div class="gn-pd-chart-tabs">
+                        <button type="button" class="gn-pd-btn gn-pd-btn--sm gn-pd-btn--ghost"
+                                t-att-class="props.abcTab === 'vendors' ? ' active' : ''"
+                                t-on-click="() => props.setAbcTab('vendors')">Proveedores</button>
+                        <button type="button" class="gn-pd-btn gn-pd-btn--sm gn-pd-btn--ghost"
+                                t-att-class="props.abcTab === 'products' ? ' active' : ''"
+                                t-on-click="() => props.setAbcTab('products')">Productos</button>
+                        <button type="button" class="gn-pd-btn gn-pd-btn--sm gn-pd-btn--ghost"
+                                t-att-class="props.abcTab === 'categories' ? ' active' : ''"
+                                t-on-click="() => props.setAbcTab('categories')">Categorías</button>
+                    </div>
+                </header>
+                <PurchaseChartPanel config="props.widgets.abc_analysis"
+                    optionBuilder.bind="props.buildAbcParetoOption" loading="props.widgetsLoading"
+                    darkMode="props.darkMode" onChartClick.bind="props.onChartClick"
+                    entityType="abcEntityType"/>
+            </section>
+        </t>
+        <t t-elif="props.widgetId === 'concentration'">
+            <section class="gn-pd-panel gn-pd-panel--flat gn-pd-concentration">
+                <header class="gn-pd-panel__head">
+                    <span class="gn-pd-badge">HHI: <t t-esc="props.widgets.concentration?.hhi"/></span>
+                </header>
+                <div class="gn-pd-concentration__rows">
+                    <div t-foreach="props.widgets.concentration?.rows or []" t-as="c" t-key="c.partner_id"
+                         class="gn-pd-concentration__row" t-on-click="() => props.onOpenSidePanel(c)">
+                        <span class="gn-pd-concentration__name" t-esc="c.name"/>
+                        <div class="gn-pd-table__progress gn-pd-table__progress--inline">
+                            <div class="gn-pd-table__progress-bar" t-att-style="'width:' + c.share_pct + '%'"/>
+                        </div>
+                        <span class="gn-pd-concentration__pct" t-esc="c.share_pct + '%'"/>
+                    </div>
+                </div>
+            </section>
+        </t>
+        <t t-elif="props.widgetId === 'financial'">
+            <section class="gn-pd-panel gn-pd-financial gn-pd-panel--flat">
+                <div class="gn-pd-financial__grid">
+                    <div><small>Comprometido</small><strong t-esc="props.fmtMoney(props.widgets.financial?.committed)"/></div>
+                    <div><small>Recibido</small><strong t-esc="props.fmtMoney(props.widgets.financial?.received)"/></div>
+                    <div><small>Facturado</small><strong t-esc="props.fmtMoney(props.widgets.financial?.invoiced)"/></div>
+                    <div><small>Pendiente</small><strong t-esc="props.fmtMoney(props.widgets.financial?.pending)"/></div>
+                    <div><small>Pagado</small><strong t-esc="props.fmtMoney(props.widgets.financial?.paid)"/></div>
+                    <div><small>Impuestos</small><strong t-esc="props.fmtMoney(props.widgets.financial?.taxes)"/></div>
+                </div>
+            </section>
+        </t>
+        <t t-elif="props.widgetId === 'buyers'">
+            <PurchaseDataTable tableKey="'buyers'" title="'Compras por comprador'"
+                filters="props.appliedFilters" currencyId="props.currencyId"/>
+        </t>
+        <t t-elif="props.widgetId === 'products'">
+            <PurchaseDataTable tableKey="'products'" title="'Productos más comprados'"
+                filters="props.appliedFilters" currencyId="props.currencyId"
+                onRowClick.bind="props.onTableRowClick"/>
+        </t>
+        <t t-elif="props.widgetId === 'drilldown'">
+            <section class="gn-pd-panel gn-pd-drilldown gn-pd-panel--flat">
+                <div class="gn-pd-drilldown__links">
+                    <button t-foreach="props.drilldownChain" t-as="link" t-key="link.id"
+                            type="button" class="gn-pd-btn gn-pd-btn--sm gn-pd-btn--ghost"
+                            t-on-click="() => props.onDrilldownChain(link)"
+                            t-esc="link.label"/>
+                </div>
+            </section>
+        </t>
+    </t>
+</templates>

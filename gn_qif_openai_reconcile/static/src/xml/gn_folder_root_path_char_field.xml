@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_qif_openai_reconcile.GnFolderRootPathCharField" t-inherit="web.CharField" t-inherit-mode="primary">
+        <xpath expr="//div[hasclass('o_field_input_buttons')]" position="inside">
+            <button type="button"
+                class="btn btn-secondary m-0 py-0 px-2"
+                t-att-disabled="state.isUploading || props.readonly"
+                title="Seleccionar carpeta con .xlsx / .xls en este equipo"
+                aria-label="Seleccionar carpeta"
+                t-on-click="onPickFolder">
+                <i class="fa fa-folder-open me-1" role="presentation"/>
+                <span>Carpeta…</span>
+            </button>
+        </xpath>
+        <xpath expr="//input[@t-ref='input']" position="after">
+            <input type="file"
+                class="d-none"
+                t-ref="folderInput"
+                multiple="multiple"
+                webkitdirectory=""
+                directory=""
+                mozdirectory=""
+                t-on-change="onFolderChange"
+            />
+        </xpath>
+    </t>
+
+</templates>

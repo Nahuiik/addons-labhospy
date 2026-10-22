@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_qif_ai_wizard_form" model="ir.ui.view">
+        <field name="name">qif.ai.wizard.form</field>
+        <field name="model">qif.ai.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Importar EC con IA" class="o_qif_ai_wizard">
+                <header>
+                    <button name="action_analyze" type="object"
+                            string="Analizar con IA" class="btn-primary o_qif_header_primary"
+                            invisible="state not in ('draft',)"/>
+                    <button name="action_match_journal" type="object"
+                            string="Emparejar diario Odoo" class="btn-secondary"
+                            invisible="state != 'draft' or not qif_file"/>
+                    <button name="action_apply_all" type="object"
+                            string="Aplicar Todo" class="btn-primary"
+                            invisible="state != 'analyzed'"/>
+                    <button name="action_create_reconcile_models" type="object"
+                            string="Solo Crear Modelos" class="btn-secondary"
+                            invisible="state != 'analyzed'"/>
+                    <button name="action_import_lines" type="object"
+                            string="Solo Importar Líneas" class="btn-secondary"
+                            invisible="state != 'analyzed'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,analyzing,analyzed,done"/>
+                </header>
+                <sheet class="o_qif_ai_sheet o_form_sheet position-relative w-100">
+                    <div class="o_qif_ai_hero rounded-3 p-3 p-lg-4 mb-3" invisible="state not in ('draft',)">
+                        <div class="row g-3">
+                            <div class="col-12 col-lg-6">
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                    <i class="fa fa-file-o text-primary" title="Archivo" role="img"/>
+                                    <h3 class="h5 mb-0">Archivo</h3>
+                                </div>
+                                <group>
+                                    <field name="qif_file" filename="qif_filename" class="w-100"/>
+                                    <field name="qif_filename" invisible="1"/>
+                                    <field name="file_format" invisible="file_format == 'unknown'"/>
+                                </group>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                    <i class="fa fa-building text-primary" title="Diario" role="img"/>
+                                    <h3 class="h5 mb-0">Diario en Odoo (destino)</h3>
+                                </div>
+                                <group>
+                                    <field name="journal_id"/>
+                                    <field name="odoo_journal_bank_name"/>
+                                    <field name="odoo_journal_account_number"/>
+                                </group>
+                                <field name="allow_reimport" widget="boolean_toggle" class="mt-2"/>
+                                <field name="auto_promote_reconcile_ce" widget="boolean_toggle" class="mt-2"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-2 mb-3" invisible="state not in ('draft',) or not qif_file">
+                        <div class="col-12 col-md-4">
+                            <div class="o_qif_stat_card h-100">
+                                <div class="text-muted small">Rango de fechas</div>
+                                <div class="o_qif_stat_value text-primary">
+                                    <field name="date_from" readonly="1" nolabel="1" class="d-inline"/>
+                                    <span> — </span>
+                                    <field name="date_to" readonly="1" nolabel="1" class="d-inline"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <div class="o_qif_stat_card h-100">
+                                <div class="text-muted small">Movimientos</div>
+                                <div class="o_qif_stat_value text-900">
+                                    <field name="qif_line_count" nolabel="1" readonly="1"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <div class="o_qif_stat_card h-100">
+                                <div class="text-muted small">Suma (archivo)</div>
+                                <div class="o_qif_stat_value text-900">
+                                    <field name="qif_balance_end" nolabel="1" readonly="1"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="o_qif_meta rounded-3 p-3 mb-3" invisible="state != 'draft' or not qif_file">
+                        <h3 class="h6 text-uppercase text-muted mb-2">Detectado en el extracto (no es la configuración Odoo)</h3>
+                        <group>
+                            <group>
+                                <field name="file_bank_name" readonly="1"/>
+                                <field name="file_account_name" readonly="1"/>
+                                <field name="file_currency_code" readonly="1"/>
+                                <field name="file_company_hint" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="qif_balance_start" readonly="1"/>
+                                <field name="file_meta_source"/>
+                                <field name="file_meta_confidence"/>
+                                <field name="file_meta_evidence" invisible="not file_meta_evidence"/>
+                            </group>
+                        </group>
+                    </div>
+
+                    <div class="alert alert-info" role="alert"
+                         invisible="state != 'draft' or not qif_file">
+                        <i class="fa fa-info-circle me-1" title="Información" role="img"/>
+                        Formatos admitidos: QIF; XLS/XLSX (FICOHSA, Davivienda, Atlántida, Banpaís, Occidente HN…); PDF Occidente. Los «modelos de conciliación» que propone la IA se pueden guardar como `account.reconcile.model` (Community, menú Modelos de conciliación CE o automático si activa la casilla anterior).
+                    </div>
+                    <div class="alert alert-warning" role="alert"
+                         invisible="not allow_reimport or state != 'draft'">
+                        <i class="fa fa-warning me-1" title="Aviso" role="img"/>
+                        Reimportación activa. Las líneas con identificador ya importado se omiten.
+                    </div>
+
+                    <div invisible="state != 'analyzing'" class="o_qif_analyzing text-center p-3 mb-2">
+                        <div class="d-flex align-items-center justify-content-center mb-2">
+                            <i class="fa fa-spinner fa-spin fa-lg me-2 text-primary" title="En curso" role="img"/>
+                            <strong class="text-primary fs-5">
+                                <field name="progress_msg" nolabel="1" class="d-inline"/>
+                            </strong>
+                        </div>
+                        <field name="progress" widget="progressbar"
+                               options="{'editable': false}" nolabel="1"/>
+                    </div>
+
+                    <div class="o_qif_result_block mt-2" invisible="state not in ('analyzed', 'done')">
+                        <div class="row g-2 mb-3">
+                            <div class="col-12 col-sm-4">
+                                <div class="o_qif_stat_card h-100">
+                                    <div class="text-muted small">Total</div>
+                                    <div class="o_qif_stat_value text-900">
+                                        <field name="total_lines" nolabel="1"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <div class="o_qif_stat_card h-100">
+                                    <div class="text-success small">Nuevas</div>
+                                    <div class="o_qif_stat_value text-success">
+                                        <field name="new_lines" nolabel="1" class="text-success"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <div class="o_qif_stat_card h-100">
+                                    <div class="text-danger small">Duplicadas</div>
+                                    <div class="o_qif_stat_value text-danger">
+                                        <field name="duplicate_lines" nolabel="1" class="text-danger"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="o_qif_meta rounded-3 p-3 mb-2">
+                            <div class="row g-0">
+                                <div class="col-12 col-md-4">
+                                    <h3 class="h6 text-uppercase text-muted">Extracto (archivo)</h3>
+                                    <group>
+                                        <field name="file_bank_name"/>
+                                        <field name="file_account_name"/>
+                                        <field name="file_currency_code"/>
+                                        <field name="file_company_hint"/>
+                                        <field name="date_from" readonly="1"/>
+                                        <field name="date_to" readonly="1"/>
+                                        <field name="qif_balance_end"/>
+                                        <field name="file_meta_source"/>
+                                        <field name="file_meta_confidence"/>
+                                    </group>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <h3 class="h6 text-uppercase text-muted">Diario Odoo</h3>
+                                    <group>
+                                        <field name="journal_id"/>
+                                        <field name="odoo_journal_bank_name"/>
+                                        <field name="odoo_journal_account_number"/>
+                                    </group>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <notebook invisible="state not in ('analyzed', 'done')">
+                        <page string="Líneas QIF" name="lines">
+                            <field name="line_ids" nolabel="1">
+                                <list editable="bottom"
+                                      decoration-danger="status in ('duplicate_hash', 'duplicate_ai')"
+                                      decoration-success="status == 'new'">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="date"/>
+                                    <field name="amount"/>
+                                    <field name="payment_ref"/>
+                                    <field name="ref" optional="hide"/>
+                                    <field name="status"/>
+                                    <field name="confidence"
+                                           invisible="status == 'new'"
+                                           widget="progressbar"/>
+                                    <field name="ai_reason" optional="show"/>
+                                    <field name="odoo_line_id" optional="hide"/>
+                                    <field name="to_import" widget="boolean_toggle"/>
+                                    <field name="unique_import_id" optional="hide"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Modelos de Conciliación" name="reconcile">
+                            <field name="reconcile_proposal_ids" nolabel="1">
+                                <list editable="bottom">
+                                    <field name="selected" widget="boolean_toggle"/>
+                                    <field name="name"/>
+                                    <field name="match_label"/>
+                                    <field name="match_label_param"/>
+                                    <field name="account_code"/>
+                                    <field name="account_id"/>
+                                    <field name="trigger"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Resumen" name="summary">
+                            <field name="ai_summary_brief" readonly="1" nolabel="1"/>
+                        </page>
+                        <page string="Respuesta IA (raw)" name="raw">
+                            <field name="ai_analysis_raw" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_qif_ai_wizard" model="ir.actions.act_window">
+        <field name="name">Importar EC con IA</field>
+        <field name="res_model">qif.ai.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_qif_ai_wizard"
+              name="Importar EC con IA"
+              parent="account.account_transactions_menu"
+              action="action_qif_ai_wizard"
+              sequence="90"/>
+
+</odoo>

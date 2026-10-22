@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_banks_ui.BankTimeline">
+        <div class="gn-bk-timeline">
+            <div t-if="state.loading" class="text-muted p-3">
+                <i class="fa fa-spinner fa-spin"/> Cargando historial...
+            </div>
+            <div t-elif="!state.events.length" class="text-muted p-3">
+                Sin eventos registrados.
+            </div>
+            <t t-else="" t-foreach="state.events" t-as="event" t-key="event_index">
+                <div class="gn-bk-timeline__item">
+                    <div class="gn-bk-timeline__icon">
+                        <i t-att-class="'fa ' + (event.icon || 'fa-circle')"/>
+                    </div>
+                    <div class="gn-bk-timeline__body">
+                        <div class="gn-bk-timeline__label" t-esc="event.label"/>
+                        <div class="gn-bk-timeline__meta">
+                            <t t-if="event.date" t-esc="event.date"/>
+                            <t t-if="event.user"> · <t t-esc="event.user"/></t>
+                        </div>
+                        <div t-if="event.description" class="gn-bk-timeline__desc" t-esc="event.description"/>
+                    </div>
+                </div>
+            </t>
+        </div>
+    </t>
+</templates>

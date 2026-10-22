@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hn_reintegro_wizard_form" model="ir.ui.view">
+        <field name="name">hn.reintegro.wizard.form</field>
+        <field name="model">hn.reintegro.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Reintegro por urgencia">
+                <group>
+                    <field name="leave_id"/>
+                    <field name="reintegro_date"/>
+                    <field name="reanudacion_date"/>
+                    <field name="reintegro_reason"/>
+                    <field name="gastos_extraordinarios"/>
+                    <field name="gastos_comprobante"/>
+                </group>
+                <footer>
+                    <button name="action_confirm" type="object" class="btn-primary" string="Confirmar reintegro"/>
+                    <button special="cancel" string="Cancelar"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

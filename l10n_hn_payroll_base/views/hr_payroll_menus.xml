@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Root app (aligned with Enterprise payroll app + web icon) -->
+    <menuitem id="menu_hn_payroll_root"
+              name="Payroll"
+              sequence="190"
+              groups="l10n_hn_payroll_base.group_hn_payroll_user"
+              web_icon="l10n_hn_payroll_base,static/description/icon.png"/>
+
+    <menuitem id="menu_hn_payroll_dashboard"
+              name="Dashboard"
+              parent="menu_hn_payroll_root"
+              action="action_payroll_hub"
+              sequence="5"
+              groups="l10n_hn_payroll_base.group_hn_payroll_user"/>
+
+    <menuitem id="menu_hn_payroll_employees"
+              name="Employees"
+              parent="menu_hn_payroll_root"
+              sequence="10"
+              groups="l10n_hn_payroll_base.group_hn_payroll_user"/>
+    <menuitem id="menu_hn_payroll_employees_list"
+              name="Employees"
+              parent="menu_hn_payroll_employees"
+              action="hr.open_view_employee_list_my"
+              sequence="10"
+              groups="l10n_hn_payroll_base.group_hn_payroll_user"/>
+
+    <menuitem id="menu_hn_payroll_time_off"
+              name="Time Off"
+              parent="menu_hn_payroll_root"
+              sequence="20"
+              groups="l10n_hn_payroll_base.group_hn_payroll_user"/>
+    <menuitem id="menu_hn_payroll_time_off_overview"
+              name="Overview"
+              parent="menu_hn_payroll_time_off"
+              action="hr_holidays.action_hr_holidays_dashboard"
+              sequence="10"
+              groups="l10n_hn_payroll_base.group_hn_payroll_user"/>
+    <menuitem id="menu_hn_payroll_time_off_gantt"
+              name="Planning"
+              parent="menu_hn_payroll_time_off"
+              action="action_hn_holidays_timeline_ce"
+              sequence="15"
+              groups="l10n_hn_payroll_base.group_hn_payroll_user"/>
+
+    <menuitem id="menu_hn_payroll_payslips"
+              name="Payslips"
+              parent="menu_hn_payroll_root"
+              sequence="30"
+              groups="l10n_hn_payroll_base.group_hn_payroll_user"/>
+
+    <menuitem id="menu_hn_payroll_reporting"
+              name="Reporting"
+              parent="menu_hn_payroll_root"
+              sequence="40"
+              groups="l10n_hn_payroll_base.group_hn_payroll_user"/>
+
+    <menuitem id="menu_hn_payroll_configuration"
+              name="Configuration"
+              parent="menu_hn_payroll_root"
+              sequence="100"
+              groups="l10n_hn_payroll_base.group_hn_payroll_manager"/>
+
+    <menuitem id="menu_hr_payroll_configuration"
+              name="Configuration"
+              parent="menu_hn_payroll_configuration"
+              sequence="5"/>
+
+    <menuitem id="menu_hn_payroll_contract_templates"
+              name="Contract templates"
+              parent="menu_hn_payroll_configuration"
+              action="hr.action_hr_contract_templates"
+              sequence="12"/>
+
+    <menuitem id="hr_menu_versions"
+              name="Versions"
+              parent="menu_hn_payroll_configuration"
+              sequence="240"/>
+    <menuitem id="hr_menu_salary_attachments"
+              name="Salary attachments"
+              parent="menu_hn_payroll_configuration"
+              action="action_hr_salary_attachment"
+              sequence="241"/>
+</odoo>

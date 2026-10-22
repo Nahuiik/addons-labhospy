@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Fix para eliminar widget res_partner_many2one del campo partner_id en bank.reconciliation.line -->
+        <!-- Este widget ya no existe en Odoo 19 y causa errores -->
+        <record id="bank_reconciliation_line_fix_partner_widget" model="ir.ui.view">
+            <field name="name">bank.reconciliation.line.fix.partner.widget</field>
+            <field name="model">bank.reconciliation.line</field>
+            <field name="inherit_id" ref="conicliacion_bancaria_line_view_tree"/>
+            <field name="arch" type="xml">
+                <!-- Reemplazar el campo partner_id para eliminar cualquier widget res_partner_many2one -->
+                <xpath expr="//field[@name='partner_id']" position="replace">
+                    <field name="partner_id"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <!-- También corregir en la vista de búsqueda si es necesario -->
+        <record id="bank_reconciliation_line_search_fix_partner_widget" model="ir.ui.view">
+            <field name="name">bank.reconciliation.line.search.fix.partner.widget</field>
+            <field name="model">bank.reconciliation.line</field>
+            <field name="inherit_id" ref="bank_reconciliation_line_search"/>
+            <field name="arch" type="xml">
+                <!-- Reemplazar el campo partner_id en la búsqueda para eliminar cualquier widget -->
+                <xpath expr="//field[@name='partner_id']" position="replace">
+                    <field name="partner_id"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <!-- Corregir en la vista del formulario principal donde aparece partner_id -->
+        <record id="bank_reconciliation_form_fix_partner_widget" model="ir.ui.view">
+            <field name="name">bank.reconciliation.form.fix.partner.widget</field>
+            <field name="model">bank.reconciliation</field>
+            <field name="inherit_id" ref="conicliacion_bancaria_form_view"/>
+            <field name="arch" type="xml">
+                <!-- Reemplazar el campo partner_id en la lista editable para eliminar cualquier widget -->
+                <xpath expr="//field[@name='partner_id'][@readonly='1']" position="replace">
+                    <field name="partner_id" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

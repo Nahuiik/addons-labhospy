@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Personalizar el reporte de payslip para usar paperformat con menor margen superior -->
+    <record id="l10n_hn_payroll_base.action_report_payslip" model="ir.actions.report">
+        <field name="paperformat_id" ref="l10n_hn_hr_payroll.paperformat_payslip_hn"/>
+    </record>
+</odoo>

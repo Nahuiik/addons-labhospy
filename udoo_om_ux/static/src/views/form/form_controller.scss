@@ -1,0 +1,46 @@
+.o_form_view {
+    .o_form_label {
+        color: $o-main-headings-color !important;
+    }
+
+    .o_notebook .nav-tabs .nav-link.active::after {
+        height: 2.25px;
+        inset-inline: 0px;
+    }
+
+    &.o_xxl_form_view {
+
+        .o_form_sheet_bg,
+        .o_form_renderer {
+            max-width: unset;
+        }
+    }
+}
+
+/***********************************************************
+        Form View : Handle for required fields
+************************************************************/
+.o_cell.o_wrap_label:has(+ .o_cell .o_required_modifier) {
+    >label:after {
+        content: "*";
+        color: #ec8889;
+        font-family: system-ui;
+        position: absolute;
+        line-height: 1.2;
+        margin-left: 4px;
+    }
+
+    >label:has(sup):after {
+        margin-left: 2px;
+    }
+}
+
+// NOTE: Remove later
+.o_notebook_headers {
+    overflow-y: hidden;
+}
+
+.o_field_highlight .o_field_widget .o_input,
+.o_field_highlight.o_field_widget .o_input {
+    border-radius: unset;
+}

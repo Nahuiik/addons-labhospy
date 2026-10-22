@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_gn_sequence_audit_wizard_form" model="ir.ui.view">
+        <field name="name">gn.sequence.audit.wizard.form</field>
+        <field name="model">gn.sequence.audit.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Auditar secuencias desalineadas">
+                <div class="alert alert-info" role="alert">
+                    Se listan las secuencias cuyo <b>siguiente numero</b> es menor o igual
+                    al <b>maximo numero</b> ya usado en algun asiento contable.
+                    Reparar avanza <b>number_next_actual = max_usado + 1</b>. No renumera asientos.
+                </div>
+                <group>
+                    <field name="total_desalineadas" readonly="1"/>
+                </group>
+                <field name="line_ids" nolabel="1">
+                    <list editable="bottom" create="false" delete="false">
+                        <field name="sequence_id" readonly="1"/>
+                        <field name="prefix" readonly="1"/>
+                        <field name="number_next_current" readonly="1"/>
+                        <field name="max_usado" readonly="1" decoration-danger="max_usado &gt;= number_next_current"/>
+                        <field name="number_next_sugerido" readonly="1"/>
+                        <field name="seleccionar"/>
+                    </list>
+                </field>
+                <footer>
+                    <button name="action_repair_selected" type="object"
+                            string="Reparar seleccionadas" class="btn-primary"/>
+                    <button name="action_reload" type="object"
+                            string="Recargar" class="btn-secondary"/>
+                    <button string="Cerrar" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_gn_sequence_audit_wizard" model="ir.actions.act_window">
+        <field name="name">Auditar secuencias contables</field>
+        <field name="res_model">gn.sequence.audit.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_gn_sequence_audit"
+              name="Auditar secuencias contables"
+              parent="base.next_id_5"
+              action="action_gn_sequence_audit_wizard"
+              sequence="90"/>
+
+</odoo>

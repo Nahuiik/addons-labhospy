@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_stock_move_form_traceability" model="ir.ui.view">
+        <field name="name">stock.move.form.traceability</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_form"/>
+        <field name="arch" type="xml">
+            <header position="inside">
+                <button name="action_open_traceability"
+                        type="object"
+                        string="Trazabilidad"
+                        class="btn-secondary"
+                        icon="fa-random"
+                        groups="gn_product_traceability_widget.group_traceability_user"
+                        invisible="not product_id"/>
+            </header>
+        </field>
+    </record>
+
+    <record id="action_stock_move_traceability" model="ir.actions.server">
+        <field name="name">Ver trazabilidad</field>
+        <field name="model_id" ref="stock.model_stock_move"/>
+        <field name="binding_model_id" ref="stock.model_stock_move"/>
+        <field name="binding_view_types">list,form</field>
+        <field name="group_ids" eval="[(4, ref('gn_product_traceability_widget.group_traceability_user'))]"/>
+        <field name="state">code</field>
+        <field name="code">action = records[:1].action_open_traceability()</field>
+    </record>
+</odoo>

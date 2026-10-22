@@ -1,0 +1,30 @@
+<odoo>
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="name">account.move.form.sar.view.inh</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <div role="alert" position="after">
+                <div
+                    class="alert alert-success"
+                    role="alert"
+                    invisible="not (overdue_invoice_count &gt; 0 and overdue_invoice_amount &gt; 0)"
+                >         
+                    The invoicing partner
+                    <field name="commercial_partner_id"/> has
+                    <field name="overdue_invoice_count" />
+                    <button
+                        string="overdue invoice(s)"
+                        type="object"
+                        name="jump_to_overdue_invoices"
+                        class="oe_link"
+                    />
+                    <span>
+                        para un saldo total de 
+                        <field name="overdue_invoice_amount" />
+                    </span>
+                </div>
+            </div>
+        </field>
+    </record>
+</odoo>

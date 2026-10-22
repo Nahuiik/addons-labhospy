@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form_inherit_gn_sales_order" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.gn</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <!-- Agregar campo Factura después del campo Cliente (partner_id) -->
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="invoice_id" readonly="1" options="{'no_create': True, 'no_open': False}"/>
+            </xpath>
+            <!-- Bloquear términos de pago cuando la orden está validada (state = 'sale') -->
+            <xpath expr="//field[@name='payment_term_id']" position="attributes">
+                <attribute name="readonly">state in ('sale', 'done', 'cancel')</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+

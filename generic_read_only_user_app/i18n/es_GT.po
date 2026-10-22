@@ -1,0 +1,150 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* generic_read_only_user_app
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-08 13:33+0000\n"
+"PO-Revision-Date: 2026-04-08 13:35+0000\n"
+"Last-Translator: \n"
+"Language-Team: Spanish (Guatemala)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es_GT\n"
+
+#. module: generic_read_only_user_app
+#: model_terms:ir.ui.view,arch_db:generic_read_only_user_app.view_users_form_inherit
+msgid "Apply Read Only"
+msgstr "Aplicar solo lectura"
+
+#. module: generic_read_only_user_app
+#: model_terms:ir.ui.view,arch_db:generic_read_only_user_app.view_users_form_inherit
+msgid "Click for Apply Read only Access and Reset Read Only Access."
+msgstr "Haga clic para aplicar el acceso de solo lectura o quitarlo."
+
+#. module: generic_read_only_user_app
+#: model:ir.model.fields,field_description:generic_read_only_user_app.field_ir_model_access__display_name
+#: model:ir.model.fields,field_description:generic_read_only_user_app.field_ir_rule__display_name
+#: model:ir.model.fields,field_description:generic_read_only_user_app.field_res_users__display_name
+msgid "Display Name"
+msgstr "Nombre en pantalla"
+
+#. module: generic_read_only_user_app
+#: model:ir.model.fields,field_description:generic_read_only_user_app.field_ir_model_access__id
+#: model:ir.model.fields,field_description:generic_read_only_user_app.field_ir_rule__id
+#: model:ir.model.fields,field_description:generic_read_only_user_app.field_res_users__id
+msgid "ID"
+msgstr "ID"
+
+#. module: generic_read_only_user_app
+#: model:ir.model.fields,field_description:generic_read_only_user_app.field_res_users__read_only
+msgid "Make Read Only"
+msgstr "Solo lectura"
+
+#. module: generic_read_only_user_app
+#: model:ir.model,name:generic_read_only_user_app.model_ir_model_access
+msgid "Model Access"
+msgstr "Acceso al modelo"
+
+#. module: generic_read_only_user_app
+#: model:res.groups,name:generic_read_only_user_app.group_read_only_user
+msgid "Read Only Access"
+msgstr "Acceso de solo lectura"
+
+#. module: generic_read_only_user_app
+#. odoo-python
+#: code:addons/generic_read_only_user_app/models/res_user_read_only.py:0
+msgid "Read only user can not done this operation..! (%s)"
+msgstr "El usuario de solo lectura no puede realizar esta operación (%s)."
+
+#. module: generic_read_only_user_app
+#: model:res.groups.privilege,name:generic_read_only_user_app.res_groups_privilege_read_only
+msgid "Read-only mode"
+msgstr "Modo solo lectura"
+
+#. module: generic_read_only_user_app
+#: model:ir.model,name:generic_read_only_user_app.model_ir_rule
+msgid "Record Rule"
+msgstr "Regla de registro"
+
+#. module: generic_read_only_user_app
+#: model:ir.model,name:generic_read_only_user_app.model_res_users
+msgid "User"
+msgstr "Usuario"
+
+#. module: generic_read_only_user_app
+#: model:ir.model.fields,help:generic_read_only_user_app.field_res_users__read_only
+msgid "Whether the user has the Read Only Access group."
+msgstr "Indica si el usuario pertenece al grupo de acceso de solo lectura."
+
+#. module: generic_read_only_user_app
+#: model:ir.module.module,shortdesc:base.module_generic_read_only_user_app
+msgid "Generic Read Only User Access"
+msgstr "Acceso de usuario genérico en solo lectura"
+
+#. module: generic_read_only_user_app
+#: model:ir.module.module,summary:base.module_generic_read_only_user_app
+msgid ""
+"Read only access to user limited access rights to user user limited access read only "
+"user access user read only access user restricted access restriction on user access read "
+"only user read only access login user read only access limited portal user access"
+msgstr ""
+"Acceso de solo lectura para usuarios con permisos limitados; usuario restringido; acceso de "
+"solo lectura; restricción de acceso; usuario de portal con acceso limitado."
+
+#. module: generic_read_only_user_app
+#: model:ir.module.module,description:base.module_generic_read_only_user_app
+msgid ""
+"This app provides a functionality to make generic user access read only for a particular login user set user read only\n"
+"    Restriction on user level. stop user access from the system. user restriction user read only restriction. restricated user access. limited user access limited. security restriction on user level. user security restriction.\n"
+"\n"
+"Limited access rights to user\n"
+"User limited access\n"
+"Read only user access\n"
+"User read only access\n"
+"User restricted access\n"
+"Restriction on user access\n"
+"Read only user\n"
+"User read only access\n"
+"Login user read only access\n"
+"Login user limited access\n"
+"Login user restricted access\n"
+"User access restriction\n"
+"Login user access restriction\n"
+"User security access restriction\n"
+"User security restriction\n"
+"Customer read only access\n"
+"Supplier read only access\n"
+"Vendor read only access\n"
+"Limited customer access\n"
+"    "
+msgstr ""
+"Esta aplicación permite dejar el acceso de un usuario en modo solo lectura para un inicio de sesión concreto.\n"
+"Restricción a nivel de usuario: limita el acceso al sistema, restricciones de seguridad por usuario.\n"
+"\n"
+"Permisos limitados para el usuario.\n"
+"Acceso limitado del usuario.\n"
+"Acceso de solo lectura.\n"
+"Usuario con acceso restringido.\n"
+"Restricción sobre el acceso del usuario.\n"
+"Usuario de solo lectura.\n"
+"Acceso de solo lectura al iniciar sesión.\n"
+"Acceso limitado al iniciar sesión.\n"
+"Acceso restringido al iniciar sesión.\n"
+"Restricción de acceso del usuario.\n"
+"Restricción de acceso al iniciar sesión.\n"
+"Restricción de seguridad del usuario.\n"
+"Cliente con acceso de solo lectura.\n"
+"Proveedor con acceso de solo lectura.\n"
+"Vendedor con acceso de solo lectura.\n"
+"Acceso limitado de cliente.\n"
+"    "
+
+#. module: generic_read_only_user_app
+#: model:ir.module.module,category_id:base.module_generic_read_only_user_app
+msgid "Extra Tools"
+msgstr "Herramientas adicionales"

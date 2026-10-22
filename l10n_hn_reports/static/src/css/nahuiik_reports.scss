@@ -1,0 +1,215 @@
+// Informes QWeb: paleta por defecto; en runtime `report_branding_style` define --nh-* desde el logo de la compañía.
+$fb-ink: #1a1a1a;
+$fb-heading: #4d4d4d;
+$fb-muted: #808080;
+$fb-accent: #000000;
+$fb-row-alt: #f4f4f4;
+$fb-totals-bg: #e8e8e8;
+$fb-border: #cccccc;
+
+.nh-report {
+  // Fallbacks si no hay variables (assets sin contexto de informe)
+  --nh-ink: #{$fb-ink};
+  --nh-heading: #{$fb-heading};
+  --nh-muted: #{$fb-muted};
+  --nh-accent: #{$fb-accent};
+  --nh-row-alt: #{$fb-row-alt};
+  --nh-totals-bg: #{$fb-totals-bg};
+  --nh-border: #{$fb-border};
+
+  color: var(--nh-ink);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 11px;
+
+  .nh-motif {
+    position: relative;
+    padding-left: 14px;
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 8px;
+      background: var(--nh-accent);
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 8px;
+      height: 100%;
+      background: linear-gradient(
+        to top right,
+        transparent 45%,
+        #fff 46%
+      );
+      pointer-events: none;
+    }
+  }
+
+  .nh-header-brand {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--nh-border);
+    padding-bottom: 8px;
+
+    .nh-logo {
+      max-height: 48px;
+      max-width: 220px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+    }
+  }
+
+  .nh-title {
+    color: var(--nh-heading);
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin: 0;
+  }
+
+  .nh-subtitle {
+    color: var(--nh-heading);
+    font-weight: 700;
+    font-size: 13px;
+    margin: 4px 0 0;
+  }
+
+  .nh-period {
+    color: var(--nh-ink);
+    font-size: 11px;
+    margin-top: 4px;
+  }
+
+  .nh-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--nh-muted);
+    margin: 8px 0 12px;
+  }
+
+  .nh-table-wrap {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .nh-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9px;
+
+    thead th {
+      background: var(--nh-accent);
+      color: #fff;
+      font-weight: 600;
+      padding: 6px 4px;
+      border: 1px solid var(--nh-accent);
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    tbody td {
+      padding: 4px;
+      border: 1px solid var(--nh-border);
+      vertical-align: middle;
+    }
+
+    tbody tr:nth-child(even) {
+      background: var(--nh-row-alt);
+    }
+
+    tbody tr.nh-totals-row td {
+      background: var(--nh-totals-bg);
+      font-weight: 700;
+      color: var(--nh-ink);
+    }
+
+    .text-end {
+      text-align: right;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+  }
+
+  .nh-summary {
+    margin-top: 14px;
+    display: flex;
+    justify-content: flex-end;
+
+    table {
+      width: 260px;
+      border-collapse: collapse;
+      font-size: 10px;
+
+      caption {
+        caption-side: top;
+        text-align: center;
+        font-weight: 700;
+        color: var(--nh-heading);
+        padding-bottom: 6px;
+      }
+
+      th,
+      td {
+        border: 1px solid var(--nh-border);
+        padding: 4px 8px;
+      }
+
+      thead th {
+        background: var(--nh-row-alt);
+        color: var(--nh-heading);
+      }
+
+      tbody tr:nth-child(even) {
+        background: #fafafa;
+      }
+
+      .nh-summary-total td {
+        font-weight: 700;
+        border-top: 2px solid var(--nh-accent);
+        background: var(--nh-totals-bg);
+      }
+
+      .text-end {
+        text-align: right;
+      }
+    }
+  }
+
+  .nh-footer-sign {
+    margin-top: 36px;
+    max-width: 280px;
+
+    .nh-line {
+      border-top: 1px solid var(--nh-ink);
+      margin-bottom: 4px;
+    }
+
+    .nh-label {
+      text-align: center;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--nh-heading);
+    }
+  }
+
+  &.nh-report--legal {
+    .nh-section-title {
+      color: var(--nh-heading);
+      font-weight: 700;
+      font-size: 12px;
+      margin: 14px 0 8px;
+    }
+  }
+}

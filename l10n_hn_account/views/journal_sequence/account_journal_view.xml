@@ -1,0 +1,28 @@
+<odoo>
+    <record model="ir.ui.view" id="view_account_journal_form_seq_hn">
+        <field name="name">account.journal.seq.hn</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Secuencias">
+                    <group>
+                        <group string="Secuencia Factura">
+                            <field name="sequence_id" string="Secuencia Factura"/>
+                            <field name="sequence_number_next" string="Siguiente Número"/>
+                        </group>
+                        <group string="Secuencia Nota de Crédito">
+                            <field name="refund_sequence_id" string="Secuencia Nota de Crédito"/>
+                            <field name="refund_sequence_number_next" string="Siguiente Número"/>
+                        </group>
+                        <group string="Secuencia Nota de Débito">
+                            <field name="debit_sequence_id" string="Secuencia Nota de Débito"/>
+                            <field name="debit_sequence_number_next" string="Siguiente Número"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista lista: orden y columnas propias (sin reproducir plantillas de otros productos). -->
+    <record id="hr_salary_attachment_view_tree" model="ir.ui.view">
+        <field name="name">hr.salary.attachment.list</field>
+        <field name="model">hr.salary.attachment</field>
+        <field name="arch" type="xml">
+            <list string="Payroll adjustments">
+                <field name="state" widget="badge"
+                       decoration-success="state == 'open'"
+                       decoration-muted="state == 'close'"
+                       optional="show"/>
+                <field name="other_input_type_id"/>
+                <field name="description"/>
+                <field name="employee_ids" widget="many2many_avatar_employee" optional="show"/>
+                <field name="date_start"/>
+                <field name="monthly_amount" widget="monetary"/>
+                <field name="remaining_amount" optional="hide" widget="monetary"/>
+                <field name="total_amount" optional="hide" widget="monetary"/>
+                <field name="paid_amount" optional="hide" widget="monetary"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="hr_salary_attachment_view_form" model="ir.ui.view">
+        <field name="name">hr.salary.attachment.form</field>
+        <field name="model">hr.salary.attachment</field>
+        <field name="arch" type="xml">
+            <form string="Payroll adjustment">
+                <header>
+                    <button name="action_close" type="object" string="Close"
+                            invisible="state != 'open' or employee_count &gt; 1"/>
+                    <button name="action_split" type="object" string="One record per employee"
+                            class="oe_highlight" invisible="employee_count &lt;= 1"/>
+                    <button name="action_open" type="object" string="Reopen"
+                            invisible="state != 'close' or employee_count &gt; 1"/>
+                    <field name="state" widget="statusbar" statusbar_visible="open,close"
+                           invisible="employee_count &gt; 1"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button type="object" name="action_open_payslips" class="oe_stat_button"
+                                icon="fa-list" invisible="payslip_count == 0">
+                            <field name="payslip_count" widget="statinfo" string="Payslips"/>
+                        </button>
+                    </div>
+                    <field name="company_id" invisible="1"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="employee_count" invisible="1"/>
+                    <field name="has_done_payslip" invisible="1"/>
+                    <field name="is_quantity" invisible="1"/>
+                    <notebook>
+                        <page string="Overview" name="overview">
+                            <group col="2">
+                                <group string="People &amp; type">
+                                    <field name="employee_ids" widget="many2many_avatar_employee"
+                                           readonly="has_done_payslip"/>
+                                    <field name="other_input_type_id" readonly="has_done_payslip"
+                                           context="{'default_available_in_attachments': True}"/>
+                                    <field name="description"/>
+                                </group>
+                                <group string="Dates">
+                                    <field name="date_start" readonly="has_done_payslip"/>
+                                    <field name="date_end" readonly="state == 'close'"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Amounts" name="amounts">
+                            <group col="2">
+                                <group>
+                                    <field name="duration_type" widget="radio" options="{'horizontal': True}"/>
+                                    <field name="monthly_amount" widget="monetary" readonly="has_done_payslip"/>
+                                    <field name="total_amount" widget="monetary"
+                                           invisible="duration_type != 'limited'"
+                                           readonly="has_done_payslip"/>
+                                    <field name="is_refund" readonly="has_done_payslip"/>
+                                </group>
+                                <group string="Balances">
+                                    <field name="paid_amount" readonly="1"/>
+                                    <field name="remaining_amount" readonly="1"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Document" name="document">
+                            <group>
+                                <field name="attachment" filename="attachment_name"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Mismos XML IDs que consume la localización GN (compatibilidad técnica). -->
+    <record id="hr_salary_attachment_employee_view_list" model="ir.ui.view">
+        <field name="name">hr.salary.attachment.list.employee</field>
+        <field name="model">hr.salary.attachment</field>
+        <field name="inherit_id" ref="hr_salary_attachment_view_tree"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <list position="inside">
+                <control>
+                    <button string="New adjustment" name="action_open_employee_salary_attachment"
+                            type="object" class="btn-link" context="{'new': 1}"/>
+                </control>
+            </list>
+        </field>
+    </record>
+
+    <record id="hr_salary_attachment_employee_view_form" model="ir.ui.view">
+        <field name="name">hr.salary.attachment.form.employee</field>
+        <field name="model">hr.salary.attachment</field>
+        <field name="inherit_id" ref="hr_salary_attachment_view_form"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <field name="employee_ids" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="action_hr_salary_attachment" model="ir.actions.act_window">
+        <field name="name">Payroll adjustments</field>
+        <field name="res_model">hr.salary.attachment</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

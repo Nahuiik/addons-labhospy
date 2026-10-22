@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="cash_closing_wizard_form">
+        <field name="name">gn.cash.closing.wizard.form</field>
+        <field name="model">gn.cash.closing.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Cierre de Caja Diario">
+                <sheet>
+                    <group col="2">
+                        <group>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                            <field name="branch_id" options="{'no_create': True}" readonly="not can_edit_branch"/>
+                            <field name="can_edit_branch" invisible="1"/>
+                            <field name="data_loaded" invisible="1"/>
+                        </group>
+                    </group>
+                    <div class="oe_button_box" invisible="data_loaded">
+                        <button name="action_load_data" type="object"
+                                string="Obtener datos" class="oe_highlight"
+                                icon="fa-download"/>
+                    </div>
+                    <notebook>
+                        <page string="Facturas Abiertas" name="invoice_open">
+                            <field name="invoice_open_ids" nolabel="1">
+                                <list create="0" edit="0" delete="0">
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="amount_total_signed" sum="Total"/>
+                                    <field name="amount_residual_signed" string="Saldo" sum="Total"/>
+                                    <field name="invoice_date"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Facturas Pagadas" name="invoice_paid">
+                            <field name="invoice_paid_ids" nolabel="1">
+                                <list create="0" edit="0" delete="0">
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="amount_total_signed" sum="Total"/>
+                                    <field name="invoice_date"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Facturas Anuladas" name="invoice_cancelled">
+                            <field name="invoice_cancelled_ids" nolabel="1">
+                                <list create="0" edit="0" delete="0">
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="amount_total_signed" sum="Total"/>
+                                    <field name="invoice_date"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Pagos Realizados" name="payment_posted">
+                            <field name="payment_posted_ids" nolabel="1">
+                                <list create="0" edit="0" delete="0">
+                                    <field name="journal_id" string="Diario"/>
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="amount" sum="Total"/>
+                                    <field name="date"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Pagos Anulados" name="payment_cancelled">
+                            <field name="payment_cancelled_ids" nolabel="1">
+                                <list create="0" edit="0" delete="0">
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="amount" sum="Total"/>
+                                    <field name="date"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Anticipos" name="advances">
+                            <field name="advance_presupuesto_ids" nolabel="1">
+                                <list create="0" edit="0" delete="0">
+                                    <field name="journal_id" string="Diario"/>
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="amount" sum="Total"/>
+                                    <field name="date"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Anticipos Pre-Factura" name="advances_prefactura">
+                            <field name="advance_prefactura_ids" nolabel="1">
+                                <list create="0" edit="0" delete="0">
+                                    <field name="journal_id" string="Diario"/>
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="amount" sum="Total"/>
+                                    <field name="date"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Remesas Bancarias" name="remesas">
+                            <field name="remesa_line_ids">
+                                <list editable="bottom">
+                                    <field name="bank_name"/>
+                                    <field name="account_number"/>
+                                    <field name="reference"/>
+                                    <field name="date"/>
+                                    <field name="amount" sum="Total"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Observaciones" name="observaciones">
+                            <field name="observaciones" placeholder="Ingrese observaciones del cierre de caja..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <footer>
+                    <button name="export_pdf" type="object" default_focus="1"
+                            string="Generar Cierre de Caja" class="oe_highlight"
+                            icon="fa-file-pdf-o"
+                            groups="gn_daily_cash_closing.group_cash_closing_generate"
+                            invisible="not data_loaded"/>
+                    <button string="Cancelar" class="btn btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_cash_closing_wizard">
+        <field name="name">Cierre de Caja Diario</field>
+        <field name="res_model">gn.cash.closing.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="cash_closing_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

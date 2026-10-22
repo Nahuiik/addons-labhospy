@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="l10n_hn_hr_payroll.L10nHnPayrollDashboard">
+        <div class="o_hr_payroll_dashboard_sheet container-fluid h-100 overflow-auto m-2 m-md-3 p-0">
+            <t t-if="state.loading">
+                <div class="p-4 o_hn_payroll_muted small" t-esc="loadingLabel"/>
+            </t>
+            <t t-elif="state.error">
+                <div class="alert alert-warning m-3" role="alert">
+                    <t t-esc="errorLabel"/>
+                </div>
+            </t>
+            <t t-else="">
+                <t t-set="hub" t-value="state.hub"/>
+                <t t-set="hn" t-value="state.hn"/>
+                <t t-if="hub &amp;&amp; hub.employee_count === 0">
+                    <div class="alert alert-info m-3" role="status">
+                        <t t-esc="noEmployeesText"/>
+                    </div>
+                </t>
+                <div class="row g-0 g-lg-3 h-lg-100">
+                    <div class="col-12 col-lg-7 row p-0 pe-3 pe-lg-0 m-0">
+                        <div class="row g-0 g-md-3 mt-0 pe-0">
+                            <div class="col-12 col-md-6 mb-3 mb-md-0 o_payroll_dashboard_panel">
+                                <div class="o_hr_payroll_dashboard_block card h-100">
+                                    <div class="card-header bg-view border-0">
+                                        <h2 class="card-title">Generar Nómina</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <button class="btn btn-primary w-100" t-on-click="openWizard">
+                                            <i class="fa fa-plus me-2"/> Generar Nómina (Wizard)
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-3 mb-md-0 o_payroll_dashboard_panel">
+                                <div class="o_hr_payroll_dashboard_block card h-100">
+                                    <div class="card-header bg-view border-0">
+                                        <h2 class="card-title" t-esc="hub.section_title || ''"/>
+                                    </div>
+                                    <div class="card-body py-2">
+                                        <t t-if="!hub.items || !hub.items.length">
+                                            <div class="small text-muted">
+                                                <t t-esc="noAlertsText"/>
+                                            </div>
+                                        </t>
+                                        <t t-else="">
+                                            <div class="list-group list-group-flush">
+                                                <t t-foreach="hub.items" t-as="item" t-key="item.key">
+                                                    <div class="list-group-item px-0 py-2 border-0">
+                                                        <div class="fw-semibold" t-esc="item.title"/>
+                                                        <t t-if="item.subtitle">
+                                                            <div class="small text-muted mt-1" t-esc="item.subtitle"/>
+                                                        </t>
+                                                        <button type="button"
+                                                                class="btn btn-sm btn-outline-primary mt-2"
+                                                                t-on-click="() => this.openItem(item.action)">
+                                                            <t t-esc="item.button_label"/>
+                                                        </button>
+                                                    </div>
+                                                </t>
+                                            </div>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                            <t t-if="hn &amp;&amp; hn.planilla_stats &amp;&amp; hn.planilla_stats.length > 0">
+                                <div class="col-12 col-md-6 mb-3 mb-md-0 o_payroll_dashboard_panel">
+                                    <div class="o_hr_payroll_dashboard_block card h-100">
+                                        <div class="card-header bg-view border-0 d-flex justify-content-between align-items-center">
+                                            <h2 class="card-title mb-0">Planillas HE/TE/BD</h2>
+                                            <button class="btn btn-sm btn-link" t-on-click="openPlanillas">Ver todas</button>
+                                        </div>
+                                        <div class="list-group list-group-flush">
+                                            <t t-foreach="hn.planilla_stats" t-as="sheet" t-key="sheet.id">
+                                                <div class="list-group-item">
+                                                    <strong t-esc="sheet.name"/>
+                                                    <div class="small text-muted">
+                                                        HE: <t t-esc="sheet.total_he"/> | TE: <t t-esc="sheet.total_te"/> | BD: <t t-esc="sheet.total_bd"/>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                            <t t-if="hn &amp;&amp; hn.last_period_status">
+                                <div class="col-12 col-md-6 mb-2 o_payroll_dashboard_panel">
+                                    <div class="o_hr_payroll_dashboard_block card h-100">
+                                        <div class="card-header bg-view border-0">
+                                            <h2 class="card-title">Última quincena</h2>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="mb-1"><strong t-esc="hn.last_period_status.name"/></p>
+                                            <p class="mb-1 text-muted">
+                                                <t t-esc="hn.last_period_status.payslip_count"/> nóminas · Estado: <t t-esc="hn.last_period_status.state"/>
+                                            </p>
+                                            <button class="btn btn-sm btn-outline-primary" t-on-click="() => this.openPayRun(hn.last_period_status.id)">
+                                                Ver Pay Run
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </div>
+    </t>
+</templates>

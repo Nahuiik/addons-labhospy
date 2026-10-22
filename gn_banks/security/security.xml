@@ -1,0 +1,66 @@
+<odoo>
+  <data>
+    <!-- Privileges for Banks module -->
+    <record model="res.groups.privilege" id="privilege_gn_banks_debit_credit">
+      <field name="name">Débitos y Créditos</field>
+      <field name="sequence">40</field>
+    </record>
+
+    <record model="res.groups.privilege" id="privilege_gn_banks_checks">
+      <field name="name">Cheques y Transferencias</field>
+      <field name="sequence">41</field>
+    </record>
+
+    <record model="res.groups.privilege" id="privilege_gn_banks_cancel">
+      <field name="name">Cancelar Documentos Bancarios</field>
+      <field name="sequence">42</field>
+    </record>
+
+    <!-- Debit and Credit groups -->
+    <record id="banks_debit_credit_user" model="res.groups">
+      <field name="name">Usuario</field>
+      <field name="privilege_id" ref="gn_banks.privilege_gn_banks_debit_credit"/>
+      <field name="comment">Acceso para registrar débitos y créditos bancarios.</field>
+    </record>
+
+    <record id="banks_debit_credit_manager" model="res.groups">
+      <field name="name">Manager</field>
+      <field name="privilege_id" ref="gn_banks.privilege_gn_banks_debit_credit"/>
+      <field name="comment">Permite configurar y validar todas las operaciones de débitos y créditos.</field>
+      <field name="implied_ids" eval="[(4, ref('gn_banks.banks_debit_credit_user'))]"/>
+    </record>
+
+    <!-- Check & Transfer groups -->
+    <record id="banks_check_user" model="res.groups">
+      <field name="name">Usuario</field>
+      <field name="privilege_id" ref="gn_banks.privilege_gn_banks_checks"/>
+      <field name="comment">Acceso para crear cheques y transferencias.</field>
+    </record>
+
+    <record id="banks_check_manager" model="res.groups">
+      <field name="name">Manager</field>
+      <field name="privilege_id" ref="gn_banks.privilege_gn_banks_checks"/>
+      <field name="comment">Gestión completa de cheques y transferencias.</field>
+      <field name="implied_ids" eval="[(4, ref('gn_banks.banks_check_user'))]"/>
+    </record>
+
+    <!-- Cancellation rights -->
+    <record id="banks_cancel_documents" model="res.groups">
+      <field name="name">Manager</field>
+      <field name="privilege_id" ref="gn_banks.privilege_gn_banks_cancel"/>
+      <field name="comment">Permiso para cancelar documentos bancarios validados.</field>
+    </record>
+
+    <!-- Import Credit Card privilege -->
+    <record model="res.groups.privilege" id="privilege_gn_banks_import_credit_card">
+      <field name="name">Importar Tarjetas de Crédito</field>
+      <field name="sequence">43</field>
+    </record>
+
+    <record id="banks_import_credit_card" model="res.groups">
+      <field name="name">Importar Tarjetas de Crédito</field>
+      <field name="privilege_id" ref="gn_banks.privilege_gn_banks_import_credit_card"/>
+      <field name="comment">Liquidaciones POS e importaciones de tarjetas de crédito.</field>
+    </record>
+  </data>
+</odoo>

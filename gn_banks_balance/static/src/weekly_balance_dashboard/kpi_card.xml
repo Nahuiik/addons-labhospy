@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_banks_balance.BanksWeeklyBalanceKpiCard">
+        <div t-attf-class="gn-wb-kpi {{ sizeClass }} {{ toneClass }}"
+             t-att-title="props.tooltip or ''">
+            <div class="gn-wb-kpi__icon" t-if="props.icon">
+                <i t-att-class="'fa ' + props.icon"/>
+            </div>
+            <div class="gn-wb-kpi__body">
+                <div class="gn-wb-kpi__label"><t t-esc="props.label"/></div>
+                <div class="gn-wb-kpi__value-row">
+                    <div class="gn-wb-kpi__value"><t t-esc="props.value"/></div>
+                    <span t-if="trendIcon"
+                          t-attf-class="gn-wb-kpi__trend {{ trendClass }}">
+                        <i t-att-class="'fa ' + trendIcon"/>
+                    </span>
+                </div>
+                <div class="gn-wb-kpi__sub" t-if="props.subValue" t-esc="props.subValue"/>
+            </div>
+        </div>
+    </t>
+</templates>

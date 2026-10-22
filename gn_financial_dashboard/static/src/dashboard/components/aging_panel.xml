@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_financial_dashboard.AgingPanel">
+        <section class="gn-fd-panel">
+            <header class="gn-fd-panel__head">
+                <span>
+                    <i t-if="props.icon" t-att-class="'fa me-2 ' + props.icon"/>
+                    <t t-esc="props.title"/>
+                </span>
+                <button t-if="props.actionLabel" class="btn btn-sm btn-link"
+                        t-on-click="() => props.onAction and props.onAction()">
+                    <t t-esc="props.actionLabel"/>
+                </button>
+            </header>
+            <FinancialChart config="props.chartConfig" fingerprint="props.fingerprint" height="220"
+                            onClick="props.onBucketClick"/>
+            <table class="gn-fd-aging-table">
+                <tbody>
+                    <tr t-foreach="rows" t-as="row" t-key="row_index">
+                        <td class="gn-fd-aging-table__dot">
+                            <span class="gn-fd-dot" t-att-style="'background:' + row.color"/>
+                        </td>
+                        <td t-esc="row.label"/>
+                        <td class="text-end fw-semibold" t-esc="row.amount"/>
+                        <td class="text-end text-muted" t-esc="row.pct"/>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </t>
+
+</templates>

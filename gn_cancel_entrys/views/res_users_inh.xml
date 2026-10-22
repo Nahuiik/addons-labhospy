@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="view_users_form_inh_gn_cancel_entry" model="ir.ui.view">
+        <field name="name">res.users.form.inherit.gnce</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            
+            <xpath expr="//notebook//page[1]" position="inside">
+                <group name="Cancel Entrys" string="Cancel Entrys" class="o_label_nowrap">
+                    <field name="cancel_entrys"/>    
+                </group>  
+            </xpath>
+            
+        </field>
+    </record>
+</odoo>

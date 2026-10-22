@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_template_form_gn_pack_transform" model="ir.ui.view">
+        <field name="name">product.template.form.gn.pack.transform</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='inventory']" position="inside">
+                <group string="Desempaque paquete → unidad"
+                       invisible="not is_storable">
+                    <group>
+                        <field name="gn_unpack_dest_product_id"
+                               options="{'no_create': True}"/>
+                        <field name="gn_unpack_ratio"/>
+                        <button name="action_gn_pack_open_transform" type="object"
+                                string="Transformar paquete" class="btn-secondary"
+                                icon="fa-exchange"
+                                invisible="not gn_unpack_dest_product_id"/>
+                    </group>
+                    <group>
+                        <p class="text-muted">
+                            Consuma el producto empaque y genere unidades destino
+                            conservando el costo total del inventario.
+                        </p>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

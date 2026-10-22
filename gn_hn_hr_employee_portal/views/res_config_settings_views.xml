@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_portal_hr" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.portal.hr</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <block title="Portal del empleado — Tarjetas del inicio" name="gn_hn_hr_employee_portal_cards">
+                    <setting string="Mi perfil" help="Muestra u oculta la tarjeta y bloquea el acceso a Mi perfil y sus rutas.">
+                        <field name="portal_card_profile" widget="boolean_toggle"/>
+                    </setting>
+                    <setting string="Mis solicitudes" help="Centro unificado de solicitudes; al desactivar no se puede acceder a /my/requests.">
+                        <field name="portal_card_requests" widget="boolean_toggle"/>
+                    </setting>
+                    <setting string="Mis constancias" help="Solicitudes y descarga de constancias desde el portal.">
+                        <field name="portal_card_certificates" widget="boolean_toggle"/>
+                    </setting>
+                    <setting string="Mis ausencias" help="Listado, nueva solicitud y simulador de ausencias.">
+                        <field name="portal_card_leaves" widget="boolean_toggle"/>
+                    </setting>
+                    <setting string="Mi calendario (personal)" help="Calendario de ausencias del empleado.">
+                        <field name="portal_card_personal_calendar" widget="boolean_toggle"/>
+                    </setting>
+                    <setting string="Mis asistencias" help="Historial, correcciones y punch (si está permitido).">
+                        <field name="portal_card_attendances" widget="boolean_toggle"/>
+                    </setting>
+                    <setting string="Mis nóminas" help="Consulta y descarga de recibos de nómina.">
+                        <field name="portal_card_payslips" widget="boolean_toggle"/>
+                    </setting>
+                    <setting string="Anticipos de salario" help="Solicitudes de anticipo desde el portal.">
+                        <field name="portal_card_salary_advances" widget="boolean_toggle"/>
+                    </setting>
+                    <setting string="Ausencias del equipo (jefes)" help="Listado de ausencias de subalternos.">
+                        <field name="portal_card_team_leaves" widget="boolean_toggle"/>
+                    </setting>
+                    <setting string="Calendario del equipo (jefes)" help="Calendario de ausencias del equipo; usa el mismo parámetro que antes.">
+                        <field name="enable_team_calendar" widget="boolean_toggle"/>
+                    </setting>
+                </block>
+                <block title="Portal del empleado — Otras opciones" name="gn_hn_hr_employee_portal_settings">
+                    <setting id="portal_hr_attendance_punch" string="Registro de asistencia desde portal"
+                        help="Permitir a los empleados registrar entrada/salida desde el portal (requiere tarjeta Mis asistencias activa).">
+                        <field name="enable_portal_attendance_punch" widget="boolean_toggle"/>
+                    </setting>
+                    <setting id="portal_hr_exports" string="Exportación CSV desde portal">
+                        <field name="enable_portal_exports" widget="boolean_toggle"/>
+                    </setting>
+                    <setting id="portal_hr_leave_attachments" string="Adjuntos en solicitudes de ausencia">
+                        <field name="enable_portal_leave_attachments" widget="boolean_toggle"/>
+                    </setting>
+                    <setting id="portal_hr_upload" string="Límites de adjuntos">
+                        <field name="max_upload_mb"/>
+                        <field name="allowed_mimetypes"/>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>

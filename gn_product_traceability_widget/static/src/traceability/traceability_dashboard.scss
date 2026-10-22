@@ -1,0 +1,479 @@
+.gn-traceability-root {
+    &.o_content {
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        height: 100%;
+        overflow: hidden;
+        padding: 0;
+        background: var(--o-view-background-color, #f8fafc);
+    }
+}
+
+.gn_traceability_scroll {
+    flex: 1 1 auto;
+    min-height: 0;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-gutter: stable;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+    outline: none;
+
+    scrollbar-width: thin;
+    scrollbar-color: rgba(100, 116, 139, 0.45) transparent;
+
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(100, 116, 139, 0.35);
+        border-radius: 999px;
+        border: 2px solid transparent;
+        background-clip: padding-box;
+
+        &:hover {
+            background: rgba(100, 116, 139, 0.55);
+            background-clip: padding-box;
+        }
+    }
+}
+
+.gn_traceability_dashboard {
+    padding: 1rem 1.25rem 2rem;
+    min-height: min-content;
+}
+
+.gn_traceability_body {
+    &--loading {
+        opacity: 0.85;
+        pointer-events: none;
+    }
+}
+
+.gn_traceability_view_tabs {
+    position: relative;
+    z-index: 2;
+}
+
+.gn_traceability_header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: space-between;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+
+    &__left {
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
+        flex: 1 1 420px;
+    }
+
+    &__img {
+        width: 72px;
+        height: 72px;
+        object-fit: contain;
+        border-radius: 8px;
+        border: 1px solid #e2e8f0;
+        background: #fff;
+    }
+
+    &__right {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(140px, 1fr));
+        gap: 0.75rem 1.5rem;
+
+        &:has(.gn_traceability_summary_item--cost) {
+            grid-template-columns: repeat(4, minmax(120px, 1fr));
+        }
+    }
+}
+
+.gn_traceability_cost {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.01em;
+}
+
+.gn_traceability_event__cost {
+    font-size: 0.8rem;
+    color: #64748b;
+    margin-top: 0.25rem;
+}
+
+.gn_traceability_event__commercial {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 1rem;
+    font-size: 0.85rem;
+    margin-top: 0.35rem;
+
+    &-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+    }
+}
+
+.gn_traceability_summary_item--cost {
+    .label {
+        color: #6366f1;
+    }
+}
+
+.gn_traceability_table {
+    .gn_traceability_cost {
+        white-space: nowrap;
+    }
+}
+
+.gn_traceability_eyebrow {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #64748b;
+    margin-bottom: 0.25rem;
+}
+
+.gn_traceability_title {
+    font-size: 1.35rem;
+    margin: 0 0 0.35rem;
+    font-weight: 700;
+}
+
+.gn_traceability_meta {
+    font-size: 0.875rem;
+    color: #475569;
+}
+
+.gn_traceability_summary_item {
+    .label {
+        display: block;
+        font-size: 0.75rem;
+        color: #64748b;
+    }
+    .value {
+        font-weight: 600;
+        font-size: 1rem;
+    }
+}
+
+.gn_traceability_filters {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.gn_traceability_actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.gn_traceability_kpi_row {
+    margin-bottom: 1rem;
+}
+
+.gn_traceability_kpi {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-left-width: 4px;
+    border-radius: 10px;
+    padding: 0.85rem 1rem;
+    height: 100%;
+
+    &__icon {
+        font-size: 1.25rem;
+        opacity: 0.85;
+    }
+
+    &__label {
+        font-size: 0.78rem;
+        color: #64748b;
+    }
+
+    &__value {
+        font-size: 1.15rem;
+        font-weight: 700;
+        line-height: 1.2;
+    }
+
+    &__helper {
+        font-size: 0.72rem;
+        color: #94a3b8;
+    }
+
+    &--primary { border-left-color: #2563eb; }
+    &--success { border-left-color: #16a34a; }
+    &--danger { border-left-color: #dc2626; }
+    &--info { border-left-color: #0284c7; }
+    &--warning { border-left-color: #ea580c; }
+    &--purple { border-left-color: #7c3aed; }
+    &--neutral, &--secondary, &--muted { border-left-color: #94a3b8; }
+}
+
+.gn_traceability_section {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
+
+    &__title {
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 0.85rem;
+        padding-left: 0.65rem;
+        border-left: 3px solid #2563eb;
+    }
+}
+
+.gn_traceability_timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+    padding-left: 0.5rem;
+}
+
+.gn_traceability_event {
+    display: flex;
+    gap: 1rem;
+    position: relative;
+    padding-bottom: 1.25rem;
+
+    &::before {
+        content: "";
+        position: absolute;
+        left: 17px;
+        top: 36px;
+        bottom: 0;
+        width: 2px;
+        background: #cbd5e1;
+    }
+
+    &:last-child::before {
+        display: none;
+    }
+
+    &__marker {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #e2e8f0;
+        color: #334155;
+        flex-shrink: 0;
+        z-index: 1;
+    }
+
+    &__body {
+        flex: 1;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+        padding: 0.75rem 1rem;
+    }
+
+    &__type {
+        font-weight: 700;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+    }
+
+    &__date {
+        font-size: 0.8rem;
+        color: #64748b;
+    }
+
+    &--success .gn_traceability_event__marker { background: #dcfce7; color: #166534; }
+    &--danger .gn_traceability_event__marker { background: #fee2e2; color: #991b1b; }
+    &--info .gn_traceability_event__marker { background: #dbeafe; color: #1d4ed8; }
+    &--warning .gn_traceability_event__marker { background: #ffedd5; color: #c2410c; }
+    &--purple .gn_traceability_event__marker { background: #ede9fe; color: #6d28d9; }
+    &--highlight .gn_traceability_event__body { box-shadow: 0 0 0 2px #fbbf24; }
+}
+
+.gn_traceability_selector {
+    max-width: 480px;
+    margin: 3rem auto;
+    text-align: center;
+
+    &__controls {
+        text-align: left;
+        margin-top: 1rem;
+    }
+}
+
+.gn_traceability_highlight {
+    background: #fef08a;
+    border-radius: 2px;
+    padding: 0 2px;
+    font-weight: 600;
+}
+
+.gn_traceability_highlight-cell {
+    background: rgba(254, 240, 138, 0.35);
+}
+
+.gn_traceability_flowmap {
+    position: relative;
+    overflow: auto;
+    max-height: 720px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background: #f8fafc;
+
+    &__svg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+    }
+
+    &__overlay {
+        position: relative;
+    }
+
+    &__node {
+        position: absolute;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        padding: 0.4rem 0.55rem;
+        background: #fff;
+        font-size: 0.78rem;
+        cursor: pointer;
+        box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+        transition: box-shadow 0.15s;
+
+        &:hover {
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
+        }
+
+        &--event {
+            border-left: 3px solid #2563eb;
+        }
+
+        &--location--supplier { border-left-color: #7c3aed; }
+        &--location--customer { border-left-color: #dc2626; }
+        &--location--internal { border-left-color: #0284c7; }
+        &--location--production { border-left-color: #4f46e5; }
+        &--location--transit { border-left-color: #0891b2; }
+    }
+
+    &__node-label {
+        font-weight: 600;
+        line-height: 1.2;
+        word-break: break-word;
+    }
+
+    &__node-sub {
+        color: #64748b;
+        display: block;
+    }
+
+    &__edge {
+        fill: none;
+        stroke: #94a3b8;
+        stroke-width: 1.5;
+
+        &--dashed {
+            stroke-dasharray: 5 4;
+            stroke: #cbd5e1;
+        }
+    }
+
+    &__edge-label {
+        font-size: 10px;
+        fill: #475569;
+        text-anchor: middle;
+    }
+}
+
+.gn_traceability_flow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+
+    &__node {
+        width: 100%;
+        max-width: 520px;
+        text-align: center;
+        padding: 0.65rem 1rem;
+        border-radius: 8px;
+        border: 1px solid #e2e8f0;
+        background: #f8fafc;
+    }
+
+    &__connector {
+        color: #64748b;
+        font-size: 1.1rem;
+        line-height: 1;
+    }
+}
+
+.gn_traceability_empty {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #64748b;
+    background: #fff;
+    border: 1px dashed #cbd5e1;
+    border-radius: 12px;
+}
+
+.gn_traceability_table thead th {
+    position: sticky;
+    top: 0;
+    background: #f1f5f9;
+    z-index: 1;
+}
+
+.gn_traceability_skeleton {
+    &__header {
+        height: 120px;
+        background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+        border-radius: 12px;
+        margin-bottom: 1rem;
+        animation: gn_traceability_shimmer 1.2s infinite;
+    }
+
+    &__kpi {
+        height: 90px;
+        background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+        border-radius: 10px;
+        animation: gn_traceability_shimmer 1.2s infinite;
+    }
+}
+
+@keyframes gn_traceability_shimmer {
+    0% { background-position: -200px 0; }
+    100% { background-position: 200px 0; }
+}
+
+@media (max-width: 768px) {
+    .gn_traceability_header__right {
+        grid-template-columns: 1fr;
+        width: 100%;
+    }
+}

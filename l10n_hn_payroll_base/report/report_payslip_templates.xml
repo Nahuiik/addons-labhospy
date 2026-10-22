@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_payslip">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page o_payroll_payslip_report">
+                        <t t-set="style" t-value="o.company_id.payslip_report_template or 'standard'"/>
+                        <div t-attf-class="o_payslip_theme o_payslip_#{style}">
+                            <h2>Payslip</h2>
+                            <div class="row mt16">
+                                <div class="col-6">
+                                    <strong>Employee</strong>
+                                    <div t-field="o.employee_id"/>
+                                    <strong>Period</strong>
+                                    <div><span t-field="o.date_from"/> – <span t-field="o.date_to"/></div>
+                                </div>
+                                <div class="col-6">
+                                    <strong>Reference</strong>
+                                    <div t-field="o.number"/>
+                                    <strong>Net (computed)</strong>
+                                    <div t-field="o.payslip_net_total"/>
+                                </div>
+                            </div>
+                            <table class="table table-sm mt32">
+                                <thead>
+                                    <tr><th>Rule</th><th>Code</th><th class="text-end">Quantity</th><th class="text-end">Amount</th><th class="text-end">Total</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="o.line_ids" t-as="line" t-if="line.appears_on_payslip and not (o.struct_id and o.struct_id.hide_basic_on_pdf and line.code == 'BASIC')">
+                                        <td><span t-field="line.name"/></td>
+                                        <td><span t-field="line.code"/></td>
+                                        <td class="text-end"><span t-field="line.quantity"/></td>
+                                        <td class="text-end"><span t-field="line.amount"/></td>
+                                        <td class="text-end"><span t-field="line.total"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

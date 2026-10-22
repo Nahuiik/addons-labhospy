@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Tipo de entrada para empleados con pago mensual en 1ra quincena.
+             Cuando el empleado tiene este concepto (apply_biweek=second), la regla BASIC
+             retorna 0 en la 2da quincena (no recibe salario en 2da). -->
+        <record id="input_type_ded_sal_2da" model="hr.payslip.input.type">
+            <field name="code">DED_SAL_2DA</field>
+            <field name="name">Deducción Salario 2da Quincena (Pago mensual en 1ra)</field>
+        </record>
+    </data>
+</odoo>

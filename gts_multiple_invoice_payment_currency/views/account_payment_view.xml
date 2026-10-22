@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_account_payment_form_inherit_gts" model="ir.ui.view">
+            <field name="name">account.payment.form.inherit</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="priority">90</field>
+            <field name="arch" type="xml">
+                <field name="partner_bank_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="payment_type" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="partner_type" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="company_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <!-- <field name="payment_method_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field> -->
+                <field name="date" position='replace'/>
+                <field name="journal_id" position='before'>
+                    <!-- Misma regla que la sincronización al asiento: editable si el pago no está cancelado y el move sigue en borrador -->
+                    <field name="date"
+                           readonly="state != 'draft'"/>
+                </field>
+                
+                <!-- <group name="group3" position='replace'>
+                    <group name="group3">
+                        <field name="ref" string="Memo"/>
+                    </group>
+                </group> -->
+                <!-- <field name="destination_account_id" position='replace'/> -->
+                <!-- <field name="move_id" position='after'>
+                    <field name="destination_account_id"/>
+                </field> -->
+                <field name="memo" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="partner_bank_id" position="after">
+                    <field name="payment_move_type" 
+                           readonly="state != 'draft'" 
+                           required="payment_type == 'outbound'" 
+                           invisible="payment_type == 'inbound'"/>
+                    <field name="payment_move_type_dep" invisible="1" readonly="1" force_save="1"/>
+                    <field name="memo" string="Memo" readonly="state != 'draft'"/>
+                </field>
+                <field name="name" position="attributes">
+                    <attribute name="force_save">1</attribute>
+                    <attribute name="readonly">1</attribute>
+                </field>
+                <!-- Modificar el título para mostrar la secuencia incluso en estado draft -->
+                <xpath expr="//div[hasclass('oe_title')]/h1[1]" position="replace">
+                    <h1>
+                        <span invisible="name and name not in ('Borrador', 'Draft', '/', False)">Borrador</span>
+                        <field name="name" invisible="not name or name in ('Borrador', 'Draft', '/', False)" readonly="1"/>
+                    </h1>
+                </xpath>
+                <xpath expr="//div[hasclass('oe_title')]/h1[2]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='button_open_invoices']" position="before">
+                    <button name="button_open_move_lines" type="object" class="oe_stat_button" icon="fa-bars" string="Journal Items" >Open lines</button>
+                    <!-- invisible="move_id == False" -->
+                </xpath>
+                
+                <xpath expr="//field[@name='payment_method_line_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//group[@name='group2']" position="after">
+                    <group invisible="context.get('active_model', False)">
+                        <group>
+                            <field name="selected_inv_total"/>
+                        </group>
+                        <group>
+                            <field name="balance"/>
+                        </group>
+                    </group>
+
+                    <notebook invisible="context.get('active_model', False)">
+                        <page string="Invoices" name="payment_invoices">
+                            <separator string="Please enter amount in invoices to pay" invisible="payment_type not in ('inbound', 'outbound')"/>
+                            <field name="invoice_lines"
+                                   nolabel="1"
+                                   force_save="1"
+                                   context="{'default_partner_id': partner_id, 'default_payment_type': payment_type, 'tree_view_ref': 'gts_multiple_invoice_payment_currency.view_payment_invoice_line_tree'}"
+                                   invisible="payment_type not in ('inbound', 'outbound')"
+                                   readonly="state != 'draft'"/>
+                            <group class="oe_subtotal_footer oe_right">
+                                <label for="amount"/>
+                                <strong>
+                                    <field name="amount" style="font-size: 17px; text-decoration-line: underline;" readonly="state != 'draft'"/>
+                                </strong>
+                                <field name="currency_id" options="{'no_create': True, 'no_open': True}" required="1" groups="base.group_multi_currency" readonly="state != 'draft'"/>
+                            </group>
+                        </page>
+                    </notebook>
+
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_payment_invoice_line_tree" model="ir.ui.view">
+            <field name="name">payment.invoice.line.tree</field>
+            <field name="model">payment.invoice.line</field>
+            <field name="arch" type="xml">
+                <list string="Invoices" editable="bottom" create="true" delete="true">
+                    <field name="partner_id" readonly="1" column_invisible="1" string=""/>
+                    <field name="company_id" column_invisible="1" string=""/>
+                    <field name="payment_type" column_invisible="1"/>
+                    <field name="invoice_id" force_save="1" domain="[('move_type', '=', payment_type)]"/>
+                    <field name="supplier_invoice_number" string="Factura N°" column_invisible="parent.payment_type != 'outbound'"/>
+                    <field name="date_invoice" readonly="1" force_save="1"/>
+                    <field name="currency_id" readonly="1"/>
+                    <field name="amount_total" readonly="1" sum="amount_total" widget="monetary" force_save="1"/>
+                    <field name="residual" readonly="1" sum="residual" widget="monetary" force_save="1"/>
+                    <field name="amount" sum="amount" widget="monetary" required="1" force_save="1"/>
+                    <field name="actual_amount" sum="actual_amount"/>
+                </list>
+            </field>
+        </record>
+
+
+        <record id="view_account_payment_register_form_multi_payment" model="ir.ui.view">
+            <field name="name">account.payment.register.wizard</field>
+            <field name="model">account.payment.register</field>
+            <field name="inherit_id" ref="account.view_account_payment_register_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/group" position="before">
+                    <h2>
+                        <field name="name" force_save="1" readonly="1"/>
+                    </h2>
+                </xpath>
+                <field name="journal_id" position="after">
+                    <field name="payment_move_type" invisible="payment_type == 'inbound'" required="payment_type == 'outbound'"/>
+                    <field name="payment_move_type_dep" invisible="1" readonly="1" force_save="1"/>
+                </field>
+                <xpath expr="//field[@name='payment_method_line_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                
+                <xpath expr="//field[@name='payment_date']" position="before">
+                    <field name="reconcile_with_invoice_date" invisible="1"/>
+                    <field name="real_payment_date" invisible="not reconcile_with_invoice_date" required="reconcile_with_invoice_date"/>
+                </xpath>
+
+                <xpath expr="//field[@name='payment_date']" position="attributes">
+                    <attribute name="invisible">reconcile_with_invoice_date == True and partner_type != 'supplier'</attribute>
+                    <attribute name="readonly">False</attribute>
+                </xpath>
+                
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,53 @@
+<odoo>
+
+    <record id="view_order_form_inherit_05" model="ir.ui.view">
+        <field name="name">sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+        
+            <xpath expr="//group[@name='sale_total']/field[@name='tax_totals']" position="before">
+                <div class="d-flex justify-content-between">
+                    <span>Monto exonerado:</span>
+                    <span class="fw-bold">
+                        <field name="exonerate_amount" widget="monetary" readonly="1"/>
+                    </span>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <span>Venta exenta:</span>
+                    <span class="fw-bold">
+                        <field name="exempt_sale_amount" widget="monetary" readonly="1"/>
+                    </span>
+                </div>
+            </xpath>
+            <field name="client_order_ref" position='replace'/>
+            <field name="partner_id" position='after'>
+                <field name="client_order_ref"/>
+            </field>
+            <field name="currency_id" position="after">
+                <field name="custom_invoice_id"/>
+            </field>
+            <field name="client_order_ref" position="after">
+                <field name="payment_term_id" options="{'no_open': True, 'no_create': True}" 
+                invisible="1"
+            />
+             </field>
+            <field name="partner_id" position="attributes">
+                <attribute name="domain">[('customer', '=', True)]</attribute>
+                <attribute name="options">{'readonly': [('state', 'not in', ('draft', 'sent'))]}</attribute>
+            </field>
+            <xpath expr="//notebook" position="inside">
+                <page string="Orden de Compra">
+                    <group>
+                        <field name="purchase_order_number"/>
+                        <field name="add_invoice_attachment"/>
+                        <field name="purchase_order_attachment" invisible="add_invoice_attachment == False"/>
+                    </group>
+                </page>
+            </xpath>
+            
+        </field>
+
+    </record>
+
+</odoo>

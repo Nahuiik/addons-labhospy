@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="check_voucher">
+      <t t-call="web.basic_layout">
+        <div class="article">
+            <t t-foreach="docs" t-as="o">
+                <t t-if="o and 'company_id' in o">
+                    <t t-set="company" t-value="o.company_id"/>
+                </t>
+                <t t-if="not o or not 'company_id' in o">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+                <t t-if="o.move_type">
+                    <t t-set="pay_method" t-value="o.move_type"/>
+                </t>                
+                <div class="page">
+                    <style>
+                        <!--tr.box {
+                            width: 300px;
+                            padding: 25px;
+                            border: 2px solid black;
+                            margin: 20px;
+                        }-->
+
+                        .head {
+                        size : 20px;
+                        }
+                    </style>
+                    <table style="width:100%; font-size:15px; border:1px;"> 
+                        <tbody> 
+                            <tr>    
+                                <td style="width:100%;">            
+                                    <table style="width:100%; font-size:15px; border:1px; margin-top:20px;"> 
+                                        <tbody>
+                                            <tr>
+                                                <td style="width:10%;"/>
+                                                <td style="width:6%;" colspan="2">
+                                                    <table style="width:100%; font-size:14px;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align:left;font-size:16px;pading-top:40px; font-weight: bold;">TEGUCIGALPA <span t-esc="o.date.strftime('%d')"/> DE 
+                                                                    <span t-esc="o.date.strftime('%B').upper()"/> DE
+                                                                    <span t-esc="o.date.strftime('%Y')"/>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr> 
+                                <td style="width:100%;">
+                                    <table style="width:100%; font-size:16px; font-weight: bold; border:1px; margin-top:55px"> 
+                                        <tbody>
+                                          
+                                            <tr>
+                                                <td style="width:2%;"><p class="text-center"/></td>
+                                                <td style="width:60%;"><p class="text-center">***<span t-field="o.supplier_id.name"/>***</p></td>
+                                                <td style="width:40%;"><p class="text-center">***<span t-esc="'%.2f' % o.total"/>***</p></td>
+                                            </tr>
+                                            
+                                            
+                                            <tr>
+                                                <td style="width:2%;"><p class="text-left"/></td>
+                                                <td style="width:60%;"><p class="text-left"/></td>
+                                                <td style="width:30%;"><p class="text-left"/></td>
+                                            </tr>
+                                           
+                                           
+                                            
+                                            <tr>
+                                                <td style="width:2%;margin-top:15px;"><p class="text-left"/></td>
+                                                <td style="width:93%; font-weight: bold; text-transform:uppercase;font-size:16px" colspan="2"><p class="text-left">**<span t-field="o.amount_in_words"/>**</p></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table style="width:100%; font-size:16px; margin-top:220px; border:1px; padding:20px 20px 20px 20px;"> 
+                                        <tbody>
+                                           
+                                            <tr>
+                                                <td style="font-size:16px;font-weight: bold;  font-family: sans-serif;"><p class="text-left"><span t-field="o.description"/></p></td>
+                                            </tr>    
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <br/>
+                            <tr>
+                            <table style="width:100%; font-size:12px; font-family: sans-serif;font-weight: bold;  border:1px; border:1px;margin-top:50px; padding:40px 20px 20px 20px;"> 
+                                    <tbody>
+                                        <br/>
+                                        
+                                        <t t-set="total_debit" t-value="0"/>
+                                        <t t-set="total_credit" t-value="0"/>
+                                        <t t-foreach="o.move_id.line_ids" t-as="a">
+                                            <tr>
+                                                 <t t-set="total_debit" t-value="total_debit+a.debit"/>
+                                                <t t-set="total_credit" t-value="total_credit+a.credit"/> 
+                                                <td style="width:15%"><p class="text-left" style="font-size:12px;font-weight: bold;  font-family: sans-serif;"><span t-field="a.account_id.code"/></p></td>
+                                                <td style="width:50%"><p class="text-left" style="font-size:12px;font-weight: bold;  font-family: sans-serif;"><span t-esc="a.account_id.name"/></p></td>
+                                                <td style="width:15%; font-weight: bold;"><p class="text-right" style="font-weight: bold;"> <span t-esc="'{0:,.2f}'.format(a.debit)"/></p></td>
+                                                <td style="width:15%; font-weight: bold;"><p class="text-right" style="font-weight: bold;"> <span t-esc="'{0:,.2f}'.format(a.credit)"/></p></td> 
+                                            </tr>
+                                        </t>
+                                         <tr class="border-black">
+                                            <td/>
+                                            <td/>
+                                            <td style="font-family: courier; font-weight: bold;  "><p style="font-size:16px;font-weight: bold;  font-family: sans-serif;" class="text-right"><strong><span t-esc="'{0:,.2f}'.format(total_debit)"/></strong></p></td>
+                                            <td style="font-family: courier; font-weight: bold;  "><p style="font-size:16px;font-weight: bold;  font-family: sans-serif;" class="text-right"><strong><span t-esc="'{0:,.2f}'.format(total_credit)"/></strong></p></td>
+                                        </tr>  
+                                </tbody>
+                        </table>
+                            </tr>
+                            <br/>
+                        
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </div>
+        </t>
+
+    </template>
+
+    <template id="check_voucher_pdf">
+		    <t t-call="web.html_container">
+		        <t t-foreach="docs" t-as="o">
+		            <t t-call="gn_purchase_ticket.check_voucher" t-lang="o.partner_id.lang"/>
+		        </t>
+		    </t>
+	</template>
+</odoo>

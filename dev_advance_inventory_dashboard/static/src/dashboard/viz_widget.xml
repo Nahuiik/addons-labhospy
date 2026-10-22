@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="dev_advance_inventory_dashboard.InvVizWidget">
+        <div t-attf-class="inv-viz-widget #{state.fullscreen ? 'inv-viz-widget--fullscreen' : ''}">
+            <div class="inv-viz-widget__head" t-if="props.config?.title">
+                <span class="inv-viz-widget__title" t-esc="props.config.title"/>
+                <span class="inv-viz-widget__actions">
+                    <button type="button" class="inv-cc-btn" t-on-click="exportPng">PNG</button>
+                    <button type="button" class="inv-cc-btn" t-if="props.config?.fullscreen !== false"
+                            t-on-click="toggleFullscreen">⛶</button>
+                </span>
+            </div>
+            <t t-if="state.error">
+                <div class="alert alert-warning m-2" t-esc="state.error"/>
+            </t>
+            <t t-elif="props.config">
+                <div class="inv-viz-widget__canvas-wrap"
+                     t-attf-style="height: #{props.height or '280px'};">
+                    <t t-if="isEcharts">
+                        <div t-ref="vizRoot" t-att-id="canvasId"
+                             class="inv-viz-widget__echarts"/>
+                    </t>
+                    <t t-else="">
+                        <canvas t-ref="vizRoot" t-att-id="canvasId"/>
+                    </t>
+                    <t t-if="state.loading">
+                        <div class="inv-viz-widget__loading-overlay inv-skeleton inv-skeleton--chart"/>
+                    </t>
+                </div>
+            </t>
+            <t t-else="">
+                <div class="text-muted text-center p-3" t-esc="'Sin datos de gráfico'"/>
+            </t>
+        </div>
+    </t>
+
+</templates>

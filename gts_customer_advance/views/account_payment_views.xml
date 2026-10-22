@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista de formulario de pago - Agregar sección de anticipo -->
+    <record id="view_account_payment_form_advance" model="ir.ui.view">
+        <field name="name">account.payment.form.advance</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+            <!-- Botón para cambiar a "En proceso" directamente desde Borrador -->
+            <xpath expr="//header/button[@name='action_post']" position="after">
+                <button name="action_send"
+                        type="object"
+                        string="Marcar como En Proceso"
+                        class="oe_highlight"
+                        icon="fa-paper-plane"
+                        invisible="not is_advance or state != 'draft' or (partner_type == 'customer' and payment_type != 'inbound') or (partner_type == 'supplier' and payment_type != 'outbound')"/>
+                <button name="%(gts_customer_advance.action_report_advance_payment)d"
+                        type="action"
+                        string="Imprimir"
+                        class="btn-secondary"
+                        icon="fa-print"
+                        invisible="not is_advance or (partner_type == 'customer' and payment_type != 'inbound') or (partner_type == 'supplier' and payment_type != 'outbound')"/>
+            </xpath>
+
+            <xpath expr="//field[@name='state']" position="before">
+                <field name="advance_cancel_allowed" invisible="1"/>
+            </xpath>
+            <xpath expr="//header/button[@name='action_cancel']" position="attributes">
+                <attribute name="invisible">not id or not (state == 'draft' or (state == 'in_process' and is_sent)) or (is_advance and not advance_cancel_allowed)</attribute>
+            </xpath>
+            <xpath expr="//header/button[@name='action_draft']" position="attributes">
+                <attribute name="invisible">state in ('draft') or (is_advance and not advance_cancel_allowed)</attribute>
+            </xpath>
+            <xpath expr="//header/button[@name='button_request_cancel']" position="attributes">
+                <attribute name="invisible">state != 'in_process' or not move_id or not need_cancel_request or (is_advance and not advance_cancel_allowed)</attribute>
+            </xpath>
+            
+            <!-- Agregar campo "Es Abono/Anticipo" después de payment_type -->
+            <xpath expr="//field[@name='payment_type']" position="after">
+                <field name="is_advance" 
+                       invisible="partner_type not in ('customer', 'supplier') or (partner_type == 'customer' and payment_type != 'inbound') or (partner_type == 'supplier' and payment_type != 'outbound')"
+                       readonly="state != 'draft'"/>
+            </xpath>
+            
+            <!-- Ocultar campo "Es anticipo" cuando NO es anticipo (pago normal) -->
+            <!-- Solo mostrar cuando es anticipo Y el tipo de partner es correcto -->
+            <xpath expr="//field[@name='is_advance']" position="attributes">
+                <attribute name="invisible">not is_advance or partner_type not in ('customer', 'supplier') or (partner_type == 'customer' and payment_type != 'inbound') or (partner_type == 'supplier' and payment_type != 'outbound')</attribute>
+                <attribute name="readonly">state != 'draft'</attribute>
+            </xpath>
+            
+            <!-- Hacer campos readonly cuando está en proceso o pagado -->
+            <!-- Cambiar el string del campo partner_id para anticipos -->
+            <!-- CRÍTICO: El campo siempre debe ser visible - sin condiciones invisible -->
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="readonly">state != 'draft'</attribute>
+                <!-- Cambiar string para anticipos (aplicará "Proveedor" o "Cliente" según corresponda) -->
+                <!-- Nota: En Odoo XML no se pueden usar condiciones dinámicas en string, -->
+                <!-- por lo que se mantiene el string por defecto del módulo base -->
+            </xpath>
+            
+            <!-- Mostrar campo name (secuencia) cuando es anticipo y hacerlo readonly -->
+            <!-- Asegurar que el campo name sea visible y muestre la secuencia cuando es anticipo -->
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="readonly">1</attribute>
+                <attribute name="required">is_advance</attribute>
+            </xpath>
+            
+            <!-- Tipo de pago (Efectivo/Tarjeta/Transferencia) para filtrar diarios en anticipos de cliente -->
+            <xpath expr="//field[@name='journal_id']" position="before">
+                <field name="payment_method_toggle"
+                       invisible="not show_payment_toggles or state != 'draft'"
+                       readonly="state != 'draft'"/>
+                <field name="show_payment_toggles" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='journal_id']" position="attributes">
+                <attribute name="readonly">state != 'draft'</attribute>
+            </xpath>
+            
+            <xpath expr="//field[@name='payment_type']" position="attributes">
+                <attribute name="readonly">state != 'draft'</attribute>
+            </xpath>
+            
+            <xpath expr="//field[@name='partner_type']" position="attributes">
+                <attribute name="readonly">state != 'draft'</attribute>
+            </xpath>
+            
+            <xpath expr="//field[@name='amount']" position="attributes">
+                <attribute name="readonly">state != 'draft'</attribute>
+            </xpath>
+            
+            <!-- Bloquear otros campos comunes que no deberían editarse -->
+            <xpath expr="//field[@name='date']" position="attributes">
+                <attribute name="readonly">state != 'draft'</attribute>
+            </xpath>
+            
+            <xpath expr="//field[@name='currency_id']" position="attributes">
+                <attribute name="readonly">state != 'draft'</attribute>
+            </xpath>
+            
+            <!-- Ocultar tipo de transacción cuando es anticipo -->
+            <xpath expr="//field[@name='payment_move_type']" position="attributes">
+                <attribute name="invisible">is_advance or payment_type == 'inbound'</attribute>
+            </xpath>
+            <xpath expr="//field[@name='payment_move_type_dep']" position="attributes">
+                <attribute name="invisible">is_advance or payment_type == 'outbound'</attribute>
+            </xpath>
+            
+            <!-- Ocultar campos no necesarios en anticipos -->
+            <xpath expr="//field[@name='partner_bank_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Campo de cuenta de anticipo oculto (se asigna automáticamente) -->
+            <xpath expr="//group[@name='group1']/field[@name='memo']" position="after">
+                <field name="advance_account_id"
+                       class="o_field_fullwidth"
+                       options="{'no_create': True, 'no_create_edit': True}"
+                       invisible="1"
+                       readonly="state != 'draft'"
+                       required="is_advance"/>
+                <field name="memo"
+                       string="Notas del Abono/Anticipo"
+                       placeholder="Agregar notas sobre este Abono/Anticipo (opcional)..."
+                       invisible="not is_advance or (partner_type == 'customer' and payment_type != 'inbound') or (partner_type == 'supplier' and payment_type != 'outbound')"
+                       readonly="state != 'draft'"
+                       class="o_field_fullwidth"/>
+            </xpath>
+
+            <!-- Panel de resumen de anticipo bajo el bloque principal -->
+            <xpath expr="//group[@name='main_group']" position="after">
+                <!-- Panel de anticipo de cliente -->
+                <group string="Abono/Anticipo de Cliente"
+                       name="advance_summary_panel_customer"
+                       colspan="2"
+                       class="o_group o_group_col_12"
+                       invisible="not is_advance or partner_type != 'customer' or payment_type != 'inbound'">
+                    <group string="Este anticipo">
+                        <field name="sale_order_id" invisible="1"/>
+                        <field name="advance_links_count"
+                               string="Cuotas"
+                               readonly="1"/>
+                        <field name="advance_available_amount"
+                               string="Saldo disponible"
+                               readonly="1"
+                               widget="monetary"
+                               options="{'currency_field': 'currency_id'}"/>
+                        <field name="advance_applied_total"
+                               string="Total aplicado"
+                               readonly="1"
+                               widget="monetary"
+                               options="{'currency_field': 'currency_id'}"/>
+                    </group>
+                    <group string="Anticipos del cliente">
+                        <field name="partner_quotations_with_advances"
+                               string="Cotización destino"
+                               readonly="1"
+                               invisible="not partner_quotations_with_advances"/>
+                        <field name="partner_advances_count"
+                               string="Anticipos acumulados"
+                               readonly="1"/>
+                        <field name="partner_advances_total"
+                               string="Total recibido"
+                               readonly="1"
+                               widget="monetary"
+                               options="{'currency_field': 'currency_id'}"/>
+                        <field name="partner_advances_balance"
+                               string="Saldo total"
+                               readonly="1"
+                               widget="monetary"
+                               options="{'currency_field': 'currency_id'}"/>
+                    </group>
+                    <group>
+                        <button name="action_create_quotas_from_advance"
+                                type="object"
+                                string="Crear cuotas"
+                                class="btn-secondary"
+                                icon="fa-calendar-plus-o"
+                                invisible="not sale_order_id or sale_order_quota_ids"
+                                groups="gts_customer_advance.group_advance_customers_manager"/>
+                        <button name="action_open_apply_to_invoices_wizard"
+                                type="object"
+                                string="Aplicar a Facturas"
+                                class="btn-primary"
+                                invisible="advance_available_amount &lt;= 0 or state not in ('in_process', 'paid')"/>
+                    </group>
+                    <field name="advance_link_ids"
+                           readonly="1"
+                           class="o_field_fullwidth"
+                           colspan="2"
+                           context="{'default_payment_id': id}"
+                           options="{'no_create_edit': True}"
+                           invisible="not advance_link_ids">
+                        <list string="Aplicaciones registradas"
+                              create="0"
+                              delete="0">
+                            <field name="move_id" string="Factura"/>
+                            <field name="reclass_move_id" string="Asiento"/>
+                            <field name="amount"
+                                   widget="monetary"
+                                   options="{'currency_field': 'currency_id'}"
+                                   class="text-end"
+                                   sum="Total"/>
+                            <field name="state" widget="badge" 
+                                   decoration-success="state == 'applied'"
+                                   decoration-danger="state == 'reversed'"/>
+                            <field name="applied_date" class="text-muted"/>
+                            <field name="applied_user_id" string="Por"/>
+                        </list>
+                    </field>
+                    <div class="o_empty_list_message text-muted"
+                         invisible="advance_link_ids">
+                        <span>No hay aplicaciones registradas para este Abono/Anticipo.</span>
+                    </div>
+                    <!-- Cuotas de la cotización destino (cuando se registra desde cotización) -->
+                    <group string="Cuotas de la cotización"
+                           col="2"
+                           invisible="not sale_order_id">
+                        <p class="text-muted">
+                            <i class="fa fa-info-circle me-1"/>
+                            Al validar este anticipo, se asignará a la cotización <strong><field name="sale_order_id" readonly="1" nolabel="1"/></strong>.
+                            <span invisible="sale_order_quota_ids">Cree el plan de cuotas con el botón "Crear cuotas" para distribuir el anticipo en las cuotas.</span>
+                        </p>
+                        <field name="sale_order_quota_ids"
+                               nolabel="1"
+                               colspan="2"
+                               invisible="not sale_order_quota_ids">
+                            <list string="Plan de cuotas" create="0" delete="0" edit="0">
+                                <field name="sequence" widget="handle"/>
+                                <field name="due_date" string="Vencimiento"/>
+                                <field name="amount" string="Monto por cobrar"
+                                       widget="monetary"
+                                       options="{'currency_field': 'currency_id'}"
+                                       sum="Total"/>
+                                <field name="amount_assigned" string="Asignado"
+                                       widget="monetary"
+                                       options="{'currency_field': 'currency_id'}"
+                                       sum="Total"/>
+                                <field name="state"/>
+                            </list>
+                        </field>
+                    </group>
+                </group>
+                
+                <!-- Panel de anticipo de proveedor -->
+                <group string="Abono/Anticipo de Proveedor"
+                       name="advance_summary_panel_supplier"
+                       colspan="2"
+                       class="o_group o_group_col_12"
+                       invisible="not is_advance or partner_type != 'supplier' or payment_type != 'outbound'">
+                    <group string="Este anticipo">
+                        <field name="advance_links_count"
+                               string="Cuotas"
+                               readonly="1"/>
+                        <field name="advance_available_amount"
+                               string="Saldo disponible"
+                               readonly="1"
+                               widget="monetary"
+                               options="{'currency_field': 'currency_id'}"/>
+                        <field name="advance_applied_total"
+                               string="Total aplicado"
+                               readonly="1"
+                               widget="monetary"
+                               options="{'currency_field': 'currency_id'}"/>
+                    </group>
+                    <group string="Anticipos del proveedor">
+                        <field name="partner_advances_count"
+                               string="Anticipos acumulados"
+                               readonly="1"/>
+                        <field name="partner_advances_total"
+                               string="Total pagado"
+                               readonly="1"
+                               widget="monetary"
+                               options="{'currency_field': 'currency_id'}"/>
+                        <field name="partner_advances_balance"
+                               string="Saldo total"
+                               readonly="1"
+                               widget="monetary"
+                               options="{'currency_field': 'currency_id'}"/>
+                    </group>
+                    <group>
+                        <button name="action_open_apply_to_invoices_wizard"
+                                type="object"
+                                string="Aplicar a Facturas"
+                                class="btn-primary"
+                                invisible="advance_available_amount &lt;= 0 or state not in ('in_process', 'paid')"/>
+                    </group>
+                    <field name="advance_link_ids"
+                           readonly="1"
+                           class="o_field_fullwidth"
+                           colspan="2"
+                           context="{'default_payment_id': id}"
+                           options="{'no_create_edit': True}"
+                           invisible="not advance_link_ids">
+                        <list string="Aplicaciones registradas"
+                              create="0"
+                              delete="0">
+                            <field name="move_id" string="Factura"/>
+                            <field name="reclass_move_id" string="Asiento"/>
+                            <field name="amount"
+                                   widget="monetary"
+                                   options="{'currency_field': 'currency_id'}"
+                                   class="text-end"
+                                   sum="Total"/>
+                            <field name="state" widget="badge" 
+                                   decoration-success="state == 'applied'"
+                                   decoration-danger="state == 'reversed'"/>
+                            <field name="applied_date" class="text-muted"/>
+                            <field name="applied_user_id" string="Por"/>
+                        </list>
+                    </field>
+                    <div class="o_empty_list_message text-muted"
+                         invisible="advance_link_ids">
+                        <span>No hay aplicaciones registradas para este Abono/Anticipo.</span>
+                    </div>
+                </group>
+            </xpath>
+            
+            <!-- Agregar hint de ayuda para clientes -->
+            <xpath expr="//sheet" position="before">
+                <div class="alert alert-info mb-3"
+                     role="status"
+                     invisible="not is_advance or partner_type != 'customer' or payment_type != 'inbound'">
+                    <strong>Nota:</strong> Este pago se registrará como Abono/Anticipo en pasivo corriente. 
+                    Se propondrá automáticamente al facturar al mismo cliente.
+                </div>
+                
+                <!-- Agregar hint de ayuda para proveedores -->
+                <div class="alert alert-info mb-3"
+                     role="status"
+                     invisible="not is_advance or partner_type != 'supplier' or payment_type != 'outbound'">
+                    <strong>Nota:</strong> Este pago se registrará como Abono/Anticipo en activo corriente. 
+                    Se propondrá automáticamente al recibir facturas del mismo proveedor.
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Vista de lista de pagos - Agregar campos de anticipo -->
+    <record id="view_account_payment_tree_advance" model="ir.ui.view">
+        <field name="name">account.payment.tree.advance</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="is_advance" optional="hide"/>
+                <field name="advance_available_amount" 
+                       optional="hide"
+                       widget="monetary"
+                       options="{'currency_field': 'currency_id'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Vista de búsqueda de pagos - Agregar filtros de anticipos -->
+    <record id="view_account_payment_search_advance" model="ir.ui.view">
+        <field name="name">account.payment.search.advance</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[last()]" position="after">
+                <separator/>
+                <filter string="Abonos/Anticipos" name="filter_advances" domain="[('is_advance', '=', True)]"/>
+                <filter string="Abonos/Anticipos con saldo" name="filter_advances_available" 
+                        domain="[('is_advance', '=', True), ('advance_available_amount', '>', 0)]"/>
+                <filter string="Abonos/Anticipos aplicados" name="filter_advances_applied" 
+                        domain="[('is_advance', '=', True), ('advance_applied_total', '>', 0)]"/>
+                <filter string="Es Abono/Anticipo" name="group_is_advance" context="{'group_by': 'is_advance'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Acción para ver todos los anticipos -->
+    <!-- Acción para anticipos de clientes -->
+    <record id="action_account_payment_customer_advances" model="ir.actions.act_window">
+        <field name="name">Abonos/Anticipos de Clientes</field>
+        <field name="res_model">account.payment</field>
+        <field name="view_mode">list,form,kanban</field>
+        <field name="domain">[('is_advance', '=', True), ('partner_type', '=', 'customer')]</field>
+        <field name="context">{'default_is_advance': True, 'default_partner_type': 'customer', 'default_payment_type': 'inbound', 'search_default_filter_advances_available': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Registre un nuevo Abono/Anticipo de cliente
+            </p>
+            <p>
+                Los Abonos/Anticipos permiten recibir pagos de clientes antes de facturar
+                y aplicarlos posteriormente a sus facturas.
+            </p>
+        </field>
+    </record>
+
+    <!-- Acción para anticipos de proveedores -->
+    <record id="action_account_payment_vendor_advances" model="ir.actions.act_window">
+        <field name="name">Abonos/Anticipos de Proveedores</field>
+        <field name="res_model">account.payment</field>
+        <field name="view_mode">list,form,kanban</field>
+        <field name="domain">[('is_advance', '=', True), ('partner_type', '=', 'supplier')]</field>
+        <field name="context">{'default_is_advance': True, 'default_partner_type': 'supplier', 'default_payment_type': 'outbound', 'search_default_filter_advances_available': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Registre un nuevo Abono/Anticipo de proveedor
+            </p>
+            <p>
+                Los Abonos/Anticipos permiten realizar pagos a proveedores antes de recibir facturas
+                y aplicarlos posteriormente a sus facturas.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menú para anticipos de clientes (dentro de Contabilidad > Clientes) -->
+    <menuitem id="menu_account_payment_customer_advances"
+              name="Abonos/Anticipos"
+              parent="account.menu_finance_receivables"
+              action="action_account_payment_customer_advances"
+              sequence="15"/>
+
+    <!-- Menú para anticipos de proveedores (dentro de Contabilidad > Proveedores) -->
+    <menuitem id="menu_account_payment_vendor_advances"
+              name="Abonos/Anticipos"
+              parent="account.menu_finance_payables"
+              action="action_account_payment_vendor_advances"
+              sequence="15"/>
+
+    <!-- Override: en anticipos mostrar cotizaciones en lugar de facturas -->
+    <record id="view_account_payment_form_advance_invoices_override" model="ir.ui.view">
+        <field name="name">account.payment.form.advance.invoices.override</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="gts_multiple_invoice_payment_currency.view_account_payment_form_inherit_gts"/>
+        <field name="arch" type="xml">
+            <!-- Ocultar pestaña Facturas cuando es anticipo; mostrar Cotizaciones -->
+            <xpath expr="//page[@name='payment_invoices']" position="replace">
+                <page string="Cotizaciones" name="advance_quotations" invisible="not is_advance">
+                    <separator string="Cotizaciones con este anticipo asignado"/>
+                    <p class="text-muted" invisible="sale_order_advance_link_ids">
+                        <i class="fa fa-info-circle me-1"/>
+                        No hay cotizaciones asociadas a este Abono/Anticipo. Asocie anticipos desde las cotizaciones.
+                    </p>
+                    <field name="sale_order_advance_link_ids"
+                           nolabel="1"
+                           readonly="1"
+                           invisible="not sale_order_advance_link_ids"
+                           context="{'default_payment_id': id}">
+                        <list string="Cotizaciones" create="0" delete="1" editable="bottom">
+                            <field name="sale_order_id" string="Cotización"/>
+                            <field name="amount" string="Monto asignado"
+                                   widget="monetary"
+                                   options="{'currency_field': 'currency_id'}"
+                                   sum="Total"/>
+                            <field name="currency_id" column_invisible="1"/>
+                        </list>
+                    </field>
+                </page>
+                <page string="Facturas" name="invoices" invisible="is_advance">
+                    <separator string="Por favor ingrese el monto en las facturas a pagar" invisible="payment_type not in ('inbound', 'outbound')"/>
+                    <field name="invoice_lines"
+                           nolabel="1"
+                           force_save="1"
+                           context="{'default_partner_id': partner_id, 'default_payment_type': payment_type, 'list_view_ref': 'gts_multiple_invoice_payment_currency.view_payment_invoice_line_tree'}"
+                           invisible="payment_type not in ('inbound', 'outbound')"
+                           readonly="state != 'draft'"/>
+                    <group class="oe_subtotal_footer oe_right">
+                        <label for="amount"/>
+                        <strong>
+                            <field name="amount" style="font-size: 17px; text-decoration-line: underline;" readonly="state != 'draft'"/>
+                        </strong>
+                        <field name="currency_id" options="{'no_create': True, 'no_open': True}" required="1" groups="base.group_multi_currency" readonly="state != 'draft'"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

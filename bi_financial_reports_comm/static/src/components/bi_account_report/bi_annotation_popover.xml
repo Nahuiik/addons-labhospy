@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="bi_financial_reports_comm.BiAnnotationPopover">
+        <div class="o_bi_annotation_popover p-2" style="min-width: 280px; max-width: 360px;">
+            <div t-if="state.loading" class="text-muted small"><t t-esc="_t('Cargando…')"/></div>
+            <t t-else="">
+                <label class="form-label small mb-1"><t t-esc="_t('Nota en celda')"/></label>
+                <textarea class="form-control form-control-sm" rows="4" t-model="state.note" t-att-placeholder="_t('Escriba una nota para el cierre o auditoría…')"/>
+                <div class="d-flex justify-content-end gap-1 mt-2">
+                    <button type="button" class="btn btn-primary btn-sm" t-att-disabled="state.saving" t-on-click="onSave">
+                        <t t-esc="_t('Guardar')"/>
+                    </button>
+                </div>
+            </t>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!--
+        Benchmarks sectoriales por defecto. Valores tomados como
+        referencias razonables (no auditadas) para que el módulo
+        funcione "out of the box". El usuario puede ajustarlos en
+        Contabilidad → Configuración → Tablero financiero → Benchmarks.
+    -->
+
+    <!-- ============ SECTOR: Hospital / Clínica privada ============ -->
+    <record id="bench_hospital_gm" model="gn.financial.dashboard.benchmark">
+        <field name="sector">hospital</field>
+        <field name="sector_label">Hospital / Clínica privada</field>
+        <field name="kpi_code">gross_margin_pct</field>
+        <field name="target_value">45.0</field>
+        <field name="min_value">35.0</field>
+        <field name="direction">higher_better</field>
+        <field name="source">Referencia genérica (sector salud).</field>
+    </record>
+    <record id="bench_hospital_om" model="gn.financial.dashboard.benchmark">
+        <field name="sector">hospital</field>
+        <field name="sector_label">Hospital / Clínica privada</field>
+        <field name="kpi_code">operating_margin_pct</field>
+        <field name="target_value">12.0</field>
+        <field name="min_value">6.0</field>
+        <field name="direction">higher_better</field>
+    </record>
+    <record id="bench_hospital_em" model="gn.financial.dashboard.benchmark">
+        <field name="sector">hospital</field>
+        <field name="sector_label">Hospital / Clínica privada</field>
+        <field name="kpi_code">ebitda_margin_pct</field>
+        <field name="target_value">18.0</field>
+        <field name="min_value">10.0</field>
+        <field name="direction">higher_better</field>
+    </record>
+    <record id="bench_hospital_cr" model="gn.financial.dashboard.benchmark">
+        <field name="sector">hospital</field>
+        <field name="sector_label">Hospital / Clínica privada</field>
+        <field name="kpi_code">current_ratio</field>
+        <field name="target_value">2.0</field>
+        <field name="min_value">1.2</field>
+        <field name="direction">higher_better</field>
+    </record>
+    <record id="bench_hospital_dso" model="gn.financial.dashboard.benchmark">
+        <field name="sector">hospital</field>
+        <field name="sector_label">Hospital / Clínica privada</field>
+        <field name="kpi_code">dso_days</field>
+        <field name="target_value">45.0</field>
+        <field name="max_value">75.0</field>
+        <field name="direction">lower_better</field>
+    </record>
+    <record id="bench_hospital_da" model="gn.financial.dashboard.benchmark">
+        <field name="sector">hospital</field>
+        <field name="sector_label">Hospital / Clínica privada</field>
+        <field name="kpi_code">debt_to_assets</field>
+        <field name="target_value">0.50</field>
+        <field name="max_value">0.70</field>
+        <field name="direction">lower_better</field>
+    </record>
+
+    <!-- ============ SECTOR: Laboratorio clínico ============ -->
+    <record id="bench_lab_gm" model="gn.financial.dashboard.benchmark">
+        <field name="sector">lab</field>
+        <field name="sector_label">Laboratorio clínico</field>
+        <field name="kpi_code">gross_margin_pct</field>
+        <field name="target_value">55.0</field>
+        <field name="min_value">40.0</field>
+        <field name="direction">higher_better</field>
+    </record>
+    <record id="bench_lab_om" model="gn.financial.dashboard.benchmark">
+        <field name="sector">lab</field>
+        <field name="sector_label">Laboratorio clínico</field>
+        <field name="kpi_code">operating_margin_pct</field>
+        <field name="target_value">15.0</field>
+        <field name="min_value">8.0</field>
+        <field name="direction">higher_better</field>
+    </record>
+    <record id="bench_lab_em" model="gn.financial.dashboard.benchmark">
+        <field name="sector">lab</field>
+        <field name="sector_label">Laboratorio clínico</field>
+        <field name="kpi_code">ebitda_margin_pct</field>
+        <field name="target_value">22.0</field>
+        <field name="min_value">12.0</field>
+        <field name="direction">higher_better</field>
+    </record>
+    <record id="bench_lab_dso" model="gn.financial.dashboard.benchmark">
+        <field name="sector">lab</field>
+        <field name="sector_label">Laboratorio clínico</field>
+        <field name="kpi_code">dso_days</field>
+        <field name="target_value">40.0</field>
+        <field name="max_value">60.0</field>
+        <field name="direction">lower_better</field>
+    </record>
+    <record id="bench_lab_it" model="gn.financial.dashboard.benchmark">
+        <field name="sector">lab</field>
+        <field name="sector_label">Laboratorio clínico</field>
+        <field name="kpi_code">inventory_turnover</field>
+        <field name="target_value">8.0</field>
+        <field name="min_value">4.0</field>
+        <field name="direction">higher_better</field>
+    </record>
+    <record id="bench_lab_cr" model="gn.financial.dashboard.benchmark">
+        <field name="sector">lab</field>
+        <field name="sector_label">Laboratorio clínico</field>
+        <field name="kpi_code">current_ratio</field>
+        <field name="target_value">1.8</field>
+        <field name="min_value">1.2</field>
+        <field name="direction">higher_better</field>
+    </record>
+
+    <!-- ============ SECTOR: Distribución / Insumos ============ -->
+    <record id="bench_dist_gm" model="gn.financial.dashboard.benchmark">
+        <field name="sector">distribution</field>
+        <field name="sector_label">Distribución / Insumos</field>
+        <field name="kpi_code">gross_margin_pct</field>
+        <field name="target_value">22.0</field>
+        <field name="min_value">15.0</field>
+        <field name="direction">higher_better</field>
+    </record>
+    <record id="bench_dist_om" model="gn.financial.dashboard.benchmark">
+        <field name="sector">distribution</field>
+        <field name="sector_label">Distribución / Insumos</field>
+        <field name="kpi_code">operating_margin_pct</field>
+        <field name="target_value">6.0</field>
+        <field name="min_value">3.0</field>
+        <field name="direction">higher_better</field>
+    </record>
+    <record id="bench_dist_it" model="gn.financial.dashboard.benchmark">
+        <field name="sector">distribution</field>
+        <field name="sector_label">Distribución / Insumos</field>
+        <field name="kpi_code">inventory_turnover</field>
+        <field name="target_value">10.0</field>
+        <field name="min_value">5.0</field>
+        <field name="direction">higher_better</field>
+    </record>
+    <record id="bench_dist_dso" model="gn.financial.dashboard.benchmark">
+        <field name="sector">distribution</field>
+        <field name="sector_label">Distribución / Insumos</field>
+        <field name="kpi_code">dso_days</field>
+        <field name="target_value">35.0</field>
+        <field name="max_value">55.0</field>
+        <field name="direction">lower_better</field>
+    </record>
+    <record id="bench_dist_dpo" model="gn.financial.dashboard.benchmark">
+        <field name="sector">distribution</field>
+        <field name="sector_label">Distribución / Insumos</field>
+        <field name="kpi_code">dpo_days</field>
+        <field name="target_value">45.0</field>
+        <field name="min_value">30.0</field>
+        <field name="direction">higher_better</field>
+    </record>
+
+    <!-- ============ SECTOR: Servicios profesionales ============ -->
+    <record id="bench_svc_gm" model="gn.financial.dashboard.benchmark">
+        <field name="sector">services</field>
+        <field name="sector_label">Servicios profesionales</field>
+        <field name="kpi_code">gross_margin_pct</field>
+        <field name="target_value">60.0</field>
+        <field name="min_value">45.0</field>
+        <field name="direction">higher_better</field>
+    </record>
+    <record id="bench_svc_om" model="gn.financial.dashboard.benchmark">
+        <field name="sector">services</field>
+        <field name="sector_label">Servicios profesionales</field>
+        <field name="kpi_code">operating_margin_pct</field>
+        <field name="target_value">18.0</field>
+        <field name="min_value">10.0</field>
+        <field name="direction">higher_better</field>
+    </record>
+    <record id="bench_svc_em" model="gn.financial.dashboard.benchmark">
+        <field name="sector">services</field>
+        <field name="sector_label">Servicios profesionales</field>
+        <field name="kpi_code">ebitda_margin_pct</field>
+        <field name="target_value">25.0</field>
+        <field name="min_value">15.0</field>
+        <field name="direction">higher_better</field>
+    </record>
+    <record id="bench_svc_dso" model="gn.financial.dashboard.benchmark">
+        <field name="sector">services</field>
+        <field name="sector_label">Servicios profesionales</field>
+        <field name="kpi_code">dso_days</field>
+        <field name="target_value">30.0</field>
+        <field name="max_value">50.0</field>
+        <field name="direction">lower_better</field>
+    </record>
+
+</odoo>

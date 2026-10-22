@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+
+<t t-name="gn_hr_dashboard.RegionalDashboard">
+    <div class="o_gn_hr_regional_dashboard">
+
+        <t t-if="state.initialLoading">
+            <div class="d-flex justify-content-center align-items-center" style="min-height: 400px;">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden" t-esc="uiStr('loading')"/>
+                </div>
+            </div>
+        </t>
+
+        <t t-elif="state.loadError">
+            <div class="container-fluid p-5 text-center">
+                <div class="alert alert-danger d-inline-block text-start" role="alert">
+                    <p class="mb-2 fw-semibold" t-esc="uiStr('load_failed')"/>
+                    <p class="mb-3 small text-muted" t-esc="state.loadError"/>
+                    <button type="button" class="btn btn-primary btn-sm" t-on-click="() => this.onRetryLoad()">
+                        <t t-esc="uiStr('retry')"/>
+                    </button>
+                </div>
+            </div>
+        </t>
+
+        <t t-else="">
+            <div class="container-fluid p-3">
+                <div class="card shadow-sm mb-3 o_gn_hr_regional_filters">
+                    <div class="card-body py-3">
+                        <div class="row g-2 align-items-end">
+                            <div class="col-12 col-md-6 col-lg-2">
+                                <label class="form-label small text-muted mb-1" t-esc="uiStr('country')"/>
+                                <select class="form-select form-select-sm"
+                                        t-model="state.filters.country_id">
+                                    <option value="" t-esc="uiStr('all_countries')"/>
+                                    <t t-foreach="countryOptions()" t-as="c" t-key="c.id">
+                                        <option t-att-value="c.id" t-esc="c.name"/>
+                                    </t>
+                                </select>
+                            </div>
+                            <div class="col-6 col-md-3 col-lg-1">
+                                <label class="form-label small text-muted mb-1" t-esc="uiStr('year')"/>
+                                <select class="form-select form-select-sm" t-model.number="state.filters.year">
+                                    <t t-foreach="state.yearOptions" t-as="yy" t-key="yy">
+                                        <option t-att-value="yy" t-esc="yy"/>
+                                    </t>
+                                </select>
+                            </div>
+                            <div class="col-6 col-md-3 col-lg-2">
+                                <label class="form-label small text-muted mb-1" t-esc="uiStr('month')"/>
+                                <select class="form-select form-select-sm" t-model.number="state.filters.month">
+                                    <t t-foreach="[1,2,3,4,5,6,7,8,9,10,11,12]" t-as="mi" t-key="mi">
+                                        <option t-att-value="mi" t-esc="monthName(mi)"/>
+                                    </t>
+                                </select>
+                            </div>
+                            <div class="col-6 col-md-4 col-lg-2">
+                                <label class="form-label small text-muted mb-1" t-esc="uiStr('date_from')"/>
+                                <input type="date" class="form-control form-control-sm"
+                                       t-model="state.filters.date_from"/>
+                            </div>
+                            <div class="col-6 col-md-4 col-lg-2">
+                                <label class="form-label small text-muted mb-1" t-esc="uiStr('date_to')"/>
+                                <input type="date" class="form-control form-control-sm"
+                                       t-model="state.filters.date_to"/>
+                            </div>
+                            <div class="col-12 col-lg-3">
+                                <div class="d-flex flex-wrap gap-1 align-items-center">
+                                    <button type="button" class="btn btn-primary btn-sm"
+                                            t-att-disabled="state.refreshing"
+                                            t-on-click="() => this.onApplyFilters()">
+                                        <t t-if="state.refreshing">
+                                            <span class="spinner-border spinner-border-sm me-1" role="status"/>
+                                        </t>
+                                        <t t-esc="uiStr('apply_filters')"/>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm"
+                                            t-on-click="() => this.onClearDateRange()">
+                                        <t t-esc="uiStr('clear_range')"/>
+                                    </button>
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <button type="button" class="btn btn-outline-secondary"
+                                                t-on-click="() => this.setDateRangePreset('this_month')"
+                                                t-esc="uiStr('preset_this_month')"/>
+                                        <button type="button" class="btn btn-outline-secondary"
+                                                t-on-click="() => this.setDateRangePreset('last_month')"
+                                                t-esc="uiStr('preset_last_month')"/>
+                                        <button type="button" class="btn btn-outline-secondary"
+                                                t-on-click="() => this.setDateRangePreset('ytd')"
+                                                t-esc="uiStr('preset_ytd')"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <small class="text-muted d-block mt-2" t-esc="uiStr('filter_hint')"/>
+                    </div>
+                </div>
+
+                <t t-if="data.warning">
+                    <div class="alert alert-warning py-2" role="alert">
+                        <t t-esc="data.warning"/>
+                    </div>
+                </t>
+
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <h2 class="mb-0">
+                            <i class="fa fa-globe me-2"/><t t-esc="uiStr('title')"/>
+                        </h2>
+                        <small class="text-muted d-block">
+                            <t t-esc="data.company_names.join(' · ')"/>
+                        </small>
+                        <small class="text-primary fw-semibold" t-if="periodDescription()">
+                            <t t-esc="uiStr('period_label')"/> <t t-esc="periodDescription()"/>
+                        </small>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-4 position-relative">
+                    <t t-if="state.refreshing">
+                        <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center o_gn_hr_regional_refresh_overlay">
+                            <span class="spinner-border text-primary"/>
+                        </div>
+                    </t>
+
+                    <div class="col-xl-2 col-md-4 col-sm-6">
+                        <div class="card h-100 border-start border-primary border-4 shadow-sm cursor-pointer"
+                             t-on-click="() => this._openHeadcountReport()">
+                            <div class="card-body p-3">
+                                <div class="text-muted small text-uppercase" t-esc="uiStr('kpi_headcount')"/>
+                                <div class="fs-3 fw-bold text-primary">
+                                    <t t-esc="_formatNumber(data.kpis.headcount)"/>
+                                </div>
+                                <div class="text-muted small" t-esc="uiStr('kpi_headcount_sub')"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 col-sm-6">
+                        <div class="card h-100 border-start border-success border-4 shadow-sm cursor-pointer"
+                             t-on-click="() => this._openPayrollReport()">
+                            <div class="card-body p-3">
+                                <div class="text-muted small text-uppercase" t-esc="uiStr('kpi_payroll')"/>
+                                <div class="fs-3 fw-bold text-success">
+                                    <t t-esc="_formatMoney(data.kpis.payroll_cost)"/>
+                                </div>
+                                <div class="text-muted small"><t t-esc="kpiPeriodHint()"/></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 col-sm-6">
+                        <div class="card h-100 border-start border-danger border-4 shadow-sm cursor-pointer"
+                             t-on-click="() => this._openTurnoverReport()">
+                            <div class="card-body p-3">
+                                <div class="text-muted small text-uppercase" t-esc="uiStr('kpi_turnover')"/>
+                                <div class="fs-3 fw-bold text-danger">
+                                    <t t-esc="data.kpis.turnover_rate"/>%
+                                </div>
+                                <div class="text-muted small"><t t-esc="turnoverHint()"/></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 col-sm-6">
+                        <div class="card h-100 border-start border-warning border-4 shadow-sm cursor-pointer"
+                             t-on-click="() => this._openLeaveReport()">
+                            <div class="card-body p-3">
+                                <div class="text-muted small text-uppercase" t-esc="uiStr('kpi_absence_pct')"/>
+                                <div class="fs-3 fw-bold text-warning">
+                                    <t t-esc="data.kpis.absence_rate"/>%
+                                </div>
+                                <div class="text-muted small"><t t-esc="kpiPeriodHint()"/></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 col-sm-6">
+                        <div class="card h-100 border-start border-info border-4 shadow-sm cursor-pointer"
+                             t-on-click="() => this._openAttendanceReport()">
+                            <div class="card-body p-3">
+                                <div class="text-muted small text-uppercase" t-esc="uiStr('kpi_overtime')"/>
+                                <div class="fs-3 fw-bold text-info">
+                                    <t t-esc="_formatNumber(data.kpis.overtime_hours)"/>
+                                </div>
+                                <div class="text-muted small"><t t-esc="kpiPeriodHint()"/></div>
+                                <div class="small mt-1 text-secondary">
+                                    <span t-esc="uiStr('kpi_overtime_var')"/>:
+                                    <t t-esc="_formatVariationPct(data.kpis.overtime_variation_pct)"/>
+                                </div>
+                                <div class="text-muted small" t-esc="uiStr('kpi_overtime_var_sub')"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 col-sm-6">
+                        <div class="card h-100 border-start border-secondary border-4 shadow-sm cursor-pointer"
+                             t-on-click="() => this._openLeaveReport()">
+                            <div class="card-body p-3">
+                                <div class="text-muted small text-uppercase" t-esc="uiStr('kpi_leave_bal')"/>
+                                <div class="fs-3 fw-bold text-secondary">
+                                    <t t-esc="_formatNumber(data.kpis.leave_balance)"/>
+                                </div>
+                                <div class="text-muted small" t-esc="uiStr('kpi_leave_sub')"/>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row g-3 mb-4 position-relative">
+                    <t t-if="state.refreshing">
+                        <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center o_gn_hr_regional_refresh_overlay" style="z-index: 2;">
+                            <span class="spinner-border text-primary"/>
+                        </div>
+                    </t>
+
+                    <div class="col-xl-2 col-md-4 col-sm-6">
+                        <div class="card h-100 border-start border-warning border-4 shadow-sm">
+                            <div class="card-body p-3">
+                                <div class="text-muted small text-uppercase" t-esc="uiStr('kpi_absence_days')"/>
+                                <div class="fs-3 fw-bold text-warning">
+                                    <t t-esc="_formatNumber(data.kpis.absence_days)"/>
+                                </div>
+                                <div class="text-muted small" t-esc="uiStr('kpi_absence_days_sub')"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 col-sm-6">
+                        <div class="card h-100 border-start border-dark border-4 shadow-sm cursor-pointer"
+                             t-on-click="() => this._openAttendanceReport()">
+                            <div class="card-body p-3">
+                                <div class="text-muted small text-uppercase" t-esc="uiStr('kpi_late')"/>
+                                <div class="fs-3 fw-bold">
+                                    <t t-esc="_formatNumber(data.kpis.late_count)"/>
+                                </div>
+                                <div class="text-muted small" t-esc="uiStr('kpi_late_sub')"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 col-sm-6">
+                        <div class="card h-100 border-start border-success border-4 shadow-sm cursor-pointer"
+                             t-on-click="() => this._openPayrollReport()">
+                            <div class="card-body p-3">
+                                <div class="text-muted small text-uppercase" t-esc="uiStr('kpi_payroll_var')"/>
+                                <div class="fs-3 fw-bold text-success">
+                                    <t t-esc="_formatVariationPct(data.kpis.payroll_variation_pct)"/>
+                                </div>
+                                <div class="text-muted small" t-esc="uiStr('kpi_payroll_var_sub')"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 col-sm-6">
+                        <div class="card h-100 border-start border-primary border-4 shadow-sm">
+                            <div class="card-body p-3">
+                                <div class="text-muted small text-uppercase" t-esc="uiStr('kpi_movement')"/>
+                                <div class="fs-3 fw-bold text-primary">
+                                    <t t-esc="_formatNetMovement(data.kpis.movement_net)"/>
+                                </div>
+                                <div class="text-muted small" t-esc="uiStr('kpi_movement_sub')"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 col-sm-6">
+                        <div class="card h-100 border-start border-danger border-4 shadow-sm cursor-pointer"
+                             t-on-click="() => this._openContractsExpiringDrilldown()">
+                            <div class="card-body p-3">
+                                <div class="text-muted small text-uppercase" t-esc="uiStr('kpi_contracts')"/>
+                                <div class="small mt-1">
+                                    <span class="badge bg-danger me-1">30d: <t t-esc="data.contracts_expiring.d30"/></span>
+                                    <span class="badge bg-warning text-dark me-1">60d: <t t-esc="data.contracts_expiring.d60"/></span>
+                                    <span class="badge bg-secondary">90d: <t t-esc="data.contracts_expiring.d90"/></span>
+                                </div>
+                                <div class="text-muted small mt-2" t-esc="uiStr('kpi_contracts_sub')"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 col-sm-6">
+                        <div class="card h-100 border-start border-secondary border-4 shadow-sm">
+                            <div class="card-body p-3">
+                                <div class="text-muted small text-uppercase" t-esc="uiStr('kpi_tenure')"/>
+                                <div class="fs-3 fw-bold text-secondary">
+                                    <t t-esc="_formatNumber(data.kpis.avg_tenure_years)"/>
+                                </div>
+                                <div class="text-muted small" t-esc="uiStr('kpi_tenure_sub')"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-4 position-relative">
+                    <t t-if="state.refreshing">
+                        <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center o_gn_hr_regional_refresh_overlay" style="z-index: 2;">
+                            <span class="spinner-border text-primary"/>
+                        </div>
+                    </t>
+                    <div class="col-xl-4 col-md-6">
+                        <div class="card h-100 border-start border-success border-4 shadow-sm cursor-pointer"
+                             t-on-click="() => this._openPayrollReport()">
+                            <div class="card-body p-3">
+                                <div class="text-muted small text-uppercase" t-esc="uiStr('kpi_payroll_per_emp')"/>
+                                <div class="fs-3 fw-bold text-success">
+                                    <t t-esc="_formatMoney(data.kpis.payroll_cost_per_employee)"/>
+                                </div>
+                                <div class="text-muted small" t-esc="uiStr('kpi_payroll_per_emp_sub')"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-8 col-md-6">
+                        <div class="card h-100 border-start border-dark border-4 shadow-sm">
+                            <div class="card-body p-3">
+                                <div class="text-muted small text-uppercase mb-2" t-esc="uiStr('sec_recruitment')"/>
+                                <div class="row g-2 small">
+                                    <div class="col-sm-6 col-lg-3">
+                                        <div class="text-muted" t-esc="uiStr('rec_jobs')"/>
+                                        <div class="fw-semibold fs-5">
+                                            <t t-esc="_formatNumber(data.recruitment.jobs_recruiting)"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-lg-3">
+                                        <div class="text-muted" t-esc="uiStr('rec_target_sum')"/>
+                                        <div class="fw-semibold fs-5">
+                                            <t t-esc="_formatNumber(data.recruitment.recruitment_target_sum)"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-lg-3" t-if="data.recruitment.hr_recruitment_installed">
+                                        <div class="text-muted" t-esc="uiStr('rec_hired')"/>
+                                        <div class="fw-semibold fs-5">
+                                            <t t-esc="_formatNumber(data.recruitment.hired_in_period)"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-lg-3" t-if="data.recruitment.hr_recruitment_installed">
+                                        <div class="text-muted" t-esc="uiStr('rec_avg_days')"/>
+                                        <div class="fw-semibold fs-5">
+                                            <t t-if="data.recruitment.avg_days_to_hire !== null and data.recruitment.avg_days_to_hire !== undefined">
+                                                <t t-esc="_formatNumber(data.recruitment.avg_days_to_hire)"/>
+                                            </t>
+                                            <t t-else="">—</t>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-muted small mb-0 mt-2" t-if="!data.recruitment.hr_recruitment_installed" t-esc="uiStr('rec_na_module')"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-12">
+                        <div class="card shadow-sm">
+                            <div class="card-header bg-white">
+                                <h6 class="mb-0">
+                                    <i class="fa fa-line-chart me-1"/><t t-esc="uiStr('chart_payroll_per_emp_trend')"/> (<t t-esc="chartPayrollHint()"/>)
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <div style="height: 260px;">
+                                    <canvas t-ref="payrollPerEmpTrendChart"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-lg-4 col-md-12">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-header bg-white">
+                                <h6 class="mb-0">
+                                    <i class="fa fa-bar-chart me-1"/><t t-esc="uiStr('sec_absence_by_type')"/> (<t t-esc="kpiPeriodHint()"/>)
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <div style="height: 280px;" t-if="data.absence_by_type and data.absence_by_type.length">
+                                    <canvas t-ref="absenceByTypeChart"/>
+                                </div>
+                                <p t-else="" class="text-muted text-center mb-0 py-5">—</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-header bg-white">
+                                <h6 class="mb-0">
+                                    <i class="fa fa-pie-chart me-1"/><t t-esc="uiStr('sec_diversity')"/>
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <div style="height: 280px;" t-if="data.diversity_by_sex and data.diversity_by_sex.length">
+                                    <canvas t-ref="diversityChart"/>
+                                </div>
+                                <p t-else="" class="text-muted text-center mb-0 py-5">—</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-header bg-white">
+                                <h6 class="mb-0">
+                                    <i class="fa fa-signal me-1"/><t t-esc="uiStr('sec_tenure_bands')"/>
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <div style="height: 280px;" t-if="data.tenure_bands and data.tenure_bands.length">
+                                    <canvas t-ref="tenureBandsChart"/>
+                                </div>
+                                <p t-else="" class="text-muted text-center mb-0 py-5">—</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-4">
+
+                    <div class="col-lg-4">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-header bg-white">
+                                <h6 class="mb-0">
+                                    <i class="fa fa-users me-1"/><t t-esc="uiStr('chart_hc_company')"/>
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <div style="height: 250px;">
+                                    <canvas t-ref="headcountChart"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-header bg-white">
+                                <h6 class="mb-0">
+                                    <i class="fa fa-line-chart me-1"/><t t-esc="uiStr('chart_payroll_title')"/> (<t t-esc="chartPayrollHint()"/>)
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <div style="height: 250px;">
+                                    <canvas t-ref="payrollTrendChart"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-header bg-white">
+                                <h6 class="mb-0">
+                                    <i class="fa fa-pie-chart me-1"/><t t-esc="uiStr('chart_incidents')"/> (<t t-esc="chartIncidentHint()"/>)
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <div style="height: 250px;">
+                                    <canvas t-ref="incidentChart"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-12">
+                        <div class="card shadow-sm">
+                            <div class="card-header bg-white">
+                                <h6 class="mb-0">
+                                    <i class="fa fa-exchange me-1"/><t t-esc="uiStr('chart_movement')"/> (<t t-esc="chartMovementHint()"/>)
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <div style="height: 280px;">
+                                    <canvas t-ref="movementChart"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-lg-6">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-header bg-white">
+                                <h6 class="mb-0">
+                                    <i class="fa fa-line-chart me-1"/><t t-esc="uiStr('chart_contract_type_line')"/> (<t t-esc="chartMovementHint()"/>)
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <div style="height: 280px;" t-if="data.contract_type_monthly and data.contract_type_monthly.series and data.contract_type_monthly.series.length">
+                                    <canvas t-ref="contractTypeLineChart"/>
+                                </div>
+                                <p t-else="" class="text-muted text-center mb-0 py-5">—</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-header bg-white">
+                                <h6 class="mb-0">
+                                    <i class="fa fa-pie-chart me-1"/><t t-esc="uiStr('chart_contract_type_pie')"/>
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <div style="height: 280px;" t-if="data.contract_type_distribution and data.contract_type_distribution.length">
+                                    <canvas t-ref="contractTypePieChart"/>
+                                </div>
+                                <p t-else="" class="text-muted text-center mb-0 py-5">—</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+
+                    <div class="col-lg-6">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-header bg-white">
+                                <h6 class="mb-0">
+                                    <i class="fa fa-bell me-1"/><t t-esc="uiStr('alerts_title')"/>
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="list-group list-group-flush">
+                                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span><i class="fa fa-file-text-o me-2 text-warning"/><t t-esc="uiStr('alert_contracts')"/></span>
+                                        <span class="badge bg-warning text-dark rounded-pill">
+                                            <t t-esc="data.pending_alerts.contracts_expiring"/>
+                                        </span>
+                                    </div>
+                                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span><i class="fa fa-clock-o me-2 text-danger"/><t t-esc="uiStr('alert_incidents')"/></span>
+                                        <span class="badge bg-danger rounded-pill">
+                                            <t t-esc="data.pending_alerts.pending_incidents"/>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-header bg-white">
+                                <h6 class="mb-0">
+                                    <i class="fa fa-bolt me-1"/><t t-esc="uiStr('quick_actions')"/>
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex flex-wrap gap-2">
+                                    <button class="btn btn-outline-primary"
+                                            t-on-click="() => this._openPayrollReport()">
+                                        <i class="fa fa-money me-1"/><t t-esc="uiStr('qa_payroll')"/>
+                                    </button>
+                                    <button class="btn btn-outline-info"
+                                            t-on-click="() => this._openAttendanceReport()">
+                                        <i class="fa fa-clock-o me-1"/><t t-esc="uiStr('qa_attendance')"/>
+                                    </button>
+                                    <button class="btn btn-outline-warning"
+                                            t-on-click="() => this._openLeaveReport()">
+                                        <i class="fa fa-calendar me-1"/><t t-esc="uiStr('qa_leave')"/>
+                                    </button>
+                                    <button class="btn btn-outline-danger"
+                                            t-on-click="() => this._openTurnoverReport()">
+                                        <i class="fa fa-exchange me-1"/><t t-esc="uiStr('qa_turnover')"/>
+                                    </button>
+                                    <button class="btn btn-outline-success"
+                                            t-on-click="() => this._openHeadcountReport()">
+                                        <i class="fa fa-bar-chart me-1"/><t t-esc="uiStr('qa_headcount')"/>
+                                    </button>
+                                    <button class="btn btn-outline-secondary"
+                                            t-on-click="() => this._openTransfers()">
+                                        <i class="fa fa-exchange me-1"/><t t-esc="uiStr('qa_transfers')"/>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </t>
+
+    </div>
+</t>
+
+</templates>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Crear índices para optimización -->
+        <!-- Estos índices mejoran el rendimiento de las consultas de anticipos -->
+        
+        <!-- Índice compuesto para búsqueda de anticipos disponibles -->
+        <record id="index_account_payment_advance_search" model="ir.model.data">
+            <field name="name">index_account_payment_advance_search</field>
+            <field name="model">ir.model</field>
+            <field name="res_id" ref="account.model_account_payment"/>
+        </record>
+    </data>
+</odoo>

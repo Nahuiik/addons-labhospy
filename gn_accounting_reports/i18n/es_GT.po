@@ -1,0 +1,178 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* gn_accounting_reports
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-07 13:00:00\n"
+"PO-Revision-Date: 2026-01-07 13:00:00\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es_GT\n"
+
+#. module: gn_accounting_reports
+#: model:ir.actions.act_window,name:gn_accounting_reports.action_account_moves_ledger_general
+#: model:ir.actions.act_window,name:gn_accounting_reports.action_account_general_ledger_menu
+#: model:ir.actions.report,name:gn_accounting_reports.action_report_general_ledger
+#: model:ir.ui.menu,name:gn_accounting_reports.menu_action_account_moves_ledger_general
+#: model:ir.ui.menu,name:gn_accounting_reports.menu_general_ledger
+msgid "General Ledger"
+msgstr "Libro Mayor General"
+
+#. module: gn_accounting_reports
+#: model:ir.actions.act_window,name:gn_accounting_reports.action_account_moves_ledger_partner
+#: model:ir.actions.act_window,name:gn_accounting_reports.action_account_partner_ledger_menu
+#: model:ir.actions.report,name:gn_accounting_reports.action_report_partnerledger
+#: model:ir.ui.menu,name:gn_accounting_reports.menu_action_account_moves_ledger_partner
+#: model:ir.ui.menu,name:gn_accounting_reports.menu_partner_ledger
+msgid "Partner Ledger"
+msgstr "Libro Auxiliar de Partners"
+
+#. module: gn_accounting_reports
+#: model:ir.ui.menu,name:gn_accounting_reports.menu_finance_ledgers
+msgid "Ledgers"
+msgstr "Libros Mayores"
+
+#. module: gn_accounting_reports
+#: model:ir.model,name:gn_accounting_reports.model_account_common_report
+msgid "Account Common Report"
+msgstr "Reporte Común Contable"
+
+#. module: gn_accounting_reports
+#: model:ir.model,name:gn_accounting_reports.model_account_common_account_report
+msgid "Account Common Account Report"
+msgstr "Reporte Común de Cuentas"
+
+#. module: gn_accounting_reports
+#: model:ir.model,name:gn_accounting_reports.model_account_common_partner_report
+msgid "Account Common Partner Report"
+msgstr "Reporte Común de Partners"
+
+#. module: gn_accounting_reports
+#: model:ir.model,name:gn_accounting_reports.model_account_report_general_ledger
+msgid "General Ledger Report"
+msgstr "Reporte de Libro Mayor General"
+
+#. module: gn_accounting_reports
+#: model:ir.model,name:gn_accounting_reports.model_account_report_partner_ledger
+msgid "Account Partner Ledger"
+msgstr "Libro Auxiliar de Partners"
+
+#. module: gn_accounting_reports
+#: model:ir.model.fields,field_description:gn_accounting_reports.field_account_common_report__company_id
+msgid "Company"
+msgstr "Empresa"
+
+#. module: gn_accounting_reports
+#: model:ir.model.fields,field_description:gn_accounting_reports.field_account_common_report__journal_ids
+msgid "Journals"
+msgstr "Diarios"
+
+#. module: gn_accounting_reports
+#: model:ir.model.fields,field_description:gn_accounting_reports.field_account_common_report__date_from
+msgid "Start Date"
+msgstr "Fecha Inicial"
+
+#. module: gn_accounting_reports
+#: model:ir.model.fields,field_description:gn_accounting_reports.field_account_common_report__date_to
+msgid "End Date"
+msgstr "Fecha Final"
+
+#. module: gn_accounting_reports
+#: model:ir.model.fields,field_description:gn_accounting_reports.field_account_common_report__target_move
+msgid "Target Moves"
+msgstr "Movimientos Objetivo"
+
+#. module: gn_accounting_reports
+#: model:ir.model.fields,field_description:gn_accounting_reports.field_account_common_account_report__display_account
+msgid "Display Accounts"
+msgstr "Mostrar Cuentas"
+
+#. module: gn_accounting_reports
+#: model:ir.model.fields,field_description:gn_accounting_reports.field_account_common_account_report__analytic_account_ids
+msgid "Analytic Accounts"
+msgstr "Cuentas Analíticas"
+
+#. module: gn_accounting_reports
+#: model:ir.model.fields,field_description:gn_accounting_reports.field_account_common_account_report__account_ids
+msgid "Accounts"
+msgstr "Cuentas"
+
+#. module: gn_accounting_reports
+#: model:ir.model.fields,field_description:gn_accounting_reports.field_account_common_account_report__partner_ids
+#: model:ir.model.fields,field_description:gn_accounting_reports.field_account_common_partner_report__partner_ids
+msgid "Partners"
+msgstr "Partners"
+
+#. module: gn_accounting_reports
+#: model:ir.model.fields,field_description:gn_accounting_reports.field_account_common_partner_report__result_selection
+msgid "Partner's"
+msgstr "Partner"
+
+#. module: gn_accounting_reports
+#: model:ir.model.fields,field_description:gn_accounting_reports.field_account_report_general_ledger__initial_balance
+msgid "Include Initial Balances"
+msgstr "Incluir Balances Iniciales"
+
+#. module: gn_accounting_reports
+#: model:ir.model.fields,help:gn_accounting_reports.field_account_report_general_ledger__initial_balance
+msgid "If you selected date, this field allow you to add a row to display the amount of debit/credit/balance that precedes the filter you have set."
+msgstr "Si seleccionaste una fecha, este campo te permite agregar una fila para mostrar el monto de débito/crédito/balance que precede al filtro que has establecido."
+
+#. module: gn_accounting_reports
+#: model:ir.model.fields,field_description:gn_accounting_reports.field_account_report_general_ledger__sortby
+msgid "Sort by"
+msgstr "Ordenar por"
+
+#. module: gn_accounting_reports
+#: model:ir.model.fields,field_description:gn_accounting_reports.field_account_report_partner_ledger__amount_currency
+msgid "With Currency"
+msgstr "Con Moneda"
+
+#. module: gn_accounting_reports
+#: model:ir.model.fields,help:gn_accounting_reports.field_account_report_partner_ledger__amount_currency
+msgid "It adds the currency column on report if the currency differs from the company currency."
+msgstr "Agrega la columna de moneda en el reporte si la moneda difiere de la moneda de la empresa."
+
+#. module: gn_accounting_reports
+#: model:ir.model.fields,field_description:gn_accounting_reports.field_account_report_partner_ledger__reconciled
+msgid "Reconciled Entries"
+msgstr "Entradas Conciliadas"
+
+#. module: gn_accounting_reports
+#: model_terms:ir.ui.view,arch_db:gn_accounting_reports.account_common_report_view
+msgid "Report Options"
+msgstr "Opciones del Reporte"
+
+#. module: gn_accounting_reports
+#: model_terms:ir.ui.view,arch_db:gn_accounting_reports.account_common_report_view
+msgid "Print"
+msgstr "Imprimir"
+
+#. module: gn_accounting_reports
+#: model_terms:ir.ui.view,arch_db:gn_accounting_reports.account_common_report_view
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: gn_accounting_reports
+#: model:ir.actions.act_window,name:gn_accounting_reports.action_partner_report_partnerledger
+msgid "Balance Statement (Partner Ledger)"
+msgstr "Estado de Cuenta (Libro Auxiliar de Partners)"
+
+#. module: gn_accounting_reports
+#: code:addons/gn_accounting_reports/wizard/account_general_ledger.py:0
+#, python-format
+msgid "You must define a Start Date"
+msgstr "Debes definir una Fecha Inicial"
+
+#. module: gn_accounting_reports
+#: code:addons/gn_accounting_reports/report/report_general_ledger.py:0
+#: code:addons/gn_accounting_reports/report/report_partner_ledger.py:0
+#, python-format
+msgid "Form content is missing, this report cannot be printed."
+msgstr "Falta el contenido del formulario, este reporte no puede ser impreso."
+

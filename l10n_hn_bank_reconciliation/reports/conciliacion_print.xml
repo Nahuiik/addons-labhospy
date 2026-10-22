@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="conciliacion_print" model="ir.actions.report">
+        <field name="name">Conciliación Bancaria</field>
+        <field name="model">bank.reconciliation</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hn_bank_reconciliation.conciliacion_print_view</field>
+        <field name="report_file">l10n_hn_bank_reconciliation.conciliacion_print_view</field>
+    </record>
+</odoo>

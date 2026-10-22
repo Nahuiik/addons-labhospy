@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_inter_store_transfer_template">
+        <t t-call="web.external_layout">
+            <t t-set="doc" t-value="doc"/>
+            <div class="page">
+                <h2 class="text-center">Traslado entre Tiendas</h2>
+                <div class="row mt16 mb16">
+                    <div class="col-6">
+                        <p>
+                            <strong>Referencia:</strong>
+                            <span t-esc="doc.name"/>
+                        </p>
+                        <p>
+                            <strong>Origen:</strong>
+                            <span t-esc="doc.location_src_id.complete_name"/>
+                        </p>
+                        <p>
+                            <strong>Destino:</strong>
+                            <span t-esc="doc.location_dest_id.complete_name"/>
+                        </p>
+                    </div>
+                    <div class="col-6">
+                        <p>
+                            <strong>Fecha:</strong>
+                            <span t-field="doc.date" t-options='{"widget": "datetime", "format": "dd/MM/yyyy HH:mm"}'/>
+                        </p>
+                        <p>
+                            <strong>Estado:</strong>
+                            <span t-field="doc.state"/>
+                        </p>
+                        <p t-if="doc.branch_id">
+                            <strong>Sucursal Origen:</strong>
+                            <span t-esc="doc.branch_id.name"/>
+                        </p>
+                    </div>
+                </div>
+
+                <table class="table table-sm o_main_table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Producto</th>
+                            <th>Proveedor (LabHosPy)</th>
+                            <th>Cód. catálogo</th>
+                            <th>Lote / serie</th>
+                            <th>Referencia</th>
+                            <th class="text-end">Cantidad</th>
+                            <th>UdM</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                            t-foreach="doc.line_ids"
+                            t-as="line"
+                            t-att-class="line.gn_labhospy_is_controlled and 'table-warning' or ''"
+                        >
+                            <td t-esc="line_index + 1"/>
+                            <td t-esc="line.product_id.display_name"/>
+                            <td t-esc="line.gn_labhospy_supplier_id and line.gn_labhospy_supplier_id.name or '-'"/>
+                            <td t-esc="line.gn_labhospy_catalog_code or '-'"/>
+                            <td>
+                                <span t-if="line.lot_id" t-esc="line.lot_id.name"/>
+                                <span t-else="" t-esc="'-'"/>
+                            </td>
+                            <td t-esc="line.product_id.default_code or '-'"/>
+                            <td class="text-end" t-esc="line.product_uom_qty"/>
+                            <td t-esc="line.product_uom.name"/>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_inter_store_transfer">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="l10n_hn_stock.report_inter_store_transfer_template"/>
+            </t>
+        </t>
+    </template>
+</odoo>

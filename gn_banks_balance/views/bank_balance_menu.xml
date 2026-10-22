@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Listado sólo lectura tipo dashboard financiero -->
+    <record id="view_bank_balance_dashboard_journal_list" model="ir.ui.view">
+        <field name="name">account.journal.bank.balance.dashboard.list</field>
+        <field name="model">account.journal</field>
+        <field name="arch" type="xml">
+            <list string="Balances" create="false" delete="false" edit="false" default_order="name">
+                <header>
+                    <button name="action_open_weekly_balance_dashboard"
+                            type="object"
+                            string="Ver análisis semanal"
+                            class="btn-primary"
+                            display="always"
+                            groups="gn_banks.banks_debit_credit_user"/>
+                </header>
+                <field name="company_id" column_invisible="1"/>
+                <field name="name" string="Banco"/>
+                <field name="default_account_id" string="Cuenta contable"/>
+                <field name="bank_acc_number" string="Número cuenta bancaria" optional="show"/>
+                <field name="bank_id" string="Entidad financiera" optional="hide"/>
+                <field name="gn_balance_dashboard_balance" string="Saldo" sum="gn_balance_dashboard_balance"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_bank_journal_balance_dashboard" model="ir.actions.act_window">
+        <field name="name">Balances</field>
+        <field name="res_model">account.journal</field>
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="view_bank_balance_dashboard_journal_list"/>
+        <field name="domain">[
+            ('type', 'in', ('bank', 'cash')),
+            ('gn_include_in_balance_dashboard', '=', True)
+        ]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay diarios marcados para esta vista.
+            </p>
+            <p>
+                Abra cada <strong>diario de banco</strong> y active la casilla
+                <strong>Mostrar en Balances</strong>; luego refresque esta pantalla.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="menu_bank_balances_dashboard"
+        name="Balances"
+        parent="gn_banks.menu_sub_banks"
+        action="action_bank_journal_balance_dashboard"
+        sequence="27"
+        groups="gn_banks.banks_debit_credit_user"/>
+
+</odoo>

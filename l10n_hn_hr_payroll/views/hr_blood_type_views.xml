@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="blood_type_view_list" model="ir.ui.view">
+        <field name="name">l10n_hn_hr_payroll.blood.type.list</field>
+        <field name="model">l10n_hn_hr_payroll.blood.type</field>
+        <field name="arch" type="xml">
+            <list string="Tipos de sangre" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+    <record id="blood_type_view_form" model="ir.ui.view">
+        <field name="name">l10n_hn_hr_payroll.blood.type.form</field>
+        <field name="model">l10n_hn_hr_payroll.blood.type</field>
+        <field name="arch" type="xml">
+            <form string="Tipo de sangre">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                        <field name="sequence"/>
+                        <field name="active"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_blood_type" model="ir.actions.act_window">
+        <field name="name">Tipos de sangre</field>
+        <field name="res_model">l10n_hn_hr_payroll.blood.type</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <menuitem id="menu_blood_type"
+              name="Tipos de sangre"
+              parent="menu_hr_employee_data_catalogs"
+              action="action_blood_type"
+              sequence="18"/>
+</odoo>

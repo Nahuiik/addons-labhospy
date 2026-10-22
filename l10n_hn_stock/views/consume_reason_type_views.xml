@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_l10n_hn_consume_reason_type_tree" model="ir.ui.view">
+        <field name="name">l10n_hn.consume.reason.type.list</field>
+        <field name="model">l10n_hn.consume.reason.type</field>
+        <field name="arch" type="xml">
+            <list string="Tipos de motivo de consumo" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="consume_account_id" optional="show"/>
+                <field name="company_id" groups="base.group_multi_company" optional="show"/>
+                <field name="active" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_l10n_hn_consume_reason_type_form" model="ir.ui.view">
+        <field name="name">l10n_hn.consume.reason.type.form</field>
+        <field name="model">l10n_hn.consume.reason.type</field>
+        <field name="arch" type="xml">
+            <form string="Tipo de motivo de consumo">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="sequence"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="consume_account_id" options="{'no_create': True}"/>
+                        </group>
+                        <group>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_l10n_hn_consume_reason_type" model="ir.actions.act_window">
+        <field name="name">Tipos de motivo de consumo</field>
+        <field name="res_model">l10n_hn.consume.reason.type</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Defina los motivos normalizados para salidas por consumo (merma, deterioro, etc.).
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="menu_l10n_hn_consume_reason_type"
+        name="Tipos de motivo de consumo"
+        parent="stock.menu_stock_config_settings"
+        action="action_l10n_hn_consume_reason_type"
+        sequence="26"
+        groups="stock.group_stock_manager"
+    />
+</odoo>

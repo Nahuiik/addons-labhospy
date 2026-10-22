@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_report_financial_executive" model="ir.actions.report">
+        <field name="name">Reporte ejecutivo financiero</field>
+        <field name="model">gn.financial.dashboard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">gn_financial_dashboard.report_executive_document</field>
+        <field name="report_file">gn_financial_dashboard.report_executive_document</field>
+        <field name="print_report_name">'Reporte ejecutivo financiero'</field>
+    </record>
+
+    <template id="report_executive_document">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h2 style="margin-bottom:4px;">Reporte ejecutivo financiero</h2>
+                    <p style="color:#6b7280;margin-top:0;">
+                        Período:
+                        <span t-esc="d['period_label']['date_from']"/>
+                        —
+                        <span t-esc="d['period_label']['date_to']"/>
+                        <span t-if="d.get('company_name')"> · <span t-esc="d['company_name']"/></span>
+                    </p>
+
+                    <!-- Salud financiera -->
+                    <div style="border:1px solid #e5e7eb;border-radius:8px;padding:10px 14px;margin:10px 0;">
+                        <strong style="font-size:18px;">
+                            <span t-esc="d['health']['score']"/>/100
+                        </strong>
+                        — Salud financiera: <strong t-esc="d['health']['label']"/>
+                    </div>
+
+                    <!-- KPIs principales -->
+                    <h4>Indicadores principales</h4>
+                    <table class="table table-sm o_main_table" style="width:100%;">
+                        <thead>
+                            <tr>
+                                <th>Indicador</th>
+                                <th class="text-end">Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Ingresos</td><td class="text-end"><span t-esc="d['kpis_fmt']['revenue']"/></td></tr>
+                            <tr><td>Costo de ventas</td><td class="text-end"><span t-esc="d['kpis_fmt']['cogs']"/></td></tr>
+                            <tr><td>Utilidad bruta</td><td class="text-end"><span t-esc="d['kpis_fmt']['gross_profit']"/></td></tr>
+                            <tr><td>Gastos</td><td class="text-end"><span t-esc="d['kpis_fmt']['expenses']"/></td></tr>
+                            <tr><td><strong>Utilidad neta</strong></td><td class="text-end"><strong t-esc="d['kpis_fmt']['net_profit']"/></td></tr>
+                            <tr><td>Margen neto %</td><td class="text-end"><span t-esc="d['kpis_fmt']['net_margin']"/>%</td></tr>
+                            <tr><td>Por cobrar</td><td class="text-end"><span t-esc="d['kpis_fmt']['receivables']"/></td></tr>
+                            <tr><td>Por pagar</td><td class="text-end"><span t-esc="d['kpis_fmt']['payables']"/></td></tr>
+                            <tr><td>Saldo bancario</td><td class="text-end"><span t-esc="d['kpis_fmt']['closing_bank']"/></td></tr>
+                            <tr><td>Capital de trabajo</td><td class="text-end"><span t-esc="d['kpis_fmt']['working_capital']"/></td></tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Análisis automático -->
+                    <h4 style="margin-top:14px;">Análisis automático</h4>
+                    <ul>
+                        <li t-foreach="d.get('analysis', [])" t-as="note">
+                            <span t-esc="note['text']"/>
+                        </li>
+                    </ul>
+
+                    <!-- Alertas -->
+                    <t t-if="d['health'].get('alerts')">
+                        <h4 style="margin-top:14px;">Alertas</h4>
+                        <ul>
+                            <li t-foreach="d['health']['alerts']" t-as="al">
+                                <strong t-esc="al['title']"/>: <span t-esc="al['message']"/>
+                            </li>
+                        </ul>
+                    </t>
+
+                    <!-- Top gastos -->
+                    <h4 style="margin-top:14px;">Top gastos</h4>
+                    <table class="table table-sm o_main_table" style="width:100%;">
+                        <thead>
+                            <tr><th>Cuenta</th><th class="text-end">Monto</th><th class="text-end">% del total</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="d.get('expense_ranking', {}).get('items', [])" t-as="it">
+                                <td t-esc="it['name']"/>
+                                <td class="text-end"><span t-esc="it.get('amount_fmt', it.get('amount'))"/></td>
+                                <td class="text-end"><span t-esc="it['pct']"/>%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Cartera por antigüedad -->
+                    <t t-if="d.get('aging', {}).get('receivable')">
+                        <h4 style="margin-top:14px;">Cartera por cobrar (antigüedad)</h4>
+                        <table class="table table-sm o_main_table" style="width:100%;">
+                            <thead>
+                                <tr><th>Tramo</th><th class="text-end">Monto</th><th class="text-end">%</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="d['aging']['receivable']['labels']" t-as="lbl">
+                                    <td t-esc="lbl"/>
+                                    <td class="text-end"><span t-esc="d['aging']['receivable'].get('values_fmt', d['aging']['receivable']['values'])[lbl_index]"/></td>
+                                    <td class="text-end"><span t-esc="d['aging']['receivable']['pct'][lbl_index]"/>%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </t>
+
+                    <p style="color:#9ca3af;font-size:11px;margin-top:18px;">
+                        Generado por el Tablero Financiero · valores en moneda de la compañía.
+                    </p>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

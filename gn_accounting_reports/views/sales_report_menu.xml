@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_gn_sales_report_client" model="ir.actions.client">
+        <field name="name">Reporte de ventas</field>
+        <field name="tag">gn_accounting_sales_report</field>
+        <field name="target">fullscreen</field>
+    </record>
+
+    <menuitem id="menu_gn_sales_report"
+              name="Reporte de ventas"
+              parent="menu_finance_ledgers"
+              action="action_gn_sales_report_client"
+              groups="account.group_account_user,sales_team.group_sale_salesman"
+              sequence="15"/>
+</odoo>

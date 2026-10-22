@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- ============================================================
+         Reglas de alerta predefinidas (V20 Fase 6, #21)
+         ============================================================ -->
+
+    <!-- LIQUIDEZ -->
+    <record id="alert_rule_current_ratio_low" model="gn.financial.dashboard.alert.rule">
+        <field name="name">Razón corriente por debajo de 1.0</field>
+        <field name="code">current_ratio_low</field>
+        <field name="kpi">current_ratio</field>
+        <field name="operator">lt</field>
+        <field name="threshold">1.0</field>
+        <field name="severity">critical</field>
+        <field name="category">liquidity</field>
+        <field name="decision_priority">85</field>
+        <field name="message_template">La razón corriente cayó a {value} (debería ser ≥ 1.0). Activos corrientes insuficientes para cubrir pasivos corrientes.</field>
+        <field name="action_hint">Revisa cobro de cartera, restructura deuda corto plazo o inyecta capital.</field>
+    </record>
+
+    <record id="alert_rule_quick_ratio_low" model="gn.financial.dashboard.alert.rule">
+        <field name="name">Prueba ácida por debajo de 0.8</field>
+        <field name="code">quick_ratio_low</field>
+        <field name="kpi">quick_ratio</field>
+        <field name="operator">lt</field>
+        <field name="threshold">0.8</field>
+        <field name="severity">warning</field>
+        <field name="category">liquidity</field>
+        <field name="decision_priority">60</field>
+        <field name="message_template">Prueba ácida = {value}. La liquidez inmediata es ajustada (umbral 0.8).</field>
+        <field name="action_hint">Considera reducir inventario, acelerar cobro o renegociar pagos.</field>
+    </record>
+
+    <record id="alert_rule_cash_negative" model="gn.financial.dashboard.alert.rule">
+        <field name="name">Saldo de caja negativo al cierre</field>
+        <field name="code">cash_negative</field>
+        <field name="kpi">closing_bank</field>
+        <field name="operator">lt</field>
+        <field name="threshold">0</field>
+        <field name="severity">critical</field>
+        <field name="category">liquidity</field>
+        <field name="decision_priority">95</field>
+        <field name="message_template">El saldo de caja cerró en {value}. Hay sobregiro o riesgo de incumplimiento.</field>
+        <field name="action_hint">Negocia línea de crédito o detén pagos no críticos.</field>
+    </record>
+
+    <!-- RENTABILIDAD -->
+    <record id="alert_rule_gross_margin_low" model="gn.financial.dashboard.alert.rule">
+        <field name="name">Margen bruto por debajo del 20%</field>
+        <field name="code">gross_margin_low</field>
+        <field name="kpi">gross_margin</field>
+        <field name="operator">lt</field>
+        <field name="threshold">20.0</field>
+        <field name="severity">warning</field>
+        <field name="category">profitability</field>
+        <field name="decision_priority">55</field>
+        <field name="message_template">Margen bruto = {value}% (objetivo ≥ 20%).</field>
+        <field name="action_hint">Revisa precio de venta, eficiencia de costo o mix de productos.</field>
+    </record>
+
+    <record id="alert_rule_operating_margin_neg" model="gn.financial.dashboard.alert.rule">
+        <field name="name">Margen operativo negativo</field>
+        <field name="code">operating_margin_neg</field>
+        <field name="kpi">operating_margin</field>
+        <field name="operator">lt</field>
+        <field name="threshold">0</field>
+        <field name="severity">critical</field>
+        <field name="category">profitability</field>
+        <field name="decision_priority">80</field>
+        <field name="message_template">Margen operativo = {value}%. El negocio no cubre sus gastos operativos.</field>
+        <field name="action_hint">Reduce gastos opex no esenciales o aumenta precios.</field>
+    </record>
+
+    <record id="alert_rule_net_margin_neg" model="gn.financial.dashboard.alert.rule">
+        <field name="name">Utilidad neta negativa</field>
+        <field name="code">net_margin_neg</field>
+        <field name="kpi">net_margin</field>
+        <field name="operator">lt</field>
+        <field name="threshold">0</field>
+        <field name="severity">warning</field>
+        <field name="category">profitability</field>
+        <field name="decision_priority">70</field>
+        <field name="message_template">Margen neto = {value}%. El periodo cerró en pérdida.</field>
+        <field name="action_hint">Analiza las cuentas de mayor variación en Diagnóstico.</field>
+    </record>
+
+    <!-- CAPITAL DE TRABAJO -->
+    <record id="alert_rule_dso_high" model="gn.financial.dashboard.alert.rule">
+        <field name="name">DSO (días cartera) por encima de 75</field>
+        <field name="code">dso_high</field>
+        <field name="kpi">dso_days</field>
+        <field name="operator">gt</field>
+        <field name="threshold">75.0</field>
+        <field name="severity">warning</field>
+        <field name="category">working_capital</field>
+        <field name="decision_priority">65</field>
+        <field name="message_template">Cobras en promedio en {value} días (objetivo ≤ 75).</field>
+        <field name="action_hint">Refuerza el equipo de cobranza o ajusta términos de venta.</field>
+    </record>
+
+    <record id="alert_rule_overdue_high" model="gn.financial.dashboard.alert.rule">
+        <field name="name">Mora de cartera por encima del 20%</field>
+        <field name="code">overdue_high</field>
+        <field name="kpi">overdue_pct</field>
+        <field name="operator">gt</field>
+        <field name="threshold">20.0</field>
+        <field name="severity">warning</field>
+        <field name="category">working_capital</field>
+        <field name="decision_priority">75</field>
+        <field name="message_template">El {value}% de la cartera está vencida (umbral 20%).</field>
+        <field name="action_hint">Prioriza la gestión de cobranza sobre clientes con mayor saldo vencido.</field>
+    </record>
+
+    <!-- RIESGO -->
+    <record id="alert_rule_debt_high" model="gn.financial.dashboard.alert.rule">
+        <field name="name">Apalancamiento alto (Deuda/Activos > 0.7)</field>
+        <field name="code">debt_high</field>
+        <field name="kpi">debt_to_assets</field>
+        <field name="operator">gt</field>
+        <field name="threshold">0.7</field>
+        <field name="severity">warning</field>
+        <field name="category">risk</field>
+        <field name="decision_priority">60</field>
+        <field name="message_template">Deuda/Activos = {value}. Riesgo financiero elevado.</field>
+        <field name="action_hint">Evalúa reestructuración de deuda o capitalización.</field>
+    </record>
+
+    <record id="alert_rule_interest_coverage_low" model="gn.financial.dashboard.alert.rule">
+        <field name="name">Cobertura de intereses insuficiente</field>
+        <field name="code">interest_coverage_low</field>
+        <field name="kpi">interest_coverage</field>
+        <field name="operator">lt</field>
+        <field name="threshold">1.5</field>
+        <field name="severity">critical</field>
+        <field name="category">risk</field>
+        <field name="decision_priority">80</field>
+        <field name="message_template">La utilidad operativa apenas cubre {value}× los intereses (umbral 1.5×).</field>
+        <field name="action_hint">Negocia tasas con los acreedores o reduce deuda principal.</field>
+    </record>
+
+</odoo>

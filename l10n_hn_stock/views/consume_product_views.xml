@@ -1,0 +1,267 @@
+<odoo>
+    <record id="consume_product_form_view" model="ir.ui.view">
+        <field name="name">consume.product.form</field>
+        <field name="model">consume.product</field>
+        <field name="priority">16</field>
+        <field name="arch" type="xml">
+            <form string="Consume Products">
+                <header>
+                    <button
+                        name="action_set_to_draft"
+                        string="Poner en borrador"
+                        type="object"
+                        invisible="state not in ('cancel', 'confirm')"
+                    />
+                    <button
+                        name="action_confirm"
+                        string="Confirm"
+                        type="object"
+                        class="btn-primary"
+                        invisible="state != 'draft'"
+                    />
+                    <button
+                        name="action_cancel"
+                        string="Cancel"
+                        type="object"
+                        invisible="state != 'confirm'"
+                    />
+                    <button
+                        name="action_done"
+                        string="Mark As Done"
+                        type="object"
+                        class="btn-primary"
+                        invisible="state != 'confirm'"
+                    />
+                    <button
+                        type="action"
+                        name="%(l10n_hn_stock.action_report_consume_warehouse_exit)d"
+                        string="Imprimir Salida"
+                        class="btn-secondary"
+                        invisible="is_incoming"
+                    />
+                    <field
+                        name="state"
+                        widget="statusbar"
+                        statusbar_visible="draft,confirm,done"
+                    />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            type="object"
+                            name="action_view_picking"
+                            class="oe_stat_button"
+                            icon="fa-arrows-v"
+                            string="Pickings"
+                            invisible="picking_ids == []"
+                        />
+                        <button
+                            type="object"
+                            name="action_view_journal_entries"
+                            class="oe_stat_button"
+                            icon="fa-book"
+                            invisible="journal_entry_count == 0"
+                        >
+                            <span class="o_stat_text">Asientos contables</span>
+                        </button>
+                    </div>
+                    <h2>
+                        <field name="name" readonly="1"/>
+                    </h2>
+                    <group>
+                        <group>
+                            <field name="picking_ids" invisible="1"/>
+                            <field name="allowed_picking_type_ids" invisible="1"/>
+                            <field name="consume_branch_ui_locked" invisible="1"/>
+                            <field name="consume_consume_automation_locked" invisible="1"/>
+                            <field
+                                name="consumption_reason_type_id"
+                                required="not is_incoming"
+                                options="{'no_open': True, 'no_create': True}"
+                                invisible="is_incoming"
+                                readonly="state != 'draft'"
+                            />
+                            <field
+                                name="consumption_reason_note"
+                                placeholder="Detalle opcional (referencia, autorización...)"
+                                invisible="is_incoming"
+                                readonly="state != 'draft'"
+                            />
+                            <field
+                                name="location_id"
+                                required="1"
+                                readonly="state != 'draft'"
+                            />
+                            <field
+                                name="dest_location_id"
+                                required="1"
+                                readonly="state != 'draft'"
+                            />
+                            <field
+                                name="picking_type_id"
+                                required="1"
+                                readonly="state != 'draft'"
+                                options="{'no_create': true}"
+                            />
+                        </group>
+                        <group>
+                            <field
+                                name="date"
+                                required="1"
+                                readonly="state != 'draft'"
+                            />
+                            <field
+                                name="journal_id"
+                                required="1"
+                                readonly="state != 'draft'"
+                            />
+                            <field
+                                name="gts_no_exigir_sucursal"
+                                widget="boolean_toggle"
+                                readonly="state != 'draft'"
+                            />
+                            <field
+                                name="branch_id"
+                                readonly="state != 'draft' or consume_branch_ui_locked"
+                                options="{'no_open': True, 'no_create': True}"
+                                required="not gts_no_exigir_sucursal"
+                            />
+                            <field name="is_incoming" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Consume Lines">
+                            <field name="consume_line" readonly="state != 'draft'">
+                                <list string="Consume Lines" editable="bottom">
+                                    <field
+                                        name="product_id"
+                                        required="1"
+                                        options="{'no_create': true}"
+                                    />
+                                    <field name="qty_available"/>
+                                    <field
+                                        name="account_id"
+                                        required="1"
+                                        options="{'no_create': true}"
+                                    />
+                                    <field name="quantity" required="1"/>
+                                    <field
+                                        name="uom_id"
+                                        required="1"
+                                        options="{'no_create': true}"
+                                    />
+                                    <field
+                                        name="lot_id"
+                                        optional="show"
+                                        options="{'no_create': true}"
+                                    />
+                                    <field
+                                        name="gn_labhospy_supplier_id"
+                                        optional="show"
+                                    />
+                                    <field
+                                        name="gn_labhospy_catalog_code"
+                                        optional="show"
+                                    />
+                                </list>
+                                <form string="Consume Line">
+                                    <group>
+                                        <field name="product_id" required="1"/>
+                                        <field name="lot_id"/>
+                                        <field name="gn_labhospy_supplier_id"/>
+                                        <field name="gn_labhospy_catalog_code"/>
+                                        <field name="account_id" required="1"/>
+                                        <field name="quantity" required="1"/>
+                                        <field name="uom_id" required="1"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Notas" name="consume_notes">
+                            <field
+                                name="notes"
+                                nolabel="1"
+                                placeholder="Notas internas del documento..."
+                                readonly="state == 'done'"
+                            />
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Formulario solo salidas: ubicación origen limitada a uso interno (no clientes/proveedores/vistas). -->
+    <record id="consume_product_form_view_outbound" model="ir.ui.view">
+        <field name="name">consume.product.form.outbound.internal.origin</field>
+        <field name="model">consume.product</field>
+        <field name="inherit_id" ref="l10n_hn_stock.consume_product_form_view"/>
+        <field name="mode">primary</field>
+        <field name="priority">32</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='location_id']" position="attributes">
+                <attribute name="domain">[('usage', '=', 'internal'), '|', ('company_id', '=', False), ('company_id', '=', company_id)]</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="consume_product_tree_view" model="ir.ui.view">
+        <field name="name">consume.product.list</field>
+        <field name="model">consume.product</field>
+        <field name="arch" type="xml">
+            <list string="Consume Products">
+                <field name="name"/>
+                <field name="consumption_reason_type_id" optional="show"/>
+                <field name="picking_type_id"/>
+                <field name="branch_id" optional="show"/>
+                <field name="location_id"/>
+                <field name="dest_location_id"/>
+                <field name="date"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_consume_products" model="ir.actions.act_window">
+        <field name="name">Consume Products</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">consume.product</field>
+        <field name="domain">[('is_incoming', '=', False)]</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_ids" eval="[
+            (5, 0, 0),
+            (0, 0, {'view_mode': 'list', 'view_id': ref('consume_product_tree_view'), 'sequence': 10}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('consume_product_form_view_outbound'), 'sequence': 20}),
+        ]"/>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem
+        id="menu_consume_products"
+        name="Consume Products"
+        action="action_consume_products"
+        parent="stock.menu_stock_warehouse_mgmt"
+        sequence="50"
+        groups="stock.group_stock_manager"
+    />
+
+    <record id="action_income_products" model="ir.actions.act_window">
+        <field name="name">Incoming Products</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">consume.product</field>
+        <field name="domain">[('is_incoming', '=', True)]</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'default_is_incoming': True}</field>
+    </record>
+
+    <menuitem
+        id="menu_income_products"
+        name="Incoming Products"
+        action="action_income_products"
+        parent="stock.menu_stock_warehouse_mgmt"
+        sequence="55"
+        groups="stock.group_stock_manager"
+    />
+</odoo>
+

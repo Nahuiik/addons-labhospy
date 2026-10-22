@@ -1,0 +1,187 @@
+/* ==========================================================
+   Cierre Inicial a Ciegas - Réplica POS Closing Session
+   ========================================================== */
+
+/* Ocultar botón X de cerrar y forzar uso solo de "Cerrar Cierre" */
+.o_dialog:has(.blind-wizard-form) .modal-header .btn-close {
+    display: none !important;
+}
+
+/* Fondo gris claro para el wizard */
+.o_form_view.blind-wizard-form .o_form_sheet {
+    background-color: #f3f3f3;
+}
+
+/* Contenedor principal */
+.blind-wizard-container {
+    background-color: #f3f3f3;
+    padding: 1rem;
+    border-radius: 8px;
+    min-height: 200px;
+}
+
+/* Tarjetas blancas */
+.blind-wizard-card {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    max-width: 800px;
+}
+
+.blind-wizard-card:last-child {
+    margin-bottom: 0;
+}
+
+.blind-wizard-card h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.blind-wizard-card .o_group {
+    margin-bottom: 0.5rem;
+}
+
+/* ---- Header: total facturas (estilo POS) ---- */
+.closing-total-orders {
+    color: #714B67;
+    font-size: 0.95rem;
+}
+
+.closing-total-orders .o_field_widget {
+    display: inline !important;
+}
+
+/* ---- Encabezados de columna ---- */
+.closing-col-headers {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 0.4rem;
+}
+
+/* ---- Caja de medio de pago (borde negro como POS) ---- */
+.closing-pm-box {
+    border: 2px solid #333;
+    border-radius: 4px;
+    padding: 0.5rem 0.75rem;
+    min-height: 42px;
+}
+
+.closing-pm-box .fw-bold {
+    font-size: 0.95rem;
+}
+
+.closing-pm-box .o_field_widget {
+    text-align: right;
+    font-weight: 600;
+}
+
+.closing-pm-box .o_field_widget input {
+    text-align: right !important;
+    border: none;
+    background: transparent;
+    font-weight: 600;
+    padding: 0;
+}
+
+/* ---- Columna Contado ---- */
+.closing-counted-col {
+    width: 200px;
+    min-width: 200px;
+}
+
+.closing-counted-col .d-flex {
+    width: 100%;
+}
+
+/* ---- Columna Diferencia ---- */
+.closing-diff-col {
+    width: 120px;
+    min-width: 120px;
+    padding-left: 0.75rem;
+    text-align: right;
+}
+
+/* ---- Celdas de valores readonly en paso 3 ---- */
+.closing-val-cell {
+    text-align: right;
+}
+
+.closing-val-cell .o_field_widget {
+    text-align: right;
+    justify-content: flex-end;
+}
+
+.closing-val-cell .o_field_widget input,
+.closing-val-cell .o_field_widget span {
+    text-align: right !important;
+}
+
+/* ---- Input de contado en paso 2 ---- */
+.closing-input {
+    flex: 1;
+}
+
+.closing-input input {
+    text-align: right !important;
+}
+
+/* ---- Diferencia negativa (rojo) ---- */
+.blind-wizard-card .o_field_widget.text-danger,
+.blind-wizard-card .o_decoration_danger {
+    color: #dc3545 !important;
+    font-weight: 600 !important;
+}
+
+.closing-diff-col .o_field_widget.text-danger span,
+.closing-diff-col .o_decoration_danger span {
+    color: #dc3545 !important;
+}
+
+/* ---- Nota de cierre ---- */
+.closing-notes-container {
+    margin-bottom: 0.5rem;
+}
+
+.closing-notes-container .o_form_label {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    display: block;
+}
+
+.closing-notes-container textarea {
+    height: 60px;
+}
+
+/* ---- Footer tipo POS ---- */
+.closing-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+/* ---- Botones del paso 1 ---- */
+.blind-wizard-btn {
+    border-radius: 6px;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+}
+
+.blind-wizard-btn-primary {
+    background-color: #714B67;
+    border-color: #714B67;
+    color: white;
+}
+
+.blind-wizard-btn-primary:hover {
+    background-color: #5c3d55;
+    border-color: #5c3d55;
+    color: white;
+}

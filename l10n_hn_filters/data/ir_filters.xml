@@ -1,0 +1,232 @@
+<odoo>
+    <data noupdate="0">
+        <!-- Ventas -->
+        <record id="filter_sale_order_today" model="ir.filters">
+            <field name="name">Hoy</field>
+            <field name="model_id">sale.order</field>
+            <field name="sequence">1</field>
+            <field name="domain"><![CDATA[
+[
+    ('date_order', '>=', '__TODAY__'),
+    ('date_order', '<', '__TOMORROW__')
+]
+            ]]></field>
+            <field name="context">{}</field>
+        </record>
+        <record id="filter_sale_order_yesterday" model="ir.filters">
+            <field name="name">Ayer</field>
+            <field name="model_id">sale.order</field>
+            <field name="sequence">2</field>
+            <field name="domain"><![CDATA[
+[
+    ('date_order', '>=', '__YESTERDAY__'),
+    ('date_order', '<', '__TODAY__')
+]
+            ]]></field>
+            <field name="context">{}</field>
+        </record>
+        <record id="filter_sale_order_this_week" model="ir.filters">
+            <field name="name">Esta semana</field>
+            <field name="model_id">sale.order</field>
+            <field name="sequence">3</field>
+            <field name="domain"><![CDATA[
+[
+    ('date_order', '>=', '__WEEK_START__'),
+    ('date_order', '<', '__WEEK_NEXT_START__')
+]
+            ]]></field>
+            <field name="context">{}</field>
+        </record>
+
+        <!-- Compras -->
+        <record id="filter_purchase_order_today" model="ir.filters">
+            <field name="name">Hoy</field>
+            <field name="model_id">purchase.order</field>
+            <field name="sequence">1</field>
+            <field name="domain"><![CDATA[
+[
+    ('date_order', '>=', '__TODAY__'),
+    ('date_order', '<', '__TOMORROW__')
+]
+            ]]></field>
+            <field name="context">{}</field>
+        </record>
+        <record id="filter_purchase_order_yesterday" model="ir.filters">
+            <field name="name">Ayer</field>
+            <field name="model_id">purchase.order</field>
+            <field name="sequence">2</field>
+            <field name="domain"><![CDATA[
+[
+    ('date_order', '>=', '__YESTERDAY__'),
+    ('date_order', '<', '__TODAY__')
+]
+            ]]></field>
+            <field name="context">{}</field>
+        </record>
+        <record id="filter_purchase_order_this_week" model="ir.filters">
+            <field name="name">Esta semana</field>
+            <field name="model_id">purchase.order</field>
+            <field name="sequence">3</field>
+            <field name="domain"><![CDATA[
+[
+    ('date_order', '>=', '__WEEK_START__'),
+    ('date_order', '<', '__WEEK_NEXT_START__')
+]
+            ]]></field>
+            <field name="context">{}</field>
+        </record>
+
+        <!-- Facturación clientes -->
+        <record id="filter_account_move_customer_today" model="ir.filters">
+            <field name="name">Hoy</field>
+            <field name="model_id">account.move</field>
+            <field name="sequence">1</field>
+            <field name="domain"><![CDATA[
+[
+    ('move_type', 'in', ['out_invoice', 'out_refund']),
+    ('invoice_date', '=', '__TODAY__')
+]
+            ]]></field>
+            <field name="context">{}</field>
+        </record>
+        <record id="filter_account_move_customer_yesterday" model="ir.filters">
+            <field name="name">Ayer</field>
+            <field name="model_id">account.move</field>
+            <field name="sequence">2</field>
+            <field name="domain"><![CDATA[
+[
+    ('move_type', 'in', ['out_invoice', 'out_refund']),
+    ('invoice_date', '=', '__YESTERDAY__')
+]
+            ]]></field>
+            <field name="context">{}</field>
+        </record>
+        <record id="filter_account_move_customer_this_week" model="ir.filters">
+            <field name="name">Esta semana</field>
+            <field name="model_id">account.move</field>
+            <field name="sequence">3</field>
+            <field name="domain"><![CDATA[
+[
+    ('move_type', 'in', ['out_invoice', 'out_refund']),
+    ('invoice_date', '>=', '__WEEK_START__'),
+    ('invoice_date', '<', '__WEEK_NEXT_START__')
+]
+            ]]></field>
+            <field name="context">{}</field>
+        </record>
+
+        <!-- Facturación proveedores -->
+        <record id="filter_account_move_vendor_today" model="ir.filters">
+            <field name="name">Hoy</field>
+            <field name="model_id">account.move</field>
+            <field name="sequence">1</field>
+            <field name="domain"><![CDATA[
+[
+    ('move_type', 'in', ['in_invoice', 'in_refund']),
+    ('invoice_date', '=', '__TODAY__')
+]
+            ]]></field>
+            <field name="context">{}</field>
+        </record>
+        <record id="filter_account_move_vendor_yesterday" model="ir.filters">
+            <field name="name">Ayer</field>
+            <field name="model_id">account.move</field>
+            <field name="sequence">2</field>
+            <field name="domain"><![CDATA[
+[
+    ('move_type', 'in', ['in_invoice', 'in_refund']),
+    ('invoice_date', '=', '__YESTERDAY__')
+]
+            ]]></field>
+            <field name="context">{}</field>
+        </record>
+        <record id="filter_account_move_vendor_this_week" model="ir.filters">
+            <field name="name">Esta semana</field>
+            <field name="model_id">account.move</field>
+            <field name="sequence">3</field>
+            <field name="domain"><![CDATA[
+[
+    ('move_type', 'in', ['in_invoice', 'in_refund']),
+    ('invoice_date', '>=', '__WEEK_START__'),
+    ('invoice_date', '<', '__WEEK_NEXT_START__')
+]
+            ]]></field>
+            <field name="context">{}</field>
+        </record>
+
+        <!-- Asientos contables -->
+        <record id="filter_account_move_entry_today" model="ir.filters">
+            <field name="name">Hoy</field>
+            <field name="model_id">account.move</field>
+            <field name="sequence">1</field>
+            <field name="domain"><![CDATA[
+[
+    ('move_type', '=', 'entry'),
+    ('date', '=', '__TODAY__')
+]
+            ]]></field>
+            <field name="context">{}</field>
+        </record>
+        <record id="filter_account_move_entry_yesterday" model="ir.filters">
+            <field name="name">Ayer</field>
+            <field name="model_id">account.move</field>
+            <field name="sequence">2</field>
+            <field name="domain"><![CDATA[
+[
+    ('move_type', '=', 'entry'),
+    ('date', '=', '__YESTERDAY__')
+]
+            ]]></field>
+            <field name="context">{}</field>
+        </record>
+        <record id="filter_account_move_entry_this_week" model="ir.filters">
+            <field name="name">Esta semana</field>
+            <field name="model_id">account.move</field>
+            <field name="sequence">3</field>
+            <field name="domain"><![CDATA[
+[
+    ('move_type', '=', 'entry'),
+    ('date', '>=', '__WEEK_START__'),
+    ('date', '<', '__WEEK_NEXT_START__')
+]
+            ]]></field>
+            <field name="context">{}</field>
+        </record>
+
+        <!-- Apuntes contables -->
+        <record id="filter_account_move_line_today" model="ir.filters">
+            <field name="name">Hoy</field>
+            <field name="model_id">account.move.line</field>
+            <field name="sequence">1</field>
+            <field name="domain"><![CDATA[
+[
+    ('date', '=', '__TODAY__')
+]
+            ]]></field>
+            <field name="context">{}</field>
+        </record>
+        <record id="filter_account_move_line_yesterday" model="ir.filters">
+            <field name="name">Ayer</field>
+            <field name="model_id">account.move.line</field>
+            <field name="sequence">2</field>
+            <field name="domain"><![CDATA[
+[
+    ('date', '=', '__YESTERDAY__')
+]
+            ]]></field>
+            <field name="context">{}</field>
+        </record>
+        <record id="filter_account_move_line_this_week" model="ir.filters">
+            <field name="name">Esta semana</field>
+            <field name="model_id">account.move.line</field>
+            <field name="sequence">3</field>
+            <field name="domain"><![CDATA[
+[
+    ('date', '>=', '__WEEK_START__'),
+    ('date', '<', '__WEEK_NEXT_START__')
+]
+            ]]></field>
+            <field name="context">{}</field>
+        </record>
+    </data>
+</odoo>

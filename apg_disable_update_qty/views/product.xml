@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Restrict the on-hand quantity widget entry point -->
+        <record id="product_template_qty_widget_inherit" model="ir.ui.view">
+            <field name="name">product.template.qty.widget.inherit.apg</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="stock.view_template_property_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//a[@type='object' and @name='action_open_quants']" position="attributes">
+                    <attribute name="groups">apg_disable_update_qty.group_onhand_qty_user</attribute>
+                </xpath>
+                <xpath expr="//field[@name='qty_available' and @invisible='show_qty_update_button']" position="attributes">
+                    <attribute name="groups">apg_disable_update_qty.group_onhand_qty_user</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Server actions driving inventory adjustments -->
+        <record id="stock.action_view_inventory_tree" model="ir.actions.server">
+            <field name="group_ids" eval="[(6, 0, [ref('apg_disable_update_qty.group_onhand_qty_user')])]"/>
+        </record>
+        <record id="stock.action_view_set_quants_tree" model="ir.actions.server">
+            <field name="group_ids" eval="[(6, 0, [ref('apg_disable_update_qty.group_onhand_qty_user')])]"/>
+        </record>
+        <record id="stock.action_view_set_to_zero_quants_tree" model="ir.actions.server">
+            <field name="group_ids" eval="[(6, 0, [ref('apg_disable_update_qty.group_onhand_qty_user')])]"/>
+        </record>
+
+        <!-- Product label printing actions -->
+        <record id="product.action_product_print_labels" model="ir.actions.server">
+            <field name="group_ids" eval="[(6, 0, [ref('apg_disable_update_qty.group_onhand_qty_user')])]"/>
+        </record>
+        <record id="product.action_product_template_print_labels" model="ir.actions.server">
+            <field name="group_ids" eval="[(6, 0, [ref('apg_disable_update_qty.group_onhand_qty_user')])]"/>
+        </record>
+    </data>
+</odoo>

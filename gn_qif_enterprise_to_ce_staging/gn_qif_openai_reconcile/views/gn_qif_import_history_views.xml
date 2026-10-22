@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_gn_qif_import_history_list" model="ir.ui.view">
+        <field name="name">gn.qif.import.history.list</field>
+        <field name="model">gn.qif.import.history</field>
+        <field name="arch" type="xml">
+            <list string="Historial importaciones QIF" create="false" edit="false" delete="false">
+                <field name="create_date" string="Fecha"/>
+                <field name="filename"/>
+                <field name="journal_id"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="line_count"/>
+                <field name="lines_imported"/>
+                <field name="lines_skipped"/>
+                <field name="file_hash" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_gn_qif_import_history_form" model="ir.ui.view">
+        <field name="name">gn.qif.import.history.form</field>
+        <field name="model">gn.qif.import.history</field>
+        <field name="arch" type="xml">
+            <form string="Importación QIF" create="false" edit="false" delete="false">
+                <header>
+                    <button name="action_unblock" type="object"
+                            string="Permitir nueva importación"
+                            class="btn-secondary"
+                            confirm="¿Desea eliminar este registro del historial? Esto permitirá reimportar el mismo archivo QIF."
+                            groups="account.group_account_manager"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="filename"/>
+                            <field name="journal_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="create_date"/>
+                            <field name="create_uid" string="Usuario"/>
+                            <field name="file_hash"/>
+                        </group>
+                    </group>
+                    <group string="Resultado">
+                        <field name="line_count"/>
+                        <field name="lines_imported"/>
+                        <field name="lines_skipped"/>
+                    </group>
+                    <group string="Extractos generados">
+                        <field name="statement_ids" nolabel="1" colspan="2">
+                            <list>
+                                <field name="name"/>
+                                <field name="date"/>
+                                <field name="journal_id"/>
+                                <field name="balance_end_real"/>
+                            </list>
+                        </field>
+                    </group>
+                    <group string="Adjunto">
+                        <field name="attachment_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_gn_qif_import_history" model="ir.actions.act_window">
+        <field name="name">Historial importaciones QIF</field>
+        <field name="res_model">gn.qif.import.history</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_gn_qif_import_history"
+              name="Historial importaciones QIF"
+              parent="account.account_transactions_menu"
+              action="action_gn_qif_import_history"
+              sequence="92"/>
+
+</odoo>

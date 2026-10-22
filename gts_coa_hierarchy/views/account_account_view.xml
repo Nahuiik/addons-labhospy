@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Note: In Odoo 19, account.account.type model no longer exists.
+         Account types are now Selection fields directly on account.account.
+         The 'type' field below is a custom field for hierarchy purposes. -->
+    <data noupdate="1">
+    </data>
+    <data>
+
+        <record id="view_account_form_inherit_gts1" model="ir.ui.view">
+            <field name="name">account.account.form.inherit</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_form"/>
+            <field name="arch" type="xml">
+                <field name="account_type" position="after">
+                    <field name="type" required="1"/>
+                    <field name="parent_id" context="{'show_view_type': True}" groups="gts_coa_hierarchy.group_coas_user"/>
+                    <field name="level"/>
+                    <field name="debit"/>
+                    <field name="credit"/>
+                    <field name="balance"/>
+                    <field name="opening_balance"/>
+                    <field name="closing_balance"/>
+                    <field name="child_parent_ids" invisible="1"/>
+                    <field name="child_id" invisible="1"/>
+                </field>
+                <field name="active" position="after">
+                    <field name="reconcile" widget="boolean_toggle"
+                           invisible="account_type in ('asset_cash', 'liability_credit_card', 'off_balance')"/>
+                </field>
+            </field>
+         </record>
+
+        <record id="view_account_list_inherit_gts1" model="ir.ui.view">
+            <field name="name">account.account.list.inherit</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_list"/>
+            <field name="arch" type="xml">
+                <list position="attributes">
+                    <attribute name="decoration-info">account_type=='view'</attribute>
+                </list>
+                <field name="account_type" position="after">
+                    <field name="type"/>
+                    <field name="parent_id" groups="gts_coa_hierarchy.group_coas_user"/>
+                    <field name="debit" sum="debit"/>
+                    <field name="credit" sum="credit"/>
+                    <field name="balance" sum="balance"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_account_search_inherit_gts1" model="ir.ui.view">
+            <field name="name">account.account.search.inherit</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_search"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="parent_id"/>
+                </field>
+                <field name="account_type" position="after">
+                    <filter string="Account Type Hie." name="account_type_hie" domain="" context="{'group_by':'account_type'}"/>
+                    <filter string="Parent" name="parent_filter" domain="" context="{'group_by':'parent_id'}"/>
+                </field>
+            </field>
+        </record>
+<!--
+        <record id="account.action_account_form" model="ir.actions.act_window">
+            <field name="name">Chart of Accounts</field>
+            <field name="res_model">account.account</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="account.view_account_search"/>
+            <field name="view_id" ref="account.view_account_list"/>
+            <field name="context">{'view_all': True}</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add an account.
+              </p><p>
+                An account is part of a ledger allowing your company
+                to register all kinds of debit and credit transactions.
+                Companies present their annual accounts in two main parts: the
+                balance sheet and the income statement (profit and loss
+                account). The annual accounts of a company are required by law
+                to disclose a certain amount of information.
+              </p>
+            </field>
+        </record>
+        
+        <menuitem action="account.action_account_form" id="account.menu_action_account_form"
+                  parent="account.menu_finance_entries" sequence="20"
+                  name="Accounts"/>
+        
+        <record id="view_account_tree_chart" model="ir.ui.view">
+            <field name="name">account.account.tree</field>
+            <field name="model">account.account</field>
+            <field name="field_parent">child_id</field>
+            <field name="arch" type="xml">
+                <tree colors="blue:type == 'view';black:type in ('other','receivable','payable','consolidation');gray:type == 'closed'"
+                      string="Chart of accounts" >
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="debit"/>
+                    <field name="credit"/>
+                    <field name="balance"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="type"/>
+                    <field name="parent_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_account_tree_chart" model="ir.actions.act_window">
+            <field name="name">Chart of Accounts</field>
+            <field name="res_model">account.account</field>
+            <field name="view_type">tree</field>
+            <field name="view_id" ref="view_account_tree_chart"/>
+            <field name="domain">[('parent_id','=',False)]</field>
+            <field name="context">{'view_all': True}</field>
+        </record>
+        
+        <menuitem id="menu_action_account_form" action="action_account_tree_chart"
+                  parent="account.menu_finance_entries" sequence="21"/>
+-->
+    </data>
+</odoo>

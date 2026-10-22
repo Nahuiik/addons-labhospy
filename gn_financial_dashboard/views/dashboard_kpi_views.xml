@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- ============================================================
+             KPIs personalizados (V20 Fase 2, #1)
+             ============================================================ -->
+        <record id="view_gn_fd_kpi_list" model="ir.ui.view">
+            <field name="name">gn.financial.dashboard.kpi.list</field>
+            <field name="model">gn.financial.dashboard.kpi</field>
+            <field name="arch" type="xml">
+                <list string="KPIs personalizados">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="category"/>
+                    <field name="formula_type"/>
+                    <field name="format_mode"/>
+                    <field name="show_in_overview" optional="hide"/>
+                    <field name="show_in_my_kpis"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="active" widget="boolean_toggle"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_gn_fd_kpi_form" model="ir.ui.view">
+            <field name="name">gn.financial.dashboard.kpi.form</field>
+            <field name="model">gn.financial.dashboard.kpi</field>
+            <field name="arch" type="xml">
+                <form string="KPI personalizado">
+                    <header>
+                        <button name="action_preview" type="object"
+                                string="Previsualizar"
+                                class="oe_highlight"
+                                icon="fa-eye"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name"/>
+                            <h1><field name="name" placeholder="Ej: Margen de contribución"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="code" placeholder="ej: margin_contrib"/>
+                                <field name="category"/>
+                                <field name="icon"/>
+                                <field name="active"/>
+                            </group>
+                            <group>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                                <field name="show_in_overview"/>
+                                <field name="show_in_my_kpis"/>
+                                <field name="sequence"/>
+                            </group>
+                        </group>
+                        <field name="description" placeholder="Descripción opcional del KPI..."/>
+                        <notebook>
+                            <page string="Fórmula" name="formula">
+                                <group>
+                                    <field name="formula_type"/>
+                                    <field name="period_mode"/>
+                                    <field name="sign_mode"
+                                           invisible="formula_type == 'ratio' or formula_type == 'expression'"/>
+                                </group>
+                                <group string="Cuentas"
+                                       invisible="formula_type != 'account_balance'">
+                                    <field name="account_ids" widget="many2many_tags"
+                                           options="{'no_create': True}"
+                                           nolabel="1"/>
+                                </group>
+                                <group string="Tipos de cuenta"
+                                       invisible="formula_type != 'account_type_sum'">
+                                    <field name="account_type_keys" nolabel="1"
+                                           placeholder="ej: income,income_other"/>
+                                </group>
+                                <group string="Numerador / Denominador"
+                                       invisible="formula_type != 'ratio'">
+                                    <group string="Numerador">
+                                        <field name="numerator_kind"/>
+                                        <field name="numerator_account_ids"
+                                               widget="many2many_tags"
+                                               options="{'no_create': True}"
+                                               invisible="numerator_kind != 'account_balance'"/>
+                                        <field name="numerator_type_keys"
+                                               invisible="numerator_kind != 'account_type_sum'"/>
+                                        <field name="numerator_sign"/>
+                                    </group>
+                                    <group string="Denominador">
+                                        <field name="denominator_kind"/>
+                                        <field name="denominator_account_ids"
+                                               widget="many2many_tags"
+                                               options="{'no_create': True}"
+                                               invisible="denominator_kind != 'account_balance'"/>
+                                        <field name="denominator_type_keys"
+                                               invisible="denominator_kind != 'account_type_sum'"/>
+                                        <field name="denominator_sign"/>
+                                    </group>
+                                    <field name="percent_multiplier"/>
+                                </group>
+                                <group string="Expresión"
+                                       invisible="formula_type != 'expression'">
+                                    <field name="expression" nolabel="1"
+                                           placeholder="ej: revenue - cogs, o net_profit / total_assets * 100"/>
+                                    <p class="text-muted" colspan="2">
+                                        Variables disponibles: KPIs nativos (revenue, cogs,
+                                        gross_profit, expenses, net_profit, ebit, ebitda,
+                                        total_assets, equity, receivables, payables, etc.)
+                                        y los códigos de otros KPIs personalizados.
+                                        Operadores permitidos: +, −, ×, ÷ y paréntesis.
+                                    </p>
+                                </group>
+                            </page>
+                            <page string="Formato y meta" name="format">
+                                <group>
+                                    <group>
+                                        <field name="format_mode"/>
+                                        <field name="decimal_places"/>
+                                    </group>
+                                    <group>
+                                        <field name="trend_mode"/>
+                                        <field name="target_value"/>
+                                        <field name="warning_threshold"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_gn_fd_kpi_search" model="ir.ui.view">
+            <field name="name">gn.financial.dashboard.kpi.search</field>
+            <field name="model">gn.financial.dashboard.kpi</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <filter name="active" string="Activos" domain="[('active', '=', True)]"/>
+                    <filter name="overview" string="En Resumen" domain="[('show_in_overview', '=', True)]"/>
+                    <separator/>
+                    <filter name="profitability" string="Rentabilidad" domain="[('category', '=', 'profitability')]"/>
+                    <filter name="liquidity" string="Liquidez" domain="[('category', '=', 'liquidity')]"/>
+                    <filter name="cashflow" string="Flujo de caja" domain="[('category', '=', 'cashflow')]"/>
+                    <filter name="custom" string="Personalizado" domain="[('category', '=', 'custom')]"/>
+                    <separator/>
+                    <filter name="by_category" string="Categoría" context="{'group_by': 'category'}"/>
+                    <filter name="by_formula" string="Tipo de fórmula" context="{'group_by': 'formula_type'}"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_gn_fd_kpi" model="ir.actions.act_window">
+            <field name="name">KPIs personalizados</field>
+            <field name="res_model">gn.financial.dashboard.kpi</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Crea tu primer KPI personalizado
+                </p>
+                <p>
+                    Define indicadores propios usando cuentas, tipos de cuenta o
+                    expresiones sobre otros KPIs. Aparecerán en la pestaña
+                    "Mis KPIs" del tablero financiero.
+                </p>
+            </field>
+        </record>
+
+        <!-- ============================================================
+             Espacios de trabajo (V20 Fase 2, #2 + #20)
+             ============================================================ -->
+        <record id="view_gn_fd_workspace_list" model="ir.ui.view">
+            <field name="name">gn.financial.dashboard.workspace.list</field>
+            <field name="model">gn.financial.dashboard.workspace</field>
+            <field name="arch" type="xml">
+                <list string="Espacios de trabajo">
+                    <field name="name"/>
+                    <field name="user_id"/>
+                    <field name="is_default"/>
+                    <field name="shared"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_gn_fd_workspace_form" model="ir.ui.view">
+            <field name="name">gn.financial.dashboard.workspace.form</field>
+            <field name="model">gn.financial.dashboard.workspace</field>
+            <field name="arch" type="xml">
+                <form string="Espacio de trabajo">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name"/>
+                            <h1><field name="name"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="user_id" readonly="1"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                            </group>
+                            <group>
+                                <field name="is_default"/>
+                                <field name="shared"/>
+                            </group>
+                        </group>
+                        <field name="description"/>
+                        <notebook>
+                            <page string="Layout (avanzado)" name="layout">
+                                <field name="layout_json" widget="ace"
+                                       options="{'mode': 'json'}"
+                                       placeholder="{}"/>
+                                <p class="text-muted">
+                                    Esto se gestiona desde el tablero (botón
+                                    "Guardar workspace"). Editar a mano solo si
+                                    sabes lo que haces.
+                                </p>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_gn_fd_workspace" model="ir.actions.act_window">
+            <field name="name">Espacios de trabajo</field>
+            <field name="res_model">gn.financial.dashboard.workspace</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <!-- ============================================================
+             Objetivos estratégicos (V20 Fase 2, #19)
+             ============================================================ -->
+        <record id="view_gn_fd_goal_list" model="ir.ui.view">
+            <field name="name">gn.financial.dashboard.goal.list</field>
+            <field name="model">gn.financial.dashboard.goal</field>
+            <field name="arch" type="xml">
+                <list string="Objetivos">
+                    <field name="name"/>
+                    <field name="kpi_source"/>
+                    <field name="kpi_key" optional="show"/>
+                    <field name="custom_kpi_id" optional="show"/>
+                    <field name="direction"/>
+                    <field name="target_value"/>
+                    <field name="date_deadline"/>
+                    <field name="owner_id"/>
+                    <field name="active" widget="boolean_toggle"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_gn_fd_goal_form" model="ir.ui.view">
+            <field name="name">gn.financial.dashboard.goal.form</field>
+            <field name="model">gn.financial.dashboard.goal</field>
+            <field name="arch" type="xml">
+                <form string="Objetivo">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name"/>
+                            <h1><field name="name" placeholder="Ej: Alcanzar 25% de margen neto en Q3"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="kpi_source"/>
+                                <field name="kpi_key"
+                                       invisible="kpi_source != 'native'"
+                                       required="kpi_source == 'native'"/>
+                                <field name="custom_kpi_id"
+                                       invisible="kpi_source != 'custom'"
+                                       required="kpi_source == 'custom'"
+                                       options="{'no_create': True}"/>
+                                <field name="direction"/>
+                                <field name="target_value"/>
+                            </group>
+                            <group>
+                                <field name="date_start"/>
+                                <field name="date_deadline"/>
+                                <field name="owner_id"/>
+                                <field name="weight"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                                <field name="active"/>
+                            </group>
+                        </group>
+                        <field name="description" placeholder="¿Por qué este objetivo? ¿qué plan lo sustenta?"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_gn_fd_goal" model="ir.actions.act_window">
+            <field name="name">Objetivos estratégicos</field>
+            <field name="res_model">gn.financial.dashboard.goal</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Define tu primer objetivo
+                </p>
+                <p>
+                    Conecta una meta cuantitativa a un KPI del sistema o a uno
+                    personalizado. El tablero calculará automáticamente el
+                    progreso y marcará alertas cuando el objetivo se desvíe.
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

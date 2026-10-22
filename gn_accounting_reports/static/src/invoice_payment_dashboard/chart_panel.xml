@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_accounting_reports.InvPayChartPanel">
+        <div class="o_inv_pay_chart card border-0 shadow-sm h-100">
+            <div class="card-body p-2">
+                <div t-ref="chart" t-attf-style="width:100%;height:#{props.height || '280px'};"/>
+            </div>
+        </div>
+    </t>
+</templates>

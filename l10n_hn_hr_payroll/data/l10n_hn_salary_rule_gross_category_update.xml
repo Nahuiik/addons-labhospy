@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Actualiza reglas GROSS: categoría Bruto (GROSS), elimina duplicados con categoría Subsidio (ALW) -->
+<odoo>
+    <data noupdate="0">
+        <record id="l10n_hn_hr_payroll.salary_rule_gross_biweekly" model="hr.salary.rule">
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_gross"/>
+            <field name="name">Salario Bruto</field>
+        </record>
+        <record id="l10n_hn_hr_payroll.salary_rule_gross_monthly" model="hr.salary.rule">
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_gross"/>
+            <field name="name">Salario Bruto</field>
+        </record>
+        <record id="l10n_hn_hr_payroll.salary_rule_gross_13th" model="hr.salary.rule">
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_gross"/>
+        </record>
+        <record id="l10n_hn_hr_payroll.salary_rule_gross_14th" model="hr.salary.rule">
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_gross"/>
+        </record>
+        <function model="hr.payroll.structure" name="cleanup_duplicate_rules"/>
+    </data>
+</odoo>

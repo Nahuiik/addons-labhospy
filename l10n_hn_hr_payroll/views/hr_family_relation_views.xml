@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree View -->
+    <record id="hr_family_relation_view_list" model="ir.ui.view">
+        <field name="name">hr.family.relation.list</field>
+        <field name="model">hr.family.relation</field>
+        <field name="arch" type="xml">
+            <list string="Relaciones Familiares" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="active" column_invisible="True"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="hr_family_relation_view_form" model="ir.ui.view">
+        <field name="name">hr.family.relation.form</field>
+        <field name="model">hr.family.relation</field>
+        <field name="arch" type="xml">
+            <form string="Relación Familiar">
+                <sheet>
+                    <div class="oe_button_box" name="button_box"/>
+                    <widget name="web_ribbon" title="Archivado" bg_color="text-bg-danger" invisible="active"/>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="sequence"/>
+                        </group>
+                        <group>
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="hr_family_relation_action" model="ir.actions.act_window">
+        <field name="name">Relaciones Familiares</field>
+        <field name="res_model">hr.family.relation</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crear una relación familiar
+            </p>
+            <p>
+                Configure las relaciones familiares disponibles para los contactos de emergencia
+                (ej: Padre, Madre, Cónyuge, Hermano, Hijo, etc.)
+            </p>
+        </field>
+    </record>
+
+    <!-- Data: Default family relations -->
+    <record id="family_relation_abuelo" model="hr.family.relation">
+        <field name="name">Abuelo</field>
+        <field name="sequence">1</field>
+    </record>
+    <record id="family_relation_abuela" model="hr.family.relation">
+        <field name="name">Abuela</field>
+        <field name="sequence">2</field>
+    </record>
+    <record id="family_relation_amiga" model="hr.family.relation">
+        <field name="name">Amiga</field>
+        <field name="sequence">3</field>
+    </record>
+    <record id="family_relation_amigo" model="hr.family.relation">
+        <field name="name">Amigo</field>
+        <field name="sequence">4</field>
+    </record>
+    <record id="family_relation_conyuge" model="hr.family.relation">
+        <field name="name">Cónyuge</field>
+        <field name="sequence">5</field>
+    </record>
+    <record id="family_relation_esposa" model="hr.family.relation">
+        <field name="name">Esposa</field>
+        <field name="sequence">6</field>
+    </record>
+    <record id="family_relation_esposo" model="hr.family.relation">
+        <field name="name">Esposo</field>
+        <field name="sequence">7</field>
+    </record>
+    <record id="family_relation_hermana" model="hr.family.relation">
+        <field name="name">Hermana</field>
+        <field name="sequence">8</field>
+    </record>
+    <record id="family_relation_hermano" model="hr.family.relation">
+        <field name="name">Hermano</field>
+        <field name="sequence">9</field>
+    </record>
+    <record id="family_relation_hija" model="hr.family.relation">
+        <field name="name">Hija</field>
+        <field name="sequence">10</field>
+    </record>
+    <record id="family_relation_hijastra" model="hr.family.relation">
+        <field name="name">Hijastra</field>
+        <field name="sequence">11</field>
+    </record>
+    <record id="family_relation_hijastro" model="hr.family.relation">
+        <field name="name">Hijastro</field>
+        <field name="sequence">12</field>
+    </record>
+    <record id="family_relation_hijo" model="hr.family.relation">
+        <field name="name">Hijo</field>
+        <field name="sequence">13</field>
+    </record>
+    <record id="family_relation_madre" model="hr.family.relation">
+        <field name="name">Madre</field>
+        <field name="sequence">14</field>
+    </record>
+    <record id="family_relation_nieta" model="hr.family.relation">
+        <field name="name">Nieta</field>
+        <field name="sequence">15</field>
+    </record>
+    <record id="family_relation_nieto" model="hr.family.relation">
+        <field name="name">Nieto</field>
+        <field name="sequence">16</field>
+    </record>
+    <record id="family_relation_padre" model="hr.family.relation">
+        <field name="name">Padre</field>
+        <field name="sequence">17</field>
+    </record>
+    <record id="family_relation_prima" model="hr.family.relation">
+        <field name="name">Prima</field>
+        <field name="sequence">18</field>
+    </record>
+    <record id="family_relation_primo" model="hr.family.relation">
+        <field name="name">Primo</field>
+        <field name="sequence">19</field>
+    </record>
+    <record id="family_relation_suegra" model="hr.family.relation">
+        <field name="name">Suegra</field>
+        <field name="sequence">20</field>
+    </record>
+    <record id="family_relation_suegro" model="hr.family.relation">
+        <field name="name">Suegro</field>
+        <field name="sequence">21</field>
+    </record>
+    <record id="family_relation_tia" model="hr.family.relation">
+        <field name="name">Tia</field>
+        <field name="sequence">22</field>
+    </record>
+    <record id="family_relation_tio" model="hr.family.relation">
+        <field name="name">Tio</field>
+        <field name="sequence">23</field>
+    </record>
+</odoo>

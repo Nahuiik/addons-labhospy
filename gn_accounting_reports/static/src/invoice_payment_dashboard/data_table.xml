@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_accounting_reports.InvPayDataTable">
+        <div class="o_inv_pay_table card border-0 shadow-sm">
+            <div t-if="props.title" class="card-header bg-white py-2 px-3 border-bottom-0">
+                <strong class="small" t-out="props.title"/>
+            </div>
+            <div class="card-header bg-white d-flex flex-wrap gap-2 align-items-center py-2 px-3">
+                <div class="input-group input-group-sm" style="max-width:280px;">
+                    <span class="input-group-text"><i class="fa fa-search"/></span>
+                    <input type="search" class="form-control" placeholder="Buscar cliente, factura, recibo…"
+                           t-att-value="props.search"
+                           t-on-input="(ev) => props.onSearch(ev.target.value)"/>
+                </div>
+                <select class="form-select form-select-sm" style="max-width:180px;"
+                        t-att-value="props.groupBy || ''"
+                        t-on-change="(ev) => props.onGroupBy(ev.target.value)">
+                    <option value="">Sin agrupación</option>
+                    <option value="customer">Por cliente</option>
+                    <option value="advisor">Por asesor</option>
+                    <option value="bank">Por banco</option>
+                    <option value="branch">Por sucursal</option>
+                    <option value="invoice_status">Por estado de factura</option>
+                    <option value="payment_state">Por estado de pago</option>
+                    <option value="payment_date">Por fecha de pago</option>
+                    <option value="payment_month">Por mes de pago</option>
+                    <option value="invoice_month">Por mes de factura</option>
+                </select>
+                <select class="form-select form-select-sm" style="max-width:140px;"
+                        t-att-value="props.density || 'comfortable'"
+                        t-on-change="onDensitySelect">
+                    <option value="comfortable">Cómoda</option>
+                    <option value="compact">Compacta</option>
+                    <option value="dense">Densa</option>
+                </select>
+                <select class="form-select form-select-sm" style="max-width:90px;"
+                        t-att-value="props.table?.page_size || 50"
+                        t-on-change="onPageSizeSelect">
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="200">200</option>
+                </select>
+                <div class="dropdown">
+                    <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle"
+                            t-on-click="toggleColumnPicker">Columnas</button>
+                    <div t-if="state.showColumnPicker"
+                         class="dropdown-menu show p-3 o_inv_pay_column_picker"
+                         style="min-width:240px; max-height:360px; overflow-y:auto;">
+                        <t t-foreach="allColumns" t-as="col" t-key="col.id">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input"
+                                       t-att-id="'col_' + col.id"
+                                       t-att-checked="isColumnVisible(col.id) ? 'checked' : undefined"
+                                       t-on-change="(ev) => this.onToggleColumn(col.id, ev)"/>
+                                <label class="form-check-label small" t-att-for="'col_' + col.id"
+                                       t-out="col.label"/>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+                <button t-if="props.onResetToolbar" type="button"
+                        class="btn btn-sm btn-outline-secondary"
+                        t-on-click="props.onResetToolbar">
+                    Restablecer
+                </button>
+                <div class="ms-auto small text-muted" t-if="props.table and props.showMeta !== false">
+                    <t t-out="metaLabel"/>
+                </div>
+            </div>
+            <div class="o_inv_pay_table__wrap">
+                <div t-attf-class="table-responsive o_inv_pay_table__scroll #{densityClass}">
+                    <table class="table table-hover align-middle mb-0 o_inv_pay_table__grid">
+                        <thead class="o_inv_pay_table__head">
+                            <tr>
+                                <th t-if="props.mode === 'consolidated'" class="o_inv_pay_table__th-sticky" style="width:32px;"/>
+                                <t t-foreach="columnDefs" t-as="col" t-key="col.id">
+                                    <th t-attf-class="o_inv_pay_table__th #{colAlign(col.id)} #{isSticky(col.id) ? 'o_inv_pay_table__th-sticky' : ''}"
+                                        t-att-title="colTooltip(col.id)"
+                                        t-on-click="() => props.onSort(col.id)">
+                                        <span t-out="col.label"/>
+                                        <i t-attf-class="fa ms-1 #{sortIcon(col.id)}"/>
+                                    </th>
+                                </t>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-if="props.loading">
+                                <td t-att-colspan="columnDefs.length + (props.mode === 'consolidated' ? 1 : 0)"
+                                    class="text-center py-4 text-muted">
+                                    <span class="spinner-border spinner-border-sm me-2"/>Cargando…
+                                </td>
+                            </tr>
+                            <tr t-elif="!(props.table?.rows?.length) and !(displayGroups?.length)">
+                                <td t-att-colspan="columnDefs.length + (props.mode === 'consolidated' ? 1 : 0)"
+                                    class="text-center py-5">
+                                    <i class="fa fa-inbox fa-2x text-muted mb-2 d-block"/>
+                                    <div>No se encontraron registros con los filtros seleccionados.</div>
+                                </td>
+                            </tr>
+
+                            <!-- Agrupación -->
+                            <t t-elif="displayGroups">
+                                <t t-foreach="displayGroups" t-as="group" t-key="group.name">
+                                    <tr class="o_inv_pay_table__group_head table-light fw-semibold"
+                                        t-on-click="() => props.onToggleGroup?.(group.name)">
+                                        <td t-att-colspan="columnDefs.length + (props.mode === 'consolidated' ? 1 : 0)">
+                                            <i t-attf-class="fa me-2 #{isGroupCollapsed(group.name) ? 'fa-chevron-right' : 'fa-chevron-down'}"/>
+                                            <t t-out="group.name"/>
+                                            <span class="text-muted fw-normal ms-2 small">
+                                                <t t-out="group.payment_count"/> pagos ·
+                                                <t t-out="group.invoice_count"/> facturas ·
+                                                <t t-out="formatMoney(group.amount_total)"/> facturado ·
+                                                <t t-out="formatMoney(group.amount_applied)"/> pagado ·
+                                                <t t-out="formatMoney(group.balance_pending)"/> pendiente
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <t t-if="!isGroupCollapsed(group.name)">
+                                        <tr t-foreach="group.rows" t-as="row" t-key="row_index"
+                                            t-attf-class="o_inv_pay_table__row #{overdueRowClass(row)}"
+                                            t-on-click="() => props.onRowClick(row)">
+                                            <td t-if="props.mode === 'consolidated'"/>
+                                            <t t-foreach="columnDefs" t-as="col" t-key="col.id">
+                                                <td t-attf-class="o_inv_pay_col-#{col.id} #{colAlign(col.id)} #{isSticky(col.id) ? 'o_inv_pay_table__td-sticky' : ''}">
+                                                    <t t-call="gn_accounting_reports.InvPayTableCell"/>
+                                                </td>
+                                            </t>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </t>
+
+                            <!-- Filas planas -->
+                            <t t-else="">
+                                <t t-foreach="flatRows" t-as="row" t-key="row_index">
+                                    <tr t-attf-class="o_inv_pay_table__row #{overdueRowClass(row)}"
+                                        t-on-click="() => props.onRowClick(row)">
+                                        <td t-if="props.mode === 'consolidated' and row.expandable"
+                                            class="o_inv_pay_table__expand"
+                                            t-on-click.stop="() => props.onExpandRow?.(row.invoice_id)">
+                                            <i t-attf-class="fa #{isExpanded(row) ? 'fa-chevron-down' : 'fa-chevron-right'}"/>
+                                        </td>
+                                        <td t-elif="props.mode === 'consolidated'"/>
+                                        <t t-foreach="columnDefs" t-as="col" t-key="col.id">
+                                            <td t-attf-class="o_inv_pay_col-#{col.id} #{colAlign(col.id)} #{isSticky(col.id) ? 'o_inv_pay_table__td-sticky' : ''}">
+                                                <t t-call="gn_accounting_reports.InvPayTableCell"/>
+                                            </td>
+                                        </t>
+                                    </tr>
+                                    <t t-if="props.mode === 'consolidated' and isExpanded(row) and row.children">
+                                        <tr t-foreach="row.children" t-as="child" t-key="child_index"
+                                            class="o_inv_pay_table__child_row">
+                                            <td/>
+                                            <t t-foreach="columnDefs" t-as="col" t-key="col.id">
+                                                <td t-attf-class="o_inv_pay_col-#{col.id} #{colAlign(col.id)} small text-muted ps-4">
+                                                    <span t-out="cellValue(child, col.id)"/>
+                                                </td>
+                                            </t>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </t>
+                        </tbody>
+                        <tfoot t-if="props.table?.totals" class="o_inv_pay_table__foot">
+                            <tr class="fw-semibold table-light">
+                                <td t-if="props.mode === 'consolidated'"/>
+                                <t t-foreach="columnDefs" t-as="col" t-key="col.id">
+                                    <td t-attf-class="#{colAlign(col.id)} #{isSticky(col.id) ? 'o_inv_pay_table__td-sticky' : ''}">
+                                        <t t-if="col_index === 0">Totales (dominio completo)</t>
+                                        <t t-elif="totalForColumn(col.id)" t-out="totalForColumn(col.id)"/>
+                                    </td>
+                                </t>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="o_inv_pay_table__shadow o_inv_pay_table__shadow--left"/>
+                <div class="o_inv_pay_table__shadow o_inv_pay_table__shadow--right"/>
+            </div>
+            <div t-if="props.table"
+                 class="card-footer bg-white d-flex flex-wrap justify-content-center align-items-center gap-2 py-2">
+                <button type="button" class="btn btn-sm btn-outline-secondary"
+                        t-att-disabled="props.table.page &lt;= 1 ? 'disabled' : undefined"
+                        t-on-click="() => props.onPageChange(props.table.page - 1)">
+                    ‹ Anterior
+                </button>
+                <span class="align-self-center small">
+                    Página <t t-out="props.table.page"/> / <t t-out="props.table.total_pages || 1"/>
+                </span>
+                <button type="button" class="btn btn-sm btn-outline-secondary"
+                        t-att-disabled="props.table.page >= props.table.total_pages ? 'disabled' : undefined"
+                        t-on-click="() => props.onPageChange(props.table.page + 1)">
+                    Siguiente ›
+                </button>
+                <div class="input-group input-group-sm" style="max-width:120px;">
+                    <input type="number" class="form-control" min="1" placeholder="Ir a"
+                           t-att-value="state.goToPage"
+                           t-on-input="(ev) => state.goToPage = ev.target.value"/>
+                    <button type="button" class="btn btn-outline-secondary" t-on-click="submitGoToPage">Ir</button>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="gn_accounting_reports.InvPayTableCell">
+        <t t-if="col.id === 'invoice_status'">
+            <span t-attf-class="badge #{statusClass(row)}" t-out="row.invoice_status"/>
+        </t>
+        <t t-elif="col.id === 'collection_priority'">
+            <span t-attf-class="badge o_inv_pay_priority #{priorityClass(row)}"
+                  t-att-title="row.collection_priority_tooltip"
+                  t-out="row.collection_priority"/>
+        </t>
+        <t t-elif="col.id === 'within_credit'">
+            <span t-if="row.within_credit === 'Sí'" class="badge text-bg-success">✓</span>
+            <span t-elif="row.within_credit === 'No'" class="badge text-bg-warning">✗</span>
+            <span t-else="">—</span>
+        </t>
+        <t t-elif="col.id === 'days_overdue'">
+            <span t-if="row.days_overdue > 0" t-out="row.days_overdue"/>
+            <span t-else="" class="text-muted">0</span>
+        </t>
+        <t t-else="">
+            <span t-att-title="row[col.id]" t-out="cellValue(row, col.id)"/>
+        </t>
+    </t>
+</templates>

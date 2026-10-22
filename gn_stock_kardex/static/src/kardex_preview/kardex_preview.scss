@@ -1,0 +1,413 @@
+$kx-purple: #5b2c6f;
+$kx-dark: #1a1a2e;
+$kx-dark2: #2d2d44;
+
+.o_kx {
+    background: #f5f5f5;
+
+    // ── Toolbar ──
+    .o_kx_btn_excel {
+        background: #28a745;
+        color: #fff;
+        border: none;
+        font-weight: 600;
+        &:hover { background: #218838; color: #fff; }
+    }
+    .o_kx_btn_pdf {
+        background: #dc3545;
+        color: #fff;
+        border: none;
+        font-weight: 600;
+        &:hover { background: #c82333; color: #fff; }
+    }
+
+    // ── Date inputs ──
+    .o_kx_date_input {
+        width: 140px;
+        max-width: 140px;
+        font-size: 0.8rem;
+    }
+
+    // ── Info strip ──
+    .o_kx_info {
+        min-height: 68px;
+    }
+    .o_kx_icon_box {
+        width: 44px;
+        height: 44px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        background: #f8f8f8;
+        color: #666;
+    }
+    .o_kx_module_title {
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.4px;
+        color: #444;
+        text-transform: uppercase;
+    }
+    .o_kx_product_link {
+        font-size: 0.88rem;
+        font-weight: 600;
+        color: $kx-purple;
+        cursor: pointer;
+        &:hover { text-decoration: underline; }
+    }
+
+    // ── Previous Balance box ──
+    .o_kx_prev_box {
+        min-width: 250px;
+        border-left: 1px solid #dee2e6;
+    }
+    .o_kx_prev_header {
+        background: $kx-purple;
+        color: #fff;
+        font-size: 0.72rem;
+        font-weight: 700;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 4px 12px;
+    }
+    .o_kx_prev_table {
+        width: 100%;
+        border-collapse: collapse;
+        th, td {
+            padding: 3px 10px;
+            text-align: right;
+            font-size: 0.78rem;
+        }
+        th {
+            font-weight: 500;
+            color: #555;
+            border-bottom: 1px solid #eee;
+        }
+        td {
+            font-family: monospace;
+            font-weight: 600;
+        }
+    }
+
+    // ── Data table ──
+    .o_kx_table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.76rem;
+
+        th, td {
+            padding: 4px 7px;
+            border: 1px solid #ccc;
+            white-space: nowrap;
+        }
+        td {
+            border-color: #ddd;
+        }
+    }
+
+    .o_kx_hdr1 th {
+        background: $kx-dark;
+        color: #fff;
+        font-weight: 600;
+        font-size: 0.76rem;
+        vertical-align: middle;
+        text-align: center;
+        border-color: #444;
+    }
+    .o_kx_hdr2 th {
+        background: $kx-dark2;
+        color: #ddd;
+        font-weight: 500;
+        font-size: 0.7rem;
+        border-color: #444;
+    }
+
+    .o_kx_bl {
+        border-left: 2px solid #555 !important;
+    }
+
+    .o_kx_table tbody tr {
+        background: #fff;
+        &:nth-child(even) { background: #fafafa; }
+        &:hover { background: #f0edf2; }
+    }
+    .o_kx_opening {
+        background: #ede4f0 !important;
+        td { font-weight: 600; }
+    }
+
+    .o_kx_foot td {
+        background: $kx-dark;
+        color: #fff;
+        border-color: #444;
+        font-size: 0.76rem;
+    }
+
+    .o_kx_ref_link {
+        color: $kx-purple;
+        text-decoration: underline;
+        cursor: pointer;
+        &:hover { color: darken($kx-purple, 12%); }
+    }
+
+    .o_kx_origin {
+        max-width: 220px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    // ── Category sidebar ──
+    .o_kx_sidebar {
+        width: 220px;
+        min-width: 220px;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+    .o_kx_sidebar_header {
+        padding: 10px 14px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        color: #333;
+        border-bottom: 1px solid #e9ecef;
+    }
+    .o_kx_sidebar_body {
+        flex: 1;
+        overflow-y: auto;
+    }
+    .o_kx_cat_item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 7px 14px;
+        font-size: 0.8rem;
+        cursor: pointer;
+        color: #444;
+        border-left: 3px solid transparent;
+        &:hover { background: #f5f3f7; }
+        &.active {
+            background: #f0edf2;
+            border-left-color: $kx-purple;
+            color: $kx-purple;
+            font-weight: 600;
+        }
+    }
+    .o_kx_cat_name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        flex: 1;
+        min-width: 0;
+    }
+    .o_kx_cat_count {
+        flex-shrink: 0;
+        margin-left: 6px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: #888;
+        background: #eee;
+        border-radius: 10px;
+        padding: 1px 7px;
+        .active > & {
+            background: $kx-purple;
+            color: #fff;
+        }
+    }
+    .o_kx_cat_item.active .o_kx_cat_count {
+        background: $kx-purple;
+        color: #fff;
+    }
+
+    // ── Toolbar search & group ──
+    .o_kx_toolbar_search {
+        width: 200px;
+        max-width: 200px;
+    }
+    .o_kx_group_select {
+        width: auto;
+        min-width: 140px;
+        font-size: 0.8rem;
+    }
+
+    // ── Summary table ──
+    .o_kx_summary_table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.82rem;
+
+        th, td {
+            padding: 8px 12px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        thead th {
+            background: $kx-dark;
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            border-bottom: 2px solid #444;
+            position: sticky;
+            top: 0;
+            z-index: 2;
+        }
+        tbody tr {
+            background: #fff;
+            &:nth-child(even) { background: #fafafa; }
+            &:hover { background: #f0edf2; }
+        }
+        .o_kx_st_product {
+            max-width: 400px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+    .o_kx_more_link {
+        color: $kx-purple;
+        font-weight: 600;
+        font-size: 0.78rem;
+        text-decoration: none;
+        white-space: nowrap;
+        &:hover { text-decoration: underline; }
+    }
+
+    // ── Group by category rows ──
+    .o_kx_group_header {
+        cursor: pointer;
+        user-select: none;
+        td {
+            background: #e8e4ed !important;
+            padding: 10px 14px !important;
+            border-bottom: 2px solid $kx-purple !important;
+            font-size: 0.84rem;
+        }
+        &:hover td { background: #dfd8e8 !important; }
+    }
+    .o_kx_group_row {
+        td { border-left: 3px solid transparent; }
+        &:hover td { border-left-color: $kx-purple; }
+    }
+    .o_kx_group_subtotal {
+        td {
+            background: #f5f2f8 !important;
+            border-top: 1px solid $kx-purple !important;
+            font-size: 0.8rem;
+            padding: 6px 12px !important;
+        }
+    }
+
+    // ── Product search dropdown ──
+    .o_kx_search_wrap {
+        .o_kx_dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            z-index: 1050;
+            max-height: 320px;
+            overflow-y: auto;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-top: none;
+            border-radius: 0 0 4px 4px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        .o_kx_dropdown_item {
+            padding: 6px 12px;
+            font-size: 0.82rem;
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            &:hover { background: #f0edf2; }
+            &.active {
+                background: $kx-purple;
+                color: #fff;
+            }
+        }
+        .o_kx_dropdown_empty {
+            padding: 8px 12px;
+            font-size: 0.82rem;
+            color: #999;
+            text-align: center;
+        }
+    }
+
+    // ── Location many2many_tags style ──
+    .o_kx_loc_below_cat {
+        border-top: 1px solid #dee2e6;
+        margin-top: 2px;
+    }
+    .o_kx_loc_tags_field {
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        background: #fff;
+    }
+    .o_kx_loc_tags_inner {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        align-items: center;
+        min-height: 28px;
+        padding: 4px 6px;
+    }
+    .o_kx_loc_m2m_tag {
+        display: inline-flex;
+        align-items: center;
+        max-width: 100%;
+        padding: 2px 6px;
+        font-size: 0.72rem;
+        background: #f0f0f0;
+        border: 1px solid #ccc;
+        border-radius: 2px;
+        color: #333;
+    }
+    .o_kx_loc_tag_text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 140px;
+    }
+    .o_kx_loc_tag_remove {
+        cursor: pointer;
+        opacity: 0.55;
+        margin-left: 2px;
+        font-size: 0.7rem;
+        &:hover { opacity: 1; color: #c00; }
+    }
+    .o_kx_loc_add_select {
+        font-size: 0.75rem;
+        border: 0;
+        border-top: 1px solid #e0e0e0;
+        border-radius: 0 0 2px 2px;
+        &:focus {
+            box-shadow: none;
+            border-color: $kx-purple;
+        }
+    }
+
+    // ── Sortable headers ──
+    .o_kx_sortable {
+        cursor: pointer;
+        user-select: none;
+        white-space: nowrap;
+        &:hover {
+            background: rgba($kx-purple, 0.08);
+        }
+        i {
+            margin-left: 4px;
+            opacity: 0.5;
+        }
+        &:hover i {
+            opacity: 1;
+        }
+    }
+
+    // ── Pager ──
+    .o_kx_pager {
+        min-height: 34px;
+    }
+}

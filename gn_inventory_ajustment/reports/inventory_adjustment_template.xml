@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="inventory_adjustment_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h3 class="text-center">Inventario físico - Hoja de conteo</h3>
+                        <p class="text-center small">
+                            <span t-esc="doc.get_report_filters_label()"/>
+                        </p>
+                        <t t-set="lines" t-value="doc.get_report_lines()"/>
+                        <t t-set="show_qty" t-value="doc.show_qty"/>
+                        <table class="table table-sm table-bordered" style="font-size: 11px;">
+                            <thead>
+                                <tr style="background-color: #D9D9D9;">
+                                    <th>Ubicación</th>
+                                    <th>Código</th>
+                                    <th>Producto</th>
+                                    <th>Proveedor</th>
+                                    <th>Código de Catálogo</th>
+                                    <th>Modelo</th>
+                                    <th>Lote/Serie</th>
+                                    <th>UdM</th>
+                                    <th t-if="show_qty" class="text-end">A la mano</th>
+                                    <th style="min-width: 60px;">Contado</th>
+                                    <th t-if="show_qty" style="min-width: 60px;">Diferencia</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="lines" t-as="line">
+                                    <td><span t-esc="line['location']"/></td>
+                                    <td><span t-esc="line['default_code']"/></td>
+                                    <td><span t-esc="line['product']"/></td>
+                                    <td><span t-esc="line['supplier']"/></td>
+                                    <td><span t-esc="line['catalog_code']"/></td>
+                                    <td><span t-esc="line['model']"/></td>
+                                    <td><span t-esc="line['lot']"/></td>
+                                    <td><span t-esc="line['uom']"/></td>
+                                    <td t-if="show_qty" class="text-end">
+                                        <span t-esc="'%.2f' % line['qty_on_hand']"/>
+                                    </td>
+                                    <td/>
+                                    <td t-if="show_qty"/>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="small mt-3">
+                            Total de líneas: <span t-esc="len(lines)"/>
+                        </p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!-- ============================================ -->
+        <!-- BASIC SALARY RULE - Salario Base -->
+        <!-- ============================================ -->
+        
+        <!-- Salario Base (ajustado según periodicidad) -->
+        <record id="salary_rule_basic" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_payroll_base.default_structure"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_allowance"/>
+            <field name="name">Salario Base</field>
+            <field name="code">BASIC</field>
+            <field name="sequence">1</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = employee.current_version_id and (employee.current_version_id.wage or employee.wage) > 0</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+# Usar hr.version nativo de Odoo 19
+if employee.current_version_id:
+    version = employee.current_version_id
+    wage = version.wage or 0.0
+    
+    # Ajustar salario según periodicidad del contrato
+    periodicity = version.periodicity or 'monthly'
+    if periodicity == 'biweekly':
+        # Nómina quincenal: dividir salario mensual entre 2
+        result = wage / 2.0
+    elif periodicity == 'weekly':
+        # Nómina semanal: dividir salario mensual entre 4.33 (semanas promedio en un mes)
+        result = wage / 4.33
+    else:  # monthly
+        # Nómina mensual: salario completo
+        result = wage
+elif employee.wage:
+    # Fallback: usar wage directamente si no hay versión actual
+    result = employee.wage
+            </field>
+            <field name="is_ihss_base" eval="True"/>
+            <field name="is_rap_base" eval="True"/>
+            <field name="is_isr_base" eval="True"/>
+            <field name="is_computable" eval="True"/>
+            <field name="periodicity">all</field>
+        </record>
+        
+        <!-- ============================================ -->
+        <!-- IHSS RULES -->
+        <!-- ============================================ -->
+        
+        <!-- IHSS IVM Empleado -->
+        <record id="salary_rule_ihss_ivm_employee" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_payroll_base.default_structure"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">IHSS IVM Empleado</field>
+            <field name="code">IHSS_IVM_EMP</field>
+            <field name="sequence">20</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = not employee.ihss_excluded</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if not employee.ihss_excluded:
+    # Buscar configuración IHSS validada para el año actual
+    year = payslip.date_to.year if payslip.date_to else 2026
+    ihss_settings = payslip.env['l10n.hn.ihss.settings'].search([
+        ('year', '=', year),
+        ('state', '=', 'validated'),
+        ('company_id', '=', payslip.company_id.id)
+    ], limit=1)
+    
+    if ihss_settings:
+        base = categories.get('BASIC', 0)
+        period_days = (payslip.date_to - payslip.date_from).days + 1 if payslip.date_from and payslip.date_to else 15
+        ceiling_days = 15 if period_days &lt;= 16 else period_days
+        ceiling = ihss_settings.get_ceiling_for_period(ceiling_days, 'ivm')
+        taxable_base = min(base, ceiling)
+        apply_ihss = True
+        if period_days &lt;= 16 and payslip.date_to:
+            apply_ihss = ihss_settings.apply_first_quincena if payslip.date_to.day &lt;= 15 else ihss_settings.apply_second_quincena
+        if apply_ihss:
+            result = -round(taxable_base * (ihss_settings.ivm_employee_rate / 100.0), 2)
+            </field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- IHSS IVM Empleador -->
+        <record id="salary_rule_ihss_ivm_employer" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_payroll_base.default_structure"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_comp"/>
+            <field name="name">IHSS IVM Empleador</field>
+            <field name="code">IHSS_IVM_EMPLEADOR</field>
+            <field name="sequence">21</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = not employee.ihss_excluded</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if not employee.ihss_excluded:
+    year = payslip.date_to.year if payslip.date_to else 2026
+    ihss_settings = payslip.env['l10n.hn.ihss.settings'].search([
+        ('year', '=', year),
+        ('state', '=', 'validated'),
+        ('company_id', '=', payslip.company_id.id)
+    ], limit=1)
+    
+    if ihss_settings:
+        base = categories.get('BASIC', 0)
+        period_days = (payslip.date_to - payslip.date_from).days + 1 if payslip.date_from and payslip.date_to else 15
+        ceiling_days = 15 if period_days &lt;= 16 else period_days
+        ceiling = ihss_settings.get_ceiling_for_period(ceiling_days, 'ivm')
+        taxable_base = min(base, ceiling)
+        apply_ihss = True
+        if period_days &lt;= 16 and payslip.date_to:
+            apply_ihss = ihss_settings.apply_first_quincena if payslip.date_to.day &lt;= 15 else ihss_settings.apply_second_quincena
+        if apply_ihss:
+            result = round(taxable_base * (ihss_settings.ivm_employer_rate / 100.0), 2)
+            </field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- IHSS EM Empleado -->
+        <record id="salary_rule_ihss_em_employee" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_payroll_base.default_structure"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">IHSS EM Empleado</field>
+            <field name="code">IHSS_EM_EMP</field>
+            <field name="sequence">22</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = not employee.ihss_excluded</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if not employee.ihss_excluded:
+    year = payslip.date_to.year if payslip.date_to else 2026
+    ihss_settings = payslip.env['l10n.hn.ihss.settings'].search([
+        ('year', '=', year),
+        ('state', '=', 'validated'),
+        ('company_id', '=', payslip.company_id.id)
+    ], limit=1)
+    
+    if ihss_settings:
+        base = categories.get('BASIC', 0)
+        period_days = (payslip.date_to - payslip.date_from).days + 1 if payslip.date_from and payslip.date_to else 15
+        ceiling_days = 15 if period_days &lt;= 16 else period_days
+        ceiling = ihss_settings.get_ceiling_for_period(ceiling_days, 'em')
+        taxable_base = min(base, ceiling)
+        apply_ihss = True
+        if period_days &lt;= 16 and payslip.date_to:
+            apply_ihss = ihss_settings.apply_first_quincena if payslip.date_to.day &lt;= 15 else ihss_settings.apply_second_quincena
+        if apply_ihss:
+            result = -round(taxable_base * (ihss_settings.em_employee_rate / 100.0), 2)
+            </field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- IHSS EM Empleador -->
+        <record id="salary_rule_ihss_em_employer" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_payroll_base.default_structure"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_comp"/>
+            <field name="name">IHSS EM Empleador</field>
+            <field name="code">IHSS_EM_EMPLEADOR</field>
+            <field name="sequence">23</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = not employee.ihss_excluded</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if not employee.ihss_excluded:
+    year = payslip.date_to.year if payslip.date_to else 2026
+    ihss_settings = payslip.env['l10n.hn.ihss.settings'].search([
+        ('year', '=', year),
+        ('state', '=', 'validated'),
+        ('company_id', '=', payslip.company_id.id)
+    ], limit=1)
+    
+    if ihss_settings:
+        base = categories.get('BASIC', 0)
+        period_days = (payslip.date_to - payslip.date_from).days + 1 if payslip.date_from and payslip.date_to else 15
+        ceiling_days = 15 if period_days &lt;= 16 else period_days
+        ceiling = ihss_settings.get_ceiling_for_period(ceiling_days, 'em')
+        taxable_base = min(base, ceiling)
+        apply_ihss = True
+        if period_days &lt;= 16 and payslip.date_to:
+            apply_ihss = ihss_settings.apply_first_quincena if payslip.date_to.day &lt;= 15 else ihss_settings.apply_second_quincena
+        if apply_ihss:
+            result = round(taxable_base * (ihss_settings.em_employer_rate / 100.0), 2)
+            </field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- ============================================ -->
+        <!-- RAP RULES -->
+        <!-- ============================================ -->
+        
+        <!-- RAP FOVIIF Empleado -->
+        <record id="salary_rule_rap_foviif_employee" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_payroll_base.default_structure"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">RAP FOVIIF Empleado</field>
+            <field name="code">RAP_FOVIIF_EMP</field>
+            <field name="sequence">40</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = not employee.rap_excluded</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if not employee.rap_excluded:
+    version = employee.current_version_id
+    if version:
+        # Check include_in: skip period if not applicable
+        apply = True
+        rap_config = version.rap_setup_id
+        if rap_config and rap_config.include_in and payslip.date_from:
+            day = payslip.date_from.day
+            if rap_config.include_in == 'first' and day > 15:
+                apply = False
+            elif rap_config.include_in == 'second' and day &lt;= 15:
+                apply = False
+        if apply:
+            if version.rap_manual:
+                result = -round(abs(version.amount_rap_manual), 2)
+            elif version.rap_fee:
+                result = -round(abs(version.rap_fee), 2)
+            else:
+                period_days = (payslip.date_to - payslip.date_from).days + 1 if payslip.date_from and payslip.date_to else 15
+                if period_days > 16:
+                    result = -round(abs(version.rap_foviif_amount_monthly or 0), 2)
+                else:
+                    result = -round(abs(version.rap_foviif_amount_biweekly or 0), 2)
+            </field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- RAP FOVIIF Empleador -->
+        <record id="salary_rule_rap_foviif_employer" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_payroll_base.default_structure"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_comp"/>
+            <field name="name">RAP FOVIIF Empleador</field>
+            <field name="code">RAP_FOVIIF_EMPLEADOR</field>
+            <field name="sequence">41</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = not employee.rap_excluded</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if not employee.rap_excluded:
+    year = payslip.date_to.year if payslip.date_to else 2026
+    rap_settings = payslip.env['l10n.hn.rap.settings'].search([
+        ('year', '=', year),
+        ('state', '=', 'validated'),
+        ('company_id', '=', payslip.company_id.id)
+    ], limit=1)
+    
+    if rap_settings:
+        base = categories.get('BASIC', 0)
+        
+        if payslip.date_from and payslip.date_to:
+            period_days = (payslip.date_to - payslip.date_from).days + 1
+        else:
+            period_days = 15
+        
+        floor = rap_settings.get_foviif_floor_for_period(period_days)
+        
+        if base > floor:
+            result = round(base * (rap_settings.foviif_employer_rate / 100.0), 2)
+            </field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- RAP FRL Empleador -->
+        <record id="salary_rule_rap_frl_employer" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_payroll_base.default_structure"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_comp"/>
+            <field name="name">RAP FRL Empleador</field>
+            <field name="code">RAP_FRL_EMPLEADOR</field>
+            <field name="sequence">42</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = not employee.rap_excluded</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if not employee.rap_excluded:
+    year = payslip.date_to.year if payslip.date_to else 2026
+    rap_settings = payslip.env['l10n.hn.rap.settings'].search([
+        ('year', '=', year),
+        ('state', '=', 'validated'),
+        ('company_id', '=', payslip.company_id.id)
+    ], limit=1)
+    
+    if rap_settings:
+        base = categories.get('BASIC', 0)
+        
+        if payslip.date_from and payslip.date_to:
+            period_days = (payslip.date_to - payslip.date_from).days + 1
+        else:
+            period_days = 15
+        
+        # FRL tiene un techo de 3x salario mínimo escala alta
+        ceiling = rap_settings.get_frl_ceiling_for_period(period_days)
+        taxable_base = min(base, ceiling)
+        result = round(taxable_base * (rap_settings.frl_employer_rate / 100.0), 2)
+            </field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- ============================================ -->
+        <!-- ISR RULES -->
+        <!-- ============================================ -->
+        
+        <!-- ISR Retención -->
+        <record id="salary_rule_isr_retencion" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_payroll_base.default_structure"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">ISR Retención</field>
+            <field name="code">ISR</field>
+            <field name="sequence">50</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = not employee.isr_excluded</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if not employee.isr_excluded:
+    year = payslip.date_to.year if payslip.date_to else 2026
+    periodicity = employee.current_periodicity or 'monthly'
+    
+    # Usar ISR Configuration (unificado) - Reemplaza el sistema antiguo de l10n.hn.isr.table
+    # La nueva configuración ISR maneja todo: retención a la fuente, deducciones, proyecciones YTD, etc.
+    isr_config = payslip.env['l10n.hn.isr.config'].search([
+        ('year', '=', year),
+        ('company_id', '=', payslip.company_id.id),
+        ('state', '=', 'validated'),
+        ('active', '=', True)
+    ], limit=1)
+    
+    if isr_config:
+        # Usar el método completo de cálculo con retención a la fuente
+        # Este método maneja automáticamente:
+        # - Ingresos YTD (básicos, variables, 13vo, 14to mes)
+        # - Deducciones YTD (de nómina, declaradas por empleado, gastos médicos)
+        # - Proyecciones anuales
+        # - Cálculo de retención del período
+        calculation = isr_config.compute_withholding(payslip)
+        result = -calculation.get('period_amount', 0.0)
+    else:
+        # Fallback: cálculo básico si no hay configuración
+        # Obtener salario básico del período
+        basic_period = categories.get('BASIC', 0)
+        
+        # Obtener aguinaldo y 14° mes
+        aguinaldo_annual = categories.get('13TH_MONTH', 0)
+        decimocuarto_annual = categories.get('14TH_MONTH', 0)
+        
+        # Factor de conversión a anual según periodicidad
+        if periodicity == 'biweekly':
+            periods_per_year = 24
+        elif periodicity == 'weekly':
+            periods_per_year = 52
+        elif periodicity == 'monthly':
+            periods_per_year = 12
+        else:
+            periods_per_year = 12
+        
+        # Convertir salario básico del período a anual
+        basic_annual = basic_period * periods_per_year
+        
+        # Exención de 10 salarios mínimos promedio (228,324.32 × 10 = 2,283,243.20)
+        exempt_10_minimum_wages_annual = 228324.32 * 10.0
+        
+        # Calcular parte gravable de aguinaldo y 14° mes
+        aguinaldo_taxable = max(0, aguinaldo_annual - exempt_10_minimum_wages_annual) if aguinaldo_annual > 0 else 0
+        decimocuarto_taxable = max(0, decimocuarto_annual - exempt_10_minimum_wages_annual) if decimocuarto_annual > 0 else 0
+        
+        # Base imponible anual
+        taxable_base_annual = basic_annual + aguinaldo_taxable + decimocuarto_taxable
+        
+        # Calcular ISR anual usando el método de la configuración
+        isr_annual = isr_config.calculate_isr_annual(taxable_base_annual) if isr_config else 0.0
+        
+        # Convertir ISR anual de vuelta al período
+        result = -round(isr_annual / periods_per_year, 2) if isr_annual > 0 else 0.0
+            </field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- ============================================ -->
+        <!-- BENEFITS RULES - 13° y 14° Mes -->
+        <!-- ============================================ -->
+        
+        <!-- 13th Month (Aguinaldo) -->
+        <record id="salary_rule_13th_month" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_payroll_base.default_structure"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_allowance"/>
+            <field name="name">Decimotercer Mes (Aguinaldo)</field>
+            <field name="code">13TH_MONTH</field>
+            <field name="sequence">60</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">
+result = False
+if payslip.date_to:
+    year = payslip.date_to.year
+    month = payslip.date_to.month
+    
+    thirteenth_month = payslip.env['l10n.hn.thirteenth.month'].search([
+        ('employee_id', '=', employee.id),
+        ('year', '=', year),
+        ('payment_month', '=', str(month)),
+        ('paid', '=', False)
+    ], limit=1)
+    
+    if thirteenth_month and thirteenth_month.calculated_amount > 0:
+        result = True
+            </field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if payslip.date_to:
+    year = payslip.date_to.year
+    month = payslip.date_to.month
+    
+    thirteenth_month = payslip.env['l10n.hn.thirteenth.month'].search([
+        ('employee_id', '=', employee.id),
+        ('year', '=', year),
+        ('payment_month', '=', str(month)),
+        ('paid', '=', False)
+    ], limit=1)
+    
+    if thirteenth_month and thirteenth_month.calculated_amount > 0:
+        result = thirteenth_month.calculated_amount
+        thirteenth_month.write({'paid': True, 'payslip_id': payslip.id})
+            </field>
+            <field name="is_isr_base" eval="True"/>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 14th Month -->
+        <record id="salary_rule_14th_month" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_payroll_base.default_structure"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_allowance"/>
+            <field name="name">Decimocuarto Mes</field>
+            <field name="code">14TH_MONTH</field>
+            <field name="sequence">61</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">
+result = False
+if payslip.date_to:
+    year = payslip.date_to.year
+    month = payslip.date_to.month
+    
+    fourteenth_month = payslip.env['l10n.hn.fourteenth.month'].search([
+        ('employee_id', '=', employee.id),
+        ('year', '=', year),
+        ('payment_month', '=', str(month)),
+        ('paid', '=', False)
+    ], limit=1)
+    
+    if fourteenth_month and fourteenth_month.calculated_amount > 0:
+        result = True
+            </field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if payslip.date_to:
+    year = payslip.date_to.year
+    month = payslip.date_to.month
+    
+    fourteenth_month = payslip.env['l10n.hn.fourteenth.month'].search([
+        ('employee_id', '=', employee.id),
+        ('year', '=', year),
+        ('payment_month', '=', str(month)),
+        ('paid', '=', False)
+    ], limit=1)
+    
+    if fourteenth_month and fourteenth_month.calculated_amount > 0:
+        result = fourteenth_month.calculated_amount
+        fourteenth_month.write({'paid': True, 'payslip_id': payslip.id})
+            </field>
+            <field name="is_isr_base" eval="True"/>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- ============================================ -->
+        <!-- NET SALARY -->
+        <!-- ============================================ -->
+        
+        <!-- Salario Neto -->
+        <record id="salary_rule_net" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_payroll_base.default_structure"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_net"/>
+            <field name="name">Salario Neto</field>
+            <field name="code">NET</field>
+            <field name="sequence">100</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+# Calcular neto sumando asignaciones y restando deducciones
+result = categories.get('BASIC', 0) + categories.get('ALW', 0) - categories.get('DED', 0)
+            </field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+    </data>
+</odoo>

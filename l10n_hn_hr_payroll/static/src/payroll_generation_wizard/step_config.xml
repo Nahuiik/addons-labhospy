@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="l10n_hn_hr_payroll.StepConfig">
+        <div class="o_step_config">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Empresa</label>
+                    <select class="form-select" t-att-value="props.config.company_id" t-on-change="onCompanyChange">
+                        <option value="">-- Seleccionar --</option>
+                        <t t-foreach="state.companies" t-as="company" t-key="company.id">
+                            <option t-att-value="company.id" t-esc="company.name"/>
+                        </t>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Estructura salarial</label>
+                    <select class="form-select" t-att-value="props.config.structure_id" t-on-change="onStructureChange">
+                        <option value="">-- Seleccionar --</option>
+                        <t t-foreach="state.structures" t-as="struct" t-key="struct.id">
+                            <option t-att-value="struct.id" t-esc="struct.name"/>
+                        </t>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Frecuencia de pago</label>
+                    <select class="form-select" t-att-value="props.config.schedule_pay" t-on-change="onSchedulePayChange">
+                        <option value="">-- Seleccionar --</option>
+                        <t t-foreach="state.schedulePayOptions" t-as="opt" t-key="opt.value">
+                            <option t-att-value="opt.value" t-esc="opt.label"/>
+                        </t>
+                    </select>
+                </div>
+                <t t-if="props.config.schedule_pay === 'bi-weekly'">
+                    <div class="col-md-6">
+                        <label class="form-label">Quincena</label>
+                        <select class="form-select" t-att-value="props.config.payroll_period_id" t-on-change="onPayrollPeriodChange">
+                            <option value="">-- Seleccionar --</option>
+                            <t t-foreach="state.payrollPeriods" t-as="period" t-key="period.id">
+                                <option t-att-value="period.id" t-esc="period.name"/>
+                            </t>
+                        </select>
+                    </div>
+                </t>
+                <div class="col-md-6">
+                    <label class="form-label">Fecha inicio</label>
+                    <input type="date" class="form-control" t-att-value="props.config.date_start" t-on-change="onDateStartChange"/>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Fecha fin</label>
+                    <input type="date" class="form-control" t-att-value="props.config.date_end" t-on-change="onDateEndChange"/>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

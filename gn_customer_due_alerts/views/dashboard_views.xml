@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_customer_due_dashboard" model="ir.actions.client">
+        <field name="name">Resumen rapido</field>
+        <field name="tag">gn_customer_due_alerts_dashboard</field>
+    </record>
+
+    <record id="action_customer_due_traffic" model="ir.actions.client">
+        <field name="name">Semaforo de vencimientos</field>
+        <field name="tag">gn_customer_due_traffic_dashboard</field>
+    </record>
+
+    <record id="action_customer_due_aging" model="ir.actions.client">
+        <field name="name">Antiguedad por cliente</field>
+        <field name="tag">gn_customer_due_aging_dashboard</field>
+    </record>
+
+    <menuitem id="menu_customer_due_root"
+              name="Clientes"
+              web_icon="gn_customer_due_alerts,static/description/icon.png"
+              action="action_customer_due_traffic"
+              sequence="56"
+              groups="gn_customer_due_alerts.group_customer_due_alert_user"/>
+
+    <menuitem id="menu_customer_due_traffic"
+              name="Semaforo de vencimientos"
+              parent="menu_customer_due_root"
+              action="action_customer_due_traffic"
+              sequence="10"/>
+
+    <menuitem id="menu_customer_due_aging"
+              name="Antiguedad por cliente"
+              parent="menu_customer_due_root"
+              action="action_customer_due_aging"
+              sequence="15"/>
+
+    <menuitem id="menu_customer_due_dashboard"
+              name="Resumen rapido"
+              parent="menu_customer_due_root"
+              action="action_customer_due_dashboard"
+              sequence="20"/>
+
+    <menuitem id="menu_customer_due_list"
+              name="Facturas por cobrar"
+              parent="menu_customer_due_root"
+              action="action_customer_due_list"
+              sequence="30"/>
+
+    <menuitem id="menu_customer_due_receivable_list"
+              name="Saldos CxC (apuntes)"
+              parent="menu_customer_due_root"
+              action="action_customer_due_receivable_list"
+              sequence="35"/>
+
+    <menuitem id="menu_customer_due_partner_all"
+              name="CxC abiertos por contacto"
+              parent="menu_customer_due_root"
+              action="action_customer_due_partner_all"
+              sequence="32"/>
+
+    <menuitem id="menu_customer_due_config"
+              name="Configuracion"
+              parent="menu_customer_due_root"
+              action="action_customer_due_settings"
+              sequence="90"
+              groups="gn_customer_due_alerts.group_customer_due_alert_manager"/>
+
+</odoo>

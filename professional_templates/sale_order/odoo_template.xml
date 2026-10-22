@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<template id="SO_5_document" name="Odoo Template">
+			<t t-call="sale.report_saleorder_document" t-lang="doc.partner_id.lang"/>
+		</template>
+	</data>
+</odoo>
+

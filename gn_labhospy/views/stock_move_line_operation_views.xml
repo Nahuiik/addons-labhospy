@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- parent.* disponible en column_invisible del sublist (stock.move → move_line_ids) -->
+    <record id="view_stock_move_operations_labhospy_template_controlled" model="ir.ui.view">
+        <field name="name">stock.move.operations.form.labhospy.template.controlled</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_stock_move_operations"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_id']" position="after">
+                <field name="gn_labhospy_template_is_controlled" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_stock_move_line_operation_tree_labhospy_arsa" model="ir.ui.view">
+        <field name="name">stock.move.line.operations.list.labhospy.arsa</field>
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="product_expiry.view_stock_move_line_operation_tree_expiry"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='removal_date']" position="after">
+                <field name="gn_labhospy_arsa_resolution_no"
+                       optional="show"
+                       column_invisible="not parent.gn_labhospy_template_is_controlled"
+                       invisible="not parent.gn_labhospy_template_is_controlled"
+                       placeholder="Nº resolución ARSA"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Lista editable: invisible con expresión solo de fila rompe evalColumnInvisible (OWL). -->
+    <record id="view_stock_move_line_detailed_operation_tree_labhospy_arsa" model="ir.ui.view">
+        <field name="name">stock.move.line.detailed.operations.labhospy.arsa</field>
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="product_expiry.view_stock_move_line_detailed_operation_tree_expiry"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='removal_date']" position="after">
+                <field name="gn_labhospy_arsa_resolution_no"
+                       optional="show"
+                       readonly="(state in ('done', 'cancel') and is_locked) or not gn_labhospy_product_is_controlled"
+                       placeholder="Nº resolución ARSA"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

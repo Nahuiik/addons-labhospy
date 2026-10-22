@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="stock_lot_form_traceability" model="ir.ui.view">
+        <field name="name">stock.lot.form.traceability</field>
+        <field name="model">stock.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button type="object"
+                        name="action_open_traceability"
+                        class="oe_stat_button"
+                        icon="fa-sitemap"
+                        groups="gn_product_traceability_widget.group_traceability_user">
+                    <field name="traceability_move_count" widget="statinfo" string="Trazabilidad"/>
+                </button>
+            </div>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model='ir.ui.view' id='wizard_cash_settlement_form'>
+            <field name="name">wizard.cash.settlement.form</field>
+            <field name="model">gn_arqueo_caja.cash_settlement_wizard</field>
+            <field name="arch" type="xml">
+                <form string="Reporte de Arqueo de Caja">
+                    <group col="4">
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+                    <group>
+                        <field name="cashier_ids" widget="many2many_tags" required="1" options="{'no_create':True}"/>
+                    </group>
+                    <footer>
+                        <button name="export_xls" type="object"
+                            string="Excel" class="oe_highlight" context="{'xls_export':1}"/>
+                        <button string="Cancelar" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model='ir.actions.act_window' id='action_wizard_settlement'>
+            <field name="name">Reporte de Arqueo de Caja</field>
+            <field name="res_model">gn_arqueo_caja.cash_settlement_wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem name="Arqueo de Caja Diario" 
+            parent="account.menu_finance_receivables" 
+            id="cash_settlement_menuitem" 
+            action="action_wizard_settlement" 
+            sequence="6"/>
+    </data>
+</odoo>

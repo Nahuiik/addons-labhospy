@@ -1,0 +1,235 @@
+#. module: l10n_hn_stock_valuation
+#: model:res.groups,name:l10n_hn_stock_valuation.group_view_inventory_button
+msgid "Can update quantities"
+msgstr "Puede actualizar cantidades"
+
+#. module: l10n_hn_stock_valuation
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock_valuation.ForecastedButtonsInherit
+msgid "Update Quantity"
+msgstr "Actualizar cantidad"
+
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_hn_stock_valuation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-20 02:00+0000\n"
+"PO-Revision-Date: 2025-11-20 02:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es_GT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_hn_stock_valuation
+#: model:ir.model,name:l10n_hn_stock_valuation.model_stock_valuation_report
+msgid "Stock Valuation Report"
+msgstr "Reporte de Valoración de Inventario"
+
+#. module: l10n_hn_stock_valuation
+#: model:ir.model,name:l10n_hn_stock_valuation.model_stock_valuation_report_line
+msgid "Stock Valuation Report Line"
+msgstr "Línea de Reporte de Valoración de Inventario"
+
+#. module: l10n_hn_stock_valuation
+#: model:ir.model,name:l10n_hn_stock_valuation.model_stock_valuation_generate_entry
+msgid "Generate Accounting Entry from Stock Valuation"
+msgstr "Generar Asiento Contable desde Valoración de Inventario"
+
+#. module: l10n_hn_stock_valuation
+#: model:ir.model,name:l10n_hn_stock_valuation.model_stock_valuation_generate_entry_line
+msgid "Stock Valuation Generate Entry Line"
+msgstr "Línea de Generación de Asiento de Valoración de Inventario"
+
+#. module: l10n_hn_stock_valuation
+#: model:ir.actions.act_window,name:l10n_hn_stock_valuation.action_stock_valuation_report
+msgid "Inventory Valuation"
+msgstr "Valoración de Inventario"
+
+#. module: l10n_hn_stock_valuation
+#: model:ir.ui.menu,name:l10n_hn_stock_valuation.menu_stock_valuation_report
+msgid "Inventory Valuation"
+msgstr "Valoración de Inventario"
+
+#. module: l10n_hn_stock_valuation
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock_valuation.view_stock_valuation_report_form
+msgid "Inventory Valuation"
+msgstr "Valoración de Inventario"
+
+#. module: l10n_hn_stock_valuation
+#: model:stock.valuation.report,field_description:l10n_hn_stock_valuation.field_stock_valuation_report_name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: l10n_hn_stock_valuation
+#: model:stock.valuation.report,field_description:l10n_hn_stock_valuation.field_stock_valuation_report_date
+msgid "Date"
+msgstr "Fecha"
+
+#. module: l10n_hn_stock_valuation
+#: model:stock.valuation.report,field_description:l10n_hn_stock_valuation.field_stock_valuation_report_date
+msgid "Date for the stock valuation"
+msgstr "Fecha para la valoración de inventario"
+
+#. module: l10n_hn_stock_valuation
+#: model:stock.valuation.report,field_description:l10n_hn_stock_valuation.field_stock_valuation_report_company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: l10n_hn_stock_valuation
+#: model:stock.valuation.report,field_description:l10n_hn_stock_valuation.field_stock_valuation_report_initial_balance
+msgid "Initial Balance"
+msgstr "Saldo Inicial"
+
+#. module: l10n_hn_stock_valuation
+#: model:stock.valuation.report,field_description:l10n_hn_stock_valuation.field_stock_valuation_report_stock_variation
+msgid "Stock Variation"
+msgstr "Variación de Stock"
+
+#. module: l10n_hn_stock_valuation
+#: model:stock.valuation.report,field_description:l10n_hn_stock_valuation.field_stock_valuation_report_ending_stock
+msgid "Ending Stock"
+msgstr "Stock Final"
+
+#. module: l10n_hn_stock_valuation
+#: model:stock.valuation.report,field_description:l10n_hn_stock_valuation.field_stock_valuation_report_company_currency_id
+msgid "Company Currency"
+msgstr "Moneda de la Compañía"
+
+#. module: l10n_hn_stock_valuation
+#: model:stock.valuation.report,field_description:l10n_hn_stock_valuation.field_stock_valuation_report_valuation_line_ids
+msgid "Valuation Lines"
+msgstr "Líneas de Valoración"
+
+#. module: l10n_hn_stock_valuation
+#: model:stock.valuation.report.line,field_description:l10n_hn_stock_valuation.field_stock_valuation_report_line_report_id
+msgid "Report"
+msgstr "Reporte"
+
+#. module: l10n_hn_stock_valuation
+#: model:stock.valuation.report.line,field_description:l10n_hn_stock_valuation.field_stock_valuation_report_line_account_id
+msgid "Account"
+msgstr "Cuenta"
+
+#. module: l10n_hn_stock_valuation
+#: model:stock.valuation.report.line,field_description:l10n_hn_stock_valuation.field_stock_valuation_report_line_line_type
+msgid "Line Type"
+msgstr "Tipo de Línea"
+
+#. module: l10n_hn_stock_valuation
+#: model:stock.valuation.report.line,field_description:l10n_hn_stock_valuation.field_stock_valuation_report_line_debit
+msgid "Debit"
+msgstr "Débito"
+
+#. module: l10n_hn_stock_valuation
+#: model:stock.valuation.report.line,field_description:l10n_hn_stock_valuation.field_stock_valuation_report_line_credit
+msgid "Credit"
+msgstr "Crédito"
+
+#. module: l10n_hn_stock_valuation
+#: model:stock.valuation.report.line,field_description:l10n_hn_stock_valuation.field_stock_valuation_report_line_value
+msgid "Value"
+msgstr "Valor"
+
+#. module: l10n_hn_stock_valuation
+#: model:stock.valuation.report.line,field_description:l10n_hn_stock_valuation.field_stock_valuation_report_line_company_currency_id
+msgid "Company Currency"
+msgstr "Moneda de la Compañía"
+
+#. module: l10n_hn_stock_valuation
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock_valuation.view_stock_valuation_report_form
+msgid "Compute"
+msgstr "Calcular"
+
+#. module: l10n_hn_stock_valuation
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock_valuation.view_stock_valuation_report_form
+msgid "Generate Entry"
+msgstr "Generar Asiento"
+
+#. module: l10n_hn_stock_valuation
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock_valuation.view_stock_valuation_report_form
+msgid "Account Details"
+msgstr "Detalles de Cuenta"
+
+#. module: l10n_hn_stock_valuation
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock_valuation.view_stock_valuation_report_form
+msgid "Initial Balance"
+msgstr "Saldo Inicial"
+
+#. module: l10n_hn_stock_valuation
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock_valuation.view_stock_valuation_report_form
+msgid "Stock Variation"
+msgstr "Variación de Stock"
+
+#. module: l10n_hn_stock_valuation
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock_valuation.view_stock_valuation_report_form
+msgid "Ending Stock"
+msgstr "Stock Final"
+
+#. module: l10n_hn_stock_valuation
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock_valuation.view_stock_valuation_report_form
+msgid "Total"
+msgstr "Total"
+
+#. module: l10n_hn_stock_valuation
+#: model:stock.valuation.generate.entry,field_description:l10n_hn_stock_valuation.field_stock_valuation_generate_entry_date
+msgid "Entry Date"
+msgstr "Fecha del Asiento"
+
+#. module: l10n_hn_stock_valuation
+#: model:stock.valuation.generate.entry,field_description:l10n_hn_stock_valuation.field_stock_valuation_generate_entry_journal_id
+msgid "Journal"
+msgstr "Diario"
+
+#. module: l10n_hn_stock_valuation
+#: model:stock.valuation.generate.entry,field_description:l10n_hn_stock_valuation.field_stock_valuation_generate_entry_expense_account_id
+msgid "Expense Account"
+msgstr "Cuenta de Gastos"
+
+#. module: l10n_hn_stock_valuation
+#: model:stock.valuation.generate.entry,field_description:l10n_hn_stock_valuation.field_stock_valuation_generate_entry_stock_account_id
+msgid "Stock Valuation Account"
+msgstr "Cuenta de Valoración de Inventario"
+
+#. module: l10n_hn_stock_valuation
+#: model:stock.valuation.generate.entry,field_description:l10n_hn_stock_valuation.field_stock_valuation_generate_entry_move_id
+msgid "Generated Entry"
+msgstr "Asiento Generado"
+
+#. module: l10n_hn_stock_valuation
+#: model:stock.valuation.generate.entry,field_description:l10n_hn_stock_valuation.field_stock_valuation_generate_entry_move_line_ids
+msgid "Entry Lines"
+msgstr "Líneas del Asiento"
+
+#. module: l10n_hn_stock_valuation
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock_valuation.view_stock_valuation_generate_entry_form
+msgid "Generate Accounting Entry"
+msgstr "Generar Asiento Contable"
+
+#. module: l10n_hn_stock_valuation
+#: model_terms:ir.ui.view,arch_db:l10n_hn_stock_valuation.view_stock_valuation_generate_entry_form
+msgid "Generate Entry"
+msgstr "Generar Asiento"
+
+#. module: l10n_hn_stock_valuation
+#: code:addons/l10n_hn_stock_valuation/models/stock_valuation_report.py:0
+#, python-format
+msgid "Everything is correctly closed"
+msgstr "Todo está correctamente cerrado"
+
+#. module: l10n_hn_stock_valuation
+#: code:addons/l10n_hn_stock_valuation/models/stock_valuation_report.py:0
+#, python-format
+msgid "The inventory valuation is already balanced. No entry needs to be generated."
+msgstr "La valoración de inventario ya está balanceada. No se necesita generar ningún asiento."
+
+#. module: l10n_hn_stock_valuation
+#: code:addons/l10n_hn_stock_valuation/models/stock_valuation_report.py:0
+#, python-format
+msgid "An accounting entry already exists for this period. Please check the existing entry or select a different date range."
+msgstr "Ya existe un asiento contable para este período. Por favor verifique el asiento existente o seleccione un rango de fechas diferente."

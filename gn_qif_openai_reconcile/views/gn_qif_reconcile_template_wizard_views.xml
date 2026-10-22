@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_gn_qif_reconcile_template_wizard_form" model="ir.ui.view">
+        <field name="name">gn.qif.reconcile.template.wizard.form</field>
+        <field name="model">gn.qif.reconcile.template.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Plantillas modelo de conciliación (CE)">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="journal_id"/>
+                            <field name="skip_existing_names"/>
+                        </group>
+                        <group>
+                            <field name="commission_contains"/>
+                            <field name="split_principal_percent"/>
+                        </group>
+                    </group>
+                    <group string="Cuentas (plan vigente)" col="4">
+                        <field name="transfer_clearing_account_id"/>
+                        <field name="fees_expense_account_id"/>
+                        <field name="principal_for_split_account_id"/>
+                        <field name="owner_draw_account_id"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Generar presets" type="object" name="action_apply_templates" class="btn-primary" data-hotkey="q"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel" data-hotkey="x"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_gn_qif_reconcile_template_wizard" model="ir.actions.act_window">
+        <field name="name">Plantillas de modelos reconciliación (Nahuiik)</field>
+        <field name="res_model">gn.qif.reconcile.template.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" eval="False"/>
+    </record>
+
+    <menuitem id="menu_gn_qif_reconcile_template_wizard"
+              name="Plantillas modelo conciliación (Nahuiik)"
+              parent="account.account_transactions_menu"
+              action="action_gn_qif_reconcile_template_wizard"
+              sequence="84"/>
+</odoo>

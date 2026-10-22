@@ -1,0 +1,105 @@
+// Client actions en Odoo 19 renderizan dentro de .o_action (overflow:hidden).
+// El root del dashboard debe ocupar el alto disponible y delegar el scroll.
+.o_action.o_gn_dashboard_root,
+.o_gn_dashboard_root {
+    height: 100%;
+    min-height: 0;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-gutter: stable;
+}
+
+.o_action:has(> .o_gn_dashboard_root) {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+
+    > .o_gn_dashboard_root {
+        flex: 1 1 auto;
+        min-height: 0;
+    }
+}
+
+// Tablas anchas: scroll horizontal sin comprimir columnas.
+.o_gn_table_wrap {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-gutter: stable;
+
+    > table,
+    > .table {
+        width: max-content;
+        min-width: 100%;
+        margin-bottom: 0;
+    }
+
+    th,
+    td {
+        white-space: nowrap;
+    }
+
+    // Permitir wrap solo en columnas de texto largo.
+    .o_gn_cell_wrap {
+        white-space: normal;
+        min-width: 180px;
+        max-width: 280px;
+    }
+}
+
+// KPI cards: scroll horizontal en pantallas estrechas.
+.o_gn_kpi_scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-gutter: stable;
+    padding-bottom: 4px;
+
+    > .o_gn_traffic_kpis,
+    > .o_gn_aging_kpis,
+    > .o_gn_loan_kpis {
+        width: max-content;
+        min-width: 100%;
+    }
+}
+
+@media (max-width: 1200px) {
+    .o_gn_traffic_kpis {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 14px;
+        width: max-content;
+        min-width: 100%;
+
+        .o_gn_kpi_card {
+            flex: 0 0 200px;
+        }
+    }
+
+    .o_gn_aging_kpis {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 14px;
+        width: max-content;
+        min-width: 100%;
+
+        .o_gn_aging_card {
+            flex: 0 0 220px;
+        }
+    }
+
+    .o_gn_loan_kpis {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 12px;
+        width: max-content;
+        min-width: 100%;
+
+        .o_gn_kpi_card {
+            flex: 0 0 180px;
+        }
+    }
+}

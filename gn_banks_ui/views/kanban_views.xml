@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- debit.credit kanban -->
+    <record id="debit_credit_kanban_view" model="ir.ui.view">
+        <field name="name">debit.credit.kanban</field>
+        <field name="model">debit.credit</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="workflow_state" class="o_kanban_mobile">
+                <field name="name"/>
+                <field name="dummy_name"/>
+                <field name="move_type"/>
+                <field name="ui_operation_type_label"/>
+                <field name="ui_operation_type_key"/>
+                <field name="journal_id"/>
+                <field name="total"/>
+                <field name="currency_id"/>
+                <field name="date"/>
+                <field name="ui_partner_id"/>
+                <field name="workflow_state"/>
+                <field name="state"/>
+                <field name="create_uid"/>
+                <progressbar field="workflow_state"
+                             colors='{"draft": "info", "pending_approval": "warning", "validated": "success", "posted": "success", "reconciled": "success", "cancelled": "danger"}'/>
+                <templates>
+                    <t t-name="card">
+                        <div class="gn-bk-kanban-card">
+                            <div class="gn-bk-kanban-card__header">
+                                <span class="gn-bk-kanban-card__number">
+                                    <field name="name"/>
+                                </span>
+                                <span t-attf-class="gn-bk-header__type-badge gn-bk-header--{{ record.ui_operation_type_key.raw_value }}">
+                                    <field name="ui_operation_type_label"/>
+                                </span>
+                            </div>
+                            <div class="gn-bk-kanban-card__amount">
+                                <field name="total" widget="monetary"/>
+                            </div>
+                            <div class="gn-bk-kanban-card__meta">
+                                <div><i class="fa fa-bank" title="Bank"/> <field name="journal_id"/></div>
+                                <div t-if="record.ui_partner_id.value"><i class="fa fa-user" title="Partner"/> <field name="ui_partner_id"/></div>
+                                <div><i class="fa fa-calendar" title="Date"/> <field name="date"/></div>
+                                <div><i class="fa fa-user-circle" title="User"/> <field name="create_uid"/></div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- bank.check kanban -->
+    <record id="bank_check_kanban_view" model="ir.ui.view">
+        <field name="name">bank.check.kanban</field>
+        <field name="model">bank.check</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="workflow_state" class="o_kanban_mobile">
+                <field name="name"/>
+                <field name="move_type"/>
+                <field name="ui_operation_type_label"/>
+                <field name="ui_operation_type_key"/>
+                <field name="journal_id"/>
+                <field name="total"/>
+                <field name="currency_id"/>
+                <field name="date"/>
+                <field name="partner_id"/>
+                <field name="workflow_state"/>
+                <field name="create_uid"/>
+                <progressbar field="workflow_state"
+                             colors='{"draft": "info", "pending_approval": "warning", "validated": "success", "posted": "success", "reconciled": "success", "cancelled": "danger"}'/>
+                <templates>
+                    <t t-name="card">
+                        <div class="gn-bk-kanban-card">
+                            <div class="gn-bk-kanban-card__header">
+                                <span class="gn-bk-kanban-card__number"><field name="name"/></span>
+                                <span t-attf-class="gn-bk-header__type-badge gn-bk-header--{{ record.ui_operation_type_key.raw_value }}">
+                                    <field name="ui_operation_type_label"/>
+                                </span>
+                            </div>
+                            <div class="gn-bk-kanban-card__amount"><field name="total" widget="monetary"/></div>
+                            <div class="gn-bk-kanban-card__meta">
+                                <div><i class="fa fa-bank" title="Bank"/> <field name="journal_id"/></div>
+                                <div><i class="fa fa-user" title="Partner"/> <field name="partner_id"/></div>
+                                <div><i class="fa fa-calendar" title="Date"/> <field name="date"/></div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- bank.transfer kanban -->
+    <record id="bank_transfer_kanban_view" model="ir.ui.view">
+        <field name="name">bank.transfer.kanban</field>
+        <field name="model">bank.transfer</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="workflow_state" class="o_kanban_mobile">
+                <field name="name"/>
+                <field name="journal_id"/>
+                <field name="dest_journal_id"/>
+                <field name="total"/>
+                <field name="currency_id"/>
+                <field name="date"/>
+                <field name="workflow_state"/>
+                <field name="ui_operation_type_label"/>
+                <field name="create_uid"/>
+                <progressbar field="workflow_state"
+                             colors='{"draft": "info", "pending_approval": "warning", "validated": "success", "posted": "success", "reconciled": "success", "cancelled": "danger"}'/>
+                <templates>
+                    <t t-name="card">
+                        <div class="gn-bk-kanban-card">
+                            <div class="gn-bk-kanban-card__header">
+                                <span class="gn-bk-kanban-card__number"><field name="name"/></span>
+                                <span class="gn-bk-header__type-badge gn-bk-header--interbank">
+                                    <field name="ui_operation_type_label"/>
+                                </span>
+                            </div>
+                            <div class="gn-bk-kanban-card__amount"><field name="total" widget="monetary"/></div>
+                            <div class="gn-bk-kanban-card__meta">
+                                <div><field name="journal_id"/> → <field name="dest_journal_id"/></div>
+                                <div><i class="fa fa-calendar" title="Date"/> <field name="date"/></div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+</odoo>

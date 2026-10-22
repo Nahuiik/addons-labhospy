@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="template_employee_applicant_report_id" model="ir.actions.report">
+        <field name="name">Ficha de Empleado</field>
+        <field name="model">hr.employee</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hn_hr_recruitment.template_employee_applicant</field>
+        <field name="report_file">l10n_hn_hr_recruitment.template_employee_applicant</field>
+        <field name="paperformat_id" ref="l10n_hn_hr_recruitment.paperformat_template_employee_applicant"/>
+    </record>
+
+    <record id="template_applicant_report_id" model="ir.actions.report">
+        <field name="name">Ficha de Empleado</field>
+        <field name="model">hr.applicant</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hn_hr_recruitment.template_applicant</field>
+        <field name="report_file">l10n_hn_hr_recruitment.template_applicant</field>
+        <field name="paperformat_id" ref="l10n_hn_hr_recruitment.paperformat_template_employee_applicant"/>
+    </record>
+
+    <!-- <record id="template_carnet_report_id" model="ir.actions.report">
+        <field name="name">Carnet del Empleado</field>
+        <field name="model">hr.employee</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hn_hr_recruitment.template_carnet_report</field>
+        <field name="report_file">l10n_hn_hr_recruitment.template_carnet_report</field>
+        <field name="paperformat_id" ref="l10n_hn_hr_recruitment.paperformat_template_employee_carnet"/>
+    </record> -->
+
+    <record id="action_payroll_report_diseases_xls" model="ir.actions.report">
+        <field name="name">Reporte de Enfermedades XLS</field>
+        <field name="model">report.wzard.payroll.diseases</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">l10n_hn_hr_recruitment.payroll_report_xls_diseases.xlsx</field>
+        <field name="report_file">Reporte de Enfermedades</field>
+        <field name="attachment_use" eval="False"/>
+    </record>
+</odoo>

@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_landed_cost_document">
+        <t t-call="web.external_layout">
+            <t t-set="o" t-value="o.with_context(lang=lang)"/>
+            <div class="page">
+                <h2><strong>Costo en destino: <span t-field="o.name"/></strong></h2>
+
+                <div class="mb-4 mt-3">
+                    <div name="general_info" class="row">
+                        <div class="col-6" t-if="o.date">
+                            <strong>Fecha:</strong> <span t-field="o.date" t-options="{'widget': 'date'}"/>
+                        </div>
+                        <div class="col-6" t-if="o.account_move_id and o.account_move_id.journal_id">
+                            <strong>Diario:</strong> <span t-field="o.account_move_id.journal_id.name"/>
+                        </div>
+                    </div>
+                    <div class="oe_structure"></div>
+                    <div class="row">
+                        <div class="col-6" t-if="o.picking_ids">
+                            <strong>Traslados:</strong>
+                            <t t-foreach="o.picking_ids" t-as="picking">
+                                <span t-field="picking.name" class="badge badge-secondary"/>
+                            </t>
+                        </div>
+                        <div class="col-6" t-if="o.vendor_bills_ids">
+                            <strong>Vendor Bills:</strong>
+                            <t t-foreach="o.vendor_bills_ids" t-as="bill">
+                                <span t-field="bill.name" class="badge badge-secondary"/>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="oe_structure"></div>
+                
+                <!-- Tab: Costos adicionales -->
+                <h3>Costos adicionales</h3>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Descripción</th>
+                            <th>Cuenta</th>
+                            <th>Type Document</th>
+                            <th>Vendor Bill</th>
+                            <th>Vendor</th>
+                            <th>Date</th>
+                            <th>Currency</th>
+                            <th class="text-end">Amount Dollar</th>
+                            <th class="text-end">Currency Rate</th>
+                            <th>Método de división</th>
+                            <th class="text-end">Costo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="o.cost_lines" t-as="line">
+                            <tr>
+                                <td><span t-field="line.product_id.display_name"/></td>
+                                <td><span t-field="line.name"/></td>
+                                <td><span t-field="line.account_id.display_name"/></td>
+                                <td><span t-field="line.type_document_bill"/></td>
+                                <td>
+                                    <span t-if="line.vendor_bill_id_lc" t-field="line.vendor_bill_id_lc.name"/>
+                                    <span t-if="not line.vendor_bill_id_lc">-</span>
+                                </td>
+                                <td>
+                                    <span t-if="line.vendor_id_lc" t-field="line.vendor_id_lc.name"/>
+                                    <span t-if="not line.vendor_id_lc">-</span>
+                                </td>
+                                <td>
+                                    <span t-if="line.date_currency_rate" t-field="line.date_currency_rate" t-options="{'widget': 'date'}"/>
+                                    <span t-if="not line.date_currency_rate">-</span>
+                                </td>
+                                <td>
+                                    <span t-if="line.currency_id_lc" t-field="line.currency_id_lc.name"/>
+                                    <span t-if="not line.currency_id_lc">-</span>
+                                </td>
+                                <td class="text-end">
+                                    <span t-if="line.amount_dollar" t-field="line.amount_dollar" t-options="{'widget': 'monetary', 'display_currency': line.currency_usd}"/>
+                                    <span t-if="not line.amount_dollar">-</span>
+                                </td>
+                                <td class="text-end">
+                                    <span t-if="line.currency_rate_lc" t-field="line.currency_rate_lc"/>
+                                    <span t-if="not line.currency_rate_lc">-</span>
+                                </td>
+                                <td><span t-field="line.split_method"/></td>
+                                <td class="text-end">
+                                    <span t-field="line.price_unit" t-options="{'widget': 'monetary', 'display_currency': o.company_id.currency_id}"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="11" class="text-end"><strong>Total:</strong></td>
+                            <td class="text-end">
+                                <strong>
+                                    <span t-field="o.amount_total" t-options="{'widget': 'monetary', 'display_currency': o.company_id.currency_id}"/>
+                                </strong>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+                <div class="oe_structure"></div>
+
+                <!-- Tab: Costos por Producto -->
+                <h3>Costos por Producto</h3>
+                <t t-set="products_summary" t-value="o.get_costs_by_product()"/>
+                <t t-set="total_qty" t-value="0.0"/>
+                <t t-set="total_original" t-value="0.0"/>
+                <t t-set="total_landed" t-value="0.0"/>
+                <t t-set="total_final" t-value="0.0"/>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th class="text-end">Cantidad</th>
+                            <th class="text-end">Valor Original</th>
+                            <th class="text-end">Costo en Destino</th>
+                            <th class="text-end">Costo Final</th>
+                            <th class="text-end">Costo por Unidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="products_summary" t-as="product_summary">
+                            <t t-set="qty" t-value="float(product_summary.get('quantity', 0) or 0)"/>
+                            <t t-set="orig_val" t-value="float(product_summary.get('original_value', 0) or 0)"/>
+                            <t t-set="landed_cost" t-value="float(product_summary.get('total_landed_cost', 0) or 0)"/>
+                            <t t-set="final_val" t-value="float(product_summary.get('final_value', 0) or 0)"/>
+                            <t t-set="unit_cost" t-value="float(product_summary.get('unit_cost', 0) or 0)"/>
+                            <t t-set="total_qty" t-value="total_qty + qty"/>
+                            <t t-set="total_original" t-value="total_original + orig_val"/>
+                            <t t-set="total_landed" t-value="total_landed + landed_cost"/>
+                            <t t-set="total_final" t-value="total_final + final_val"/>
+                            <tr>
+                                <td><span t-esc="product_summary.get('product_name', '')"/></td>
+                                <td class="text-end">
+                                    <span t-esc="'%.2f' % qty"/>
+                                </td>
+                                <td class="text-end">
+                                    <span t-esc="o.company_id.currency_id.symbol or ''"/><span t-esc="'%.2f' % orig_val"/>
+                                </td>
+                                <td class="text-end">
+                                    <span t-esc="o.company_id.currency_id.symbol or ''"/><span t-esc="'%.2f' % landed_cost"/>
+                                </td>
+                                <td class="text-end">
+                                    <strong>
+                                        <span t-esc="o.company_id.currency_id.symbol or ''"/><span t-esc="'%.2f' % final_val"/>
+                                    </strong>
+                                </td>
+                                <td class="text-end">
+                                    <span t-esc="o.company_id.currency_id.symbol or ''"/><span t-esc="'%.2f' % unit_cost"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td><strong>Total:</strong></td>
+                            <td class="text-end">
+                                <strong><span t-esc="'%.2f' % total_qty"/></strong>
+                            </td>
+                            <td class="text-end">
+                                <strong><span t-esc="o.company_id.currency_id.symbol or ''"/><span t-esc="'%.2f' % total_original"/></strong>
+                            </td>
+                            <td class="text-end">
+                                <strong><span t-esc="o.company_id.currency_id.symbol or ''"/><span t-esc="'%.2f' % total_landed"/></strong>
+                            </td>
+                            <td class="text-end">
+                                <strong><span t-esc="o.company_id.currency_id.symbol or ''"/><span t-esc="'%.2f' % total_final"/></strong>
+                            </td>
+                            <td class="text-end">-</td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+                <div class="oe_structure"></div>
+
+                <!-- Tab: Ajustes de valoración -->
+                <h3>Ajustes de valoración</h3>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Descripción</th>
+                            <th>Cantidad</th>
+                            <th>Valor anterior</th>
+                            <th>Costo adicional</th>
+                            <th>Nuevo valor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="o.valuation_adjustment_lines" t-as="adj_line">
+                            <tr>
+                                <td><span t-field="adj_line.product_id.display_name"/></td>
+                                <td><span t-field="adj_line.name"/></td>
+                                <td class="text-end"><span t-field="adj_line.quantity"/></td>
+                                <td class="text-end">
+                                    <span t-field="adj_line.former_cost" t-options="{'widget': 'monetary', 'display_currency': o.company_id.currency_id}"/>
+                                </td>
+                                <td class="text-end">
+                                    <span t-field="adj_line.additional_landed_cost" t-options="{'widget': 'monetary', 'display_currency': o.company_id.currency_id}"/>
+                                </td>
+                                <td class="text-end">
+                                    <span t-field="adj_line.final_cost" t-options="{'widget': 'monetary', 'display_currency': o.company_id.currency_id}"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+            <div class="oe_structure"></div>
+        </t>
+    </template>
+
+    <template id="report_landed_cost">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="lang" t-value="o.company_id.partner_id.lang or 'en_US'"/>
+                <t t-call="invoice_in_landed_cost.report_landed_cost_document" t-lang="lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>
+

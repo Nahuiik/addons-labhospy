@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="hr_contract_template_form_view_l10n_hn_inherit" model="ir.ui.view">
+            <field name="name">hr.contract.template.form.l10n.hn.inherit</field>
+            <field name="model">hr.version</field>
+            <field name="inherit_id" ref="hr.hr_contract_template_form_view"/>
+            <field name="arch" type="xml">
+                <!-- Agregar campos adicionales en la página Salary Information después del campo resource_calendar_id -->
+                <xpath expr="//page[@name='information']//field[@name='resource_calendar_id']" position="after">
+                    <separator string="Información Salarial Adicional" groups="hr.group_hr_manager"/>
+                    <group groups="hr.group_hr_manager">
+                        <group>
+                            <field name="wage_with_holidays" widget="monetary" string="Salario con Vacaciones"/>
+                            <field name="wage_on_signature" widget="monetary" string="Salario al Firmar"/>
+                            <field name="holidays" string="Días Adicionales de Vacaciones"/>
+                        </group>
+                        <group>
+                            <field name="final_yearly_costs" widget="monetary" string="Costo Anual Empresa" readonly="1"/>
+                            <field name="monthly_yearly_costs" widget="monetary" string="Costo Mensual Empresa" readonly="1"/>
+                            <button name="action_generate_timeoff_allocation"
+                                    string="Asignar Vacaciones"
+                                    type="object"
+                                    class="btn btn-link"
+                                    modifiers="{'invisible': ['|', ('holidays', '=', 0), ('leave_allocation_id', '!=', False)]}"/>
+                            <button name="action_view_leave_allocation"
+                                    string="Ver Asignación"
+                                    type="object"
+                                    class="btn btn-link"
+                                    modifiers="{'invisible': [('leave_allocation_id', '=', False)]}"/>
+                        </group>
+                    </group>
+                    <separator string="Beneficios y Deducciones" groups="hr.group_hr_manager"/>
+                    <group groups="hr.group_hr_manager">
+                        <field name="benefit_line_ids" mode="list,form" nolabel="1">
+                            <list>
+                                <field name="name"/>
+                                <field name="code"/>
+                                <field name="periodicity"/>
+                                <field name="amount_employee" widget="monetary"/>
+                                <field name="amount_company" widget="monetary"/>
+                                <field name="is_deduction"/>
+                                <field name="include_in_payslip"/>
+                                <field name="input_code"/>
+                            </list>
+                            <form>
+                                <sheet>
+                                    <group>
+                                        <field name="template_id"/>
+                                        <field name="name"/>
+                                        <field name="code"/>
+                                        <field name="sequence"/>
+                                        <field name="periodicity"/>
+                                    </group>
+                                    <group>
+                                        <field name="amount_employee" widget="monetary"/>
+                                        <field name="amount_company" widget="monetary"/>
+                                        <field name="is_deduction"/>
+                                    </group>
+                                    <group>
+                                        <field name="include_in_payslip"/>
+                                        <field name="input_code"/>
+                                        <field name="amount_source"/>
+                                    </group>
+                                    <group>
+                                        <field name="notes" colspan="4"/>
+                                    </group>
+                                </sheet>
+                            </form>
+                        </field>
+                        <button name="action_open_apply_template_wizard"
+                                string="Aplicar Plantilla de Beneficios"
+                                type="object"
+                                class="btn btn-link"
+                                icon="fa-magic"
+                                groups="hr.group_hr_manager"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Simplificar vista de empleado: mantener solo información resumida en Payroll -->
+        <!-- Los detalles completos del contrato se ven en el menú de Contratos o desde el widget versions_timeline -->
+        <record id="view_employee_form_l10n_hn_contract_payroll_inherit" model="ir.ui.view">
+            <field name="name">hr.employee.form.l10n.hn.contract.payroll</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <!-- El widget versions_timeline ya está en el header, eso es suficiente para acceder a contratos -->
+                <!-- Solo mostramos información básica de salario en la página de Payroll -->
+                <xpath expr="//page[@name='payroll_information']//field[@name='wage']/parent::div" position="after">
+                    <separator string="Información Resumida" groups="hr.group_hr_manager"/>
+                    <group groups="hr.group_hr_manager">
+                        <group>
+                            <field name="wage_with_holidays" widget="monetary" string="Salario con Vacaciones" readonly="1"/>
+                            <field name="final_yearly_costs" widget="monetary" string="Costo Anual Empresa" readonly="1"/>
+                        </group>
+                    </group>
+                    <div groups="hr.group_hr_manager">
+                        <p class="text-muted">
+                            <i class="fa fa-info-circle"/> 
+                            Para ver y editar todos los detalles del contrato, usa el widget de línea de tiempo arriba o ve al menú <strong>Contratos</strong>.
+                        </p>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
+
+

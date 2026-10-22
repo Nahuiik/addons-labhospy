@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- 1. NEW - Recepción inicial -->
+        <record id="checklist_stage_new" model="hr.recruitment.stage.checklist">
+            <field name="stage_id" ref="hr_recruitment.stage_job0"/>
+        </record>
+        <record id="checklist_line_new_1" model="hr.recruitment.stage.checklist.line">
+            <field name="checklist_id" ref="checklist_stage_new"/>
+            <field name="stage_id" ref="hr_recruitment.stage_job0"/>
+            <field name="name">CV completo y legible recibido</field>
+            <field name="is_required" eval="True"/>
+        </record>
+        <record id="checklist_line_new_2" model="hr.recruitment.stage.checklist.line">
+            <field name="checklist_id" ref="checklist_stage_new"/>
+            <field name="stage_id" ref="hr_recruitment.stage_job0"/>
+            <field name="name">Datos de contacto verificados (teléfono y correo válidos)</field>
+            <field name="is_required" eval="True"/>
+        </record>
+        <record id="checklist_line_new_3" model="hr.recruitment.stage.checklist.line">
+            <field name="checklist_id" ref="checklist_stage_new"/>
+            <field name="stage_id" ref="hr_recruitment.stage_job0"/>
+            <field name="name">Cumple requisitos mínimos del puesto publicado</field>
+            <field name="is_required" eval="True"/>
+        </record>
+        <record id="checklist_line_new_4" model="hr.recruitment.stage.checklist.line">
+            <field name="checklist_id" ref="checklist_stage_new"/>
+            <field name="stage_id" ref="hr_recruitment.stage_job0"/>
+            <field name="name">Fecha de recepción registrada</field>
+            <field name="is_required" eval="False"/>
+        </record>
+
+        <!-- 2. QUALIFICATION - Calificación -->
+        <record id="checklist_stage_qualification" model="hr.recruitment.stage.checklist">
+            <field name="stage_id" ref="hr_recruitment.stage_job1"/>
+        </record>
+        <record id="checklist_line_qual_1" model="hr.recruitment.stage.checklist.line">
+            <field name="checklist_id" ref="checklist_stage_qualification"/>
+            <field name="stage_id" ref="hr_recruitment.stage_job1"/>
+            <field name="name">CV alineado con perfil y requisitos del puesto</field>
+            <field name="is_required" eval="True"/>
+        </record>
+        <record id="checklist_line_qual_2" model="hr.recruitment.stage.checklist.line">
+            <field name="checklist_id" ref="checklist_stage_qualification"/>
+            <field name="stage_id" ref="hr_recruitment.stage_job1"/>
+            <field name="name">Experiencia mínima requerida verificada</field>
+            <field name="is_required" eval="True"/>
+        </record>
+        <record id="checklist_line_qual_3" model="hr.recruitment.stage.checklist.line">
+            <field name="checklist_id" ref="checklist_stage_qualification"/>
+            <field name="stage_id" ref="hr_recruitment.stage_job1"/>
+            <field name="name">Formación académica acorde al puesto</field>
+            <field name="is_required" eval="True"/>
+        </record>
+        <record id="checklist_line_qual_4" model="hr.recruitment.stage.checklist.line">
+            <field name="checklist_id" ref="checklist_stage_qualification"/>
+            <field name="stage_id" ref="hr_recruitment.stage_job1"/>
+            <field name="name">Disponibilidad confirmada (inmediata o fecha de inicio)</field>
+            <field name="is_required" eval="True"/>
+        </record>
+        <record id="checklist_line_qual_5" model="hr.recruitment.stage.checklist.line">
+            <field name="checklist_id" ref="checklist_stage_qualification"/>
+            <field name="stage_id" ref="hr_recruitment.stage_job1"/>
+            <field name="name">Expectativa salarial dentro del rango del puesto</field>
+            <field name="is_required" eval="False"/>
+        </record>
+
+        <!-- 3. FIRST INTERVIEW - Primera entrevista -->
+        <record id="checklist_stage_first_interview" model="hr.recruitment.stage.checklist">
+            <field name="stage_id" ref="hr_recruitment.stage_job2"/>
+        </record>
+        <record id="checklist_line_first_1" model="hr.recruitment.stage.checklist.line">
+            <field name="checklist_id" ref="checklist_stage_first_interview"/>
+            <field name="stage_id" ref="hr_recruitment.stage_job2"/>
+            <field name="name">Identificación del candidato verificada (INE/RTN)</field>
+            <field name="is_required" eval="True"/>
+        </record>
+        <record id="checklist_line_first_2" model="hr.recruitment.stage.checklist.line">
+            <field name="checklist_id" ref="checklist_stage_first_interview"/>
+            <field name="stage_id" ref="hr_recruitment.stage_job2"/>
+            <field name="name">Competencias técnicas básicas evaluadas</field>
+            <field name="is_required" eval="True"/>
+        </record>
+        <record id="checklist_line_first_3" model="hr.recruitment.stage.checklist.line">
+            <field name="checklist_id" ref="checklist_stage_first_interview"/>
+            <field name="stage_id" ref="hr_recruitment.stage_job2"/>
+            <field name="name">Motivación y expectativas alineadas con el puesto</field>
+            <field name="is_required" eval="True"/>
+        </record>
+        <record id="checklist_line_first_4" model="hr.recruitment.stage.checklist.line">
+            <field name="checklist_id" ref="checklist_stage_first_interview"/>
+            <field name="stage_id" ref="hr_recruitment.stage_job2"/>
+            <field name="name">Fit cultural evaluado</field>
+            <field name="is_required" eval="True"/>
+        </record>
+        <record id="checklist_line_first_5" model="hr.recruitment.stage.checklist.line">
+            <field name="checklist_id" ref="checklist_stage_first_interview"/>
+            <field name="stage_id" ref="hr_recruitment.stage_job2"/>
+            <field name="name">Notas de entrevista documentadas</field>
+            <field name="is_required" eval="True"/>
+        </record>
+        <record id="checklist_line_first_6" model="hr.recruitment.stage.checklist.line">
+            <field name="checklist_id" ref="checklist_stage_first_interview"/>
+            <field name="stage_id" ref="hr_recruitment.stage_job2"/>
+            <field name="name">Decisión: pasar a segunda entrevista / descartar</field>
+            <field name="is_required" eval="True"/>
+        </record>
+
+        <!-- 4. SECOND INTERVIEW - Segunda entrevista -->
+        <record id="checklist_stage_second_interview" model="hr.recruitment.stage.checklist">
+            <field name="stage_id" ref="hr_recruitment.stage_job3"/>
+        </record>
+        <record id="checklist_line_second_1" model="hr.recruitment.stage.checklist.line">
+            <field name="checklist_id" ref="checklist_stage_second_interview"/>
+            <field name="stage_id" ref="hr_recruitment.stage_job3"/>
+            <field name="name">Referencias laborales validadas</field>
+            <field name="is_required" eval="True"/>
+        </record>
+        <record id="checklist_line_second_2" model="hr.recruitment.stage.checklist.line">
+            <field name="checklist_id" ref="checklist_stage_second_interview"/>
+            <field name="stage_id" ref="hr_recruitment.stage_job3"/>
+            <field name="name">Entrevista con jefe directo realizada</field>
+            <field name="is_required" eval="True"/>
+        </record>
+        <record id="checklist_line_second_3" model="hr.recruitment.stage.checklist.line">
+            <field name="checklist_id" ref="checklist_stage_second_interview"/>
+            <field name="stage_id" ref="hr_recruitment.stage_job3"/>
+            <field name="name">Competencias específicas del puesto evaluadas</field>
+            <field name="is_required" eval="True"/>
+        </record>
+        <record id="checklist_line_second_4" model="hr.recruitment.stage.checklist.line">
+            <field name="checklist_id" ref="checklist_stage_second_interview"/>
+            <field name="stage_id" ref="hr_recruitment.stage_job3"/>
+            <field name="name">Expectativa salarial confirmada y compatible con presupuesto</field>
+            <field name="is_required" eval="True"/>
+        </record>
+        <record id="checklist_line_second_5" model="hr.recruitment.stage.checklist.line">
+            <field name="checklist_id" ref="checklist_stage_second_interview"/>
+            <field name="stage_id" ref="hr_recruitment.stage_job3"/>
+            <field name="name">Decisión de contratación documentada</field>
+            <field name="is_required" eval="True"/>
+        </record>
+
+        <!-- 5. CONTRACT PROPOSAL - Propuesta de contrato -->
+        <record id="checklist_stage_contract_proposal" model="hr.recruitment.stage.checklist">
+            <field name="stage_id" ref="hr_recruitment.stage_job4"/>
+        </record>
+        <record id="checklist_line_proposal_1" model="hr.recruitment.stage.checklist.line">
+            <field name="checklist_id" ref="checklist_stage_contract_proposal"/>
+            <field name="stage_id" ref="hr_recruitment.stage_job4"/>
+            <field name="name">Oferta de contrato preparada</field>
+            <field name="is_required" eval="True"/>
+        </record>
+        <record id="checklist_line_proposal_2" model="hr.recruitment.stage.checklist.line">
+            <field name="checklist_id" ref="checklist_stage_contract_proposal"/>
+            <field name="stage_id" ref="hr_recruitment.stage_job4"/>
+            <field name="name">Aprobación de la oferta obtenida</field>
+            <field name="is_required" eval="True"/>
+        </record>
+        <record id="checklist_line_proposal_3" model="hr.recruitment.stage.checklist.line">
+            <field name="checklist_id" ref="checklist_stage_contract_proposal"/>
+            <field name="stage_id" ref="hr_recruitment.stage_job4"/>
+            <field name="name">Propuesta enviada al candidato</field>
+            <field name="is_required" eval="True"/>
+        </record>
+        <record id="checklist_line_proposal_4" model="hr.recruitment.stage.checklist.line">
+            <field name="checklist_id" ref="checklist_stage_contract_proposal"/>
+            <field name="stage_id" ref="hr_recruitment.stage_job4"/>
+            <field name="name">Aceptación del candidato confirmada</field>
+            <field name="is_required" eval="True"/>
+        </record>
+        <record id="checklist_line_proposal_5" model="hr.recruitment.stage.checklist.line">
+            <field name="checklist_id" ref="checklist_stage_contract_proposal"/>
+            <field name="stage_id" ref="hr_recruitment.stage_job4"/>
+            <field name="name">Documentación para contratación recibida (identificación, comprobante domicilio, etc.)</field>
+            <field name="is_required" eval="True"/>
+        </record>
+
+        <!-- 6. CONTRACT SIGNED - Contrato firmado -->
+        <record id="checklist_stage_contract_signed" model="hr.recruitment.stage.checklist">
+            <field name="stage_id" ref="hr_recruitment.stage_job5"/>
+        </record>
+        <record id="checklist_line_signed_1" model="hr.recruitment.stage.checklist.line">
+            <field name="checklist_id" ref="checklist_stage_contract_signed"/>
+            <field name="stage_id" ref="hr_recruitment.stage_job5"/>
+            <field name="name">Contrato firmado recibido y archivado</field>
+            <field name="is_required" eval="True"/>
+        </record>
+        <record id="checklist_line_signed_2" model="hr.recruitment.stage.checklist.line">
+            <field name="checklist_id" ref="checklist_stage_contract_signed"/>
+            <field name="stage_id" ref="hr_recruitment.stage_job5"/>
+            <field name="name">Expediente del empleado creado y completo</field>
+            <field name="is_required" eval="True"/>
+        </record>
+        <record id="checklist_line_signed_3" model="hr.recruitment.stage.checklist.line">
+            <field name="checklist_id" ref="checklist_stage_contract_signed"/>
+            <field name="stage_id" ref="hr_recruitment.stage_job5"/>
+            <field name="name">Onboarding programado</field>
+            <field name="is_required" eval="True"/>
+        </record>
+        <record id="checklist_line_signed_4" model="hr.recruitment.stage.checklist.line">
+            <field name="checklist_id" ref="checklist_stage_contract_signed"/>
+            <field name="stage_id" ref="hr_recruitment.stage_job5"/>
+            <field name="name">Alta en sistemas realizada</field>
+            <field name="is_required" eval="True"/>
+        </record>
+        <record id="checklist_line_signed_5" model="hr.recruitment.stage.checklist.line">
+            <field name="checklist_id" ref="checklist_stage_contract_signed"/>
+            <field name="stage_id" ref="hr_recruitment.stage_job5"/>
+            <field name="name">Incorporación comunicada al equipo</field>
+            <field name="is_required" eval="True"/>
+        </record>
+
+    </data>
+</odoo>

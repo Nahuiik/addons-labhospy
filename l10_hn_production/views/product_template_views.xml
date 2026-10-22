@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_template_form_view_inherit_l10_hn_container" model="ir.ui.view">
+        <field name="name">product.template.form.inherit.l10.hn.container</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='group_general']" position="inside">
+                <field name="hn_is_pack" invisible="type != 'consu'"/>
+                <field name="hn_container_tracking" invisible="type != 'consu'"/>
+                <label for="hn_container_content_qty" invisible="not hn_container_tracking"/>
+                <div class="o_row" invisible="not hn_container_tracking">
+                    <field name="hn_container_content_qty" nolabel="1"/>
+                    <field name="hn_container_content_uom_id" nolabel="1"/>
+                    <span>por unidad almacenada</span>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_stock_lot_form_inherit_l10_hn_container" model="ir.ui.view">
+        <field name="name">stock.lot.form.inherit.l10.hn.container</field>
+        <field name="model">stock.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='main_group']" position="inside">
+                <group string="Contenido del envase" invisible="not hn_container_tracking">
+                    <field name="hn_content_capacity" readonly="1"/>
+                    <field name="hn_content_remaining"/>
+                    <field name="hn_container_open" readonly="1"/>
+                    <field name="hn_container_content_uom_id" readonly="1"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

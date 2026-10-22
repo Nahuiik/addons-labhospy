@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_powerbi_dataset_tree" model="ir.ui.view">
+        <field name="name">powerbi.dataset.tree</field>
+        <field name="model">powerbi.dataset</field>
+        <field name="arch" type="xml">
+            <list string="Datasets Power BI">
+                <field name="name"/>
+                <field name="workspace_id"/>
+                <field name="type"/>
+                <field name="state" widget="badge" decoration-success="state == 'published'" decoration-muted="state == 'draft'"/>
+                <field name="table_count"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_powerbi_dataset_form" model="ir.ui.view">
+        <field name="name">powerbi.dataset.form</field>
+        <field name="model">powerbi.dataset</field>
+        <field name="arch" type="xml">
+            <form string="Dataset Power BI">
+                <header>
+                    <button name="action_publish" string="Publicar en Power BI" type="object" class="btn-primary" invisible="state == 'published'"/>
+                    <button name="action_unpublish_wizard" string="Despublicar" type="object" class="btn-secondary" invisible="state != 'published'"/>
+                    <button name="action_sync_schema" string="Sincronizar Esquema" type="object" invisible="state != 'published'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,published"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="workspace_id"/>
+                            <field name="type"/>
+                        </group>
+                        <group>
+                            <field name="pbi_dataset_id" readonly="1"/>
+                            <field name="table_count"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Tablas">
+                            <field name="table_ids" nolabel="1">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="model_id"/>
+                                    <field name="last_sync_state" widget="badge"/>
+                                    <field name="last_sync_datetime"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_powerbi_dataset" model="ir.actions.act_window">
+        <field name="name">Datasets Power BI</field>
+        <field name="res_model">powerbi.dataset</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>
+

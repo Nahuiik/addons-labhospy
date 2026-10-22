@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_lock_date.LockDatesDashboard">
+        <Layout display="display">
+            <div class="o_lock_dates_dashboard p-3">
+                <div t-if="state.loading" class="text-center text-muted py-5">
+                    <i class="fa fa-circle-o-notch fa-spin fa-2x" title="Loading"/>
+                </div>
+                <div t-elif="state.error" class="alert alert-danger" t-out="state.error"/>
+                <div t-elif="state.summary" class="o_lock_dates_dashboard_content">
+                    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3" t-if="multiCompany">
+                        <label class="form-label mb-0 me-2">Company</label>
+                        <select class="form-select w-auto" t-att-value="state.companyId" t-on-change="onCompanyChange">
+                            <t t-foreach="companies" t-as="c" t-key="c.id">
+                                <option t-att-value="c.id" t-att-selected="c.id === state.companyId ? 'selected' : undefined" t-out="c.name"/>
+                            </t>
+                        </select>
+                    </div>
+
+                    <div class="d-flex flex-wrap gap-2 mb-3">
+                        <button t-if="state.summary.permissions.can_update_lock_dates"
+                                class="btn btn-primary"
+                                t-on-click="openUpdateWizard"
+                                type="button">Update Lock Dates</button>
+                        <button t-if="state.summary.permissions.can_manage_period_locks"
+                                class="btn btn-secondary"
+                                t-on-click="openPeriodLocks"
+                                type="button">Period locks</button>
+                        <button t-if="state.summary.permissions.can_revoke_exceptions"
+                                class="btn btn-secondary"
+                                t-on-click="openExceptions"
+                                type="button">All exceptions</button>
+                        <button class="btn btn-link" t-on-click="refresh" type="button">Refresh</button>
+                    </div>
+
+                    <div class="row g-3 mb-4">
+                        <t t-foreach="state.summary.locks" t-as="l" t-key="l.field">
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <div class="card h-100 shadow-sm">
+                                    <div class="card-body">
+                                        <h6 class="card-title text-uppercase text-muted small" t-out="l.label"/>
+                                        <div class="fs-5" t-if="l.effective" t-out="l.effective"/>
+                                        <div class="fs-5 text-muted" t-else="">—</div>
+                                        <div t-if="l.stored and l.stored !== l.effective" class="small text-muted mt-1">
+                                            Stored: <span t-out="l.stored"/>
+                                        </div>
+                                        <span t-if="l.exception_adjusted" class="badge text-bg-info mt-2">Exception</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-12 col-lg-6">
+                            <div class="card shadow-sm">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <span>Journal period locks (<span t-out="state.summary.period_locks.blocking_today_count"/> active today)</span>
+                                </div>
+                                <div class="card-body">
+                                    <p class="text-muted small mb-2">
+                                        Total locked rules: <span t-out="state.summary.period_locks.locked_rules_count"/>
+                                    </p>
+                                    <t t-if="state.summary.period_locks.samples.length">
+                                        <ul class="list-group list-group-flush">
+                                            <li t-foreach="state.summary.period_locks.samples" t-as="s" t-key="s.id" class="list-group-item px-0">
+                                                <strong t-out="s.name"/>
+                                                <span class="text-muted small"> (<span t-out="s.from_date"/> — <span t-out="s.to_date"/>, journals: <span t-out="s.journal_count"/>)</span>
+                                            </li>
+                                        </ul>
+                                    </t>
+                                    <p t-else="" class="text-muted mb-0">No journal-level period lock covers today.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <div class="card shadow-sm">
+                                <div class="card-header">
+                                    Active exceptions (<span t-out="state.summary.exception_count"/>)
+                                </div>
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table table-sm mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>User</th>
+                                                    <th>Field</th>
+                                                    <th>Date</th>
+                                                    <th t-if="state.summary.permissions.can_revoke_exceptions">Revoke</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr t-foreach="state.summary.exceptions" t-as="ex" t-key="ex.id">
+                                                    <td t-if="ex.user_name" t-out="ex.user_name"/>
+                                                    <td t-else="">Everyone</td>
+                                                    <td t-out="ex.lock_date_field_label"/>
+                                                    <td t-out="ex.lock_date"/>
+                                                    <td t-if="state.summary.permissions.can_revoke_exceptions">
+                                                        <button type="button" class="btn btn-sm btn-outline-danger"
+                                                                t-att-data-id="ex.id"
+                                                                t-on-click="onRevokeClick">Revoke</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <p t-if="!state.summary.exceptions.length" class="text-muted p-3 mb-0">No active exceptions.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </Layout>
+    </t>
+</templates>

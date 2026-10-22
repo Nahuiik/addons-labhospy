@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Payroll Sheet Tree View -->
+    <record id="view_l10n_hn_payroll_sheet_tree" model="ir.ui.view">
+        <field name="name">l10n.hn.payroll.sheet.tree</field>
+        <field name="model">l10n.hn.payroll.sheet</field>
+        <field name="arch" type="xml">
+            <list string="Planillas" create="1" edit="1">
+                <field name="name"/>
+                <field name="payroll_period_id"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="cutoff_date_from"/>
+                <field name="cutoff_date_to"/>
+                <field name="user_id"/>
+                <field name="total_he"/>
+                <field name="total_te"/>
+                <field name="total_bd"/>
+                <field name="state" decoration-info="state == 'draft'" decoration-success="state == 'done'"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Payroll Sheet Form View -->
+    <record id="view_l10n_hn_payroll_sheet_form" model="ir.ui.view">
+        <field name="name">l10n.hn.payroll.sheet.form</field>
+        <field name="model">l10n.hn.payroll.sheet</field>
+        <field name="arch" type="xml">
+            <form string="Planilla">
+                <header>
+                    <button name="action_get_employees_all" string="Obtener Todos los Empleados" type="object"
+                            invisible="state != 'draft'" class="btn-primary"/>
+                    <button name="action_get_employees_he" string="Obtener HE" type="object"
+                            invisible="state != 'draft'" class="btn-secondary"/>
+                    <button name="action_get_employees_te" string="Obtener TE" type="object"
+                            invisible="state != 'draft'" class="btn-secondary"/>
+                    <button name="action_get_employees_bd" string="Obtener BD" type="object"
+                            invisible="state != 'draft'" class="btn-secondary"/>
+                    <button name="action_open_import_wizard" string="Importar HHEE y TE" type="object"
+                            class="btn-secondary" invisible="state != 'draft'"/>
+                    <button name="action_open_bd_import_wizard" string="Importar BD" type="object"
+                            class="btn-secondary" invisible="state != 'draft'"/>
+                    <button name="action_confirm" string="Confirmar" type="object"
+                            invisible="state != 'draft'" class="btn-primary"/>
+                    <button name="action_set_to_draft" string="Establecer a Borrador" type="object"
+                            invisible="state != 'done'" class="btn-secondary"/>
+                    <button name="action_clean_all" string="Limpiar Líneas" type="object"
+                            invisible="state != 'draft'" class="btn-secondary"/>
+                    <button name="action_clean_zero_totals" string="Limpiar Ceros" type="object"
+                            invisible="state != 'draft'" class="btn-secondary"
+                            title="Eliminar empleados cuyo total HE, TE y BD sea cero"/>
+                    <button name="action_export_xlsx" string="Exportar Excel" type="object" class="btn-secondary"/>
+                    <button name="%(l10n_hn_hr_payroll.action_report_payroll_sheet)d" type="action" string="Imprimir PDF" class="btn-secondary"/>
+                </header>
+                <sheet>
+                    <div class="alert alert-info" role="alert" invisible="not cutoff_date_from or not cutoff_date_to">
+                        <strong>Fechas de corte para Horas Extra:</strong>
+                        <field name="cutoff_date_from" nolabel="1" readonly="1"/> al <field name="cutoff_date_to" nolabel="1" readonly="1"/>
+                        (HE generadas en este rango se pagan en esta quincena)
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="payroll_period_id"/>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="cutoff_date_from"/>
+                            <field name="cutoff_date_to"/>
+                            <field name="state" widget="badge"
+                                   decoration-info="state == 'draft'"
+                                   decoration-success="state == 'done'"/>
+                        </group>
+                        <group>
+                            <field name="user_id"/>
+                            <field name="department_id"/>
+                            <field name="filter_my_department_only"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="total_he" string="Total HE"/>
+                            <field name="total_te" string="Total TE"/>
+                            <field name="total_bd" string="Total BD"/>
+                        </group>
+                    </group>
+                    <field name="payslip_run_ids" invisible="state != 'done'" string="Nóminas vinculadas">
+                        <list create="0" delete="0" readonly="1">
+                            <field name="name"/>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="state"/>
+                        </list>
+                    </field>
+                    <notebook>
+                        <page string="Horas Extra" name="he">
+                            <field name="line_ids" nolabel="1" readonly="state == 'done'">
+                                <list create="1" delete="1" editable="bottom">
+                                    <field name="employee_id"/>
+                                    <field name="department_id"/>
+                                    <field name="he_25" sum="Total"/>
+                                    <field name="he_50" sum="Total"/>
+                                    <field name="he_75" sum="Total"/>
+                                    <field name="he_100" sum="Total"/>
+                                    <field name="amount_25" sum="Total"/>
+                                    <field name="amount_50" sum="Total"/>
+                                    <field name="amount_75" sum="Total"/>
+                                    <field name="amount_100" sum="Total"/>
+                                    <field name="amount_total" sum="Total"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Turnos Extra" name="te">
+                            <field name="line_te_ids" nolabel="1" readonly="state == 'done'">
+                                <list create="1" delete="1" editable="bottom">
+                                    <field name="employee_id"/>
+                                    <field name="department_id"/>
+                                    <field name="turn_a" sum="Total"/>
+                                    <field name="turn_b" sum="Total"/>
+                                    <field name="turn_c" sum="Total"/>
+                                    <field name="amount_other_income" sum="Total"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Beneficios y Deducciones" name="bd">
+                            <field name="line_bd_ids" nolabel="1" readonly="state == 'done'">
+                                <list create="1" delete="1" editable="bottom">
+                                    <field name="employee_id"/>
+                                    <field name="department_id"/>
+                                    <field name="concept_id"
+                                           domain="['&amp;', '&amp;', ('for_payroll', '=', True), ('employee_id', '=', False), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"/>
+                                    <field name="amount" sum="Total"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Payroll Sheet Search View -->
+    <record id="view_l10n_hn_payroll_sheet_search" model="ir.ui.view">
+        <field name="name">l10n.hn.payroll.sheet.search</field>
+        <field name="model">l10n.hn.payroll.sheet</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="payroll_period_id"/>
+                <field name="user_id"/>
+                <filter string="Borrador" name="draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Confirmadas" name="done" domain="[('state', '=', 'done')]"/>
+                <separator/>
+                <filter string="Estado" name="group_state" context="{'group_by': 'state'}"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action: Mis Planillas (filtro por user_id) -->
+    <record id="action_l10n_hn_payroll_sheet_my" model="ir.actions.act_window">
+        <field name="name">Mis Planillas</field>
+        <field name="res_model">l10n.hn.payroll.sheet</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_l10n_hn_payroll_sheet_search"/>
+        <field name="domain">[('user_id', '=', uid)]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay planillas propias.
+            </p>
+        </field>
+    </record>
+
+    <!-- Action for Payroll Sheets (Todas) -->
+    <record id="action_l10n_hn_payroll_sheet" model="ir.actions.act_window">
+        <field name="name">Planillas</field>
+        <field name="res_model">l10n.hn.payroll.sheet</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_l10n_hn_payroll_sheet_search"/>
+        <field name="context">{'search_default_draft': 0}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay planillas creadas.
+            </p>
+            <p>
+                Cree una planilla para capturar Horas Extra, Turnos Extra y Beneficios/Deducciones previa a la nómina.
+            </p>
+        </field>
+    </record>
+</odoo>

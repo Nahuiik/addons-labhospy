@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_product_traceability_widget.ProductTraceabilityDashboard">
+        <Layout display="display" className="rootClassName">
+            <div class="gn_traceability_scroll" t-ref="scrollRoot">
+            <div class="gn_traceability_dashboard">
+
+                <t t-if="state.loading and !payload">
+                    <div class="gn_traceability_skeleton">
+                        <div class="gn_traceability_skeleton__header"/>
+                        <div class="row g-3">
+                            <div class="col-md-3" t-foreach="[1,2,3,4]" t-as="i" t-key="i">
+                                <div class="gn_traceability_skeleton__kpi"/>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+
+                <t t-else="">
+                    <t t-if="state.error">
+                        <div class="alert alert-danger" role="alert" t-esc="state.error"/>
+                    </t>
+
+                    <div class="gn_traceability_empty gn_traceability_selector" t-if="needsProduct">
+                        <i class="fa fa-cube fa-3x mb-3"/>
+                        <h3>Seleccione un producto</h3>
+                        <p>Elija un producto almacenable para ver su trazabilidad.</p>
+                        <p class="text-muted small mb-3">
+                            Use el desplegable o abra el catálogo y haga clic en una fila para confirmar.
+                        </p>
+                        <div class="gn_traceability_selector__controls">
+                            <input type="search" class="form-control form-control-sm mb-2"
+                                   placeholder="Buscar por nombre, código o barras…"
+                                   t-on-input="onSearchProduct"/>
+                            <select class="form-select" t-on-change="onSelectProduct">
+                                <option value="">— Elija un producto —</option>
+                                <t t-foreach="state.filterOptions?.products or []" t-as="prod" t-key="prod.id">
+                                    <option t-att-value="prod.id" t-esc="prod.name"/>
+                                </t>
+                            </select>
+                            <button type="button" class="btn btn-outline-primary btn-sm mt-2"
+                                    t-on-click="openProductList">
+                                Abrir catálogo de productos
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="gn_traceability_empty" t-if="!needsProduct and !hasProduct and !state.loading and !state.error">
+                        <i class="fa fa-cube fa-3x mb-3"/>
+                        <h3>Sin datos de trazabilidad</h3>
+                        <p>No fue posible cargar la trazabilidad.</p>
+                    </div>
+
+                    <t t-if="hasProduct">
+                    <!-- HEADER -->
+                    <div class="gn_traceability_header" t-if="product">
+                        <div class="gn_traceability_header__left">
+                            <img t-att-src="product.image_url" class="gn_traceability_header__img" alt="Product"/>
+                            <div>
+                                <div class="gn_traceability_eyebrow">Trazabilidad de producto</div>
+                                <h1 class="gn_traceability_title" t-esc="product.name"/>
+                                <div class="gn_traceability_meta">
+                                    <span t-if="product.default_code">Código: <t t-esc="product.default_code"/></span>
+                                    <span t-if="product.barcode"> · Barras: <t t-esc="product.barcode"/></span>
+                                    <span t-if="product.category"> · <t t-esc="product.category"/></span>
+                                </div>
+                                <div class="gn_traceability_meta">
+                                    UoM: <t t-esc="product.uom"/> · Seguimiento: <t t-esc="product.tracking_label"/>
+                                </div>
+                                <t t-if="showCosts and product.cost_method_label">
+                                    <div class="gn_traceability_meta gn_traceability_cost">
+                                        Valoración: <t t-esc="product.cost_method_label"/>
+                                        · Costo prom.: <t t-esc="product.avg_cost_fmt"/>
+                                        · Valor existencia: <t t-esc="product.total_value_fmt"/>
+                                    </div>
+                                </t>
+                                <t t-if="product.lot">
+                                    <div class="gn_traceability_lot_banner">
+                                        Lote/Serie: <strong t-esc="product.lot.name"/>
+                                        <button type="button" class="btn btn-link btn-sm"
+                                                t-on-click="() => this.openRecord('stock.lot', product.lot.id)">
+                                            Abrir lote o serie
+                                        </button>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                        <div class="gn_traceability_header__right" t-if="payload?.summary">
+                            <div class="gn_traceability_summary_item">
+                                <span class="label">Saldo inicial</span>
+                                <span class="value"><t t-esc="payload.summary.opening_qty"/> <t t-esc="product.uom"/></span>
+                            </div>
+                            <div class="gn_traceability_summary_item">
+                                <span class="label">Entradas</span>
+                                <span class="value text-success"><t t-esc="payload.summary.incoming_qty"/> <t t-esc="product.uom"/></span>
+                            </div>
+                            <div class="gn_traceability_summary_item">
+                                <span class="label">Salidas</span>
+                                <span class="value text-danger"><t t-esc="payload.summary.outgoing_qty"/> <t t-esc="product.uom"/></span>
+                            </div>
+                            <div class="gn_traceability_summary_item">
+                                <span class="label">Saldo final</span>
+                                <span class="value"><t t-esc="payload.summary.closing_qty"/> <t t-esc="product.uom"/></span>
+                            </div>
+                            <t t-if="showCosts">
+                                <div class="gn_traceability_summary_item gn_traceability_summary_item--cost">
+                                    <span class="label">Valor inicial</span>
+                                    <span class="value gn_traceability_cost" t-esc="payload.summary.opening_value_fmt"/>
+                                </div>
+                                <div class="gn_traceability_summary_item gn_traceability_summary_item--cost">
+                                    <span class="label">Valor entradas</span>
+                                    <span class="value gn_traceability_cost text-success" t-esc="payload.summary.incoming_value_fmt"/>
+                                </div>
+                                <div class="gn_traceability_summary_item gn_traceability_summary_item--cost">
+                                    <span class="label">Valor salidas</span>
+                                    <span class="value gn_traceability_cost text-danger" t-esc="payload.summary.outgoing_value_fmt"/>
+                                </div>
+                                <div class="gn_traceability_summary_item gn_traceability_summary_item--cost">
+                                    <span class="label">Valor final</span>
+                                    <span class="value gn_traceability_cost" t-esc="payload.summary.closing_value_fmt"/>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+
+                    <!-- FILTERS -->
+                    <div class="gn_traceability_filters">
+                        <div class="row g-2 align-items-end">
+                            <div class="col-md-2">
+                                <label class="form-label">Desde</label>
+                                <input type="date" class="form-control form-control-sm"
+                                       t-att-value="state.filters.date_from or ''"
+                                       t-on-change="(ev) => this.onFilterChange('date_from', ev)"/>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Hasta</label>
+                                <input type="date" class="form-control form-control-sm"
+                                       t-att-value="state.filters.date_to or ''"
+                                       t-on-change="(ev) => this.onFilterChange('date_to', ev)"/>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Almacén</label>
+                                <select class="form-select form-select-sm"
+                                        t-on-change="(ev) => this.onFilterChange('warehouse_id', ev)">
+                                    <option value="">Todos</option>
+                                    <t t-foreach="state.filterOptions?.warehouses or []" t-as="wh" t-key="wh.id">
+                                        <option t-att-value="wh.id" t-att-selected="state.filters.warehouse_id == wh.id" t-esc="wh.name"/>
+                                    </t>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Lote / Serie</label>
+                                <select class="form-select form-select-sm"
+                                        t-on-change="(ev) => this.onFilterChange('lot_id', ev)">
+                                    <option value="">Todos</option>
+                                    <t t-foreach="state.filterOptions?.lots or []" t-as="lot" t-key="lot.id">
+                                        <option t-att-value="lot.id" t-att-selected="state.filters.lot_id == lot.id" t-esc="lot.name"/>
+                                    </t>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Búsqueda rápida</label>
+                                <input type="search" class="form-control form-control-sm" placeholder="Documento, lote, contacto…"
+                                       t-att-value="state.filters.search"
+                                       t-on-change="(ev) => this.onFilterChange('search', ev)"/>
+                            </div>
+                            <div class="col-md-3 d-flex flex-wrap gap-2 gn_traceability_filters__checks">
+                                <label class="form-check form-check-inline">
+                                    <input type="checkbox" class="form-check-input" t-att-checked="state.filters.include_internal"
+                                           t-on-change="(ev) => this.onFilterChange('include_internal', ev)"/>
+                                    Internos
+                                </label>
+                                <label class="form-check form-check-inline">
+                                    <input type="checkbox" class="form-check-input" t-att-checked="state.filters.include_adjustments"
+                                           t-on-change="(ev) => this.onFilterChange('include_adjustments', ev)"/>
+                                    Ajustes
+                                </label>
+                                <label class="form-check form-check-inline">
+                                    <input type="checkbox" class="form-check-input" t-att-checked="state.filters.include_pending"
+                                           t-on-change="(ev) => this.onFilterChange('include_pending', ev)"/>
+                                    Pendientes
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row g-2 align-items-end mt-2">
+                            <div class="col-md-2">
+                                <label class="form-label">Tipo de operación</label>
+                                <select class="form-select form-select-sm"
+                                        t-on-change="(ev) => this.onFilterChange('movement_type', ev)">
+                                    <option value="">Todos</option>
+                                    <t t-foreach="state.filterOptions?.movement_types or []" t-as="mt" t-key="mt.key">
+                                        <option t-att-value="mt.key" t-att-selected="state.filters.movement_type == mt.key" t-esc="mt.label"/>
+                                    </t>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Documento</label>
+                                <input type="text" class="form-control form-control-sm" placeholder="Picking, PO, SO…"
+                                       t-att-value="state.filters.document"
+                                       t-on-change="(ev) => this.onFilterChange('document', ev)"/>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Estado</label>
+                                <select class="form-select form-select-sm"
+                                        t-on-change="(ev) => this.onFilterChange('state', ev)">
+                                    <t t-foreach="state.filterOptions?.states or []" t-as="st" t-key="st.key">
+                                        <option t-att-value="st.key" t-att-selected="state.filters.state == st.key" t-esc="st.label"/>
+                                    </t>
+                                </select>
+                            </div>
+                            <div class="col-md-2 d-flex flex-wrap gap-2 gn_traceability_filters__checks">
+                                <label class="form-check form-check-inline">
+                                    <input type="checkbox" class="form-check-input" t-att-checked="state.filters.include_cancelled"
+                                           t-on-change="(ev) => this.onFilterChange('include_cancelled', ev)"/>
+                                    Cancelados
+                                </label>
+                            </div>
+                        </div>
+                        <div class="gn_traceability_actions mt-3">
+                            <button type="button" class="btn btn-primary btn-sm" t-on-click="onApplyFilters">
+                                <i class="fa fa-filter"/> Aplicar filtros
+                            </button>
+                            <button type="button" class="btn btn-secondary btn-sm" t-on-click="onClearFilters">
+                                Limpiar
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" t-on-click="openStockMoves">
+                                Abrir movimientos
+                            </button>
+                            <t t-if="payload?.meta?.can_export">
+                                <button type="button" class="btn btn-outline-danger btn-sm" t-on-click="exportPdf">
+                                    <i class="fa fa-file-pdf-o"/> PDF
+                                </button>
+                                <button type="button" class="btn btn-outline-success btn-sm" t-on-click="exportExcel">
+                                    <i class="fa fa-file-excel-o"/> Excel
+                                </button>
+                            </t>
+                            <div class="btn-group btn-group-sm ms-auto gn_traceability_view_tabs" role="group">
+                                <button type="button" class="btn"
+                                        t-att-class="state.viewMode === 'timeline' ? 'btn-primary' : 'btn-outline-primary'"
+                                        t-on-click.stop="() => this.setViewMode('timeline')">Línea de tiempo</button>
+                                <button type="button" class="btn"
+                                        t-att-class="state.viewMode === 'flow' ? 'btn-primary' : 'btn-outline-primary'"
+                                        t-on-click.stop="() => this.setViewMode('flow')">Mapa de flujo</button>
+                                <button type="button" class="btn"
+                                        t-att-class="state.viewMode === 'table' ? 'btn-primary' : 'btn-outline-primary'"
+                                        t-on-click.stop="() => this.setViewMode('table')">Tabla</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KPIs -->
+                    <div class="row g-3 gn_traceability_kpi_row" t-if="payload?.kpis">
+                        <div class="col-6 col-md-4 col-xl-3" t-foreach="payload.kpis" t-as="kpi" t-key="kpi.key">
+                            <div t-att-class="kpiClass(kpi.tone)" t-att-title="kpi.helper">
+                                <div class="gn_traceability_kpi__icon"><i t-att-class="'fa ' + kpi.icon"/></div>
+                                <div>
+                                    <div class="gn_traceability_kpi__label" t-esc="kpi.label"/>
+                                    <div class="gn_traceability_kpi__value">
+                                        <t t-esc="kpiDisplayValue(kpi)"/>
+                                    </div>
+                                    <div class="gn_traceability_kpi__helper" t-esc="kpi.helper"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CURRENT LOCATIONS -->
+                    <div class="gn_traceability_section" t-if="payload?.current_locations?.length">
+                        <h3 class="gn_traceability_section__title">Ubicación actual</h3>
+                        <div class="row g-2">
+                            <div class="col-md-4" t-foreach="payload.current_locations" t-as="loc" t-key="loc.location_id">
+                                <div class="gn_traceability_location card card-body py-2">
+                                    <div class="fw-semibold" t-esc="loc.location"/>
+                                    <div><t t-esc="loc.qty"/> <t t-esc="loc.uom"/> disponible</div>
+                                    <small class="text-muted gn_traceability_cost" t-if="showCosts and loc.value_fmt">
+                                        Valor: <t t-esc="loc.value_fmt"/>
+                                    </small>
+                                    <small class="text-muted" t-if="loc.reserved">Reservado: <t t-esc="loc.reserved"/></small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gn_traceability_body" t-att-class="{'gn_traceability_body--loading': state.loading or state.refreshing}">
+
+                    <!-- EMPTY STATE -->
+                    <div class="gn_traceability_empty" t-if="hasProduct and isEmpty">
+                        <i class="fa fa-random fa-3x mb-3"/>
+                        <h3>No existen movimientos de trazabilidad</h3>
+                        <p>Este producto no tiene movimientos completados con los filtros seleccionados.</p>
+                        <ul>
+                            <li>Producto nuevo o sin operaciones de inventario.</li>
+                            <li>Período o almacén sin movimientos.</li>
+                            <li>Filtros demasiado restrictivos.</li>
+                        </ul>
+                        <button type="button" class="btn btn-primary btn-sm" t-on-click="onClearFilters">Limpiar filtros</button>
+                    </div>
+
+                    <!-- VIEWS -->
+                    <div id="gn_traceability_view_panel" class="gn_traceability_views" t-if="showEvents">
+                    <!-- TIMELINE -->
+                    <div class="gn_traceability_section" t-if="state.viewMode === 'timeline'">
+                        <h3 class="gn_traceability_section__title">Línea de tiempo</h3>
+                        <div class="gn_traceability_timeline">
+                            <t t-foreach="events" t-as="event" t-key="event.id">
+                                <div t-att-class="eventClass(event)">
+                                    <div class="gn_traceability_event__marker">
+                                        <i t-att-class="'fa ' + event.icon"/>
+                                    </div>
+                                    <div class="gn_traceability_event__body">
+                                        <div class="gn_traceability_event__type" t-esc="event.type_label"/>
+                                        <div class="gn_traceability_event__date" t-esc="event.date_fmt"/>
+                                        <div class="gn_traceability_event__doc">
+                                            <a href="#" t-on-click.prevent="() => this.openRecord('stock.picking', event.picking_id)"
+                                               t-if="event.picking_id"
+                                               t-att-class="fieldHighlighted(event, 'document') ? 'gn_traceability_highlight' : ''">
+                                                <t t-foreach="hlParts(event.document)" t-as="part" t-key="part_index">
+                                                    <span t-if="part.match" class="gn_traceability_highlight" t-esc="part.text"/>
+                                                    <t t-else="" t-esc="part.text"/>
+                                                </t>
+                                            </a>
+                                            <t t-else="">
+                                                <t t-foreach="hlParts(event.document)" t-as="part" t-key="part_index">
+                                                    <span t-if="part.match" class="gn_traceability_highlight" t-esc="part.text"/>
+                                                    <t t-else="" t-esc="part.text"/>
+                                                </t>
+                                            </t>
+                                        </div>
+                                        <div class="gn_traceability_event__route">
+                                            <a href="#" t-on-click.prevent="() => this.openRecord('stock.location', event.source_id)"
+                                               t-att-class="cellClass(event, 'source')">
+                                                <t t-foreach="hlParts(event.source)" t-as="part" t-key="part_index">
+                                                    <span t-if="part.match" class="gn_traceability_highlight" t-esc="part.text"/>
+                                                    <t t-else="" t-esc="part.text"/>
+                                                </t>
+                                            </a>
+                                            →
+                                            <a href="#" t-on-click.prevent="() => this.openRecord('stock.location', event.destination_id)"
+                                               t-att-class="cellClass(event, 'destination')">
+                                                <t t-foreach="hlParts(event.destination)" t-as="part" t-key="part_index">
+                                                    <span t-if="part.match" class="gn_traceability_highlight" t-esc="part.text"/>
+                                                    <t t-else="" t-esc="part.text"/>
+                                                </t>
+                                            </a>
+                                        </div>
+                                        <div class="gn_traceability_event__qty">
+                                            Cantidad: <strong><t t-esc="event.qty"/> <t t-esc="event.uom"/></strong>
+                                            · Saldo: <t t-esc="event.balance"/>
+                                        </div>
+                                        <div class="gn_traceability_event__cost gn_traceability_cost" t-if="showCosts and event.is_valued">
+                                            Costo unit.: <t t-esc="event.unit_cost_fmt"/>
+                                            · Valor: <t t-esc="event.value_fmt"/>
+                                            · Saldo valor: <t t-esc="event.value_balance_fmt"/>
+                                        </div>
+                                        <div class="gn_traceability_event__commercial" t-if="event.commercial_partner">
+                                            <span class="gn_traceability_event__commercial-item">
+                                                <i t-att-class="'fa me-1 text-muted ' + (event.commercial_partner_role === 'supplier' ? 'fa-truck' : 'fa-user')"/>
+                                                <t t-esc="event.commercial_partner_label"/>:
+                                                <a href="#" t-on-click.prevent="() => this.openRecord('res.partner', event.commercial_partner_id)"
+                                                   t-att-class="cellClass(event, event.commercial_partner_role === 'supplier' ? 'supplier' : 'customer')">
+                                                    <t t-foreach="hlParts(event.commercial_partner)" t-as="part" t-key="part_index">
+                                                        <span t-if="part.match" class="gn_traceability_highlight" t-esc="part.text"/>
+                                                        <t t-else="" t-esc="part.text"/>
+                                                    </t>
+                                                </a>
+                                            </span>
+                                        </div>
+                                        <div class="gn_traceability_event__meta" t-if="event.lot or event.user">
+                                            <span t-if="event.lot" t-att-class="cellClass(event, 'lot')">
+                                                Lote/Serie:
+                                                <t t-foreach="hlParts(event.lot)" t-as="part" t-key="part_index">
+                                                    <span t-if="part.match" class="gn_traceability_highlight" t-esc="part.text"/>
+                                                    <t t-else="" t-esc="part.text"/>
+                                                </t>
+                                            </span>
+                                            <span t-if="event.user" t-att-class="cellClass(event, 'user')">
+                                                 ·
+                                                <t t-foreach="hlParts(event.user)" t-as="part" t-key="part_index">
+                                                    <span t-if="part.match" class="gn_traceability_highlight" t-esc="part.text"/>
+                                                    <t t-else="" t-esc="part.text"/>
+                                                </t>
+                                            </span>
+                                        </div>
+                                        <span class="badge text-bg-secondary" t-esc="event.state_label"/>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                        <div class="text-center mt-3" t-if="payload?.pagination?.has_more">
+                            <button type="button" class="btn btn-outline-primary" t-on-click="onLoadMore"
+                                    t-att-disabled="state.refreshing">
+                                Cargar más
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- FLOW MAP (SVG) -->
+                    <div class="gn_traceability_section" t-elif="state.viewMode === 'flow'">
+                        <h3 class="gn_traceability_section__title">Mapa de flujo</h3>
+                        <TraceabilityFlowMap graph="flowGraph"
+                                             onNodeClick.bind="onFlowNodeClick"/>
+                    </div>
+
+                    <!-- TABLE -->
+                    <div class="gn_traceability_section" t-elif="state.viewMode === 'table'">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h3 class="gn_traceability_section__title mb-0">Tabla detallada</h3>
+                            <button type="button" class="btn btn-sm btn-outline-secondary" t-on-click="toggleOrder">
+                                Orden: <t t-esc="state.filters.order === 'asc' ? 'Ascendente' : 'Descendente'"/>
+                            </button>
+                        </div>
+                        <div class="table-responsive gn_traceability_table">
+                            <table class="table table-sm table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>Tipo</th>
+                                        <th>Documento</th>
+                                        <th>Origen</th>
+                                        <th>Destino</th>
+                                        <th class="text-end">Entrada</th>
+                                        <th class="text-end">Salida</th>
+                                        <th class="text-end">Saldo</th>
+                                        <th t-if="showCosts" class="text-end">Costo unit.</th>
+                                        <th t-if="showCosts" class="text-end">Valor entrada</th>
+                                        <th t-if="showCosts" class="text-end">Valor salida</th>
+                                        <th t-if="showCosts" class="text-end">Saldo valor</th>
+                                        <th>Lote/Serie</th>
+                                        <th>Proveedor</th>
+                                        <th>Cliente</th>
+                                        <th>Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="events" t-as="row" t-key="row.id"
+                                        t-att-class="row.highlight ? 'table-warning' : ''">
+                                        <td t-esc="row.date_fmt"/>
+                                        <td t-esc="row.type_label"/>
+                                        <td t-att-class="cellClass(row, 'document')">
+                                            <a href="#" t-if="row.picking_id"
+                                               t-on-click.prevent="() => this.openRecord('stock.picking', row.picking_id)">
+                                                <t t-foreach="hlParts(row.document)" t-as="part" t-key="part_index">
+                                                    <span t-if="part.match" class="gn_traceability_highlight" t-esc="part.text"/>
+                                                    <t t-else="" t-esc="part.text"/>
+                                                </t>
+                                            </a>
+                                            <t t-else="">
+                                                <t t-foreach="hlParts(row.document)" t-as="part" t-key="part_index">
+                                                    <span t-if="part.match" class="gn_traceability_highlight" t-esc="part.text"/>
+                                                    <t t-else="" t-esc="part.text"/>
+                                                </t>
+                                            </t>
+                                        </td>
+                                        <td t-att-class="cellClass(row, 'source')">
+                                            <t t-foreach="hlParts(row.source)" t-as="part" t-key="part_index">
+                                                <span t-if="part.match" class="gn_traceability_highlight" t-esc="part.text"/>
+                                                <t t-else="" t-esc="part.text"/>
+                                            </t>
+                                        </td>
+                                        <td t-att-class="cellClass(row, 'destination')">
+                                            <t t-foreach="hlParts(row.destination)" t-as="part" t-key="part_index">
+                                                <span t-if="part.match" class="gn_traceability_highlight" t-esc="part.text"/>
+                                                <t t-else="" t-esc="part.text"/>
+                                            </t>
+                                        </td>
+                                        <td class="text-end" t-esc="row.in_qty or ''"/>
+                                        <td class="text-end" t-esc="row.out_qty or ''"/>
+                                        <td class="text-end" t-esc="row.balance"/>
+                                        <td t-if="showCosts" class="text-end gn_traceability_cost" t-esc="row.is_valued ? row.unit_cost_fmt : ''"/>
+                                        <td t-if="showCosts" class="text-end gn_traceability_cost" t-esc="row.value_in ? row.value_in_fmt : ''"/>
+                                        <td t-if="showCosts" class="text-end gn_traceability_cost" t-esc="row.value_out ? row.value_out_fmt : ''"/>
+                                        <td t-if="showCosts" class="text-end gn_traceability_cost" t-esc="row.value_balance_fmt or ''"/>
+                                        <td t-att-class="cellClass(row, 'lot')">
+                                            <t t-foreach="hlParts(row.lot)" t-as="part" t-key="part_index">
+                                                <span t-if="part.match" class="gn_traceability_highlight" t-esc="part.text"/>
+                                                <t t-else="" t-esc="part.text"/>
+                                            </t>
+                                        </td>
+                                        <td t-att-class="cellClass(row, 'supplier')">
+                                            <a href="#" t-if="row.supplier_id"
+                                               t-on-click.prevent="() => this.openRecord('res.partner', row.supplier_id)">
+                                                <t t-foreach="hlParts(row.supplier)" t-as="part" t-key="part_index">
+                                                    <span t-if="part.match" class="gn_traceability_highlight" t-esc="part.text"/>
+                                                    <t t-else="" t-esc="part.text"/>
+                                                </t>
+                                            </a>
+                                        </td>
+                                        <td t-att-class="cellClass(row, 'customer')">
+                                            <a href="#" t-if="row.customer_id"
+                                               t-on-click.prevent="() => this.openRecord('res.partner', row.customer_id)">
+                                                <t t-foreach="hlParts(row.customer)" t-as="part" t-key="part_index">
+                                                    <span t-if="part.match" class="gn_traceability_highlight" t-esc="part.text"/>
+                                                    <t t-else="" t-esc="part.text"/>
+                                                </t>
+                                            </a>
+                                        </td>
+                                        <td t-esc="row.state_label"/>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    </div>
+
+                    <!-- PENDING -->
+                    <div class="gn_traceability_section" t-if="payload?.pending_moves?.length">
+                        <h3 class="gn_traceability_section__title">Movimientos pendientes</h3>
+                        <div class="list-group">
+                            <div class="list-group-item" t-foreach="payload.pending_moves" t-as="pm" t-key="pm.id">
+                                <strong t-esc="pm.document"/> — <t t-esc="pm.qty"/> <t t-esc="pm.uom"/>
+                                <span class="text-muted" t-if="pm.supplier"> · Comprado a: <t t-esc="pm.supplier"/></span>
+                                <span class="text-muted" t-if="pm.customer"> · Vendido a: <t t-esc="pm.customer"/></span>
+                                <span class="text-muted"> · <t t-esc="pm.source"/> → <t t-esc="pm.destination"/></span>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    </t>
+                </t>
+            </div>
+            </div>
+        </Layout>
+    </t>
+
+</templates>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Categoría -->
+        <record id="module_category_gn_crm_checklist" model="ir.module.category">
+            <field name="name">CRM Checklist</field>
+            <field name="description">Permisos para gestionar Checklists CRM</field>
+            <field name="sequence">100</field>
+        </record>
+
+        <!-- Privilegio principal -->
+        <record id="privilege_crm_checklist" model="res.groups.privilege">
+            <field name="name">CRM Checklist</field>
+            <field name="category_id" ref="module_category_gn_crm_checklist"/>
+            <field name="sequence">10</field>
+        </record>
+
+        <!-- Grupo de Usuario -->
+        <record id="group_crm_checklist_user" model="res.groups">
+            <field name="name">Usuario de Checklist CRM</field>
+            <field name="comment">Usuario que puede ver y completar/cancelar items de checklist</field>
+            <field name="privilege_id" ref="privilege_crm_checklist"/>
+            <field name="sequence">10</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <!-- Grupo de Administrador -->
+        <record id="group_crm_checklist_manager" model="res.groups">
+            <field name="name">Administrador de Checklist CRM</field>
+            <field name="comment">Administrador que puede crear, editar y eliminar checklists e items</field>
+            <field name="privilege_id" ref="privilege_crm_checklist"/>
+            <field name="sequence">20</field>
+            <field name="implied_ids" eval="[(4, ref('group_crm_checklist_user'))]"/>
+        </record>
+    </data>
+</odoo>
+

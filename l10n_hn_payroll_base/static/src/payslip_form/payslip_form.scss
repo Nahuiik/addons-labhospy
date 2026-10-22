@@ -1,0 +1,15 @@
+// Employee payslip form (Enterprise-style layout)
+.o_hn_payslip_form {
+    .o_hn_payslip_hero {
+        .o_hn_payslip_employee_title .o_field_many2one_avatar {
+            font-size: inherit;
+        }
+    }
+
+    .o_hn_payslip_inline_field .o_field_widget,
+    .o_hn_payslip_inline_field .o_input {
+        display: inline-block;
+        width: auto;
+        min-width: 0;
+    }
+}

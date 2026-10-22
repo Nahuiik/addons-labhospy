@@ -1,0 +1,3239 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_hn_hr_recruitment
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-04 16:47+0000\n"
+"PO-Revision-Date: 2026-04-04 16:47+0000\n"
+"Last-Translator: \n"
+"Language-Team: Spanish (Guatemala) <es_GT@li.org>\n"
+"Language: es_GT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,help:l10n_hn_hr_recruitment.field_res_company__numero
+msgid "(1 Postensa), (2 Concremix), (3 Credipro)"
+msgstr "(1 Postensa), (2 Concremix), (3 Credipro)"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__res_lang_other__level__level_100
+msgid "100 %"
+msgstr "100 %"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,help:l10n_hn_hr_recruitment.field_hr_employee__identification_id
+msgid "13-digit identification number (without dashes)"
+msgstr ""
+"Ingresa el número de identificación nacional del empleado emitido por el "
+"gobierno (por ejemplo, Aadhaar, SIN, NIN). Este se usa para registros "
+"oficiales y cumplimiento legal."
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__res_lang_other__level__level_50
+msgid "50 %"
+msgstr "50 %"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__res_lang_other__level__level_75
+msgid "75 %"
+msgstr "75 %"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "<b>A</b>"
+msgstr "<b>A</b>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+msgid "<b>AÑOS</b>"
+msgstr "<b>AÑOS</b>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "<b>CONOCIMIENTOS GENERALES</b>"
+msgstr "<b>CONOCIMIENTOS GENERALES</b>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "<b>CONTACTOS DE EMERGENCIA</b>"
+msgstr "<b>CONTACTOS DE EMERGENCIA</b>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "<b>CURSOS Y CAPACITACIONES</b>"
+msgstr "<b>CURSOS Y CAPACITACIONES</b>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "<b>DATOS FAMILIARES</b>"
+msgstr "<b>DATOS FAMILIARES</b>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "<b>DATOS PERSONALES</b>"
+msgstr "<b>DATOS PERSONALES</b>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "<b>DE</b>"
+msgstr "<b>DE</b>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "<b>DIRECCIÓN</b>"
+msgstr "<b>DIRECCIÓN</b>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "<b>DOCUMENTACIÓN</b>"
+msgstr "<b>DOCUMENTACIÓN</b>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "<b>DOMICILIO</b>"
+msgstr "<b>DOMICILIO</b>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "<b>EMPLEO ACTUAL Y ANTERIORES</b>"
+msgstr "<b>EMPLEO ACTUAL Y ANTERIORES</b>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "<b>ESCOLARIDAD</b>"
+msgstr "<b>ESCOLARIDAD</b>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "<b>ESTADO DE SALUD Y HÁBITOS PERSONALES</b>"
+msgstr "<b>ESTADO DE SALUD Y HÁBITOS PERSONALES</b>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "<b>Ficha de Empleado</b>"
+msgstr "<b>Ficha de Empleado</b>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "<b>NOMBRE</b>"
+msgstr "<b>NOMBRE</b>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "<b>OCUPACIÓN</b>"
+msgstr "<b>OCUPACIÓN</b>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "<b>REFERENCIAS PERSONALES</b>"
+msgstr "<b>REFERENCIAS PERSONALES</b>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "<b>RELACION</b>"
+msgstr "<b>RELACION</b>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+msgid "<b>TELEFONO</b>"
+msgstr "<b>TELEFONO</b>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "<b>TELÉFONO</b>"
+msgstr "<b>TELÉFONO</b>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "<b>TIEMPO DE CONOCERLO</b>"
+msgstr "<b>TIEMPO DE CONOCERLO</b>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "<b>TÍTULO RECIBIDO</b>"
+msgstr "<b>TÍTULO RECIBIDO</b>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid ""
+"<span style=\"position:relative;bottom:-45.5px;\">FOTOGRAFIA RECIENTE</span>"
+msgstr ""
+"<span style=\"position:relative;bottom:-45.5px;\">FOTOGRAFIA RECIENTE</span>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_carnet_report
+msgid ""
+"<strong>El presente Carnet es personal e Intransferible en caso de perdida o emergencia favor llama a:\n"
+"                                        <br/>Tel: (504) 2235-8587</strong>\n"
+"\n"
+"                                        <br/><br/>\n"
+"                                        <strong>Col. La Era, Calle Principal, Plantel CONCREMIX</strong>\n"
+"\n"
+"                                        <br/><br/><br/><br/>\n"
+"                                        <strong>\n"
+"                                            ___________________________________<br/>\n"
+"                                            Firma Autorizada RRHH\n"
+"                                        </strong>"
+msgstr ""
+"<strong>El presente Carnet es personal e Intransferible en caso de perdida o emergencia favor llama a:\n"
+"                                        <br/>Tel: (504) 2235-8587</strong>\n"
+"\n"
+"                                        <br/><br/>\n"
+"                                        <strong>Col. La Era, Calle Principal, Plantel CONCREMIX</strong>\n"
+"\n"
+"                                        <br/><br/><br/><br/>\n"
+"                                        <strong>\n"
+"                                            ___________________________________<br/>\n"
+"                                            Firma Autorizada RRHH\n"
+"                                        </strong>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_carnet_report
+msgid "<strong>ID:</strong>"
+msgstr "<strong>ID:</strong>"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__academic_training_id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__academic_training_id
+msgid "Academic Training"
+msgstr "Academic Training"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_field_of_study__active
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_marital_status__active
+msgid "Active"
+msgstr "Active"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_job_current_last__address
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_academic_formation__address
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_reference_personal__address
+msgid "Address"
+msgstr "Dirección"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,help:l10n_hn_hr_recruitment.field_courses_training__attachment_ids
+msgid "Adjunta documentos relacionados a Cursos y Capacitaciones."
+msgstr "Adjunta documentos relacionados a Cursos y Capacitaciones."
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,help:l10n_hn_hr_recruitment.field_hr_employee__attachment_ids
+msgid ""
+"Adjunta documentos relacionados incapacidades, cirugias, registros de "
+"enfermedades, etc."
+msgstr ""
+"Adjunta documentos relacionados incapacidades, cirugias, registros de "
+"enfermedades, etc."
+
+#. module: l10n_hn_hr_recruitment
+#: model:l10n_hn_hr_recruitment.field.of.study,name:l10n_hn_hr_recruitment.field_of_study_admin
+msgid "Administración de empresas"
+msgstr "Administración de empresas"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__age
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__age
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_family_information__age
+msgid "Age"
+msgstr "Edad"
+
+#. module: l10n_hn_hr_recruitment
+#: model:l10n_hn_hr_recruitment.field.of.study,name:l10n_hn_hr_recruitment.field_of_study_agronomy
+msgid "Agronomía / Agroindustria"
+msgstr "Agronomía / Agroindustria"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_applicant__live_with__alone
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_employee__live_with__alone
+msgid "Alone"
+msgstr "Solo"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model,name:l10n_hn_hr_recruitment.model_hr_applicant
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant_survey_url_wizard__applicant_id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_recruitment_stage_checklist_line__applicant_id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_job_current_last__applicant_id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_academic_formation__applicant_id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_docs_employee__applicant_id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_reference_personal__applicant_id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_res_lang_other__applicant_id
+msgid "Applicant"
+msgstr "Postulante"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__email_from
+msgid "Applicant Email"
+msgstr "Applicant Email"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__partner_mobile
+msgid "Applicant Mobile"
+msgstr "Applicant Mobile"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__partner_phone
+msgid "Applicant Phone"
+msgstr "Applicant Phone"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__categ_ids
+msgid "Applicant Tags"
+msgstr "Applicant Tags"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__partner_name
+msgid "Applicant's Name"
+msgstr "Applicant's Name"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__application_count
+msgid "Application Count"
+msgstr "Application Count"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,help:l10n_hn_hr_recruitment.field_hr_employee__application_count
+msgid "Applications with the same email"
+msgstr "Applications with the same email"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model,website_form_label:l10n_hn_hr_recruitment.model_hr_applicant
+msgid "Apply for a Job"
+msgstr "Postúlate"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__priority
+msgid "Appreciation"
+msgstr "Appreciation"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.actions.act_window,name:l10n_hn_hr_recruitment.action_area
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__area_id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__area_id
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.area_tree
+msgid "Area"
+msgstr "Área"
+
+#. module: l10n_hn_hr_recruitment
+#: model:l10n_hn_hr_recruitment.field.of.study,name:l10n_hn_hr_recruitment.field_of_study_architecture
+msgid "Arquitectura"
+msgstr "Arquitectura"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_docs_contract__attachment_url
+msgid "Attachment Url"
+msgstr "Attachment Url"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__availability
+msgid "Availability"
+msgstr "Availability"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Años"
+msgstr "Años"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_applicant__health_status__bad
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_employee__health_status__bad
+msgid "Bad"
+msgstr "Malo"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__birth_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__birth_date
+msgid "Birth Date"
+msgstr "Fecha de nacimiento"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__birthplace
+msgid "Birthplace"
+msgstr "Lugar de nacimiento"
+
+#. module: l10n_hn_hr_recruitment
+#. odoo-python
+#: code:addons/l10n_hn_hr_recruitment/models/hr_employee_inh.py:0
+msgid "Blocked"
+msgstr "Blocked"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_job_current_last__comment_boss
+msgid "Boss Comment"
+msgstr "Comentario del jefe"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Bueno"
+msgstr "Bueno"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.actions.act_window,name:l10n_hn_hr_recruitment.action_field_of_study
+#: model:ir.model,name:l10n_hn_hr_recruitment.model_l10n_hn_hr_recruitment_field_of_study
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__study_field_id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_academic_formation__field_of_study_id
+#: model:ir.ui.menu,name:l10n_hn_hr_recruitment.menu_field_of_study
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.field_of_study_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.field_of_study_view_list
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_employee_view_form_study_field_catalog
+msgid "Campo de estudio"
+msgstr "Campo de estudio"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_job_current_last__information
+msgid "Can get information"
+msgstr "Puede obtener información"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_report_for_diseases_view
+msgid "Cancelar"
+msgstr "Cancelar"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+msgid "Casado"
+msgstr "Casado"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_applicant__marital__married
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_employee__marital__married
+#: model:l10n_hn_hr_recruitment.marital.status,name:l10n_hn_hr_recruitment.marital_status_married
+msgid "Casado(a)"
+msgstr "Casado (a)"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.survey_url_wizard_view_form
+msgid "Cerrar"
+msgstr "Cerrar"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_employee_view_form_inherit_skills_cert_to_education
+msgid "Certificaciones"
+msgstr "Certificaciones"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_employee_view_form_inherit_skills_cert_to_education
+msgid "Certificación"
+msgstr "Certificación"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_grade_certificate__name
+msgid "Certificado"
+msgstr "Certificado"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_employee_view_form_inherit_l10n_hn
+msgid "Certificado Seguro de Vida"
+msgstr "Certificado Seguro de Vida"
+
+#. module: l10n_hn_hr_recruitment
+#: model:res.groups,name:l10n_hn_hr_recruitment.group_project_chairman
+msgid "Chairman"
+msgstr "Presidente"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_applicant_view_form_inherit
+msgid "Checklist"
+msgstr "Checklist"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,help:l10n_hn_hr_recruitment.field_hr_applicant__survey_id
+msgid ""
+"Choose an interview form for this job position and you will be able to "
+"print/answer this interview from all applicants who apply for this job"
+msgstr ""
+"Elija un formulario para la entrevista de este puesto de trabajo y podrá "
+"imprimir o responder esta entrevista para todos los solicitantes que se "
+"postulen al puesto."
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__chronic_illness
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__chronic_illness
+msgid "Chronic Illness"
+msgstr "Enfermedad crónica"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__surgery_ids
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__surgery_ids
+msgid "Cirugías"
+msgstr "Cirugías"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__city
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__city
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_applicant_view_form_inherit
+msgid "City"
+msgstr "Cuidad"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Clase y Número de Licencia<br/>"
+msgstr "Clase y Número de Licencia<br/>"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__class_license
+msgid "Class"
+msgstr "Clase"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__club_social_deport
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__club_social_deport
+msgid "Club Social or Deport"
+msgstr "¿Visita un club Social o Deporte?"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__social_club_ids
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__social_club_ids
+msgid "Clubs"
+msgstr "Clubs"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__bank_account_hover
+msgid "Code bank"
+msgstr "Code bank"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Colonia<br/>"
+msgstr "Colonia<br/>"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_dependents_person__color
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_social_club__color
+msgid "Color Index"
+msgstr "Indice de color"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Comentarios de Entrevistador y firma"
+msgstr "Comentarios de Entrevistador y firma"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model,name:l10n_hn_hr_recruitment.model_res_company
+msgid "Companies"
+msgstr "Empresas"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_job_current_last__company
+msgid "Company"
+msgstr "Compañia"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Compañia"
+msgstr "Compañia"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_applicant_view_form_inherit
+msgid "Competencias"
+msgstr "Competencias"
+
+#. module: l10n_hn_hr_recruitment
+#: model:survey.question,title:l10n_hn_hr_recruitment.survey_interview_tecnica_p1
+msgid "Competencias técnicas"
+msgstr "Competencias técnicas"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_job_current_last__name
+msgid "Concept"
+msgstr "Concepto"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.relation_famiy_form_view
+msgid "Configure Relation"
+msgstr "Relación de configuración"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.relations_family_tree
+msgid "Configure Relations"
+msgstr "Relación de configuración"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__emergency_contact
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_applicant_view_form_inherit
+msgid "Contacto de Emergencia"
+msgstr "Contacto de Emergencia"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__name_emergency
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__name_emergency
+msgid "Contacto de Emergencia 2"
+msgstr "Contacto de Emergencia 2"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_employee_view_form_inherit_l10n_hn
+msgid "Contacto de emergencia (HN)"
+msgstr "Contacto de emergencia (HN)"
+
+#. module: l10n_hn_hr_recruitment
+#: model:l10n_hn_hr_recruitment.field.of.study,name:l10n_hn_hr_recruitment.field_of_study_accounting
+msgid "Contaduría pública / Contabilidad"
+msgstr "Contaduría pública / Contabilidad"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_version__doc_ids
+msgid "Contract Documents"
+msgstr "Contract Documents"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_docs_contract__contract_id
+msgid "Contract Record"
+msgstr "Contract Record"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Correo Electronico<br/>"
+msgstr "Correo Electronico<br/>"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__private_emails
+msgid "Correo electrónico"
+msgstr "Correo electrónico"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__country_id
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_applicant_view_form_inherit
+msgid "Country"
+msgstr "País"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__hn_country_id
+msgid "Country (address)"
+msgstr "País"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__course_carrera
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__course_carrera
+msgid "Course and Carrera"
+msgstr "Curso y Carrera"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_other_courses__course
+msgid "Course or career"
+msgstr "Curso o Carrera"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_courses_training__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant_survey_url_wizard__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_recruitment_stage_checklist__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_recruitment_stage_checklist_line__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_job_current_last__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_academic_formation__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_areas__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_dependents_person__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_docs_contract__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_docs_diseases__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_docs_employee__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_family_information__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_family_relation__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_field_of_study__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_grade_certificate__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_marital_status__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_other_courses__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_social_club__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_reference_personal__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_report_wzard_payroll_diseases__create_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_res_lang_other__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_courses_training__create_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant_survey_url_wizard__create_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_recruitment_stage_checklist__create_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_recruitment_stage_checklist_line__create_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_job_current_last__create_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_academic_formation__create_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_areas__create_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_dependents_person__create_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_docs_contract__create_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_docs_diseases__create_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_docs_employee__create_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_family_information__create_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_family_relation__create_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_field_of_study__create_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_grade_certificate__create_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_marital_status__create_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_other_courses__create_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_social_club__create_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_reference_personal__create_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_report_wzard_payroll_diseases__create_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_res_lang_other__create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__current_address
+msgid "Current Address"
+msgstr "Current Address"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__study_current
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__study_current
+msgid "Current Study"
+msgstr "Estudio actual"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Curso o Carrera"
+msgstr "Curso o Carrera"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.actions.act_window,name:l10n_hn_hr_recruitment.action_hr_employee_report_courses
+#: model:ir.model,name:l10n_hn_hr_recruitment.model_courses_training
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_courses_training__attachment_ids
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__course_ids
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__course_ids
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_employee_view_form_inherit_skills_cert_to_education
+msgid "Cursos y Capacitaciones"
+msgstr "Cursos y Capacitaciones"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__partner_id
+msgid "Customer"
+msgstr "Customer"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_marital_status__code
+msgid "Código técnico"
+msgstr "Código técnico"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_applicant_view_form_inherit
+msgid "Cónyuge"
+msgstr "Cónyuge"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+msgid "DATOS ECONOMICOS"
+msgstr "DATOS ECONOMICOS"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+msgid "DATOS GENERALES"
+msgstr "DATOS GENERALES"
+
+#. module: l10n_hn_hr_recruitment
+#. odoo-python
+#: code:addons/l10n_hn_hr_recruitment/report/payroll_report_xls_for_diseases.py:0
+msgid "DNI"
+msgstr "DNI"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_applicant_view_form_inherit
+msgid "Datos Generales"
+msgstr "Datos Generales"
+
+#. module: l10n_hn_hr_recruitment
+#: model:survey.question,title:l10n_hn_hr_recruitment.survey_interview_inicial_p1
+msgid "Datos generales"
+msgstr "Datos generales"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,help:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_marital_status__code
+msgid ""
+"Debe coincidir con el valor histórico del campo marital para migración."
+msgstr ""
+"Debe coincidir con el valor histórico del campo marital para migración."
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid ""
+"Declaro que todos los datos que proporcioné en la presente solicitud son verdaderos, \n"
+"                                    y autorizo a"
+msgstr ""
+"Declaro que todos los datos que proporcioné en la presente solicitud son verdaderos, \n"
+"                                    y autorizo a"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__type_id
+msgid "Degree"
+msgstr "Degree"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+msgid "Delegación o Municipio<br/>"
+msgstr "Delegación o Municipio<br/>"
+
+#. module: l10n_hn_hr_recruitment
+#. odoo-python
+#: code:addons/l10n_hn_hr_recruitment/report/payroll_report_xls_for_diseases.py:0
+msgid "Departamento"
+msgstr "Departamento"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__department_function
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__department_function
+msgid "Department Function"
+msgstr "Departamento que domina"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__dependent_people
+msgid "Dependent"
+msgstr "Dependiente"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__dependent_people
+msgid "Dependent People"
+msgstr "Persona dependiente"
+
+#. module: l10n_hn_hr_recruitment
+#: model:l10n_hn_hr_recruitment.field.of.study,name:l10n_hn_hr_recruitment.field_of_study_law
+msgid "Derecho"
+msgstr "Derecho"
+
+#. module: l10n_hn_hr_recruitment
+#: model:survey.question,title:l10n_hn_hr_recruitment.survey_interview_tecnica_q2
+msgid "Describe un proyecto o logro del que te sientas orgulloso"
+msgstr "Describe un proyecto o logro del que te sientas orgulloso"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_docs_contract__name
+msgid "Descripción"
+msgstr "Descripción"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model,name:l10n_hn_hr_recruitment.model_job_current_last
+#: model:ir.model,name:l10n_hn_hr_recruitment.model_reference_personal
+#: model:ir.model,name:l10n_hn_hr_recruitment.model_report_l10n_hn_hr_recruitment_payroll_report_xls_diseases_xlsx
+#: model:ir.model,name:l10n_hn_hr_recruitment.model_res_lang_other
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__description
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_docs_diseases__name
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_docs_employee__name
+msgid "Description"
+msgstr "Descripción"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_employee_view_form_inherit_skills_cert_to_education
+msgid "Desde"
+msgstr "Desde"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_applicant_view_form_inherit
+msgid "Detalle de la enfermedad crónica"
+msgstr "Detalle de la enfermedad crónica"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__address_home
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_applicant_view_form_inherit
+msgid "Dirección"
+msgstr "Dirección"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__diseases_ids
+msgid "Diseases He Suffers"
+msgstr "Enfermedades que sufre"
+
+#. module: l10n_hn_hr_recruitment
+#: model:l10n_hn_hr_recruitment.field.of.study,name:l10n_hn_hr_recruitment.field_of_study_design
+msgid "Diseño gráfico / industrial"
+msgstr "Diseño gráfico / industrial"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_courses_training__display_name
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__display_name
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant_survey_url_wizard__display_name
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__display_name
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_recruitment_stage__display_name
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_recruitment_stage_checklist__display_name
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_recruitment_stage_checklist_line__display_name
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_version__display_name
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_job_current_last__display_name
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_academic_formation__display_name
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_areas__display_name
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_dependents_person__display_name
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_docs_contract__display_name
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_docs_diseases__display_name
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_docs_employee__display_name
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_family_information__display_name
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_family_relation__display_name
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_field_of_study__display_name
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_grade_certificate__display_name
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_marital_status__display_name
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_other_courses__display_name
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_social_club__display_name
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_reference_personal__display_name
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_report_l10n_hn_hr_recruitment_payroll_report_xls_diseases_xlsx__display_name
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_report_wzard_payroll_diseases__display_name
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_res_company__display_name
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_res_lang_other__display_name
+msgid "Display Name"
+msgstr "Nombre en pantalla"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_applicant__marital__divorced
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_employee__marital__divorced
+#: model:l10n_hn_hr_recruitment.marital.status,name:l10n_hn_hr_recruitment.marital_status_divorced
+msgid "Divorciado(a)"
+msgstr "Divorciado(a)"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__doc_ids
+msgid "Docs Aplicant"
+msgstr "Solicitante de documentos"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__doc_ids
+msgid "Docs Employee"
+msgstr "Docs Employee"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_docs_diseases__document
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_docs_employee__document
+msgid "Document"
+msgstr "Documento"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_recruitment_stage_checklist_line__attachment_ids
+msgid "Documentacion"
+msgstr "Documentacion"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_docs_contract__document
+msgid "Documento"
+msgstr "Documento"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_applicant_view_form_inherit
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_contrat_form_inherit
+msgid "Documentos"
+msgstr "Documentos"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_family_information__domicile
+msgid "Domicile"
+msgstr "Domicilio"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Domicilio<br/>"
+msgstr "Domicilio<br/>"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_courses_training__duration_hours
+msgid "Duración (horas)"
+msgstr "Duración (horas)"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Edad:"
+msgstr "Edad:"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_applicant_view_form_inherit
+msgid "Educación"
+msgstr "Educación"
+
+#. module: l10n_hn_hr_recruitment
+#: model:l10n_hn_hr_recruitment.field.of.study,name:l10n_hn_hr_recruitment.field_of_study_education
+msgid "Educación / Pedagogía"
+msgstr "Educación / Pedagogía"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_employee_view_form_inherit_l10n_hn
+msgid "Educación y Formación"
+msgstr "Educación y Formación"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__email_cc
+msgid "Email cc"
+msgstr "Email cc"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,help:l10n_hn_hr_recruitment.field_hr_employee__email_from
+msgid "Email provided by the applicant"
+msgstr "Email provided by the applicant"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__relation_emergency
+msgid "Emergency Reference 1"
+msgstr "Emergency Reference 1"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__relation_emergency2
+msgid "Emergency Reference 2"
+msgstr "Emergency Reference 2"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.courses_training_view_search_report
+msgid "Empleado"
+msgstr "Empleado"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model,name:l10n_hn_hr_recruitment.model_hr_employee
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_courses_training__employee_id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_job_current_last__employee_id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_academic_formation__employee_id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_docs_diseases__employee_id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_docs_employee__employee_id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_family_information__employee_id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_other_courses__employee_id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_reference_personal__employee_id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_res_lang_other__employee_id
+msgid "Employee"
+msgstr "Empleado"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model,name:l10n_hn_hr_recruitment.model_hr_version
+msgid "Employee Contract"
+msgstr "Contrato del empleado"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,help:l10n_hn_hr_recruitment.field_hr_employee__emp_id
+msgid "Employee linked to the applicant."
+msgstr "Employee linked to the applicant."
+
+#. module: l10n_hn_hr_recruitment
+#. odoo-python
+#: code:addons/l10n_hn_hr_recruitment/report/payroll_report_xls_for_diseases.py:0
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_docs_diseases__diseases_id
+msgid "Enfermedad"
+msgstr "Enfermedad"
+
+#. module: l10n_hn_hr_recruitment
+#. odoo-python
+#: code:addons/l10n_hn_hr_recruitment/report/payroll_report_xls_for_diseases.py:0
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.areas_form_view
+msgid "Enfermedades"
+msgstr "Enfermedades"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Enfermedades que sufre<br/>"
+msgstr "Enfermedades que sufre<br/>"
+
+#. module: l10n_hn_hr_recruitment
+#: model:l10n_hn_hr_recruitment.field.of.study,name:l10n_hn_hr_recruitment.field_of_study_nursing
+msgid "Enfermería"
+msgstr "Enfermería"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__survey_id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_recruitment_stage__survey_id
+msgid "Entrevista"
+msgstr "Encuesta"
+
+#. module: l10n_hn_hr_recruitment
+#: model:survey.survey,title:l10n_hn_hr_recruitment.survey_interview_inicial
+msgid "Entrevista Inicial"
+msgstr "Entrevista Inicial"
+
+#. module: l10n_hn_hr_recruitment
+#: model:survey.survey,title:l10n_hn_hr_recruitment.survey_interview_tecnica
+msgid "Entrevista Técnica"
+msgstr "Entrevista Técnica"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_recruitment_stage_checklist_line__is_name
+msgid "Es el Nombre"
+msgstr "Es el Nombre"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Escuela"
+msgstr "Escuela"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:survey.survey,description:l10n_hn_hr_recruitment.survey_interview_tecnica
+msgid ""
+"Esta entrevista evalúa conocimientos técnicos y competencias para el puesto."
+msgstr ""
+"Esta entrevista evalúa conocimientos técnicos y competencias para el puesto."
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Estado Civil<br/>"
+msgstr "Estado Civil<br/>"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.actions.act_window,name:l10n_hn_hr_recruitment.action_marital_status
+#: model:ir.model,name:l10n_hn_hr_recruitment.model_l10n_hn_hr_recruitment_marital_status
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__marital_status_id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__marital_status_id
+#: model:ir.ui.menu,name:l10n_hn_hr_recruitment.menu_marital_status
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.marital_status_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.marital_status_view_list
+msgid "Estado civil"
+msgstr "Estado civil"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+msgid "Estado civil<br/>"
+msgstr "Estado civil<br/>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_applicant_view_form_inherit
+msgid "Estado de Salud"
+msgstr "Estado de Salud"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Estatura"
+msgstr "Estatura"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Estudios que esta efectuando en la actualidad:"
+msgstr "Estudios que esta efectuando en la actualidad:"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_recruitment_stage_checklist__stage_id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_recruitment_stage_checklist_line__stage_id
+msgid "Etapa de Verificacion"
+msgstr "Etapa de Verificacion"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_employee__priority__3
+msgid "Excellent"
+msgstr "Excellent"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__salary_expected
+msgid "Expected Salary"
+msgstr "Expected Salary"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__salary_expected_extra
+msgid "Expected Salary Extra"
+msgstr "Expected Salary Extra"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_applicant_view_form_inherit
+msgid "Experiencia Laboral"
+msgstr "Experiencia Laboral"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_employee_view_form_inherit_skills_cert_to_education
+msgid "Experiencia laboral"
+msgstr "Experiencia laboral"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__chronic_illness_observation
+msgid "Explicate"
+msgstr "Explicate"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_applicant_view_form_inherit
+msgid "Familia"
+msgstr "Familia"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__family_information_id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__family_information_id
+msgid "Family Information"
+msgstr "Información Familiar"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__address_father
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__address_father
+msgid "Father Address"
+msgstr "Dirección"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__name_father
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__name_father
+msgid "Father Name"
+msgstr "Nombre"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__occupation_father
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__occupation_father
+msgid "Father Occupation"
+msgstr "Ocupación"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__favorite_hobby
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__favorite_hobby
+msgid "Favorite Hobby"
+msgstr "¿Pasatiempo favorito?"
+
+#. module: l10n_hn_hr_recruitment
+#. odoo-python
+#: code:addons/l10n_hn_hr_recruitment/report/payroll_report_xls_for_diseases.py:0
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_courses_training__date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_docs_diseases__date
+msgid "Fecha"
+msgstr "Fecha"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_report_wzard_payroll_diseases__date_to
+msgid "Fecha de Fin"
+msgstr "Fecha de Fin"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_report_wzard_payroll_diseases__date_from
+msgid "Fecha de Inicio"
+msgstr "Fecha de Inicio"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Fecha de Nacimiento<br/>"
+msgstr "Fecha de Nacimiento<br/>"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__due_date_license
+msgid "Fecha de Vencimiento Licencia"
+msgstr "Fecha de Vencimiento Licencia"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Fecha de Vencimiento de Licencia<br/>"
+msgstr "Fecha de Vencimiento de Licencia<br/>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Fecha de contratación:"
+msgstr "Fecha de contratación:"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+msgid "Fecha en que podrá presentarse a trabajar"
+msgstr "Fecha en que podrá presentarse a trabajar"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Fecha:"
+msgstr "Fecha:"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_applicant__gender__female
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_employee__gender__female
+msgid "Female"
+msgstr "Mujer"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Femenino"
+msgstr "Femenino"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_recruitment_stage_checklist_line__store_fname
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_docs_contract__store_fname
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_docs_diseases__store_fname
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_docs_employee__store_fname
+msgid "File Name"
+msgstr "File Name"
+
+#. module: l10n_hn_hr_recruitment
+#: model:l10n_hn_hr_recruitment.field.of.study,name:l10n_hn_hr_recruitment.field_of_study_finance
+msgid "Finanzas"
+msgstr "Finanzas"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_job_current_last__from_1
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_academic_formation__date_from
+msgid "From"
+msgstr "Desde"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Funciones de oficina que domina"
+msgstr "Funciones de oficina que domina"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__gender
+msgid "Gender"
+msgstr "Sexo"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__gender
+msgid "Gender (Recruitment)"
+msgstr "Sexo"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_applicant__health_status__good
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_employee__health_status__good
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_employee__priority__1
+msgid "Good"
+msgstr "Buena"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:survey.survey,description_done:l10n_hn_hr_recruitment.survey_interview_tecnica
+msgid ""
+"Gracias por completar la entrevista técnica. Evaluaremos sus respuestas."
+msgstr ""
+"Gracias por completar la entrevista técnica. Evaluaremos sus respuestas."
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:survey.survey,description_done:l10n_hn_hr_recruitment.survey_interview_inicial
+msgid ""
+"Gracias por completar la entrevista. Nos pondremos en contacto con usted "
+"pronto."
+msgstr ""
+"Gracias por completar la entrevista. Nos pondremos en contacto con usted "
+"pronto."
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__grade
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__grade
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_other_courses__grade
+msgid "Grade"
+msgstr "Grado"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Grado"
+msgstr "Grado"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_employee__kanban_state__done
+msgid "Green"
+msgstr "Green"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__legend_done
+msgid "Green Kanban Label"
+msgstr "Green Kanban Label"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_employee__kanban_state__normal
+msgid "Grey"
+msgstr "Grey"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__legend_normal
+msgid "Grey Kanban Label"
+msgstr "Grey Kanban Label"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid ""
+"Hago constar que mis respuestas son verdaderas<br/><br/><br/><br/>\n"
+"                                        ______________________________________<br/>\n"
+"                                        Firma del solicitante"
+msgstr ""
+"Hago constar que mis respuestas son verdaderas<br/><br/><br/><br/>\n"
+"                                        ______________________________________<br/>\n"
+"                                        Firma del solicitante"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__has_license
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__has_license
+msgid "Has licence?"
+msgstr "¿Tiene licencia?"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_employee_view_form_inherit_skills_cert_to_education
+msgid "Hasta"
+msgstr "Hasta"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__health_status
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__health_status
+msgid "Health Status"
+msgstr "Estado de salud"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_employee__class_license__heavy
+msgid "Heavy"
+msgstr "Pesada"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__height
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__height
+msgid "Height"
+msgstr "Altura"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_applicant_view_form_inherit
+msgid "Hijos"
+msgstr "Hijos"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_applicant__live_with__his_family
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_employee__live_with__his_family
+msgid "His family"
+msgstr "Su familia"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_applicant__live_with__his_parent
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_employee__live_with__his_parent
+msgid "His parents"
+msgstr "Sus Padres"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_applicant__live_with__his_relative
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_employee__live_with__his_relative
+msgid "His relatives"
+msgstr "Sus parientes"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_employee_view_form_inherit_l10n_hn
+msgid "Honduras (reclutamiento)"
+msgstr "Honduras (reclutamiento)"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Horario"
+msgstr "Horario"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_courses_training__id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant_survey_url_wizard__id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_recruitment_stage__id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_recruitment_stage_checklist__id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_recruitment_stage_checklist_line__id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_version__id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_job_current_last__id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_academic_formation__id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_areas__id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_dependents_person__id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_docs_contract__id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_docs_diseases__id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_docs_employee__id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_family_information__id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_family_relation__id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_field_of_study__id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_grade_certificate__id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_marital_status__id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_other_courses__id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_social_club__id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_reference_personal__id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_report_l10n_hn_hr_recruitment_payroll_report_xls_diseases_xlsx__id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_report_wzard_payroll_diseases__id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_res_company__id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_res_lang_other__id
+msgid "ID"
+msgstr "ID"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_res_company__numero
+msgid "Id"
+msgstr "Id"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_applicant_view_form_inherit
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_employee_view_form_inherit_l10n_hn
+msgid "Identificación"
+msgstr "Identificación"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__identification_id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__identification_id
+msgid "Identification No"
+msgstr "Nº identificación"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_report_for_diseases_view
+msgid "Imprimir"
+msgstr "Imprimir"
+
+#. module: l10n_hn_hr_recruitment
+#. odoo-python
+#: code:addons/l10n_hn_hr_recruitment/models/hr_employee_inh.py:0
+msgid "In Progress"
+msgstr "In Progress"
+
+#. module: l10n_hn_hr_recruitment
+#. odoo-python
+#: code:addons/l10n_hn_hr_recruitment/wizard/survey_url_wizard.py:0
+msgid "Indique el nombre del candidato para generar el enlace."
+msgstr "Indique el nombre del candidato para generar el enlace."
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_applicant_view_form_inherit
+msgid "Información Personal HN"
+msgstr "Información Personal HN"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_employee_view_form_inherit_l10n_hn
+msgid "Información general"
+msgstr "Información general"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_employee_view_form_inherit_l10n_hn
+msgid "Información profesional"
+msgstr "Información profesional"
+
+#. module: l10n_hn_hr_recruitment
+#: model:l10n_hn_hr_recruitment.field.of.study,name:l10n_hn_hr_recruitment.field_of_study_civil
+msgid "Ingeniería civil"
+msgstr "Ingeniería civil"
+
+#. module: l10n_hn_hr_recruitment
+#: model:l10n_hn_hr_recruitment.field.of.study,name:l10n_hn_hr_recruitment.field_of_study_electrical
+msgid "Ingeniería eléctrica / electrónica"
+msgstr "Ingeniería eléctrica / electrónica"
+
+#. module: l10n_hn_hr_recruitment
+#: model:l10n_hn_hr_recruitment.field.of.study,name:l10n_hn_hr_recruitment.field_of_study_systems
+msgid "Ingeniería en sistemas / Informática"
+msgstr "Ingeniería en sistemas / Informática"
+
+#. module: l10n_hn_hr_recruitment
+#: model:l10n_hn_hr_recruitment.field.of.study,name:l10n_hn_hr_recruitment.field_of_study_industrial_eng
+msgid "Ingeniería industrial"
+msgstr "Ingeniería industrial"
+
+#. module: l10n_hn_hr_recruitment
+#: model:l10n_hn_hr_recruitment.field.of.study,name:l10n_hn_hr_recruitment.field_of_study_mechanical
+msgid "Ingeniería mecánica / industrial (mecánica)"
+msgstr "Ingeniería mecánica / industrial (mecánica)"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_courses_training__institution
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.courses_training_view_search_report
+msgid "Institución"
+msgstr "Institución"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__insurance_id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__insurance_id
+msgid "Insurance No"
+msgstr "Número de seguro"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_employee__class_license__international
+msgid "International"
+msgstr "Internacional"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Intervenciones Quirurgicas<br/>"
+msgstr "Intervenciones Quirurgicas<br/>"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_job_current_last__job_id
+msgid "Job"
+msgstr "Trabajo"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__job_current_ids
+msgid "Job Current"
+msgstr "Trabajo Actual"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_job_current_last__job_superior_boss
+msgid "Job Superior Boss"
+msgstr "Jefe superior de trabajo"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__kanban_state
+msgid "Kanban State"
+msgstr "Kanban State"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_res_lang_other__lang_id
+msgid "Language"
+msgstr "Lenguaje"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__language_ids
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__language_ids
+msgid "Languages"
+msgstr "Lenguajes"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_courses_training__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant_survey_url_wizard__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_recruitment_stage_checklist__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_recruitment_stage_checklist_line__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_job_current_last__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_academic_formation__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_areas__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_dependents_person__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_docs_contract__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_docs_diseases__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_docs_employee__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_family_information__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_family_relation__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_field_of_study__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_grade_certificate__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_marital_status__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_other_courses__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_social_club__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_reference_personal__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_report_wzard_payroll_diseases__write_uid
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_res_lang_other__write_uid
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_courses_training__write_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant_survey_url_wizard__write_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_recruitment_stage_checklist__write_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_recruitment_stage_checklist_line__write_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_job_current_last__write_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_academic_formation__write_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_areas__write_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_dependents_person__write_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_docs_contract__write_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_docs_diseases__write_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_docs_employee__write_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_family_information__write_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_family_relation__write_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_field_of_study__write_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_grade_certificate__write_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_marital_status__write_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_other_courses__write_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_social_club__write_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_reference_personal__write_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_report_wzard_payroll_diseases__write_date
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_res_lang_other__write_date
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: l10n_hn_hr_recruitment
+#: model:res.groups,name:l10n_hn_hr_recruitment.group_project_leader
+msgid "Leader"
+msgstr "Leader"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_res_lang_other__level
+msgid "Level"
+msgstr "Nivel"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__number_license
+msgid "Licence Number"
+msgstr "Número de licencia"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__class_license
+msgid "Licence Type"
+msgstr "Tipo Licencia"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_employee__class_license__light
+msgid "Light"
+msgstr "Liviano"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model,name:l10n_hn_hr_recruitment.model_hr_recruitment_stage_checklist_line
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__line_ids
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_recruitment_stage_checklist__line_ids
+msgid "Lineas de Verificación"
+msgstr "Lineas de Verificación"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__emp_id
+msgid "Linked Employee"
+msgstr "Linked Employee"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,help:l10n_hn_hr_recruitment.field_hr_employee__email_cc
+msgid "List of cc from incoming emails."
+msgstr "List of cc from incoming emails."
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.actions.act_window,name:l10n_hn_hr_recruitment.action_stage_checklist
+#: model:ir.model,name:l10n_hn_hr_recruitment.model_hr_recruitment_stage_checklist
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_recruitment_stage_checklist_line__checklist_id
+#: model:ir.ui.menu,name:l10n_hn_hr_recruitment.menu_recruitment_stage_checklist_config
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.stage_checklist_form_view
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.stage_checklist_tree
+msgid "Lista de Verificación"
+msgstr "Lista de Verificación"
+
+#. module: l10n_hn_hr_recruitment
+#. odoo-python
+#: code:addons/l10n_hn_hr_recruitment/models/hr_recruitment.py:0
+msgid "Lista de Verificación para %s"
+msgstr "Lista de Verificación para %s"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__live_with
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__live_with
+msgid "Lives with"
+msgstr "Vive con"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Lugar de nacimiento<br/>"
+msgstr "Lugar de nacimiento<br/>"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__machine
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__machine
+msgid "Machine"
+msgstr "Maquina"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_applicant_view_form_inherit
+msgid "Madre"
+msgstr "Madre"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__bank_names
+msgid "Main Bank"
+msgstr "Main Bank"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_applicant__gender__male
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_employee__gender__male
+msgid "Male"
+msgstr "Hombre"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Malo"
+msgstr "Malo"
+
+#. module: l10n_hn_hr_recruitment
+#: model:res.groups,name:l10n_hn_hr_recruitment.group_project_manager
+msgid "Manager"
+msgstr "Manager"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_recruitment_stage_checklist_line__is_required
+msgid "Mandatorio"
+msgstr "Mandatorio"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__marital
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__marital
+msgid "Marital Status"
+msgstr "Estado civil"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__others_marital
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__others_marital
+msgid "Marital Status Other"
+msgstr "Marital Status Other"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Masculino"
+msgstr "Masculino"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__medication_ids
+msgid "Medicamentos"
+msgstr "Medicamentos"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__continuo_medication
+msgid "Medicamentos de uso continuo"
+msgstr "Medicamentos de uso continuo"
+
+#. module: l10n_hn_hr_recruitment
+#: model:l10n_hn_hr_recruitment.field.of.study,name:l10n_hn_hr_recruitment.field_of_study_medicine
+msgid "Medicina"
+msgstr "Medicina"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__medium_id
+msgid "Medium"
+msgstr "Medium"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__meeting_count
+#: model:ir.model.fields,help:l10n_hn_hr_recruitment.field_hr_employee__meeting_count
+msgid "Meeting Count"
+msgstr "Meeting Count"
+
+#. module: l10n_hn_hr_recruitment
+#: model:l10n_hn_hr_recruitment.field.of.study,name:l10n_hn_hr_recruitment.field_of_study_marketing
+msgid "Mercadotecnia / Marketing"
+msgstr "Mercadotecnia / Marketing"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_docs_contract__show_pdf
+msgid "Mostrar PDF"
+msgstr "Mostrar PDF"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__address_mother
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__address_mother
+msgid "Mother Address"
+msgstr "Dirección"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__name_mother
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__name_mother
+msgid "Mother Name"
+msgstr "Nombre"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__occupation_mother
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__occupation_mother
+msgid "Mother Occupation"
+msgstr "Ocupación"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_job_current_last__motive_separate
+msgid "Motive separate"
+msgstr "motivo separado"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Motivo de Separacion"
+msgstr "Motivo de Separacion"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_employee__class_license__moto
+msgid "Motocicleta"
+msgstr "Motocicleta"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__phone2
+msgid "Movil"
+msgstr "Movil"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__municipality
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_applicant_view_form_inherit
+msgid "Municipalidad"
+msgstr "Municipalidad"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__municipality
+msgid "Municipality"
+msgstr "Municipio"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Municipio<br/>"
+msgstr "Municipio<br/>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Máquinas de oficina o taller que sepa manejar"
+msgstr "Máquinas de oficina o taller que sepa manejar"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Nacionalidad<br/>"
+msgstr "Nacionalidad<br/>"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_recruitment_stage_checklist__name
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_academic_formation__name
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_areas__name
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_dependents_person__name
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_family_information__name
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_social_club__name
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_reference_personal__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__nationality_id
+msgid "Nationality (Country)"
+msgstr "País de nacionalidad"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__nationality_id
+msgid "Nationality Country"
+msgstr "País de nacionalidad"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.actions.act_window,name:l10n_hn_hr_recruitment.action_grade_certificate
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__certificate_id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__certificate_id
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.grade_certificate_form_view
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.grade_certificate_tree
+msgid "Nivel de Certificado"
+msgstr "Nivel de Certificado"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.ui.menu,name:l10n_hn_hr_recruitment.menu_grade_certificate_catalog
+msgid "Nivel de certificado"
+msgstr "Nivel de certificado"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_applicant__chronic_illness__not
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_applicant__club_social_deport__not
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_applicant__has_license__not
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_applicant__practice_sport__not
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_employee__chronic_illness__not
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_employee__club_social_deport__not
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_employee__continuo_medication__no
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_employee__has_license__not
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_employee__practice_sport__not
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__job_current_last__information__not
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "No"
+msgstr "No"
+
+#. module: l10n_hn_hr_recruitment
+#. odoo-python
+#: code:addons/l10n_hn_hr_recruitment/wizard/survey_url_wizard.py:0
+msgid "No hay entrevista asignada para esta postulación."
+msgstr "No hay entrevista asignada para esta postulación."
+
+#. module: l10n_hn_hr_recruitment
+#. odoo-python
+#: code:addons/l10n_hn_hr_recruitment/models/hr_recruitment.py:0
+msgid ""
+"No puedes cambiar de etapa porque hay verificaciones obligatorias sin "
+"completar: %s"
+msgstr ""
+"No puedes cambiar de etapa porque hay verificaciones obligatorias sin "
+"completar: %s"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "No. Identidad<br/>"
+msgstr "No. Identidad<br/>"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_field_of_study__name
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_marital_status__name
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Nombre"
+msgstr "Nombre"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Nombre de Cursos y Capacitaciones Recibidos<br/>"
+msgstr "Nombre de Cursos y Capacitaciones Recibidos<br/>"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_courses_training__name
+msgid "Nombre del curso"
+msgstr "Nombre del curso"
+
+#. module: l10n_hn_hr_recruitment
+#. odoo-python
+#: code:addons/l10n_hn_hr_recruitment/report/payroll_report_xls_for_diseases.py:0
+msgid "Nombre del empleado"
+msgstr "Nombre del empleado"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Nombre y Apellidos:"
+msgstr "Nombre y Apellidos:"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_employee__priority__0
+msgid "Normal"
+msgstr "Normal"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid ""
+"Nota: Toda la información aquí proporcionada será\n"
+"                                                        tratada con confidencialidad"
+msgstr ""
+"Nota: Toda la información aquí proporcionada será\n"
+"                                                        tratada con confidencialidad"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+msgid ""
+"Nota: Toda la información aquí proporcionada será\n"
+"                                                tratada con confidencialidad"
+msgstr ""
+"Nota: Toda la información aquí proporcionada será\n"
+"                                                tratada con confidencialidad"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__number_license
+msgid "Number"
+msgstr "Number"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__number_employee
+msgid "Numero personal del empleado"
+msgstr "Numero personal del empleado"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+msgid "Número de Seguro Social<br/>"
+msgstr "Número de Seguro Social<br/>"
+
+#. module: l10n_hn_hr_recruitment
+#. odoo-python
+#: code:addons/l10n_hn_hr_recruitment/report/payroll_report_xls_for_diseases.py:0
+msgid "Observaciones"
+msgstr "Observaciones"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_docs_diseases__observation
+msgid "Observación"
+msgstr "Observación"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__chronic_illness_observation
+msgid "Observation"
+msgstr "Observation"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_reference_personal__occupation
+msgid "Occupation"
+msgstr "Ocupación"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_family_information__ocupation
+msgid "Ocupation"
+msgstr "Ocupación"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_applicant__gender__other
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_employee__gender__other
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__l10n_hn_hr_recruitment_academic_formation__name__6
+msgid "Other"
+msgstr "Otro"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__other_courses_id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__other_courses_id
+msgid "Other Courses"
+msgstr "Other Courses"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_applicant__dependent_people__other
+msgid "Others"
+msgstr "Otros"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_applicant__marital__other
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_employee__marital__other
+#: model:l10n_hn_hr_recruitment.field.of.study,name:l10n_hn_hr_recruitment.field_of_study_other
+#: model:l10n_hn_hr_recruitment.marital.status,name:l10n_hn_hr_recruitment.marital_status_other
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Otro"
+msgstr "Otros"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+msgid "Otros (Explique)"
+msgstr "Otros (Explique)"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Otros trabajos o funciones que domina<br/>"
+msgstr "Otros trabajos o funciones que domina<br/>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_applicant_view_form_inherit
+msgid "Padre"
+msgstr "Padre"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_applicant__dependent_people__parent
+msgid "Parents"
+msgstr "Padres"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Parientes"
+msgstr "Parientes"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+msgid "Pasaporte No.<br/>"
+msgstr "Pasaporte No.<br/>"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__passport_id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__passport_id
+msgid "Passport No"
+msgstr "Nº Pasaporte"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+msgid "Personas que dependen de Usted<br/>"
+msgstr "Personas que dependen de Usted<br/>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid ""
+"Personas que dependen de Usted<br/>\n"
+"                                            * Hijos:"
+msgstr ""
+"Personas que dependen de Usted<br/>\n"
+"                                            * Hijos:"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Peso"
+msgstr "Peso"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_job_current_last__phone
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_reference_personal__phone
+msgid "Phone"
+msgstr "Teléfono"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__photo
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__photo
+msgid "Photo"
+msgstr "Photo"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__place_of_birth
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__place_of_birth
+msgid "Place of Birth"
+msgstr "Lugar de nacimiento"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.ui.menu,name:l10n_hn_hr_recruitment.menu_planes_actividad_reclutamiento
+msgid "Planes de actividad"
+msgstr "Planes de actividad"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "PostGrado"
+msgstr "PostGrado"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__postal_code
+msgid "Postal Code"
+msgstr "Código postal"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__post_grade_school
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__l10n_hn_hr_recruitment_academic_formation__name__5
+msgid "Postgraduate"
+msgstr "Nombre"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__post_grade_school_address
+msgid "Postgraduate Address"
+msgstr "Dirección"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__post_grade_school_from
+msgid "Postgraduate From"
+msgstr "Desde"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__post_grade_school_title
+msgid "Postgraduate Title"
+msgstr "Postgraduate Title"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__post_grade_school_to
+msgid "Postgraduate To"
+msgstr "Hasta"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__post_grade_school_year
+msgid "Postgraduate Years"
+msgstr "Años"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_recruitment_stage_checklist_line__name
+msgid "Pregunta"
+msgstr "Pregunta"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Preparatorio o Vocacional"
+msgstr "Preparatorio o Vocacional"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__l10n_hn_hr_recruitment_academic_formation__name__3
+msgid "Preparatory or Vocational"
+msgstr "Preparatorio o Vocacional"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__job_current_ids
+msgid "Previous jobs"
+msgstr "Trabajos previos"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Primaria"
+msgstr "Primaria"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__l10n_hn_hr_recruitment_academic_formation__name__1
+msgid "Primary"
+msgstr "Primaria"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__bank_name
+msgid "Primary Bank"
+msgstr "Bancos"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__primary_school_from
+msgid "Primary From"
+msgstr "Desde"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__primary_school
+msgid "Primary School"
+msgstr "Nombre"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__primary_school_address
+msgid "Primary School Address"
+msgstr "Dirección"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__primary_school_title
+msgid "Primary Title"
+msgstr "Primary Title"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__primary_school_to
+msgid "Primary To"
+msgstr "Hasta"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__primary_school_year
+msgid "Primary Years"
+msgstr "Años"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_docs_diseases__claim
+msgid "Proceso de Reclamo"
+msgstr "Proceso de Reclamo"
+
+#. module: l10n_hn_hr_recruitment
+#. odoo-python
+#: code:addons/l10n_hn_hr_recruitment/report/payroll_report_xls_for_diseases.py:0
+msgid "Proceso de reclamo"
+msgstr "Proceso de reclamo"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__salary_proposed
+msgid "Proposed Salary"
+msgstr "Proposed Salary"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__salary_proposed_extra
+msgid "Proposed Salary Extra"
+msgstr "Proposed Salary Extra"
+
+#. module: l10n_hn_hr_recruitment
+#. odoo-python
+#: code:addons/l10n_hn_hr_recruitment/report/payroll_report_xls_for_diseases.py:0
+msgid "Proyecto"
+msgstr "Proyecto"
+
+#. module: l10n_hn_hr_recruitment
+#: model:l10n_hn_hr_recruitment.field.of.study,name:l10n_hn_hr_recruitment.field_of_study_psychology
+msgid "Psicología"
+msgstr "Psicología"
+
+#. module: l10n_hn_hr_recruitment
+#. odoo-python
+#: code:addons/l10n_hn_hr_recruitment/report/payroll_report_xls_for_diseases.py:0
+msgid "Puesto"
+msgstr "Puesto"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Puesto que solicita:"
+msgstr "Puesto que solicita:"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Que otros idiomas habla {Nivel 50%, 75%, 100%}<br/>"
+msgstr "Que otros idiomas habla {Nivel 50%, 75%, 100%}<br/>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+msgid "Que otros idiomas habla<br/>"
+msgstr "Que otros idiomas habla<br/>"
+
+#. module: l10n_hn_hr_recruitment
+#: model:l10n_hn_hr_recruitment.field.of.study,name:l10n_hn_hr_recruitment.field_of_study_chemistry
+msgid "Química / Farmacia"
+msgstr "Química / Farmacia"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__rtn
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__rtn
+msgid "RTN"
+msgstr "RTN"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "RTN<br/>"
+msgstr "RTN<br/>"
+
+#. module: l10n_hn_hr_recruitment
+#. odoo-python
+#: code:addons/l10n_hn_hr_recruitment/models/hr_employee_inh.py:0
+msgid "Ready for Next Stage"
+msgstr "Ready for Next Stage"
+
+#. module: l10n_hn_hr_recruitment
+#: model:res.groups.privilege,name:l10n_hn_hr_recruitment.privilege_l10n_hn_hr_recruitment
+msgid "Reclutamiento Honduras"
+msgstr "Reclutamiento Honduras"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model,name:l10n_hn_hr_recruitment.model_l10n_hn_hr_recruitment_academic_formation
+msgid "Recruitment Academic Formation"
+msgstr "Recruitment Academic Formation"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model,name:l10n_hn_hr_recruitment.model_l10n_hn_hr_recruitment_areas
+msgid "Recruitment Area"
+msgstr "Recruitment Area"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model,name:l10n_hn_hr_recruitment.model_l10n_hn_hr_recruitment_docs_contract
+msgid "Recruitment Contract Documents"
+msgstr "Recruitment Contract Documents"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model,name:l10n_hn_hr_recruitment.model_l10n_hn_hr_recruitment_dependents_person
+msgid "Recruitment Dependent Person"
+msgstr "Recruitment Dependent Person"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model,name:l10n_hn_hr_recruitment.model_l10n_hn_hr_recruitment_docs_diseases
+msgid "Recruitment Disease Documents"
+msgstr "Recruitment Disease Documents"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model,name:l10n_hn_hr_recruitment.model_l10n_hn_hr_recruitment_docs_employee
+msgid "Recruitment Employee Documents"
+msgstr "Recruitment Employee Documents"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model,name:l10n_hn_hr_recruitment.model_l10n_hn_hr_recruitment_family_information
+msgid "Recruitment Family Information"
+msgstr "Recruitment Family Information"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model,name:l10n_hn_hr_recruitment.model_l10n_hn_hr_recruitment_family_relation
+msgid "Recruitment Family Relation"
+msgstr "Recruitment Family Relation"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model,name:l10n_hn_hr_recruitment.model_l10n_hn_hr_recruitment_grade_certificate
+msgid "Recruitment Grade Certificate"
+msgstr "Recruitment Grade Certificate"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model,name:l10n_hn_hr_recruitment.model_l10n_hn_hr_recruitment_other_courses
+msgid "Recruitment Other Courses"
+msgstr "Recruitment Other Courses"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model,name:l10n_hn_hr_recruitment.model_l10n_hn_hr_recruitment_social_club
+msgid "Recruitment Social Club"
+msgstr "Recruitment Social Club"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model,name:l10n_hn_hr_recruitment.model_hr_recruitment_stage
+msgid "Recruitment Stages"
+msgstr "Etapas de reclutamiento"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_employee__kanban_state__blocked
+msgid "Red"
+msgstr "Red"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__legend_blocked
+msgid "Red Kanban Label"
+msgstr "Red Kanban Label"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__reference_ids
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__hn_reference_ids
+msgid "Reference Personal"
+msgstr "Reference Personal"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__reference_point
+msgid "Reference Point"
+msgstr "Reference Point"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_employee_view_form_inherit_skills_cert_to_education
+msgid "Referencias personales"
+msgstr "Referencias personales"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__refuse_reason_id
+msgid "Refuse Reason"
+msgstr "Refuse Reason"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__attachment_ids
+msgid "Registro Enfermedades"
+msgstr "Registro Enfermedades"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,help:l10n_hn_hr_recruitment.field_hr_employee__rtn
+msgid "Registro Tributario Nacional (14 dígitos)"
+msgstr "Registro Tributario Nacional (14 dígitos)"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__doc_diseases_ids
+msgid "Registro de Enfermedades"
+msgstr "Registro de Enfermedades"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_applicant__health_status__regular
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_employee__health_status__regular
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Regular"
+msgstr "Regular"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__relation_emergency_id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__relation_emergency_id
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Relacion"
+msgstr "Relacion"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__relation_emergency_2_id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__relation_emergency_2_id
+msgid "Relacion 2"
+msgstr "Relacion 2"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.ui.menu,name:l10n_hn_hr_recruitment.relation_family_menuitem
+msgid "Relaciones familiares (reclutamiento)"
+msgstr "Relaciones Familiares"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_family_information__relation
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_family_relation__name
+msgid "Relation"
+msgstr "Relación"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.actions.act_window,name:l10n_hn_hr_recruitment.action_relation_family
+msgid "Relation Family"
+msgstr "Relación familiar"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model,name:l10n_hn_hr_recruitment.model_report_wzard_payroll_diseases
+msgid "Report Wzard Payroll for Project"
+msgstr "Report Wzard Payroll for Project"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.actions.act_window,name:l10n_hn_hr_recruitment.action_hr_report_for_diseases
+#: model:ir.ui.menu,name:l10n_hn_hr_recruitment.parent_menu_report_for_diseases
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_report_for_diseases_view
+msgid "Reporte de Enfermedades"
+msgstr "Reporte de Enfermedades"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:survey.survey,description:l10n_hn_hr_recruitment.survey_interview_inicial
+msgid ""
+"Responda las siguientes preguntas para la entrevista inicial de "
+"reclutamiento."
+msgstr ""
+"Responda las siguientes preguntas para la entrevista inicial de "
+"reclutamiento."
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__salary_expected_max
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__salary_expected_max
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_applicant_view_form_inherit
+msgid "Salario Esperado (max)"
+msgstr "Salario Esperado (max)"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_applicant_view_form_inherit
+msgid "Salario Esperado (min)"
+msgstr "Salario Esperado (min)"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,help:l10n_hn_hr_recruitment.field_hr_applicant__salary_expected_max
+#: model:ir.model.fields,help:l10n_hn_hr_recruitment.field_hr_employee__salary_expected
+#: model:ir.model.fields,help:l10n_hn_hr_recruitment.field_hr_employee__salary_expected_max
+msgid "Salary Expected by Applicant"
+msgstr "Salary Expected by Applicant"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,help:l10n_hn_hr_recruitment.field_hr_employee__salary_expected_extra
+msgid "Salary Expected by Applicant, extra advantages"
+msgstr "Salary Expected by Applicant, extra advantages"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,help:l10n_hn_hr_recruitment.field_hr_employee__salary_proposed
+msgid "Salary Proposed by the Organisation"
+msgstr "Salary Proposed by the Organisation"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,help:l10n_hn_hr_recruitment.field_hr_employee__salary_proposed_extra
+msgid "Salary Proposed by the Organisation, extra advantages"
+msgstr "Salary Proposed by the Organisation, extra advantages"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_other_courses__schedule
+msgid "Schedule"
+msgstr "Horario"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__school_study_current
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__school_study_current
+msgid "School Study Current"
+msgstr "Escuela Estudio Actual"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__secondary_school_from
+msgid "Secondary From"
+msgstr "Desde"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__secondary_school
+msgid "Secondary School"
+msgstr "Nombre"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__secondary_school_address
+msgid "Secondary School Address"
+msgstr "Dirección"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__secondary_school_title
+msgid "Secondary Title"
+msgstr "Secondary Title"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__secondary_school_to
+msgid "Secondary To"
+msgstr "Hasta"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__secondary_school_year
+msgid "Secondary Years"
+msgstr "Años"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__l10n_hn_hr_recruitment_academic_formation__name__2
+msgid "Secondary or Vocational"
+msgstr "Secundaria o Vocacional"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_field_of_study__sequence
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_marital_status__sequence
+msgid "Secuencia"
+msgstr "Secuencia"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Secundaria o Vocacional"
+msgstr "Secundaria o Vocacional"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_recruitment_stage_checklist__sequence
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_recruitment_stage_checklist_line__sequence
+msgid "Sequencia"
+msgstr "Sequencia"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Sexo:<br/>"
+msgstr "Sexo:<br/>"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_employee__continuo_medication__yes
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Si"
+msgstr "Si"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,help:l10n_hn_hr_recruitment.field_hr_recruitment_stage__survey_id
+msgid ""
+"Si se define, al enviar la entrevista desde una postulación en esta etapa se"
+" usará esta encuesta. Si no se define, se usará la entrevista del puesto de "
+"trabajo."
+msgstr ""
+"Si se define, al enviar la entrevista desde una postulación en esta etapa se"
+" usará esta encuesta. Si no se define, se usará la entrevista del puesto de "
+"trabajo."
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+msgid "Siendo extranjero qué documento le permite trabajar en el país"
+msgstr "Siendo extranjero qué documento le permite trabajar en el país"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__software
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__software
+msgid "Software"
+msgstr "Software"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Software que maneja"
+msgstr "Software que maneja"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Solo"
+msgstr "Solo"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_employee__marital__single
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+msgid "Soltero"
+msgstr "Soltero(a)"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_applicant__marital__single
+#: model:l10n_hn_hr_recruitment.marital.status,name:l10n_hn_hr_recruitment.marital_status_single
+msgid "Soltero(a)"
+msgstr "Soltero(a)"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_applicant__dependent_people__son
+msgid "Sons"
+msgstr "Hijos"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__son_name_age
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__son_name_age
+msgid "Sons Name and Age"
+msgstr "Sons Name and Age"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__source_id
+msgid "Source"
+msgstr "Source"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__sport_ids
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__sport_ids
+msgid "Sports"
+msgstr "Deportes"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__spouse
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_applicant__dependent_people__spouse
+msgid "Spouse"
+msgstr "Esposo(a)"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__address_wife
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__address_wife
+msgid "Spouse Address"
+msgstr "Dirección"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__name_wife
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__name_wife
+msgid "Spouse Name"
+msgstr "Nombre"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__occupation_wife
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__occupation_wife
+msgid "Spouse Occupation"
+msgstr "Ocupación"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__stage_id
+msgid "Stage"
+msgstr "Stage"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__stage_sequence
+msgid "Stage Sequence"
+msgstr "Stage Sequence"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__state_id
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__state_id
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_applicant_view_form_inherit
+msgid "State"
+msgstr "Estado"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__street
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__street
+msgid "Street"
+msgstr "Calle"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_applicant_view_form_inherit
+msgid "Street 2..."
+msgstr "Calle 2..."
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_applicant_view_form_inherit
+msgid "Street..."
+msgstr "Calle..."
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__street2
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__street2
+msgid "Street2"
+msgstr "Calle2"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_other_courses__study_center
+msgid "Study Center"
+msgstr "Centro de Estudio"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Su familia"
+msgstr "Su familia"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_job_current_last__wage
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_applicant_view_form_inherit
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_employee_view_form_inherit_skills_cert_to_education
+msgid "Sueldo"
+msgstr "Sueldo"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Sueldo Mensual Aprobado:"
+msgstr "Sueldo Mensual Aprobado:"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+msgid "Sueldo Mensual Deseado:"
+msgstr "Sueldo Mensual Deseado:"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_job_current_last__superior_boss
+msgid "Superior Boss"
+msgstr "Jefe superior"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Sus padres"
+msgstr "Sus padres"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__emergency_phone
+msgid "Teléfono Emergencia"
+msgstr "Teléfono Emergencia"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__number_emergency2
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__number_emergency2
+msgid "Teléfono Emergencia 2"
+msgstr "Teléfono Emergencia 2"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Teléfono de emergencia"
+msgstr "Teléfono de emergencia"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Teléfono:"
+msgstr "Teléfono:"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,help:l10n_hn_hr_recruitment.field_hr_employee__availability
+msgid "The date at which the applicant will be available to start working"
+msgstr "The date at which the applicant will be available to start working"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Tiempo Trabajado"
+msgstr "Tiempo Trabajado"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Tiene licencia de manejar<br/>"
+msgstr "Tiene licencia de manejar<br/>"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_reference_personal__time
+msgid "Time"
+msgstr "Tiempo"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_academic_formation__title_received
+msgid "Title Received"
+msgstr "Título recibido"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_job_current_last__to_1
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_l10n_hn_hr_recruitment_academic_formation__date_to
+msgid "To"
+msgstr "Hasta"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__practice_sport
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__practice_sport
+msgid "To Practice Sports"
+msgstr "¿Practica deportes?"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Trabajo desempeñado"
+msgstr "Trabajo desempeñado"
+
+#. module: l10n_hn_hr_recruitment
+#: model:l10n_hn_hr_recruitment.field.of.study,name:l10n_hn_hr_recruitment.field_of_study_tourism
+msgid "Turismo / Hotelería"
+msgstr "Turismo / Hotelería"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant_survey_url_wizard__survey_url
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.survey_url_wizard_view_form
+msgid "URL"
+msgstr "URL"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model,name:l10n_hn_hr_recruitment.model_hr_applicant_survey_url_wizard
+msgid "URL de entrevista"
+msgstr "URL de entrevista"
+
+#. module: l10n_hn_hr_recruitment
+#. odoo-python
+#: code:addons/l10n_hn_hr_recruitment/models/hr_recruitment.py:0
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.survey_url_wizard_view_form
+msgid "URL de la entrevista"
+msgstr "URL de la entrevista"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_employee__marital__cohabitant
+msgid "Union Libre"
+msgstr "Union Libre"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Universitario"
+msgstr "Universitario"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__university_school
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__l10n_hn_hr_recruitment_academic_formation__name__4
+msgid "University"
+msgstr "Nombre"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__university_school_address
+msgid "University Address"
+msgstr "Dirección"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__university_school_from
+msgid "University From"
+msgstr "Desde"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__university_school_title
+msgid "University Title"
+msgstr "University Title"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__university_school_to
+msgid "University To"
+msgstr "Hasta"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__university_school_year
+msgid "University Years"
+msgstr "Años"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_applicant__marital__cohabitant
+#: model:l10n_hn_hr_recruitment.marital.status,name:l10n_hn_hr_recruitment.marital_status_cohabitant
+msgid "Unión libre"
+msgstr "Unión libre"
+
+#. module: l10n_hn_hr_recruitment
+#: model:res.groups,name:l10n_hn_hr_recruitment.group_project_user
+msgid "User"
+msgstr "User"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_applicant_view_form_inherit
+msgid "Ver URL entrevista"
+msgstr "Ver URL entrevista"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__missing_checklist_line_names
+msgid "Verificaciones pendientes"
+msgstr "Verificaciones pendientes"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_employee__priority__2
+msgid "Very Good"
+msgstr "Very Good"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_applicant__marital__widower
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_employee__marital__widower
+#: model:l10n_hn_hr_recruitment.marital.status,name:l10n_hn_hr_recruitment.marital_status_widower
+msgid "Viudo(a)"
+msgstr "Viudo(a)"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "Vive con<br/>"
+msgstr "Vive con<br/>"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__vocational_school_from
+msgid "Vocational From"
+msgstr "Desde"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__vocational_school
+msgid "Vocational School"
+msgstr "Nombre"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__vocational_school_address
+msgid "Vocational School Address"
+msgstr "Dirección"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__vocational_school_title
+msgid "Vocational Title"
+msgstr "Vocational Title"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__vocational_school_to
+msgid "Vocational To"
+msgstr "Hasta"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__vocational_school_year
+msgid "Vocational Years"
+msgstr "Años"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__weight
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__weight
+msgid "Weight"
+msgstr "Peso"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__work_calendar
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__work_calendar
+msgid "Work Calendar"
+msgstr "Calendario de trabajo"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__document_work
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__document_work
+msgid "Work Document"
+msgstr "Calendario de Documento"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__work_other
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__work_other
+msgid "Works Other"
+msgstr "Otras obras o funciones que domina"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_applicant__chronic_illness__yes
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_applicant__club_social_deport__yes
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_applicant__has_license__yes
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_applicant__practice_sport__yes
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_employee__chronic_illness__yes
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_employee__club_social_deport__yes
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_employee__has_license__yes
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__hr_employee__practice_sport__yes
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__job_current_last__information__yes
+msgid "Yes"
+msgstr "Si"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_applicant_view_form_inherit
+msgid "ZIP"
+msgstr "ZIP"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_applicant__zip
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee__zip
+msgid "Zip"
+msgstr "Zip"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid ""
+"para que los verifique absolutamente \n"
+"                                    por los medio que disponga (INFORNET, etc.). En caso de encontrar alguna información\n"
+"                                    incierta, carente de toda verdad, la empresa"
+msgstr ""
+"para que los verifique absolutamente \n"
+"                                    por los medio que disponga (INFORNET, etc.). En caso de encontrar alguna información\n"
+"                                    incierta, carente de toda verdad, la empresa"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "puede anular esta solicitud de empleo y por ende mi contratación."
+msgstr "puede anular esta solicitud de empleo y por ende mi contratación."
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+msgid "¿A cuánto ascienden sus gastos mensuales?"
+msgstr "¿A cuánto ascienden sus gastos mensuales?"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "¿Cuál es su pasatiempo favorito?<br/>"
+msgstr "¿Cuál es su pasatiempo favorito?<br/>"
+
+#. module: l10n_hn_hr_recruitment
+#: model:survey.question,title:l10n_hn_hr_recruitment.survey_interview_inicial_q3
+msgid "¿Cuál es tu disponibilidad para iniciar?"
+msgstr "¿Cuál es tu disponibilidad para iniciar?"
+
+#. module: l10n_hn_hr_recruitment
+#: model:survey.question,title:l10n_hn_hr_recruitment.survey_interview_tecnica_q1
+msgid "¿Cuáles son tus principales habilidades para este puesto?"
+msgstr "¿Cuáles son tus principales habilidades para este puesto?"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+msgid "¿Cuánto abona mensualmente?"
+msgstr "¿Cuánto abona mensualmente?"
+
+#. module: l10n_hn_hr_recruitment
+#: model:survey.question,title:l10n_hn_hr_recruitment.survey_interview_inicial_q1
+msgid "¿Cuéntanos brevemente sobre tu experiencia laboral?"
+msgstr "¿Cuéntanos brevemente sobre tu experiencia laboral?"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "¿Cómo considera su estado de salud actual?<br/>"
+msgstr "¿Cómo considera su estado de salud actual?<br/>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+msgid "¿Cómo supo usted de este empleo?"
+msgstr "¿Cómo supo usted de este empleo?"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+msgid "¿Está dispuesto a cambiar su lugar de residencia?"
+msgstr "¿Está dispuesto a cambiar su lugar de residencia?"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+msgid "¿Ha estado afianzado?"
+msgstr "¿Ha estado afianzado?"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+msgid "¿Ha estado afiliado a algun sindicato?"
+msgstr "¿Ha estado afiliado a algun sindicato?"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+msgid "¿Ha estado afiliado a algún sindicato?"
+msgstr "¿Ha estado afiliado a algún sindicato?"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "¿Padece de alguna enfermedad crónica?<br/>"
+msgstr "¿Padece de alguna enfermedad crónica?<br/>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+msgid "¿Paga renta?"
+msgstr "¿Paga renta?"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+msgid "¿Pertenece a algún Club Social o Deportivo?<br/>"
+msgstr "¿Pertenece a algún Club Social o Deportivo?<br/>"
+
+#. module: l10n_hn_hr_recruitment
+#: model:survey.question,title:l10n_hn_hr_recruitment.survey_interview_inicial_q2
+msgid "¿Por qué te interesa esta posición?"
+msgstr "¿Por qué te interesa esta posición?"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_employee_applicant
+msgid "¿Practica usted algún deporte?<br/>"
+msgstr "¿Practica usted algún deporte?<br/>"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+msgid "¿Puede viajar?"
+msgstr "¿Puede viajar?"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+msgid "¿Su conyugue trabaja?"
+msgstr "¿Su conyugue trabaja?"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+msgid "¿Tiene automóvil propio?"
+msgstr "¿Tiene automóvil propio?"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+msgid "¿Tiene deudas?"
+msgstr "¿Tiene deudas?"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+msgid "¿Tiene parientes trabajando en esta Empresa?"
+msgstr "¿Tiene parientes trabajando en esta Empresa?"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+msgid "¿Tiene seguro de Vida?"
+msgstr "¿Tiene seguro de Vida?"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+msgid "¿Tiene usted otros ingresos?"
+msgstr "¿Tiene usted otros ingresos?"
+
+#. module: l10n_hn_hr_recruitment
+#: model:survey.question,title:l10n_hn_hr_recruitment.survey_interview_tecnica_q3
+msgid "¿Tienes alguna certificación o formación adicional relevante?"
+msgstr "¿Tienes alguna certificación o formación adicional relevante?"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.template_applicant
+msgid "¿Vive en casa propia?"
+msgstr "¿Vive en casa propia?"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.ui.menu,name:l10n_hn_hr_recruitment.area_menuitem
+msgid "Área"
+msgstr "Área"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_reference_personal__reference_kind
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_employee_view_form_inherit_skills_cert_to_education
+msgid "Tipo de referencia"
+msgstr "Tipo de referencia"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__reference_personal__reference_kind__personal
+msgid "Personal"
+msgstr "Personal"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields.selection,name:l10n_hn_hr_recruitment.selection__reference_personal__reference_kind__laboral
+msgid "Laboral"
+msgstr "Laboral"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_courses_training__document
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee_skill__document
+msgid "Documento"
+msgstr "Documento"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_courses_training__document_filename
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee_skill__document_filename
+msgid "Nombre del archivo"
+msgstr "Nombre del archivo"
+
+#. module: l10n_hn_hr_recruitment
+msgid "Comprobante"
+msgstr "Comprobante"
+
+#. module: l10n_hn_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_employee_skill_certification_form_document
+msgid "Comprobante"
+msgstr "Comprobante"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_courses_training__l10n_hn_can_preview
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee_skill__l10n_hn_can_preview
+msgid "Puede previsualizar"
+msgstr "Puede previsualizar"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_courses_training__file_extension
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_hr_employee_skill__file_extension
+msgid "Extensión"
+msgstr "Extensión"
+
+#. module: l10n_hn_hr_recruitment
+#: code:addons/l10n_hn_hr_recruitment/models/l10n_hn_binary_document_mixin.py:0
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.courses_training_document_preview_form
+#: model_terms:ir.ui.view,arch_db:l10n_hn_hr_recruitment.hr_employee_skill_certification_document_preview_form
+msgid "Vista previa"
+msgstr "Vista previa"
+
+#. module: l10n_hn_hr_recruitment
+#: code:addons/l10n_hn_hr_recruitment/models/l10n_hn_binary_document_mixin.py:0
+msgid "Vista previa del documento"
+msgstr "Vista previa del documento"
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,help:l10n_hn_hr_recruitment.field_courses_training__attachment_ids
+msgid "Obsoleto: use el campo Documento. Se conserva para migración desde versiones anteriores."
+msgstr "Obsoleto: use el campo Documento. Se conserva para migración desde versiones anteriores."
+
+#. module: l10n_hn_hr_recruitment
+#: model:ir.model.fields,field_description:l10n_hn_hr_recruitment.field_courses_training__attachment_ids
+msgid "Adjuntos (histórico)"
+msgstr "Adjuntos (histórico)"

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Ordenar lista de nóminas por nombre de empleado A-Z -->
+    <record id="view_hr_payslip_tree_inherit_l10n_hn" model="ir.ui.view">
+        <field name="name">hr.payslip.list.inherit.l10n.hn</field>
+        <field name="model">hr.payslip</field>
+        <field name="inherit_id" ref="l10n_hn_payroll_base.view_hr_payslip_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//list" position="attributes">
+                <attribute name="default_order">employee_id</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Extend payslip form to show proportional payment fields for verification -->
+    <record id="view_hr_payslip_form_inherit_l10n_hn" model="ir.ui.view">
+        <field name="name">hr.payslip.form.inherit.l10n.hn</field>
+        <field name="model">hr.payslip</field>
+        <field name="inherit_id" ref="l10n_hn_payroll_base.view_hr_payslip_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('o_hn_payslip_hero')]" position="after">
+                <group string="Prorrateo por Fecha de Ingreso" name="l10n_hn_proportional">
+                    <field name="standard_period_days" readonly="1"/>
+                    <field name="hn_contract_period_days" readonly="1"/>
+                    <field name="effective_period_days" readonly="1"/>
+                    <field name="payable_period_days" readonly="1"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

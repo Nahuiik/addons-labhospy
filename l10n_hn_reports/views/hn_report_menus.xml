@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Menú raíz único: informes fiscales Honduras (904, libros, DMC cuelga desde l10n_hn_dmc). -->
+    <menuitem id="menu_hn_reports_root" name="Honduras (SAR / fiscal)"
+              parent="account.menu_finance_reports" sequence="95"/>
+
+    <record id="action_hn_isv_report" model="ir.actions.act_window">
+        <field name="name">Declaración ISV (904) — datos</field>
+        <field name="res_model">hn.isv.report</field>
+        <field name="view_mode">form</field>
+    </record>
+
+    <menuitem id="menu_hn_isv_report" name="Formulario 904 (base)"
+              parent="menu_hn_reports_root" action="action_hn_isv_report" sequence="10"/>
+</odoo>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_account_journal_form_sale_receipt" model="ir.ui.view">
+            <field name="name">account.journal.form.sale.receipt</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='type']" position="after">
+                    <field name="for_sale_receipt" 
+                           string="Para recibos de venta"
+                           invisible="type != 'general'"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
+

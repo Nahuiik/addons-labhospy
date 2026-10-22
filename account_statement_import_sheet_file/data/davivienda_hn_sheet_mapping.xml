@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Extracto tipo Banco Davivienda Honduras (xls), p. ej. DAVIVIENDAMAYO.xls:
+    fila con encabezados "Fecha | Descripción | Débito | Crédito | Saldo | Ref | Ref 2"
+    y líneas de metadatos encima.
+-->
+<odoo noupdate="1">
+    <record id="sheet_mapping_davivienda_hn_extracto_lps" model="account.statement.import.sheet.mapping">
+        <field name="name">Banco Davivienda HN — extracto Cuenta Corriente (LPS / .xls)</field>
+        <field name="float_thousands_sep">comma</field>
+        <field name="float_decimal_sep">dot</field>
+        <field name="file_encoding">utf-8</field>
+        <field name="delimiter">comma</field>
+        <field name="timestamp_format">%d/%m/%Y</field>
+        <field name="no_header" eval="False" />
+        <field name="header_lines_skip_count">10</field>
+        <field name="footer_lines_skip_count">0</field>
+        <field name="skip_empty_lines" eval="True" />
+        <field name="amount_type">distinct_credit_debit</field>
+        <field name="timestamp_column">Fecha</field>
+        <field name="description_column">Descripción</field>
+        <field name="amount_debit_column">Débito</field>
+        <field name="amount_credit_column">Crédito</field>
+        <field name="balance_column">Saldo</field>
+        <field name="transaction_id_column">Ref</field>
+        <field name="reference_column">Ref 2</field>
+        <field name="offset_column" eval="0" />
+    </record>
+</odoo>

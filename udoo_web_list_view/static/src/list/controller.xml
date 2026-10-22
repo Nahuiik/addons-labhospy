@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+<t t-inherit="web.ListView" t-inherit-mode="extension">
+    <xpath expr="//SearchBar" position="after">
+        <t t-if="activeActions.edit and !lvState.isInlineEdit">
+            <span class="btn btn-light h-100 ms-1 px-2 u_sw_inline_edit" t-att-class="{ 'active': lvState.forceInlineEdit }" t-on-click="forceInlineEdit">
+                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="20" viewBox="0 2 24 24" fill="currentColor">
+                    <path d="M5 18.89H6.41421L15.7279 9.57627L14.3137 8.16206L5 17.4758V18.89ZM21 20.89H3V16.6473L16.435 3.21231C16.8256 2.82179 17.4587 2.82179 17.8492 3.21231L20.6777 6.04074C21.0682 6.43126 21.0682 7.06443 20.6777 7.45495L9.24264 18.89H21V20.89ZM15.7279 6.74785L17.1421 8.16206L18.5563 6.74785L17.1421 5.33363L15.7279 6.74785Z"></path>
+                </svg>
+            </span>            
+        </t>
+    </xpath>
+
+    <xpath expr="//div[@t-ref='root']" position="attributes">
+        <attribute name="t-att-class">className + (lvState.forceInlineEdit ? ' u_edit_inlist' : '')</attribute>
+    </xpath>
+</t>
+
+</templates>

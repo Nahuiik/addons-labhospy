@@ -1,0 +1,1 @@
+from . import consume_product 

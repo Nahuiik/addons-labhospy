@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="template_carnet_report" name="template_carnet_report">
+        <t t-call="web.basic_layout">
+            <t t-foreach="docs" t-as="o">
+                <t t-if="o.company_id.numero == '1'">
+                    <div style="position: relative; width: 100%; height: 100vh; overflow: hidden;">
+                        <div width="100%" style="position: relative; z-index: 1; min-height: 100vh;">
+                            <div style="position: absolute;
+                                        top: 0px;
+                                        left: 0;
+                                        width: 100%;
+                                        height: 100%;
+                                        background-image: url('/l10n_hn_hr_recruitment/static/src/img/postensa.png');
+                                        background-size: cover;
+                                        background-repeat: no-repeat;
+                                        z-index: -1;">
+                            </div>
+                            
+                            <div class="row" style="height: 100vh;">
+                                <table width="100%">
+                                    <tr style="height:15px">
+                                        <td width="45%">
+                                        </td>
+                                        <td width="55%" style="text-align:center">
+                                            <p/>                                        
+                                        </td>
+                                    </tr>
+                                    <tr style="height:200px">
+                                        <td width="45%">
+                                        </td>
+                                        <td width="55%" style="text-align:center;padding-right:15px">
+                                            <strong><span style="text-align:center" t-field="o.name"/></strong><br/>
+                                            <span style="text-align:center;font-size:10px" t-field="o.job_title"/>
+                                        </td>
+                                    </tr>
+                                    <tr style="height:30px">
+                                        <td width="45%">
+                                        </td>
+                                        <td width="55%" style="text-align:center;font-size:12px">
+                                            <strong>ID:</strong> <span t-field="o.identification_id"/>                                      
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div style="page-break-before: always; position: relative; width: 100%; height: 100vh; overflow: hidden;">
+                    <div style="position: relative; z-index: 1; height: 100%;">
+                        <div style="position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    width: 100%;
+                                    height: 100%;
+                                    background-image: url('/l10n_hn_hr_recruitment/static/src/img/postensa-back.png');
+                                    background-size: cover;
+                                    background-repeat: no-repeat;
+                                    z-index: -1;">
+                        </div>
+                        
+                        <div class="row" style="height: 100vh; padding: 20px;">
+                            <table width="100%">
+                                <tr style="height:200px">
+                                    <td width="45%">
+                                    </td>
+                                    <td width="55%" style="text-align:center;font-size:10px;padding-right:15px">
+                                        <strong>El presente Carnet es personal e Intransferible en caso de perdida o emergencia favor llama a:
+                                        <br/>Tel: (504) 2235-8587</strong>
+
+                                        <br/><br/>
+                                        <strong>Col. La Era, Calle Principal, Plantel CONCREMIX</strong>
+
+                                        <br/><br/><br/><br/>
+                                        <strong>
+                                            ___________________________________<br/>
+                                            Firma Autorizada RRHH
+                                        </strong>
+
+                                    </td>
+                                </tr>
+                                
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                </t>
+                <t t-if="o.company_id.numero == '2'">
+                    <div style="position: relative; width: 100%; height: 100vh; overflow: hidden;">
+                        <div width="100%" style="position: relative; z-index: 1; min-height: 100vh;">
+                            <div style="position: absolute;
+                                        top: 0px;
+                                        left: 0;
+                                        width: 100%;
+                                        height: 100%;
+                                        background-image: url('/l10n_hn_hr_recruitment/static/src/img/concremix.png');
+                                        background-size: cover;
+                                        background-repeat: no-repeat;
+                                        z-index: -1;">
+                            </div>
+                            
+                            <div class="row" style="height: 100vh;">
+                                <table width="100%">
+                                    <tr style="height:15px">
+                                        <td width="45%">
+                                        </td>
+                                        <td width="55%" style="text-align:center">
+                                            <p/>                                        
+                                        </td>
+                                    </tr>
+                                    <tr style="height:200px">
+                                        <td width="45%">
+                                        </td>
+                                        <td width="55%" style="text-align:center;padding-right:15px">
+                                            <strong><span style="text-align:center" t-field="o.name"/></strong><br/>
+                                            <span style="text-align:center;font-size:10px" t-field="o.job_title"/>
+                                        </td>
+                                    </tr>
+                                    <tr style="height:30px">
+                                        <td width="45%">
+                                        </td>
+                                        <td width="55%" style="text-align:center;font-size:12px">
+                                            <strong>ID:</strong> <span t-field="o.identification_id"/>                                      
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                        </div>
+                </div>
+                <div style="page-break-before: always; position: relative; width: 100%; height: 100vh; overflow: hidden;">
+                    <div style="position: relative; z-index: 1; height: 100%;">
+                        <div style="position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    width: 100%;
+                                    height: 100%;
+                                    background-image: url('/l10n_hn_hr_recruitment/static/src/img/concremix-back.png');
+                                    background-size: cover;
+                                    background-repeat: no-repeat;
+                                    z-index: -1;">
+                        </div>
+                        
+                        <div class="row" style="height: 100vh; padding: 20px;">
+                            <table width="100%">
+                                <tr style="height:200px">
+                                    <td width="45%">
+                                    </td>
+                                    <td width="55%" style="text-align:center;font-size:10px;padding-right:15px">
+                                        <strong>El presente Carnet es personal e Intransferible en caso de perdida o emergencia favor llama a:
+                                        <br/>Tel: (504) 2235-8587</strong>
+
+                                        <br/><br/>
+                                        <strong>Col. La Era, Calle Principal, Plantel CONCREMIX</strong>
+
+                                        <br/><br/><br/><br/>
+                                        <strong>
+                                            ___________________________________<br/>
+                                            Firma Autorizada RRHH
+                                        </strong>
+
+                                    </td>
+                                </tr>
+                                
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                </t>
+
+                <t t-if="o.company_id.numero == '3'">
+                    <div style="position: relative; width: 100%; height: 100vh; overflow: hidden;">
+                        <div width="100%" style="position: relative; z-index: 1; min-height: 100vh;">
+                            <div style="position: absolute;
+                                        top: 0px;
+                                        left: 0;
+                                        width: 100%;
+                                        height: 100%;
+                                        background-image: url('/l10n_hn_hr_recruitment/static/src/img/credipro.png');
+                                        background-size: cover;
+                                        background-repeat: no-repeat;
+                                        z-index: -1;">
+                            </div>
+                            
+                            <div class="row" style="height: 100vh;">
+                                <table width="100%">
+                                    <tr style="height:15px">
+                                        <td width="45%">
+                                        </td>
+                                        <td width="55%" style="text-align:center">
+                                            <p/>                                        
+                                        </td>
+                                    </tr>
+                                    <tr style="height:200px">
+                                        <td width="45%">
+                                        </td>
+                                        <td width="55%" style="text-align:center;padding-right:15px">
+                                            <strong><span style="text-align:center" t-field="o.name"/></strong><br/>
+                                            <span style="text-align:center;font-size:10px" t-field="o.job_title"/>
+                                        </td>
+                                    </tr>
+                                    <tr style="height:30px">
+                                        <td width="45%">
+                                        </td>
+                                        <td width="55%" style="text-align:center;font-size:12px">
+                                            <strong>ID:</strong> <span t-field="o.identification_id"/>                                      
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div style="page-break-before: always; position: relative; width: 100%; height: 100vh; overflow: hidden;">
+                        <div style="position: relative; z-index: 1; height: 100%;">
+                            <div style="position: absolute;
+                                        top: 0;
+                                        left: 0;
+                                        width: 100%;
+                                        height: 100%;
+                                        background-image: url('/l10n_hn_hr_recruitment/static/src/img/credipro-back.png');
+                                        background-size: cover;
+                                        background-repeat: no-repeat;
+                                        z-index: -1;">
+                            </div>
+                            
+                            <div class="row" style="height: 100vh; padding: 20px;">
+                                <table width="100%">
+                                    <tr style="height:200px">
+                                        <td width="45%">
+                                        </td>
+                                        <td width="55%" style="text-align:center;font-size:10px;padding-right:15px">
+                                        <strong>El presente Carnet es personal e Intransferible en caso de perdida o emergencia favor llama a:
+                                        <br/>Tel: (504) 2235-8587</strong>
+
+                                        <br/><br/>
+                                        <strong>Col. La Era, Calle Principal, Plantel CONCREMIX</strong>
+
+                                        <br/><br/><br/><br/>
+                                        <strong>
+                                            ___________________________________<br/>
+                                            Firma Autorizada RRHH
+                                        </strong>
+
+                                    </td>
+                                    </tr>
+                                    
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+                
+            </t>
+        </t>
+    </template>
+</odoo>

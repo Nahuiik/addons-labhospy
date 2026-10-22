@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_l10n_hn_liquidation_list" model="ir.ui.view">
+        <field name="name">l10n.hn.liquidation.list</field>
+        <field name="model">l10n.hn.liquidation</field>
+        <field name="arch" type="xml">
+            <list string="Liquidaciones Laborales">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="date"/>
+                <field name="legal_termination_reason"/>
+                <field name="sbd_computed" optional="hide"/>
+                <field name="sod_computed" optional="hide"/>
+                <field name="spd_computed" optional="hide"/>
+                <field name="total_incomes" sum="Total"/>
+                <field name="total_deductions" sum="Total"/>
+                <field name="net_amount" sum="Total"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'liquidated'"
+                       decoration-info="state in ('draft', 'simulated')"
+                       decoration-warning="state == 'waiting_approval'"/>
+                <field name="requires_legal_review" optional="hide"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_l10n_hn_liquidation_form" model="ir.ui.view">
+        <field name="name">l10n.hn.liquidation.form</field>
+        <field name="model">l10n.hn.liquidation</field>
+        <field name="arch" type="xml">
+            <form string="Liquidación Laboral (HN)">
+                <header>
+                    <button name="action_simulate_settlement" string="Simular" type="object"
+                            class="btn-secondary"
+                            invisible="state in ('waiting_approval', 'approved', 'liquidated')"/>
+                    <button name="action_calculate" string="Calcular" type="object" class="btn-primary"
+                            invisible="state in ('waiting_approval', 'approved', 'liquidated')"/>
+                    <button name="action_recompute_settlement" string="Recalcular" type="object"
+                            invisible="state in ('waiting_approval', 'approved', 'liquidated')"/>
+                    <button name="action_validate_settlement" string="Validar" type="object"
+                            invisible="state in ('waiting_approval', 'approved', 'liquidated', 'cancelled')"/>
+                    <button name="action_submit_waiting_approval" string="Enviar a aprobación" type="object" class="btn-primary"
+                            invisible="state not in ('draft', 'simulated')"/>
+                    <button name="action_approve" string="Aprobar" type="object" class="btn-primary"
+                            invisible="state != 'waiting_approval'"/>
+                    <button name="action_liquidate" string="Liquidar" type="object" class="btn-primary"
+                            invisible="state != 'approved'"/>
+                    <button name="action_cancel" string="Cancelar" type="object"
+                            invisible="state in ('liquidated', 'cancelled')"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,simulated,waiting_approval,approved,liquidated"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box"/>
+                    <div class="alert alert-info" role="alert" invisible="not is_simulation">
+                        Modo simulación: no liquide hasta recalcular en borrador definitivo.
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1"/>
+                            <field name="employee_id" options="{'no_create': True}"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="date"/>
+                            <field name="legal_termination_reason"/>
+                            <field name="reason" optional="hide"/>
+                        </group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="years_worked" readonly="1"/>
+                            <field name="months_worked" readonly="1"/>
+                            <field name="days_worked" readonly="1"/>
+                            <field name="is_simulation" readonly="1"/>
+                            <field name="requires_legal_review" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Bases salariales (motor)">
+                        <group>
+                            <field name="sbd_computed" readonly="1"/>
+                            <field name="sod_computed" readonly="1"/>
+                            <field name="spd_computed" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="base_salary" readonly="1"/>
+                            <field name="daily_salary" readonly="1"/>
+                            <field name="current_wage_monthly"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Entradas del cálculo">
+                            <group>
+                                <group string="Overrides (opcional)">
+                                    <field name="input_sbd_manual_override"/>
+                                    <field name="input_sod_manual_override"/>
+                                    <field name="input_spd_manual_override"/>
+                                </group>
+                                <group string="Pagos y vacaciones">
+                                    <field name="input_in_kind_monthly"/>
+                                    <field name="input_thirteenth_paid_cycle"/>
+                                    <field name="input_fourteenth_paid_cycle"/>
+                                    <field name="input_vacation_days_accrued"/>
+                                    <field name="input_vacation_proportional_days"/>
+                                    <field name="employer_fault_vacation_proportional"/>
+                                    <field name="force_proportional_vacation_company"/>
+                                    <field name="input_pending_salary_days"/>
+                                    <field name="input_other_pending_income"/>
+                                </group>
+                                <group string="Preaviso">
+                                    <field name="employer_omitted_notice"/>
+                                    <field name="employee_renounced_notice"/>
+                                </group>
+                                <group string="Riesgo profesional / IHSS">
+                                    <field name="occupational_daily_wage"/>
+                                    <field name="ihss_coverage_professional_risk"/>
+                                    <field name="ihss_validation_acknowledged"/>
+                                    <field name="severance_exclusion_120f_applies"/>
+                                </group>
+                                <group string="Control">
+                                    <field name="documents_support_loaded"/>
+                                    <field name="vacation_eligible_accumulation_art350"/>
+                                    <field name="last_recompute_reason" placeholder="Obligatorio antes de Recalcular…"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Detalle legal">
+                            <group>
+                                <field name="death_risk_classification" invisible="legal_termination_reason == 'resignation' or legal_termination_reason == 'dismissal_unjustified' or legal_termination_reason == 'dismissal_justified'"/>
+                                <field name="legal_reference_note" readonly="1"/>
+                            </group>
+                        </page>
+                        <page string="Ingresos">
+                            <field name="income_ids" nolabel="1" readonly="state in ('approved', 'liquidated')">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="concept"/>
+                                    <field name="concept_code" optional="hide"/>
+                                    <field name="salary_base_used"/>
+                                    <field name="quantity_days" optional="hide"/>
+                                    <field name="payee_type" optional="hide"/>
+                                    <field name="rule_origin" optional="hide"/>
+                                    <field name="name"/>
+                                    <field name="amount" sum="Total"/>
+                                </list>
+                            </field>
+                            <group><field name="total_incomes" readonly="1"/></group>
+                        </page>
+                        <page string="Deducciones">
+                            <field name="deduction_ids" nolabel="1" readonly="state in ('approved', 'liquidated')">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="concept"/>
+                                    <field name="salary_base_used" optional="hide"/>
+                                    <field name="name"/>
+                                    <field name="amount" sum="Total"/>
+                                </list>
+                            </field>
+                            <group><field name="total_deductions" readonly="1"/></group>
+                        </page>
+                        <page string="Beneficiarios">
+                            <field name="beneficiary_ids" nolabel="1">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="kinship"/>
+                                    <field name="percentage"/>
+                                    <field name="economic_dependency"/>
+                                    <field name="legal_support_note"/>
+                                    <field name="hr_legal_notes"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Trazabilidad">
+                            <group>
+                                <field name="calculation_snapshot_json" widget="text" readonly="1"/>
+                            </group>
+                            <field name="recompute_log_ids" nolabel="1" readonly="1">
+                                <list>
+                                    <field name="create_date"/>
+                                    <field name="user_id"/>
+                                    <field name="reason"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Resumen">
+                            <group>
+                                <field name="total_incomes" readonly="1"/>
+                                <field name="total_deductions" readonly="1"/>
+                                <field name="net_amount" readonly="1"/>
+                            </group>
+                        </page>
+                        <page string="Notas">
+                            <field name="notes" placeholder="Notas adicionales…"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_l10n_hn_liquidation_search" model="ir.ui.view">
+        <field name="name">l10n.hn.liquidation.search</field>
+        <field name="model">l10n.hn.liquidation</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Liquidaciones">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="legal_termination_reason"/>
+                <filter string="Borrador" name="draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Simulación" name="simulated" domain="[('state', '=', 'simulated')]"/>
+                <filter string="Esperando Aprobación" name="waiting_approval" domain="[('state', '=', 'waiting_approval')]"/>
+                <filter string="Revisión legal" name="legal_review" domain="[('requires_legal_review', '=', True)]"/>
+                <separator/>
+                <filter string="Motivo legal" name="group_legal" context="{'group_by': 'legal_termination_reason'}"/>
+                <filter string="Estado" name="group_by_state" context="{'group_by': 'state'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_l10n_hn_liquidation" model="ir.actions.act_window">
+        <field name="name">Liquidaciones Laborales</field>
+        <field name="res_model">l10n.hn.liquidation</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Crear liquidación laboral</p>
+            <p>Motor según Código del Trabajo y Dec. 150-2008. Guía STSS solo metodológica para topes.</p>
+        </field>
+    </record>
+</odoo>

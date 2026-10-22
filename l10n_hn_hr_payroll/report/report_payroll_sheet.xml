@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_payroll_sheet_document">
+        <t t-set="doc" t-value="docs and docs[0]"/>
+        <t t-call="web.html_container">
+            <t t-set="logo_color" t-value="doc.company_id.primary_color if doc.company_id.primary_color else '#0066cc'"/>
+            <div class="page" style="font-family: Arial, sans-serif; font-size: 11px; color: #333;">
+                <div t-att-style="'border-bottom: 3px solid ' + logo_color + '; padding-bottom: 15px; margin-bottom: 20px;'">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 40%;">
+                                <t t-if="doc.company_id.logo">
+                                    <img t-att-src="image_data_uri(doc.company_id.logo)" style="max-height: 60px;"/>
+                                </t>
+                                <t t-else="">
+                                    <strong t-field="doc.company_id.name"/>
+                                </t>
+                            </td>
+                            <td style="text-align: right;">
+                                <h2 t-att-style="'margin: 0; color: ' + logo_color + ';'">Planilla HE/TE/BD</h2>
+                                <p style="margin: 5px 0 0 0;"><strong t-field="doc.name"/></p>
+                                <p style="margin: 2px 0 0 0;">
+                                    <span t-field="doc.date_start"/> – <span t-field="doc.date_end"/>
+                                </p>
+                                <p t-if="doc.cutoff_date_from and doc.cutoff_date_to" style="margin: 2px 0 0 0; font-size: 10px; color: #666;">
+                                    Corte HE: <span t-field="doc.cutoff_date_from"/> – <span t-field="doc.cutoff_date_to"/>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- Resumen -->
+                <div style="background: #f8f9fa; padding: 10px; margin-bottom: 15px; border-radius: 5px;">
+                    <strong>Resumen:</strong>
+                    Total HE: <span t-field="doc.total_he"/> |
+                    Total TE: <span t-field="doc.total_te"/> |
+                    Total BD: <span t-field="doc.total_bd"/>
+                </div>
+
+                <!-- Horas Extra -->
+                <h3 style="margin: 15px 0 8px 0; color: #333;">Horas Extra</h3>
+                <table class="table table-sm" style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                    <thead>
+                        <tr style="background: #366092; color: white;">
+                            <th style="padding: 8px; text-align: left;">Empleado</th>
+                            <th style="padding: 8px;">HE 25%</th>
+                            <th style="padding: 8px;">HE 50%</th>
+                            <th style="padding: 8px;">HE 75%</th>
+                            <th style="padding: 8px;">HE 100%</th>
+                            <th style="padding: 8px;">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="doc.line_ids" t-as="line">
+                            <td style="padding: 6px; border-bottom: 1px solid #dee2e6;"><span t-field="line.employee_id.name"/></td>
+                            <td style="padding: 6px; border-bottom: 1px solid #dee2e6; text-align: right;"><span t-esc="'%.2f' % line.he_25"/></td>
+                            <td style="padding: 6px; border-bottom: 1px solid #dee2e6; text-align: right;"><span t-esc="'%.2f' % line.he_50"/></td>
+                            <td style="padding: 6px; border-bottom: 1px solid #dee2e6; text-align: right;"><span t-esc="'%.2f' % line.he_75"/></td>
+                            <td style="padding: 6px; border-bottom: 1px solid #dee2e6; text-align: right;"><span t-esc="'%.2f' % line.he_100"/></td>
+                            <td style="padding: 6px; border-bottom: 1px solid #dee2e6; text-align: right; font-weight: bold;"><span t-field="line.amount_total"/></td>
+                        </tr>
+                        <tr t-if="not doc.line_ids">
+                            <td colspan="6" style="padding: 10px; text-align: center; color: #999;">Sin registros</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Turnos Extra -->
+                <h3 style="margin: 15px 0 8px 0;">Turnos Extra</h3>
+                <table class="table table-sm" style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                    <thead>
+                        <tr style="background: #366092; color: white;">
+                            <th style="padding: 8px; text-align: left;">Empleado</th>
+                            <th style="padding: 8px;">A</th>
+                            <th style="padding: 8px;">B</th>
+                            <th style="padding: 8px;">C</th>
+                            <th style="padding: 8px;">Otros Ingresos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="doc.line_te_ids" t-as="line">
+                            <td style="padding: 6px; border-bottom: 1px solid #dee2e6;"><span t-field="line.employee_id.name"/></td>
+                            <td style="padding: 6px; border-bottom: 1px solid #dee2e6; text-align: right;"><span t-esc="line.turn_a"/></td>
+                            <td style="padding: 6px; border-bottom: 1px solid #dee2e6; text-align: right;"><span t-esc="line.turn_b"/></td>
+                            <td style="padding: 6px; border-bottom: 1px solid #dee2e6; text-align: right;"><span t-esc="line.turn_c"/></td>
+                            <td style="padding: 6px; border-bottom: 1px solid #dee2e6; text-align: right;"><span t-field="line.amount_other_income"/></td>
+                        </tr>
+                        <tr t-if="not doc.line_te_ids">
+                            <td colspan="5" style="padding: 10px; text-align: center; color: #999;">Sin registros</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Beneficios y Deducciones (aplica a la quincena de la planilla) -->
+                <h3 style="margin: 15px 0 8px 0;">Beneficios y Deducciones</h3>
+                <table class="table table-sm" style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="background: #366092; color: white;">
+                            <th style="padding: 8px; text-align: left;">Empleado</th>
+                            <th style="padding: 8px;">Concepto</th>
+                            <th style="padding: 8px;">Monto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="doc.line_bd_ids" t-as="line">
+                            <td style="padding: 6px; border-bottom: 1px solid #dee2e6;"><span t-field="line.employee_id.name"/></td>
+                            <td style="padding: 6px; border-bottom: 1px solid #dee2e6;"><span t-field="line.concept_id.name"/></td>
+                            <td style="padding: 6px; border-bottom: 1px solid #dee2e6; text-align: right;"><span t-field="line.amount"/></td>
+                        </tr>
+                        <tr t-if="not doc.line_bd_ids">
+                            <td colspan="3" style="padding: 10px; text-align: center; color: #999;">Sin registros</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p style="margin-top: 25px; font-size: 10px; color: #999;">
+                    Responsable: <span t-field="doc.user_id.name"/>
+                </p>
+            </div>
+        </t>
+    </template>
+
+    <record id="action_report_payroll_sheet" model="ir.actions.report">
+        <field name="name">Planilla HE/TE/BD</field>
+        <field name="model">l10n.hn.payroll.sheet</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hn_hr_payroll.report_payroll_sheet_document</field>
+        <field name="report_file">l10n_hn_hr_payroll.report_payroll_sheet_document</field>
+        <field name="print_report_name">'Planilla_%s' % (object.name.replace(' ', '_'))</field>
+    </record>
+</odoo>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.actions.act_window" id="action_hr_isr_employee">
+        <field name="name">Aplicar Impuesto Sobre Renta</field>
+        <field name="res_model">hr.isr.employee</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Establecer ISR</p>
+        </field>
+    </record>
+
+    <record id="hr_isr_employee_form_view" model="ir.ui.view">
+        <field name="name">hr.isr.employee.form.view</field>
+        <field name="model">hr.isr.employee</field>
+        <field name="arch" type="xml">
+            <form string="Aplicar Impuesto Sobre Renta" class="o_form_fullwidth_establecer_isr">
+                <header>
+                    <button name="get_employees" type="object" string="Obtener Empleados" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="calculate_isr" type="object" string="Calcular ISR" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="set_isr_contract" type="object" string="Establecer ISR" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="return_to_draft" type="object" string="Volver a Borrador"
+                            invisible="state != 'validated'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,validated" nolabel="1"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="start_date" readonly="state != 'draft'"/>
+                            <field name="isr_id" options="{'no_create': True}" readonly="state != 'draft'"/>
+                            <field name="exempt_salary" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="end_date" readonly="state != 'draft'"/>
+                            <field name="department_id" options="{'no_create': True}" readonly="state != 'draft'"/>
+                            <field name="name" readonly="state != 'draft'"/>
+                        </group>
+                    </group>
+                    <separator string="Periodicidad de deducción"/>
+                    <group>
+                        <group>
+                            <field name="pay_periodicity" readonly="state != 'draft'"/>
+                            <field name="include_in" readonly="state != 'draft'"/>
+                        </group>
+                        <group>
+                            <field name="pay_number" readonly="state != 'draft'"/>
+                            <field name="remaining_payments" readonly="state != 'draft'"/>
+                        </group>
+                    </group>
+                    <div class="alert alert-info" role="alert">
+                        <p><strong>Pago mensual:</strong> el número de cuotas no debe de ser superior a 12.</p>
+                        <p><strong>Pago quincenal:</strong> el número de cuotas no debe de ser superior a 24.</p>
+                    </div>
+                    <notebook>
+                        <page string="Empleados">
+                            <field name="employee_ids" readonly="state != 'draft'">
+                                <list editable="top"
+                                      decoration-success="is_ok == True"
+                                      decoration-info="is_ok == False"
+                                      default_order="employee_id">
+                                    <field name="employee_id" options="{'no_create': True}"/>
+                                    <field name="hire_date"/>
+                                    <field name="wage"/>
+                                    <field name="other_entries"/>
+                                    <field name="total_incomes"/>
+                                    <field name="medical_expense"/>
+                                    <field name="exempt_value"/>
+                                    <field name="net_salary"/>
+                                    <field name="amount_rap"/>
+                                    <field name="amount_ivm"/>
+                                    <field name="amount_membership"/>
+                                    <field name="amount_pension"/>
+                                    <field name="other_expenses"/>
+                                    <field name="total_base" readonly="1"/>
+                                    <field name="total_tax" readonly="1"/>
+                                    <field name="isr_fee" readonly="1"/>
+                                    <field name="is_ok" column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_isr_employee_tree_view" model="ir.ui.view">
+        <field name="name">hr.isr.employee.tree.view</field>
+        <field name="model">hr.isr.employee</field>
+        <field name="arch" type="xml">
+            <list string="Establecer ISR">
+                <field name="name"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+</odoo>

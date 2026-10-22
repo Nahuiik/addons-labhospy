@@ -1,0 +1,22 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_payroll_structure_user,hr.payroll.structure.user,model_hr_payroll_structure,l10n_hn_payroll_base.group_hn_payroll_user,1,1,1,1
+access_hr_payroll_structure_hr,hr.payroll.structure.hr,model_hr_payroll_structure,hr.group_hr_user,1,0,0,0
+access_hr_contribution_register_user,hr.contribution.register.user,model_hr_contribution_register,l10n_hn_payroll_base.group_hn_payroll_user,1,1,1,1
+access_hr_salary_rule_category_user,hr.salary.rule.category.user,model_hr_salary_rule_category,l10n_hn_payroll_base.group_hn_payroll_user,1,1,1,1
+access_hr_payslip_user,hr.payslip.user,model_hr_payslip,l10n_hn_payroll_base.group_hn_payroll_user,1,1,1,1
+access_hr_payslip_line_user,hr.payslip.line.user,model_hr_payslip_line,l10n_hn_payroll_base.group_hn_payroll_user,1,1,1,1
+access_hr_payslip_input_user,hr.payslip.input.user,model_hr_payslip_input,l10n_hn_payroll_base.group_hn_payroll_user,1,1,1,1
+access_hr_payslip_worked_days_user,hr.payslip.worked_days.user,model_hr_payslip_worked_days,l10n_hn_payroll_base.group_hn_payroll_user,1,1,1,1
+access_hr_payslip_run_manager,hr.payslip.run.manager,model_hr_payslip_run,l10n_hn_payroll_base.group_hn_payroll_manager,1,1,1,1
+access_hr_rule_input_user,hr.rule.input.user,model_hr_rule_input,l10n_hn_payroll_base.group_hn_payroll_user,1,1,1,1
+access_hr_salary_rule_user,hr.salary.rule.user,model_hr_salary_rule,l10n_hn_payroll_base.group_hn_payroll_user,1,1,1,1
+access_hr_version_payslip_input_user,hr.version.payslip.input.template user,model_hr_version_payslip_input_template,l10n_hn_payroll_base.group_hn_payroll_user,1,1,1,1
+access_hr_version_payslip_input_hr,hr.version.payslip.input.template hr,model_hr_version_payslip_input_template,hr.group_hr_user,1,1,1,1
+access_hr_version_advantage_hr,hr.version.advantage.template.hr,model_hr_version_advantage_template,hr.group_hr_user,1,0,0,0
+access_hr_payslip_input_type_user,hr.payslip.input.type user,model_hr_payslip_input_type,l10n_hn_payroll_base.group_hn_payroll_user,1,1,1,1
+access_hr_salary_attachment_user,hr.salary.attachment user,model_hr_salary_attachment,l10n_hn_payroll_base.group_hn_payroll_user,1,1,1,1
+access_hr_payslip_employees_wizard,hr.payslip.employees.wizard,model_hr_payslip_employees,l10n_hn_payroll_base.group_hn_payroll_manager,1,1,1,1
+access_payslip_contrib_register_wizard,payslip.lines.contribution.register.wizard,model_payslip_lines_contribution_register,l10n_hn_payroll_base.group_hn_payroll_user,1,1,1,1
+access_hr_payroll_headcount,hr.payroll.headcount user,model_hr_payroll_headcount,l10n_hn_payroll_base.group_hn_payroll_user,1,1,1,1
+access_hr_payroll_headcount_line,hr.payroll.headcount.line user,model_hr_payroll_headcount_line,l10n_hn_payroll_base.group_hn_payroll_user,1,1,1,1
+access_hr_payroll_headcount_working_rate,hr.payroll.headcount.working.rate user,model_hr_payroll_headcount_working_rate,l10n_hn_payroll_base.group_hn_payroll_user,1,0,1,1

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_banks_ficohsa.FicohsaPosImportResult">
+        <div class="o_gn_pos_result">
+            <div class="o_gn_pos_result__cards">
+                <div class="o_gn_pos_result__card o_gn_pos_result__card--ok">
+                    <span class="o_gn_pos_result__value" t-esc="data.created or 0"/>
+                    <span class="o_gn_pos_result__label">Asientos creados</span>
+                </div>
+                <div class="o_gn_pos_result__card">
+                    <span class="o_gn_pos_result__value" t-esc="data.planned or 0"/>
+                    <span class="o_gn_pos_result__label">Operaciones previstas</span>
+                </div>
+                <div class="o_gn_pos_result__card">
+                    <span class="o_gn_pos_result__value" t-esc="fileCount"/>
+                    <span class="o_gn_pos_result__label">Archivos</span>
+                </div>
+            </div>
+            <div class="o_gn_pos_result__meta">
+                <span class="badge text-bg-secondary" t-esc="modeLabel"/>
+                <span t-if="data.bank_journal" class="o_gn_pos_result__journal">
+                    <i class="fa fa-university me-1"/><t t-esc="data.bank_journal"/>
+                </span>
+            </div>
+            <div t-if="fileCount" class="o_gn_pos_result__files">
+                <span class="o_gn_pos_result__files-title">Archivos procesados</span>
+                <span t-foreach="data.files" t-as="f" t-key="f_index"
+                      class="badge text-bg-light o_gn_pos_result__chip">
+                    <i class="fa fa-file-excel-o me-1"/><t t-esc="f"/>
+                </span>
+            </div>
+            <div t-if="(data.skipped or []).length"
+                 class="o_gn_pos_result__skipped alert alert-warning" role="alert">
+                <strong>Archivos sin líneas importables: </strong>
+                <t t-esc="(data.skipped or []).join(', ')"/>
+            </div>
+        </div>
+    </t>
+</templates>

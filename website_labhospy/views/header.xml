@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Teléfono y correo en barra superior -->
+    <template id="labhospy_header_text" inherit_id="website.header_text_element" name="LABHOSPY Header Contact">
+        <xpath expr="//t[@t-elif=&quot;_txt_elt_content == 'phone_mail'&quot;]//div[@data-name='Text']" position="replace">
+            <div t-attf-class="s_text_block #{_div_class}" data-name="Text">
+                <a href="tel:+50422375567" class="nav-link o_nav-link_secondary labhospy-header-link">
+                    <small>
+                        <i class="fa fa-fw fa-phone me-1"/>
+                        <span class="o_force_ltr">(504) 2237-5567 – 2237-3997</span>
+                    </small>
+                </a>
+                <a href="mailto:info@labhospy.hn" class="nav-link o_nav-link_secondary labhospy-header-link">
+                    <small>
+                        <i class="fa fa-fw fa-envelope me-1"/>
+                        info@labhospy.hn
+                    </small>
+                </a>
+            </div>
+        </xpath>
+        <xpath expr="//t[@t-else='']//div[@data-name='Text']" position="replace">
+            <div t-attf-class="s_text_block #{_div_class}" data-name="Text">
+                <a href="tel:+50422375567" class="nav-link o_nav-link_secondary labhospy-header-link">
+                    <small>
+                        <i class="fa fa-fw fa-phone me-1"/>
+                        <span class="o_force_ltr">(504) 2237-5567 – 2237-3997</span>
+                    </small>
+                </a>
+            </div>
+        </xpath>
+    </template>
+
+    <!-- Usar phone+mail en plantilla Sales 2 -->
+    <template id="labhospy_header_sales_two" inherit_id="website.template_header_sales_two" name="LABHOSPY Header Sales 2">
+        <xpath expr="//t[@t-call='website.placeholder_header_text_element']" position="attributes">
+            <attribute name="_txt_elt_content.f">phone_mail</attribute>
+            <attribute name="_div_class.f">d-flex flex-wrap align-items-center justify-content-center gap-2 gap-lg-4 py-1</attribute>
+            <attribute name="_item_class.f">w-100</attribute>
+        </xpath>
+        <!-- Logo más ancho, estilo labhospy.hn -->
+        <xpath expr="//t[@t-call='website.placeholder_header_brand']" position="attributes">
+            <attribute name="_link_class.f">me-4 labhospy-brand-wrap</attribute>
+        </xpath>
+        <!-- Placeholder búsqueda en español -->
+        <xpath expr="//t[@t-call='website.placeholder_header_search_box']" position="attributes">
+            <attribute name="_input_classes.f">rounded-start-pill ps-3 text-bg-light labhospy-search-input</attribute>
+        </xpath>
+        <!-- Barra de menú inferior -->
+        <xpath expr="//div[hasclass('border-top') and hasclass('o_border_contrast')]" position="attributes">
+            <attribute name="class" add="labhospy-nav-bar" separator=" "/>
+        </xpath>
+    </template>
+
+    <!-- Logo LABHOSPY -->
+    <template id="labhospy_header_brand" inherit_id="website.option_header_brand_logo" name="LABHOSPY Logo">
+        <xpath expr="//span[@t-field='website.logo']" position="replace">
+            <img src="/website_labhospy/static/src/img/logo-labhospy.jpeg"
+                 alt="LABHOSPY"
+                 title="LABHOSPY"
+                 class="labhospy-logo img-fluid"
+                 width="340"
+                 height="110"/>
+        </xpath>
+    </template>
+
+    <!-- Botón CTA del menú -->
+    <template id="labhospy_header_cta" inherit_id="website.header_call_to_action" name="LABHOSPY Header CTA">
+        <xpath expr="//a[hasclass('btn_cta')]" position="replace">
+            <a href="/contactus?subject=Solicitud%20de%20cotizaci%C3%B3n" class="oe_unremovable btn btn-primary btn_cta labhospy-btn-cta">SOLICITAR COTIZACIÓN</a>
+        </xpath>
+    </template>
+
+    <!-- Mobile: contacto en menú lateral -->
+    <template id="labhospy_header_mobile" inherit_id="website.template_header_mobile" name="LABHOSPY Mobile Header">
+        <xpath expr="//t[@t-call='website.placeholder_header_text_element']" position="attributes">
+            <attribute name="_txt_elt_content.f">phone_mail</attribute>
+            <attribute name="_div_class.f">mt-3 px-2 labhospy-mobile-contact</attribute>
+        </xpath>
+    </template>
+</odoo>

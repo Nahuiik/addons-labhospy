@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <!-- Grupo para usuarios que pueden usar Extra Financiamiento -->
+        <record id="group_payment_extra_user" model="res.groups">
+            <field name="name">Usuario Extra Financiamiento</field>
+            <field name="sequence">25</field>
+            <field name="comment">Puede ver y usar las opciones de Extra Financiamiento en los pagos de clientes</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="group_supplier_payment_modify" model="res.groups">
+            <field name="name">Modificar pagos a proveedores</field>
+            <field name="sequence">26</field>
+            <field name="comment">Permite cancelar y restablecer a borrador pagos registrados en facturas de proveedor.</field>
+            <field name="implied_ids" eval="[(4, ref('account.group_account_invoice'))]"/>
+        </record>
+    </data>
+</odoo>

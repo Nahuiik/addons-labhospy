@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_account_reconcile_ce.GnCeReconcileWorkspace">
+        <div class="o_content o_gn_ce_workspace px-3 py-2 d-flex flex-column h-100" t-ref="ceRoot" tabindex="0">
+            <div class="d-flex flex-wrap gap-2 align-items-center pb-2 border-bottom">
+                <label class="form-label mb-0">Diario</label>
+                <select class="form-select form-select-sm w-auto" t-model="meta.journalIdInput">
+                    <option value="">—</option>
+                    <t t-foreach="meta.journals" t-as="jr" t-key="jr.id">
+                        <option t-att-value="jr.id"><t t-esc="jr.name"/></option>
+                    </t>
+                </select>
+                <button type="button" class="btn btn-primary btn-sm" t-on-click="confirmJournal">
+                    Cargar pendientes
+                </button>
+                <button type="button" class="btn btn-outline-secondary btn-sm" t-on-click="() => this.ce.loadMoreStatements()" t-att-disabled="!st.stHasMore || st.loadingLines">
+                    Más líneas extracto
+                </button>
+                <button type="button" class="btn btn-outline-secondary btn-sm" t-on-click="() => this.ce.refreshCandidates()">
+                    Actualizar candidatos (R)
+                </button>
+                <button type="button" class="btn btn-outline-primary btn-sm" t-on-click="() => this.ce.zeroClickActive()">
+                    Zero-click (A)
+                </button>
+                <button type="button" class="btn btn-success btn-sm" t-on-click="onReconcileClicked">
+                    Conciliar mejor fila (Enter)
+                </button>
+                <small class="text-muted ms-auto" t-if="st.message"><t t-esc="st.message"/></small>
+            </div>
+
+            <div class="alert alert-light border-info small mb-2 py-2 o_gn_ce_confusion_banner" role="note">
+                <strong>Qué es esto.</strong>
+                Este workspace encuentra candidatos tipo <strong>apunte contable</strong>
+                (<code>account.move.line</code>) y concilia la línea de extracto con esa contraparte.
+                <strong>No</strong> es la misma función que los botones «Candidatos / Plantillas»
+                del import Nahuiik QIF, que sugieren <strong>modelos CE</strong> (<code>account.reconcile.model</code>).
+                Use aquí después de tener facturas/pagos u otras líneas conciliables en libros.
+                Para creación guiada por etiqueta/reglas rápidas, use el módulo de import Nahuiik.
+            </div>
+
+            <div class="row flex-grow-1 pt-3 g-2 h-100">
+                <div class="col-12 col-xl-5 d-flex flex-column">
+                    <h6 class="text-muted mb-2">Extracto pendiente · viewport virtualizado</h6>
+                    <div class="o_gn_ce_st_scroll border rounded bg-view position-relative flex-grow-1 small"
+                         style="min-height:560px; max-height:70vh; overflow:auto;"
+                         t-on-scroll="(ev) => this.paintStatementViewport(ev.currentTarget, ev.currentTarget.scrollTop)">
+                        <table class="table table-sm mb-0 table-hover">
+                            <thead class="table-light sticky-top">
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Etiqueta</th>
+                                    <th>Monto</th>
+                                    <th>Res.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-if="meta.stViewport.paddingTop" aria-hidden="true">
+                                    <td colspan="4" class="border-0 p-0" t-att-style="'height:' + meta.stViewport.paddingTop + 'px'"></td>
+                                </tr>
+                                <t t-foreach="meta.stViewport.slice" t-as="ln" t-key="ln.id">
+                                    <tr t-att-class="{'table-primary text-dark': ln.id === st.activeStLineId}"
+                                        role="button"
+                                        tabindex="-1"
+                                        t-on-click="() => this.pickStatement(ln.id)">
+                                        <td><t t-esc="ln.date"/></td>
+                                        <td class="text-break"><t t-esc="ln.payment_ref"/></td>
+                                        <td><t t-esc="ln.amount"/></td>
+                                        <td><t t-esc="ln.amount_residual"/></td>
+                                    </tr>
+                                </t>
+                                <tr t-if="meta.stViewport.paddingBottom" aria-hidden="true">
+                                    <td colspan="4" class="border-0 p-0" t-att-style="'height:' + meta.stViewport.paddingBottom + 'px'"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-12 col-xl-7 d-flex flex-column">
+                    <div class="d-flex justify-content-between align-items-center mb-2 gap-2">
+                        <h6 class="text-muted mb-0">Partidas recomendadas (servicio cliente + estado reactivo)</h6>
+                        <div class="btn-group btn-group-sm">
+                            <button type="button" class="btn btn-outline-secondary" t-on-click="() => this.ce.slideCandidateWindow(-1)">
+                                Página anterior [
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" t-on-click="() => this.ce.slideCandidateWindow(1)">
+                                Página siguiente ]
+                            </button>
+                        </div>
+                    </div>
+                    <table class="table table-sm mb-2">
+                        <tbody>
+                            <tr>
+                                <th class="align-top">Enfoque extracto</th>
+                                <td class="small text-muted">
+                                    <t t-if="st.activeLinePack.payment_ref"><t t-esc="st.activeLinePack.payment_ref"/></t>
+                                    <t t-if="!st.activeLinePack.payment_ref">—</t>
+                                    <span class="ms-2" t-if="st.activeLinePack.amount_residual">Residual <t t-esc="st.activeLinePack.amount_residual"/></span>
+                                    <span t-if="st.loadingCand" class="badge text-bg-info ms-2">Calculando…</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="border rounded flex-grow-1 overflow-auto bg-view" style="min-height:360px;">
+                        <table class="table table-sm mb-0 table-striped">
+                            <thead class="table-light sticky-top small">
+                                <tr>
+                                    <th>Score</th>
+                                    <th>Fecha</th>
+                                    <th>Etiqueta AML</th>
+                                    <th>Residual</th>
+                                    <th>Partner</th>
+                                    <th>Asiento</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="candRows()" t-as="cnd" t-key="cnd.move_line_id">
+                                    <tr t-att-class="{'table-success fw-semibold': cnd_index === st.selectedCandIndex}"
+                                        role="button"
+                                        tabindex="-1"
+                                        t-on-click="() => this.st.selectedCandIndex = cnd_index">
+                                        <td><t t-esc="fmtScore(cnd)"/></td>
+                                        <td><t t-esc="cnd.date"/></td>
+                                        <td class="text-break"><t t-esc="cnd.label"/></td>
+                                        <td><t t-esc="cnd.amount_residual"/></td>
+                                        <td class="text-break"><t t-esc="cnd.partner"/></td>
+                                        <td class="small text-muted text-break"><t t-esc="cnd.move_display"/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                    <small class="text-muted mt-1 d-block">
+                        Teclas: ↑↓ línea extracto · ←→ candidato dentro de la página visible · [/] cambia página
+                        de candidatos · R recalcula · A zero-click servidor (umbrales ICP) · Enter concilia la fila
+                        destacada.<br/>
+                        <span class="text-warning-emphasis">
+                            Precauciones: multimoneda / importes residuales raros / varias líneas contraparte
+                            pueden necesitar revisión manual en el asiento. Zero-click debe usarse sólo donde
+                            el score y la política contable permitan automatizar sin sorpresa.
+                        </span>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

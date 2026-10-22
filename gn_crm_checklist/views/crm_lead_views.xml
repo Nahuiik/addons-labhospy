@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Extender vista de formulario de CRM Lead -->
+    <record id="view_crm_lead_form_checklist" model="ir.ui.view">
+        <field name="name">crm.lead.form.checklist</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+            <!-- Agregar campo de progreso en el header -->
+            <xpath expr="//div[@name='button_box']" position="before">
+                <field name="checklist_progress" widget="progressbar" string="Progreso Checklist" class="oe_read_only"/>
+            </xpath>
+            
+            <!-- Agregar página de checklist en el notebook -->
+            <xpath expr="//notebook" position="inside">
+                <page string="Checklists" name="checklists">
+                    <group>
+                        <group>
+                            <field name="checklist_ids" widget="many2many_tags" options="{'no_create': True, 'no_create_edit': True}"/>
+                            <button name="action_add_checklist" string="Agregar Checklist" type="object" class="oe_link"/>
+                        </group>
+                        <group>
+                            <field name="checklist_progress" widget="progressbar" string="Progreso"/>
+                        </group>
+                    </group>
+                    <field name="checklist_line_ids" nolabel="1">
+                        <list string="Items del Checklist" editable="bottom">
+                            <field name="checklist_id" readonly="1"/>
+                            <field name="name" readonly="1"/>
+                            <field name="sequence" widget="handle"/>
+                            <field name="is_completed" widget="boolean_toggle"/>
+                            <field name="completed_date" readonly="1"/>
+                            <field name="completed_by" readonly="1"/>
+                        </list>
+                    </field>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_complete_checklist" string="Completar Todo" type="object" class="oe_stat_button" icon="fa-check-square"/>
+                        <button name="action_cancel_checklist" string="Cancelar Todo" type="object" class="oe_stat_button" icon="fa-times-circle"/>
+                    </div>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Extender vista Kanban de CRM Lead - Comentado temporalmente -->
+    <!-- La vista Kanban se puede extender después de la instalación -->
+
+</odoo>
+

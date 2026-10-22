@@ -1,0 +1,18 @@
+@include media-breakpoint-up(lg) {
+    .o_wub_activity_view {
+        .o_search_panel {
+            --SearchPanel-width: 200px;
+        }
+
+        &.o_kanban_view .o_content.o_component_with_search_panel {
+            .o_kanban_group {
+                overflow-y: auto;
+                box-sizing: content-box;
+
+                &.o_column_folded {
+                    display: contents;
+                }
+            }
+        }
+    }
+}

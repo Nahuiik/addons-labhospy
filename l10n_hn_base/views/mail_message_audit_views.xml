@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_message_tree_audit_log_search_inherit_hn" model="ir.ui.view">
+        <field name="name">mail.message.search.audit.inherit.hn</field>
+        <field name="model">mail.message</field>
+        <field name="inherit_id" ref="account.view_message_tree_audit_log_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='account_move']" position="after">
+                <filter name="hn_audit_manual_move" string="Manual journal entry"
+                        domain="[('model', '=', 'account.move'), ('account_audit_log_move_id.move_type', '=', 'entry')]"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

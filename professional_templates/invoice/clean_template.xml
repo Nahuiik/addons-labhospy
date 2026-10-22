@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="INVOICE_11_document" name="Clean Template">
+        <t t-if="o and 'company_id' in o">
+            <t t-set="company" t-value="o.company_id"></t>
+        </t>
+        <t t-if="not o or not 'company_id' in o">
+            <t t-set="company" t-value="res_company"></t>
+        </t>
+        <div class="header" t-attf-style="color:{{style.text_color}} !important;font-size:{{int(style.header_font)}}px !important;font-family:{{style.font_family}} !important;"> 
+            <div t-if="style.header" class="row mb-2" t-attf-style="border:2px solid {{style.theme_color}};">
+                <div class="col-auto mt-2">
+                    <t t-set="div_style" t-value="'background-color:{}; color: {};padding:8px;width:auto;display:inline-block;margin:8px;'.format(style.theme_color,style.theme_txt_color)"/>
+                    <div t-if="o.name" t-attf-style="{{div_style}}">
+                        <strong>
+                            <span t-if="o.state == 'draft'">Draft</span>
+                            <span t-if="o.state == 'cancel'">Cancelled</span>
+                            <span t-if="o.move_type == 'out_invoice'">Invoice</span>
+                            <span t-if="o.move_type == 'out_refund'">Credit Note</span>
+                            <span t-if="o.move_type == 'in_refund'">Vendor Credit Note</span>
+                            <span t-if="o.move_type == 'in_invoice'">Vendor Bill</span>
+                        </strong>
+                        <span t-field="o.name" t-if="o.state not in ['cancel', 'draft']"/>
+                    </div>
+                    <div t-if="o.invoice_date" t-attf-style="{{div_style}}">
+                        <strong>Invoice Date: </strong>
+                        <span t-field="o.invoice_date"/>
+                    </div>
+                    <div t-if="o.invoice_date_due" t-attf-style="{{div_style}}">
+                        <strong>Due Date: </strong>
+                        <span t-field="o.invoice_date_due"/>
+                    </div>
+                    <div t-if="o.invoice_origin" t-attf-style="{{div_style}}">
+                        <strong>Source Document: </strong>
+                        <span t-field="o.invoice_origin"/>
+                    </div>
+                    <div t-if="o.partner_id.ref" t-attf-style="{{div_style}}">
+                        <strong>Customer Code: </strong>
+                        <span t-field="o.partner_id.ref"/>
+                    </div>
+                    <div t-if="o.ref" t-attf-style="{{div_style}}">
+                        <strong>Reference: </strong>
+                        <span t-field="o.ref"/>
+                    </div>
+                </div>
+                <div class="col-auto mb-2 text-end">
+                    <div t-if="style.logo">
+                        <img t-if="style.logo" t-att-src="image_data_uri(style.logo)" alt="Logo"/>
+                    </div>
+                    <div t-if="not style.logo">
+                        <img  t-att-src="image_data_uri(company.logo)" alt="Logo"/>
+                    </div>
+                    <div class="d-inline-block mx-1" t-if="company.twitter or company.facebook or company.facebook" t-attf-style="background-color:{{style.theme_color}}; color:{{style.theme_txt_color}};">
+                        <span t-if="company.twitter" style="padding-left:0px;" class="fa fa-twitter-square "/>&#160;<span t-field="company.twitter"/>
+                        <span t-if="company.facebook" style="padding-left:13px;" class="fa fa-facebook-square "/>&#160;<span t-field="company.facebook"/>
+                        <span t-if="company.youtube" style="padding-left:13px;" class="fa fa-youtube-square "/>&#160;<span t-field="company.youtube" />
+                    </div>
+                </div>
+            </div>
+        </div> 
+        <div class="article page" t-attf-data-oe-model="account.move" t-attf-data-oe-id="{{o.id}}" t-attf-style="color:{{style.text_color}} !important;font-size:{{int(style.body_font)}}px !important;font-family:{{style.font_family}} !important;">
+            <h4 class="text-center" t-field="o.name" t-if="o.state not in ['cancel', 'draft']"></h4>
+            <div class="col-12" t-attf-style="white-space:pre-line;color:#{style.wm_color};left:#{style.leftpadding}mm; top:#{style.toppadding}mm;font-size:#{style.fontsize}px; 
+                opacity:#{style.opacity};z-index:-99; -webkit-transform:rotate(-#{style.rotate}deg);position:fixed;">
+            <t t-esc="style.wm_eval(o, time, user, res_company)"/>
+        </div>
+        <div class="row row-cols-3 mb-2">
+            <div class="col">
+                <div t-if="o.partner_shipping_id and o.partner_shipping_id != o.partner_id" t-attf-style="font-size:{{int(style.body_font)+6}}px; font-weight:bold;">
+                    Bill To:
+                </div>
+                <div t-if="o.partner_shipping_id == o.partner_id or not o.partner_shipping_id" t-attf-style="font-size:{{int(style.body_font)+6}}px; font-weight:bold;">
+                    Bill&#160;&amp;&#160;Ship To:
+                </div>
+                <div t-if="o.partner_id" t-attf-style="color:{{style.cust_color}};font-size:{{int(style.body_font)+6}}px;font-weight:500;">
+                    <t t-if="o.partner_id.parent_id">
+                        <span t-field="o.partner_id.parent_id"/>, <span t-if="o.partner_id._fields.get('title') and o.partner_id.title" t-field="o.partner_id.title"/> <span t-field="o.partner_id.name"/>
+                    </t>
+                    <t t-if="not o.partner_id.parent_id">
+                        <span t-if="o.partner_id._fields.get('title') and o.partner_id.title" t-field="o.partner_id.title"/> <span t-field="o.partner_id"/>
+                    </t>
+                </div>
+                <address t-field="o.partner_id"  t-options='{"widget": "contact", "fields":["address","phone","email","website"],"no_marker": false}'/>
+                <div t-if="o.partner_id.vat">VAT: <span t-field="o.partner_id.vat"/></div>
+            </div>
+            <div class="col">
+                <t t-if="o.partner_shipping_id and o.partner_shipping_id != o.partner_id">
+                    <div t-attf-style="font-size:{{int(style.body_font)+6}}px;font-weight:bold;">Ship To:</div>
+                    <address t-field="o.partner_shipping_id" 
+                        t-options='{"widget": "contact", "fields":["name", "address","phone","email","website"],"no_marker": false}'/>
+                </t>
+            </div>
+            <div class="col d-flex justify-content-end">
+                <div style="width:auto;padding-left:15px;">
+                    <div t-field="company.name" t-attf-style="color:{{style.name_color}};white-space:nowrap;font-size:{{int(style.header_font)+6}}px;font-weight:500;"/>
+                    <address t-field="company.partner_id"  t-options='{"widget": "contact", "fields": ["address", "phone",  "email", "website"], "no_marker": true}'/>
+                    <div t-if="company.vat">VAT: <span t-field="company.vat"/></div>
+                </div>
+            </div>
+        </div>
+        <t t-call="professional_templates.invoice_lines"/>
+    </div>
+    <div class="footer" t-attf-style="font-size:{{style.footer_font}}px !important;font-family:{{style.font_family}} !important;">
+        <t t-call="professional_templates.company_footer"/>
+    </div>
+</template>
+</odoo>

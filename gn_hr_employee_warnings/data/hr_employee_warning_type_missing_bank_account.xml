@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="warning_type_missing_bank_account" model="hr.employee.warning.type">
+        <field name="name">Sin cuenta bancaria</field>
+        <field name="code">MISSING_BANK_ACCOUNT</field>
+        <field name="description">Muestra una alerta cuando el empleado no tiene ninguna cuenta bancaria configurada para pago de salario.</field>
+        <field name="sequence">35</field>
+        <field name="icon">fa-university</field>
+        <field name="alert_style">warning</field>
+        <field name="employee_field">has_missing_bank_account_warning</field>
+        <field name="config_hint">Empleado → Personal → Cuentas bancarias</field>
+    </record>
+</odoo>

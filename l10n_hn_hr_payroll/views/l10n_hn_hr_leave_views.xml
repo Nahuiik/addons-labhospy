@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- hr.leave.type: campo is_ihss_incapacity -->
+    <record id="hr_leave_type_form_inherit_incapacity" model="ir.ui.view">
+        <field name="name">hr.leave.type.form.incapacity</field>
+        <field name="model">hr.leave.type</field>
+        <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='work_entry_type_id']" position="after">
+                <field name="l10n_hn_leave_type_country_code" invisible="1"/>
+                <field name="is_ihss_incapacity" widget="boolean_toggle"
+                    invisible="l10n_hn_leave_type_country_code != 'HN'"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- hr.leave: campos IHSS incapacidad (solo visibles cuando tipo es incapacidad) -->
+    <record id="hr_leave_form_inherit_incapacity" model="ir.ui.view">
+        <field name="name">hr.leave.form.incapacity</field>
+        <field name="model">hr.leave</field>
+        <field name="inherit_id" ref="hr_holidays.hr_leave_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <field name="l10n_hn_holiday_country_code" invisible="1"/>
+                <field name="l10n_hn_holiday_is_ihss_incapacity" invisible="1"/>
+                <group string="Incapacidad IHSS"
+                    invisible="not l10n_hn_holiday_is_ihss_incapacity or l10n_hn_holiday_country_code != 'HN'">
+                    <field name="hn_incap_case_key" readonly="1"/>
+                    <field name="hn_incap_day_index_start" readonly="1"/>
+                    <field name="hn_incap_day_index_end" readonly="1"/>
+                    <field name="hn_incap_calendar_days_total" readonly="1"/>
+                    <field name="hn_incap_calendar_days_patrono" readonly="1"/>
+                    <field name="hn_incap_calendar_days_ihss" readonly="1"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

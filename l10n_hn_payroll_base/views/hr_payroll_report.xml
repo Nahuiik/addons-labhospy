@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_contribution_register" model="ir.actions.report">
+        <field name="name">Contribution register</field>
+        <field name="model">hr.contribution.register</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hn_payroll_base.report_contributionregister</field>
+        <field name="report_file">l10n_hn_payroll_base.report_contributionregister</field>
+    </record>
+
+    <record id="action_report_payslip" model="ir.actions.report">
+        <field name="name">Payslip</field>
+        <field name="model">hr.payslip</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hn_payroll_base.report_payslip</field>
+        <field name="report_file">l10n_hn_payroll_base.report_payslip</field>
+        <field name="print_report_name">'Payslip - %s' % (object.employee_id.name)</field>
+        <field name="binding_model_id" ref="model_hr_payslip"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="action_report_payslip_details" model="ir.actions.report">
+        <field name="name">Payslip details</field>
+        <field name="model">hr.payslip</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hn_payroll_base.report_payslipdetails</field>
+        <field name="report_file">l10n_hn_payroll_base.report_payslipdetails</field>
+        <field name="print_report_name">'Payslip details - %s' % (object.employee_id.name)</field>
+        <field name="binding_model_id" ref="model_hr_payslip"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- Default payslip PDF per structure (loaded after hr.payroll.structure records). -->
+    <record id="structure_base" model="hr.payroll.structure">
+        <field name="payslip_report_id" ref="action_report_payslip"/>
+    </record>
+    <record id="default_structure" model="hr.payroll.structure">
+        <field name="payslip_report_id" ref="action_report_payslip"/>
+    </record>
+    <record id="structure_002" model="hr.payroll.structure">
+        <field name="payslip_report_id" ref="action_report_payslip"/>
+    </record>
+</odoo>

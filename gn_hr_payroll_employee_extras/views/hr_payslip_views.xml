@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_payslip_form_gn_send_email" model="ir.ui.view">
+        <field name="name">hr.payslip.form.gn.send.email</field>
+        <field name="model">hr.payslip</field>
+        <field name="inherit_id" ref="l10n_hn_payroll_base.view_hr_payslip_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_print_payslip']" position="after">
+                <button name="action_send_payslip_by_email" type="object"
+                        string="Enviar por correo"
+                        class="btn-secondary"
+                        invisible="state == 'cancel' or not line_ids"
+                        groups="l10n_hn_payroll_base.group_hn_payroll_user"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

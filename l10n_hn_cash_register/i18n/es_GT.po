@@ -1,0 +1,95 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_hn_cash_register
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-03 09:00:00+0000\n"
+"PO-Revision-Date: 2025-11-03 09:00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es_GT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_hn_cash_register
+#: model:ir.model.fields,field_description:l10n_hn_cash_register.field_cash_register_wizard__cashier_ids
+msgid "Cashiers"
+msgstr "Cajeros"
+
+#. module: l10n_hn_cash_register
+#: model:ir.model.fields,field_description:l10n_hn_cash_register.field_cash_register_wizard__date_from
+msgid "Date From"
+msgstr "Desde"
+
+#. module: l10n_hn_cash_register
+#: model:ir.model.fields,field_description:l10n_hn_cash_register.field_cash_register_wizard__date_to
+msgid "Date To"
+msgstr "Hasta"
+
+#. module: l10n_hn_cash_register
+#: model:ir.model.fields,field_description:l10n_hn_cash_register.field_account_payment__number_check
+msgid "Check Number"
+msgstr "Número de Cheque"
+
+#. module: l10n_hn_cash_register
+#: model:ir.model.fields,field_description:l10n_hn_cash_register.field_account_payment__date_check
+msgid "Check Date"
+msgstr "Fecha de Cheque"
+
+#. module: l10n_hn_cash_register
+#: model:ir.model.fields,field_description:l10n_hn_cash_register.field_account_journal__is_purchase
+msgid "Is Purchase Journal"
+msgstr "Es Diario de Compras"
+
+#. module: l10n_hn_cash_register
+#: model:ir.ui.menu,name:l10n_hn_cash_register.cash_registers_accounting_menu
+msgid "Reports Cash Registers"
+msgstr "Reportes de Caja Registradora"
+
+#. module: l10n_hn_cash_register
+#: model:ir.ui.menu,name:l10n_hn_cash_register.cash_register_menuitem
+#: model:ir.actions.act_window,name:l10n_hn_cash_register.action_wizard_register
+msgid "Cash Register Report"
+msgstr "Reporte de Arqueo de Caja"
+
+#. module: l10n_hn_cash_register
+#: model:ir.ui.view,arch_db:l10n_hn_cash_register.wizard_cash_register_form
+msgid "Excel"
+msgstr "Excel"
+
+#. module: l10n_hn_cash_register
+#: model:ir.ui.view,arch_db:l10n_hn_cash_register.wizard_cash_register_form
+msgid "PDF"
+msgstr "PDF"
+
+#. module: l10n_hn_cash_register
+#: model:ir.ui.view,arch_db:l10n_hn_cash_register.wizard_cash_register_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: l10n_hn_cash_register
+#: model:ir.module.category,name:l10n_hn_cash_register.module_category_cash_register
+msgid "Arqueo de Caja"
+msgstr "Arqueo de Caja"
+
+#. module: l10n_hn_cash_register
+#: model:res.groups,name:l10n_hn_cash_register.group_cash_register_other_cashiers
+#: model:res.groups.privilege,name:l10n_hn_cash_register.privilege_cash_register_other_cashiers
+msgid "Seleccionar otros cajeros"
+msgstr "Seleccionar otros cajeros"
+
+#. module: l10n_hn_cash_register
+#: model:res.groups,comment:l10n_hn_cash_register.group_cash_register_other_cashiers
+msgid "Permite elegir cajeros distintos al usuario conectado en el reporte de arqueo de caja."
+msgstr "Permite elegir cajeros distintos al usuario conectado en el reporte de arqueo de caja."
+
+#. module: l10n_hn_cash_register
+#: code:addons/l10n_hn_cash_register/wizard/cash_register_wizard.py:0
+msgid "No ha tenido ventas ese día."
+msgstr "No ha tenido ventas ese día."
+

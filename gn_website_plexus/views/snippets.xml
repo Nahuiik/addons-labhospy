@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="snippet_animation" name="Animación Plexus">
+        <section class="s-js-animation o_snippet"
+                 data-spot-radius="160"
+                 data-overlay-opacity="0.82"
+                 data-line-max-dist="140"
+                 data-particle-density="0.14"
+                 data-theme="dark"
+                 data-light-color="#1F4AA8"
+                 data-dark-color="#59D8FF">
+            <div class="js-animation-container" role="presentation" aria-hidden="true">
+                <div class="js-animation-fallback" aria-hidden="true"></div>
+            </div>
+            <div class="o_gn_plexus_content oe_structure" data-gn-plexus-slot="content"></div>
+        </section>
+    </template>
+
+    <template id="gn_website_plexus_snippets" inherit_id="website.snippets">
+        <xpath expr="//snippets[@id='snippet_groups']/t[@snippet-group='intro']" position="after">
+            <t snippet-group="plexus" t-snippet="website.s_snippet_group" string="Animaciones" t-thumbnail="/website/static/src/img/snippets_thumbs/s_media_list.svg"/>
+        </xpath>
+
+        <xpath expr="//snippets[@id='snippet_structure']/t[@group='intro'][last()]" position="after">
+            <t t-snippet="gn_website_plexus.snippet_animation"
+               t-key="gn_website_plexus_snippet_animation"
+               string="Animación Plexus"
+               group="plexus"
+               t-thumbnail="/gn_website_plexus/static/src/img/plexus_thumbnail.svg"/>
+        </xpath>
+    </template>
+</odoo>

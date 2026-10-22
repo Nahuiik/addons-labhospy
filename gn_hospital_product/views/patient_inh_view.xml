@@ -1,0 +1,34 @@
+<odoo>
+	<record id="view_patient_form_inh" model="ir.ui.view">
+	    <field name="name">view.patient.inh.form</field>
+	    <field name="model">hms.patient</field>
+	    <field name="inherit_id" ref="acs_hms.view_patient_form"/>
+	    <field name="arch" type="xml">
+            <field name="code" position="attributes">
+                <attribute name="string">Px Code</attribute>
+            </field>
+	    </field>
+	</record>
+
+    <record id="view_prescription_form_inh" model="ir.ui.view">
+	    <field name="name">view.prescription.inh.form</field>
+	    <field name="model">prescription.order</field>
+	    <field name="inherit_id" ref="acs_hms.view_hms_prescription_order_form"/>
+	    <field name="arch" type="xml">
+            <field name="company_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+	    </field>
+	</record>
+
+    <record id="view_prescription_line_tree_inh" model="ir.ui.view">
+	    <field name="name">view.prescription.tree.inh</field>
+	    <field name="model">prescription.line</field>
+	    <field name="inherit_id" ref="acs_hms.view_hms_prescription_line_tree"/>
+	    <field name="arch" type="xml">
+            <field name="product_id" position="attributes">
+                <attribute name="domain">[('type','in',['consu','product']),('hospital_product_type','=','medicament'),('qty_available','&gt;', 0)]</attribute>
+            </field>
+	    </field>
+	</record>
+</odoo>

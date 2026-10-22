@@ -1,0 +1,143 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* gts_coa_hierarchy
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-21 12:00:00\n"
+"PO-Revision-Date: 2025-12-21 12:00:00\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+
+#. module: gts_coa_hierarchy
+#: model:ir.model.fields,field_description:gts_coa_hierarchy.field_account_account__type
+msgid "Account Type Hie."
+msgstr "Tipo de Cuenta Jer."
+
+#. module: gts_coa_hierarchy
+#: model:ir.model.fields,field_description:gts_coa_hierarchy.field_account_account__level
+msgid "Account Level"
+msgstr "Nivel de Cuenta"
+
+#. module: gts_coa_hierarchy
+#: model:ir.model.fields,field_description:gts_coa_hierarchy.field_account_account__parent_id
+msgid "Parent"
+msgstr "Padre"
+
+#. module: gts_coa_hierarchy
+#: model:ir.model.fields,field_description:gts_coa_hierarchy.field_account_account__child_parent_ids
+msgid "Children"
+msgstr "Hijas"
+
+#. module: gts_coa_hierarchy
+#: model:ir.model.fields,field_description:gts_coa_hierarchy.field_account_account__child_id
+msgid "Child Accounts"
+msgstr "Cuentas Hijas"
+
+#. module: gts_coa_hierarchy
+#: model:ir.model.fields,field_description:gts_coa_hierarchy.field_account_account__balance
+msgid "Balance"
+msgstr "Balance"
+
+#. module: gts_coa_hierarchy
+#: model:ir.model.fields,field_description:gts_coa_hierarchy.field_account_account__credit
+msgid "Credit"
+msgstr "Crédito"
+
+#. module: gts_coa_hierarchy
+#: model:ir.model.fields,field_description:gts_coa_hierarchy.field_account_account__debit
+msgid "Debit"
+msgstr "Débito"
+
+#. module: gts_coa_hierarchy
+#: model:ir.model.fields,field_description:gts_coa_hierarchy.field_account_account__closing_balance
+msgid "Closing Balance"
+msgstr "Balance de Cierre"
+
+#. module: gts_coa_hierarchy
+#: model:ir.model.fields,field_description:gts_coa_hierarchy.field_account_account__opening_balance
+msgid "Opening Balance"
+msgstr "Balance de Apertura"
+
+#. module: gts_coa_hierarchy
+#: model:ir.model.fields,help:gts_coa_hierarchy.field_account_account__type
+msgid "The 'Internal Type' is used for features available on different types of accounts: view can not have journal items, consolidation are accounts that can have children accounts for multi-company consolidations, payable/receivable are for partners accounts (for debit/credit computations), closed for depreciated accounts."
+msgstr "El 'Tipo Interno' se utiliza para funciones disponibles en diferentes tipos de cuentas: vista no puede tener elementos de diario, consolidación son cuentas que pueden tener cuentas hijas para consolidaciones multi-empresa, por pagar/por cobrar son para cuentas de socios (para cálculos de débito/crédito), cerradas para cuentas depreciadas."
+
+#. module: gts_coa_hierarchy
+#: code:addons/gts_coa_hierarchy/models/account_account.py:0
+#, python-format
+msgid "Error!\nYou cannot create recursive accounts."
+msgstr "¡Error!\nNo se pueden crear cuentas recursivas."
+
+#. module: gts_coa_hierarchy
+#: model:ir.model.fields.selection,name:gts_coa_hierarchy.selection__account_account__type__view
+msgid "View"
+msgstr "Vista"
+
+#. module: gts_coa_hierarchy
+#: model:ir.model.fields.selection,name:gts_coa_hierarchy.selection__account_account__type__other
+msgid "Regular"
+msgstr "Regular"
+
+#. module: gts_coa_hierarchy
+#: model:ir.model.fields.selection,name:gts_coa_hierarchy.selection__account_account__type__receivable
+msgid "Receivable"
+msgstr "Por Cobrar"
+
+#. module: gts_coa_hierarchy
+#: model:ir.model.fields.selection,name:gts_coa_hierarchy.selection__account_account__type__payable
+msgid "Payable"
+msgstr "Por Pagar"
+
+#. module: gts_coa_hierarchy
+#: model:ir.model.fields.selection,name:gts_coa_hierarchy.selection__account_account__type__liquidity
+msgid "Liquidity"
+msgstr "Liquidez"
+
+#. module: gts_coa_hierarchy
+#: model:ir.model.fields.selection,name:gts_coa_hierarchy.selection__account_account__type__consolidation
+msgid "Consolidation"
+msgstr "Consolidación"
+
+#. module: gts_coa_hierarchy
+#: model:ir.model.fields.selection,name:gts_coa_hierarchy.selection__account_account__type__closed
+msgid "Closed"
+msgstr "Cerrada"
+
+#. module: gts_coa_hierarchy
+#: model:ir.model.fields.selection,name:gts_coa_hierarchy.selection__account_account__type__bank
+msgid "Bank"
+msgstr "Banco"
+
+#. module: gts_coa_hierarchy
+#: model_terms:ir.ui.view,arch_db:gts_coa_hierarchy.view_account_search_inherit_gts1
+msgid "Account Type Hie."
+msgstr "Tipo de Cuenta Jer."
+
+#. module: gts_coa_hierarchy
+#: model_terms:ir.ui.view,arch_db:gts_coa_hierarchy.view_account_search_inherit_gts1
+msgid "Parent"
+msgstr "Padre"
+
+#. module: gts_coa_hierarchy
+#: model_terms:ir.ui.view,arch_db:gts_coa_hierarchy.view_account_form_inherit_gts1
+msgid "Click to add an account."
+msgstr "Haga clic para agregar una cuenta."
+
+#. module: gts_coa_hierarchy
+#: model_terms:ir.ui.view,arch_db:gts_coa_hierarchy.view_account_form_inherit_gts1
+msgid "An account is part of a ledger allowing your company to register all kinds of debit and credit transactions. Companies present their annual accounts in two main parts: the balance sheet and the income statement (profit and loss account). The annual accounts of a company are required by law to disclose a certain amount of information."
+msgstr "Una cuenta es parte de un libro mayor que permite a su empresa registrar todo tipo de transacciones de débito y crédito. Las empresas presentan sus cuentas anuales en dos partes principales: el balance general y el estado de resultados (cuenta de pérdidas y ganancias). Las cuentas anuales de una empresa están obligadas por ley a divulgar una cierta cantidad de información."
+
+
+
+
+
+

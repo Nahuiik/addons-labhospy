@@ -1,0 +1,31 @@
+# -*- coding: utf-8 -*-
+{
+    'name': 'GN Descuento fiscal',
+    'summary': 'Matriz de descuentos por edad y paciente especial; datos de nacimiento en contacto',
+    'version': '19.0.1.1.16',
+    'category': 'Tools',
+    'author': 'Labhospy',
+    'license': 'LGPL-3',
+    'depends': [
+        'contacts',
+        'sale',
+        'account',
+        'l10n_hn_account',
+    ],
+    'data': [
+        'security/ir.model.access.csv',
+        'data/gn_fiscal_discount_rule_data.xml',
+        'data/gn_consumidor_final_partner.xml',
+        'data/migrate_gn_dni.xml',
+        'data/migrate_matrix.xml',
+        'views/gn_fiscal_discount_rule_views.xml',
+        'views/res_partner_views.xml',
+        'views/res_partner_kanban_views.xml',
+        'views/sale_order_views.xml',
+        'views/account_move_views.xml',
+        'report/sale_report_templates.xml',
+        'report/account_invoice_report_templates.xml',
+    ],
+    'installable': True,
+    'application': False,
+}

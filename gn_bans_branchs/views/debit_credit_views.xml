@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="credit_debit_form_view_branch" model="ir.ui.view">
+        <field name="name">debit.credit.form.branch.analytic</field>
+        <field name="model">debit.credit</field>
+        <field name="inherit_id" ref="gn_banks.credit_debit_form_view"/>
+        <field name="arch" type="xml">
+            <field name="move_type" position="after">
+                <field name="branch_id"
+                       options="{'no_create': True}"
+                       readonly="state != 'draft'"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

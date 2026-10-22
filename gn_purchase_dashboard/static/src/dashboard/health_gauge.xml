@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_purchase_dashboard.PurchaseHealthGauge">
+        <section class="gn-pd-panel gn-pd-health-card">
+            <header class="gn-pd-panel__head">
+                <h3 class="gn-pd-panel__title" t-esc="props.health?.title or 'Salud del proceso de compras'"/>
+                <span t-if="props.health?.level" class="gn-pd-badge" t-esc="props.health.level"/>
+            </header>
+            <div t-if="props.loading" class="gn-pd-skeleton gn-pd-skeleton--health"/>
+            <div t-else="" class="gn-pd-health-card__grid">
+                <div class="gn-pd-health-card__gauge-col">
+                    <div class="gn-pd-health-card__gauge" t-att-class="statusClass">
+                        <svg viewBox="0 0 120 120" class="gn-pd-health__svg" aria-hidden="true">
+                            <circle cx="60" cy="60" r="48" fill="none" stroke="currentColor" stroke-opacity="0.12" stroke-width="9"/>
+                            <circle cx="60" cy="60" r="48" fill="none" stroke="currentColor" stroke-width="9"
+                                    stroke-linecap="round" transform="rotate(-90 60 60)"
+                                    t-att-stroke-dasharray="301.593"
+                                    t-att-stroke-dashoffset="dashOffset"/>
+                        </svg>
+                        <div class="gn-pd-health__center">
+                            <span class="gn-pd-health__score" t-esc="props.health?.score_label or (score + ' / 100')"/>
+                        </div>
+                    </div>
+                    <p class="gn-pd-health__explanation" t-esc="props.health?.explanation"/>
+                </div>
+                <div class="gn-pd-health-card__factors-col">
+                    <div t-foreach="topFactors" t-as="f" t-key="f.key" class="gn-pd-health__factor">
+                        <div class="gn-pd-health__factor-head">
+                            <span t-esc="f.label"/>
+                            <span t-esc="f.normalized_score + '/100'"/>
+                        </div>
+                        <div class="gn-pd-health__bar">
+                            <div t-att-class="factorBarClass(f)"
+                                 t-att-style="'width:' + Math.min(f.normalized_score, 100) + '%'"/>
+                        </div>
+                    </div>
+                    <button t-if="(props.health?.factors or []).length > 6" type="button"
+                            class="btn btn-link btn-sm" t-on-click="toggleBreakdown"
+                            t-esc="state.showAllFactors ? 'Ver menos' : 'Ver desglose completo'"/>
+                </div>
+            </div>
+        </section>
+    </t>
+</templates>

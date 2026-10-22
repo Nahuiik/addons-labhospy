@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <template id="receipt_report">
+            <t t-call="web.basic_layout">			
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <div class="oe_structure"/>
+
+                        <style>
+                            @import url('https://fonts.googleapis.com/css?family=Roboto');
+                            @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+                            @import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300');
+                            @import url('https://fonts.googleapis.com/css?family=Dosis');
+                            @import url('https://fonts.googleapis.com/css?family=Exo+2');
+                            @import url('https://fonts.googleapis.com/css?family=Abel');
+                            @import url('https://fonts.googleapis.com/css?family=Saira+Extra+Condensed');
+                            *{  
+                            /* font-family: 'Roboto', sans-serif;*/
+                                font-family: 'Open Sans', sans-serif;
+                                font-family: 'Open Sans Condensed', sans-serif;
+                                font-family: 'Dosis', sans-serif;
+                                font-family: 'Exo 2', sans-serif;
+                                font-size:26px;
+                            }
+                            p{
+                                font-size:16px;
+                                margin: 0 0;
+                            }
+                            .zoneProduct{
+                                padding: 0px 0px;                     
+                                font-size: 18px;
+                                min-height:300px;
+                                margin-top:5px;
+                                margin-bottom:5px;
+                            }
+                            .titledoc{
+                                font-size:30px;
+                                font-weight:bold;
+                            }
+                            hr{
+                                color:#000;
+                                margin-top:2px;
+                                margin-bottom:2px;
+                                margin: 0 0;  
+                            }
+                            th,td{
+                                font-size:16px;
+                            }
+                            th {
+                                font-weight: normal;    
+                                padding: 1px 5px;
+                            }
+                            *{
+                                font-weight: normal;    
+                            }
+                            .tableInfoPay th , .tableInfoPay td{
+                                    font-size:16px;
+                            }
+                            .tableInfoPay #r_invoice{
+                                    width:20%;
+                            }
+                            .tableInfoPay #r_pendient{
+                                    width:20%;
+                            }
+                            .tableInfoPay #r_cheque{
+                                    width:20%;
+                            }
+                            .tableInfoPay #r_bank{
+                                    width:20%;
+                            }
+                            .tableInfoPay #r_tarjet{
+                                    width:20%;
+                            }
+                            .tableInfoPay #r_efectivo{
+
+                            }
+
+                            #content_1{
+                                    background: #ebebeb;
+                                    border-radius:0px 10px 0px 5px;
+                                    padding-left:10px;
+                            }
+                            #content_1 p{
+                                    margin:0 1px;
+                                    font-size:11px;
+                                    font-style: italic;
+                            }
+                        </style>
+                        <div class="row">            
+                            <div class="col-xs-12">
+                                <div style="position:absolute;z-index:0;margin-left:0px;">                            
+                                    <img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % to_text(o.company_id.logo)" style="margin-top:10px;margin-left:5px;height: 105px;"/>
+                                </div>
+
+                                <div class="text-center text-uppercase col-xs-12" style="margin-top:15px;margin-bottom:0px;z-index: 1;">
+                                    <p class="titledoc"><strong>Receipt in Advance</strong></p>
+                                    <p t-esc="o.company_id.street"></p>
+                                    <t t-set="x_textIdent" t-value=" ' Identificacion ' "/>
+                                    <t t-if="o.company_id.id==1"> <t t-set="x_textIdent" t-value=" 'RTN' "/> </t>
+                                    <p t-esc=" x_textIdent +':  '+o.company_id.company_registry"></p>
+                                </div> 
+
+                                <div class="col-xs-12" style="position:absolute;z-index:0; margin-top:70px;">                                 
+                                    <div class="col-xs-offset-6 col-xs-6" >      
+
+                                        <div class="col-xs-12">
+                                            <table style="font-weight: lighter; margin-top:5%" class="pull-right">
+                                                <tr>
+                                                    <th style="text-align: right;font-size:22px;"><strong>N°.</strong></th> 
+                                                    <th style="text-align: left;font-size:20px;"><t t-esc="o.number"/></th>
+                                                </tr>
+                                            </table> 
+                                        </div>
+                                        <div class="col-xs-offset-5  col-xs-7">
+                                            <div class="col-xs-12" style="border:1px solid black;border-radius:5px;padding:10;background:#FAFAFA;">
+                                                <table style="font-weight: lighter;margin:0px;">
+                                                    <tr style="">
+                                                        <th style="text-align: right;font-size:20px;"><strong>Monto:</strong></th>
+                                                        <th style="text-align: right;font-size:20px;color:black;">
+                                                            <span t-field="o.amount" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;,
+                                                            &quot;display_currency&quot;: &quot;o.currency_id&quot;}"/>
+                                                        </th>                              
+                                                    </tr>        
+                                                </table> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" style="min-height:85;max-height:85;margin-top:30%;">
+                                    <div class="col-xs-12">
+                                        <table style="font-weight: lighter;width:100%;margin-top:10%;">
+                                            <tr>
+                                                <th style="text-align: left;width:16%;"><strong>Date:</strong></th>
+                                                <th t-if="o.date" style="text-align: left;"><t t-esc="o.date"/></th>
+                                            </tr>        
+                                            <tr>
+                                                <th style="text-align: left;width:16%;"><strong>We receive from:</strong></th>
+                                                <th style="text-align: left;"><t t-esc="o.partner_id.name"/></th>
+                                            </tr>            
+                                        </table>     
+                                        <table style="font-weight: lighter;width:100%;">                        
+                                            <tr>
+                                                <th style="text-align: left;width:16%;"><strong>The sum of:</strong></th> 
+                                                <th class="text-capitalize" t-if="o.amount" style="text-align: left;">
+                                                    <t t-esc="o.amount"/>
+                                                </th>
+                                            </tr>
+                                        </table>
+                                        <table style="font-weight: lighter;width:100%;">
+                                            <tr>
+                                                <th style="text-align: left;width:16%;"><strong>Amount In Word:</strong></th>
+                                                <th class="text-capitalize" style="text-align: left;">
+                                                    <t t-esc="o.amount_total_text"/>
+                                                </th>
+                                            </tr>
+                                        </table>
+                                        <table style="font-weight: lighter;width:100%;">
+                                            <tr>
+                                                <th style="text-align: left;width:16%;"><strong>In Concept From:</strong></th> 
+                                                <th  style="text-align: left;"><t t-esc="o.name"/></th>
+                                            </tr>
+                                        </table>                    
+                                    </div>
+                                </div>
+
+                                <div class="row" style="margin-top:50%">
+                                    <table style="width:100%; font-size:14px; padding:25px 25px 25px 25px;"> 
+                                        <tbody>
+                                            <tr>
+                                                <td width="30%" style="border-bottom: 1px solid #000000;"><u><p class="text-center"><br/><span t-field="user.name"/></p></u></td>
+                                                <td width="3%"><p class="text-center"><br/></p></td>
+                                                <td width="30%"><p class="text-center"><br/></p></td>
+                                                <td width="3%"><p class="text-center"><br/></p></td>
+                                                <td width="34%" style="border-bottom: 1px solid #000000;"><p class="text-center"><br/></p></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width:30%; padding:5px 10px 10px 10px;"><p class="text-center">Elaborated by</p> </td>
+                                                <td style="width:3%;"/>
+                                                <td style="width:30%; padding:5px 10px 10px 10px;"></td>
+                                                <td style="width:3%;"/>
+                                                <td style="width:34%; padding:5px 10px 10px 10px;"><p class="text-center">Deliver as</p></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="row" style="margin-top:0;">
+                                        <div class="col-xs-12 text-center">                            
+                                            <strong><p>Original: Client</p> </strong>
+                                        </div>
+                                        <div class="col-xs-12 text-center">
+                                            <strong><p>Copy: Contability</p> </strong>
+                                        </div>
+                                    </div>
+                                </div>             
+                            </div>
+                        </div>
+                    </div>			
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

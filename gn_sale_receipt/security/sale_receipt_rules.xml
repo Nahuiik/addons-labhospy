@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="sale_receipt_rule_company" model="ir.rule">
+            <field name="name">Sale Receipt multi company</field>
+            <field name="model_id" ref="model_sale_receipt"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+            <field name="groups" eval="[(4, ref('gn_sale_receipt.group_sale_receipt_cashier')),(4, ref('account.group_account_user')),(4, ref('account.group_account_manager'))]"/>
+        </record>
+    </data>
+</odoo>

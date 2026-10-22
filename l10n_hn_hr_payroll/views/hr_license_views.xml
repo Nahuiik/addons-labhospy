@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ==================== LICENSE TYPES ==================== -->
+    <record id="hr_license_type_view_list" model="ir.ui.view">
+        <field name="name">hr.license.type.list</field>
+        <field name="model">hr.license.type</field>
+        <field name="arch" type="xml">
+            <list string="Tipos de Licencia" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="country_id"/>
+                <field name="name" string="Código"/>
+                <field name="description"/>
+                <field name="active" column_invisible="True"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="hr_license_type_view_form" model="ir.ui.view">
+        <field name="name">hr.license.type.form</field>
+        <field name="model">hr.license.type</field>
+        <field name="arch" type="xml">
+            <form string="Tipo de Licencia">
+                <sheet>
+                    <widget name="web_ribbon" title="Archivado" bg_color="text-bg-danger" invisible="active"/>
+                    <group>
+                        <group>
+                            <field name="country_id"/>
+                            <field name="name" string="Código"/>
+                            <field name="description"/>
+                        </group>
+                        <group>
+                            <field name="sequence"/>
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_license_type_action" model="ir.actions.act_window">
+        <field name="name">Tipos de Licencia</field>
+        <field name="res_model">hr.license.type</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Crear un tipo de licencia</p>
+            <p>Configure los tipos de licencia de conducir disponibles por país.</p>
+        </field>
+    </record>
+
+    <!-- License Types Default Data - Honduras -->
+    <record id="license_type_a" model="hr.license.type">
+        <field name="country_id" ref="base.hn"/>
+        <field name="name">Tipo A</field>
+        <field name="description">Conductores de vehículos ciclomotores y motocicletas</field>
+        <field name="sequence">1</field>
+    </record>
+    <record id="license_type_b" model="hr.license.type">
+        <field name="country_id" ref="base.hn"/>
+        <field name="name">Tipo B</field>
+        <field name="description">Conductores de vehículos pequeños</field>
+        <field name="sequence">2</field>
+    </record>
+    <record id="license_type_b1" model="hr.license.type">
+        <field name="country_id" ref="base.hn"/>
+        <field name="name">Tipo B1</field>
+        <field name="description">Conductores de cuadriciclos de motor a nivel nacional</field>
+        <field name="sequence">3</field>
+    </record>
+    <record id="license_type_c" model="hr.license.type">
+        <field name="country_id" ref="base.hn"/>
+        <field name="name">Tipo C</field>
+        <field name="description">Conductores de vehículos de carga pesada que superen los 7,500 kg</field>
+        <field name="sequence">4</field>
+    </record>
+    <record id="license_type_c1" model="hr.license.type">
+        <field name="country_id" ref="base.hn"/>
+        <field name="name">Tipo C1</field>
+        <field name="description">Conductores de vehículos de carga pesada de 7,500 kg o menos</field>
+        <field name="sequence">5</field>
+    </record>
+    <record id="license_type_ce" model="hr.license.type">
+        <field name="country_id" ref="base.hn"/>
+        <field name="name">Tipo CE</field>
+        <field name="description">Conductores de furgón de carga pesada articulado</field>
+        <field name="sequence">6</field>
+    </record>
+    <record id="license_type_d" model="hr.license.type">
+        <field name="country_id" ref="base.hn"/>
+        <field name="name">Tipo D</field>
+        <field name="description">Conductores de autobuses que transporten más de 26 pasajeros</field>
+        <field name="sequence">7</field>
+    </record>
+    <record id="license_type_d1" model="hr.license.type">
+        <field name="country_id" ref="base.hn"/>
+        <field name="name">Tipo D1</field>
+        <field name="description">Conductores de autobuses que transporten 25 pasajeros o menos</field>
+        <field name="sequence">8</field>
+    </record>
+
+    <!-- ==================== EMPLOYEE LICENSES ==================== -->
+    <record id="hr_employee_license_view_list" model="ir.ui.view">
+        <field name="name">hr.employee.license.list</field>
+        <field name="model">hr.employee.license</field>
+        <field name="arch" type="xml">
+            <list string="Licencias">
+                <field name="license_type_id"/>
+                <field name="license_number"/>
+                <field name="expiration_date"/>
+                <field name="time_to_expire"/>
+                <field name="is_expired" column_invisible="True"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="hr_employee_license_view_form" model="ir.ui.view">
+        <field name="name">hr.employee.license.form</field>
+        <field name="model">hr.employee.license</field>
+        <field name="arch" type="xml">
+            <form string="Licencia">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="employee_id" invisible="context.get('default_employee_id')"/>
+                            <field name="license_type_id"/>
+                            <field name="license_number"/>
+                        </group>
+                        <group>
+                            <field name="expiration_date"/>
+                            <field name="time_to_expire"/>
+                            <field name="is_expired" invisible="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

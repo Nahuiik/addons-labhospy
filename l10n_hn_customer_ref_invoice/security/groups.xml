@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="group_customer_ref_invoice_post" model="res.groups">
+        <field name="name">Validar facturas con referencia SAR</field>
+        <field name="sequence">25</field>
+        <field name="comment">
+            Permite usar «Validar con referencia SAR» en facturas de cliente
+            (individual y masivo), asignando el número desde Referencia del cliente.
+        </field>
+        <field name="privilege_id" ref="account.res_groups_privilege_accounting"/>
+        <field name="implied_ids" eval="[(4, ref('account.group_account_invoice'))]"/>
+    </record>
+</odoo>

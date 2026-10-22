@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_res_branch_form_bank_analytic" model="ir.ui.view">
+        <field name="name">res.branch.form.inherit.bank.analytic</field>
+        <field name="model">res.branch</field>
+        <field name="inherit_id" ref="gts_branch_management.view_res_branch_form"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="analytic_precision" invisible="1"/>
+                <field name="bank_analytic_distribution"
+                       widget="analytic_distribution"
+                       string="Analítica Tesorería"
+                       groups="analytic.group_analytic_accounting"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

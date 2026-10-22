@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_banks" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.banks</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="Bancos" string="Bancos" name="gn_banks">
+                    <block title="Cuentas y diarios bancarios" name="pos_accounts_setting"/>
+                </app>
+            </xpath>
+        </field>
+    </record>
+</odoo>

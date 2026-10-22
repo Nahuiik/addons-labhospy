@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Portal: solo ve sus solicitudes de cambio de perfil -->
+        <record id="rule_gn_hr_profile_change_request_portal" model="ir.rule">
+            <field name="name">Solicitudes de perfil propias</field>
+            <field name="model_id" ref="gn_hn_hr_employee_portal.model_gn_hr_profile_change_request"/>
+            <field name="domain_force">[('employee_id.user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('gn_hn_hr_employee_portal.group_employee_portal_user'))]"/>
+        </record>
+
+        <!-- Portal: solo ve tipos de constancia habilitados para portal -->
+        <record id="rule_hr_work_certificate_type_portal" model="ir.rule">
+            <field name="name">Tipos de constancia para portal</field>
+            <field name="model_id" ref="gn_hr_documents.model_hr_work_certificate_type"/>
+            <field name="domain_force">['&amp;', '&amp;', ('for_portal', '=', True), ('active', '=', True), ('company_id', 'in', company_ids)]</field>
+            <field name="groups" eval="[(4, ref('gn_hn_hr_employee_portal.group_employee_portal_user'))]"/>
+        </record>
+
+        <!-- Portal: solo ve sus solicitudes de constancias -->
+        <record id="rule_gn_hr_work_certificate_request_portal" model="ir.rule">
+            <field name="name">Solicitudes de constancias propias</field>
+            <field name="model_id" ref="gn_hn_hr_employee_portal.model_gn_hr_work_certificate_request"/>
+            <field name="domain_force">['&amp;', ('employee_id.user_id', '=', user.id), ('company_id', 'in', company_ids)]</field>
+            <field name="groups" eval="[(4, ref('gn_hn_hr_employee_portal.group_employee_portal_user'))]"/>
+        </record>
+
+        <!-- Portal: solo ve sus logs de auditoría (y de su compañía) -->
+        <record id="rule_gn_hr_portal_audit_log_portal" model="ir.rule">
+            <field name="name">Audit log propio</field>
+            <field name="model_id" ref="gn_hn_hr_employee_portal.model_gn_hr_portal_audit_log"/>
+            <field name="domain_force">['&amp;', ('user_id', '=', user.id), ('company_id', 'in', company_ids)]</field>
+            <field name="groups" eval="[(4, ref('gn_hn_hr_employee_portal.group_employee_portal_user'))]"/>
+        </record>
+
+        <record id="rule_gn_hr_portal_audit_log_multi_company" model="ir.rule">
+            <field name="name">Auditoría portal: multicompañía (usuarios internos)</field>
+            <field name="model_id" ref="gn_hn_hr_employee_portal.model_gn_hr_portal_audit_log"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <!-- hr.leave: portal ve solo sus registros o los de subalternos (jefes) -->
+        <record id="rule_hr_leave_portal_employee" model="ir.rule">
+            <field name="name">Ausencias propias o de subalternos</field>
+            <field name="model_id" ref="hr_holidays.model_hr_leave"/>
+            <field name="domain_force">['|', ('employee_id.user_id', '=', user.id), ('employee_id.parent_id.user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('gn_hn_hr_employee_portal.group_employee_portal_user'))]"/>
+        </record>
+
+        <!-- hr.attendance: portal solo sus registros -->
+        <record id="rule_hr_attendance_portal" model="ir.rule">
+            <field name="name">Asistencias propias</field>
+            <field name="model_id" ref="hr_attendance.model_hr_attendance"/>
+            <field name="domain_force">[('employee_id.user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('gn_hn_hr_employee_portal.group_employee_portal_user'))]"/>
+        </record>
+
+        <!-- gn.hr.document.acceptance: portal solo sus aceptaciones -->
+        <record id="rule_gn_hr_document_acceptance_portal" model="ir.rule">
+            <field name="name">Aceptaciones propias</field>
+            <field name="model_id" ref="gn_hn_hr_employee_portal.model_gn_hr_document_acceptance"/>
+            <field name="domain_force">[('employee_id.user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('gn_hn_hr_employee_portal.group_employee_portal_user'))]"/>
+        </record>
+
+        <!-- hr.payslip: portal solo sus registros -->
+        <record id="rule_hr_payslip_portal" model="ir.rule">
+            <field name="name">Payslips propios</field>
+            <field name="model_id" ref="hr_payroll.model_hr_payslip"/>
+            <field name="domain_force">[('employee_id.user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('gn_hn_hr_employee_portal.group_employee_portal_user'))]"/>
+        </record>
+
+        <!-- gn.hr.attendance.correction.request: portal solo sus solicitudes -->
+        <record id="rule_gn_hr_attendance_correction_request_portal" model="ir.rule">
+            <field name="name">Solicitudes de corrección propias</field>
+            <field name="model_id" ref="gn_hn_hr_employee_portal.model_gn_hr_attendance_correction_request"/>
+            <field name="domain_force">[('employee_id.user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('gn_hn_hr_employee_portal.group_employee_portal_user'))]"/>
+        </record>
+
+        <!-- salary.advance: solo los propios (empleado vinculado al usuario portal) -->
+        <record id="rule_salary_advance_portal_employee" model="ir.rule">
+            <field name="name">Anticipos salariales propios (portal)</field>
+            <field name="model_id" ref="l10n_hn_hr_payroll.model_salary_advance"/>
+            <field name="domain_force">[('employee_id.user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('gn_hn_hr_employee_portal.group_employee_portal_user'))]"/>
+        </record>
+
+        <!-- hr.version: lectura de contrato del empleado (anticipo, límites por tipo de estructura) -->
+        <record id="rule_hr_version_portal_own_employee" model="ir.rule">
+            <field name="name">Contrato (hr.version) del empleado portal</field>
+            <field name="model_id" ref="hr.model_hr_version"/>
+            <field name="domain_force">['|', ('employee_id.user_id', '=', user.id), ('employee_id.work_email', '=ilike', user.login)]</field>
+            <field name="groups" eval="[(4, ref('gn_hn_hr_employee_portal.group_employee_portal_user'))]"/>
+        </record>
+
+        <!-- Conceptos recurrentes propios (lectura para estimar tope de anticipo) -->
+        <record id="rule_hr_employee_recurring_concept_portal_own" model="ir.rule">
+            <field name="name">Conceptos recurrentes del empleado portal</field>
+            <field name="model_id" ref="l10n_hn_hr_payroll.model_hr_employee_recurring_concept"/>
+            <field name="domain_force">['|', ('employee_id.user_id', '=', user.id), ('employee_id.work_email', '=ilike', user.login)]</field>
+            <field name="groups" eval="[(4, ref('gn_hn_hr_employee_portal.group_employee_portal_user'))]"/>
+        </record>
+
+        <!-- Deducciones ISR del empleado: lectura propia (tope de anticipos en portal) -->
+        <record id="rule_l10n_hn_isr_employee_deduction_portal_own" model="ir.rule">
+            <field name="name">Deducciones ISR propias (portal)</field>
+            <field name="model_id" ref="l10n_hn_hr_payroll.model_l10n_hn_isr_employee_deduction"/>
+            <field name="domain_force">['|', ('employee_id.user_id', '=', user.id), ('employee_id.work_email', '=ilike', user.login)]</field>
+            <field name="groups" eval="[(4, ref('gn_hn_hr_employee_portal.group_employee_portal_user'))]"/>
+        </record>
+    </data>
+</odoo>

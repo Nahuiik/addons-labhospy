@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_banks_weekly_balance">
+        <t t-call="web.html_container">
+            <style>
+                .realeza-banks-wb { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; color: #333; }
+                .realeza-banks-wb .rbw-banner {
+                    background: #5B2C6F; color: #fff; text-align: center;
+                    padding: 14px 16px 10px; border-bottom: 3px solid #C5A55A;
+                    border-radius: 6px 6px 0 0; margin-bottom: 0;
+                }
+                .realeza-banks-wb .rbw-banner h2 { color: #fff; font-size: 16px; font-weight: 700; margin: 0 0 4px; }
+                .realeza-banks-wb .rbw-banner p { color: rgba(255,255,255,.85); font-size: 10px; margin: 0 0 8px; }
+                .realeza-banks-wb .rbw-period {
+                    display: inline-block; background: #C5A55A; color: #3d3010;
+                    font-weight: 700; padding: 4px 14px; border-radius: 999px;
+                    text-transform: uppercase; letter-spacing: .04em;
+                }
+                .realeza-banks-wb table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+                .realeza-banks-wb thead th {
+                    color: #fff; font-size: 8px; text-transform: uppercase;
+                    padding: 6px 4px; text-align: center; border: 1px solid rgba(255,255,255,.15);
+                    letter-spacing: .03em; vertical-align: middle;
+                }
+                .realeza-banks-wb .rbw-corner { background: #A8893E; }
+                .realeza-banks-wb .rbw-corner-concept { background: #4A2360; text-align: left; }
+                .realeza-banks-wb .rbw-total-hdr { background: #5B2C6F; }
+                .realeza-banks-wb .rbw-delta-hdr { background: #6B3A82; }
+                .realeza-banks-wb .rbw-bank--0 { background: #5B2C6F; }
+                .realeza-banks-wb .rbw-bank--1 { background: #4A2360; }
+                .realeza-banks-wb .rbw-bank--2 { background: #7D4A94; }
+                .realeza-banks-wb .rbw-bank--3 { background: #C5A55A; color: #3d3010; }
+                .realeza-banks-wb .rbw-bank--4 { background: #6B3A82; }
+                .realeza-banks-wb .rbw-bank--5 { background: #A8893E; }
+                .realeza-banks-wb .rbw-bank--6 { background: #8B5FA8; }
+                .realeza-banks-wb .rbw-bank--7 { background: #5B2C6F; }
+                .realeza-banks-wb tbody td { padding: 5px 4px; border: 1px solid rgba(91,44,111,.12); font-size: 9px; }
+                .realeza-banks-wb .rbw-week {
+                    background: #E8DCF0; color: #4A2360; font-weight: 700;
+                    border-right: 2px solid #C5A55A; white-space: nowrap;
+                }
+                .realeza-banks-wb .rbw-opening td { background: #fff; }
+                .realeza-banks-wb .rbw-inflow td { background: #F5F0E6; }
+                .realeza-banks-wb .rbw-outflow td { background: #F3EDF5; }
+                .realeza-banks-wb .num { text-align: right; }
+                .realeza-banks-wb .rbw-total-cell { font-weight: 700; color: #5B2C6F; background: rgba(237,227,208,.35); }
+                .realeza-banks-wb .rbw-summary-title {
+                    color: #5B2C6F; font-weight: 700; text-transform: uppercase;
+                    border-bottom: 3px solid #C5A55A; padding-bottom: 6px; margin: 18px 0 8px;
+                }
+                .realeza-banks-wb .rbw-summary th {
+                    background: #EDE3D0; color: #4A2360; font-weight: 600;
+                    text-align: left; padding: 6px 5px; border: 1px solid rgba(91,44,111,.12);
+                }
+                .realeza-banks-wb .rbw-summary td {
+                    text-align: right; padding: 6px 5px; border: 1px solid rgba(91,44,111,.12);
+                }
+                .realeza-banks-wb .rbw-summary tr:last-child th,
+                .realeza-banks-wb .rbw-summary tr:last-child td { background: #5B2C6F; color: #fff; font-weight: 700; }
+                .realeza-banks-wb .rbw-summary tr:last-child td:last-child { background: #A8893E; }
+            </style>
+            <div class="container-fluid realeza-banks-wb py-3">
+                <div class="rbw-banner mb-0">
+                    <h2 class="mb-1"><t t-out="company_name"/></h2>
+                    <p class="mb-2"><t t-out="subtitle"/></p>
+                    <div class="rbw-period"><t t-out="month_year_title"/></div>
+                </div>
+
+                <div t-if="not has_data" class="alert alert-warning mt-3" role="alert">
+                    <t t-out="error_message"/>
+                </div>
+
+                <t t-if="has_data">
+                    <div class="table-responsive mt-0">
+                        <table class="table table-sm table-bordered align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-start rbw-corner" style="min-width:240px;">
+                                        PERÍODO / SEMANA
+                                    </th>
+                                    <th class="text-start rbw-corner-concept" style="min-width:168px;">
+                                        CONCEPTO
+                                    </th>
+                                    <t t-foreach="journal_columns" t-as="jcol">
+                                        <th t-attf-class="text-end text-nowrap rbw-bank--{{ jcol.get('color_index', jcol_index % 8) }}">
+                                            <span t-out="jcol['label']"/>
+                                        </th>
+                                    </t>
+                                    <th class="text-end rbw-total-hdr">TOTAL</th>
+                                    <th class="text-end rbw-delta-hdr" style="min-width:176px;">
+                                        DIF vs saldo ini. anterior
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="week_blocks" t-as="week">
+                                    <tr t-foreach="week['rows']" t-as="row"
+                                        t-attf-class="rbw-{{ row.get('row_type', 'opening') }}">
+                                        <td
+                                            t-if="row_first"
+                                            t-att-rowspan="3"
+                                            class="rbw-week align-middle">
+                                            <span t-out="week['period_label']"/>
+                                        </td>
+                                        <td><span t-out="row['concept']"/></td>
+                                        <td
+                                            class="num"
+                                            t-foreach="row['amounts']"
+                                            t-as="cell">
+                                            <span t-out="fmt_money(cell)"/>
+                                        </td>
+                                        <td class="num rbw-total-cell">
+                                            <span t-out="fmt_money(row['total'])"/>
+                                        </td>
+                                        <td class="num">
+                                            <t t-if="row['show_delta']">
+                                                <span t-out="fmt_money(row['delta'])"/>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4 class="rbw-summary-title">RESUMEN DEL MES</h4>
+                    <div class="table-responsive rbw-summary">
+                        <table class="table table-sm table-bordered mb-0">
+                            <tbody>
+                                <tr t-foreach="summary_lines" t-as="suml">
+                                    <th style="width:32%">
+                                        <span t-out="suml['label']"/>
+                                    </th>
+                                    <td
+                                        t-foreach="suml['amounts']"
+                                        t-as="sam">
+                                        <span t-out="fmt_money(sam)"/>
+                                    </td>
+                                    <td>
+                                        <span t-out="fmt_money(suml['total'])"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p class="text-muted small mt-3 mb-0">
+                        Moneda: <span t-out="currency_symbol"/>
+                    </p>
+                </t>
+            </div>
+        </t>
+    </template>
+</odoo>

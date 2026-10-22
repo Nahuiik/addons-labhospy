@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="hn_vacation_doc_type_constancia" model="hn.vacation.document.type">
+            <field name="name">Constancia de Vacaciones</field>
+            <field name="code">constancia</field>
+            <field name="sequence">10</field>
+            <field name="header_html"><![CDATA[<table style="width: 100%; border: none; margin-bottom: 24px;">
+<tbody><tr>
+<td style="width: 140px; vertical-align: top;">{company_logo_img}</td>
+<td style="vertical-align: top; padding-left: 16px;">
+<p style="margin: 0 0 4px 0; font-weight: bold; font-size: 14pt;">{company_name}</p>
+<p style="margin: 0 0 2px 0; font-size: 10pt; color: #555;">{company_address}</p>
+<p style="margin: 0; font-size: 10pt; color: #555;">Tel. {company_phone} | {company_city}</p>
+</td>
+</tr></tbody></table>
+<h2 style="text-align: center; margin: 0 0 1em 0;">CONSTANCIA DE VACACIONES</h2>]]></field>
+            <field name="body_html"><![CDATA[<p>Por medio de la presente se hace constar que:</p>
+<table class="table table-sm" style="border-collapse: collapse; margin: 16px 0;">
+<tr><td style="padding: 4px 12px 4px 0; font-weight: bold; width: 140px;">Nombre:</td><td>{employee_name}</td></tr>
+<tr><td style="padding: 4px 12px 4px 0; font-weight: bold;">Identidad:</td><td>{employee_identification}</td></tr>
+<tr><td style="padding: 4px 12px 4px 0; font-weight: bold;">Departamento:</td><td>{department_name}</td></tr>
+<tr><td style="padding: 4px 12px 4px 0; font-weight: bold;">Puesto:</td><td>{job_name}</td></tr>
+<tr><td style="padding: 4px 12px 4px 0; font-weight: bold;">Fecha de ingreso:</td><td>{hire_date}</td></tr>
+<tr><td style="padding: 4px 12px 4px 0; font-weight: bold;">Tipo de ausencia:</td><td>{leave_type_name}</td></tr>
+<tr><td style="padding: 4px 12px 4px 0; font-weight: bold;">Días aprobados:</td><td>{number_of_days}</td></tr>
+<tr><td style="padding: 4px 12px 4px 0; font-weight: bold;">Período:</td><td>del {date_from} al {date_to}</td></tr>
+</table>
+<p>Ha solicitado y se le han aprobado las vacaciones indicadas. Se extiende la presente a solicitud del interesado.</p>
+<p style="margin-top: 24px;">Emitido en {company_city} a los {today}.</p>]]></field>
+            <field name="footer_html"><![CDATA[<div style="margin-top: 48px; text-align: right;">
+<p>_________________________</p>
+<p><strong>Firma y sello</strong></p>
+</div>]]></field>
+        </record>
+
+        <record id="hn_vacation_doc_type_solicitud" model="hn.vacation.document.type">
+            <field name="name">Solicitud de Vacaciones</field>
+            <field name="code">solicitud</field>
+            <field name="sequence">20</field>
+            <field name="header_html"><![CDATA[<table style="width: 100%; border: none; margin-bottom: 24px;">
+<tbody><tr>
+<td style="width: 140px; vertical-align: top;">{company_logo_img}</td>
+<td style="vertical-align: top; padding-left: 16px;">
+<p style="margin: 0 0 4px 0; font-weight: bold; font-size: 14pt;">{company_name}</p>
+<p style="margin: 0 0 2px 0; font-size: 10pt; color: #555;">{company_address}</p>
+<p style="margin: 0; font-size: 10pt; color: #555;">Tel. {company_phone} | {company_city}</p>
+</td>
+</tr></tbody></table>
+<h2 style="text-align: center; margin: 0 0 1em 0;">SOLICITUD DE VACACIONES</h2>]]></field>
+            <field name="body_html"><![CDATA[<p><strong>Datos del solicitante</strong></p>
+<table class="table table-sm" style="border-collapse: collapse; margin: 8px 0;">
+<tr><td style="padding: 4px 12px 4px 0; font-weight: bold; width: 140px;">Nombre:</td><td>{employee_name}</td></tr>
+<tr><td style="padding: 4px 12px 4px 0; font-weight: bold;">Identidad:</td><td>{employee_identification}</td></tr>
+<tr><td style="padding: 4px 12px 4px 0; font-weight: bold;">Departamento:</td><td>{department_name}</td></tr>
+<tr><td style="padding: 4px 12px 4px 0; font-weight: bold;">Puesto:</td><td>{job_name}</td></tr>
+<tr><td style="padding: 4px 12px 4px 0; font-weight: bold;">Jefe inmediato:</td><td>{manager_name}</td></tr>
+</table>
+<p><strong>Solicitud</strong></p>
+<p>Yo, <strong>{employee_name}</strong>, solicito a la empresa se me concedan <strong>{number_of_days} días</strong> de <strong>{leave_type_name}</strong>.</p>
+<table class="table table-sm" style="border-collapse: collapse; margin: 8px 0;">
+<tr><td style="padding: 4px 12px 4px 0; font-weight: bold; width: 140px;">Fecha inicio:</td><td>{date_from}</td></tr>
+<tr><td style="padding: 4px 12px 4px 0; font-weight: bold;">Fecha fin:</td><td>{date_to}</td></tr>
+<tr><td style="padding: 4px 12px 4px 0; font-weight: bold;">Fecha de solicitud:</td><td>{request_date}</td></tr>
+</table>
+<div style="margin-top: 32px;">
+<p>_________________________</p>
+<p>Firma del empleado</p>
+</div>
+<div style="margin-top: 40px;">
+<p><strong>Aprobación Jefe inmediato</strong></p>
+<p style="margin: 8px 0;">Aprobado por: {first_approver_name}</p>
+<p>_________________________</p>
+</div>
+<div style="margin-top: 24px;">
+<p><strong>Aprobación RRHH</strong></p>
+<p style="margin: 8px 0;">Aprobado por: {second_approver_name}</p>
+<p>_________________________</p>
+</div>]]></field>
+            <field name="footer_html"/>
+        </record>
+
+        <record id="hn_vacation_doc_type_preaviso" model="hn.vacation.document.type">
+            <field name="name">Carta de Preaviso</field>
+            <field name="code">preaviso</field>
+            <field name="sequence">30</field>
+            <field name="header_html"><![CDATA[<table style="width: 100%; border: none; margin-bottom: 24px;">
+<tbody><tr>
+<td style="width: 140px; vertical-align: top;">{company_logo_img}</td>
+<td style="vertical-align: top; padding-left: 16px;">
+<p style="margin: 0 0 4px 0; font-weight: bold; font-size: 14pt;">{company_name}</p>
+<p style="margin: 0 0 2px 0; font-size: 10pt; color: #555;">{company_address}</p>
+<p style="margin: 0; font-size: 10pt; color: #555;">Tel. {company_phone} | {company_city}</p>
+</td>
+</tr></tbody></table>
+<h2 style="text-align: center; margin: 0 0 1em 0;">CARTA DE PREAVISO DE VACACIONES</h2>]]></field>
+            <field name="body_html"><![CDATA[<p><strong>Datos del empleado</strong></p>
+<table class="table table-sm" style="border-collapse: collapse; margin: 8px 0;">
+<tr><td style="padding: 4px 12px 4px 0; font-weight: bold; width: 140px;">Nombre:</td><td>{employee_name}</td></tr>
+<tr><td style="padding: 4px 12px 4px 0; font-weight: bold;">Departamento:</td><td>{department_name}</td></tr>
+<tr><td style="padding: 4px 12px 4px 0; font-weight: bold;">Puesto:</td><td>{job_name}</td></tr>
+</table>
+<p>Por medio de la presente, se le comunica a <strong>{employee_name}</strong> que su solicitud de <strong>{leave_type_name}</strong> ha sido <strong>aprobada</strong>.</p>
+<table class="table table-sm" style="border-collapse: collapse; margin: 16px 0;">
+<tr><td style="padding: 4px 12px 4px 0; font-weight: bold; width: 140px;">Días aprobados:</td><td>{number_of_days}</td></tr>
+<tr><td style="padding: 4px 12px 4px 0; font-weight: bold;">Período:</td><td>del {date_from} al {date_to}</td></tr>
+</table>
+<p>Se le recuerda que debe presentarse a laborar el día siguiente al fin de sus vacaciones.</p>
+<div style="margin-top: 32px;">
+<p><strong>Aprobaciones</strong></p>
+<p>Jefe inmediato: {first_approver_name}</p>
+<p>RRHH: {second_approver_name}</p>
+</div>
+<div style="margin-top: 48px; text-align: right;">
+<p>_________________________</p>
+<p><strong>Firma y sello de la empresa</strong></p>
+</div>]]></field>
+            <field name="footer_html"/>
+        </record>
+    </data>
+</odoo>

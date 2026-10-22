@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista de árbol para Checklist -->
+    <record id="view_gn_crm_checklist_tree" model="ir.ui.view">
+        <field name="name">gn.crm.checklist.tree</field>
+        <field name="model">gn.crm.checklist</field>
+        <field name="arch" type="xml">
+            <list string="Checklists">
+                <field name="name"/>
+                <field name="item_count" string="Items"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Vista de formulario para Checklist -->
+    <record id="view_gn_crm_checklist_form" model="ir.ui.view">
+        <field name="name">gn.crm.checklist.form</field>
+        <field name="model">gn.crm.checklist</field>
+        <field name="arch" type="xml">
+            <form string="Checklist">
+                <header/>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                        <group>
+                            <field name="item_count" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Descripción">
+                            <field name="description" placeholder="Descripción del checklist..."/>
+                        </page>
+                        <page string="Items del Checklist">
+                            <field name="item_ids" nolabel="1">
+                                <list editable="bottom" string="Items">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="description"/>
+                                    <field name="active" widget="boolean_toggle"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vista de búsqueda para Checklist -->
+    <record id="view_gn_crm_checklist_search" model="ir.ui.view">
+        <field name="name">gn.crm.checklist.search</field>
+        <field name="model">gn.crm.checklist</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Checklists">
+                <field name="name"/>
+                <filter string="Activos" name="active" domain="[('active', '=', True)]"/>
+                <filter string="Inactivos" name="inactive" domain="[('active', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Acción para Checklist -->
+    <record id="action_gn_crm_checklist" model="ir.actions.act_window">
+        <field name="name">Checklists CRM</field>
+        <field name="res_model">gn.crm.checklist</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crea tu primer Checklist
+            </p>
+            <p>
+                Los checklists te permiten definir pasos o tareas que deben completarse para cada Lead u Oportunidad.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menú principal -->
+    <menuitem id="menu_gn_crm_checklist_root"
+              name="Checklists CRM"
+              parent="crm.crm_menu_root"
+              action="action_gn_crm_checklist"
+              sequence="100"/>
+    
+    <!-- Menú en Configuración del CRM -->
+    <menuitem id="menu_gn_crm_checklist_config"
+              name="Checklists"
+              parent="crm.crm_menu_config"
+              action="action_gn_crm_checklist"
+              sequence="100"/>
+
+    <!-- Wizard para agregar checklist -->
+    <record id="view_gn_crm_checklist_wizard_form" model="ir.ui.view">
+        <field name="name">gn.crm.checklist.wizard.form</field>
+        <field name="model">gn.crm.checklist.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Agregar Checklist">
+                <group>
+                    <field name="lead_id" readonly="1"/>
+                    <field name="checklist_id" options="{'no_create': True, 'no_create_edit': True}"/>
+                </group>
+                <footer>
+                    <button string="Agregar" name="action_add_checklist" type="object" class="btn-primary"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>
+

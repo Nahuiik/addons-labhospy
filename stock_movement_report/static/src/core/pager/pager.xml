@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-inherit="web.Pager" t-inherit-mode="extension">
+    	<xpath expr="//nav[contains(@class, 'o_pager')]" position="attributes">
+    		<attribute name="class">o_pager d-inline-block h-100</attribute>
+    	</xpath>
+    	<xpath expr="//nav[contains(@class, 'o_pager')]/span[contains(@class, 'o_pager_counter')]" position="attributes">
+    		<attribute name="style">margin-right: 5px;</attribute>
+    	</xpath>
+    </t>
+</templates>

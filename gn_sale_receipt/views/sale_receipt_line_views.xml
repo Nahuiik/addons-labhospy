@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="sale_receipt_line_list" model="ir.ui.view">
+            <field name="name">sale.receipt.line.list</field>
+            <field name="model">sale.receipt.line</field>
+            <field name="arch" type="xml">
+                <list string="Líneas de recibo">
+                    <field name="product_id" optional="show"/>
+                    <field name="name"/>
+                    <field name="account_id" optional="show"/>
+                    <field name="analytic_account_id" optional="show"/>
+                    <field name="quantity"/>
+                    <field name="price_unit"/>
+                    <field name="tax_ids" widget="many2many_tags" optional="hide"/>
+                    <field name="price_subtotal" readonly="1"/>
+                </list>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Permiso por lactancia expresado en DÍAS con goce de sueldo (alternativa a horas + concepto recurrente).
+             Distinto del tipo por horas que puede existir en l10n_hn_hr_payroll. -->
+        <record id="leave_type_hn_breastfeeding_paid_days" model="hr.leave.type">
+            <field name="name">Lactancia - días con goce de sueldo</field>
+            <field name="sequence">16</field>
+            <field name="requires_allocation" eval="False"/>
+            <field name="request_unit">day</field>
+            <field name="leave_validation_type">both</field>
+            <field name="country_id" ref="base.hn"/>
+            <field name="unpaid" eval="False"/>
+            <field name="color">11</field>
+            <field name="work_entry_type_id" ref="hr_work_entry.work_entry_type_legal_leave"/>
+        </record>
+    </data>
+</odoo>

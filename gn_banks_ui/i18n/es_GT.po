@@ -1,0 +1,1018 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* gn_banks_ui
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-21 14:37+0000\n"
+"PO-Revision-Date: 2026-05-21 14:37+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.bank_check_kanban_view
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.debit_credit_kanban_view
+msgid "<i class=\"fa fa-bank\" title=\"Bank\"/>"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.bank_check_kanban_view
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.bank_transfer_kanban_view
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.debit_credit_kanban_view
+msgid "<i class=\"fa fa-calendar\" title=\"Date\"/>"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.bank_check_kanban_view
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.debit_credit_kanban_view
+msgid "<i class=\"fa fa-user\" title=\"Partner\"/>"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.debit_credit_kanban_view
+msgid "<i class=\"fa fa-user-circle\" title=\"User\"/>"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.bank_check_form_view_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.bank_transfer_form_view_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.credit_debit_form_view_ui
+msgid "<span class=\"o_stat_text\">Asiento</span>"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.bank_check_form_view_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.credit_debit_form_view_ui
+msgid "<span class=\"o_stat_text\">Plantilla</span>"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-javascript
+#: code:addons/gn_banks_ui/static/src/xml/bank_dashboard.xml:0
+msgid "Actualizar"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-javascript
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+#: code:addons/gn_banks_ui/static/src/xml/bank_side_panel.xml:0
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.bank_check_form_view_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.bank_transfer_form_view_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.credit_debit_form_view_ui
+msgid "Adjuntos"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model:res.groups.privilege,name:gn_banks_ui.privilege_gn_banks_approval
+msgid "Aprobación de operaciones bancarias"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.res_config_settings_view_form_banks_ui
+msgid "Aprobación de tesorería"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+msgid "Aprobado"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-javascript
+#: code:addons/gn_banks_ui/static/src/xml/bank_side_panel.xml:0
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_check__approved_by
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_operation_workflow_mixin__approved_by
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_transfer__approved_by
+#: model:ir.model.fields,field_description:gn_banks_ui.field_debit_credit__approved_by
+msgid "Aprobado por"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+msgid "Aprobado por tesorería"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.bank_check_form_view_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.bank_transfer_form_view_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.credit_debit_form_view_ui
+msgid "Aprobar"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+msgid "Asiento contable"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+msgid "Asiento contable generado"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_check__attachment_count
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_operation_workflow_mixin__attachment_count
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_transfer__attachment_count
+#: model:ir.model.fields,field_description:gn_banks_ui.field_debit_credit__attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-javascript
+#. odoo-python
+#: code:addons/gn_banks_ui/models/banks_treasury_dashboard.py:0
+#: code:addons/gn_banks_ui/static/src/xml/bank_dashboard.xml:0
+msgid "Balance semanal"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.view_banks_debit_search_ui
+msgid "Banco"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-javascript
+#: code:addons/gn_banks_ui/static/src/xml/bank_operation_header.xml:0
+msgid "Banco / Diario"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.view_banks_transfer_search_ui
+msgid "Banco origen"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model:ir.model,name:gn_banks_ui.model_bank_transfer
+msgid "Bank Transfer"
+msgstr "Transferencia bancaria"
+
+#. module: gn_banks_ui
+#. odoo-javascript
+#: code:addons/gn_banks_ui/static/src/xml/bank_operation_header.xml:0
+msgid "Beneficiario"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+#: code:addons/gn_banks_ui/models/banks_treasury_dashboard.py:0
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.view_banks_debit_search_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.view_banks_transfer_search_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.view_check_search_ui
+msgid "Borrador"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+#: code:addons/gn_banks_ui/models/banks_treasury_dashboard.py:0
+msgid "Cancelado"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model:ir.model,name:gn_banks_ui.model_bank_operation_workflow_mixin
+msgid "Capa de flujo de trabajo UI para operaciones bancarias"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-javascript
+#: code:addons/gn_banks_ui/static/src/xml/bank_timeline.xml:0
+msgid "Cargando historial..."
+msgstr ""
+
+#. module: gn_banks_ui
+#: model:ir.model,name:gn_banks_ui.model_bank_check
+msgid "Check/Transfer"
+msgstr "Cheque / Transferencia"
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.view_check_search_ui
+msgid "Cheque"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/banks_treasury_dashboard.py:0
+msgid "Cheques pendientes"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-javascript
+#: code:addons/gn_banks_ui/static/src/xml/bank_dashboard.xml:0
+msgid "Cheques por estado"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model:ir.model,name:gn_banks_ui.model_res_company
+msgid "Companies"
+msgstr "Empresas"
+
+#. module: gn_banks_ui
+#. odoo-javascript
+#: code:addons/gn_banks_ui/static/src/xml/bank_operation_header.xml:0
+msgid "Concepto"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+msgid "Conciliación"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/banks_treasury_dashboard.py:0
+msgid "Conciliación pendiente"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+msgid "Conciliado"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model:ir.model,name:gn_banks_ui.model_res_config_settings
+msgid "Config Settings"
+msgstr "Ajustes de configuración"
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.view_banks_debit_search_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.view_check_search_ui
+msgid "Contacto"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_check__ui_partner_id
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_operation_workflow_mixin__ui_partner_id
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_transfer__ui_partner_id
+#: model:ir.model.fields,field_description:gn_banks_ui.field_debit_credit__ui_partner_id
+msgid "Contacto principal"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+msgid "Creado"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-javascript
+#: code:addons/gn_banks_ui/static/src/xml/bank_side_panel.xml:0
+msgid "Creado por"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.view_banks_debit_search_ui
+msgid "Crédito"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/banks_treasury_dashboard.py:0
+msgid "Créditos del mes"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-javascript
+#: code:addons/gn_banks_ui/static/src/xml/bank_side_panel.xml:0
+msgid "Cuenta bancaria"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model:ir.model,name:gn_banks_ui.model_debit_credit
+msgid "Debit/Credit"
+msgstr "Debito/Credito"
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.view_banks_debit_search_ui
+msgid "Depósito"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/banks_treasury_dashboard.py:0
+msgid "Depósitos de hoy"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/banks_treasury_dashboard.py:0
+msgid "Desconocido"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-javascript
+#: code:addons/gn_banks_ui/static/src/xml/bank_operation_header.xml:0
+msgid "Destino"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-javascript
+#: code:addons/gn_banks_ui/static/src/xml/bank_side_panel.xml:0
+msgid "Diferencia"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model:ir.model.fields,field_description:gn_banks_ui.field_account_move__display_name
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_check__display_name
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_operation_workflow_mixin__display_name
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_transfer__display_name
+#: model:ir.model.fields,field_description:gn_banks_ui.field_banks_treasury_dashboard__display_name
+#: model:ir.model.fields,field_description:gn_banks_ui.field_debit_credit__display_name
+#: model:ir.model.fields,field_description:gn_banks_ui.field_res_company__display_name
+#: model:ir.model.fields,field_description:gn_banks_ui.field_res_config_settings__display_name
+msgid "Display Name"
+msgstr "Nombre en pantalla"
+
+#. module: gn_banks_ui
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_check__document_count
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_operation_workflow_mixin__document_count
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_transfer__document_count
+#: model:ir.model.fields,field_description:gn_banks_ui.field_debit_credit__document_count
+msgid "Document Count"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+msgid "Documento creado"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-javascript
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+#: code:addons/gn_banks_ui/static/src/xml/bank_side_panel.xml:0
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.credit_debit_form_view_ui
+msgid "Documentos"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.view_banks_debit_search_ui
+msgid "Débito"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/banks_treasury_dashboard.py:0
+msgid "Débitos del mes"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-javascript
+#: code:addons/gn_banks_ui/static/src/xml/bank_side_panel.xml:0
+msgid "En letras"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+msgid "Enviado a aprobación"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+msgid "Enviado a aprobación de tesorería"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_check__submitted_by
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_operation_workflow_mixin__submitted_by
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_transfer__submitted_by
+#: model:ir.model.fields,field_description:gn_banks_ui.field_debit_credit__submitted_by
+msgid "Enviado por"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.bank_check_form_view_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.bank_transfer_form_view_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.credit_debit_form_view_ui
+msgid "Enviar a aprobación"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.view_banks_debit_search_ui
+msgid "Esta semana"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.bank_check_list_view_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.bank_transfer_list_view_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.debit_credit_list_view_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.view_banks_debit_search_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.view_banks_transfer_search_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.view_check_search_ui
+msgid "Estado"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_check__reconciliation_status
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_operation_workflow_mixin__reconciliation_status
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_transfer__reconciliation_status
+#: model:ir.model.fields,field_description:gn_banks_ui.field_debit_credit__reconciliation_status
+msgid "Estado de conciliación"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_check__workflow_state
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_operation_workflow_mixin__workflow_state
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_transfer__workflow_state
+#: model:ir.model.fields,field_description:gn_banks_ui.field_debit_credit__workflow_state
+msgid "Estado del flujo"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.view_banks_debit_search_ui
+msgid "Este mes"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-javascript
+#: code:addons/gn_banks_ui/static/src/xml/bank_side_panel.xml:0
+msgid "Factura"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+msgid "Factura relacionada"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.credit_debit_form_view_ui
+msgid "Facturas"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-javascript
+#: code:addons/gn_banks_ui/static/src/xml/bank_operation_header.xml:0
+msgid "Fecha"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_check__approved_date
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_operation_workflow_mixin__approved_date
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_transfer__approved_date
+#: model:ir.model.fields,field_description:gn_banks_ui.field_debit_credit__approved_date
+msgid "Fecha de aprobación"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_check__submitted_date
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_operation_workflow_mixin__submitted_date
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_transfer__submitted_date
+#: model:ir.model.fields,field_description:gn_banks_ui.field_debit_credit__submitted_date
+msgid "Fecha de envío"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_check__validated_date
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_operation_workflow_mixin__validated_date
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_transfer__validated_date
+#: model:ir.model.fields,field_description:gn_banks_ui.field_debit_credit__validated_date
+msgid "Fecha de validación"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-javascript
+#: code:addons/gn_banks_ui/static/src/xml/bank_side_panel.xml:0
+msgid "Fecha validación"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.res_config_settings_view_form_banks_ui
+msgid "Flujo de tesorería"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/banks_treasury_dashboard.py:0
+msgid "Flujo neto del mes"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-javascript
+#: code:addons/gn_banks_ui/static/src/xml/bank_dashboard.xml:0
+msgid "Flujo semanal"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.bank_check_form_view_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.bank_transfer_form_view_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.credit_debit_form_view_ui
+msgid "Historial"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.view_banks_debit_search_ui
+msgid "Hoy"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model:ir.model.fields,field_description:gn_banks_ui.field_account_move__id
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_check__id
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_operation_workflow_mixin__id
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_transfer__id
+#: model:ir.model.fields,field_description:gn_banks_ui.field_banks_treasury_dashboard__id
+#: model:ir.model.fields,field_description:gn_banks_ui.field_debit_credit__id
+#: model:ir.model.fields,field_description:gn_banks_ui.field_res_company__id
+#: model:ir.model.fields,field_description:gn_banks_ui.field_res_config_settings__id
+msgid "ID"
+msgstr "NIF"
+
+#. module: gn_banks_ui
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_check__invoice_count
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_operation_workflow_mixin__invoice_count
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_transfer__invoice_count
+#: model:ir.model.fields,field_description:gn_banks_ui.field_debit_credit__invoice_count
+msgid "Invoice Count"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model:ir.model,name:gn_banks_ui.model_account_move
+msgid "Journal Entry"
+msgstr "Asiento contable"
+
+#. module: gn_banks_ui
+#: model:ir.model,name:gn_banks_ui.model_banks_treasury_dashboard
+msgid "KPIs y datos de gráficos del dashboard de tesorería"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+msgid ""
+"La operación «%s» está pendiente de aprobación. Apruébela antes de validar."
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+msgid ""
+"La operación «%s» requiere aprobación. Envíela y obtenga la aprobación antes"
+" de validar."
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-javascript
+#: code:addons/gn_banks_ui/static/src/xml/bank_dashboard.xml:0
+msgid "Liquidaciones POS"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/banks_treasury_dashboard.py:0
+msgid "Liquidaciones POS pendientes"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.view_banks_debit_search_ui
+msgid "Liquidación POS"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+msgid "Líneas bancarias totalmente conciliadas"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_check__message_count
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_operation_workflow_mixin__message_count
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_transfer__message_count
+#: model:ir.model.fields,field_description:gn_banks_ui.field_debit_credit__message_count
+msgid "Message Count"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.view_banks_debit_search_ui
+msgid "Moneda"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+msgid "No se requiere aprobación para esta compañía."
+msgstr ""
+
+#. module: gn_banks_ui
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_check__ui_document_number
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_operation_workflow_mixin__ui_document_number
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_transfer__ui_document_number
+#: model:ir.model.fields,field_description:gn_banks_ui.field_debit_credit__ui_document_number
+msgid "Número de documento"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+msgid "Operación bancaria"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+msgid "Operación cancelada"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+msgid "Operación validada"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-javascript
+#: code:addons/gn_banks_ui/static/src/xml/bank_dashboard.xml:0
+msgid "Panel ejecutivo de operaciones, saldos y flujo de efectivo."
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+msgid "Parcialmente conciliado"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.view_banks_debit_search_ui
+msgid "Pendiente aprobación"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.view_banks_debit_search_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.view_banks_transfer_search_ui
+msgid "Pendiente conciliación"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-javascript
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+#: code:addons/gn_banks_ui/static/src/xml/bank_side_panel.xml:0
+msgid "Plantilla"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model:res.groups,comment:gn_banks_ui.banks_approval_manager
+msgid "Puede aprobar operaciones bancarias antes de validarlas."
+msgstr ""
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.bank_check_form_view_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.bank_transfer_form_view_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.credit_debit_form_view_ui
+msgid "Rechazar"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-javascript
+#: code:addons/gn_banks_ui/static/src/xml/bank_dashboard.xml:0
+msgid "Reportes"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/banks_treasury_dashboard.py:0
+msgid "Reportes bancarios"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model:ir.model.fields,field_description:gn_banks_ui.field_res_company__banks_require_approval
+#: model:ir.model.fields,field_description:gn_banks_ui.field_res_config_settings__banks_require_approval
+msgid "Requerir aprobación de tesorería para operaciones bancarias"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_check__approval_required
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_operation_workflow_mixin__approval_required
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_transfer__approval_required
+#: model:ir.model.fields,field_description:gn_banks_ui.field_debit_credit__approval_required
+msgid "Requiere aprobación"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.res_config_settings_view_form_banks_ui
+msgid "Requiere aprobación antes de validar operaciones bancarias."
+msgstr ""
+
+#. module: gn_banks_ui
+#: model:res.groups,name:gn_banks_ui.banks_approval_manager
+msgid "Responsable de aprobación"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-javascript
+#: code:addons/gn_banks_ui/static/src/xml/bank_side_panel.xml:0
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.bank_check_form_view_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.bank_transfer_form_view_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.credit_debit_form_view_ui
+msgid "Resumen financiero"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-javascript
+#: code:addons/gn_banks_ui/static/src/xml/bank_dashboard.xml:0
+msgid "Saldos por banco"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model:ir.model.fields,help:gn_banks_ui.field_res_company__banks_require_approval
+#: model:ir.model.fields,help:gn_banks_ui.field_res_config_settings__banks_require_approval
+msgid ""
+"Si está activo, las operaciones bancarias deben enviarse y aprobarse antes "
+"de validarse."
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+msgid "Sin conciliar"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-javascript
+#: code:addons/gn_banks_ui/static/src/xml/bank_timeline.xml:0
+msgid "Sin eventos registrados."
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-javascript
+#: code:addons/gn_banks_ui/static/src/xml/bank_dashboard.xml:0
+msgid "Tesorería Bancaria"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.credit_debit_form_view_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.view_banks_debit_search_ui
+msgid "Tipo"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+msgid "Totalmente conciliado"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.view_check_search_ui
+msgid "Transferencia"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+msgid "Transferencia interbancaria"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/banks_treasury_dashboard.py:0
+msgid "Transferencias pendientes"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_check__ui_operation_icon
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_operation_workflow_mixin__ui_operation_icon
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_transfer__ui_operation_icon
+#: model:ir.model.fields,field_description:gn_banks_ui.field_debit_credit__ui_operation_icon
+msgid "Ui Operation Icon"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_check__ui_operation_type_key
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_operation_workflow_mixin__ui_operation_type_key
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_transfer__ui_operation_type_key
+#: model:ir.model.fields,field_description:gn_banks_ui.field_debit_credit__ui_operation_type_key
+msgid "Ui Operation Type Key"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_check__ui_operation_type_label
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_operation_workflow_mixin__ui_operation_type_label
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_transfer__ui_operation_type_label
+#: model:ir.model.fields,field_description:gn_banks_ui.field_debit_credit__ui_operation_type_label
+msgid "Ui Operation Type Label"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+#: code:addons/gn_banks_ui/models/banks_treasury_dashboard.py:0
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.view_banks_debit_search_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.view_banks_transfer_search_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.view_check_search_ui
+msgid "Validado"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-javascript
+#: code:addons/gn_banks_ui/static/src/xml/bank_side_panel.xml:0
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_check__validated_by
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_operation_workflow_mixin__validated_by
+#: model:ir.model.fields,field_description:gn_banks_ui.field_bank_transfer__validated_by
+#: model:ir.model.fields,field_description:gn_banks_ui.field_debit_credit__validated_by
+msgid "Validado por"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+msgid "approved"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+msgid "bank_debit_id"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+msgid "cancelled"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+msgid "full"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+msgid "id"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+msgid "partial"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+msgid "pending_approval"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+msgid "posted"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+msgid "reconciled"
+msgstr ""
+
+#. module: gn_banks_ui
+#. odoo-python
+#: code:addons/gn_banks_ui/models/bank_operation_workflow_mixin.py:0
+msgid "validated"
+msgstr ""
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.credit_debit_form_view_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.bank_transfer_form_view_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.bank_check_form_view_ui
+msgid "Información general"
+msgstr "Información general"
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.credit_debit_form_view_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.bank_check_form_view_ui
+msgid "Referencias"
+msgstr "Referencias"
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.credit_debit_form_view_ui
+msgid "Líneas contables"
+msgstr "Líneas contables"
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.credit_debit_form_view_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.bank_check_form_view_ui
+msgid "Contabilidad"
+msgstr "Contabilidad"
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.credit_debit_form_view_ui
+msgid "Documentos"
+msgstr "Documentos"
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.credit_debit_form_view_ui
+msgid "Liquidaciones DTE"
+msgstr "Liquidaciones DTE"
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.credit_debit_form_view_ui
+msgid "DTE factura"
+msgstr "DTE factura"
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.bank_check_form_view_ui
+msgid "Líneas del cheque"
+msgstr "Líneas del cheque"
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.credit_debit_form_view_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.bank_check_form_view_ui
+msgid "Diferencia"
+msgstr "Diferencia"
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.credit_debit_form_view_ui
+msgid "Tipo"
+msgstr "Tipo"
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.bank_template_form_view_ui
+msgid "Referencias y analítica"
+msgstr "Referencias y analítica"
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.bank_template_form_view_ui
+msgid "Líneas de plantilla"
+msgstr "Líneas de plantilla"
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.check_format_form_view_ui
+msgid "Formato"
+msgstr "Formato"
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.check_format_form_view_ui
+msgid "Posicionamiento"
+msgstr "Posicionamiento"
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.bac_branch_mapping_form_view_ui
+msgid "Mapeo de sucursal"
+msgstr "Mapeo de sucursal"
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.liquidation_branch_mapping_form_view_ui
+msgid "Patrón de sucursal"
+msgstr "Patrón de sucursal"
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.liquidation_json_batch_form_view_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.bac_unified_import_batch_form_view_ui
+msgid "Lote de importación"
+msgstr "Lote de importación"
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.liquidation_json_batch_form_view_ui
+msgid "Resultados"
+msgstr "Resultados"
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.liquidation_json_batch_form_view_ui
+msgid "Archivos procesados"
+msgstr "Archivos procesados"
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.bac_unified_import_batch_form_view_ui
+msgid "Líneas del lote"
+msgstr "Líneas del lote"
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.banks_wizard_template_form_ui
+msgid "Nueva plantilla"
+msgstr "Nueva plantilla"
+
+#. module: gn_banks_ui
+#: model_terms:ir.ui.view,arch_db:gn_banks_ui.account_journal_bank_sequence_form_ui
+msgid "Secuencias bancarias"
+msgstr "Secuencias bancarias"

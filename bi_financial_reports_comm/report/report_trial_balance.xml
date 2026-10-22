@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="trial_balance_pdf_report">
+        <t t-call="web.html_container">
+            <t t-call="web.internal_layout">
+                <div class="page" >
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <h2 style="margin: 5px 0; font-size: 18pt; color: #2E2E2E;">Trial Balance Report</h2>
+                        <br/>
+                        <div style="font-weight: bold;">
+                            <t t-if="balanceData['date_from']">
+                                Date From: <t t-esc="balanceData['date_from']"/> 
+                            </t>
+                            <t t-if="balanceData['date_to']">
+                                Date To: <t t-esc="balanceData['date_to']"/>
+                            </t>
+                            <br/>
+                        </div>
+                        <div style="border-top: 1px solid #DDD; margin: 10px 0;"></div>
+                    </div>
+
+                    <table style="width: 100%; border-collapse: collapse; font-size: 9pt;">
+                        <thead>
+                            <tr style="background-color: #F2F2F2; border-bottom: 1px solid #DDD;">
+                                <th style="text-align: left; padding: 8px 5px; width: 35%;">Account</th>
+                                <th colspan="2" style="text-align: center; padding: 8px 5px; width: 20%;">Initial Balance</th>
+                                <th colspan="2" style="text-align: center; padding: 8px 5px; width: 20%;">
+                                    <t t-if="balanceData['date_from']">
+                                        From <t t-esc="balanceData['date_from']"/> 
+                                    </t>
+                                    <t t-if="balanceData['date_to']">
+                                        To <t t-esc="balanceData['date_to']"/>
+                                    </t>
+                                </th>
+                                <th colspan="2" style="text-align: center; padding: 8px 5px; width: 20%;">Ending Balance</th>
+                            </tr>
+                            <tr style="background-color: #F2F2F2; border-bottom: 1px solid #DDD;">
+                                <th style="text-align: left; padding: 8px 5px;"></th>
+                                <th style="text-align: right; padding: 8px 5px;">Debit</th>
+                                <th style="text-align: right; padding: 8px 5px;">Credit</th>
+                                <th style="text-align: right; padding: 8px 5px;">Debit</th>
+                                <th style="text-align: right; padding: 8px 5px;">Credit</th>
+                                <th style="text-align: right; padding: 8px 5px;">Debit</th>
+                                <th style="text-align: right; padding: 8px 5px;">Credit</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <t t-foreach="accountData" t-as="account" t-key="account['name']">
+                                <tr style="border-bottom: 1px solid #EEE;">
+                                    <td style="text-align: left; padding: 6px 5px;">
+                                        <span style="font-weight: bold;" t-esc="account['code']"/>
+                                        <span t-esc="account['name']"/>
+                                    </td>
+                                    <td style="text-align: right; padding: 6px 5px;" t-esc="account['initial_debit']"/>
+                                    <td style="text-align: right; padding: 6px 5px;" t-esc="account['initial_credit']"/>
+                                    <td style="text-align: right; padding: 6px 5px;" t-esc="account['period_debit']"/>
+                                    <td style="text-align: right; padding: 6px 5px;" t-esc="account['period_credit']"/>
+                                    <td style="text-align: right; padding: 6px 5px;" t-esc="account['ending_debit']"/>
+                                    <td style="text-align: right; padding: 6px 5px;" t-esc="account['ending_credit']"/>
+                                </tr>
+                            </t>
+                            
+                            <tr style="background-color: #F2F2F2; border-top: 2px solid #DDD; border-bottom: 2px solid #DDD; font-weight: bold;">
+                                <td style="text-align: left; padding: 8px 5px;">Total</td>
+                                <td style="text-align: right; padding: 8px 5px;" t-esc="balanceData['total_initial_debit']"/>
+                                <td style="text-align: right; padding: 8px 5px;" t-esc="balanceData['total_initial_credit']"/>
+                                <td style="text-align: right; padding: 8px 5px;" t-esc="balanceData['total_period_debit']"/>
+                                <td style="text-align: right; padding: 8px 5px;" t-esc="balanceData['total_period_credit']"/>
+                                <td style="text-align: right; padding: 8px 5px;" t-esc="balanceData['total_ending_debit']"/>
+                                <td style="text-align: right; padding: 8px 5px;" t-esc="balanceData['total_ending_credit']"/>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_trial_balance_pdf_report" model="ir.actions.report">
+        <field name="name">Trial Balance</field>
+        <field name="model">trial.balance.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">bi_financial_reports_comm.trial_balance_pdf_report</field>
+        <field name="report_file">bi_financial_reports_comm.trial_balance_pdf_report</field>
+        <field name="print_report_name">'Trial Balance'</field>
+        <field name="binding_model_id" ref="model_trial_balance_report"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista de formulario de cliente - Agregar pestaña de anticipos de clientes -->
+    <record id="view_partner_form_customer_advances" model="ir.ui.view">
+        <field name="name">res.partner.form.customer.advances</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <!-- Agregar campos computados invisibles -->
+            <xpath expr="//field[@name='category_id']" position="after">
+                <field name="advances_count" invisible="1"/>
+                <field name="total_advances_available" invisible="1"/>
+                <field name="total_advances_applied" invisible="1"/>
+                <field name="total_advances_received" invisible="1"/>
+            </xpath>
+            
+            <!-- Agregar pestaña de anticipos de clientes -->
+            <xpath expr="//notebook" position="inside">
+                <page string="Abonos/Anticipos de Cliente" 
+                      name="customer_advances"
+                      invisible="is_company == False or customer_rank == 0">
+                    <group>
+                        <group string="Resumen de Abonos/Anticipos de Cliente">
+                            <field name="advances_count" readonly="1"/>
+                            <field name="total_advances_received" 
+                                   widget="monetary"
+                                   readonly="1"
+                                   options="{'currency_field': 'currency_id'}"/>
+                            <field name="total_advances_applied" 
+                                   widget="monetary"
+                                   readonly="1"
+                                   options="{'currency_field': 'currency_id'}"/>
+                            <field name="total_advances_available" 
+                                   widget="monetary"
+                                   readonly="1"
+                                   options="{'currency_field': 'currency_id'}"/>
+                        </group>
+                        <group>
+                            <button name="%(action_account_payment_customer_advances)d"
+                                    type="action"
+                                    string="Ver Todos los Abonos/Anticipos de Cliente"
+                                    domain="[('partner_id', '=', id), ('is_advance', '=', True), ('partner_type', '=', 'customer')]"
+                                    context="{'default_partner_id': id, 'default_is_advance': True, 'default_partner_type': 'customer', 'default_payment_type': 'inbound'}"
+                                    class="oe_highlight"
+                                    icon="fa-list"/>
+                        </group>
+                    </group>
+                    
+                    <field name="advance_payment_ids"
+                           nolabel="1"
+                           context="{'default_partner_id': id, 'default_is_advance': True, 'default_partner_type': 'customer', 'default_payment_type': 'inbound'}">
+                        <list create="1" delete="0">
+                            <field name="name" string="Referencia"/>
+                            <field name="date"/>
+                            <field name="amount" 
+                                   widget="monetary"
+                                   options="{'currency_field': 'currency_id'}"/>
+                            <field name="advance_available_amount" 
+                                   string="Saldo Disponible"
+                                   widget="monetary"
+                                   options="{'currency_field': 'currency_id'}"/>
+                            <field name="advance_applied_total" 
+                                   string="Aplicado"
+                                   widget="monetary"
+                                   options="{'currency_field': 'currency_id'}"/>
+                            <field name="state" widget="badge"
+                                   decoration-success="state == 'paid'"
+                                   decoration-info="state == 'in_process'"
+                                   decoration-warning="state == 'draft'"/>
+                            <button name="action_open_apply_to_invoices_wizard"
+                                    type="object"
+                                    string="Aplicar"
+                                    icon="fa-check"
+                                    invisible="advance_available_amount &lt;= 0 or state not in ('in_process', 'paid')"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Vista de formulario de proveedor - Agregar pestaña de anticipos de proveedores -->
+    <record id="view_partner_form_vendor_advances" model="ir.ui.view">
+        <field name="name">res.partner.form.vendor.advances</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <!-- Agregar campos computados invisibles -->
+            <xpath expr="//field[@name='category_id']" position="after">
+                <field name="vendor_advances_count" invisible="1"/>
+                <field name="total_vendor_advances_available" invisible="1"/>
+                <field name="total_vendor_advances_applied" invisible="1"/>
+                <field name="total_vendor_advances_paid" invisible="1"/>
+            </xpath>
+            
+            <!-- Agregar pestaña de anticipos de proveedores -->
+            <xpath expr="//notebook" position="inside">
+                <page string="Abonos/Anticipos de Proveedor" 
+                      name="vendor_advances"
+                      invisible="is_company == False or supplier_rank == 0">
+                    <group>
+                        <group string="Resumen de Abonos/Anticipos de Proveedor">
+                            <field name="vendor_advances_count" readonly="1"/>
+                            <field name="total_vendor_advances_paid" 
+                                   widget="monetary"
+                                   readonly="1"
+                                   options="{'currency_field': 'currency_id'}"/>
+                            <field name="total_vendor_advances_applied" 
+                                   widget="monetary"
+                                   readonly="1"
+                                   options="{'currency_field': 'currency_id'}"/>
+                            <field name="total_vendor_advances_available" 
+                                   widget="monetary"
+                                   readonly="1"
+                                   options="{'currency_field': 'currency_id'}"/>
+                        </group>
+                        <group>
+                            <button name="%(action_account_payment_vendor_advances)d"
+                                    type="action"
+                                    string="Ver Todos los Abonos/Anticipos de Proveedor"
+                                    domain="[('partner_id', '=', id), ('is_advance', '=', True), ('partner_type', '=', 'supplier')]"
+                                    context="{'default_partner_id': id, 'default_is_advance': True, 'default_partner_type': 'supplier', 'default_payment_type': 'outbound'}"
+                                    class="oe_highlight"
+                                    icon="fa-list"/>
+                        </group>
+                    </group>
+                    
+                    <field name="vendor_advance_payment_ids"
+                           nolabel="1"
+                           context="{'default_partner_id': id, 'default_is_advance': True, 'default_partner_type': 'supplier', 'default_payment_type': 'outbound'}">
+                        <list create="1" delete="0">
+                            <field name="name" string="Referencia"/>
+                            <field name="date"/>
+                            <field name="amount" 
+                                   widget="monetary"
+                                   options="{'currency_field': 'currency_id'}"/>
+                            <field name="advance_available_amount" 
+                                   string="Saldo Disponible"
+                                   widget="monetary"
+                                   options="{'currency_field': 'currency_id'}"/>
+                            <field name="advance_applied_total" 
+                                   string="Aplicado"
+                                   widget="monetary"
+                                   options="{'currency_field': 'currency_id'}"/>
+                            <field name="state" widget="badge"
+                                   decoration-success="state == 'paid'"
+                                   decoration-info="state == 'in_process'"
+                                   decoration-warning="state == 'draft'"/>
+                            <button name="action_open_apply_to_invoices_wizard"
+                                    type="object"
+                                    string="Aplicar"
+                                    icon="fa-check"
+                                    invisible="advance_available_amount &lt;= 0 or state not in ('in_process', 'paid')"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

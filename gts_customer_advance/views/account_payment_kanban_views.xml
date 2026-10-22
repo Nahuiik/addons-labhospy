@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista Kanban de anticipos - Nueva vista independiente -->
+    <record id="view_account_payment_kanban_advance" model="ir.ui.view">
+        <field name="name">account.payment.kanban.advance</field>
+        <field name="model">account.payment</field>
+        <field name="arch" type="xml">
+            <kanban default_order="date desc" create="1" sample="1">
+                <field name="id"/>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="amount"/>
+                <field name="advance_available_amount"/>
+                <field name="advance_applied_total"/>
+                <field name="state"/>
+                <field name="currency_id"/>
+                <field name="is_advance"/>
+                <field name="date"/>
+                <progressbar field="state" colors='{"in_process": "info", "draft": "warning", "paid": "success", "canceled": "danger", "rejected": "danger"}'/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_card oe_kanban_global_click" t-att-data-id="record.id.raw_value">
+                            <div class="o_kanban_card_header">
+                                <div class="o_kanban_card_header_title">
+                                    <div class="o_primary">
+                                        <field name="name"/>
+                                    </div>
+                                    <field name="partner_id"/>
+                                </div>
+                            </div>
+                            <div class="o_kanban_card_content" t-if="record.is_advance.raw_value">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <strong>Monto:</strong>
+                                        <field name="amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    </div>
+                                    <div class="col-6">
+                                        <strong>Disponible:</strong>
+                                        <field name="advance_available_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-6">
+                                        <strong>Aplicado:</strong>
+                                        <field name="advance_applied_total" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    </div>
+                                    <div class="col-6">
+                                        <field name="state" widget="badge"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Acción para vista kanban de anticipos -->
+    <record id="action_account_payment_advances_kanban" model="ir.actions.act_window">
+        <field name="name">Anticipos de Clientes (Kanban)</field>
+        <field name="res_model">account.payment</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="domain">[('is_advance', '=', True), ('partner_type', '=', 'customer')]</field>
+        <field name="context">{'default_is_advance': True, 'default_partner_type': 'customer', 'default_payment_type': 'inbound'}</field>
+    </record>
+
+    <!-- Vista Kanban para anticipos de proveedores -->
+    <record id="view_account_payment_kanban_vendor_advances" model="ir.ui.view">
+        <field name="name">account.payment.kanban.vendor.advances</field>
+        <field name="model">account.payment</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_dashboard" create="1" sample="1">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="amount"/>
+                <field name="currency_id"/>
+                <field name="state"/>
+                <field name="advance_available_amount"/>
+                <field name="advance_applied_total"/>
+                <field name="date"/>
+                <field name="is_advance"/>
+                <field name="partner_type"/>
+                <field name="payment_type"/>
+                <progressbar field="state" colors='{"in_process": "info", "draft": "warning", "paid": "success", "canceled": "danger", "rejected": "danger"}'/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <div class="o_kanban_card_header">
+                                <div class="o_kanban_card_header_title">
+                                    <field name="name"/>
+                                </div>
+                            </div>
+                            <div class="o_kanban_card_content">
+                                <div><field name="partner_id"/></div>
+                                <div>
+                                    <field name="amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                </div>
+                                <div>
+                                    Disponible: <field name="advance_available_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Acción Kanban para anticipos de proveedores -->
+    <record id="action_account_payment_vendor_advances_kanban" model="ir.actions.act_window">
+        <field name="name">Anticipos de Proveedores</field>
+        <field name="res_model">account.payment</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="view_id" ref="view_account_payment_kanban_vendor_advances"/>
+        <field name="domain">[('is_advance', '=', True), ('partner_type', '=', 'supplier')]</field>
+        <field name="context">{'default_is_advance': True, 'default_partner_type': 'supplier', 'default_payment_type': 'outbound'}</field>
+    </record>
+</odoo>

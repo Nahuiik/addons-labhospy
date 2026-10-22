@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<template id="profit_loss_pdf_report">
+    <t t-call="web.html_container">
+        <t t-call="web.internal_layout">
+            <div class="page">
+                <center>
+                    <h2 style="margin-bottom: 5px;">Estado de Resultados</h2>
+                    <div style="margin-bottom: 20px;">
+                        <t t-if="ProfitLossData.get('date_from') or ProfitLossData.get('date_to')">
+                            <h4>
+                                <t t-if="ProfitLossData.get('date_from')">
+                                    Date From: <t t-esc="ProfitLossData.get('date_from')"/> 
+                                </t>
+                                <t t-if="ProfitLossData.get('date_to')">
+                                    Date To: <t t-esc="ProfitLossData.get('date_to')"/>
+                                </t>
+                            </h4>
+                        </t>
+                        <br/>
+                        <br/>
+                    </div>
+                </center>
+
+                <table class="table" style="width: 100%; border: none; border-collapse: separate;">
+                    <thead>
+                        <tr style="border-bottom: 1px solid #e0e0e0;">
+                            <th style="width: 70%; text-align: left; font-weight: bold; background-color: #f5f5f5;"></th>
+                            <th style="width: 30%; text-align: center; font-weight: bold; background-color: #f5f5f5;">Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-set="income" t-value="ProfitLossData.get('income', {})"/>
+                        <t t-set="expense" t-value="ProfitLossData.get('expense', {})"/>
+                        <t t-set="totals" t-value="ProfitLossData.get('totals', {})"/>
+                        <tr>
+                            <td t-attf-style="text-align: left;padding-left:45px; {{ 'font-weight: bold;' if expandedType.get('income') else '' }}">
+                                Revenue
+                            </td>
+                            <td t-attf-style="text-align: right;padding-right:110px; {{ 'font-weight: bold;' if expandedType.get('income') else '' }}">
+                                <t t-esc="format_currency(income.get('income', {}).get('total', 0))"/>
+                            </td>
+                        </tr>
+                        <t t-if="expandedType.get('income') and income.get('income', {}).get('accounts', [])">
+                            <t t-foreach="income.get('income', {}).get('accounts', [])" t-as="account">
+                                <tr style="border-bottom: 1px solid #e0e0e0;">
+                                    <td style="text-align: left;padding-left:55px;">
+                                        <t t-esc="account.get('code', '')"/> - <t t-esc="account.get('name', '')"/>
+                                    </td>
+                                    <td style="text-align: right;padding-right:110px;">
+                                        <t t-esc="format_currency(account.get('balance', 0))"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </t>
+
+                        <tr>
+                            <td t-attf-style="text-align: left;padding-left:45px; {{ 'font-weight: bold;' if expandedType.get('expense_direct_cost') else '' }}">
+                                Less Cost of Revenue
+                            </td>
+                            <td t-attf-style="text-align: right;padding-right:110px; {{ 'font-weight: bold;' if expandedType.get('expense_direct_cost') else '' }}">
+                                <t t-esc="format_currency(expense.get('expense_direct_cost', {}).get('total', 0))"/>
+                            </td>
+                        </tr>
+                        <t t-if="expandedType.get('expense_direct_cost') and expense.get('expense_direct_cost', {}).get('accounts', [])">
+                            <t t-foreach="expense.get('expense_direct_cost', {}).get('accounts', [])" t-as="account">
+                                <tr style="border-bottom: 1px solid #e0e0e0;">
+                                    <td style="text-align: left;padding-left:55px;">
+                                        <t t-esc="account.get('code', '')"/> - <t t-esc="account.get('name', '')"/>
+                                    </td>
+                                    <td style="text-align: right;padding-right:110px;">
+                                        <t t-esc="format_currency(account.get('balance', 0))"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </t>
+
+                        <tr style="background-color: #C0C0C0;">
+                            <td style="text-align: left;font-weight: bold;">Gross Profit</td>
+                            <td style="text-align: right;font-weight: bold;padding-right:110px;">
+                                <t t-esc="format_currency(grossProfitTotal)"/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td t-attf-style="text-align: left;padding-left:45px; {{ 'font-weight: bold;' if expandedType.get('expense') else '' }}">
+                                Less Operating Expenses
+                            </td>
+                            <td t-attf-style="text-align: right;padding-right:110px; {{ 'font-weight: bold;' if expandedType.get('expense') else '' }}">
+                                <t t-esc="format_currency(expense.get('expense', {}).get('total', 0))"/>
+                            </td>
+                        </tr>
+                        <t t-if="expandedType.get('expense') and expense.get('expense', {}).get('accounts', [])">
+                            <t t-foreach="expense.get('expense', {}).get('accounts', [])" t-as="account">
+                                <tr style="border-bottom: 1px solid #e0e0e0;">
+                                    <td style="text-align: left;padding-left:55px;">
+                                        <t t-esc="account.get('code', '')"/> - <t t-esc="account.get('name', '')"/>
+                                    </td>
+                                    <td style="text-align: right;padding-right:110px;">
+                                        <t t-esc="format_currency(account.get('balance', 0))"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </t>
+
+                        <tr style="background-color: #C0C0C0;">
+                            <td style="text-align: left;font-weight: bold;">Operating Income (or Loss)</td>
+                            <td style="text-align: right;font-weight: bold;padding-right:110px;">
+                                <t t-esc="format_currency(operatingIncomeTotal)"/>
+                            </td>
+                        </tr>
+
+                        <tr style="border-bottom: 1px solid #e0e0e0;">
+                            <td t-attf-style="text-align: left;padding-left:45px; {{ 'font-weight: bold;' if expandedType.get('income_other') else '' }}">
+                                 Plus Other Income
+                            </td>
+                            <td t-attf-style="text-align: left;padding-left:110px; {{ 'font-weight: bold;' if expandedType.get('income_other') else '' }}">
+                                <t t-esc="format_currency(income.get('income_other', {}).get('total', 0))"/>
+                            </td>
+                        </tr>
+                        <t t-if="expandedType.get('income_other') and income.get('income_other', {}).get('accounts', [])">
+                            <t t-foreach="income.get('income_other', {}).get('accounts', [])" t-as="account">
+                                <tr style="border-bottom: 1px solid #e0e0e0;">
+                                    <td style="text-align: left;padding-left:55px;">
+                                        <t t-esc="account.get('code', '')"/> - <t t-esc="account.get('name', '')"/>
+                                    </td>
+                                    <td style="text-align: right;padding-right:110px;">
+                                        <t t-esc="format_currency(account.get('balance', 0))"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </t>
+                        
+                        <tr style="border-bottom: 1px solid #e0e0e0;">
+                            <td t-attf-style="text-align: left;padding-left:45px; {{ 'font-weight: bold;' if expandedType.get('expense_depreciation') else '' }}">
+                                Less Other Expenses
+                            </td>
+                            <td t-attf-style="text-align: left;padding-left:110px; {{ 'font-weight: bold;' if expandedType.get('expense_depreciation') else '' }}">
+                                <t t-esc="format_currency(expense.get('expense_depreciation', {}).get('total', 0))"/>
+                            </td>
+                        </tr>
+                        <t t-if="expandedType.get('expense_depreciation') and expense.get('expense_depreciation', {}).get('accounts', [])">
+                            <t t-foreach="expense.get('expense_depreciation', {}).get('accounts', [])" t-as="account">
+                                <tr style="border-bottom: 1px solid #e0e0e0;">
+                                    <td style="text-align: left;padding-left:55px;">
+                                        <t t-esc="account.get('code', '')"/> - <t t-esc="account.get('name', '')"/>
+                                    </td>
+                                    <td style="text-align: right;padding-right:110px;">
+                                        <t t-esc="format_currency(account.get('balance', 0))"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </t>
+
+                        <tr style="background-color: #C0C0C0;">
+                            <td style="text-align: left;font-weight: bold;">Net Profit</td>
+                            <td style="text-align: right;font-weight: bold;padding-right:110px;">
+                                <t t-esc="format_currency(netProfitTotal)"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </t>
+</template>
+
+    <!-- Report Action -->
+    <record id="action_profit_loss_pdf_report" model="ir.actions.report">
+        <field name="name">Estado de Resultados</field>
+        <field name="model">profit.loss.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">bi_financial_reports_comm.profit_loss_pdf_report</field>
+        <field name="report_file">bi_financial_reports_comm.profit_loss_pdf_report</field>
+        <field name="print_report_name">'Estado de Resultados - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_profit_loss_report"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

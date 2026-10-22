@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_employee_declaration_document">
+            <t t-call="web.basic_layout">
+                <div class="float-left" style="width: 100%; overflow: hidden;">
+                    <div style="float: left; width: 30%;">
+                        <t t-if="not o.company_id.header_memb">
+                            <img t-if="o.company_id.logo"
+                                t-att-src="'data:image/png;base64,%s' % to_text(o.company_id.logo)"
+                                style="width: 100px; border-radius: 10px;"/>
+                        </t>
+                    </div>
+                    <div style="float: right; width: 68%; text-align: right;">
+                        <t t-if="not o.company_id.header_memb">
+                            <strong style="font-size: 16px;"><span t-field="o.company_id.name"/></strong><br/>
+                            Dirección: <span t-field="o.company_id.street"/><br/>
+                            Teléfono: <span t-field="o.company_id.phone"/><br/>
+                            Email: <span t-field="o.company_id.email"/><br/>
+                        </t>
+                    </div>
+                </div>
+                <hr t-if="not o.company_id.header_memb"/>
+
+                <div class="page" style="font-size:20px; padding-right: 50px;padding-left: 50px; font-family:sans-serif;">
+                    <br/>
+                    <br/>
+
+                    <h1 style="text-align: center; font-size: 24px; margin-top: 80px;"><strong>CONSTANCIA LABORAL</strong></h1>
+                    <p style="text-align: justify; font-size: 20px; line-height: 2.0; margin-top: 60px;">
+                     Por medio de la presente <strong><span t-field="o.company_id.name"/></strong>, hace constar que <strong><span t-field="o.employee_id.name"/></strong>,
+                     con número de identidad <strong><span t-field="o.employee_id.identification_id"/></strong> labora para esta empresa desde el
+                     <strong><span t-field="o.date_start_text"/></strong> desempeñando el cargo de <strong><span t-field="o.job_id.name"/></strong> devengando un salario mensual de
+                     <strong><span t-field="o.wage_in_words"/> (<span t-field="o.wage"/>)</strong> del cual se aplican las siguientes deducciones:</p>
+
+                    <t t-set="total_deducciones" t-value="o.cert_ihss_monthly + o.cert_rap + o.cert_isr + o.afp_atlantida_amount"/>
+
+                    <table width="100%" style="border: 1px solid black; font-size: 16px;" class="table table-bordered">
+                        <tr style="border: 1px solid black;">
+                            <td><strong>Descripción</strong></td>
+                            <td><strong>Monto</strong></td>
+                        </tr>
+                        <tr style="border: 1px solid black;">
+                            <td><strong>Seguro Social (IHSS)</strong></td>
+                            <td>
+                                <span t-field="o.cert_ihss_monthly" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                            </td>
+                        </tr>
+                        <tr t-if="o.cert_isr" style="border: 1px solid black;">
+                            <td><strong>Impuesto sobre la renta (ISR)</strong></td>
+                            <td>
+                                <span t-field="o.cert_isr" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                            </td>
+                        </tr>
+                        <tr style="border: 1px solid black;">
+                            <td><strong>Régimen de aportaciones (RAP)</strong></td>
+                            <td>
+                                <span t-field="o.cert_rap" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                            </td>
+                        </tr>
+                        <tr t-if="o.afp_atlantida_amount" style="border: 1px solid black;">
+                            <td><strong>AFP Atlántida</strong></td>
+                            <td>
+                                <span t-field="o.afp_atlantida_amount" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                            </td>
+                        </tr>
+                        <tr style="border: 1px solid black;">
+                            <td><strong>TOTAL</strong></td>
+                            <td>
+                                <span t-esc="total_deducciones" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <p style="text-align: justify; font-size: 20px; line-height: 2.0; margin-top: 30px;">
+                    Y para los fines correspondientes se extiende la presente constancia en la ciudad de Tegucigalpa, M. D. C. el <t t-esc="o.get_today_in_words()"/>.
+                    </p>
+
+                    <div style="float: left; width: 750px; height: 300px; text-align: center;">
+                        <div t-if="o.hr_responsible_id.signature" t-raw="o.hr_responsible_id.signature"/>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <template id="report_employee_declaration">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="lang" t-value="o.company_id.partner_id.lang or 'es_ES'"/>
+                    <t t-call="l10n_hn_payroll_base.report_employee_declaration_document" t-lang="lang"/>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

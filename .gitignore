@@ -1,0 +1,62 @@
+# Python
+*.py[cod]
+*$py.class
+*.so
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Odoo specific
+*.pyc
+__pycache__/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Database
+*.db
+*.sqlite
+*.dump
+
+# Temporary files
+*.tmp
+*.bak
+*.backup
+
+# Cursor
+.cursor/
+
+# Archives and deployment backups
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.7z
+
+# Local backup directories
+backup/
+backups/
+
+# Test and coverage artifacts
+.coverage
+.coverage.*
+.pytest_cache/
+htmlcov/
+coverage.xml
+
+# Odoo runtime artifacts
+sessions/
+filestore/

@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- ============================================ -->
+        <!-- TIPOS DE INPUT PARA ANTICIPOS -->
+        <!-- ============================================ -->
+        
+        <!-- Tipo de Input: Anticipo Décimo Tercer Mes -->
+        <record id="input_type_adv_13th_month" model="hr.payslip.input.type">
+            <field name="name">Anticipo Décimo Tercer Mes</field>
+            <field name="code">ADV_13TH_MONTH</field>
+        </record>
+        
+        <!-- Tipo de Input: Anticipo Décimo Cuarto Mes -->
+        <record id="input_type_adv_14th_month" model="hr.payslip.input.type">
+            <field name="name">Anticipo Décimo Cuarto Mes</field>
+            <field name="code">ADV_14TH_MONTH</field>
+        </record>
+        
+        <!-- ============================================ -->
+        <!-- TIPOS DE ESTRUCTURA PARA DÉCIMO TERCER Y CUARTO MES -->
+        <!-- ============================================ -->
+        
+        <!-- Tipo de Estructura: Décimo Tercer Mes (Aguinaldo) -->
+        <record id="structure_type_13th_month" model="hr.payroll.structure.type">
+            <field name="name">Décimo Tercer Mes (Aguinaldo)</field>
+            <field name="default_schedule_pay">monthly</field>
+            <field name="default_resource_calendar_id" ref="resource.resource_calendar_std"/>
+        </record>
+        
+        <!-- Tipo de Estructura: Décimo Cuarto Mes -->
+        <record id="structure_type_14th_month" model="hr.payroll.structure.type">
+            <field name="name">Décimo Cuarto Mes</field>
+            <field name="default_schedule_pay">monthly</field>
+            <field name="default_resource_calendar_id" ref="resource.resource_calendar_std"/>
+        </record>
+        
+        <!-- ============================================ -->
+        <!-- ESTRUCTURAS SALARIALES PARA DÉCIMO TERCER Y CUARTO MES -->
+        <!-- ============================================ -->
+        
+        <!-- Estructura Salarial Décimo Tercer Mes (sin reglas inicialmente) -->
+        <record id="structure_13th_month" model="hr.payroll.structure">
+            <field name="name">Estructura Décimo Tercer Mes (Aguinaldo)</field>
+            <field name="country_id" ref="base.hn"/>
+            <field name="type_id" ref="l10n_hn_hr_payroll.structure_type_13th_month"/>
+            <field name="code">HN_13TH_MONTH</field>
+            <field name="input_line_type_ids" eval="[(4, ref('l10n_hn_hr_payroll.input_type_adv_13th_month'))]"/>
+        </record>
+        
+        <!-- Estructura Salarial Décimo Cuarto Mes (sin reglas inicialmente) -->
+        <record id="structure_14th_month" model="hr.payroll.structure">
+            <field name="name">Estructura Décimo Cuarto Mes</field>
+            <field name="country_id" ref="base.hn"/>
+            <field name="type_id" ref="l10n_hn_hr_payroll.structure_type_14th_month"/>
+            <field name="code">HN_14TH_MONTH</field>
+            <field name="input_line_type_ids" eval="[(4, ref('l10n_hn_hr_payroll.input_type_adv_14th_month'))]"/>
+        </record>
+        
+        <!-- ============================================ -->
+        <!-- REGLAS SALARIALES PARA DÉCIMO TERCER MES -->
+        <!-- ============================================ -->
+        
+        <!-- Salario Base para Décimo Tercer Mes -->
+        <record id="salary_rule_basic_13th" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_13th_month"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_allowance"/>
+            <field name="name">Salario Base</field>
+            <field name="code">BASIC</field>
+            <field name="sequence">1</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = employee.current_version_id and (employee.current_version_id.wage or employee.wage) > 0</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if employee.current_version_id:
+    version = employee.current_version_id
+    wage = version.wage or 0.0
+    result = wage
+elif employee.wage:
+    result = employee.wage
+            </field>
+            <field name="is_ihss_base" eval="True"/>
+            <field name="is_rap_base" eval="True"/>
+            <field name="is_isr_base" eval="True"/>
+            <field name="is_computable" eval="True"/>
+            <field name="periodicity">all</field>
+        </record>
+        
+        <!-- Salario Bruto para Décimo Tercer Mes - categoría Bruto -->
+        <record id="salary_rule_gross_13th" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_13th_month"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_gross"/>
+            <field name="name">Salario Bruto</field>
+            <field name="code">GROSS</field>
+            <field name="sequence">2</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if payslip.date_to:
+    year = payslip.date_to.year
+    month = payslip.date_to.month
+    thirteenth_month = payslip.env['l10n.hn.thirteenth.month'].search([
+        ('employee_id', '=', employee.id),
+        ('year', '=', year),
+        ('payment_month', '=', str(month)),
+        ('paid', '=', False)
+    ], limit=1)
+    if thirteenth_month and thirteenth_month.calculated_amount > 0:
+        result = thirteenth_month.calculated_amount
+        thirteenth_month.write({'paid': True, 'payslip_id': payslip.id})
+            </field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- Anticipo Décimo Tercer Mes -->
+        <record id="salary_rule_13th_month_advance" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_13th_month"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">Anticipo Décimo Tercer Mes</field>
+            <field name="code">ADV_13TH_MONTH</field>
+            <field name="sequence">70</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'ADV_13TH_MONTH' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if 'ADV_13TH_MONTH' in inputs:
+    advance_amount = abs(inputs.get('ADV_13TH_MONTH', 0).amount)
+    gross_amount = categories.get('GROSS', 0)
+    if advance_amount > 0 and gross_amount > 0:
+        result = -min(advance_amount, gross_amount)
+            </field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- Salario Neto para Décimo Tercer Mes -->
+        <record id="salary_rule_net_13th" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_13th_month"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_net"/>
+            <field name="name">Salario Neto</field>
+            <field name="code">NET</field>
+            <field name="sequence">100</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = categories.get('BASIC', 0) + categories.get('ALW', 0) - categories.get('DED', 0)</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- ============================================ -->
+        <!-- REGLAS SALARIALES PARA DÉCIMO CUARTO MES -->
+        <!-- ============================================ -->
+        
+        <!-- Salario Base para Décimo Cuarto Mes -->
+        <record id="salary_rule_basic_14th" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_14th_month"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_allowance"/>
+            <field name="name">Salario Base</field>
+            <field name="code">BASIC</field>
+            <field name="sequence">1</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = employee.current_version_id and (employee.current_version_id.wage or employee.wage) > 0</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if employee.current_version_id:
+    version = employee.current_version_id
+    wage = version.wage or 0.0
+    result = wage
+elif employee.wage:
+    result = employee.wage
+            </field>
+            <field name="is_ihss_base" eval="True"/>
+            <field name="is_rap_base" eval="True"/>
+            <field name="is_isr_base" eval="True"/>
+            <field name="is_computable" eval="True"/>
+            <field name="periodicity">all</field>
+        </record>
+        
+        <!-- Salario Bruto para Décimo Cuarto Mes - categoría Bruto -->
+        <record id="salary_rule_gross_14th" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_14th_month"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_gross"/>
+            <field name="name">Salario Bruto</field>
+            <field name="code">GROSS</field>
+            <field name="sequence">2</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if payslip.date_to:
+    year = payslip.date_to.year
+    month = payslip.date_to.month
+    fourteenth_month = payslip.env['l10n.hn.fourteenth.month'].search([
+        ('employee_id', '=', employee.id),
+        ('year', '=', year),
+        ('payment_month', '=', str(month)),
+        ('paid', '=', False)
+    ], limit=1)
+    if fourteenth_month and fourteenth_month.calculated_amount > 0:
+        result = fourteenth_month.calculated_amount
+        fourteenth_month.write({'paid': True, 'payslip_id': payslip.id})
+            </field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- Anticipo Décimo Cuarto Mes -->
+        <record id="salary_rule_14th_month_advance" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_14th_month"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">Anticipo Décimo Cuarto Mes</field>
+            <field name="code">ADV_14TH_MONTH</field>
+            <field name="sequence">71</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'ADV_14TH_MONTH' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if 'ADV_14TH_MONTH' in inputs:
+    advance_amount = abs(inputs.get('ADV_14TH_MONTH', 0).amount)
+    gross_amount = categories.get('GROSS', 0)
+    if advance_amount > 0 and gross_amount > 0:
+        result = -min(advance_amount, gross_amount)
+            </field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- Salario Neto para Décimo Cuarto Mes -->
+        <record id="salary_rule_net_14th" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_14th_month"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_net"/>
+            <field name="name">Salario Neto</field>
+            <field name="code">NET</field>
+            <field name="sequence">100</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = categories.get('BASIC', 0) + categories.get('ALW', 0) - categories.get('DED', 0)</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+    </data>
+</odoo>

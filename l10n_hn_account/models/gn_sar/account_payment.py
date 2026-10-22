@@ -1,0 +1,11 @@
+from odoo import fields, models
+
+
+class AccountPayment(models.Model):
+    _inherit = 'account.payment'
+
+    partner_id = fields.Many2one(
+        'res.partner',
+        string='Partner',
+        domain="[('is_customer', '=', True)] if partner_type == 'customer' else [('is_supplier', '=', True)] if partner_type == 'supplier' else []",
+    )

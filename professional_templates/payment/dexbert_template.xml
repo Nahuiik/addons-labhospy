@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="PAYMENT_1_document" name="Dexbert Template">
+            <t t-call="web.report_layout">
+                <t t-set="o" t-value="o.with_context(lang=lang)"/>
+                <t t-set="style" t-value="o.style or res_company.df_style or user.env.ref('professional_templates.df_style_for_all_reports')"/>
+
+                <t t-if="o and 'company_id' in o">
+                    <t t-set="company" t-value="o.company_id"></t>
+                </t>
+                <t t-if="not o or not 'company_id' in o">
+                    <t t-set="company" t-value="res_company"></t>
+                </t>
+            <div class="header col-12" t-attf-style="color:{{style.text_color}} !important;font-size:{{int(style.header_font)}}px !important;font-family:{{style.font_family}} !important;">
+                <t t-if="style.header">
+                    <div class="row mb-2">
+                        <div class="col-6">
+                            <span t-if="style.logo">
+                                <img t-if="style.logo" t-att-src="image_data_uri(style.logo)" alt="Logo"/>
+                            </span>
+                            <span t-if="not style.logo">
+                                <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo"/>
+                            </span>
+                            <div class="p-1" t-if="company.twitter or company.facebook or company.youtube" t-attf-style="background-color:{{style.theme_color}};color:{{style.theme_txt_color}};max-width: fit-content;">
+                                <span t-if="company.twitter" style="padding-left:0px;" class="fa fa-twitter-square "/>&#160;<span t-field="company.twitter"/>
+                                <span t-if="company.facebook" style="padding-left:13px;" class="fa fa-facebook-square "/>&#160;<span t-field="company.facebook"/>
+                                <span t-if="company.youtube" style="padding-left:13px;" class="fa fa-youtube-square "/>&#160;<span t-field="company.youtube" />
+                            </div>
+                        </div>
+                        <div class="col-6 d-flex justify-content-end">
+                            <strong>
+                                <span t-field="company.partner_id.name"/> <br/>
+                                <span t-field="company.street"/>  <span t-field="company.street2"/>
+                                 <span t-field="company.city"/><br/>
+                                <span t-field="company.phone"/><br/>
+                                <span t-field="company.email"/><br/>
+                                <span t-field="company.website"/> <br/>
+                                RTN: <span t-field="company.vat"/> 
+                            </strong>                        
+                        </div>
+                    </div>
+                </t>
+            </div>
+            <div class="article page" t-attf-style="color:{{style.text_color}} !important;font-size:{{int(style.body_font)}}px !important;font-family:{{style.font_family}} !important;">
+                    <div class="row mb-2"  t-attf-style="color:{{style.text_color}};font-size:{{int(style.body_font)}}px !important;">
+
+                        <div class="col-8 float-left">
+                            <h3 t-attf-style="margin-top:8px;color:{{style.theme_txt_color}}"><b>Recibo de Pago: <span t-field="o.name"/></b></h3>
+                        </div>
+                        <div class="col-4 text-end" t-attf-style="background-color:transparent;">
+                            <h3 t-attf-style="margin-top:8px;color:{{style.text_color}};text-underline-position: under;"><b>Monto:<u><span t-field="o.amount"/></u></b></h3>
+                        </div>
+                    </div>
+                    <div class="row mb-2 text-left"  t-attf-style="color:{{style.text_color}};font-size:15px;">
+                        <div class="col-6">
+                            <strong>Fecha de Pago:</strong><span t-field="o.date"/><br/>
+                            <strong>Cliente:</strong><span t-field="o.partner_id.name"/><br/>
+                            <strong>Importe de pago:</strong> <span t-field="o.amount" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/><br/>
+                            <strong>Metodo de pago:</strong> <span t-field="o.payment_method_id.name"/><br/>
+                            <strong>En concepto de:</strong> <t t-set="payment_ref" t-value="(o._fields.get('ref') and o.ref) or (o.move_id and o.move_id.ref)"/>
+                            <span t-esc="payment_ref or ''"/>
+                        </div>
+
+                    </div>
+                    <table class="table table-sm" name="invoice_table_new" style="margin-top:5%;font-size:14px; border:none;">
+                            <thead>
+                                <tr style="border-bottom:2px solid #7d7b7b;">
+                                    <th style="border:none;"><strong>Fecha de Factura</strong></th>
+                                    <th style="border:none;"><strong>Número de Factura</strong></th>
+                                    <!-- <th><strong>Factura Proveedor</strong></th> -->
+                                    <th class="text-right" style="border:none;"><strong>Monto Original</strong></th>
+                                    <th class="text-right" style="border:none;"><strong>Monto Pagado</strong></th>
+                                    <th class="text-right" style="border:none;"><strong>Saldo</strong></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-if="o.invoice_lines">
+                                <tr style="border-bottom: 1px solid #adadad;" t-if="o.invoice_lines.filtered(lambda x: x.invoice_id.currency_id.name == 'HNL')"> 
+                                        
+                                        <td colspan="5" class="text-center" style="border:none;"><strong>Facturas (Lps)</strong></td>
+                                       
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #adadad;" t-foreach="o.invoice_lines.filtered(lambda x: x.invoice_id.currency_id.name == 'HNL')" t-as="inv">
+                                        <td style="border:none;"><span t-field="inv.date_invoice"/></td>
+                                        <td style="border:none;"><span t-field="inv.invoice_id.name"/></td>
+                                        <td class="text-right" style="border:none;"><span t-field="inv.invoice_id.amount_total"/></td>
+                                        <td class="text-right"><span t-esc="inv.amount" t-options="{'widget': 'monetary', 'display_currency': inv.invoice_id.currency_id}"/></td>
+                                        <td class="text-right" style="border:none;"><span t-esc="inv.actual_amount" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/></td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #adadad;" t-if="o.invoice_lines.filtered(lambda x: x.invoice_id.currency_id.name == 'USD')" >
+                                      
+                                        <td colspan="5" class="text-center" style="border:none;"><strong>Facturas ($)</strong></td>
+
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #adadad;" t-foreach="o.invoice_lines.filtered(lambda x: x.invoice_id.currency_id.name == 'USD')" t-as="inv">
+                                        <td style="border:none;"><span t-field="inv.date_invoice"/></td>
+                                        <td style="border:none;"><span t-field="inv.invoice_id.name"/></td>
+                                        <td class="text-right" style="border:none;"><span t-field="inv.invoice_id.amount_total"/></td>
+                                        <td class="text-right" style="border:none;"><span t-esc="inv.amount" t-options="{'widget': 'monetary', 'display_currency': inv.invoice_id.currency_id}"/></td>
+                                        <td class="text-right" style="border:none;"><span t-esc="inv.actual_amount" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/></td>
+                                    </tr>
+                                    </t>
+                                    <t t-if="not o.invoice_lines">
+                                        <!-- Obtener facturas reconciliadas del pago usando el método estándar -->
+                                        <t t-set="partials_data" t-value="o.move_id and o.move_id._get_reconciled_invoices_partials()"/>
+                                        <t t-set="partials" t-value="partials_data[0] if partials_data else []"/>
+                                        <t t-set="reconciled_invoices" t-value="o.reconciled_invoice_ids or (partials and env['account.move'].browse([partial[2].move_id.id for partial in partials])) or env['account.move']"/>
+                                        
+                                        <!-- Si no hay facturas reconciliadas, intentar buscar por ref -->
+                                        <t t-if="not reconciled_invoices and o.ref">
+                                            <t t-set="ref_str" t-value="o.ref or ''"/>
+                                            <t t-set="ref_list" t-value="[r.strip() for r in ref_str.split(',') if r.strip()] if ',' in ref_str else [ref_str.strip()] if ref_str.strip() else []"/>
+                                            <t t-if="ref_list">
+                                                <t t-set="reconciled_invoices" t-value="env['account.move'].search([('name', 'in', ref_list)])"/>
+                                            </t>
+                                        </t>
+                                        
+                                        <t t-if="reconciled_invoices">
+                                            <!-- Agrupar facturas por moneda -->
+                                            <t t-set="invoices_hnl" t-value="reconciled_invoices.filtered(lambda x: x.currency_id.name == 'HNL')"/>
+                                            <t t-set="invoices_usd" t-value="reconciled_invoices.filtered(lambda x: x.currency_id.name == 'USD')"/>
+                                            
+                                            <!-- Facturas en Lempiras -->
+                                            <t t-if="invoices_hnl">
+                                                <tr style="border-bottom: 1px solid #adadad;">
+                                                    <td colspan="5" class="text-center" style="border:none;"><strong>Facturas (Lps)</strong></td>
+                                                </tr>
+                                                <t t-foreach="invoices_hnl" t-as="move">
+                                                    <t t-set="amount_paid" t-value="o.amount"/>
+                                                    <t t-if="partials">
+                                                        <t t-set="move_partials" t-value="[p for p in partials if p[2].move_id.id == move.id]"/>
+                                                        <t t-if="move_partials">
+                                                            <t t-set="amount_paid" t-value="abs(sum([abs(p[1]) for p in move_partials]))"/>
+                                                        </t>
+                                                    </t>
+                                                    <tr style="border-bottom: 1px solid #adadad;">
+                                                        <td style="border:none;"><span t-field="move.invoice_date"/></td>
+                                                        <td style="border:none;"><span t-field="move.name"/></td>
+                                                        <td class="text-right" style="border:none;"><span t-field="move.amount_total" t-options="{'widget': 'monetary', 'display_currency': move.currency_id}"/></td>
+                                                        <td class="text-right" style="border:none;">
+                                                            <span t-esc="abs(amount_paid)" t-options="{'widget': 'monetary', 'display_currency': move.currency_id}" style="border:none;"   />
+                                                        </td>
+                                                        <td class="text-right" style="border:none;"><span t-field="move.amount_residual" t-options="{'widget': 'monetary', 'display_currency': move.currency_id}"/></td>
+                                                    </tr>
+                                                </t>
+                                            </t>
+                                            
+                                            <!-- Facturas en Dólares -->
+                                            <t t-if="invoices_usd">
+                                                <tr style="border-bottom: 1px solid #adadad;">
+                                                    <td colspan="5" class="text-center" style="border:none;"><strong>Facturas ($)</strong></td>
+                                                </tr>
+                                                <t t-foreach="invoices_usd" t-as="move">
+                                                    <t t-set="amount_paid" t-value="o.amount"/>
+                                                    <t t-if="partials">
+                                                        <t t-set="move_partials" t-value="[p for p in partials if p[2].move_id.id == move.id]"/>
+                                                        <t t-if="move_partials">
+                                                            <t t-set="amount_paid" t-value="abs(sum([abs(p[1]) for p in move_partials]))"/>
+                                                        </t>
+                                                    </t>
+                                                    <tr style="border-bottom: 1px solid #adadad;">
+                                                        <td style="border:none;"><span t-field="move.invoice_date"/></td>
+                                                        <td style="border:none;"><span t-field="move.name"/></td>
+                                                        <td class="text-right" style="border:none;"><span t-field="move.amount_total" t-options="{'widget': 'monetary', 'display_currency': move.currency_id}"/></td>
+                                                        <td class="text-right" style="border:none;">
+                                                            <span t-esc="abs(amount_paid)" t-options="{'widget': 'monetary', 'display_currency': move.currency_id}"/>
+                                                        </td>
+                                                        <td class="text-right" style="border:none;"><span t-field="move.amount_residual" t-options="{'widget': 'monetary', 'display_currency': move.currency_id}"/></td>
+                                                    </tr>
+                                                </t>
+                                            </t>
+                                        </t>
+                                    </t>
+                            </tbody>
+                        </table>
+
+                        <table name="footer_table" style="width:100%; font-size:14px; padding:25px 0; margin-top:15%; border-collapse:separate; border-spacing:0;">
+                            <tr>
+                                <!-- Primera columna: Elaborador Por -->
+                                <td style="width:45%; text-align:center; vertical-align:top; padding-right:20px;">
+                                    <div style="border-bottom: 1px solid #000000; min-height:60px; padding-bottom:10px; position:relative;">
+                                        <div style="position:absolute; bottom:10px; left:0; right:0; text-align:center;">
+                                            <u><span t-field="user.name"/></u>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top:10px; padding:5px 0;">Elaborador Por</div>
+                                </td>
+                                
+                                <!-- Espacio intermedio -->
+                                <td style="width:10%;"></td>
+                                
+                                <!-- Segunda columna: Entregué Conforme -->
+                                <td style="width:45%; text-align:center; vertical-align:top; padding-left:20px;">
+                                    <div style="border-bottom: 1px solid #000000; min-height:60px; padding-bottom:10px;"></div>
+                                    <div style="margin-top:10px; padding:5px 0;">Entregué Conforme</div>
+                                </td>
+                            </tr>
+                        </table>                
+                    <t t-set="partials" t-value="partials_data[0] if partials_data else []"/>
+                    <t t-set="invoices" t-value="{partial[2].move_id for partial in partials}"/>
+                        <!-- Check if invoices include different currencies -->
+                    <t t-foreach="invoices" t-as="inv">
+                        <t t-if="any(inv.currency_id != par[2].currency_id for par in inv._get_reconciled_invoices_partials()[0])" t-set="otherCurrency" t-value="True"/>
+                    </t>
+                    <!--<table class="table table-sm" t-attf-style="color:{{style.text_color}};font-size:{{int(style.body_font)}}px !important;">
+                         <thead  t-attf-style="background-color:{{style.theme_color}};color:{{style.theme_txt_color}};">
+                            <tr>
+                                <th class="text-end" t-attf-style="color:{{style.theme_txt_color}};"><span>Monto </span><i class="fa fa-money"/></th>
+                                <th t-if="otherCurrency" class="text-end"><span>Monto en Moneda</span></th>
+                                <th class="text-end" t-attf-style="color:{{style.theme_txt_color}};"><span>Referencia </span><i class="fa fa-hashtag"/></th>
+                                <th class="text-end" t-attf-style="color:{{style.theme_txt_color}};"><span>Numero de Factura </span><i class="fa fa-hashtag"/></th>
+                                <th class="text-end" t-attf-style="color:{{style.theme_txt_color}};"><span>Fecha de Factura </span><i class="fa fa-calendar"/></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="invoices" t-as="inv">
+                                <t t-if="inv.move_type != 'entry'">
+                                    <tr>
+                                        <td class="text-end"><span t-field="inv.amount_total"/></td>
+                                        <td class="text-end" t-if="otherCurrency"/>
+                                        <td class="text-end"><span t-field="inv.ref"/></td>
+                                        <td class="text-end"><span t-field="inv.name"/></td>
+                                        <td class="text-end"><span t-field="inv.invoice_date"/></td>
+                                    </tr>
+                                    <tr t-foreach="inv._get_reconciled_invoices_partials()[0]" t-as="par">
+                                        <t t-set="payment" t-value="par[2].move_id"/>
+                                        <t t-set="amountPayment" t-value="-payment.amount_total"/>
+                                        <t t-set="amountInvoice" t-value="-par[1]"/>
+                                        <t t-set="currencyPayment" t-value="payment.currency_id"/>
+                                        <t t-set="currencyInvoice" t-value="inv.currency_id"/>
+                                        <td class="text-end"><span t-esc="amountInvoice" t-options="{'widget': 'monetary', 'display_currency': currencyInvoice}"/></td>
+                                        <td t-if="otherCurrency" class="text-end"><span t-if="currencyPayment != currencyInvoice" t-esc="amountPayment" t-options="{'widget': 'monetary', 'display_currency': currencyPayment}"/></td>
+                                        <td class="text-end"><span t-field="payment.ref"/></td>
+                                        <td class="text-end"><span t-field="payment.name"/></td>
+                                        <td class="text-end"><span t-field="payment.date"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td/>
+                                        <td><strong>Monto pendiente de <span t-field="inv.name"/></strong></td>
+                                        <td/>
+                                        <td t-if="otherCurrency"/>
+                                        <td class="text-end"><strong><span t-field="inv.amount_residual"/></strong></td>
+                                    </tr>
+                                </t>
+                            </t>
+                        </tbody>
+                    </table> -->
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

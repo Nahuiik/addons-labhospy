@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_financial_dashboard.CustomKpiCard">
+        <div t-att-class="'gn-fd-kpi gn-fd-kpi--' + tone + (props.onClick and !props.kpi.error ? ' gn-fd-kpi--clickable' : '')"
+             t-on-click="onCardClick">
+            <div class="gn-fd-kpi__icon">
+                <i t-att-class="'fa ' + (props.kpi.icon || 'fa-bullseye')"/>
+            </div>
+            <div class="gn-fd-kpi__body">
+                <div class="gn-fd-kpi__label">
+                    <span t-esc="props.kpi.name"/>
+                    <span t-if="props.kpi.description" class="gn-fd-kpi__help" tabindex="0">
+                        <i class="fa fa-info-circle"/>
+                        <span class="gn-fd-kpi__tooltip" role="tooltip">
+                            <strong class="d-block mb-1" t-esc="props.kpi.name"/>
+                            <span class="d-block" t-esc="props.kpi.description"/>
+                            <span t-if="props.kpi.target_value" class="d-block mt-1">
+                                <b>Meta: </b><t t-esc="props.kpi.target_value"/>
+                            </span>
+                        </span>
+                    </span>
+                </div>
+                <div t-if="props.kpi.error" class="gn-fd-kpi__value text-danger" style="font-size: .85rem">
+                    <i class="fa fa-exclamation-triangle me-1"/>
+                    <t t-esc="props.kpi.error"/>
+                </div>
+                <div t-else="" class="gn-fd-kpi__value" t-esc="props.kpi.formatted"/>
+                <div t-if="deltaInfo"
+                     t-att-class="'gn-fd-kpi__delta gn-fd-kpi__delta--' + deltaInfo.visual">
+                    <i t-att-class="'fa ' + (deltaInfo.direction === 'up' ? 'fa-arrow-up' : 'fa-arrow-down')"/>
+                    <t t-esc="deltaInfo.label"/>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

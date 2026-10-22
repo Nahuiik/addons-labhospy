@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="report_hn_libro_compras" model="ir.actions.report">
+        <field name="name">Libro de Compras</field>
+        <field name="model">libro.compras.forecast</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hn_account.report_libro_compras_invoice_view</field>
+        <field name="report_file">l10n_hn_account.report_libro_compras_invoice_view</field>
+        <field name="binding_model_id" ref="model_libro_compras_forecast"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="report_hn_libro_ventas" model="ir.actions.report">
+        <field name="name">Libro de Ventas</field>
+        <field name="model">libro.ventas.forecast</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hn_account.report_libro_ventas_invoice_view</field>
+        <field name="report_file">l10n_hn_account.report_libro_ventas_invoice_view</field>
+        <field name="binding_model_id" ref="model_libro_ventas_forecast"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="report_isv" model="ir.actions.report">
+        <field name="name">ISV Reporte</field>
+        <field name="model">l10n_hn_account.wizard_isv_report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hn_account.isv_report_view</field>
+        <field name="report_file">l10n_hn_account.isv_report_view</field>
+        <field name="binding_model_id" ref="model_l10n_hn_account_wizard_isv_report"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="report_hn_libro_ventas_xls" model="ir.actions.report">
+        <field name="name">Libro de Ventas XLS</field>
+        <field name="model">libro.ventas.forecast</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">l10n_hn_account.report_libro_ventas_invoice_xls</field>
+        <field name="report_file">Libro de Ventas XLS</field>
+    </record>
+
+    <record id="report_hn_libro_compras_xls" model="ir.actions.report">
+        <field name="name">Libro de Compras XLS</field>
+        <field name="model">libro.compras.forecast</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">l10n_hn_account.report_libro_compras_invoice_xls</field>
+        <field name="report_file">Libro de Compras XLS</field>
+    </record>
+
+    <record id="isv_report_xls" model="ir.actions.report">
+        <field name="name">ISV Reporte XLS</field>
+        <field name="model">l10n_hn_account.wizard_isv_report</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">l10n_hn_account.isv_report_xls.xlsx</field>
+        <field name="report_file">ISV XLS</field>
+    </record>
+</odoo>

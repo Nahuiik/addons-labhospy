@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="account_status_report">
+        <div class="article">
+            <table style="width:100%">
+                <tr>
+                    <td style="width:30%;">
+                        <table style="width:100%%;">
+                            <td>
+                                <img t-if="user.company_id.logo" t-att-src="'data:image/png;base64,%s' % to_text(user.company_id.logo)" style="height:150px;"/>
+                            </td>
+                        </table>
+                    </td>
+                    <td style="width:70%">
+                        <table style="width:100%;">
+                            <tr>
+                                <td style="width:100%;font-size:22px;text-align:center"><strong><span t-esc="user.company_id.name.upper()"/></strong></td>
+                            </tr>
+                            <tr>
+                                <td style="width:100%;font-size:20px;text-align:center"><strong>SUMMARY Patient Account Statement</strong></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+
+            <table style="width:100%">
+                <tr>
+                    <td style="font-size:16px"><strong>Pacient:</strong> <span t-esc="vals.get('partner')"/></td>
+                    <td style="font-size:16px"><strong>Date:</strong> <span t-esc="vals.get('date')"/></td>
+                </tr>
+                <tr>
+                    <td style="font-size:16px"><strong>Reference:</strong> <span t-esc="vals.get('reference')"/></td>
+                </tr>
+            </table>
+
+            <br/>
+
+            <table style="width:100%">
+                <tr>
+                    <td style="border-bottom:1px solid black;font-size:16px"><strong>ID ARTICLE</strong></td>
+                    <td style="text-align:right;border-bottom:1px solid black;font-size:16px"><strong>TOTAL</strong></td>
+                </tr>
+                <t t-foreach="docs" t-as="o">
+                    <tr>
+                        <td style="font-size:14px"><span t-esc="o.get('category')"/></td>
+                        <td style="text-align:right;font-size:14px"><span t-esc="'{0:,.2f}'.format(o.get('amount'))"/></td>
+                    </tr>
+                </t>
+                <tr>
+                    <td style="text-align:right;border-top:1px solid black;font-size:14px" colspan="2"><strong><span t-esc="'{0:,.2f}'.format(vals.get('total'))"/></strong></td>
+                </tr>
+            </table>
+        </div>
+    </template>
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- True/1: oculta el botón «Crear usuario» en la ficha del empleado (Administración / Ajustes / Parámetros técnicos) -->
+        <record id="hr_employee_hide_create_user_param" model="ir.config_parameter">
+            <field name="key">hr.employee.hide_create_user_button</field>
+            <field name="value">False</field>
+        </record>
+        <!-- True: mail.mail.send no usa SMTP (ver Ajustes Nómina / res.config.settings). -->
+        <record id="gn_mail_testing_simulate_send_default" model="ir.config_parameter">
+            <field name="key">gn.mail.testing_simulate_send</field>
+            <field name="value">False</field>
+        </record>
+    </data>
+</odoo>

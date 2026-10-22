@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_dynamic_report_tree" model="ir.ui.view">
+        <field name="name">dynamic.report.tree</field>
+        <field name="model">dynamic.report</field>
+        <field name="arch" type="xml">
+            <list string="Dynamic Reports">
+                <field name="name"/>
+                <field name="report_type"/>
+                <field name="state" widget="badge"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="generated_at"/>
+                <field name="line_count"/>
+                <field name="total_net"/>
+                <field name="total_tax"/>
+                <field name="total_amount"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_dynamic_report_form" model="ir.ui.view">
+        <field name="name">dynamic.report.form</field>
+        <field name="model">dynamic.report</field>
+        <field name="arch" type="xml">
+            <form string="Dynamic Report">
+                <header>
+                    <button name="action_generate" type="object" string="Generate" class="btn-primary" invisible="state == 'generating'"/>
+                    <button name="action_open_export_wizard" type="object" string="Export" class="btn-secondary" invisible="state != 'ready'"/>
+                    <button name="action_view_lines" type="object" string="View Lines" class="oe_stat_button" icon="fa-table"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_lines" type="object" class="oe_stat_button" icon="fa-list" invisible="state != 'ready'" string="Lines">
+                            <field name="line_count" widget="statinfo" nolabel="1"/>
+                        </button>
+                    </div>
+                    <group>
+                        <field name="state" readonly="1" widget="statusbar" statusbar_visible="draft,generating,ready,failed"/>
+                    </group>
+                    <group colspan="2">
+                        <group class="o_inner_group">
+                            <field name="name"/>
+                            <field name="date_start"/>
+                        </group>
+                        <group class="o_inner_group">
+                            <field name="report_type" options="{'no_open': True}"/>
+                            <field name="company_id"/>
+                        </group>
+                        <group class="o_inner_group">
+                            <field name="date_end"/>
+                        </group>
+                    </group>
+                    <group string="Invoice States">
+                        <field name="state_filter" widget="many2many_tags" options="{'no_create': True}"/>
+                    </group>
+                    <group>
+                        <field name="generated_at" readonly="1"/>
+                    </group>
+                    <group string="Totals" colspan="4">
+                        <group class="o_inner_group" col="2">
+                            <field name="total_net" string="Subtotal" readonly="1"/>
+                            <field name="total_amount" string="Total Invoice" readonly="1"/>
+                        </group>
+                        <group class="o_inner_group" col="2">
+                            <field name="total_tax" string="Total Tax" readonly="1"/>
+                            <field name="parameter_summary" readonly="1" nolabel="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Lines">
+                            <field name="line_ids" readonly="1">
+                                <list create="false" delete="false" string="Report Lines">
+                                    <field name="sequence" string="#"/>
+                                    <field name="document_date" string="Fecha"/>
+                                    <field name="document_name" string="Número"/>
+                                    <field name="product_name" string="Producto"/>
+                                    <field name="category_name" string="Categoría"/>
+                                    <field name="partner_name" string="Cliente"/>
+                                    <field name="salesperson_name" string="Comercial"/>
+                                    <field name="quantity"/>
+                                    <field name="price_unit"/>
+                                    <field name="taxable_amount" string="Gravado"/>
+                                    <field name="exempt_amount" string="Exento"/>
+                                    <field name="tax_amount" string="Impuestos"/>
+                                    <field name="subtotal"/>
+                                    <field name="discount_amount" string="Descuentos"/>
+                                    <field name="total"/>
+                                    <field name="cost_unit" string="Costo Unitario"/>
+                                    <field name="cost_total" string="Costo Total"/>
+                                    <field name="margin_amount" string="Utilidad Bruta"/>
+                                    <field name="margin_percent" string="% Utilidad"/>
+                                    <field name="status_label" string="Estado Pago"/>
+                                    <field name="invoice_state_label" string="Estado Factura"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Messages">
+                            <field name="message_ids" widget="mail_thread"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_dynamic_report_line_tree" model="ir.ui.view">
+        <field name="name">dynamic.report.line.tree</field>
+        <field name="model">dynamic.report.line</field>
+        <field name="arch" type="xml">
+            <list string="Report Lines">
+                <field name="sequence" string="#"/>
+                <field name="document_date" string="Fecha"/>
+                                    <field name="document_name" string="Número"/>
+                <field name="product_name" string="Producto"/>
+                <field name="category_name" string="Categoría"/>
+                <field name="partner_name" string="Cliente"/>
+                <field name="salesperson_name" string="Comercial"/>
+                <field name="quantity"/>
+                <field name="price_unit"/>
+                <field name="taxable_amount" string="Gravado"/>
+                <field name="exempt_amount" string="Exento"/>
+                <field name="tax_amount" string="Impuestos"/>
+                <field name="subtotal"/>
+                <field name="discount_amount" string="Descuentos"/>
+                <field name="total"/>
+                <field name="cost_unit" string="Costo Unitario"/>
+                <field name="cost_total" string="Costo Total"/>
+                <field name="margin_amount" string="Utilidad Bruta"/>
+                <field name="margin_percent" string="% Utilidad"/>
+                <field name="status_label" string="Estado Pago"/>
+                <field name="invoice_state_label" string="Estado Factura"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_dynamic_report" model="ir.actions.act_window">
+        <field name="name">Dynamic Reports</field>
+        <field name="res_model">dynamic.report</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create a dynamic report.</p>
+        </field>
+    </record>
+
+    <record id="action_dynamic_report_lines" model="ir.actions.act_window">
+        <field name="name">Report Lines</field>
+        <field name="res_model">dynamic.report.line</field>
+        <field name="view_mode">list,pivot,graph</field>
+        <field name="context">{'search_default_group_by_document_name': 0}</field>
+    </record>
+</odoo>

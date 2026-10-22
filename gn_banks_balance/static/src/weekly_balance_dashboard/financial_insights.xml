@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_banks_balance.FinancialInsights">
+        <section class="gn-wb-insights-panel" t-if="sortedInsights.length">
+            <header class="gn-wb-insights-panel__header">
+                <h6 class="gn-wb-insights-panel__title">Insights financieros</h6>
+            </header>
+            <div class="gn-wb-insights-panel__grid">
+                <t t-foreach="sortedInsights" t-as="ins" t-key="ins_index">
+                    <article t-attf-class="gn-wb-insight-card {{ severityClass(ins.severity || ins.type) }}">
+                        <div class="gn-wb-insight-card__icon">
+                            <i t-att-class="'fa ' + (ins.icon || 'fa-info-circle')"/>
+                        </div>
+                        <div class="gn-wb-insight-card__body">
+                            <div class="gn-wb-insight-card__meta">
+                                <span class="gn-wb-insight-card__category" t-esc="ins.category"/>
+                                <span t-attf-class="gn-wb-insight-card__badge gn-wb-insight-card__badge--{{ ins.severity || ins.type || 'info' }}"
+                                      t-esc="severityLabel(ins.severity || ins.type)"/>
+                            </div>
+                            <h6 class="gn-wb-insight-card__title" t-esc="ins.title"/>
+                            <p class="gn-wb-insight-card__message" t-esc="ins.message"/>
+                            <div class="gn-wb-insight-card__value" t-if="ins.value !== null and ins.value !== undefined">
+                                <t t-esc="fmtValue(ins.value)"/>
+                            </div>
+                        </div>
+                    </article>
+                </t>
+            </div>
+        </section>
+    </t>
+</templates>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_leave_type_form_gn_vacation" model="ir.ui.view">
+        <field name="name">hr.leave.type.form.gn.vacation</field>
+        <field name="model">hr.leave.type</field>
+        <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='visual']" position="after">
+                <group string="Vacaciones" name="gn_vacation">
+                    <field name="gn_vacation_is_primary" widget="boolean_toggle"/>
+                    <field name="gn_vacation_block_before_anniversary" widget="boolean_toggle"
+                        invisible="not gn_vacation_is_primary"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Tipos de permiso estándar: checkboxes de configuración como toggles -->
+    <record id="view_hr_leave_type_form_boolean_toggles" model="ir.ui.view">
+        <field name="name">hr.leave.type.form.boolean.toggles</field>
+        <field name="model">hr.leave.type</field>
+        <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='requires_allocation']" position="attributes">
+                <attribute name="widget">boolean_toggle</attribute>
+            </xpath>
+            <xpath expr="//field[@name='employee_requests']" position="attributes">
+                <attribute name="widget">boolean_toggle</attribute>
+            </xpath>
+            <xpath expr="//field[@name='include_public_holidays_in_duration']" position="attributes">
+                <attribute name="widget">boolean_toggle</attribute>
+            </xpath>
+            <xpath expr="//field[@name='hide_on_dashboard']" position="attributes">
+                <attribute name="widget">boolean_toggle</attribute>
+            </xpath>
+            <xpath expr="//field[@name='support_document']" position="attributes">
+                <attribute name="widget">boolean_toggle</attribute>
+            </xpath>
+            <xpath expr="//field[@name='elligible_for_accrual_rate']" position="attributes">
+                <attribute name="widget">boolean_toggle</attribute>
+            </xpath>
+            <xpath expr="//field[@name='allow_request_on_top']" position="attributes">
+                <attribute name="widget">boolean_toggle</attribute>
+            </xpath>
+            <xpath expr="//field[@name='allows_negative']" position="attributes">
+                <attribute name="widget">boolean_toggle</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

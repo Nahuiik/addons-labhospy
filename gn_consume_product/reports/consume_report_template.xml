@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data>
+    <template id="COPR_1_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.basic_layout">
+                    <t t-if="o and 'company_id' in o">
+                        <t t-set="company" t-value="o.company_id"></t>
+                    </t>
+                    <t t-if="not o or not 'company_id' in o">
+                        <t t-set="company" t-value="res_company"></t>
+                    </t>
+                    <t t-if="doc and 'company_id' in doc">
+                        <t t-set="company" t-value="doc.company_id"/>
+                    </t>
+                    <t t-if="not doc or not 'company_id' in doc">
+                        <t t-set="company" t-value="res_company"/>
+                    </t>
+                    
+                    <t t-set="cont" t-value="3"/>
+                    <t t-foreach="cont" t-as="i">
+                    </t>
+
+                    <div class="article page" t-attf-data-oe-model="consume.product" t-attf-data-oe-id="{{doc.id}}" >
+                       <div style="padding-bottom:0px; padding-left:0px; padding-right:0px; color:black !important;   font-family: 'Arial', sans-serif;" class="header col-12"></div> <!--end of Header-->
+                       
+                            <div style="padding-left:0px; padding-right:0px; padding-bottom:4px; padding-top:4px;"><!--start of wrapper -->
+                                <div class="col-6 float-left row" style="padding-top:5px; padding-bottom:0px;">
+                                    <span t-if="doc.location_id" style="font-weight:bold;">
+                                    Ubicación de Origen: <span t-field="doc.location_id"/>
+                                    </span>
+                                    <span class="text-nowrap" t-if="doc.dest_location_id" style="font-weight:bold;">
+                                    Ubicacion de Destino: <span t-field="doc.dest_location_id"/> 
+                                    </span>
+                                </div> 
+
+                                <div style="clear: both;"></div> <!-- Agrega un div vacío con clear: both -->
+
+                               <div style="background-color:black; color:white;">
+                                    <h3 style="margin-top:10px; margin-left: 18px;">
+                                        <span>Productos Consumo</span>
+                                    </h3>
+                                    <div class="d-flex align-items-center">
+                                        <div t-if="doc.picking_type_id" style="margin-left: 15px;">
+                                            <strong style="white-space: nowrap;">Tipo de operación:</strong>
+                                            <p t-field="doc.picking_type_id"></p>
+                                        </div>
+                                        <div id="div_sched_date" t-if="doc.date" style="margin-left: 10px;">
+                                            <strong style="white-space: nowrap;">Fecha prevista:</strong>
+                                            <p t-field="doc.date"></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                          <!-- data -->
+                        <div class="row" >
+                            
+                            <table class="col-12">
+                                <thead t-attf-style="page-break-inside: avoid;">
+                                    <tr style="border-bottom: 1px solid #ccc;">
+                                        <th ><i class="fa fa-list-ol"/> Item</th>
+                                        <!-- <th><i class="fa fa-camera"/> Image</th> -->
+                                        <th ><i class="fa fa-th-large"/> Producto</th>
+
+                                        <th class="text-right"><i class="fa fa-sort-amount-asc"/>Cantidad</th>
+                                        <th class="text-right"><i class="fa fa-tags"/> Costo Unitario</th>
+                                        <th class="text-right"><i class="fa fa-money"/> Costo Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="color: gray; font-size: 11px;">
+                                 <t t-set="index" t-value="1"/>
+                                <t t-foreach="doc.consume_line" t-as="consume">
+                                    <tr style="border-bottom: 1px solid #ccc; ">
+                                         <td><t t-esc="index"/></td>
+                                        <!-- <td t-if="style.show_img"><span itemprop="image" t-field="move.product_id.image_small" t-options='{"widget": "image"}'/></td> -->
+                                    <td>
+                                        <span style="color:#333333" t-field="consume.product_id"/>
+                                        <p style="color:gray;" t-field="consume.product_id.name"/>
+                                    </td>
+                                    <td class="text-right">
+                                    <p>
+                                            <span t-field="consume.quantity"/>
+                                            <span t-field="consume.uom_id.name"/>
+                                    </p>     
+                                    </td>
+                                    <td class="text-right">
+                                    <p><span t-field="consume.product_id.currency_id.symbol"/> <span t-field="consume.product_id.standard_price"/></p>
+                                    </td>
+                                    <td class="text-right">
+                                    <p><span t-field="consume.product_id.currency_id.symbol"/> <span t-esc="str(float(consume.product_id.standard_price) * float(consume.quantity))"/></p>
+
+                                    </td>
+                                    </tr> 
+                                    <t t-set="index" t-value="index + 1"/>
+                                </t>
+                               
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div></div>
+                        <!-- fin data -->
+                        <div  class="col-12 float-left" style="padding:8px;"></div>
+                                    
+
+                                    <div class="col-12" style="padding:8px;">
+                                        <table style="font-size:14px;width:100%;margin-top:10%">     
+                                            <tr style="text-align:center; font-family: 'Arial', sans-serif;">            
+                                                <td >_____________________________________</td>
+                                                <td>_____________________________________</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:center">Recibido Por</td>
+                                                <td style="text-align:center">Enviado Por</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                            <!--End of PAGE-->
+                            <!--FOOTER -->
+                            
+                    </div><div class="footer">
+                                     <div class="col-12 text-center text-muted">Página: <span class="page"/> / <span class="topage"/></div>
+                                    <div style="text-align:right; font-size:14px;">
+                                        <span>Elaborado Por : </span> <span t-field="user.name"/>
+                                    </div>
+                                    
+                                    <div style="text-align:left">
+                                        <tr>
+                                            <td colspan="2" t-if="i==1" style="text-align:left; font-size:14px">
+                                                <strong>COPIA:BODEGA</strong>
+                                            </td>
+                                        </tr>
+                                    </div>
+
+                            </div>
+                </t>
+            </t>
+        </t> 
+    </template>
+</data> 

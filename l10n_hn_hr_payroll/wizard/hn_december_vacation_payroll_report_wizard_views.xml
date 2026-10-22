@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hn_december_vacation_payroll_report_wizard_form" model="ir.ui.view">
+        <field name="name">hn.december.vacation.payroll.report.wizard.form</field>
+        <field name="model">hn.december.vacation.payroll.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Nómina vacaciones cierre diciembre (Excel)">
+                <sheet>
+                    <div class="alert alert-info mb-3" role="status">
+                        <p class="mb-0">
+                            Incluye empleados con saldo a liquidar según asignaciones HN (mismo filtro que el lote de
+                            nómina <strong>Vacaciones HN — Cierre anual</strong>). Excluye ingresos en diciembre.
+                        </p>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="year"/>
+                        </group>
+                    </group>
+                    <group string="Filtros opcionales">
+                        <group>
+                            <field name="company_ids" widget="many2many_tags" options="{'no_create': True}"
+                                groups="base.group_multi_company"/>
+                            <field name="department_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                            <field name="employee_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_generate_excel" type="object" string="Descargar Excel" class="btn-primary" icon="fa-file-excel-o"/>
+                    <button special="cancel" string="Cerrar"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hn_december_vacation_payroll_report_wizard" model="ir.actions.act_window">
+        <field name="name">Nómina vacaciones diciembre (Excel)</field>
+        <field name="res_model">hn.december.vacation.payroll.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

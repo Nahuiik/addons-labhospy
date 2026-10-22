@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="action_hr_isss_settings" model="ir.actions.act_window">
+        <field name="name">IHSS Parámetros</field>
+        <field name="res_model">hr.ihss.settings</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_create">Configurar parámetros IHSS</p>
+        </field>
+    </record>
+
+    <record id="view_hr_isss_settings_form" model="ir.ui.view">
+        <field name="name">hr.ihss.settings.form</field>
+        <field name="model">hr.ihss.settings</field>
+        <field name="arch" type="xml">
+            <form string="IHSS">
+                <header>
+                    <button name="set_ihss" type="object" string="Establecer IHSS" class="oe_highlight" readonly="state != 'draft'"/>
+                    <button name="set_to_draft" type="object" string="Establecer Borrador" readonly="state != 'validated'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,validated"/>
+                </header>
+                <sheet>
+                    <h1>
+                        <field name="name" readonly="state != 'draft'"/>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="limit_enf_mat" readonly="state != 'draft'"/>
+                            <field name="enf_mat_percentage" readonly="state != 'draft'"/>
+                            <field name="ivm_percentage" readonly="state != 'draft'"/>
+                            <field name="enf_mat_fee" readonly="1"/>
+                            <field name="ivm_fee" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="pay_periodicity" readonly="state != 'draft'"/>
+                            <field name="include_in" readonly="state != 'draft'"/>
+                            <field name="limit_ivm" readonly="state != 'draft'"/>
+                            <field name="ihss_fee" readonly="1"/>
+                            <field name="bi_weekly_fee" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_hr_isss_settings_tree" model="ir.ui.view">
+        <field name="name">hr.ihss.settings.tree</field>
+        <field name="model">hr.ihss.settings</field>
+        <field name="arch" type="xml">
+            <list string="IHSS Parámetros">
+                <field name="name"/>
+                <field name="limit_enf_mat"/>
+                <field name="limit_ivm"/>
+                <field name="ihss_fee"/>
+                <field name="pay_periodicity"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <menuitem
+        id="menu_hr_isss_settings"
+        name="IHSS"
+        parent="l10n_hn_payroll_base.menu_hr_payroll_configuration"
+        action="action_hr_isss_settings"
+        sequence="45"
+    />
+</odoo>

@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="balance_sheet_pdf_report">
+        <t t-call="web.html_container">
+            <t t-call="web.internal_layout">
+                <div class="page">
+                    <center>
+                        <h2>Balance Sheet</h2>
+                        <br/>
+                        <div style="font-weight: bold;">
+                            <t t-if="balanceSheetData['date_from']">
+                                Date From: <t t-esc="balanceSheetData['date_from']"/> 
+                            </t>
+                            <t t-if="balanceSheetData['date_to']">
+                                Date To: <t t-esc="balanceSheetData['date_to']"/>
+                            </t>
+                            <br/>
+                            <br/>
+                        </div>
+                    </center>
+
+                    <table class="table" style="width: 100%; border: none; border-collapse: separate; border-spacing: 0 8px;">
+                        <thead>
+                            <tr>
+                                <th style="width: 70%; text-align: center; font-weight: bold; background-color: #f5f5f5;"></th>
+                                <th style="width: 30%; text-align: center; font-weight: bold; background-color: #f5f5f5;">Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody> 
+                                <t t-set="assets" t-value="balanceSheetData.get('assets', {})"/>
+                                <t t-set="liabilities" t-value="balanceSheetData.get('liabilities', {})"/>
+                                <t t-set="equity" t-value="balanceSheetData.get('equity', {})"/>
+                                <t t-set="totals" t-value="balanceSheetData.get('totals', {})"/>
+
+                                <tr style="background-color: #C0C0C0;">
+                                    <td style="text-align: left;font-weight: bold;">Assets</td>
+                                    <td style="text-align: right;padding-right:110px;" t-esc="formatCurrency(totals['assets'])"/>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left;font-weight: bold;padding-left:25px;">Current Assets</td>
+                                    <td style="text-align: right;padding-right:110px;" t-esc="formatCurrency(currentAssetsTotal)"/>
+                                </tr>
+                                <tr t-att-data-type="'bank_cash'">
+                                    <td t-attf-style="text-align: left;padding-left:45px; {{ 'font-weight: bold;' if expandedType.get('bank_cash') else '' }}">
+                                        Bank and Cash Accounts
+                                    </td>
+                                    <td style="text-align: right;padding-right:110px;" t-esc="formatCurrency(assets['bank_cash']['total'])"/>
+                                </tr>
+                                <t t-if="expandedType.get('bank_cash')">
+                                    <t t-if="assets['bank_cash']['accounts']">
+                                        <t t-foreach="assets['bank_cash']['accounts']" t-as="account" t-key="account.id">
+                                            <tr t-att-data-account="account['name']" t-att-data-id="account['id']">
+                                                <td style="text-align: left;padding-left:65px;">
+                                                    <t t-esc="account['code']"/><t t-esc="account['name']"/>
+                                                </td>
+                                                <td style="text-align:right; padding-right:110px;" t-esc="formatCurrency(account['balance'])"/>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                </t>
+
+                                <tr t-att-data-type="'receivables'">
+                                    <td t-attf-style="text-align: left;padding-left:45px; {{ 'font-weight: bold;' if expandedType.get('receivables') else '' }}">
+                                        Receivables
+                                    </td>
+                                    <td style="text-align: right;padding-right:110px;" t-esc="formatCurrency(assets['receivables']['total'])"/>
+                                </tr>
+                                <t t-if="expandedType.get('receivables')">
+                                    <t t-foreach="assets['receivables']['accounts']" t-as="account" t-key="account.id">
+                                        <tr t-att-data-account="account['name']" t-att-data-id="account['id']">
+                                            <td style="text-align: left;padding-left:65px;">
+                                                <t t-esc="account['code']"/><t t-esc="account['name']"/>
+                                            </td>
+                                            <td style="text-align: right; padding-right:110px;" t-esc="formatCurrency(account['balance'])"/>
+                                        </tr>
+                                    </t>
+                                </t>
+
+                                <tr t-att-data-type="'current_assets'">
+                                    <td t-attf-style="text-align: left;padding-left:45px; {{ 'font-weight: bold;' if expandedType.get('current_assets') else '' }}">
+                                        Current Assets
+                                    </td>
+                                    <td style="text-align: right;padding-right:110px;" t-esc="formatCurrency(assets['current_assets']['total'])"/>
+                                </tr>
+                                <t t-if="expandedType.get('current_assets')">
+                                    <t t-foreach="assets['current_assets']['accounts']" t-as="account" t-key="account.id">
+                                        <tr t-att-data-account="account['name']" t-att-data-id="account['id']">
+                                            <td style="text-align: left;padding-left:65px;">
+                                                <t t-esc="account['code']"/><t t-esc="account['name']"/>
+                                            </td>
+                                            <td style="text-align: right;padding-right:110px;" t-esc="formatCurrency(account['balance'])"/>
+                                        </tr>
+                                    </t>
+                                </t>
+                                
+                                <tr t-att-data-type="'prepayments'">
+                                    <td t-attf-style="text-align: left;padding-left:45px; {{ 'font-weight: bold;' if expandedType.get('prepayments') else '' }}">
+                                        Prepayments
+                                    </td>
+                                    <td style="text-align: right;padding-right:110px;" t-esc="formatCurrency(assets['prepayments']['total'])"/>
+                                </tr>
+                                <t t-if="expandedType.get('prepayments')">
+                                    <t t-foreach="assets['prepayments']['accounts']" t-as="account" t-key="account.id">
+                                        <tr t-att-data-account="account['name']" t-att-data-id="account['id']">
+                                            <td style="text-align: left;padding-left:65px;">
+                                                <t t-esc="account['code']"/><t t-esc="account['name']"/>
+                                            </td>
+                                            <td style="text-align: right; padding-right:110px;" t-esc="formatCurrency(account['balance'])"/>
+                                        </tr>
+                                    </t>
+                                </t>
+                                <tr t-att-data-type="'fixed_assets'">
+                                    <td t-attf-style="text-align: left;padding-left:25px; {{ 'font-weight: bold;' if expandedType.get('fixed_assets') else '' }}">
+                                        Plus Fixed Assets
+                                    </td>
+                                    <td style="text-align: right;padding-right:110px;" t-esc="formatCurrency(assets['fixed_assets']['total'])"/>
+                                </tr>
+                                <t t-if="expandedType.get('fixed_assets')">
+                                    <t t-foreach="assets['fixed_assets']['accounts']" t-as="account" t-key="account.id">
+                                        <tr t-att-data-account="account['name']" t-att-data-id="account['id']">   
+                                            <td style="text-align: left;padding-left:65px;">
+                                                <t t-esc="account['code']"/><t t-esc="account['name']"/>
+                                            </td>
+                                            <td style="text-align: right; padding-right:110px;" t-esc="formatCurrency(account['balance'])"/>
+                                        </tr>
+                                    </t>
+                                </t>
+
+                                <tr t-att-data-type="'non_current'">
+                                    <td t-attf-style="text-align: left;padding-left:25px; {{ 'font-weight: bold;' if expandedType.get('non_current') else '' }}">
+                                        Plus Non-current Assets
+                                    </td>
+                                    <td style="text-align: right;padding-right:110px;" t-esc="formatCurrency(assets['non_current']['total'])"/>
+                                </tr>
+                                <t t-if="expandedType.get('non_current')">
+                                    <t t-foreach="assets['non_current']['accounts']" t-as="account" t-key="account.id">
+                                        <tr t-att-data-account="account['name']" t-att-data-id="account['id']">
+                                            <td style="text-align: left;padding-left:65px;">
+                                                <t t-esc="account['code']"/><t t-esc="account['name']"/>
+                                            </td>
+                                            <td style="text-align: right; padding-right:110px;" t-esc="formatCurrency(account['balance'])"/>
+                                        </tr>
+                                    </t>
+                                </t>
+
+                                <tr style="background-color: #C0C0C0;">
+                                    <td style="text-align: left;font-weight: bold;">LIABILITIES</td>
+                                    <td style="text-align: right;font-weight: bold;padding-right:110px;" t-esc="formatCurrency(totals.get('liabilities',0))"/>
+                                </tr>
+
+                                <tr>
+                                    <td style="text-align: left;font-weight: bold;padding-left:25px;">Current Liabilities</td>
+                                    <td style="text-align: right; padding-right:110px;" t-esc="formatCurrency(currentLiabilitiesTotal)"/>
+                                </tr>
+                                
+                                <tr t-att-data-type="'current_liabilities'">
+                                    <td t-attf-style="text-align: left;padding-left:45px; {{ 'font-weight: bold;' if expandedType.get('current_liabilities') else '' }}">
+                                        Current Liabilities
+                                    </td>
+                                    <td style="text-align: right;padding-right:110px;" t-esc="formatCurrency(liabilities['current_liabilities']['total'])"/>
+                                </tr>
+                                <t t-if="expandedType.get('current_liabilities')">
+                                    <t t-foreach="liabilities['current_liabilities']['accounts']" t-as="account" t-key="account.id">
+                                        <tr t-att-data-account="account['name']" t-att-data-id="account['id']">
+                                            <td style="text-align: left;padding-left:65px;">
+                                                <t t-esc="account['code']"/><t t-esc="account['name']"/>
+                                            </td>
+                                            <td style="text-align: right; padding-right:110px;" t-esc="formatCurrency(account['balance'])"/>
+                                        </tr>
+                                    </t>
+                                </t>
+
+                                <tr t-att-data-type="'payables'">
+                                    <td t-attf-style="text-align: left;padding-left:45px; {{ 'font-weight: bold;' if expandedType.get('payables') else '' }}">
+                                        Payables
+                                    </td>
+                                    <td style="text-align: right;padding-right:110px;" t-esc="formatCurrency(liabilities['payables']['total'])"/>
+                                </tr>
+                                <t t-if="expandedType.get('payables')">
+                                    <t t-foreach="liabilities['payables']['accounts']" t-as="account" t-key="account.id">
+                                        <tr t-att-data-account="account['name']" t-att-data-id="account['id']">
+                                            <td style="text-align: left;padding-left:65px;">
+                                                <t t-esc="account['code']"/><t t-esc="account['name']"/>
+                                            </td>
+                                            <td style="text-align: right; padding-right:110px;" t-esc="formatCurrency(account['balance'])"/>
+                                        </tr>
+                                    </t>
+                                </t>
+
+                                <tr t-att-data-type="'credit_card'">
+                                    <td t-attf-style="text-align: left;padding-left:45px; {{ 'font-weight: bold;' if expandedType.get('credit_card') else '' }}">
+                                        Credit Card
+                                    </td>
+                                    <td style="text-align: right;padding-right:110px;" t-esc="formatCurrency(liabilities['credit_card']['total'])"/>
+                                </tr>
+                                <t t-if="expandedType.get('credit_card')">
+                                    <t t-foreach="liabilities['credit_card']['accounts']" t-as="account" t-key="account.id">
+                                        <tr t-att-data-account="account['name']" t-att-data-id="account['id']">
+                                            <td style="text-align: left;padding-left:65px;">
+                                                <t t-esc="account['code']"/><t t-esc="account['name']"/>
+                                            </td>
+                                            <td style="text-align: right; padding-right:110px;" t-esc="formatCurrency(account['balance'])"/>
+                                        </tr>
+                                    </t>
+                                </t>
+
+                                <tr t-att-data-type="'non_current_liabilities'">
+                                    <td t-attf-style="text-align: left;padding-left:25px; {{ 'font-weight: bold;' if expandedType.get('non_current_liabilities') else '' }}">
+                                        Plus Non-current Liabilities
+                                    </td>
+                                    <td style="text-align: right;padding-right:110px;" t-esc="formatCurrency(liabilities['non_current_liabilities']['total'])"/>
+                                </tr>
+                                <t t-if="expandedType.get('non_current_liabilities')">
+                                    <t t-foreach="liabilities['non_current_liabilities']['accounts']" t-as="account" t-key="account.id">
+                                        <tr t-att-data-account="account['name']" t-att-data-id="account['id']">
+                                            <td style="text-align: left;padding-left:65px;">
+                                                <t t-esc="account['code']"/><t t-esc="account['name']"/>
+                                            </td>
+                                            <td style="text-align: right; padding-right:110px;" t-esc="formatCurrency(account['balance'])"/>
+                                        </tr>
+                                    </t>
+                                </t>
+
+                                <tr style="background-color: #C0C0C0;">
+                                    <td style="text-align: left;font-weight: bold;">EQUITY</td>
+                                    <td style="text-align: right;font-weight: bold;padding-right:110px;" t-esc="formatCurrency(totals['equity'])"/>
+                                </tr>
+                                <tr t-att-data-type="'equity'">
+                                    <td t-attf-style="text-align: left;padding-left:25px; {{ 'font-weight: bold;' if expandedType.get('equity') else '' }}">
+                                        Equity
+                                    </td>
+                                    <td style="text-align: right;padding-right:110px;" t-esc="formatCurrency(equity['equity']['total'])"/>
+                                </tr>
+                                <t t-if="expandedType.get('equity')">
+                                    <t t-foreach="equity['equity']['accounts']" t-as="account" t-key="account.id">
+                                        <tr t-att-data-account="account['name']" t-att-data-id="account['id']">
+                                            <td style="text-align: left;padding-left:65px;">
+                                                <t t-esc="account['code']"/><t t-esc="account['name']"/>
+                                            </td>
+                                            <td style="text-align: right;padding-right:110px;" t-esc="formatCurrency(account['balance'])"/>
+                                        </tr>
+                                    </t>
+                                </t>
+                                <tr t-att-data-type="'current_year_earnings'">
+                                    <td t-attf-style="text-align: left;padding-left:25px; {{ 'font-weight: bold;' if expandedType.get('current_year_earnings') else '' }}">
+                                        Current Year Earnings
+                                    </td>
+                                    <td style="text-align: right;padding-right:110px;" t-esc="formatCurrency(equity['current_year_earnings']['total'])"/>
+                                </tr>
+                                <t t-if="expandedType.get('current_year_earnings')">
+                                    <t t-foreach="equity['current_year_earnings']['accounts']" t-as="account" t-key="account.id">
+                                        <tr t-att-data-account="account['name']" t-att-data-id="account['id']">
+                                            <td style="text-align: left;padding-left:65px;">
+                                                <t t-esc="account['code']"/><t t-esc="account['name']"/>
+                                            </td>
+                                            <td style="text-align: right; padding-left:125px;" t-esc="formatCurrency(account['balance'])"/>
+                                        </tr>
+                                    </t>
+                                </t>
+
+                                <tr style="background-color: #C0C0C0;">
+                                    <td style="text-align: left;font-weight: bold;">LIABILITIES + EQUITY</td>
+                                    <td style="text-align: right;font-weight: bold;padding-right:110px;" t-esc="formatCurrency(totals['liabilities_equity'])"/>
+                                </tr>
+                            </tbody>
+                    </table>
+
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <!-- Report Action -->
+    <record id="action_balance_sheet_pdf_report" model="ir.actions.report">
+        <field name="name">Balance Sheet</field>
+        <field name="model">balance.sheet.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">bi_financial_reports_comm.balance_sheet_pdf_report</field>
+        <field name="report_file">bi_financial_reports_comm.balance_sheet_pdf_report</field>
+        <field name="print_report_name">Balance Sheet Report</field>
+        <field name="binding_model_id" ref="model_balance_sheet_report"/>
+        <field name="binding_type">report</field>
+    </record>
+
+
+</odoo>

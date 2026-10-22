@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="view_custom_statements_form" model="ir.ui.view">
+            <field name="name">custom.customer.statement.wizard.form</field>
+            <field name="model">custom.customer.statement.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Send Custom Customer Statements">
+                    <group string="Period">
+                        <field name="custom_period"/>
+                    </group>
+                    <group colspan="2" col="4" invisible="custom_period != 'custom'" required="custom_period == 'custom'">
+                        <field name="c_date_from"/>
+                        <field name="c_date_to"/>
+                    </group>
+                    <footer>
+                        <button name="action_custom_customer_statement" string="Send Customer's Statements"
+                                type="object"
+                                class="btn btn-primary"/>
+                    </footer>
+                </form>
+            </field>
+
+        </record>
+
+        <record id="action_custom_customer_statements_wizard" model="ir.actions.act_window">
+            <field name="name">Customer Custom Statements</field>
+            <field name="res_model">custom.customer.statement.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_custom_statements_form"/>
+            <field name="binding_model_id" ref="base.model_res_partner"/>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

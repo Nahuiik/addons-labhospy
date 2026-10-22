@@ -1,0 +1,22 @@
+<odoo>
+    <data>
+        <record id="seq_hn_remission" model="ir.sequence">
+            <field name="name">Honduras Remission Sequence</field>
+            <field name="code">hn.remission</field>
+            <field name="implementation">no_gap</field>
+            <field name="prefix">GR-%(year)s-</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <!-- PC-/PE- con fecha: solo gn_consume_product (evita ir.sequence duplicadas). -->
+        <record id="stock_inter_store_transfer_sequence" model="ir.sequence">
+            <field name="name">Traslado entre Tiendas</field>
+            <field name="code">stock.inter.store.transfer</field>
+            <field name="prefix">TET-</field>
+            <field name="padding">6</field>
+        </record>
+    </data>
+</odoo>
+
+
+

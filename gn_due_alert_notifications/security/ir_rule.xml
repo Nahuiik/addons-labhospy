@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="rule_gn_due_alert_notification_company" model="ir.rule">
+        <field name="name">Alertas vencimiento: multi-compania</field>
+        <field name="model_id" ref="model_gn_due_alert_notification"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="rule_gn_due_alert_notification_user" model="ir.rule">
+        <field name="name">Alertas vencimiento: propias o admin</field>
+        <field name="model_id" ref="model_gn_due_alert_notification"/>
+        <field name="domain_force">['|', ('user_id', '=', user.id), ('user_id', '=', False)]</field>
+        <field name="groups" eval="[(4, ref('group_due_alert_notif_user'))]"/>
+    </record>
+
+    <record id="rule_gn_due_alert_notification_manager" model="ir.rule">
+        <field name="name">Alertas vencimiento: administrador ve todas</field>
+        <field name="model_id" ref="model_gn_due_alert_notification"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('group_due_alert_notif_manager'))]"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,52 @@
+from odoo import models, fields
+
+
+class CheckFormatCustom(models.Model):
+    _name = 'check.format.custom'
+    _description = 'check format custom'
+
+    name = fields.Char(string="Cheque Format", required=True)
+    partner_id = fields.Char(string="Partner")
+    cheque_hight = fields.Float(string="Cheque Height")
+    cheque_width = fields.Float(string="Cheque Width")
+    ac_pay = fields.Boolean(string="A/c Pay")
+    ac_top_margin = fields.Float(string="A/c Pay Top Margin")
+    ac_left_margin = fields.Float(string="A/c Pay Left Margin")
+    ac_font_size = fields.Float(string="A/c Pay Font Size")
+    top_margin = fields.Float(string="Cheque Date Top Margin")
+    left_margin = fields.Float(string="Cheque Date Left Margin")
+    font_size = fields.Float(string="Cheque Date Font Size")
+    char_spacing = fields.Float(string="Character Spacing")
+    payee_top_margin = fields.Float(string="Payee Top Margin")
+    payee_left_margin = fields.Float(string="Payee Left Margin")
+    payee_width = fields.Float(string="Payee Width")
+    payee_font_size = fields.Float(string="Payee Font Size")
+    af_top_margin = fields.Float(string="Amount in Figure Top Margin")
+    af_left_margin = fields.Float(string="Amount in Figure Left Margin")
+    af_width = fields.Float(string="Amount in Figure Width")
+    af_font_size = fields.Float(string="Amount in Figure Font Size")
+    af_currency_symbol = fields.Boolean(string="Currency Symbol")
+    af_currency_symbol_position = fields.Selection([('before', 'Before'), ('after', 'After')],
+                                                   string="Currency Symbol Position", default='before')
+    first_line_amount = fields.Char(string='First Line')
+    second_line_amount = fields.Char(string='Second Line')
+    fl_top_margin = fields.Float(string='First Line Top Margin')
+    fl_left_margin = fields.Float(string='First Line Left Margin')
+    fl_width = fields.Float(string="First Line Width")
+    words_in_fl_line = fields.Integer(string="No. of Word in First Line")
+    sc_top_margin = fields.Float(string='Second Line Top Margin')
+    sc_left_margin = fields.Float(string='Second Line Left Margin')
+    sc_width = fields.Float(string='Second Line Width')
+    words_in_sc_line = fields.Integer(string='No. of Word in Second Line')
+    sc_font_size = fields.Float(string="Amount in Words Font Size")
+    sc_currency_name = fields.Boolean(string='Currency Name')
+    sc_currency_name_position = fields.Selection([('before', 'Before'), ('after', 'After')],
+                                                 string="Currency Name Position", default='before')
+    comapny_name = fields.Boolean(string='Company Name')
+    comp_font_size = fields.Float(string="Company Sign Font Size")
+    comp_top_margin = fields.Float(string="Company Sign Top Margin")
+    comp_left_margin = fields.Float(string="Company Sign Left Margin")
+    sb_width = fields.Float(string="Signature Box Width")
+    sb_hight = fields.Float(string="Signature Box Height")
+    sb_top_margin = fields.Float(string="Signature Box Top Margin")
+    sb_left_margin = fields.Float(string="Signature Box Left Margin")

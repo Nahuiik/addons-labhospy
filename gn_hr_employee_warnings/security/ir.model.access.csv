@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_employee_warning_type_admin,hr.employee.warning.type admin,model_hr_employee_warning_type,hr.group_hr_manager,1,1,1,1
+access_hr_employee_warning_type_user,hr.employee.warning.type user read,model_hr_employee_warning_type,l10n_hn_payroll_base.group_hn_payroll_user,1,0,0,0
+access_hr_employee_warning_type_hr_user,hr.employee.warning.type hr user read,model_hr_employee_warning_type,hr.group_hr_user,1,0,0,0

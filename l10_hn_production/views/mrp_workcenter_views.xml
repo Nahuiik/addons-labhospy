@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mrp_workcenter_view_inherit_l10_hn_production" model="ir.ui.view">
+        <field name="name">mrp.workcenter.form.inherit.l10.hn.production</field>
+        <field name="model">mrp.workcenter</field>
+        <field name="inherit_id" ref="mrp.mrp_workcenter_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='costs_hour']" position="after">
+                <field
+                    name="hn_employee_costs_hour"
+                    widget="monetary"
+                    groups="l10n_hn_stock.group_view_costs_margins"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>

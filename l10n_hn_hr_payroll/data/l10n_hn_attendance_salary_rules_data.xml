@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- EXT2 / DED2: integración asistencia HN (antes en gn_hn_hr_attendance) -->
+        <record id="salary_rule_ext2_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_allowance"/>
+            <field name="name">Bonificación HE (Asistencia)</field>
+            <field name="code">EXT2</field>
+            <field name="sequence">9</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'EXT2' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs.get('EXT2', 0).amount if 'EXT2' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        <record id="salary_rule_ded2_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">Deducción Tardanzas/Ausencias</field>
+            <field name="code">DED2</field>
+            <field name="sequence">25</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'DED2' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -inputs.get('DED2', 0).amount if 'DED2' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        <record id="salary_rule_ext2_monthly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_monthly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_allowance"/>
+            <field name="name">Bonificación HE (Asistencia)</field>
+            <field name="code">EXT2</field>
+            <field name="sequence">9</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'EXT2' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs.get('EXT2', 0).amount if 'EXT2' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        <record id="salary_rule_ded2_monthly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_monthly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">Deducción Tardanzas/Ausencias</field>
+            <field name="code">DED2</field>
+            <field name="sequence">25</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'DED2' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -inputs.get('DED2', 0).amount if 'DED2' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+    </data>
+</odoo>

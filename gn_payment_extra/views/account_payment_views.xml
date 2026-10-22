@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Extender vista de pagos para agregar campo extra -->
+        <record id="view_account_payment_form_inherit_payment_extra" model="ir.ui.view">
+            <field name="name">account.payment.form.inherit.payment.extra</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="priority">100</field>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="attributes">
+                    <attribute name="edit">not supplier_payment_locked</attribute>
+                </xpath>
+                <xpath expr="//header" position="inside">
+                    <field name="is_supplier_invoice_payment" invisible="1"/>
+                    <field name="supplier_payment_locked" invisible="1"/>
+                </xpath>
+                <xpath expr="//header/button[@name='action_cancel']" position="attributes">
+                    <attribute name="invisible">not id or not (state == 'draft' or (state == 'in_process' and is_sent)) or supplier_payment_locked</attribute>
+                </xpath>
+                <xpath expr="//header/button[@name='action_draft']" position="attributes">
+                    <attribute name="invisible">state in ('draft') or supplier_payment_locked</attribute>
+                </xpath>
+                <xpath expr="//header/button[@name='button_request_cancel']" position="attributes">
+                    <attribute name="invisible">state != 'in_process' or not move_id or not need_cancel_request or supplier_payment_locked</attribute>
+                </xpath>
+                <xpath expr="//field[@name='journal_id']" position="after">
+                    <field name="show_extra" invisible="1"/>
+                    <field name="card_agreement_id" invisible="1"/>
+                    <field name="commission_percentage" invisible="1"/>
+                    <field name="payment_method_type" 
+                           invisible="not show_extra"
+                           required="show_extra"
+                           readonly="state != 'draft'"
+                           groups="gn_payment_extra.group_payment_extra_user"/>
+                    <field name="months" 
+                           widget="selection"
+                           invisible="not show_extra or payment_method_type != 'extra_financiamiento'"
+                           readonly="state != 'draft'"
+                           groups="gn_payment_extra.group_payment_extra_user"/>
+                </xpath>
+                
+                <!-- Tabla informativa de deducciones en pagos -->
+                <xpath expr="//sheet" position="inside">
+                    <group string="Detalle de Deducciones" 
+                           invisible="not show_extra or not payment_method_type"
+                           groups="gn_payment_extra.group_payment_extra_user"
+                           col="4">
+                        <field name="amount_without_vat" readonly="1"/>
+                        <field name="vat_amount" readonly="1"/>
+                        <field name="commission_amount" readonly="1"/>
+                        <field name="commission_vat_amount" readonly="1"/>
+                        <field name="retention_amount" readonly="1"/>
+                        <field name="total_deductions" readonly="1"/>
+                        <field name="amount_to_receive" readonly="1" class="text-success fw-bold"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

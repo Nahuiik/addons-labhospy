@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="credit_debit_form_view_loan" model="ir.ui.view">
+        <field name="name">debit.credit.form.loan</field>
+        <field name="model">debit.credit</field>
+        <field name="inherit_id" ref="gn_banks.credit_debit_form_view"/>
+        <field name="arch" type="xml">
+            <field name="description" position="after">
+                <field name="loan_id"
+                       readonly="state != 'draft'"
+                       invisible="move_type != 'debit'"
+                       options="{'no_create': True}"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="credit_debit_list_view_loan" model="ir.ui.view">
+        <field name="name">debit.credit.list.loan</field>
+        <field name="model">debit.credit</field>
+        <field name="inherit_id" ref="gn_banks.debit_credit_list_view"/>
+        <field name="arch" type="xml">
+            <field name="description" position="after">
+                <field name="loan_id" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

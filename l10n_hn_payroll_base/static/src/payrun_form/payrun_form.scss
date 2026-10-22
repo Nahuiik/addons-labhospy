@@ -1,0 +1,18 @@
+// Pay run form (hr.payslip.run): Enterprise-like hero + metrics + progress rail
+.o_form_view.o_hr_payrun_form {
+    .o_hr_payrun_form_progress {
+        // CSS min(); en LibSass min() es la función Sass → error rem vs % — forzar salida literal
+        min-width: unquote("min(100%, 22rem)");
+        max-width: 28rem;
+    }
+
+    .o_hr_payrun_metric .o_hr_payrun_metric_value .o_field_monetary {
+        justify-content: center;
+    }
+
+    @media (min-width: 1200px) {
+        .o_hr_payrun_hero_side {
+            min-width: 18rem;
+        }
+    }
+}

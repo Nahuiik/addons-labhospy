@@ -1,0 +1,25 @@
+{
+    "name": "Hide Sale Stock Cost Margin",
+    'version': '19.0.1.0.1',
+    'category': 'Sales/Sales',
+    "summary": "Restrict visibility of costs and margins on sales and inventory screens.",
+    'author': "THECH ERP",
+    "depends": [
+        "sale",
+        "sale_margin",
+        "sale_stock_margin",
+        "stock_account",
+    ],
+    "data": [
+        'security/security.xml',
+        'views/product_product_views.xml',
+        'views/product_template_views.xml',
+        'views/sale_order_views.xml',
+        'views/stock_quant_views.xml',
+    ],
+    'license': "LGPL-3",
+    'installable': True,
+    'application': False,
+    'auto_install': False,
+    'images': ['static/description/banner.png'],
+}

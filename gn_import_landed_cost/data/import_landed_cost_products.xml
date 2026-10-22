@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="product_import_permit" model="product.product">
+        <field name="name">Permisos de importación</field>
+        <field name="default_code">LC_PERMISO_IMP</field>
+        <field name="type">service</field>
+        <field name="landed_cost_ok" eval="True"/>
+        <field name="split_method_landed_cost">by_quantity</field>
+        <field name="purchase_ok" eval="True"/>
+        <field name="sale_ok" eval="False"/>
+    </record>
+
+    <record id="product_import_duty" model="product.product">
+        <field name="name">Derechos arancelarios</field>
+        <field name="default_code">LC_DERECHO_ARAN</field>
+        <field name="type">service</field>
+        <field name="landed_cost_ok" eval="True"/>
+        <field name="split_method_landed_cost">by_quantity</field>
+        <field name="purchase_ok" eval="True"/>
+        <field name="sale_ok" eval="False"/>
+    </record>
+
+    <record id="product_import_production_tax" model="product.product">
+        <field name="name">Impuesto por producción</field>
+        <field name="default_code">LC_IMP_PROD</field>
+        <field name="type">service</field>
+        <field name="landed_cost_ok" eval="True"/>
+        <field name="split_method_landed_cost">by_quantity</field>
+        <field name="purchase_ok" eval="True"/>
+        <field name="sale_ok" eval="False"/>
+    </record>
+
+</odoo>

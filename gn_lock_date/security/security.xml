@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Categoría del módulo -->
+        <record id="module_category_gn_lock_date" model="ir.module.category">
+            <field name="name">GN Lock Date</field>
+            <field name="description">Permisos para bloqueo de períodos contables</field>
+            <field name="sequence">100</field>
+        </record>
+
+        <!-- Privilegio para usuarios básicos -->
+        <record id="privilege_gn_lock_date_user" model="res.groups.privilege">
+            <field name="name">Usuario de Bloqueo de Período</field>
+            <field name="category_id" ref="module_category_gn_lock_date"/>
+            <field name="sequence">10</field>
+        </record>
+
+        <!-- Privilegio para desbloquear -->
+        <record id="privilege_gn_lock_date_unlock" model="res.groups.privilege">
+            <field name="name">Permiso Especial para Desbloquear Períodos</field>
+            <field name="category_id" ref="module_category_gn_lock_date"/>
+            <field name="sequence">20</field>
+        </record>
+
+        <!-- Privilegio para administradores -->
+        <record id="privilege_gn_lock_date_manager" model="res.groups.privilege">
+            <field name="name">Administrador de Bloqueo de Período</field>
+            <field name="category_id" ref="module_category_gn_lock_date"/>
+            <field name="sequence">30</field>
+        </record>
+
+        <!-- Grupo de Usuario -->
+        <record id="group_period_lock_user" model="res.groups">
+            <field name="name">Usuario de Bloqueo de Período</field>
+            <field name="comment">Puede ver y crear bloqueos de período</field>
+            <field name="privilege_id" ref="privilege_gn_lock_date_user"/>
+            <field name="sequence">10</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <!-- Grupo de Desbloqueo -->
+        <record id="group_period_lock_unlock" model="res.groups">
+            <field name="name">Permiso Especial para Desbloquear Períodos</field>
+            <field name="comment">Puede desbloquear períodos bloqueados</field>
+            <field name="privilege_id" ref="privilege_gn_lock_date_unlock"/>
+            <field name="sequence">20</field>
+            <field name="implied_ids" eval="[(4, ref('gn_lock_date.group_period_lock_user'))]"/>
+        </record>
+
+        <!-- Grupo de Administrador -->
+        <record id="group_period_lock_manager" model="res.groups">
+            <field name="name">Administrador de Bloqueo de Período</field>
+            <field name="comment">Acceso completo a bloqueos de período</field>
+            <field name="privilege_id" ref="privilege_gn_lock_date_manager"/>
+            <field name="sequence">30</field>
+            <field name="implied_ids" eval="[(4, ref('gn_lock_date.group_period_lock_unlock')), (4, ref('account.group_account_manager'))]"/>
+        </record>
+    </data>
+</odoo>
+

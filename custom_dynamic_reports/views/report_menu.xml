@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem id="menu_dynamic_report_root" name="Dynamic Reports" sequence="40"/>
+    <menuitem id="menu_dynamic_report_sales" name="Reports" parent="menu_dynamic_report_root" action="custom_dynamic_reports.action_dynamic_report" sequence="10"/>
+</odoo>

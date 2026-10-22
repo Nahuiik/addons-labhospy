@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Sin noupdate: corrección de motor QWeb en body_html debe llegar al actualizar el módulo -->
+    <data>
+        <record id="mail_template_hn_anniversary" model="mail.template">
+            <field name="name">Vacaciones HN: Aniversario próximo</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="email_from">{{ (object.company_id.email or user.email) }}</field>
+            <field name="email_to">{{ object.work_email or object.user_id.email }}</field>
+            <field name="subject">Aniversario laboral - Vacaciones</field>
+            <field name="body_html" type="html">
+                <div>
+                    <p>Estimado/a <t t-out="object.name"/>,</p>
+                    <p>
+                        Su aniversario laboral es el
+                        <span t-field="object.contract_date_start"/>.
+                    </p>
+                    <p>Se generará su derecho a vacaciones según su plan.</p>
+                    <p>Saludos,<br/>RRHH</p>
+                </div>
+            </field>
+        </record>
+        <record id="mail_template_hn_3months_expiry" model="mail.template">
+            <field name="name">Vacaciones HN: Vencimiento 3 meses</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="email_to">{{ user.email }}</field>
+            <field name="subject">Alerta: Vacaciones sin programar - {{ object.name }}</field>
+            <field name="body_html" type="html">
+                <div>
+                    <p>
+                        El empleado <t t-out="object.name"/> tiene derecho a vacaciones y aún no se ha programado la época.
+                    </p>
+                    <p>Plazo máximo: 3 meses después del aniversario.</p>
+                    <p>Saludos,<br/>Sistema</p>
+                </div>
+            </field>
+        </record>
+        <record id="mail_template_hn_10day_reminder" model="mail.template">
+            <field name="name">Vacaciones HN: Recordatorio 10 días</field>
+            <field name="model_id" ref="hr_holidays.model_hr_leave"/>
+            <field name="email_to">{{ object.employee_id.work_email or object.employee_id.user_id.email }}</field>
+            <field name="subject">Recordatorio: Sus vacaciones inician pronto</field>
+            <field name="body_html" type="html">
+                <div>
+                    <p>Estimado/a <t t-out="object.employee_id.name"/>,</p>
+                    <p>
+                        Sus vacaciones inician el
+                        <span t-field="object.request_date_from"/>.
+                    </p>
+                    <p>Recuerde completar la entrega de funciones pendientes antes de su ausencia.</p>
+                    <p>Saludos,<br/>RRHH</p>
+                </div>
+            </field>
+        </record>
+        <record id="mail_template_hn_payment_pending" model="mail.template">
+            <field name="name">Vacaciones HN: Pago pendiente</field>
+            <field name="model_id" ref="hr_holidays.model_hr_leave"/>
+            <field name="email_to">{{ user.email }}</field>
+            <field name="subject">Pago pendiente: Vacaciones de {{ object.employee_id.name }}</field>
+            <field name="body_html" type="html">
+                <div>
+                    <p>
+                        Las vacaciones del empleado <t t-out="object.employee_id.name"/> inician el
+                        <span t-field="object.request_date_from"/>.
+                    </p>
+                    <p>El pago debe realizarse antes del inicio.</p>
+                    <p>Saludos,<br/>Sistema</p>
+                </div>
+            </field>
+        </record>
+        <record id="mail_template_hn_approved" model="mail.template">
+            <field name="name">Vacaciones HN: Aprobadas</field>
+            <field name="model_id" ref="hr_holidays.model_hr_leave"/>
+            <field name="email_to">{{ object.employee_id.work_email or object.employee_id.user_id.email }}</field>
+            <field name="subject">Vacaciones aprobadas</field>
+            <field name="body_html" type="html">
+                <div>
+                    <p>Estimado/a <t t-out="object.employee_id.name"/>,</p>
+                    <p>
+                        Se le informa que sus vacaciones han sido aprobadas del
+                        <span t-field="object.request_date_from"/> al <span t-field="object.request_date_to"/>.
+                    </p>
+                    <p>Total: <t t-out="object.number_of_days"/> días.</p>
+                    <p>Saludos,<br/>RRHH</p>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="sale_order_delivery_status_form_view">
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <field name="date_order" position="after">
+                    <field name="delivery_status" string="Delivery Status"/>
+                    <field name="delivered_date"/>
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="sale_order_delivery_status_tree_view">
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                <field name="amount_total" position="after">
+                    <field name="delivery_status" string="Delivery Status" widget="badge"
+                           decoration-warning="delivery_status == 'not_delivered'"
+                           decoration-success="delivery_status == 'delivered'"
+                           decoration-info="delivery_status == 'partially_delivered'"/>
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="sale_order_extended_search_view">
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.sale_order_view_search_inherit_sale"/>
+            <field name="arch" type="xml">
+                <filter name="order_date" position="after">
+                    <filter string="Undelivered Order" name="undelivered_order" domain="[('delivery_status', '=', 'not_delivered')]"/>
+                    <filter string="Delivered Order" name="delivered_order" domain="[('delivery_status', '=', 'delivered')]"/>
+                    <filter string="Partially Delivered Order" name="delivered_order" domain="[('delivery_status', '=', 'partially_delivered')]"/>
+                    <filter string="Delivered Date" name="delivered_date" date="delivered_date"/>
+                    <group name="groupby">
+                        <filter string="Delivery Status" name="delivery_status" context="{'group_by': 'delivery_status'}"/>
+                    </group>
+                </filter>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,158 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* gn_crm_checklist
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-07 04:40:00\n"
+"PO-Revision-Date: 2026-01-07 04:40:00\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es_GT\n"
+
+#. module: gn_crm_checklist
+#: model:ir.module.category,name:gn_crm_checklist.module_category_gn_crm_checklist
+msgid "CRM Checklist"
+msgstr "Checklist CRM"
+
+#. module: gn_crm_checklist
+#: model:ir.model.fields,field_description:gn_crm_checklist.field_gn_crm_checklist__name
+msgid "Nombre"
+msgstr "Nombre"
+
+#. module: gn_crm_checklist
+#: model:ir.model.fields,field_description:gn_crm_checklist.field_gn_crm_checklist__description
+msgid "Descripción"
+msgstr "Descripción"
+
+#. module: gn_crm_checklist
+#: model:ir.model.fields,field_description:gn_crm_checklist.field_gn_crm_checklist__active
+msgid "Activo"
+msgstr "Activo"
+
+#. module: gn_crm_checklist
+#: model:ir.model.fields,field_description:gn_crm_checklist.field_gn_crm_checklist__item_ids
+msgid "Items del Checklist"
+msgstr "Items del Checklist"
+
+#. module: gn_crm_checklist
+#: model:ir.model.fields,field_description:gn_crm_checklist.field_gn_crm_checklist__item_count
+msgid "Número de Items"
+msgstr "Número de Items"
+
+#. module: gn_crm_checklist
+#: model:ir.model.fields,field_description:gn_crm_checklist.field_gn_crm_checklist_item__name
+msgid "Nombre del Item"
+msgstr "Nombre del Item"
+
+#. module: gn_crm_checklist
+#: model:ir.model.fields,field_description:gn_crm_checklist.field_gn_crm_checklist_item__description
+msgid "Descripción"
+msgstr "Descripción"
+
+#. module: gn_crm_checklist
+#: model:ir.model.fields,field_description:gn_crm_checklist.field_gn_crm_checklist_item__sequence
+msgid "Secuencia"
+msgstr "Secuencia"
+
+#. module: gn_crm_checklist
+#: model:ir.model.fields,field_description:gn_crm_checklist.field_crm_lead__checklist_ids
+msgid "Checklists"
+msgstr "Checklists"
+
+#. module: gn_crm_checklist
+#: model:ir.model.fields,field_description:gn_crm_checklist.field_crm_lead__checklist_line_ids
+msgid "Líneas de Checklist"
+msgstr "Líneas de Checklist"
+
+#. module: gn_crm_checklist
+#: model:ir.model.fields,field_description:gn_crm_checklist.field_crm_lead__checklist_progress
+msgid "Progreso del Checklist (%)"
+msgstr "Progreso del Checklist (%)"
+
+#. module: gn_crm_checklist
+#: model:ir.model.fields,help:gn_crm_checklist.field_crm_lead__checklist_progress
+msgid "Porcentaje de progreso basado en items completados"
+msgstr "Porcentaje de progreso basado en items completados"
+
+#. module: gn_crm_checklist
+#: model_terms:ir.ui.view,arch_db:gn_crm_checklist.view_gn_crm_checklist_form
+msgid "Items del Checklist"
+msgstr "Items del Checklist"
+
+#. module: gn_crm_checklist
+#: model_terms:ir.actions.act_window,help:gn_crm_checklist.action_gn_crm_checklist
+msgid "Crea tu primer Checklist"
+msgstr "Crea tu primer Checklist"
+
+#. module: gn_crm_checklist
+#: model_terms:ir.actions.act_window,help:gn_crm_checklist.action_gn_crm_checklist
+msgid "Los checklists te permiten definir pasos o tareas que deben completarse para cada Lead u Oportunidad."
+msgstr "Los checklists te permiten definir pasos o tareas que deben completarse para cada Lead u Oportunidad."
+
+#. module: gn_crm_checklist
+#: model:ir.model.fields,field_description:gn_crm_checklist.field_gn_crm_checklist_line__is_completed
+msgid "Completado"
+msgstr "Completado"
+
+#. module: gn_crm_checklist
+#: model:ir.model.fields,field_description:gn_crm_checklist.field_gn_crm_checklist_line__completed_date
+msgid "Fecha de Completado"
+msgstr "Fecha de Completado"
+
+#. module: gn_crm_checklist
+#: model:ir.model.fields,field_description:gn_crm_checklist.field_gn_crm_checklist_line__completed_by
+msgid "Completado por"
+msgstr "Completado por"
+
+#. module: gn_crm_checklist
+#: code:addons/gn_crm_checklist/models/crm_lead.py:0
+#, python-format
+msgid "No tiene permisos para completar checklists."
+msgstr "No tiene permisos para completar checklists."
+
+#. module: gn_crm_checklist
+#: code:addons/gn_crm_checklist/models/crm_lead.py:0
+#, python-format
+msgid "No tiene permisos para cancelar checklists."
+msgstr "No tiene permisos para cancelar checklists."
+
+#. module: gn_crm_checklist
+#: code:addons/gn_crm_checklist/models/crm_lead.py:0
+#, python-format
+msgid "No tiene permisos para completar/cancelar items del checklist."
+msgstr "No tiene permisos para completar/cancelar items del checklist."
+
+#. module: gn_crm_checklist
+#: code:addons/gn_crm_checklist/models/gn_crm_checklist_wizard.py:0
+#, python-format
+msgid "Este checklist ya está agregado al lead."
+msgstr "Este checklist ya está agregado al lead."
+
+#. module: gn_crm_checklist
+#: code:addons/gn_crm_checklist/models/gn_crm_checklist_wizard.py:0
+#, python-format
+msgid "Éxito"
+msgstr "Éxito"
+
+#. module: gn_crm_checklist
+#: code:addons/gn_crm_checklist/models/gn_crm_checklist_wizard.py:0
+#, python-format
+msgid "Checklist agregado correctamente."
+msgstr "Checklist agregado correctamente."
+
+#. module: gn_crm_checklist
+#: model:res.groups,name:gn_crm_checklist.group_crm_checklist_user
+msgid "Usuario de Checklist CRM"
+msgstr "Usuario de Checklist CRM"
+
+#. module: gn_crm_checklist
+#: model:res.groups,name:gn_crm_checklist.group_crm_checklist_manager
+msgid "Administrador de Checklist CRM"
+msgstr "Administrador de Checklist CRM"
+
+

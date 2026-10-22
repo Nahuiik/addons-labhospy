@@ -1,0 +1,12 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_l10n_hn_consume_reason_type_stock_user","l10n_hn.consume.reason.type inventario usuario","model_l10n_hn_consume_reason_type","stock.group_stock_user",1,0,0,0
+"access_l10n_hn_consume_reason_type_stock_manager","l10n_hn.consume.reason.type inventario responsable","model_l10n_hn_consume_reason_type","stock.group_stock_manager",1,1,1,1
+"access_consume_product_user","consume.product user","model_consume_product","base.group_user",1,1,1,1
+"access_consume_product_line_user","consume.product.line user","model_consume_product_line","base.group_user",1,1,1,1
+"access_stock_inter_store_transfer_user","stock.inter.store.transfer user","model_stock_inter_store_transfer","stock.group_stock_user",1,1,1,1
+"access_stock_inter_store_transfer_manager","stock.inter.store.transfer manager","model_stock_inter_store_transfer","stock.group_stock_manager",1,1,1,1
+"access_stock_inter_store_transfer_line_user","stock.inter.store.transfer.line user","model_stock_inter_store_transfer_line","stock.group_stock_user",1,1,1,1
+"access_stock_inter_store_transfer_line_manager","stock.inter.store.transfer.line manager","model_stock_inter_store_transfer_line","stock.group_stock_manager",1,1,1,1
+"access_product_product_l10n_hn_edit_cost","product.product editar costo HN","product.model_product_product","l10n_hn_stock.group_edit_product_cost",1,1,0,0
+"access_product_template_l10n_hn_edit_cost","product.template editar costo HN","product.model_product_template","l10n_hn_stock.group_edit_product_cost",1,1,0,0
+"access_stock_lot_l10n_hn_edit_cost_read","stock.lot lectura/escritura costo HN","stock.model_stock_lot","l10n_hn_stock.group_edit_product_cost",1,1,0,0

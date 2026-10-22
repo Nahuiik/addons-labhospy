@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Wrapper que itera sobre docs y pasa o (igual que report_payslip_lang) -->
+    <template id="report_payslip_comprobante_planilla_lang">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="o" t-value="o.with_context(lang=o.employee_id.lang or o.env.lang)"/>
+                <t t-call="l10n_hn_hr_payroll.report_payslip_comprobante_planilla" t-lang="o.env.lang"/>
+            </t>
+        </t>
+    </template>
+
+    <!-- Reporte alternativo: Comprobante de Planilla estilo HMM (seleccionable en Estructura Salarial > Template) -->
+    <record id="action_report_payslip_comprobante_planilla" model="ir.actions.report">
+        <field name="name">Comprobante de Planilla (HMM)</field>
+        <field name="model">hr.payslip</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hn_hr_payroll.report_payslip_comprobante_planilla_lang</field>
+        <field name="report_file">l10n_hn_hr_payroll.report_payslip_comprobante_planilla</field>
+        <field name="print_report_name">'Comprobante Planilla - %s' % (object.name)</field>
+        <field name="paperformat_id" ref="l10n_hn_hr_payroll.paperformat_payslip_hn"/>
+    </record>
+
+    <!-- Plantilla alternativa: Comprobante de Planilla estilo HMM (hereda de l10n_hn que ya reemplazó external_layout por html_container) -->
+    <template id="report_payslip_comprobante_planilla" inherit_id="l10n_hn_hr_payroll.report_payslip">
+        <xpath expr="//t[@t-call='web.html_container']" position="replace">
+            <t t-call="web.html_container">
+                <div class="page" style="font-family: Arial, sans-serif; font-size: 11px; color: #333; margin: 0; padding: 15px;">
+                
+                <!-- Header -->
+                <div style="border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 15px;">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 40%; vertical-align: top;">
+                                <t t-if="o.company_id.logo">
+                                    <img t-att-src="'data:image/png;base64,%s' % o.company_id.logo.decode('utf-8')" style="max-height: 60px; max-width: 180px;"/>
+                                </t>
+                                <t t-else="">
+                                    <strong style="font-size: 16px;"><span t-field="o.company_id.name"/></strong>
+                                </t>
+                            </td>
+                            <td style="width: 60%; text-align: right; vertical-align: top;">
+                                <div style="font-weight: bold; font-size: 14px; margin-bottom: 8px;"><span t-field="o.company_id.name"/></div>
+                                <h2 style="margin: 0 0 5px 0; font-size: 14px; font-weight: bold; text-transform: uppercase;">
+                                    COMPROBANTE DE PLANILLA DEL
+                                    <span t-field="o.date_from" t-options="{'widget': 'date', 'format': 'dd'}"/>
+                                    AL
+                                    <span t-field="o.date_to" t-options="{'widget': 'date', 'format': 'dd'}"/>
+                                    DE
+                                    <span t-field="o.date_to" t-options="{'widget': 'date', 'format': 'MMMM'}"/>
+                                    DEL
+                                    <span t-field="o.date_to" t-options="{'widget': 'date', 'format': 'yyyy'}"/>
+                                </h2>
+                                <p style="margin: 0; font-size: 10px; color: #666;">
+                                    Corte de planilla del <span t-field="o.date_from" t-options="{'widget': 'date'}"/> al <span t-field="o.date_to" t-options="{'widget': 'date'}"/>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- Información del Empleado -->
+                <t t-set="basic_line" t-value="o.line_ids.filtered(lambda l: l.code == 'BASIC')"/>
+                <t t-set="gross_line" t-value="o.line_ids.filtered(lambda l: l.code == 'GROSS')"/>
+                <t t-set="basic_amount" t-value="basic_line[0].total if basic_line else (gross_line[0].total if gross_line else 0)"/>
+                <t t-set="total_worked_days" t-value="o._get_report_days_worked()"/>
+                <t t-set="horas_trabajadas" t-value="o._get_report_hours_worked()"/>
+                <t t-set="he_breakdown" t-value="o._get_report_he_breakdown()"/>
+                <t t-set="horas_extras_line" t-value="o.line_ids.filtered(lambda l: l.code in ('HOR_EXT', 'HORAS_EXTRA', 'HE'))"/>
+                <t t-set="horas_extras_amount" t-value="sum(horas_extras_line.mapped('total')) if horas_extras_line else 0"/>
+                <t t-set="currency_symbol" t-value="o.company_id.currency_id.symbol or 'L'"/>
+
+                <!-- Información del Empleado en tabla de dos columnas (font-size 10px) -->
+                <t t-set="has_hhee" t-value="(he_breakdown.get('he_25', 0) or 0) + (he_breakdown.get('he_50', 0) or 0) + (he_breakdown.get('he_75', 0) or 0) + (he_breakdown.get('he_100', 0) or 0) &gt; 0"/>
+                <t t-set="total_hhee_amount" t-value="(he_breakdown.get('amount_25', 0) or 0) + (he_breakdown.get('amount_50', 0) or 0) + (he_breakdown.get('amount_75', 0) or 0) + (he_breakdown.get('amount_100', 0) or 0)"/>
+                <table style="width: 100%; margin-bottom: 20px; border-collapse: collapse; font-size: 10px;">
+                    <tr>
+                        <td style="padding: 4px 8px 4px 0; width: 40%;"><strong>Nombre Empleado</strong></td>
+                        <td style="padding: 4px 0;"><span t-field="o.employee_id.legal_name"/></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 4px 8px 4px 0;"><strong>Área</strong></td>
+                        <td style="padding: 4px 0;"><span t-esc="o.version_id.department_id.name or '-'"/></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 4px 8px 4px 0;"><strong>Salario Quincenal</strong></td>
+                        <td style="padding: 4px 0;"><span t-esc="'%s %s' % (currency_symbol, '{:,.2f}'.format(basic_amount))"/></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 4px 8px 4px 0;"><strong>Días Trabajados</strong></td>
+                        <td style="padding: 4px 0;"><span t-esc="'{:.0f}'.format(total_worked_days)"/></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 4px 8px 4px 0;"><strong>Horas trabajadas</strong></td>
+                        <td style="padding: 4px 0;"><span t-esc="'{:.0f}'.format(horas_trabajadas)"/></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 4px 8px 4px 0; vertical-align: top;"><strong>Cantidad de HHEE</strong></td>
+                        <td style="padding: 4px 0;">
+                            <t t-if="has_hhee">
+                                <table style="width: 100%; border-collapse: collapse; font-size: 10px;">
+                                    <tr style="border-bottom: 1px solid #ccc;">
+                                        <td style="padding: 2px 4px 2px 0;"><strong>Tipo</strong></td>
+                                        <td style="padding: 2px 4px; text-align: right;"><strong>Cantidad</strong></td>
+                                        <td style="padding: 2px 0 2px 4px; text-align: right;"><strong>Monto</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 2px 4px 2px 0;">25%</td>
+                                        <td style="padding: 2px 4px; text-align: right;"><span t-esc="'{:.0f}'.format(he_breakdown.get('he_25', 0) or 0)"/></td>
+                                        <td style="padding: 2px 0 2px 4px; text-align: right;"><span t-esc="'%s %s' % (currency_symbol, '{:,.2f}'.format(he_breakdown.get('amount_25', 0) or 0))"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 2px 4px 2px 0;">50%</td>
+                                        <td style="padding: 2px 4px; text-align: right;"><span t-esc="'{:.0f}'.format(he_breakdown.get('he_50', 0) or 0)"/></td>
+                                        <td style="padding: 2px 0 2px 4px; text-align: right;"><span t-esc="'%s %s' % (currency_symbol, '{:,.2f}'.format(he_breakdown.get('amount_50', 0) or 0))"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 2px 4px 2px 0;">75%</td>
+                                        <td style="padding: 2px 4px; text-align: right;"><span t-esc="'{:.0f}'.format(he_breakdown.get('he_75', 0) or 0)"/></td>
+                                        <td style="padding: 2px 0 2px 4px; text-align: right;"><span t-esc="'%s %s' % (currency_symbol, '{:,.2f}'.format(he_breakdown.get('amount_75', 0) or 0))"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 2px 4px 2px 0;">100%</td>
+                                        <td style="padding: 2px 4px; text-align: right;"><span t-esc="'{:.0f}'.format(he_breakdown.get('he_100', 0) or 0)"/></td>
+                                        <td style="padding: 2px 0 2px 4px; text-align: right;"><span t-esc="'%s %s' % (currency_symbol, '{:,.2f}'.format(he_breakdown.get('amount_100', 0) or 0))"/></td>
+                                    </tr>
+                                    <tr style="font-weight: bold; border-top: 1px solid #333;">
+                                        <td style="padding: 4px 4px 4px 0;">Total HHEE</td>
+                                        <td style="padding: 4px 4px; text-align: right;"></td>
+                                        <td style="padding: 4px 0 4px 4px; text-align: right;"><span t-esc="'%s %s' % (currency_symbol, '{:,.2f}'.format(total_hhee_amount))"/></td>
+                                    </tr>
+                                </table>
+                            </t>
+                            <t t-else="">
+                                <span t-esc="'0'"/>
+                            </t>
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- INGRESOS y DEDUCCIONES lado a lado -->
+                <t t-set="income_lines" t-value="o.line_ids.filtered(lambda l: l.appears_on_payslip and l.total >= 0 and l.salary_rule_id.category_id.code in ('BASIC', 'ALW'))"/>
+                <t t-set="deduction_lines" t-value="o.line_ids.filtered(lambda l: l.appears_on_payslip and l.total &lt; 0)"/>
+                <t t-set="total_ingresos" t-value="sum(l.total for l in o.line_ids.filtered(lambda l: l.appears_on_payslip and l.total >= 0 and l.salary_rule_id.category_id.code not in ('GROSS', 'NET')))"/>
+                <t t-set="total_deducciones" t-value="sum(abs(l.total) for l in deduction_lines)"/>
+                <t t-set="total_neto" t-value="total_ingresos - total_deducciones"/>
+
+                <table style="width: 100%; border-collapse: collapse;">
+                    <tr>
+                        <!-- INGRESOS -->
+                        <td style="width: 50%; vertical-align: top; padding-right: 15px;">
+                            <div style="font-weight: bold; font-size: 12px; margin-bottom: 8px; border-bottom: 1px solid #333; padding-bottom: 4px;">INGRESOS</div>
+                            <table style="width: 100%; font-size: 10px;">
+                                <tr>
+                                    <td style="padding: 2px 0;">Recargo por turno nocturno</td>
+                                    <td style="text-align: right; padding: 2px 0;">L -</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 2px 0;">Pago de Quincena</td>
+                                    <td style="text-align: right; padding: 2px 0;">
+                                        <span t-esc="'L %s' % '{:,.2f}'.format(basic_amount) if basic_amount else 'L -'"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 2px 0;">Salario de Horas extras</td>
+                                    <td style="text-align: right; padding: 2px 0;">
+                                        <span t-esc="'L %s' % '{:,.2f}'.format(horas_extras_amount) if horas_extras_amount else 'L -'"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 2px 0;">Ajuste Salarial</td>
+                                    <td style="text-align: right; padding: 2px 0;">L -</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 2px 0;">Incapacidad</td>
+                                    <td style="text-align: right; padding: 2px 0;">L -</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 2px 0;">Bono Temporal</td>
+                                    <td style="text-align: right; padding: 2px 0;">L -</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 2px 0;">Comisiones</td>
+                                    <td style="text-align: right; padding: 2px 0;">L -</td>
+                                </tr>
+                                <t t-foreach="income_lines.filtered(lambda l: l.code not in ('BASIC', 'GROSS', 'HOR_EXT', 'HORAS_EXTRA', 'HE'))" t-as="inc">
+                                    <tr>
+                                        <td style="padding: 2px 0;"><span t-field="inc.name"/></td>
+                                        <td style="text-align: right; padding: 2px 0;">
+                                            <span t-esc="'L %s' % '{:,.2f}'.format(inc.total)"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr style="font-weight: bold; border-top: 1px solid #333;">
+                                    <td style="padding: 6px 0;">Total Ingresos</td>
+                                    <td style="text-align: right; padding: 6px 0;">
+                                        <span t-esc="'L %s' % '{:,.2f}'.format(total_ingresos)"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <!-- DEDUCCIONES -->
+                        <td style="width: 50%; vertical-align: top;">
+                            <div style="font-weight: bold; font-size: 12px; margin-bottom: 8px; border-bottom: 1px solid #333; padding-bottom: 4px;">DEDUCCIONES</div>
+                            <table style="width: 100%; font-size: 10px;">
+                                <t t-set="ded_isr" t-value="o.line_ids.filtered(lambda l: l.code == 'ISR')"/>
+                                <t t-set="ded_ihss" t-value="o.line_ids.filtered(lambda l: l.code == 'IHSS_EMP')"/>
+                                <t t-set="ded_rap" t-value="o.line_ids.filtered(lambda l: l.code == 'RAP_FOVIIF_EMP')"/>
+                                <tr>
+                                    <td style="padding: 2px 0;">Banco Cuscatlan</td>
+                                    <td style="text-align: right; padding: 2px 0;">L -</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 2px 0;">Cooperativa Elga</td>
+                                    <td style="text-align: right; padding: 2px 0;">L -</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 2px 0;">Telefonía Celular</td>
+                                    <td style="text-align: right; padding: 2px 0;">L -</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 2px 0;">Préstamo HMM</td>
+                                    <td style="text-align: right; padding: 2px 0;">L -</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 2px 0;">Deducciones (50% Zapatos, otros)</td>
+                                    <td style="text-align: right; padding: 2px 0;">L -</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 2px 0;">Aportación RAP</td>
+                                    <td style="text-align: right; padding: 2px 0;">
+                                        <span t-esc="'L %s' % '{:,.2f}'.format(abs(ded_rap[0].total)) if ded_rap and ded_rap[0].total else 'L -'"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 2px 0;">Préstamo RAP</td>
+                                    <td style="text-align: right; padding: 2px 0;">L -</td>
+                                </tr>
+                                <t t-set="inp_optica" t-value="o.input_line_ids.filtered(lambda i: i.input_type_id and i.input_type_id.code and 'OPTICA' in (i.input_type_id.code or '').upper())"/>
+                                <tr>
+                                    <td style="padding: 2px 0;">Óptica</td>
+                                    <td style="text-align: right; padding: 2px 0;">
+                                        <span t-esc="'L %s' % '{:,.2f}'.format(abs(inp_optica[0].amount)) if inp_optica and inp_optica[0].amount else 'L -'"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 2px 0;">Seguro Privado (Dependientes)</td>
+                                    <td style="text-align: right; padding: 2px 0;">L -</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 2px 0;">ISR</td>
+                                    <td style="text-align: right; padding: 2px 0;">
+                                        <span t-esc="'L %s' % '{:,.2f}'.format(abs(ded_isr[0].total)) if ded_isr and ded_isr[0].total else 'L -'"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 2px 0;">IHSS</td>
+                                    <td style="text-align: right; padding: 2px 0;">
+                                        <span t-esc="'L %s' % '{:,.2f}'.format(abs(ded_ihss[0].total)) if ded_ihss and ded_ihss[0].total else 'L -'"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 2px 0;">IVM 2024</td>
+                                    <td style="text-align: right; padding: 2px 0;">L -</td>
+                                </tr>
+                                <t t-foreach="o.input_line_ids.filtered(lambda i: i.amount &lt; 0)" t-as="inp">
+                                    <tr>
+                                        <td style="padding: 2px 0;"><span t-field="inp.name"/></td>
+                                        <td style="text-align: right; padding: 2px 0;">
+                                            <span t-esc="'L %s' % '{:,.2f}'.format(abs(inp.amount))"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <t t-foreach="deduction_lines.filtered(lambda l: l.code not in ('ISR', 'IHSS_EMP', 'RAP_FOVIIF_EMP'))" t-as="ded">
+                                    <tr>
+                                        <td style="padding: 2px 0;"><span t-field="ded.name"/></td>
+                                        <td style="text-align: right; padding: 2px 0;">
+                                            <span t-esc="'L %s' % '{:,.2f}'.format(abs(ded.total))"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr style="font-weight: bold; border-top: 1px solid #333;">
+                                    <td style="padding: 6px 0;">Total Deducciones</td>
+                                    <td style="text-align: right; padding: 6px 0;">
+                                        <span t-esc="'L %s' % '{:,.2f}'.format(total_deducciones)"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- TOTAL NETO y Firma -->
+                <div style="margin-top: 25px; padding-top: 15px; border-top: 2px solid #333; text-align: center;">
+                    <p style="font-size: 16px; font-weight: bold; margin: 0 0 20px 0;">
+                        TOTAL NETO: <span t-esc="'L %s' % '{:,.2f}'.format(total_neto)"/>
+                    </p>
+                    <br/><br/><br/>
+                    <p style="margin: 30px 0 0 0; font-size: 10px; width: 250px; margin-left: auto; margin-right: auto; border-top: 1px solid #999; padding-top: 5px;">
+                        Firma de recibido
+                    </p>
+                </div>
+
+                <!-- Footer: Nombre - Zip ciudad, ciudad - RTN -->
+                <div style="margin-top: 30px; padding-top: 10px; border-top: 1px solid #ddd; text-align: center; font-size: 9px; color: #666;">
+                    <span t-field="o.company_id.name"/>
+                    <t t-if="o.company_id.zip or o.company_id.city"> - Zip <span t-esc="o.company_id.zip or ''"/>, <span t-field="o.company_id.city"/></t>
+                    <t t-if="o.company_id.vat"> - RTN: <span t-field="o.company_id.vat"/></t>
+                </div>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>

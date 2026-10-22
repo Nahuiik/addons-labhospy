@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Dentro del submenú "Banks"/"Bancos" junto con Débito, Tarjetas de crédito, etc. -->
+    <menuitem id="menu_import_ficohsa_pos"
+              name="Importar Liquidaciones FICOHSA"
+              parent="gn_banks.menu_sub_banks"
+              sequence="29"
+              action="gn_banks_ficohsa.action_ficohsa_pos_import_wizard"/>
+
+    <menuitem id="menu_ficohsa_pos_import_history"
+              name="Historial importaciones FICOHSA POS"
+              parent="gn_banks.menu_sub_banks"
+              sequence="30"
+              action="gn_banks_ficohsa.action_ficohsa_pos_import_history"/>
+</odoo>

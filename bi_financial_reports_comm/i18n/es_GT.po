@@ -1,0 +1,1369 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* bi_financial_reports_comm
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-09-01 12:37+0000\n"
+"PO-Revision-Date: 2025-09-01 09:53-0600\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es_GT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.7\n"
+
+#. module: bi_financial_reports_comm
+#: model:ir.actions.client,name:bi_financial_reports_comm.profit_and_loss_action
+msgid " Profit and Loss"
+msgstr "Ganancias y pérdidas"
+
+#. module: bi_financial_reports_comm
+#: model:ir.actions.client,name:bi_financial_reports_comm.trial_balance_action
+msgid " Trial Balance"
+msgstr "Balance de comprobación"
+
+#. module: bi_financial_reports_comm
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.partner_ageing_pdf_report
+msgid "$ 0.00"
+msgstr ""
+
+#. module: bi_financial_reports_comm
+#: model:ir.actions.report,print_report_name:bi_financial_reports_comm.action_analytic_report_pdf_report
+msgid "'Analytic Report'"
+msgstr "'Informe analítico'"
+
+#. module: bi_financial_reports_comm
+#: model:ir.actions.report,print_report_name:bi_financial_reports_comm.action_general_ledger_pdf_report
+msgid "'General Ledger - %s' % (object.name)"
+msgstr "'Libro mayor - %s' % (object.name)"
+
+#. module: bi_financial_reports_comm
+#: model:ir.actions.report,print_report_name:bi_financial_reports_comm.action_partner_ageing_pdf_report
+msgid "'Partner Ageing'"
+msgstr "‘Vencidas por cobrar"
+
+#. module: bi_financial_reports_comm
+#: model:ir.actions.report,print_report_name:bi_financial_reports_comm.action_partner_ledger_pdf_report
+msgid "'Partner Ledger - %s' % (object.name)"
+msgstr "'Libro mayor de empresas - %s' % (object.name)"
+
+#. module: bi_financial_reports_comm
+#: model:ir.actions.report,print_report_name:bi_financial_reports_comm.action_profit_loss_pdf_report
+msgid "'Profit and Loss - %s' % (object.name)"
+msgstr "'Estado de Resultados - %s' % (object.name)"
+
+#. module: bi_financial_reports_comm
+#: model:ir.actions.report,print_report_name:bi_financial_reports_comm.action_trial_balance_pdf_report
+msgid "'Trial Balance'"
+msgstr "'Balance de comprobación'"
+
+#. module: bi_financial_reports_comm
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.partner_ageing_pdf_report
+msgid "1-60"
+msgstr ""
+
+#. module: bi_financial_reports_comm
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.partner_ageing_pdf_report
+msgid "121-180"
+msgstr ""
+
+#. module: bi_financial_reports_comm
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.partner_ageing_pdf_report
+msgid "181-240"
+msgstr ""
+
+#. module: bi_financial_reports_comm
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.partner_ageing_pdf_report
+msgid "240+"
+msgstr ""
+
+#. module: bi_financial_reports_comm
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.partner_ageing_pdf_report
+msgid "61-120"
+msgstr ""
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/analytic_report_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/general_ledger_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/partner_ageing_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/partner_ledger_template.xml:0
+#: model:ir.model,name:bi_financial_reports_comm.model_account_account
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_analytic_report__account_ids
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_general_ledger_report__account_ids
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_partner_ageing__account_ids
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_partner_ledger_report__account_ids
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.analytic_report_pdf_report
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.general_ledger_pdf_report
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.partner_ageing_pdf_report
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.partner_ledger_pdf_report
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.trial_balance_pdf_report
+#, python-format
+msgid "Account"
+msgstr "Cuenta"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_analytic_report__account_tag_ids
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_partner_ledger_report__account_tag_ids
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_trial_balance_report__account_tag_ids
+msgid "Account Tags"
+msgstr "Etiquetas de cuenta"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_partner_ageing__account_type
+msgid "Account Types"
+msgstr "Tipos de cuenta"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_trial_balance_report__account_ids
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.view_trial_balance_form
+msgid "Accounts"
+msgstr "Cuentas"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__general_ledger_report__display_account__all
+msgid "All"
+msgstr "Todos"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+msgid "All journals"
+msgstr "Diarios"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+msgid "Diarios"
+msgstr "Diarios"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+msgid "Registrados"
+msgstr "Registrados"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+msgid "Con Movimientos"
+msgstr "Con Movimientos"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+msgid "Con balance distinto de cero"
+msgstr "Con balance distinto de cero"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+msgid "para"
+msgstr "para"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__general_ledger_report__target_move__all
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__partner_ledger_report__target_move__all
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__trial_balance_report__target_move__all
+msgid "All Entries"
+msgstr "Todas las asientos"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__general_ledger_report__target_move__posted
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__partner_ledger_report__target_move__posted
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__trial_balance_report__target_move__posted
+msgid "All Posted Entries"
+msgstr "Todas las asientos costeados"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/analytic_report_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.analytic_report_pdf_report
+#, python-format
+msgid "Amount"
+msgstr "Importe"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/partner_ledger_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.partner_ledger_pdf_report
+#, python-format
+msgid "Amount Currency"
+msgstr "Monto Moneda"
+
+#. module: bi_financial_reports_comm
+#: model:ir.actions.client,name:bi_financial_reports_comm.analytic_report_action
+#: model:ir.ui.menu,name:bi_financial_reports_comm.menu_analytic_report
+msgid "Analytic Account Report"
+msgstr "Reporte cuenta analítica"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_analytic_report__analytic_account_ids
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_general_ledger_report__analytic_account_ids
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.view_general_ledger_form
+msgid "Analytic Accounts"
+msgstr "Cuentas Analíticas"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/analytic_report_template.xml:0
+#, python-format
+msgid "Analytic Items"
+msgstr "Items Analíticos"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/analytic_report_template.xml:0
+#: model:ir.actions.act_window,name:bi_financial_reports_comm.action_analytic_report
+#: model:ir.actions.report,name:bi_financial_reports_comm.action_analytic_report_pdf_report
+#: model:ir.model,name:bi_financial_reports_comm.model_analytic_report
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.analytic_report_pdf_report
+#, python-format
+msgid "Analytic Report"
+msgstr "Reporte Analítico"
+
+#. module: bi_financial_reports_comm
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.view_analytic_report_form
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.view_balance_sheet_form
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.view_general_ledger_form
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.view_partner_ageing_form
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.view_partner_ledger_form
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.view_profit_loss_form
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.view_trial_balance_form
+msgid "Apply"
+msgstr "Aplicar"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_partner_ageing__on_date
+msgid "As On Date"
+msgstr "Como en la fecha"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/balance_sheet_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.balance_sheet_pdf_report
+#, python-format
+msgid "Assets"
+msgstr "Activos"
+
+#. module: bi_financial_reports_comm
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.partner_ageing_pdf_report
+msgid "At Date"
+msgstr "En la fecha"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/general_ledger_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/partner_ledger_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.balance_sheet_pdf_report
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.general_ledger_pdf_report
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.partner_ledger_pdf_report
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.profit_loss_pdf_report
+#, python-format
+msgid "Balance"
+msgstr "Balance"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/balance_sheet_template.xml:0
+#: model:ir.actions.act_window,name:bi_financial_reports_comm.action_balance_sheet
+#: model:ir.actions.client,name:bi_financial_reports_comm.balance_sheet_action
+#: model:ir.actions.report,name:bi_financial_reports_comm.action_balance_sheet_pdf_report
+#: model:ir.ui.menu,name:bi_financial_reports_comm.menu_balance_sheet
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.balance_sheet_pdf_report
+#, python-format
+msgid "Balance Sheet"
+msgstr "Balance General"
+
+#. module: bi_financial_reports_comm
+#: model:ir.actions.report,print_report_name:bi_financial_reports_comm.action_balance_sheet_pdf_report
+#: model:ir.model,name:bi_financial_reports_comm.model_balance_sheet_report
+msgid "Balance Sheet Report"
+msgstr "Reporte Balance General"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/balance_sheet_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.balance_sheet_pdf_report
+#, python-format
+msgid "Bank and Cash Accounts"
+msgstr "Cuentas Banco y Caja"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_partner_ageing__based_on
+msgid "Based On"
+msgstr "Basado en"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_partner_ageing__bucket_1
+msgid "Bucket 1"
+msgstr ""
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_partner_ageing__bucket_2
+msgid "Bucket 2"
+msgstr ""
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_partner_ageing__bucket_3
+msgid "Bucket 3"
+msgstr ""
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_partner_ageing__bucket_4
+msgid "Bucket 4"
+msgstr ""
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_partner_ageing__bucket_5
+msgid "Bucket 5"
+msgstr ""
+
+#. module: bi_financial_reports_comm
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.view_analytic_report_form
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.view_balance_sheet_form
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.view_general_ledger_form
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.view_partner_ageing_form
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.view_partner_ledger_form
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.view_profit_loss_form
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.view_trial_balance_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/general_ledger_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.general_ledger_pdf_report
+#, python-format
+msgid "Communication"
+msgstr "Descripción"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/components/bi_account_report/bi_account_report.xml:0
+msgid "Contacto"
+msgstr "Contacto"
+
+#. module: bi_financial_reports_comm
+#: code:addons/bi_financial_reports_comm/static/src/components/bi_account_report/bi_account_report.xml:0
+msgid "Sin seguimiento"
+msgstr "Sin seguimiento"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_balance_sheet_report__date_range
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_profit_loss_report__date_range
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_trial_balance_report__date_range
+msgid "Compare Date Range"
+msgstr "Comparar rango de fechas"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_analytic_report__create_uid
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_balance_sheet_report__create_uid
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_general_ledger_report__create_uid
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_partner_ageing__create_uid
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_partner_ledger_report__create_uid
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_profit_loss_report__create_uid
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_trial_balance_report__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_analytic_report__create_date
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_balance_sheet_report__create_date
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_general_ledger_report__create_date
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_partner_ageing__create_date
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_partner_ledger_report__create_date
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_profit_loss_report__create_date
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_trial_balance_report__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/general_ledger_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/partner_ledger_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/trial_balance_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.general_ledger_pdf_report
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.partner_ledger_pdf_report
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.trial_balance_pdf_report
+#, python-format
+msgid "Credit"
+msgstr "Credito"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/balance_sheet_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.balance_sheet_pdf_report
+#, python-format
+msgid "Credit Card"
+msgstr "Tarjeta Crédito"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/general_ledger_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.general_ledger_pdf_report
+#, python-format
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/balance_sheet_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.balance_sheet_pdf_report
+#, python-format
+msgid "Current Assets"
+msgstr "Activos fijos"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_account_account__current_credit_balance
+msgid "Current Credit"
+msgstr "Crédito Actual"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_account_account__current_debit_balance
+msgid "Current Debit"
+msgstr "Debito Actual"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/balance_sheet_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.balance_sheet_pdf_report
+#, python-format
+msgid "Current Liabilities"
+msgstr "Pasivos corrientes"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/balance_sheet_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.balance_sheet_pdf_report
+#, python-format
+msgid "Current Year Earnings"
+msgstr "Ganancias del año actual"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/general_ledger_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.analytic_report_pdf_report
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.general_ledger_pdf_report
+#, python-format
+msgid "Date"
+msgstr "Fecha"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/components/bi_account_report/bi_account_report.xml:0
+msgid "Debe"
+msgstr "Debe"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/components/bi_account_report/bi_account_report.xml:0
+msgid "Deber"
+msgstr "Deber"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/components/bi_account_report/bi_account_report.xml:0
+msgid "Haber"
+msgstr "Haber"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_analytic_report__date_from
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_balance_sheet_report__date_from
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_general_ledger_report__date_from
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_partner_ledger_report__date_from
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_profit_loss_report__date_from
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_trial_balance_report__date_from
+msgid "Date From"
+msgstr "Desde"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/balance_sheet_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/profit_loss_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.analytic_report_pdf_report
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.balance_sheet_pdf_report
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.profit_loss_pdf_report
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.trial_balance_pdf_report
+#, python-format
+msgid "Date From:"
+msgstr "Desde:"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_analytic_report__date_to
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_balance_sheet_report__date_to
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_general_ledger_report__date_to
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_partner_ledger_report__date_to
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_profit_loss_report__date_to
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_trial_balance_report__date_to
+msgid "Date To"
+msgstr "Hasta"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/balance_sheet_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/profit_loss_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.analytic_report_pdf_report
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.balance_sheet_pdf_report
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.profit_loss_pdf_report
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.trial_balance_pdf_report
+#, python-format
+msgid "Date To:"
+msgstr "Hasta:"
+
+#. module: bi_financial_reports_comm
+#. odoo-python
+#: code:addons/bi_financial_reports_comm/models/partner_ageing.py:0
+#, python-format
+msgid "Days Period cannot be smaller than 1"
+msgstr "El período de días no puede ser menor a 1"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/general_ledger_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/partner_ledger_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/trial_balance_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.general_ledger_pdf_report
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.partner_ledger_pdf_report
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.trial_balance_pdf_report
+#, python-format
+msgid "Debit"
+msgstr "Debito"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_general_ledger_report__display_account
+msgid "Display Accounts"
+msgstr "Mostrar cuentas"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_analytic_report__display_name
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_balance_sheet_report__display_name
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_general_ledger_report__display_name
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_partner_ageing__display_name
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_partner_ledger_report__display_name
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_profit_loss_report__display_name
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_trial_balance_report__display_name
+msgid "Display Name"
+msgstr "Mostrar Nombre"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/partner_ageing_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/partner_ledger_template.xml:0
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__partner_ageing__based_on__due
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.partner_ageing_pdf_report
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.partner_ledger_pdf_report
+#, python-format
+msgid "Due Date"
+msgstr "Fecha límite"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/balance_sheet_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.balance_sheet_pdf_report
+#, python-format
+msgid "EQUITY"
+msgstr "CAPITAL"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/trial_balance_template.xml:0
+#, python-format
+msgid "End Balance"
+msgstr "Saldo final"
+
+#. module: bi_financial_reports_comm
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.trial_balance_pdf_report
+msgid "Ending Balance"
+msgstr "Saldo final"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/analytic_report_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/general_ledger_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/partner_ageing_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/partner_ledger_template.xml:0
+#, python-format
+msgid "Entry"
+msgstr "Asiento"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/balance_sheet_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.balance_sheet_pdf_report
+#, python-format
+msgid "Equity"
+msgstr "Capital"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/analytic_report_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/balance_sheet_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/general_ledger_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/partner_ageing_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/partner_ledger_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/profit_loss_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/trial_balance_template.xml:0
+#, python-format
+msgid "Filters"
+msgstr "Filtros"
+
+#. module: bi_financial_reports_comm
+#: model:ir.ui.menu,name:bi_financial_reports_comm.menu_financial_reports
+msgid "Financial Reports"
+msgstr "Reportes Financieros"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/trial_balance_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.trial_balance_pdf_report
+#, python-format
+msgid "From"
+msgstr "Desde"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/balance_sheet_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/profit_loss_template.xml:0
+#: model:ir.actions.client,name:bi_financial_reports_comm.general_ledger_action
+#: model:ir.actions.report,name:bi_financial_reports_comm.action_general_ledger_pdf_report
+#: model:ir.ui.menu,name:bi_financial_reports_comm.menu_general_ledger
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.general_ledger_pdf_report
+#, python-format
+msgid "General Ledger"
+msgstr "Libro Mayor"
+
+#. module: bi_financial_reports_comm
+#: model:ir.actions.act_window,name:bi_financial_reports_comm.action_general_ledger
+#: model:ir.model,name:bi_financial_reports_comm.model_general_ledger_report
+msgid "General Ledger Report"
+msgstr "Reporte Libro Mayor"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/general_ledger_template.xml:0
+#, python-format
+msgid "Genernal Ledger"
+msgstr "Libro Mayor"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/profit_loss_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.profit_loss_pdf_report
+#, python-format
+msgid "Gross Profit"
+msgstr "Beneficio bruto"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_analytic_report__id
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_balance_sheet_report__id
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_general_ledger_report__id
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_partner_ageing__id
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_partner_ledger_report__id
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_profit_loss_report__id
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_trial_balance_report__id
+msgid "ID"
+msgstr ""
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_partner_ledger_report__include_initial_balance
+msgid "Include Initial Balance"
+msgstr "Incluir saldo inicial"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_partner_ledger_report__initial_balance
+msgid "Include Initial Balances"
+msgstr "Incluir saldo inicial"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/trial_balance_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.trial_balance_pdf_report
+#, python-format
+msgid "Initial Balance"
+msgstr "Saldo inicial"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/partner_ageing_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/partner_ledger_template.xml:0
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__partner_ageing__based_on__invoice
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.partner_ageing_pdf_report
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.partner_ledger_pdf_report
+#, python-format
+msgid "Invoice Date"
+msgstr "Fecha de factura"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/analytic_report_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/general_ledger_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/partner_ageing_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/partner_ledger_template.xml:0
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_analytic_report__journal_ids
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_balance_sheet_report__journal_ids
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_general_ledger_report__journal_ids
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_partner_ledger_report__journal_ids
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_profit_loss_report__journal_ids
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.analytic_report_pdf_report
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.partner_ageing_pdf_report
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.partner_ledger_pdf_report
+#, python-format
+msgid "Journal"
+msgstr "Diarios"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/general_ledger_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/partner_ageing_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/partner_ledger_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/trial_balance_template.xml:0
+#, python-format
+msgid "Journal Items"
+msgstr "Apuntes contables"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_trial_balance_report__journal_ids
+msgid "Journals"
+msgstr "Diarios"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+msgid "journals"
+msgstr "diarios"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/balance_sheet_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.balance_sheet_pdf_report
+#, python-format
+msgid "LIABILITIES"
+msgstr "PASIVO"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/balance_sheet_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.balance_sheet_pdf_report
+#, python-format
+msgid "LIABILITIES + EQUITY"
+msgstr "PASIVO + CAPITAL"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__balance_sheet_report__date_range__last_financialyear
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__profit_loss_report__date_range__last_financialyear
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__trial_balance_report__date_range__last_financialyear
+msgid "Last Financial Year"
+msgstr "Último Año Financiero"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__balance_sheet_report__date_range__last_month
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__profit_loss_report__date_range__last_month
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__trial_balance_report__date_range__last_month
+msgid "Last Month"
+msgstr "Último mes"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__balance_sheet_report__date_range__last_quarter
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__profit_loss_report__date_range__last_quarter
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__trial_balance_report__date_range__last_quarter
+msgid "Last Quarter"
+msgstr "Último Cuarto"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_analytic_report__write_uid
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_balance_sheet_report__write_uid
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_general_ledger_report__write_uid
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_partner_ageing__write_uid
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_partner_ledger_report__write_uid
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_profit_loss_report__write_uid
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_trial_balance_report__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_analytic_report__write_date
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_balance_sheet_report__write_date
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_general_ledger_report__write_date
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_partner_ageing__write_date
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_partner_ledger_report__write_date
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_profit_loss_report__write_date
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_trial_balance_report__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__balance_sheet_report__date_range__last_week
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__profit_loss_report__date_range__last_week
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__trial_balance_report__date_range__last_week
+msgid "Last Week"
+msgstr "Última semana"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/profit_loss_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.profit_loss_pdf_report
+#, python-format
+msgid "Less Cost of Revenue"
+msgstr "Menos costos de ingresos"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/profit_loss_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.profit_loss_pdf_report
+#, python-format
+msgid "Less Operating Expenses"
+msgstr "Menos gastos operativos"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/profit_loss_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.profit_loss_pdf_report
+#, python-format
+msgid "Less Other Expenses"
+msgstr "Menos Otros Gastos"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/partner_ledger_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.partner_ledger_pdf_report
+#, python-format
+msgid "Matching"
+msgstr "Coincidencia"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/partner_ageing_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.partner_ageing_pdf_report
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.partner_ledger_pdf_report
+#, python-format
+msgid "Move"
+msgstr "Socio"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_account_account__move_line_ids
+msgid "Move Line"
+msgstr "Entradas diario"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/profit_loss_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.profit_loss_pdf_report
+#, python-format
+msgid "Net Profit"
+msgstr "Beneficio neto"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/profit_loss_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.profit_loss_pdf_report
+#, python-format
+msgid "Operating Income (or Loss)"
+msgstr "Ingresos (o pérdidas) de operación"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/analytic_report_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/general_ledger_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/partner_ageing_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/partner_ledger_template.xml:0
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_analytic_report__partner_ids
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_general_ledger_report__partner_ids
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_partner_ledger_report__partner_ids
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.analytic_report_pdf_report
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.general_ledger_pdf_report
+#, python-format
+msgid "Partner"
+msgstr "Socio"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/partner_ageing_template.xml:0
+#: model:ir.actions.act_window,name:bi_financial_reports_comm.action_partner_ageing_report
+#: model:ir.actions.client,name:bi_financial_reports_comm.partner_ageing_report_action
+#: model:ir.actions.report,name:bi_financial_reports_comm.action_partner_ageing_pdf_report
+#: model:ir.model,name:bi_financial_reports_comm.model_partner_ageing
+#: model:ir.ui.menu,name:bi_financial_reports_comm.menu_partner_ageing_report
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.partner_ageing_pdf_report
+#, python-format
+msgid "Partner Ageing"
+msgstr "Vencidas Socios"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/partner_ledger_template.xml:0
+#: model:ir.actions.client,name:bi_financial_reports_comm.partner_ledger_action
+#: model:ir.actions.report,name:bi_financial_reports_comm.action_partner_ledger_pdf_report
+#: model:ir.ui.menu,name:bi_financial_reports_comm.menu_partner_ledger
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.partner_ledger_pdf_report
+#, python-format
+msgid "Partner Ledger"
+msgstr "Libro mayor de la empresa"
+
+#. module: bi_financial_reports_comm
+#: model:ir.actions.act_window,name:bi_financial_reports_comm.action_partner_ledger
+#: model:ir.model,name:bi_financial_reports_comm.model_partner_ledger_report
+msgid "Partner Ledger Report"
+msgstr "Reporte Libro Mayor Empresas"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_partner_ageing__partner_tag_ids
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_partner_ledger_report__partner_tag_ids
+msgid "Partner Tags"
+msgstr "Etiquetas de socios"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_partner_ageing__partner_ids
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_trial_balance_report__partner_ids
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.view_partner_ageing_form
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.view_partner_ledger_form
+msgid "Partners"
+msgstr "Socios"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__partner_ageing__account_type__payable
+msgid "Payable"
+msgstr "Por pagar"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__partner_ageing__account_type__both
+msgid "Payable and receivable"
+msgstr "Pagar y Cobrar"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/balance_sheet_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.balance_sheet_pdf_report
+#, python-format
+msgid "Payables"
+msgstr "Cobrables"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_partner_ageing__period_length
+msgid "Period Length (days)"
+msgstr "Duración del período (días)"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/analytic_report_template.xml:0
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_analytic_report__plan_ids
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.analytic_report_pdf_report
+#, python-format
+msgid "Plan"
+msgstr ""
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/balance_sheet_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.balance_sheet_pdf_report
+#, python-format
+msgid "Plus Fixed Assets"
+msgstr "Más activos fijos"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/balance_sheet_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.balance_sheet_pdf_report
+#, python-format
+msgid "Plus Non-current Assets"
+msgstr "Más activos no corrientes"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/balance_sheet_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.balance_sheet_pdf_report
+#, python-format
+msgid "Plus Non-current Liabilities"
+msgstr "Más Pasivos No Corrientes"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/profit_loss_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.profit_loss_pdf_report
+#, python-format
+msgid "Plus Other Income"
+msgstr "Más otros ingresos"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/balance_sheet_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.balance_sheet_pdf_report
+#, python-format
+msgid "Prepayments"
+msgstr "Prepagos"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/analytic_report_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/balance_sheet_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/general_ledger_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/partner_ageing_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/partner_ledger_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/profit_loss_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/trial_balance_template.xml:0
+#, python-format
+msgid "Print"
+msgstr "Imprimir "
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+msgid "Posted"
+msgstr "Registrados"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/analytic_report_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.analytic_report_pdf_report
+#, python-format
+msgid "Product"
+msgstr "Producto"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/profit_loss_template.xml:0
+#: model:ir.actions.act_window,name:bi_financial_reports_comm.action_profit_loss
+#: model:ir.actions.report,name:bi_financial_reports_comm.action_profit_loss_pdf_report
+#: model:ir.ui.menu,name:bi_financial_reports_comm.menu_profit_and_loss
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.profit_loss_pdf_report
+#, python-format
+msgid "Profit and Loss"
+msgstr "Estado de Resultados"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model,name:bi_financial_reports_comm.model_profit_loss_report
+msgid "Profit and Loss Report"
+msgstr "Estado de Resultados"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__partner_ageing__account_type__receivable
+msgid "Receivable"
+msgstr "Por cobrar"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/balance_sheet_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.balance_sheet_pdf_report
+#, python-format
+msgid "Receivables"
+msgstr "Ingresos"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/profit_loss_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.profit_loss_pdf_report
+#, python-format
+msgid "Revenue"
+msgstr "Ganancia"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_general_ledger_report__target_move
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_partner_ledger_report__target_move
+#: model:ir.model.fields,field_description:bi_financial_reports_comm.field_trial_balance_report__target_move
+msgid "Target Moves"
+msgstr "Movimientos"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__balance_sheet_report__date_range__this_financialyear
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__profit_loss_report__date_range__this_financialyear
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__trial_balance_report__date_range__this_financialyear
+msgid "This Financial Year"
+msgstr "Este año financiero"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__balance_sheet_report__date_range__this_month
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__profit_loss_report__date_range__this_month
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__trial_balance_report__date_range__this_month
+msgid "This Month"
+msgstr "Este mes"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__balance_sheet_report__date_range__this_quarter
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__profit_loss_report__date_range__this_quarter
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__trial_balance_report__date_range__this_quarter
+msgid "This Quarter"
+msgstr "Este cuarto"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__balance_sheet_report__date_range__this_week
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__profit_loss_report__date_range__this_week
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__trial_balance_report__date_range__this_week
+msgid "This Week"
+msgstr "Esta semana"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/trial_balance_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.trial_balance_pdf_report
+#, python-format
+msgid "To"
+msgstr "A"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__balance_sheet_report__date_range__today
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__profit_loss_report__date_range__today
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__trial_balance_report__date_range__today
+msgid "Today"
+msgstr "Hoy"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/analytic_report_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/general_ledger_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/partner_ageing_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/partner_ledger_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/trial_balance_template.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.analytic_report_pdf_report
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.general_ledger_pdf_report
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.partner_ageing_pdf_report
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.partner_ledger_pdf_report
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.trial_balance_pdf_report
+#, python-format
+msgid "Total"
+msgstr ""
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/trial_balance_template.xml:0
+#: model:ir.actions.report,name:bi_financial_reports_comm.action_trial_balance_pdf_report
+#: model:ir.ui.menu,name:bi_financial_reports_comm.menu_trial_balance
+#, python-format
+msgid "Trial Balance"
+msgstr "Balance de comprobación"
+
+#. module: bi_financial_reports_comm
+#: model:ir.actions.act_window,name:bi_financial_reports_comm.action_trial_balance
+#: model:ir.model,name:bi_financial_reports_comm.model_trial_balance_report
+#: model_terms:ir.ui.view,arch_db:bi_financial_reports_comm.trial_balance_pdf_report
+msgid "Trial Balance Report"
+msgstr "Reporte Balance de comprobación"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__general_ledger_report__display_account__not_zero
+msgid "With balance is not equal to 0"
+msgstr "Con saldo diferente a 0"
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__general_ledger_report__display_account__movement
+msgid "With movements"
+msgstr "Con Movimientos"
+
+#. module: bi_financial_reports_comm
+#. odoo-javascript
+#: code:addons/bi_financial_reports_comm/static/src/xml/analytic_report_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/balance_sheet_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/general_ledger_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/partner_ageing_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/partner_ledger_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/profit_loss_template.xml:0
+#: code:addons/bi_financial_reports_comm/static/src/xml/trial_balance_template.xml:0
+#, python-format
+msgid "XLS"
+msgstr ""
+
+#. module: bi_financial_reports_comm
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__balance_sheet_report__date_range__yesterday
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__profit_loss_report__date_range__yesterday
+#: model:ir.model.fields.selection,name:bi_financial_reports_comm.selection__trial_balance_report__date_range__yesterday
+msgid "Yesterday"
+msgstr "Ayer"
+
+#. module: bi_financial_reports_comm
+#: code:addons/bi_financial_reports_comm/static/src/components/bi_account_report/filters/filters.js:0
+msgid "Por cobrar"
+msgstr "Por cobrar"
+
+#. module: bi_financial_reports_comm
+#: code:addons/bi_financial_reports_comm/static/src/components/bi_account_report/filters/filters.js:0
+msgid "Cuentas por cobrar no comerciales"
+msgstr "Cuentas por cobrar no comerciales"
+
+#. module: bi_financial_reports_comm
+#: code:addons/bi_financial_reports_comm/static/src/components/bi_account_report/filters/filters.js:0
+msgid "Por pagar"
+msgstr "Por pagar"
+
+#. module: bi_financial_reports_comm
+#: code:addons/bi_financial_reports_comm/static/src/components/bi_account_report/filters/filters.js:0
+msgid "Cuentas por pagar no comerciales"
+msgstr "Cuentas por pagar no comerciales"
+
+#. module: bi_financial_reports_comm
+#: code:addons/bi_financial_reports_comm/static/src/components/bi_account_report/filters/filters.js:0
+msgid "Por cobrar y por pagar"
+msgstr "Por cobrar y por pagar"
+
+#. module: bi_financial_reports_comm
+#: code:addons/bi_financial_reports_comm/static/src/components/bi_account_report/filters/filters.js:0
+msgid "Borradores de asientos"
+msgstr "Borradores de asientos"
+
+#. module: bi_financial_reports_comm
+#: code:addons/bi_financial_reports_comm/static/src/components/bi_account_report/filters/filters.js:0
+msgid "Jerarquía y subtotales"
+msgstr "Jerarquía y subtotales"
+
+#. module: bi_financial_reports_comm
+#: code:addons/bi_financial_reports_comm/static/src/components/bi_account_report/filters/filters.js:0
+msgid "Asientos sin conciliar"
+msgstr "Asientos sin conciliar"
+
+#. module: bi_financial_reports_comm
+#: code:addons/bi_financial_reports_comm/static/src/components/bi_account_report/filters/filters.js:0
+msgid "Desplegar todo"
+msgstr "Desplegar todo"
+
+#. module: bi_financial_reports_comm
+#: code:addons/bi_financial_reports_comm/static/src/components/bi_account_report/filters/filters.js:0
+msgid "Asientos registrados"
+msgstr "Asientos registrados"
+
+#. module: bi_financial_reports_comm
+#: code:addons/bi_financial_reports_comm/static/src/components/bi_account_report/filters/filters.js:0
+msgid "Reporte"
+msgstr "Reporte"
+
+#. module: bi_financial_reports_comm
+#: code:addons/bi_financial_reports_comm/static/src/components/bi_account_report/filters/filters.js:0
+msgid "Libro mayor de la empresa"
+msgstr "Libro mayor de la empresa"
+
+#. module: bi_financial_reports_comm
+#: code:addons/bi_financial_reports_comm/static/src/components/bi_account_report/filters/filters.js:0
+msgid "Estado de cuenta del cliente"
+msgstr "Estado de cuenta del cliente"
+
+#. module: bi_financial_reports_comm
+#: code:addons/bi_financial_reports_comm/static/src/components/bi_account_report/filters/filters.js:0
+msgid "Reporte de seguimiento"
+msgstr "Reporte de seguimiento"
+
+#. module: bi_financial_reports_comm
+#: code:addons/bi_financial_reports_comm/static/src/components/bi_account_report/bi_account_report.xml:0
+msgid "Contacto"
+msgstr "Contacto"
+
+#. module: bi_financial_reports_comm
+#: code:addons/bi_financial_reports_comm/static/src/components/bi_account_report/bi_account_report.xml:0
+msgid "Apuntes contables"
+msgstr "Apuntes contables"
+
+#. module: bi_financial_reports_comm
+#: code:addons/bi_financial_reports_comm/static/src/components/bi_account_report/bi_account_report.xml:0
+msgid "Adeudado"
+msgstr "Adeudado"
+
+#. module: bi_financial_reports_comm
+#: code:addons/bi_financial_reports_comm/static/src/components/bi_account_report/filters/filters.xml:0
+msgid "Contactos"
+msgstr "Contactos"
+
+#. module: bi_financial_reports_comm
+#: code:addons/bi_financial_reports_comm/static/src/components/bi_account_report/filters/filters.js:0
+#: code:addons/bi_financial_reports_comm/static/src/components/bi_account_report/filters/filters.xml:0
+msgid "Select"
+msgstr "Seleccionar"
+
+#. module: bi_financial_reports_comm
+msgid "As of"
+msgstr "Al cierre de"
+
+#. module: bi_financial_reports_comm
+msgid "Receivable &amp; Payable"
+msgstr "Por cobrar y por pagar"
+
+#. module: bi_financial_reports_comm
+msgid "Receivable & Payable"
+msgstr "Por cobrar y por pagar"
+
+#. module: bi_financial_reports_comm
+msgid "Contacts"
+msgstr "Contactos"
+
+#. module: bi_financial_reports_comm
+msgid "Type contact name..."
+msgstr "Escriba el nombre del contacto..."
+
+#. module: bi_financial_reports_comm
+msgid "Tags"
+msgstr "Etiquetas"
+
+#. module: bi_financial_reports_comm
+msgid "Type tag name..."
+msgstr "Escriba el nombre de la etiqueta..."
+
+#. module: bi_financial_reports_comm
+msgid "More filters"
+msgstr "Más filtros"
+
+#. module: bi_financial_reports_comm
+msgid "Search..."
+msgstr "Buscar..."
+
+#. module: bi_financial_reports_comm
+msgid "Mes"
+msgstr "Mes"
+
+#. module: bi_financial_reports_comm
+msgid "Trimestre"
+msgstr "Trimestre"
+
+#. module: bi_financial_reports_comm
+msgid "Año"
+msgstr "Año"
+
+#. module: bi_financial_reports_comm
+msgid "Fechas personalizadas"
+msgstr "Fechas personalizadas"
+
+#. module: bi_financial_reports_comm
+msgid "Target"
+msgstr "Movimientos"
+
+#. module: bi_financial_reports_comm
+msgid "Display"
+msgstr "Mostrar"
+
+#. module: bi_financial_reports_comm
+msgid "With balance not zero"
+msgstr "Con balance distinto de cero"
+
+#. module: bi_financial_reports_comm
+msgid "days"
+msgstr "días"
+
+#. module: bi_financial_reports_comm
+msgid "Analytic"
+msgstr "Analítico"
+
+#. module: bi_financial_reports_comm
+msgid "Type analytic account..."
+msgstr "Escriba la cuenta analítica..."
+
+#. module: bi_financial_reports_comm
+msgid "Todos"
+msgstr "Todos"
+
+#. module: bi_financial_reports_comm
+msgid "Ninguno"
+msgstr "Ninguno"
+
+#. module: bi_financial_reports_comm
+msgid "Cuenta"
+msgstr "Cuenta"
+
+#. module: bi_financial_reports_comm
+msgid "Importe"
+msgstr "Importe"
+
+#. module: bi_financial_reports_comm
+#: code:addons/bi_financial_reports_comm/static/src/components/bi_account_report/bi_account_report.xml:0
+msgid "No follow-up"
+msgstr "Sin seguimiento"
+
+#. module: bi_financial_reports_comm
+#: code:addons/bi_financial_reports_comm/static/src/components/bi_account_report/filters/filters.xml:0
+msgid "Vista"
+msgstr "Vista"

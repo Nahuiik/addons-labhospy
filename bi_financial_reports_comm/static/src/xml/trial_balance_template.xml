@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="TrialBalanceReport">
+        <div class="report-button-container">
+            <div class="d-flex justify-content-between align-items-center mb-3 mt-3">
+                <div>
+                    <h2 style="margin-left: 45px;">Trial Balance</h2>
+                </div>
+                <div>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-primary" style="margin-right: 7px;" t-on-click="openTrialBalancePopup">
+                            <i class="fa fa-filter"></i> Filters
+                        </button>
+                        <button class="btn btn-primary" style="margin-right: 7px;" t-on-click="printTrialBalanceReport">
+                            <i class="fa fa-print"></i> Print
+                        </button>
+                        <button class="btn btn-primary" style="margin-right: 20px;" t-on-click="printTrialBalanceXls">
+                            <i class="fa fa-file-excel-o"></i> XLS
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <div class="report-container">
+                <div class="table-responsive report-table-container" style="width:95%; margin: 0 auto;">
+                    <table class="table table-hover report-table" style="table-layout: fixed;">
+                        <thead class="table-header">
+                        <tr style="background-color: #f8f9fa; border-bottom: 2px solid #dee2e6;">
+                            <th style="padding: 6px 5px;"></th>
+                            <th style="padding: 6px 5px;border-right: 2px solid #dee2e6;border-left: 2px solid #dee2e6;" colspan="2" scope="colgroup">Initial Balance</th>
+                            <th style="padding: 6px 5px;border-right: 2px solid #dee2e6;" colspan="2" scope="colgroup">From <t t-esc="state.balanceData.date_from"/> To <t t-esc="state.balanceData.date_to"/></th>
+                            <th style="padding: 6px 5px;" colspan="2" scope="colgroup">End Balance</th>
+                        </tr>
+                        <tr style="background-color: #f8f9fa; border-bottom: 1px solid #000000;">
+                            <th style="padding: 6px 5px;border-right: 2px solid #dee2e6; text-align: left; width: 40%; min-width: 250px;"></th>
+                            <th style="padding: 6px 5px;border-right: 1px solid #dee2e6;text-align: right; width: 10%;">Debit</th>
+                            <th style="padding: 6px 5px;text-align: right; width: 10%; border-right: 2px solid #dee2e6;">Credit</th>
+                            <th style="padding: 6px 5px;border-right: 1px solid #dee2e6;text-align: right; width: 10%;">Debit</th>
+                            <th style="padding: 6px 5px;text-align: right; width: 10%; border-right: 2px solid #dee2e6;">Credit</th>
+                            <th style="padding: 6px 5px;border-right: 1px solid #dee2e6;text-align: right; width: 10%;">Debit</th>
+                            <th style="padding: 6px 5px;text-align: right; width: 10%;">Credit</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="state.accountData" t-as="account" t-key="account.name">
+                                <tr style="border-bottom: 1px solid #eee;" class="toggle-row" t-att-data-account="account.name" t-att-data-id="account.id">
+                                    <td style="text-align: left; padding: 6px 5px;" class="line_name text unfoldable" tabindex="-1">
+                                        <div class="wrapper" style="display: flex; justify-content: space-between; align-items: center;">
+                                            <div class="account_name" style="word-break: break-word;">
+                                                <t t-esc="account.code"/> <t t-esc="account.name"/>
+                                            </div>
+                                            <div class="item_button" style="flex-shrink: 0; margin-left: 5px;">
+                                                    <button class="btn btn_journalentry" style="padding: 2px 8px; font-size: 12px;" t-on-click="_onClickJournalItems">Journal Items</button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td style="padding: 6px 5px; text-align: right;">
+                                        <t t-esc="account.initial_debit"/>
+                                    </td>
+                                    <td style="padding: 6px 5px; text-align: right;">
+                                        <t t-esc="account.initial_credit"/>
+                                    </td>
+                                    <td style="padding: 6px 5px; text-align: right;">
+                                        <t t-esc="account.period_debit"/>
+                                    </td>
+                                    <td style="padding: 6px 5px; text-align: right;">
+                                        <t t-esc="account.period_credit"/>
+                                    </td>
+                                    <td style="padding: 6px 5px; text-align: right;">
+                                        <t t-esc="account.ending_debit"/>
+                                    </td>
+                                    <td style="padding: 6px 5px; text-align: right;">
+                                        <t t-esc="account.ending_credit"/>
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr style="border-bottom: 1px solid #000000;border-top: 1px solid #000000;">
+                                <td style="text-align:left;font-weight:bold;">Total</td>
+                                <td style="text-align:right;font-weight:bold;"><t t-esc="state.balanceData.total_initial_debit"/></td>
+                                <td style="text-align:right;font-weight:bold;"><t t-esc="state.balanceData.total_initial_credit"/></td>
+                                <td style="text-align:right;font-weight:bold;"><t t-esc="state.balanceData.total_period_debit"/></td>
+                                <td style="text-align:right;font-weight:bold;"><t t-esc="state.balanceData.total_period_credit"/></td>
+                                <td style="text-align:right;font-weight:bold;"><t t-esc="state.balanceData.total_ending_debit"/></td>
+                                <td style="text-align:right;font-weight:bold;"><t t-esc="state.balanceData.total_ending_credit"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

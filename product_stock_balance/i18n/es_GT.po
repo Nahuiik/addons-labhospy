@@ -1,0 +1,428 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* product_stock_balance
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-20 15:34+0000\n"
+"PO-Revision-Date: 2025-07-20 09:50-0600\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.6\n"
+
+#. module: product_stock_balance
+#. odoo-javascript
+#: code:addons/product_stock_balance/static/src/components/location_hierarchy_container/location_hierarchy_container.xml:0
+#, python-format
+msgid "...locations for this product are not found"
+msgstr "...no se encuentran ubicaciones para este producto"
+
+#. module: product_stock_balance
+#: model_terms:ir.ui.view,arch_db:product_stock_balance.product_product_view_form_by_locations
+#: model_terms:ir.ui.view,arch_db:product_stock_balance.product_template_view_form_by_locations
+msgid ""
+"<span class=\"o_stat_text\" groups=\"!"
+"product_stock_balance.group_stocks_no_aggregation\">\n"
+"                    Forecasted\n"
+"                </span>"
+msgstr ""
+"<span class=\"o_stat_text\" groups=\"!"
+"product_stock_balance.group_stocks_no_aggregation\">\n"
+"                    Pronosticado\n"
+"                </span>"
+
+#. module: product_stock_balance
+#: model_terms:ir.ui.view,arch_db:product_stock_balance.product_product_view_form_by_locations
+#: model_terms:ir.ui.view,arch_db:product_stock_balance.product_template_view_form_by_locations
+msgid ""
+"<span class=\"o_stat_text\" groups=\"!"
+"product_stock_balance.group_stocks_no_aggregation\">\n"
+"                    On Hand\n"
+"                </span>"
+msgstr ""
+"<span class=\"o_stat_text\" groups=\"!"
+"product_stock_balance.group_stocks_no_aggregation\">\n"
+"                    A Mano\n"
+"                </span>"
+
+#. module: product_stock_balance
+#. odoo-javascript
+#: code:addons/product_stock_balance/static/src/components/location_hierarchy_container/location_hierarchy_container.xml:0
+#, python-format
+msgid "All available warehouses"
+msgstr "Todos los almacenes disponibles"
+
+#. module: product_stock_balance
+#: model:ir.model.fields,field_description:product_stock_balance.field_res_config_settings__product_stock_balance_export
+msgid "Allow Export"
+msgstr "Permitir exportación"
+
+#. module: product_stock_balance
+#: model_terms:ir.ui.view,arch_db:product_stock_balance.product_product_form_only_locations
+#: model_terms:ir.ui.view,arch_db:product_stock_balance.product_template_form_only_locations
+msgid "Close"
+msgstr "Cerrar"
+
+#. module: product_stock_balance
+#: model:ir.model,name:product_stock_balance.model_res_config_settings
+msgid "Config Settings"
+msgstr "Ajustes de configuración"
+
+#. module: product_stock_balance
+#: model:ir.model.fields,field_description:product_stock_balance.field_res_config_settings__product_stock_balance_default_levels
+msgid "Default Levels Expanded"
+msgstr "Niveles predeterminados ampliados"
+
+#. module: product_stock_balance
+#. odoo-javascript
+#: code:addons/product_stock_balance/static/src/components/location_hierarchy_container/location_hierarchy_container.xml:0
+#, python-format
+msgid "Default warehouse"
+msgstr "Almacén predeterminado"
+
+#. module: product_stock_balance
+#: model_terms:ir.ui.view,arch_db:product_stock_balance.res_config_settings_view_form
+msgid ""
+"Define how many levels of locations' hierarchy should be shown by default. "
+"Others will be hidden until expanded manually"
+msgstr ""
+"Define cuántos niveles de jerarquía de ubicaciones se mostrarán por "
+"defecto. Los demás permanecerán ocultos hasta que se amplíen manualmente."
+
+#. module: product_stock_balance
+#. odoo-javascript
+#: code:addons/product_stock_balance/static/src/components/location_hierarchy_container/location_hierarchy_container.xml:0
+#, python-format
+msgid "Expand all levels"
+msgstr "Expandir todos los niveles"
+
+#. module: product_stock_balance
+#. odoo-javascript
+#: code:addons/product_stock_balance/static/src/components/location_hierarchy_container/location_hierarchy_container.xml:0
+#, python-format
+msgid "Export"
+msgstr "Exportar"
+
+#. module: product_stock_balance
+#: model_terms:ir.ui.view,arch_db:product_stock_balance.product_product_view_form_by_locations
+#: model_terms:ir.ui.view,arch_db:product_stock_balance.product_product_view_form_easy_by_locations
+#: model_terms:ir.ui.view,arch_db:product_stock_balance.product_template_view_form_by_locations
+msgid "Export to XLSX"
+msgstr "Exportar a XLSX"
+
+#. module: product_stock_balance
+#. odoo-javascript
+#. odoo-python
+#: code:addons/product_stock_balance/models/product_template.py:0
+#: code:addons/product_stock_balance/static/src/components/location_hierarchy_container/location_hierarchy_container.xml:0
+#, python-format
+msgid "Forecast"
+msgstr "Pronosticado"
+
+#. module: product_stock_balance
+#: model:ir.model.fields,field_description:product_stock_balance.field_stock_location__virtual_available
+msgid "Forecast Quantity"
+msgstr "Cantidad Pronosticada"
+
+#. module: product_stock_balance
+#: model:ir.model.fields,help:product_stock_balance.field_stock_location__virtual_available
+msgid "Forecast Quantity for product specified on the context"
+msgstr "Cantidad prevista para el producto especificado en el contexto"
+
+#. module: product_stock_balance
+#: model_terms:ir.ui.view,arch_db:product_stock_balance.product_product_view_form_by_locations
+#: model_terms:ir.ui.view,arch_db:product_stock_balance.product_template_view_form_by_locations
+msgid "Forecasted"
+msgstr "Pronosticado"
+
+#. module: product_stock_balance
+#. odoo-javascript
+#. odoo-python
+#: code:addons/product_stock_balance/models/product_template.py:0
+#: code:addons/product_stock_balance/static/src/components/location_hierarchy_container/location_hierarchy_container.xml:0
+#, python-format
+msgid "Free To Use"
+msgstr "Disponible"
+
+#. module: product_stock_balance
+#: model:ir.model.fields,field_description:product_stock_balance.field_stock_location__free_qty
+msgid "Free To Use Quantity"
+msgstr "Cantidad libre para usar"
+
+#. module: product_stock_balance
+#: model:ir.model.fields,help:product_stock_balance.field_stock_location__free_qty
+msgid "Free to use for product specified on the context"
+msgstr "Libre para el producto especificado en el contexto."
+
+#. module: product_stock_balance
+#: model_terms:ir.ui.view,arch_db:product_stock_balance.res_config_settings_view_form
+msgid ""
+"If checked, the product buttons 'On Hand' and 'Forecast' will also show the "
+"total by all warehouses. Otherwise, only user default warehouse inventory "
+"levels will be shown"
+msgstr ""
+"Si se marca la casilla, los botones de producto \"Disponible\" y "
+"\"Pronóstico\" también mostrarán el total de todos los almacenes. De lo "
+"contrario, solo se mostrarán los niveles de inventario de almacén "
+"predeterminados por el usuario."
+
+#. module: product_stock_balance
+#: model_terms:ir.ui.view,arch_db:product_stock_balance.res_config_settings_view_form
+msgid ""
+"If checked, the table will not be shown on product forms. The button to "
+"open the table will be shown instead. Such an approach facilitates the "
+"loading of the product notebook page since compute methods would be applied "
+"only after pushing the button"
+msgstr ""
+"Si se marca, la tabla no se mostrará en los formularios de producto. En su "
+"lugar, se mostrará el botón para abrirla. Este enfoque facilita la carga de "
+"la página del cuaderno de producto, ya que los métodos de cálculo solo se "
+"aplicarían después de pulsar el botón."
+
+#. module: product_stock_balance
+#. odoo-javascript
+#. odoo-python
+#: code:addons/product_stock_balance/models/product_template.py:0
+#: code:addons/product_stock_balance/static/src/components/location_hierarchy_container/location_hierarchy_container.xml:0
+#: model:ir.model.fields,field_description:product_stock_balance.field_stock_location__incoming_qty
+#, python-format
+msgid "Incoming"
+msgstr "Entrante"
+
+#. module: product_stock_balance
+#: model:ir.model.fields,help:product_stock_balance.field_stock_location__incoming_qty
+msgid "Incoming for product specified on the context"
+msgstr "Entrante para el producto especificado en el contexto"
+
+#. module: product_stock_balance
+#: model:ir.model,name:product_stock_balance.model_stock_location
+msgid "Inventory Locations"
+msgstr "Ubicaciones de inventario"
+
+#. module: product_stock_balance
+#. odoo-javascript
+#: code:addons/product_stock_balance/static/src/fields/location_hierarchy_sale/location_hierarchy_sale.js:0
+#: model:ir.actions.act_window,name:product_stock_balance.product_product_sbl_button_only_action
+#: model:ir.actions.act_window,name:product_stock_balance.product_template_sbl_button_only_action
+#: model_terms:ir.ui.view,arch_db:product_stock_balance.product_product_view_form_by_locations
+#: model_terms:ir.ui.view,arch_db:product_stock_balance.product_product_view_form_easy_by_locations
+#: model_terms:ir.ui.view,arch_db:product_stock_balance.product_template_view_form_by_locations
+#, python-format
+msgid "Inventory levels"
+msgstr "Niveles de inventario"
+
+#. module: product_stock_balance
+#: model:ir.model.fields,field_description:product_stock_balance.field_res_config_settings__group_stocks_show_only_by_button
+msgid "Inventory levels on button request"
+msgstr "Niveles de inventario al solicitar un botón"
+
+#. module: product_stock_balance
+#. odoo-javascript
+#. odoo-python
+#: code:addons/product_stock_balance/models/product_template.py:0
+#: code:addons/product_stock_balance/static/src/components/location_hierarchy_container/location_hierarchy_container.xml:0
+#, python-format
+msgid "Location"
+msgstr "Ubicación"
+
+#. module: product_stock_balance
+#: model:ir.model.fields,field_description:product_stock_balance.field_product_product__location_ids
+#: model:ir.model.fields,field_description:product_stock_balance.field_product_template__location_ids
+msgid "Locations"
+msgstr "Ubicaciones"
+
+#. module: product_stock_balance
+#. odoo-python
+#: code:addons/product_stock_balance/models/product_template.py:0
+#: model_terms:ir.ui.view,arch_db:product_stock_balance.product_product_view_form_by_locations
+#: model_terms:ir.ui.view,arch_db:product_stock_balance.product_template_view_form_by_locations
+#, python-format
+msgid "On Hand"
+msgstr "A Mano"
+
+#. module: product_stock_balance
+#: model:ir.model.fields,field_description:product_stock_balance.field_res_config_settings__group_stocks_show_aggregation
+msgid "On Hand and Forecast buttons: total by all warehouses"
+msgstr "Botón a mano y Pronosticado: total por todos los almacenes"
+
+#. module: product_stock_balance
+#. odoo-javascript
+#: code:addons/product_stock_balance/static/src/components/location_hierarchy_container/location_hierarchy_container.xml:0
+#, python-format
+msgid "On Hand:"
+msgstr "A Mano:"
+
+#. module: product_stock_balance
+#. odoo-javascript
+#: code:addons/product_stock_balance/static/src/components/location_hierarchy_container/location_hierarchy_container.xml:0
+#, python-format
+msgid "On hand"
+msgstr "A mano"
+
+#. module: product_stock_balance
+#. odoo-javascript
+#. odoo-python
+#: code:addons/product_stock_balance/models/product_template.py:0
+#: code:addons/product_stock_balance/static/src/components/location_hierarchy_container/location_hierarchy_container.xml:0
+#: model:ir.model.fields,field_description:product_stock_balance.field_stock_location__outgoing_qty
+#, python-format
+msgid "Outgoing"
+msgstr "Salida"
+
+#. module: product_stock_balance
+#: model:ir.model.fields,help:product_stock_balance.field_stock_location__outgoing_qty
+msgid "Outgoing for product specified on the context"
+msgstr "Salida para el producto especificado en el contexto"
+
+#. module: product_stock_balance
+#: model:ir.model,name:product_stock_balance.model_product_template
+msgid "Product"
+msgstr "Producto"
+
+#. module: product_stock_balance
+#: model:ir.model,name:product_stock_balance.model_product_replenish
+msgid "Product Replenish"
+msgstr "Reabastecimiento de producto"
+
+#. module: product_stock_balance
+#: model:ir.model,name:product_stock_balance.model_product_product
+msgid "Product Variant"
+msgstr "Variante del producto"
+
+#. module: product_stock_balance
+#: model:ir.model.fields,field_description:product_stock_balance.field_stock_location__qty_available
+msgid "Quantity On Hand"
+msgstr "Cantidad disponible"
+
+#. module: product_stock_balance
+#: model:ir.model.fields,help:product_stock_balance.field_stock_location__qty_available
+msgid "Quantity On Hand for product specified on the context"
+msgstr "Cantidad disponible para el producto especificado en el contexto"
+
+#. module: product_stock_balance
+#. odoo-javascript
+#. odoo-python
+#: code:addons/product_stock_balance/models/product_template.py:0
+#: code:addons/product_stock_balance/static/src/components/location_hierarchy_container/location_hierarchy_container.xml:0
+#, python-format
+msgid "Reserved"
+msgstr "Reservado"
+
+#. module: product_stock_balance
+#: model:ir.model.fields,field_description:product_stock_balance.field_stock_location__reserved_qty
+msgid "Reserved Quantity"
+msgstr "Cantidad reservada"
+
+#. module: product_stock_balance
+#: model:ir.model.fields,help:product_stock_balance.field_stock_location__reserved_qty
+msgid "Reserved for product specified on the context"
+msgstr "Reservado para el producto especificado en el contexto"
+
+#. module: product_stock_balance
+#: model:ir.model,name:product_stock_balance.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Línea de la orden de venta"
+
+#. module: product_stock_balance
+#: model:ir.model.fields,field_description:product_stock_balance.field_sale_order_line__show_psb
+msgid "Show Psb"
+msgstr "Mostrar Psb"
+
+#. module: product_stock_balance
+#: model:ir.model.fields,field_description:product_stock_balance.field_res_config_settings__product_stock_balance_dates
+msgid "Show Start/End"
+msgstr "Mostrar Inicio/Fin"
+
+#. module: product_stock_balance
+#: model_terms:ir.ui.view,arch_db:product_stock_balance.product_product_view_form_by_locations
+#: model_terms:ir.ui.view,arch_db:product_stock_balance.product_product_view_form_easy_by_locations
+#: model_terms:ir.ui.view,arch_db:product_stock_balance.product_template_view_form_by_locations
+msgid "Show Stocks by Locations"
+msgstr "Mostrar existencias por ubicación"
+
+#. module: product_stock_balance
+#: model:ir.model.fields,field_description:product_stock_balance.field_res_config_settings__product_stock_balance_show_total
+msgid "Show Total"
+msgstr "Mostrar total"
+
+#. module: product_stock_balance
+#: model_terms:ir.ui.view,arch_db:product_stock_balance.res_config_settings_view_form
+msgid "Stocks by Locations"
+msgstr "Stock por ubicación"
+
+#. module: product_stock_balance
+#: model:res.groups,name:product_stock_balance.group_stocks_show_only_by_button
+msgid "Stocks by locations: button only"
+msgstr "Stock por ubicación: Botón Unicamente"
+
+#. module: product_stock_balance
+#: model:res.groups,name:product_stock_balance.group_stocks_no_aggregation
+msgid "Stocks by locations: no aggregation"
+msgstr "Stock por ubicación: sin agregación"
+
+#. module: product_stock_balance
+#. odoo-python
+#: code:addons/product_stock_balance/models/product_template.py:0
+#, python-format
+msgid ""
+"The Python library xlsxwriter is installed. Contact your system "
+"administrator"
+msgstr ""
+"La biblioteca de Python xlsxwriter está instalada. Contacte con el "
+"administrador del sistema."
+
+#. module: product_stock_balance
+#: model:ir.model.fields,field_description:product_stock_balance.field_product_product__virtual_available_total
+#: model:ir.model.fields,field_description:product_stock_balance.field_product_template__virtual_available_total
+msgid "Total Forecast"
+msgstr "Pronóstico total"
+
+#. module: product_stock_balance
+#: model:ir.model.fields,field_description:product_stock_balance.field_product_product__qty_available_total
+#: model:ir.model.fields,field_description:product_stock_balance.field_product_template__qty_available_total
+msgid "Total Quantity"
+msgstr "Cantidad total"
+
+#. module: product_stock_balance
+#: model_terms:ir.ui.view,arch_db:product_stock_balance.res_config_settings_view_form
+msgid "Turn on to allow exporting stock levels by locations"
+msgstr ""
+"Activar para permitir la exportación de niveles de stock por ubicaciones"
+
+#. module: product_stock_balance
+#: model_terms:ir.ui.view,arch_db:product_stock_balance.res_config_settings_view_form
+msgid ""
+"Turn on to allow users to select start and end dates for stock availability"
+msgstr ""
+"Activar esta opción para permitir que los usuarios seleccionen fechas de "
+"inicio y finalización de la disponibilidad de existencias."
+
+#. module: product_stock_balance
+#: model_terms:ir.ui.view,arch_db:product_stock_balance.res_config_settings_view_form
+msgid ""
+"Turn on to show the total quantity on hand and per default warehouse above "
+"the locations' table"
+msgstr ""
+"Activar para mostrar la cantidad total disponible y el almacén "
+"predeterminado sobre la tabla de ubicaciones"
+
+#. module: product_stock_balance
+#. odoo-javascript
+#: code:addons/product_stock_balance/static/src/components/location_hierarchy_container/location_hierarchy_container.xml:0
+#, python-format
+msgid "end date"
+msgstr "fecha final"
+
+#. module: product_stock_balance
+#. odoo-javascript
+#: code:addons/product_stock_balance/static/src/components/location_hierarchy_container/location_hierarchy_container.xml:0
+#, python-format
+msgid "start date"
+msgstr "fecha inicio"

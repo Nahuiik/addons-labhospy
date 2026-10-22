@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_gn_financial_dashboard_config_form" model="ir.ui.view">
+        <field name="name">gn.financial.dashboard.config.form</field>
+        <field name="model">gn.financial.dashboard.config</field>
+        <field name="arch" type="xml">
+            <form string="Configuración del Tablero Financiero">
+                <sheet>
+                    <group>
+                        <field name="company_id" options="{'no_create': True}"/>
+                        <field name="currency_id" invisible="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Umbrales de alertas" name="thresholds">
+                            <group>
+                                <group string="Rentabilidad y liquidez">
+                                    <field name="min_net_margin"/>
+                                    <field name="max_expense_ratio"/>
+                                    <field name="min_current_ratio"/>
+                                    <field name="min_working_capital"/>
+                                    <field name="min_cash_flow"/>
+                                </group>
+                                <group string="Cartera">
+                                    <field name="max_overdue_receivable_pct"/>
+                                    <field name="max_over_120_pct"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Cuentas (EBIT/EBITDA)" name="account_maps">
+                            <p class="text-muted">
+                                Mapeo opcional de cuentas para los KPIs avanzados que
+                                no se infieren del tipo de cuenta de Odoo (intereses,
+                                impuesto sobre la renta, depreciación e inventario).
+                            </p>
+                            <group>
+                                <field name="interest_account_ids" widget="many2many_tags"
+                                       options="{'no_create': True}"/>
+                                <field name="tax_expense_account_ids" widget="many2many_tags"
+                                       options="{'no_create': True}"/>
+                                <field name="depreciation_account_ids" widget="many2many_tags"
+                                       options="{'no_create': True}"/>
+                                <field name="inventory_account_ids" widget="many2many_tags"
+                                       options="{'no_create': True}"/>
+                            </group>
+                        </page>
+                        <page string="Apariencia" name="theme">
+                            <group>
+                                <group string="Estilo">
+                                    <field name="primary_color" widget="char"/>
+                                    <field name="compact_mode"/>
+                                    <field name="show_currency"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Secciones" name="sections">
+                            <group>
+                                <group string="Visibilidad">
+                                    <field name="show_profitability"/>
+                                    <field name="show_liquidity"/>
+                                    <field name="show_cashflow"/>
+                                    <field name="show_aging"/>
+                                    <field name="show_expense_ranking"/>
+                                    <field name="show_partner_ranking"/>
+                                    <field name="show_analysis"/>
+                                    <field name="show_data_quality"/>
+                                </group>
+                                <group string="Orden (menor = primero)">
+                                    <field name="seq_profitability"/>
+                                    <field name="seq_liquidity"/>
+                                    <field name="seq_cashflow"/>
+                                    <field name="seq_aging"/>
+                                    <field name="seq_expense_ranking"/>
+                                    <field name="seq_partner_ranking"/>
+                                    <field name="seq_analysis"/>
+                                    <field name="seq_data_quality"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_gn_financial_dashboard_config_list" model="ir.ui.view">
+        <field name="name">gn.financial.dashboard.config.list</field>
+        <field name="model">gn.financial.dashboard.config</field>
+        <field name="arch" type="xml">
+            <list string="Configuración del Tablero Financiero">
+                <field name="company_id"/>
+                <field name="min_net_margin"/>
+                <field name="max_overdue_receivable_pct"/>
+                <field name="min_current_ratio"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_gn_financial_dashboard_config" model="ir.actions.act_window">
+        <field name="name">Configuración del Tablero Financiero</field>
+        <field name="res_model">gn.financial.dashboard.config</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_gn_financial_dashboard_config"
+              name="Config. Tablero Financiero"
+              parent="account.menu_finance_configuration"
+              action="action_gn_financial_dashboard_config"
+              sequence="99"
+              groups="account.group_account_manager"/>
+</odoo>

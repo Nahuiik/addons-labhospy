@@ -1,0 +1,1116 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* bi_account_asset
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-29 23:08+0000\n"
+"PO-Revision-Date: 2026-06-29 23:08+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es_GT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: bi_account_asset
+#. odoo-python
+#: code:addons/bi_account_asset/models/account_asset.py:0
+msgid " (copy)"
+msgstr " (copia)"
+
+#. module: bi_account_asset
+#. odoo-python
+#: code:addons/bi_account_asset/models/account_asset.py:0
+msgid " (grouped)"
+msgstr " (agrupado)"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__entry_count
+msgid "# Asset Entries"
+msgstr "N.° de asientos de activos"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_asset_asset_report__depreciation_nbr
+msgid "# of Depreciation Lines"
+msgstr "N.° de líneas de depreciación"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_asset_asset_report__installment_nbr
+msgid "# of Installment Lines"
+msgstr "N.° de líneas de cuotas"
+
+#. module: bi_account_asset
+#: model:ir.actions.server,name:bi_account_asset.account_asset_cron_ir_actions_server
+msgid "Account Asset: Generate asset entries"
+msgstr "Activo contable: generar asientos de activos"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_asset_depreciation_confirmation_wizard__date
+msgid "Account Date"
+msgstr "Fecha contable"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,help:bi_account_asset.field_account_asset_category__account_depreciation_id
+msgid "Account used in the depreciation entries, to decrease the asset value."
+msgstr ""
+"Cuenta utilizada en los asientos de depreciación para disminuir el valor del "
+"activo."
+
+#. module: bi_account_asset
+#: model:ir.model.fields,help:bi_account_asset.field_account_asset_category__account_depreciation_expense_id
+msgid ""
+"Account used in the periodical entries, to record a part of the asset as "
+"expense."
+msgstr ""
+"Cuenta utilizada en los asientos periódicos para registrar una parte del "
+"activo como gasto."
+
+#. module: bi_account_asset
+#: model:ir.model.fields,help:bi_account_asset.field_account_asset_category__account_asset_id
+msgid ""
+"Account used to record the purchase of the asset at its original price."
+msgstr ""
+"Cuenta utilizada para registrar la compra del activo a su precio original."
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__message_needaction
+msgid "Action Needed"
+msgstr "Acción requerida"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__active
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_category__active
+msgid "Active"
+msgstr "Activo"
+
+#. module: bi_account_asset
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_category_form
+msgid "Additional Options"
+msgstr "Opciones adicionales"
+
+#. module: bi_account_asset
+#. odoo-python
+#: code:addons/bi_account_asset/models/account_asset.py:0
+msgid "Amount"
+msgstr "Importe"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_asset_asset_report__depreciation_value
+msgid "Amount of Depreciation Lines"
+msgstr "Importe de las líneas de depreciación"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_asset_asset_report__installment_value
+msgid "Amount of Installment Lines"
+msgstr "Importe de las líneas de cuotas"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_category__analytic_distribution
+msgid "Analytic"
+msgstr "Analítica"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_category__analytic_precision
+msgid "Analytic Precision"
+msgstr "Precisión analítica"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_depreciation_line__asset_id
+#: model:ir.model.fields,field_description:bi_account_asset.field_asset_asset_report__asset_id
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_asset_form
+msgid "Asset"
+msgstr "Activo"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_category__account_asset_id
+msgid "Asset Account"
+msgstr "Cuenta del activo"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_move_line__asset_category_id
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_move_form_inherits
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_move_line_form
+msgid "Asset Category"
+msgstr "Categoría de activo"
+
+#. module: bi_account_asset
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.asset_modify_form
+msgid "Asset Durations to Modify"
+msgstr "Duraciones del activo a modificar"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_move_line__asset_end_date
+msgid "Asset End Date"
+msgstr "Fecha final del activo"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_asset_modify__asset_method_time
+msgid "Asset Method Time"
+msgstr "Método de tiempo del activo"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__name
+msgid "Asset Name"
+msgstr "Nombre del activo"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_move_line__asset_start_date
+msgid "Asset Start Date"
+msgstr "Fecha de inicio del activo"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_category__name
+#: model:ir.model.fields,field_description:bi_account_asset.field_product_product__asset_category_id
+#: model:ir.model.fields,field_description:bi_account_asset.field_product_template__asset_category_id
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_category_form
+msgid "Asset Type"
+msgstr "Tipo de activo"
+
+#. module: bi_account_asset
+#: model:ir.actions.act_window,name:bi_account_asset.action_account_asset_asset_list_normal_purchase
+msgid "Asset Types"
+msgstr "Tipos de activo"
+
+#. module: bi_account_asset
+#: model:ir.model,name:bi_account_asset.model_account_asset_category
+#: model:ir.model.fields,field_description:bi_account_asset.field_asset_asset_report__asset_category_id
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_category_form
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_category_tree
+msgid "Asset category"
+msgstr "Categoría de activo"
+
+#. module: bi_account_asset
+#. odoo-python
+#: code:addons/bi_account_asset/models/account_asset.py:0
+msgid "Asset created"
+msgstr "Activo creado"
+
+#. module: bi_account_asset
+#: model:ir.model,name:bi_account_asset.model_account_asset_depreciation_line
+msgid "Asset depreciation line"
+msgstr "Línea de depreciación de activo"
+
+#. module: bi_account_asset
+#. odoo-python
+#: code:addons/bi_account_asset/models/account_asset.py:0
+msgid "Asset sold or disposed. Accounting entry awaiting for validation."
+msgstr ""
+"Activo vendido o dado de baja. El asiento contable está pendiente de "
+"validación."
+
+#. module: bi_account_asset
+#: model:ir.model,name:bi_account_asset.model_account_asset_asset
+msgid "Asset/Revenue Recognition"
+msgstr "Reconocimiento de activo / ingreso"
+
+#. module: bi_account_asset
+#: model:ir.actions.act_window,name:bi_account_asset.action_account_asset_asset_form
+#: model:ir.ui.menu,name:bi_account_asset.menu_action_account_asset_asset_form
+#: model:ir.ui.menu,name:bi_account_asset.menu_action_asset_asset_report
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_asset_purchase_tree
+msgid "Assets"
+msgstr "Activos"
+
+#. module: bi_account_asset
+#: model:ir.actions.act_window,name:bi_account_asset.action_asset_asset_report
+#: model:ir.model,name:bi_account_asset.model_asset_asset_report
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.action_account_asset_report_graph
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.action_account_asset_report_pivot
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_asset_asset_report_search
+msgid "Assets Analysis"
+msgstr "Análisis de activos"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_bank_statement_line__asset_depreciation_ids
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_move__asset_depreciation_ids
+msgid "Assets Depreciation Lines"
+msgstr "Líneas de depreciación de activos"
+
+#. module: bi_account_asset
+#: model:ir.ui.menu,name:bi_account_asset.menu_finance_config_assets
+msgid "Assets and Revenues"
+msgstr "Activos e ingresos"
+
+#. module: bi_account_asset
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_asset_asset_report_search
+msgid "Assets in draft state"
+msgstr "Activos en estado borrador"
+
+#. module: bi_account_asset
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_asset_asset_report_search
+msgid "Assets in running state"
+msgstr "Activos en ejecución"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__message_attachment_count
+msgid "Attachment Count"
+msgstr "N.° de archivos adjuntos"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_category__open_asset
+msgid "Auto-confirm Assets"
+msgstr "Confirmar activos automáticamente"
+
+#. module: bi_account_asset
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.asset_modify_form
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_asset_depreciation_confirmation_wizard
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__category_id
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_category_search
+msgid "Category"
+msgstr "Categoría"
+
+#. module: bi_account_asset
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_asset_form
+msgid "Category of asset"
+msgstr "Categoría del activo"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,help:bi_account_asset.field_account_asset_category__open_asset
+msgid ""
+"Check this if you want to automatically confirm the assets of this category "
+"when created by invoices."
+msgstr ""
+"Marque esta casilla si desea confirmar automáticamente los activos de esta "
+"categoría cuando se creen desde facturas."
+
+#. module: bi_account_asset
+#: model:ir.model.fields,help:bi_account_asset.field_account_asset_category__group_entries
+msgid "Check this if you want to group the generated entries by categories."
+msgstr ""
+"Marque esta casilla si desea agrupar los asientos generados por categorías."
+
+#. module: bi_account_asset
+#: model:ir.model.fields,help:bi_account_asset.field_account_asset_asset__method
+#: model:ir.model.fields,help:bi_account_asset.field_account_asset_category__method
+msgid ""
+"Choose the method to use to compute the amount of depreciation lines.\n"
+"  * Linear: Calculated on basis of: Gross Value / Number of Depreciations\n"
+"  * Degressive: Calculated on basis of: Residual Value * Degressive Factor"
+msgstr ""
+"Elija el método para calcular el importe de las líneas de depreciación:\n"
+"  * Lineal: calculado como Valor bruto / Número de depreciaciones\n"
+"  * Decreciente: calculado como Valor residual × Factor decreciente"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,help:bi_account_asset.field_account_asset_asset__method_time
+#: model:ir.model.fields,help:bi_account_asset.field_account_asset_category__method_time
+msgid ""
+"Choose the method to use to compute the dates and number of entries.\n"
+"  * Number of Entries: Fix the number of entries and the time between 2 depreciations.\n"
+"  * Ending Date: Choose the time between 2 depreciations and the date the depreciations won't go beyond."
+msgstr ""
+"Elija el método para calcular las fechas y el número de asientos:\n"
+"  * Número de asientos: define el número de asientos y el tiempo entre dos depreciaciones.\n"
+"  * Fecha final: define el tiempo entre dos depreciaciones y la fecha límite hasta la que se calcularán."
+
+#. module: bi_account_asset
+#: model:ir.model.fields,help:bi_account_asset.field_asset_depreciation_confirmation_wizard__date
+msgid ""
+"Choose the period for which you want to automatically post the depreciation "
+"lines of running assets"
+msgstr ""
+"Elija el período para el cual desea contabilizar automáticamente las líneas "
+"de depreciación de los activos en ejecución."
+
+#. module: bi_account_asset
+#: model:ir.model.fields.selection,name:bi_account_asset.selection__account_asset_asset__state__close
+#: model:ir.model.fields.selection,name:bi_account_asset.selection__asset_asset_report__state__close
+msgid "Close"
+msgstr "Cerrado"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__company_id
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_category__company_id
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_depreciation_line__company_id
+#: model:ir.model.fields,field_description:bi_account_asset.field_asset_asset_report__company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__method
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_category__method
+msgid "Computation Method"
+msgstr "Método de cálculo"
+
+#. module: bi_account_asset
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_asset_depreciation_confirmation_wizard
+msgid "Compute Asset"
+msgstr "Calcular activo"
+
+#. module: bi_account_asset
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_asset_form
+msgid "Compute Depreciation"
+msgstr "Calcular depreciación"
+
+#. module: bi_account_asset
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_asset_form
+msgid "Confirm"
+msgstr "Confirmar"
+
+#. module: bi_account_asset
+#. odoo-python
+#: code:addons/bi_account_asset/wizard/asset_depreciation_confirmation_wizard.py:0
+msgid "Created Asset Moves"
+msgstr "Asientos de activo creados"
+
+#. module: bi_account_asset
+#. odoo-python
+#: code:addons/bi_account_asset/wizard/asset_depreciation_confirmation_wizard.py:0
+msgid "Created Revenue Moves"
+msgstr "Asientos de ingreso creados"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__create_uid
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_category__create_uid
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_depreciation_line__create_uid
+#: model:ir.model.fields,field_description:bi_account_asset.field_asset_depreciation_confirmation_wizard__create_uid
+#: model:ir.model.fields,field_description:bi_account_asset.field_asset_modify__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__create_date
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_category__create_date
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_depreciation_line__create_date
+#: model:ir.model.fields,field_description:bi_account_asset.field_asset_depreciation_confirmation_wizard__create_date
+#: model:ir.model.fields,field_description:bi_account_asset.field_asset_modify__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_depreciation_line__depreciated_value
+msgid "Cumulative Depreciation"
+msgstr "Depreciación acumulada"
+
+#. module: bi_account_asset
+#. odoo-python
+#: code:addons/bi_account_asset/models/account_asset.py:0
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__currency_id
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_depreciation_line__currency_id
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_depreciation_line__amount
+msgid "Current Depreciation"
+msgstr "Depreciación actual"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__date
+#: model:ir.model.fields,field_description:bi_account_asset.field_asset_asset_report__date
+msgid "Date"
+msgstr "Fecha"
+
+#. module: bi_account_asset
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_asset_form
+msgid "Date of asset"
+msgstr "Fecha del activo"
+
+#. module: bi_account_asset
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_category_form
+msgid "Deferred Revenue Account"
+msgstr "Cuenta de ingreso diferido"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_product_product__deferred_revenue_category_id
+#: model:ir.model.fields,field_description:bi_account_asset.field_product_template__deferred_revenue_category_id
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_category_form
+msgid "Deferred Revenue Type"
+msgstr "Tipo de ingreso diferido"
+
+#. module: bi_account_asset
+#: model:ir.model.fields.selection,name:bi_account_asset.selection__account_asset_asset__method__degressive
+#: model:ir.model.fields.selection,name:bi_account_asset.selection__account_asset_category__method__degressive
+msgid "Degressive"
+msgstr "Decreciente"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__method_progress_factor
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_category__method_progress_factor
+msgid "Degressive Factor"
+msgstr "Factor decreciente"
+
+#. module: bi_account_asset
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_asset_form
+msgid "Depreciation"
+msgstr "Depreciación"
+
+#. module: bi_account_asset
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_asset_form
+msgid "Depreciation Board"
+msgstr "Tabla de depreciación"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_depreciation_line__depreciation_date
+#: model:ir.model.fields,field_description:bi_account_asset.field_asset_asset_report__depreciation_date
+msgid "Depreciation Date"
+msgstr "Fecha de depreciación"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_category__account_depreciation_id
+msgid "Depreciation Entries: Asset Account"
+msgstr "Asientos de depreciación: cuenta del activo"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_category__account_depreciation_expense_id
+msgid "Depreciation Entries: Expense Account"
+msgstr "Asientos de depreciación: cuenta de gasto"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_depreciation_line__move_id
+msgid "Depreciation Entry"
+msgstr "Asiento de depreciación"
+
+#. module: bi_account_asset
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_asset_form
+msgid "Depreciation Information"
+msgstr "Información de depreciación"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__depreciation_line_ids
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_asset_form
+msgid "Depreciation Lines"
+msgstr "Líneas de depreciación"
+
+#. module: bi_account_asset
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_category_form
+msgid "Depreciation Method"
+msgstr "Método de depreciación"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_depreciation_line__name
+msgid "Depreciation Name"
+msgstr "Nombre de la depreciación"
+
+#. module: bi_account_asset
+#. odoo-python
+#: code:addons/bi_account_asset/wizard/asset_modify.py:0
+msgid "Depreciation board modified"
+msgstr "Tabla de depreciación modificada"
+
+#. module: bi_account_asset
+#. odoo-python
+#: code:addons/bi_account_asset/models/account_asset.py:0
+msgid "Depreciation line posted."
+msgstr "Línea de depreciación contabilizada."
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__display_name
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_category__display_name
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_depreciation_line__display_name
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_move__display_name
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_move_line__display_name
+#: model:ir.model.fields,field_description:bi_account_asset.field_asset_asset_report__display_name
+#: model:ir.model.fields,field_description:bi_account_asset.field_asset_depreciation_confirmation_wizard__display_name
+#: model:ir.model.fields,field_description:bi_account_asset.field_asset_modify__display_name
+#: model:ir.model.fields,field_description:bi_account_asset.field_product_template__display_name
+msgid "Display Name"
+msgstr "Nombre a mostrar"
+
+#. module: bi_account_asset
+#. odoo-python
+#: code:addons/bi_account_asset/models/account_asset.py:0
+msgid "Disposal Move"
+msgstr "Asiento de baja"
+
+#. module: bi_account_asset
+#. odoo-python
+#: code:addons/bi_account_asset/models/account_asset.py:0
+msgid "Disposal Moves"
+msgstr "Asientos de baja"
+
+#. module: bi_account_asset
+#. odoo-python
+#: code:addons/bi_account_asset/models/account_asset.py:0
+msgid "Document closed."
+msgstr "Documento cerrado."
+
+#. module: bi_account_asset
+#: model:ir.model.fields.selection,name:bi_account_asset.selection__account_asset_asset__state__draft
+#: model:ir.model.fields.selection,name:bi_account_asset.selection__asset_asset_report__state__draft
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_asset_asset_report_search
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__method_end
+#: model:ir.model.fields.selection,name:bi_account_asset.selection__account_asset_asset__method_time__end
+#: model:ir.model.fields.selection,name:bi_account_asset.selection__account_asset_category__method_time__end
+msgid "Ending Date"
+msgstr "Fecha final"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_category__method_end
+#: model:ir.model.fields,field_description:bi_account_asset.field_asset_modify__method_end
+msgid "Ending date"
+msgstr "Fecha final"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (contactos)"
+
+#. module: bi_account_asset
+#: model_terms:ir.actions.act_window,help:bi_account_asset.action_asset_asset_report
+msgid ""
+"From this report, you can have an overview on all depreciations. The\n"
+"            search bar can also be used to personalize your assets depreciation reporting."
+msgstr ""
+"Desde este reporte puede obtener una vista general de todas las depreciaciones.\n"
+"            También puede usar la barra de búsqueda para personalizar el reporte de depreciación de activos."
+
+#. module: bi_account_asset
+#: model:ir.ui.menu,name:bi_account_asset.menu_asset_depreciation_confirmation_wizard
+msgid "Generate Assets Entries"
+msgstr "Generar asientos de activos"
+
+#. module: bi_account_asset
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_asset_depreciation_confirmation_wizard
+msgid "Generate Entries"
+msgstr "Generar asientos"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_asset_asset_report__gross_value
+msgid "Gross Amount"
+msgstr "Importe bruto"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__value
+msgid "Gross Value"
+msgstr "Valor bruto"
+
+#. module: bi_account_asset
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_asset_form
+msgid "Gross value of asset"
+msgstr "Valor bruto del activo"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_category__group_entries
+msgid "Group Journal Entries"
+msgstr "Agrupar asientos contables"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__has_message
+msgid "Has Message"
+msgstr "Tiene mensaje"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__id
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_category__id
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_depreciation_line__id
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_move__id
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_move_line__id
+#: model:ir.model.fields,field_description:bi_account_asset.field_asset_asset_report__id
+#: model:ir.model.fields,field_description:bi_account_asset.field_asset_depreciation_confirmation_wizard__id
+#: model:ir.model.fields,field_description:bi_account_asset.field_asset_modify__id
+#: model:ir.model.fields,field_description:bi_account_asset.field_product_template__id
+msgid "ID"
+msgstr "ID"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,help:bi_account_asset.field_account_asset_asset__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcado, los nuevos mensajes requieren su atención."
+
+#. module: bi_account_asset
+#: model:ir.model.fields,help:bi_account_asset.field_account_asset_asset__message_has_error
+#: model:ir.model.fields,help:bi_account_asset.field_account_asset_asset__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si está marcado, algunos mensajes tienen un error de entrega."
+
+#. module: bi_account_asset
+#: model:ir.model.fields,help:bi_account_asset.field_account_asset_asset__prorata
+msgid ""
+"Indicates that the first depreciation entry for this asset have to be done "
+"from the purchase date instead of the first January / Start date of fiscal "
+"year"
+msgstr ""
+"Indica que el primer asiento de depreciación de este activo debe realizarse "
+"a partir de la fecha de compra en lugar del 1 de enero o de la fecha de "
+"inicio del ejercicio fiscal."
+
+#. module: bi_account_asset
+#: model:ir.model.fields,help:bi_account_asset.field_account_asset_category__prorata
+msgid ""
+"Indicates that the first depreciation entry for this asset have to be done "
+"from the purchase date instead of the first of January"
+msgstr ""
+"Indica que el primer asiento de depreciación de este activo debe realizarse "
+"a partir de la fecha de compra en lugar del 1 de enero."
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__invoice_id
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_asset_form
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__message_is_follower
+msgid "Is Follower"
+msgstr "Es seguidor"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,help:bi_account_asset.field_account_asset_asset__salvage_value
+msgid "It is the amount you plan to have that you cannot depreciate."
+msgstr "Es el importe previsto que no podrá depreciarse."
+
+#. module: bi_account_asset
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_asset_form
+msgid "Items"
+msgstr "Elementos"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_category__journal_id
+msgid "Journal"
+msgstr "Diario"
+
+#. module: bi_account_asset
+#. odoo-python
+#: code:addons/bi_account_asset/models/account_asset.py:0
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_category_form
+msgid "Journal Entries"
+msgstr "Asientos contables"
+
+#. module: bi_account_asset
+#: model:ir.model,name:bi_account_asset.model_account_move
+msgid "Journal Entry"
+msgstr "Asiento contable"
+
+#. module: bi_account_asset
+#: model:ir.model,name:bi_account_asset.model_account_move_line
+msgid "Journal Item"
+msgstr "Apunte contable"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__write_uid
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_category__write_uid
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_depreciation_line__write_uid
+#: model:ir.model.fields,field_description:bi_account_asset.field_asset_depreciation_confirmation_wizard__write_uid
+#: model:ir.model.fields,field_description:bi_account_asset.field_asset_modify__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__write_date
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_category__write_date
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_depreciation_line__write_date
+#: model:ir.model.fields,field_description:bi_account_asset.field_asset_depreciation_confirmation_wizard__write_date
+#: model:ir.model.fields,field_description:bi_account_asset.field_asset_modify__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: bi_account_asset
+#: model:ir.model.fields.selection,name:bi_account_asset.selection__account_asset_asset__method__linear
+#: model:ir.model.fields.selection,name:bi_account_asset.selection__account_asset_category__method__linear
+msgid "Linear"
+msgstr "Lineal"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_depreciation_line__move_check
+msgid "Linked"
+msgstr "Enlazado"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__message_has_error
+msgid "Message Delivery error"
+msgstr "Error de entrega del mensaje"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: bi_account_asset
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.asset_modify_form
+msgid "Modify"
+msgstr "Modificar"
+
+#. module: bi_account_asset
+#: model:ir.actions.act_window,name:bi_account_asset.action_asset_modify
+#: model:ir.model,name:bi_account_asset.model_asset_modify
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.asset_modify_form
+msgid "Modify Asset"
+msgstr "Modificar activo"
+
+#. module: bi_account_asset
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_asset_form
+msgid "Modify Depreciation"
+msgstr "Modificar depreciación"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_move_line__asset_mrr
+msgid "Monthly Recurring Revenue"
+msgstr "Ingreso mensual recurrente"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__move_id
+msgid "Move"
+msgstr "Asiento"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_depreciation_line__remaining_value
+msgid "Next Period Depreciation"
+msgstr "Depreciación del próximo período"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__note
+msgid "Note"
+msgstr "Nota"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de acciones"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__method_number
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_category__method_number
+#: model:ir.model.fields,field_description:bi_account_asset.field_asset_modify__method_number
+msgid "Number of Depreciations"
+msgstr "Número de depreciaciones"
+
+#. module: bi_account_asset
+#: model:ir.model.fields.selection,name:bi_account_asset.selection__account_asset_asset__method_time__number
+#: model:ir.model.fields.selection,name:bi_account_asset.selection__account_asset_category__method_time__number
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_category_form
+msgid "Number of Entries"
+msgstr "Número de asientos"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__method_period
+msgid "Number of Months in a Period"
+msgstr "Número de meses por período"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__message_has_error_counter
+msgid "Number of errors"
+msgstr "Número de errores"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,help:bi_account_asset.field_account_asset_asset__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Número de mensajes que requieren acción"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,help:bi_account_asset.field_account_asset_asset__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensajes con error de entrega"
+
+#. module: bi_account_asset
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_category_form
+msgid "One Entry Every"
+msgstr "Un asiento cada"
+
+#. module: bi_account_asset
+#. odoo-python
+#: code:addons/bi_account_asset/models/account_asset.py:0
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__partner_id
+#: model:ir.model.fields,field_description:bi_account_asset.field_asset_asset_report__partner_id
+msgid "Partner"
+msgstr "Contacto"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_category__method_period
+#: model:ir.model.fields,field_description:bi_account_asset.field_asset_modify__method_period
+msgid "Period Length"
+msgstr "Duración del período"
+
+#. module: bi_account_asset
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_category_form
+msgid "Periodicity"
+msgstr "Periodicidad"
+
+#. module: bi_account_asset
+#: model:ir.actions.act_window,name:bi_account_asset.action_asset_depreciation_confirmation_wizard
+msgid "Post Depreciation Lines"
+msgstr "Contabilizar líneas de depreciación"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_depreciation_line__move_posted_check
+#: model:ir.model.fields,field_description:bi_account_asset.field_asset_asset_report__move_check
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_asset_asset_report_search
+msgid "Posted"
+msgstr "Contabilizado"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_asset_asset_report__posted_value
+msgid "Posted Amount"
+msgstr "Importe contabilizado"
+
+#. module: bi_account_asset
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_asset_asset_report_search
+msgid "Posted depreciation lines"
+msgstr "Líneas de depreciación contabilizadas"
+
+#. module: bi_account_asset
+#: model:ir.model,name:bi_account_asset.model_product_template
+msgid "Product"
+msgstr "Producto"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__prorata
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_category__prorata
+msgid "Prorata Temporis"
+msgstr "Prorrateo temporal"
+
+#. module: bi_account_asset
+#. odoo-python
+#: code:addons/bi_account_asset/models/account_asset.py:0
+msgid ""
+"Prorata temporis can be applied only for time method \"number of "
+"depreciations\"."
+msgstr ""
+"El prorrateo temporal solo puede aplicarse para el método de tiempo \"número "
+"de depreciaciones\"."
+
+#. module: bi_account_asset
+#: model:ir.model.fields.selection,name:bi_account_asset.selection__account_asset_category__type__purchase
+msgid "Purchase: Asset"
+msgstr "Compra: activo"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__rating_ids
+msgid "Ratings"
+msgstr "Calificaciones"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_asset_modify__name
+msgid "Reason"
+msgstr "Motivo"
+
+#. module: bi_account_asset
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_category_form
+msgid "Recognition Account"
+msgstr "Cuenta de reconocimiento"
+
+#. module: bi_account_asset
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_category_form
+msgid "Recognition Income Account"
+msgstr "Cuenta de ingreso de reconocimiento"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__code
+msgid "Reference"
+msgstr "Referencia"
+
+#. module: bi_account_asset
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_asset_form
+msgid "Residual"
+msgstr "Residual"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__value_residual
+msgid "Residual Value"
+msgstr "Valor residual"
+
+#. module: bi_account_asset
+#: model:ir.model.fields.selection,name:bi_account_asset.selection__account_asset_asset__state__open
+#: model:ir.model.fields.selection,name:bi_account_asset.selection__asset_asset_report__state__open
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_asset_asset_report_search
+msgid "Running"
+msgstr "En ejecución"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Error de entrega de SMS"
+
+#. module: bi_account_asset
+#: model:ir.model.fields.selection,name:bi_account_asset.selection__account_asset_category__type__sale
+msgid "Sale: Revenue Recognition"
+msgstr "Venta: reconocimiento de ingreso"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__salvage_value
+msgid "Salvage Value"
+msgstr "Valor de rescate"
+
+#. module: bi_account_asset
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_category_search
+msgid "Search Asset Category"
+msgstr "Buscar categoría de activo"
+
+#. module: bi_account_asset
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_asset_form
+msgid "Sell or Dispose"
+msgstr "Vender o dar de baja"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_depreciation_line__sequence
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: bi_account_asset
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_asset_form
+msgid "Set to Draft"
+msgstr "Restablecer a borrador"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,help:bi_account_asset.field_account_asset_category__method_period
+msgid "State here the time between 2 depreciations, in months"
+msgstr "Indique aquí el tiempo entre dos depreciaciones, en meses."
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_depreciation_line__parent_state
+msgid "State of Asset"
+msgstr "Estado del activo"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__state
+#: model:ir.model.fields,field_description:bi_account_asset.field_asset_asset_report__state
+msgid "Status"
+msgstr "Estado"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,help:bi_account_asset.field_account_asset_asset__method_period
+msgid "The amount of time between two depreciations, in months"
+msgstr "El tiempo entre dos depreciaciones, en meses."
+
+#. module: bi_account_asset
+#: model:ir.model.fields,help:bi_account_asset.field_account_asset_asset__method_number
+#: model:ir.model.fields,help:bi_account_asset.field_account_asset_category__method_number
+msgid "The number of depreciations needed to depreciate your asset"
+msgstr "El número de depreciaciones necesarias para depreciar el activo."
+
+#. module: bi_account_asset
+#. odoo-python
+#: code:addons/bi_account_asset/models/account_invoice.py:0
+msgid ""
+"The number of depreciations or the period length of your asset category "
+"cannot be null."
+msgstr ""
+"El número de depreciaciones o la duración del período de la categoría de "
+"activo no puede ser cero."
+
+#. module: bi_account_asset
+#. odoo-python
+#: code:addons/bi_account_asset/models/account_asset.py:0
+msgid ""
+"This depreciation is already linked to a journal entry! Please post or "
+"delete it."
+msgstr ""
+"¡Esta depreciación ya está enlazada a un asiento contable! Contabilícelo o "
+"elimínelo."
+
+#. module: bi_account_asset
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_asset_depreciation_confirmation_wizard
+msgid ""
+"This wizard will post installment/depreciation lines for the selected month.<br/>\n"
+"                        This will generate journal entries for all related installment lines on this period of asset/revenue recognition as well."
+msgstr ""
+"Este asistente contabilizará las líneas de cuota o depreciación del mes seleccionado.<br/>\n"
+"                        También generará los asientos contables correspondientes a todas las líneas de cuotas relacionadas con este período de reconocimiento de activo o ingreso."
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__method_time
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_category__method_time
+msgid "Time Method"
+msgstr "Método de tiempo"
+
+#. module: bi_account_asset
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_asset_form
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_category_form
+msgid "Time Method Based On"
+msgstr "Método de tiempo basado en"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__type
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_category__type
+msgid "Type"
+msgstr "Tipo"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_asset_asset_report__unposted_value
+msgid "Unposted Amount"
+msgstr "Importe sin contabilizar"
+
+#. module: bi_account_asset
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_asset_form
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_asset_purchase_tree
+msgid "Vendor"
+msgstr "Proveedor"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_account_asset_asset__website_message_ids
+msgid "Website Messages"
+msgstr "Mensajes del sitio web"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,help:bi_account_asset.field_account_asset_asset__website_message_ids
+msgid "Website communication history"
+msgstr "Historial de comunicaciones del sitio web"
+
+#. module: bi_account_asset
+#: model:ir.model.fields,help:bi_account_asset.field_account_asset_asset__state
+#: model:ir.model.fields,help:bi_account_asset.field_account_asset_depreciation_line__parent_state
+msgid ""
+"When an asset is created, the status is 'Draft'.\n"
+"If the asset is confirmed, the status goes in 'Running' and the depreciation lines can be posted in the accounting.\n"
+"You can manually close an asset when the depreciation is over. If the last line of depreciation is posted, the asset automatically goes in that status."
+msgstr ""
+"Cuando se crea un activo, su estado es 'Borrador'.\n"
+"Al confirmarlo pasa a 'En ejecución' y sus líneas de depreciación pueden contabilizarse.\n"
+"Puede cerrar manualmente un activo cuando finalice la depreciación. Si se contabiliza la última línea de depreciación, el activo pasa automáticamente al estado 'Cerrado'."
+
+#. module: bi_account_asset
+#: model:ir.model.fields,field_description:bi_account_asset.field_asset_asset_report__name
+msgid "Year"
+msgstr "Año"
+
+#. module: bi_account_asset
+#. odoo-python
+#: code:addons/bi_account_asset/models/account_asset.py:0
+msgid "You cannot delete a document is in %s state."
+msgstr "No puede eliminar un documento en estado %s."
+
+#. module: bi_account_asset
+#. odoo-python
+#: code:addons/bi_account_asset/models/account_asset.py:0
+msgid "You cannot delete a document that contains posted entries."
+msgstr "No puede eliminar un documento que contiene asientos contabilizados."
+
+#. module: bi_account_asset
+#. odoo-python
+#: code:addons/bi_account_asset/models/account_asset.py:0
+msgid "You cannot delete posted depreciation lines."
+msgstr "No puede eliminar líneas de depreciación contabilizadas."
+
+#. module: bi_account_asset
+#. odoo-python
+#: code:addons/bi_account_asset/models/account_asset.py:0
+msgid "You cannot delete posted installment lines."
+msgstr "No puede eliminar líneas de cuotas contabilizadas."
+
+#. module: bi_account_asset
+#: model:ir.model,name:bi_account_asset.model_asset_depreciation_confirmation_wizard
+msgid "asset.depreciation.confirmation.wizard"
+msgstr "asset.depreciation.confirmation.wizard"
+
+#. module: bi_account_asset
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_category_form
+msgid "e.g. Computers"
+msgstr "p. ej., Computadoras"
+
+#. module: bi_account_asset
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_asset_form
+msgid "e.g. Laptop iBook"
+msgstr "p. ej., Laptop iBook"
+
+#. module: bi_account_asset
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.asset_modify_form
+#: model_terms:ir.ui.view,arch_db:bi_account_asset.view_account_asset_category_form
+msgid "months"
+msgstr "meses"

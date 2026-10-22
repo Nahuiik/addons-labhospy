@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_invoice_due_alerts.TrafficDashboard">
+        <div class="o_gn_dashboard_root o_gn_traffic">
+            <!-- Encabezado -->
+            <div class="o_gn_traffic_header">
+                <div>
+                    <h2 class="o_gn_traffic_title">Tablero de Pagos a Proveedores</h2>
+                    <p class="o_gn_traffic_sub">Semáforo de Vencimientos</p>
+                </div>
+                <div class="o_gn_traffic_header_right">
+                    <span class="o_gn_traffic_cutoff">
+                        <i class="fa fa-calendar mr-1"/>
+                        Fecha de corte: <strong t-esc="state.data ? state.data.today : ''"/>
+                    </span>
+                    <button class="btn btn-secondary btn-sm ml-2" t-on-click="onReload">
+                        <i class="fa fa-refresh"/> Actualizar
+                    </button>
+                </div>
+            </div>
+
+            <div t-if="state.loading" class="o_gn_traffic_msg">
+                <i class="fa fa-spinner fa-spin mr-2"/>Cargando...
+            </div>
+            <div t-if="state.error" class="o_gn_traffic_msg text-danger">
+                <t t-esc="state.error"/>
+            </div>
+
+            <t t-if="!state.loading and !state.error and state.data">
+                <!-- KPI Cards -->
+                <div class="o_gn_kpi_scroll">
+                <div class="o_gn_traffic_kpis">
+                    <t t-foreach="cardOrder" t-as="key" t-key="key">
+                        <div t-attf-class="o_gn_kpi_card o_gn_kpi_{{ key }}"
+                             t-on-click="() => this.onCardClick(key)">
+                            <div class="o_gn_kpi_icon">
+                                <i class="fa" t-attf-class="{{ cardIcon(key) }}"/>
+                            </div>
+                            <div class="o_gn_kpi_body">
+                                <div class="o_gn_kpi_label">
+                                    <t t-esc="state.data.cards[key].label"/>
+                                </div>
+                                <div class="o_gn_kpi_count">
+                                    <t t-esc="state.data.cards[key].count"/> facturas
+                                </div>
+                                <div class="o_gn_kpi_amount">
+                                    <t t-esc="state.data.cards[key].total_str"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+                </div>
+
+                <!-- Resumen textual: vencen hoy -->
+                <div t-attf-class="o_gn_due_today_text {{ state.data.due_today.count ? 'o_gn_due_today_alert' : 'o_gn_due_today_ok' }}">
+                    <h4>
+                        <i class="fa fa-bell mr-1"/>
+                        Facturas que vencen hoy
+                    </h4>
+                    <pre class="o_gn_due_today_pre" t-esc="state.data.due_today.text"/>
+                </div>
+
+                <!-- Tabla detalle -->
+                <div class="o_gn_traffic_panel">
+                    <div class="o_gn_traffic_panel_head">
+                        <h3>Detalle de Facturas por Proveedor</h3>
+                        <div class="o_gn_traffic_filters">
+                            <button t-attf-class="btn btn-sm {{ state.filter === 'all' ? 'btn-primary' : 'btn-light' }}"
+                                    t-on-click="() => this.setFilter('all')">Todas</button>
+                            <button t-attf-class="btn btn-sm {{ state.filter === 'al_dia' ? 'btn-success' : 'btn-light' }}"
+                                    t-on-click="() => this.setFilter('al_dia')">Al dia</button>
+                            <button t-attf-class="btn btn-sm {{ state.filter === 'due_1_7' ? 'btn-warning' : 'btn-light' }}"
+                                    t-on-click="() => this.setFilter('due_1_7')">1-7 dias</button>
+                            <button t-attf-class="btn btn-sm {{ state.filter === 'due_8_15' ? 'btn-orange' : 'btn-light' }}"
+                                    t-on-click="() => this.setFilter('due_8_15')">8-15 dias</button>
+                            <button t-attf-class="btn btn-sm {{ state.filter === 'overdue_15' ? 'btn-danger' : 'btn-light' }}"
+                                    t-on-click="() => this.setFilter('overdue_15')">Vencidas</button>
+                        </div>
+                    </div>
+                    <div class="o_gn_table_wrap">
+                        <table class="table table-sm table-hover o_gn_traffic_table">
+                            <thead>
+                                <tr>
+                                    <th>Proveedor</th>
+                                    <th>Factura de Proveedor</th>
+                                    <th class="text-center">Fecha Factura</th>
+                                    <th class="text-center">Fecha Vencimiento</th>
+                                    <th class="text-center">Dias para vencer</th>
+                                    <th class="text-right">Monto</th>
+                                    <th class="text-center">Estatus</th>
+                                    <th class="text-center">Semaforo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="groupedPartners" t-as="grp" t-key="grp.id">
+                                    <!-- Fila encabezado del proveedor -->
+                                    <tr class="o_gn_group_header"
+                                        t-on-click="(ev) => this.toggleGroup(grp.id, ev)">
+                                        <td colspan="5">
+                                            <i t-attf-class="fa mr-2 {{ isGroupOpen(grp.id) ? 'fa-chevron-down' : 'fa-chevron-right' }}"/>
+                                            <i class="fa fa-building-o mr-1 text-muted"/>
+                                            <strong t-esc="grp.name"/>
+                                            <span class="o_gn_group_badge ml-2">
+                                                <t t-esc="grp.count"/> facturas
+                                            </span>
+                                        </td>
+                                        <td class="text-right font-weight-bold"
+                                            t-esc="grp.total_str"/>
+                                        <td colspan="2" class="text-right">
+                                            <button class="btn btn-link btn-sm py-0"
+                                                    t-on-click="(ev) => this.openPartner(grp.id, ev)">
+                                                Ver todas
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <!-- Facturas del proveedor -->
+                                    <t t-if="isGroupOpen(grp.id)">
+                                        <t t-foreach="grp.lines" t-as="line" t-key="line.id">
+                                            <tr class="o_gn_traffic_row o_gn_traffic_child"
+                                                t-on-click="(ev) => this.openBill(line.id, ev)">
+                                                <td class="o_gn_child_indent"/>
+                                                <td t-esc="line.name"/>
+                                                <td class="text-center" t-esc="line.invoice_date"/>
+                                                <td class="text-center" t-esc="line.date_due"/>
+                                                <td class="text-center">
+                                                    <strong t-esc="line.days"/>
+                                                </td>
+                                                <td class="text-right" t-esc="line.residual_str"/>
+                                                <td class="text-center">
+                                                    <span t-attf-class="o_gn_pill o_gn_pill_{{ line.bucket }}"
+                                                          t-esc="line.status"/>
+                                                </td>
+                                                <td class="text-center">
+                                                    <span t-attf-class="o_gn_dot o_gn_dot_{{ line.bucket }}"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                    <t t-if="!groupedPartners.length">
+                        <div class="o_gn_traffic_msg text-muted">Sin facturas en este filtro.</div>
+                    </t>
+                </div>
+
+                <!-- Footer widgets -->
+                <div class="o_gn_traffic_footer">
+                    <div class="o_gn_footer_widget">
+                        <div class="o_gn_footer_label">Monto total vencido</div>
+                        <div class="o_gn_footer_value text-danger"
+                             t-esc="state.data.footer.overdue_total_str"/>
+                        <div class="o_gn_mini_chart o_gn_mini_area">
+                            <div class="o_gn_area_fill"/>
+                        </div>
+                    </div>
+                    <div class="o_gn_footer_widget">
+                        <div class="o_gn_footer_label">Proximos a vencer (7 dias)</div>
+                        <div class="o_gn_footer_value text-warning"
+                             t-esc="state.data.footer.due_7_total_str"/>
+                        <div class="o_gn_mini_chart o_gn_mini_bars">
+                            <div class="o_gn_bar" style="height:60%"/>
+                            <div class="o_gn_bar" style="height:80%"/>
+                            <div class="o_gn_bar" style="height:45%"/>
+                            <div class="o_gn_bar" style="height:90%"/>
+                            <div class="o_gn_bar" style="height:55%"/>
+                        </div>
+                    </div>
+                    <div class="o_gn_footer_widget">
+                        <div class="o_gn_footer_label">Porcentaje vencido</div>
+                        <div class="o_gn_footer_pct">
+                            <span class="o_gn_pct_value" t-esc="state.data.footer.overdue_pct"/>%
+                        </div>
+                        <div class="o_gn_donut">
+                            <div class="o_gn_donut_ring"
+                                 t-attf-style="--pct: {{ state.data.footer.overdue_pct }}"/>
+                            <span class="o_gn_donut_label" t-esc="state.data.footer.overdue_pct"/>%
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </div>
+    </t>
+
+</templates>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- ISR Table 2026 - Annual -->
+        <record id="isr_table_2026_annual" model="l10n.hn.isr.table">
+            <field name="name">ISR 2026 - Annual</field>
+            <field name="year">2026</field>
+            <field name="periodicity">annual</field>
+            <field name="exempt_amount">228324.32</field>
+            <field name="medical_services_deduction">40000.0</field>
+            <field name="state">validated</field>
+        </record>
+        
+        <!-- ISR Table Lines 2026 - Annual -->
+        <record id="isr_table_line_2026_1" model="l10n.hn.isr.table.line">
+            <field name="table_id" ref="isr_table_2026_annual"/>
+            <field name="min_amount">0.0</field>
+            <field name="max_amount">228324.32</field>
+            <field name="rate">0.0</field>
+            <field name="base_tax">0.0</field>
+        </record>
+        
+        <record id="isr_table_line_2026_2" model="l10n.hn.isr.table.line">
+            <field name="table_id" ref="isr_table_2026_annual"/>
+            <field name="min_amount">228324.33</field>
+            <field name="max_amount">348154.10</field>
+            <field name="rate">15.0</field>
+            <field name="base_tax">0.0</field>
+        </record>
+        
+        <record id="isr_table_line_2026_3" model="l10n.hn.isr.table.line">
+            <field name="table_id" ref="isr_table_2026_annual"/>
+            <field name="min_amount">348154.11</field>
+            <field name="max_amount">809660.75</field>
+            <field name="rate">20.0</field>
+            <field name="base_tax">17974.47</field>
+        </record>
+        
+        <record id="isr_table_line_2026_4" model="l10n.hn.isr.table.line">
+            <field name="table_id" ref="isr_table_2026_annual"/>
+            <field name="min_amount">809660.76</field>
+            <field name="max_amount">0.0</field>
+            <field name="rate">25.0</field>
+            <field name="base_tax">110275.80</field>
+        </record>
+        
+        <!-- ============================================ -->
+        <!-- ISR Table 2026 - Biweekly (Quincenal) -->
+        <!-- ============================================ -->
+        <!-- Nota: Los tramos quincenales se calculan dividiendo los tramos anuales entre 24 quincenas -->
+        <!-- Exempt amount quincenal = 228324.32 / 24 = 9,513.51 -->
+        <!-- Medical deduction quincenal = 40000.0 / 24 = 1,666.67 -->
+        
+        <record id="isr_table_2026_biweekly" model="l10n.hn.isr.table">
+            <field name="name">ISR 2026 - Biweekly</field>
+            <field name="year">2026</field>
+            <field name="periodicity">biweekly</field>
+            <field name="exempt_amount">9513.51</field>
+            <field name="medical_services_deduction">1666.67</field>
+            <field name="state">validated</field>
+        </record>
+        
+        <!-- ISR Table Lines 2026 - Biweekly -->
+        <!-- Tramo 1: 0.0 a 9,513.51 (228324.32 / 24) -->
+        <record id="isr_table_line_2026_biweekly_1" model="l10n.hn.isr.table.line">
+            <field name="table_id" ref="isr_table_2026_biweekly"/>
+            <field name="min_amount">0.0</field>
+            <field name="max_amount">9513.51</field>
+            <field name="rate">0.0</field>
+            <field name="base_tax">0.0</field>
+        </record>
+        
+        <!-- Tramo 2: 9,513.52 a 14,506.42 (348154.10 / 24) -->
+        <record id="isr_table_line_2026_biweekly_2" model="l10n.hn.isr.table.line">
+            <field name="table_id" ref="isr_table_2026_biweekly"/>
+            <field name="min_amount">9513.52</field>
+            <field name="max_amount">14506.42</field>
+            <field name="rate">15.0</field>
+            <field name="base_tax">0.0</field>
+        </record>
+        
+        <!-- Tramo 3: 14,506.43 a 33,735.86 (809660.75 / 24) -->
+        <!-- Base tax = impuesto acumulado del tramo 2: (14506.42 - 9513.52) × 15% = 748.94 -->
+        <record id="isr_table_line_2026_biweekly_3" model="l10n.hn.isr.table.line">
+            <field name="table_id" ref="isr_table_2026_biweekly"/>
+            <field name="min_amount">14506.43</field>
+            <field name="max_amount">33735.86</field>
+            <field name="rate">20.0</field>
+            <field name="base_tax">748.93</field>
+        </record>
+        
+        <!-- Tramo 4: 33,735.87 en adelante (sin límite) -->
+        <!-- Base tax = impuesto acumulado tramos 2 y 3: 748.94 + (33735.86 - 14506.43) × 20% = 4,594.83 -->
+        <record id="isr_table_line_2026_biweekly_4" model="l10n.hn.isr.table.line">
+            <field name="table_id" ref="isr_table_2026_biweekly"/>
+            <field name="min_amount">33735.87</field>
+            <field name="max_amount">0.0</field>
+            <field name="rate">25.0</field>
+            <field name="base_tax">4594.82</field>
+        </record>
+        
+        <!-- ============================================ -->
+        <!-- ISR Table 2026 - Monthly (Mensual) -->
+        <!-- ============================================ -->
+        <!-- Nota: Los tramos mensuales se calculan dividiendo los tramos anuales entre 12 meses -->
+        <!-- Exempt amount mensual = 228324.32 / 12 = 19,027.03 -->
+        <!-- Medical deduction mensual = 40000.0 / 12 = 3,333.33 -->
+        
+        <record id="isr_table_2026_monthly" model="l10n.hn.isr.table">
+            <field name="name">ISR 2026 - Monthly</field>
+            <field name="year">2026</field>
+            <field name="periodicity">monthly</field>
+            <field name="exempt_amount">19027.03</field>
+            <field name="medical_services_deduction">3333.33</field>
+            <field name="state">validated</field>
+        </record>
+        
+        <!-- ISR Table Lines 2026 - Monthly -->
+        <!-- Tramo 1: 0.0 a 19,027.03 (228324.32 / 12) -->
+        <record id="isr_table_line_2026_monthly_1" model="l10n.hn.isr.table.line">
+            <field name="table_id" ref="isr_table_2026_monthly"/>
+            <field name="min_amount">0.0</field>
+            <field name="max_amount">19027.03</field>
+            <field name="rate">0.0</field>
+            <field name="base_tax">0.0</field>
+        </record>
+        
+        <!-- Tramo 2: 19,027.04 a 29,012.84 (348154.10 / 12) -->
+        <record id="isr_table_line_2026_monthly_2" model="l10n.hn.isr.table.line">
+            <field name="table_id" ref="isr_table_2026_monthly"/>
+            <field name="min_amount">19027.04</field>
+            <field name="max_amount">29012.84</field>
+            <field name="rate">15.0</field>
+            <field name="base_tax">0.0</field>
+        </record>
+        
+        <!-- Tramo 3: 29,012.85 a 67,471.73 (809660.75 / 12) -->
+        <!-- Base tax = impuesto acumulado del tramo 2: (29012.84 - 19027.04) × 15% = 1,497.87 -->
+        <record id="isr_table_line_2026_monthly_3" model="l10n.hn.isr.table.line">
+            <field name="table_id" ref="isr_table_2026_monthly"/>
+            <field name="min_amount">29012.85</field>
+            <field name="max_amount">67471.73</field>
+            <field name="rate">20.0</field>
+            <field name="base_tax">1497.87</field>
+        </record>
+        
+        <!-- Tramo 4: 67,471.74 en adelante (sin límite) -->
+        <!-- Base tax = impuesto acumulado tramos 2 y 3: 1,497.87 + (67471.73 - 29012.85) × 20% = 9,189.65 -->
+        <record id="isr_table_line_2026_monthly_4" model="l10n.hn.isr.table.line">
+            <field name="table_id" ref="isr_table_2026_monthly"/>
+            <field name="min_amount">67471.74</field>
+            <field name="max_amount">0.0</field>
+            <field name="rate">25.0</field>
+            <field name="base_tax">9189.65</field>
+        </record>
+        
+        <!-- Sequences -->
+        <record id="sequence_liquidation" model="ir.sequence">
+            <field name="name">Labor Liquidation</field>
+            <field name="code">l10n.hn.liquidation</field>
+            <field name="prefix">LIQ-</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

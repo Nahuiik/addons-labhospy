@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_banks_ui.BankOperationHeader">
+        <div t-att-class="headerClass">
+            <div class="gn-bk-header__top">
+                <div class="gn-bk-header__meta">
+                    <div t-if="showDisplayNumber" class="gn-bk-header__number" t-esc="displayNumber"/>
+                    <div class="gn-bk-header__title-row">
+                        <span class="gn-bk-header__type-badge">
+                            <i t-att-class="'fa ' + typeIcon"/>
+                            <t t-esc="typeLabel"/>
+                        </span>
+                    </div>
+                </div>
+                <div class="gn-bk-header__amount-block">
+                    <div class="gn-bk-header__amount" t-esc="amountFormatted"/>
+                </div>
+            </div>
+            <div class="gn-bk-header__grid">
+                <div t-if="journalLabel">
+                    <div class="gn-bk-header__field-label">Banco / Diario</div>
+                    <div class="gn-bk-header__field-value" t-esc="journalLabel"/>
+                </div>
+                <div t-if="destJournalLabel">
+                    <div class="gn-bk-header__field-label">Destino</div>
+                    <div class="gn-bk-header__field-value" t-esc="destJournalLabel"/>
+                </div>
+                <div t-if="partnerLabel">
+                    <div class="gn-bk-header__field-label">Beneficiario</div>
+                    <div class="gn-bk-header__field-value" t-esc="partnerLabel"/>
+                </div>
+                <div t-if="formattedDate">
+                    <div class="gn-bk-header__field-label">Fecha</div>
+                    <div class="gn-bk-header__field-value" t-esc="formattedDate"/>
+                </div>
+                <div t-if="data.description">
+                    <div class="gn-bk-header__field-label">Concepto</div>
+                    <div class="gn-bk-header__field-value" t-esc="data.description"/>
+                </div>
+            </div>
+            <div t-if="ribbonLabel" class="gn-bk-ribbon gn-bk-ribbon--bottom-right">
+                <span t-att-class="ribbonClass" t-esc="ribbonLabel"/>
+            </div>
+        </div>
+    </t>
+</templates>

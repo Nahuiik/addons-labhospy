@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.product.stock.balance</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="stock.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//app[@name='stock']" position="inside">
+                <block title="Stocks by Locations">
+                    <setting help="If checked, the table will not be shown on product forms. The button to open the table will be shown instead. Such an approach facilitates the loading of the product notebook page since compute methods would be applied only after pushing the button">
+                        <field name="group_stocks_show_only_by_button"/>
+                    </setting>
+                    <setting help="Turn on to allow users to select start and end dates for stock availability">
+                        <field name="product_stock_balance_dates"/>
+                    </setting>
+                    <setting help="Turn on to show the total quantity on hand and per default warehouse above the locations' table">
+                        <field name="product_stock_balance_show_total"/>
+                    </setting>
+                    <setting help="Turn on to allow exporting stock levels by locations">
+                        <field name="product_stock_balance_export"/>
+                    </setting>
+                    <setting help="Define how many levels of locations' hierarchy should be shown by default. Others will be hidden until expanded manually">
+                        <field name="product_stock_balance_default_levels"/>
+                    </setting>
+                    <setting help="If checked, the product buttons 'On Hand' and 'Forecast' will also show the total by all warehouses. Otherwise, only user default warehouse inventory levels will be shown">
+                        <field name="group_stocks_show_aggregation"/>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

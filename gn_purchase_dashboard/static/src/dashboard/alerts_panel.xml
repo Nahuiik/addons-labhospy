@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_purchase_dashboard.PurchaseAlertsPanel">
+        <section class="gn-pd-panel gn-pd-alerts-panel">
+            <header class="gn-pd-alerts-panel__head gn-pd-panel__head">
+                <div>
+                    <h3 class="gn-pd-panel__title">
+                        Centro de alertas
+                        <span t-if="props.alerts?.unread_count" class="gn-pd-badge gn-pd-badge--danger" t-esc="props.alerts.unread_count"/>
+                    </h3>
+                    <p class="gn-pd-section__desc">Situaciones que requieren atención inmediata</p>
+                </div>
+            </header>
+            <div t-if="props.loading" class="gn-pd-skeleton gn-pd-skeleton--alerts"/>
+            <PurchaseEmptyState t-elif="!(props.alerts?.items?.length)"
+                icon="'fa-check-circle'" title="'Sin alertas activas'"
+                description="'No se detectaron situaciones críticas.'" compact="true"/>
+            <div t-else="" class="gn-pd-alerts gn-pd-timeline">
+                <article t-foreach="sortedAlerts" t-as="a" t-key="a.title + (a.metric or '')"
+                         class="gn-pd-alerts__item gn-pd-timeline__item" t-att-class="'gn-pd-alerts__item--' + a.severity"
+                         t-on-click="(ev) => this.onClick(a, ev)">
+                    <i t-att-class="'fa ' + severityIcon(a.severity)" aria-hidden="true"/>
+                    <div class="gn-pd-alerts__body">
+                        <div class="gn-pd-alerts__head-row">
+                            <span t-att-class="'gn-pd-alerts__severity gn-pd-alerts__severity--' + a.severity" t-esc="severityLabel(a.severity)"/>
+                            <span t-if="props.lastUpdate" class="gn-pd-alerts__date">
+                                <i class="fa fa-clock-o"/> <t t-esc="props.lastUpdate"/>
+                            </span>
+                        </div>
+                        <strong t-esc="a.title"/>
+                        <p t-esc="a.explanation"/>
+                        <div class="gn-pd-alerts__meta">
+                            <span class="gn-pd-alerts__assignee">
+                                <i class="fa fa-user"/>
+                                <t t-if="a.assignee_name" t-esc="a.assignee_name"/>
+                                <t t-else="">Equipo de compras</t>
+                            </span>
+                        </div>
+                    </div>
+                    <button type="button" class="gn-pd-alerts__action-btn"
+                            t-on-click="(ev) => this.onActionClick(a, ev)"
+                            t-esc="a.action_label or 'Revisar'"/>
+                </article>
+            </div>
+        </section>
+    </t>
+</templates>

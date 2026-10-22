@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_labhospy.ControlledSubstancesReport">
+        <div class="gn_sc_report o_action h-100 d-flex flex-column bg-view p-3">
+            <div class="o_control_panel border-bottom pb-2 mb-3">
+                <div class="d-flex flex-wrap align-items-end gap-3">
+                    <div class="d-flex flex-column">
+                        <label class="form-label small mb-0 text-muted">Desde</label>
+                        <input type="date" class="form-control form-control-sm"
+                               t-att-value="state.dateFrom"
+                               t-on-change="onDateFrom"/>
+                    </div>
+                    <div class="d-flex flex-column">
+                        <label class="form-label small mb-0 text-muted">Hasta</label>
+                        <input type="date" class="form-control form-control-sm"
+                               t-att-value="state.dateTo"
+                               t-on-change="onDateTo"/>
+                    </div>
+                    <div class="d-flex flex-column" t-if="allowedCompanies.length > 1">
+                        <label class="form-label small mb-0 text-muted">Compañía</label>
+                        <select class="form-select form-select-sm w-auto"
+                                t-on-change="onCompanyChange">
+                            <t t-foreach="allowedCompanies" t-as="c" t-key="c.id">
+                                <option t-att-value="c.id"
+                                        t-att-selected="state.companyId === c.id">
+                                    <t t-esc="c.name"/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="flex-grow-1 d-flex flex-column" style="min-width: 240px;">
+                        <label class="form-label small mb-0 text-muted">Sucursales</label>
+                        <MultiRecordSelector t-props="branchSelectorProps" t-key="state.companyId"/>
+                    </div>
+                    <div class="flex-grow-1 d-flex flex-column" style="min-width: 240px;">
+                        <label class="form-label small mb-0 text-muted">Producto</label>
+                        <MultiRecordSelector t-props="productSelectorProps"/>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-sm"
+                            t-on-click="refreshReport">
+                        Actualizar vista
+                    </button>
+                    <button type="button" class="btn btn-secondary btn-sm"
+                            t-on-click="exportPdf">
+                        PDF
+                    </button>
+                    <button type="button" class="btn btn-secondary btn-sm"
+                            t-on-click="exportHtml">
+                        HTML
+                    </button>
+                    <button type="button" class="btn btn-secondary btn-sm"
+                            t-on-click="exportXlsx">
+                        Excel
+                    </button>
+                </div>
+            </div>
+
+            <div t-if="state.wizardId" class="flex-grow-1 overflow-hidden d-flex flex-column">
+                <iframe t-att-key="state.wizardId"
+                        t-att-src="iframeSrc"
+                        class="flex-grow-1 w-100 rounded border"
+                        style="min-height:420px;"
+                        title="Vista previa informe sustancias controladas"/>
+            </div>
+            <div t-else="" class="text-muted fst-italic py-4">
+                Indique el período y pulse «Actualizar vista» para ver el informe (QWeb HTML).
+            </div>
+        </div>
+    </t>
+
+</templates>

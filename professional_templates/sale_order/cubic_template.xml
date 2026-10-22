@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="SO_10_document" name="Cubic Template">
+            <!-- Multicompany -->
+            <t t-if="doc and 'company_id' in doc">
+                <t t-set="company" t-value="doc.company_id"></t>
+            </t>
+            <t t-if="not doc or not 'company_id' in doc">
+                <t t-set="company" t-value="res_company"></t>
+            </t>
+            <div class="header" t-attf-style="background-color:{{style.theme_color}};color:{{style.theme_txt_color}} !important;font-size:{{int(style.header_font)}}px !important;font-family:{{style.font_family}} !important;">
+                <div class="row mb-2 p-2" >
+                    <t t-if="style.header">
+                        <div class="col-5 px-0">
+                            <address t-field="company.partner_id"  t-options='{"widget": "contact", "fields": ["address", "name", "email", "phone", "webiste"], "no_marker": False}'/>
+                        </div>
+                        <div class="col-2 px-0">
+                            <h4 class="text-center mt4">
+                                <span t-if="env.context.get('proforma', False) or is_pro_forma">Pro-Forma Invoice # </span>
+                                <span t-elif="doc.state in ['draft','sent']">Quotation # </span>
+                                <span t-else="">Order # </span>
+                                <span t-field="doc.name"/>
+                            </h4>
+                            <p class="text-center text-nowrap" t-field="doc.amount_total" t-attf-style="font-size:{{int(style.header_font)+4}}px;"/>
+                        </div>
+                        <div class="col-5 px-0 text-end">
+                            <span t-if="style.logo">
+                                <img t-if="style.logo" t-att-src="image_data_uri(style.logo)" alt="Logo"/>
+                            </span>
+                            <span t-if="not style.logo and company.logo">
+                                <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo"/>
+                            </span>
+                            <div t-if="company.twitter or company.facebook or company.facebook" t-attf-style="background-color:{{style.theme_color}}; width:auto; float:right; padding-left:15px; color:{{style.theme_txt_color}}; padding-right:15px; padding-top:4px; padding-bottom:2px;" class="float-right mb8">
+                                <span t-if="company.twitter" style="padding-left:0px;" class="fa fa-twitter-square "/>&#160;<span t-field="company.twitter"/>
+                                <span t-if="company.facebook" style="padding-left:13px;" class="fa fa-facebook-square "/>&#160;<span t-field="company.facebook"/>
+                                <span t-if="company.youtube" style="padding-left:13px;" class="fa fa-youtube-square "/>&#160;<span t-field="company.youtube" />
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </div> <!--end of Header-->
+            <!-- START OF PAGE -->
+            <div class="article page" t-attf-data-oe-model="sale.order" t-attf-data-oe-id="{{doc.id}}" t-attf-style="color:{{style.text_color}} !important;font-size:{{int(style.body_font)}}px !important;font-family:{{style.font_family}} !important;">
+                <h4 class="text-center" t-field="doc.name" t-if="doc.state not in ['cancel', 'draft']"/>
+                <div class="col-12" t-attf-style="white-space:pre-line;color:#{style.wm_color};left:#{style.leftpadding}mm; top:#{style.toppadding}mm;font-size:#{style.fontsize}px; opacity:#{style.opacity};z-index:-99; -webkit-transform:rotate(-#{style.rotate}deg);position:fixed;"><t t-esc="style.wm_eval(doc, time, user, res_company)"/></div>
+                    <!-- <t t-set="div_class" t-value="'col-3' if doc.partner_shipping_id and doc.partner_shipping_id != doc.partner_id else 'col-4'"></t> -->
+                    <div class="row px-2">
+                        <div class="col-6">
+                            <span t-if="doc.partner_shipping_id and doc.partner_shipping_id != doc.partner_id" t-attf-style="font-size:{{int(style.body_font)+6}}px; font-weight:bold;">
+                                Bill To:
+                            </span>
+                            <span t-if="doc.partner_shipping_id == doc.partner_id or not doc.partner_shipping_id" t-attf-style="font-size:{{int(style.body_font)+6}}px; font-weight:bold;">
+                                Bill&#160;&amp;&#160;Ship To:
+                            </span>
+                        </div>
+                        <div class="col-6 d-flex justify-content-end" t-if="doc.partner_shipping_id and doc.partner_shipping_id != doc.partner_id">
+                            <span t-attf-style="font-size:{{int(style.body_font)+6}}px;font-weight:bold;">Ship To:</span>
+                        </div>
+                    </div>
+                    <div class="row mb-2 p-2">
+                        <div class="col-6">
+                            <address t-field="doc.partner_id" style="margin-bottom:0px;" t-options='{"widget": "contact", "fields":["name","address","phone","email","website"],"no_marker": false}'/>
+                            <div t-if="doc.partner_id.vat">VAT: <span t-field="doc.partner_id.vat"/></div>
+                        </div>
+                        <div class="col-6  d-flex justify-content-end" t-if="doc.partner_shipping_id and doc.partner_shipping_id != doc.partner_id">
+                            <address t-field="doc.partner_shipping_id" style="margin-bottom:0px;"
+                                t-options='{"widget": "contact", "fields":["name", "address","phone","email","website"],"no_marker": false}'/>
+                            <div t-if="doc.partner_id.vat">VAT: <span t-field="doc.partner_id.vat"/></div>
+                        </div>
+                    </div>
+                    <div class="row mb-2 p-2 text-nowrap">
+                        <div t-if="doc.date_order" class="col-auto col-3 mw-100 mb-2">
+                            <strong t-if="doc.state in ['draft', 'sent']">Quotation Date:</strong>
+                            <strong t-else="">Order Date:</strong>
+                            <span t-field="doc.date_order"/>
+                        </div>
+                        <div t-if="doc.validity_date and doc.state in ['draft', 'sent']"  class="col-auto col-3 mw-100 mb-2">
+                            <strong>Expiration: </strong>
+                            <span t-field="doc.validity_date"/>
+                        </div>
+                        <div t-if="doc.client_order_ref" class="col-auto col-3 mw-100 mb-2">
+                            <strong>Your Reference: </strong>
+                            <span t-field="doc.client_order_ref"/>
+                        </div>
+                        <div t-if="doc.user_id" class="col-auto col-3 mw-100 mb-2">
+                            <strong>Salesperson: </strong>
+                            <span t-field="doc.user_id"/>
+                        </div>
+                    </div>
+                    <!-- DATA-->
+                    <t t-call="professional_templates.order_lines"/>
+                        <!--/DATA-->
+                </div><!--End of PAGE-->
+                <!--FOOTER -->
+                <div class="footer" t-attf-style="font-size:{{style.footer_font}}px !important;font-family:{{style.font_family}} !important;">
+                    <t t-call="professional_templates.company_footer"/>
+                </div>
+                <!--/FOOTER-->
+
+            </template>
+        </data>
+    </odoo>

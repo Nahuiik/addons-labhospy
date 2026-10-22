@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_libro_diario">
+        <t t-call="web.basic_layout">
+            <div class="article nh-report nh-report--legal" t-att-style="report_branding_style">
+                <div class="nh-motif nh-header-brand">
+                    <div>
+                        <img t-if="report_logo_src or report_logo_http_src or nh_report_logo_src" t-att-src="nh_report_logo_src or report_logo_src or report_logo_http_src" alt="" class="nh-logo"/>
+                    </div>
+                    <div class="text-end">
+                        <p class="nh-title mb-0" t-if="docs[:1]" t-esc="docs[:1].company_id.name"/>
+                        <p class="nh-subtitle mb-0">Libro Diario</p>
+                        <p class="nh-period" t-if="docs[:1]">
+                            Del <span t-esc="date_from_fmt"/> al <span t-esc="date_to_fmt"/>
+                        </p>
+                    </div>
+                </div>
+                <div class="nh-table-wrap">
+                    <table class="nh-table">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Asiento</th>
+                                <th>Diario</th>
+                                <th>Ref.</th>
+                                <th>Cuenta</th>
+                                <th>Contacto</th>
+                                <th>Etiqueta</th>
+                                <th class="text-end">Debe</th>
+                                <th class="text-end">Haber</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="rows" t-as="row">
+                                <td class="text-center"><span t-esc="row['fecha_fmt']"/></td>
+                                <td><span t-esc="row['asiento']"/></td>
+                                <td><span t-esc="row['diario']"/></td>
+                                <td><span t-esc="row['ref']"/></td>
+                                <td><span t-esc="row['cuenta']"/></td>
+                                <td><span t-esc="row['contacto']"/></td>
+                                <td><span t-esc="row['etiqueta']"/></td>
+                                <td class="text-end"><span t-esc="row['debe_fmt']"/></td>
+                                <td class="text-end"><span t-esc="row['haber_fmt']"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="nh-period fw-bold">
+                    Totales: Debe <span t-esc="total_debe_fmt"/> —
+                    Haber <span t-esc="total_haber_fmt"/>
+                </p>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_libro_mayor">
+        <t t-call="web.basic_layout">
+            <div class="article nh-report nh-report--legal" t-att-style="report_branding_style">
+                <div class="nh-motif nh-header-brand">
+                    <div>
+                        <img t-if="report_logo_src or report_logo_http_src or nh_report_logo_src" t-att-src="nh_report_logo_src or report_logo_src or report_logo_http_src" alt="" class="nh-logo"/>
+                    </div>
+                    <div class="text-end">
+                        <p class="nh-title mb-0" t-if="docs[:1]" t-esc="docs[:1].company_id.name"/>
+                        <p class="nh-subtitle mb-0">Libro Mayor</p>
+                        <p class="nh-period" t-if="docs[:1]">
+                            Del <span t-esc="date_from_fmt"/> al <span t-esc="date_to_fmt"/>
+                        </p>
+                    </div>
+                </div>
+                <t t-foreach="sections" t-as="sec">
+                    <h4 class="nh-section-title">
+                        <span t-esc="sec['account'].code"/> — <span t-esc="sec['account'].name"/>
+                    </h4>
+                    <p class="nh-period">
+                        Saldo anterior: <span t-esc="sec['opening_fmt']"/>
+                    </p>
+                    <div class="nh-table-wrap">
+                        <table class="nh-table">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Asiento</th>
+                                    <th>Diario</th>
+                                    <th>Etiqueta</th>
+                                    <th class="text-end">Debe</th>
+                                    <th class="text-end">Haber</th>
+                                    <th class="text-end">Saldo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="sec['line_data']" t-as="ld">
+                                    <td class="text-center"><span t-esc="ld['fecha_fmt']"/></td>
+                                    <td><span t-esc="ld['line'].move_id.name"/></td>
+                                    <td><span t-esc="ld['line'].journal_id.code"/></td>
+                                    <td><span t-esc="ld['line'].name"/></td>
+                                    <td class="text-end"><span t-esc="ld['debe_fmt']"/></td>
+                                    <td class="text-end"><span t-esc="ld['haber_fmt']"/></td>
+                                    <td class="text-end"><span t-esc="ld['run_fmt']"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="nh-period fw-bold">
+                        Movimientos Debe <span t-esc="sec['movement_debit_fmt']"/>,
+                        Haber <span t-esc="sec['movement_credit_fmt']"/> —
+                        Saldo final <span t-esc="sec['closing_fmt']"/>
+                    </p>
+                </t>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_libro_inventarios">
+        <t t-call="web.basic_layout">
+            <div class="article nh-report nh-report--legal" t-att-style="report_branding_style">
+                <div class="nh-motif nh-header-brand">
+                    <div>
+                        <img t-if="report_logo_src or report_logo_http_src or nh_report_logo_src" t-att-src="nh_report_logo_src or report_logo_src or report_logo_http_src" alt="" class="nh-logo"/>
+                    </div>
+                    <div class="text-end">
+                        <p class="nh-title mb-0" t-if="docs[:1]" t-esc="docs[:1].company_id.name"/>
+                        <p class="nh-subtitle mb-0">Libro de Inventarios y Balances</p>
+                        <p class="nh-period" t-if="docs[:1]">
+                            Saldos al <span t-esc="date_to_fmt"/>
+                        </p>
+                    </div>
+                </div>
+                <h4 class="nh-section-title">Balances (cuentas)</h4>
+                <div class="nh-table-wrap">
+                    <table class="nh-table">
+                        <thead>
+                            <tr>
+                                <th>Cuenta</th>
+                                <th>Nombre</th>
+                                <th class="text-end">Debe</th>
+                                <th class="text-end">Haber</th>
+                                <th class="text-end">Saldo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="balance_rows" t-as="br">
+                                <td><span t-esc="br['account'].code"/></td>
+                                <td><span t-esc="br['account'].name"/></td>
+                                <td class="text-end"><span t-esc="br['debit_fmt']"/></td>
+                                <td class="text-end"><span t-esc="br['credit_fmt']"/></td>
+                                <td class="text-end"><span t-esc="br['balance_fmt']"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="nh-period fw-bold">
+                    Totales: Debe <span t-esc="total_debe_fmt"/>,
+                    Haber <span t-esc="total_haber_fmt"/>,
+                    Saldo <span t-esc="total_saldo_fmt"/>
+                </p>
+                <h4 class="nh-section-title mt-4">Inventario en almacén (referencia)</h4>
+                <div class="nh-table-wrap" t-if="stock_rows">
+                    <table class="nh-table">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Producto</th>
+                                <th>Ubicación</th>
+                                <th class="text-end">Cantidad</th>
+                                <th>UdM</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="stock_rows" t-as="sr">
+                                <td><span t-esc="sr['default_code']"/></td>
+                                <td><span t-esc="sr['product']"/></td>
+                                <td><span t-esc="sr['location']"/></td>
+                                <td class="text-end"><span t-esc="sr['qty_fmt']"/></td>
+                                <td><span t-esc="sr['uom']"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p t-if="not stock_rows" class="text-muted">Sin detalle de existencias (módulo Inventario no instalado o sin datos).</p>
+            </div>
+        </t>
+    </template>
+
+    <record id="action_report_libro_diario_pdf" model="ir.actions.report">
+        <field name="name">Libro Diario (PDF)</field>
+        <field name="model">hn.libro.diario.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hn_legal_books.report_libro_diario</field>
+        <field name="report_file">l10n_hn_legal_books.report_libro_diario</field>
+        <field name="binding_model_id" ref="l10n_hn_legal_books.model_hn_libro_diario_wizard"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+    </record>
+    <record id="action_report_libro_diario_html" model="ir.actions.report">
+        <field name="name">Libro Diario (HTML)</field>
+        <field name="model">hn.libro.diario.wizard</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">l10n_hn_legal_books.report_libro_diario</field>
+        <field name="report_file">l10n_hn_legal_books.report_libro_diario</field>
+    </record>
+
+    <record id="action_report_libro_mayor_pdf" model="ir.actions.report">
+        <field name="name">Libro Mayor (PDF)</field>
+        <field name="model">hn.libro.mayor.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hn_legal_books.report_libro_mayor</field>
+        <field name="report_file">l10n_hn_legal_books.report_libro_mayor</field>
+        <field name="binding_model_id" ref="l10n_hn_legal_books.model_hn_libro_mayor_wizard"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+    </record>
+    <record id="action_report_libro_mayor_html" model="ir.actions.report">
+        <field name="name">Libro Mayor (HTML)</field>
+        <field name="model">hn.libro.mayor.wizard</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">l10n_hn_legal_books.report_libro_mayor</field>
+        <field name="report_file">l10n_hn_legal_books.report_libro_mayor</field>
+    </record>
+
+    <record id="action_report_libro_inventarios_pdf" model="ir.actions.report">
+        <field name="name">Inventarios y Balances (PDF)</field>
+        <field name="model">hn.libro.inventarios.balances.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hn_legal_books.report_libro_inventarios</field>
+        <field name="report_file">l10n_hn_legal_books.report_libro_inventarios</field>
+        <field name="binding_model_id" ref="l10n_hn_legal_books.model_hn_libro_inventarios_balances_wizard"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+    </record>
+    <record id="action_report_libro_inventarios_html" model="ir.actions.report">
+        <field name="name">Inventarios y Balances (HTML)</field>
+        <field name="model">hn.libro.inventarios.balances.wizard</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">l10n_hn_legal_books.report_libro_inventarios</field>
+        <field name="report_file">l10n_hn_legal_books.report_libro_inventarios</field>
+    </record>
+</odoo>

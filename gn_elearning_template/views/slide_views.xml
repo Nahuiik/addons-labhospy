@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_slide_channel_slide_import_button" model="ir.ui.view">
+        <field name="name">slide.slide.import.button</field>
+        <field name="model">slide.slide</field>
+        <field name="inherit_id" ref="website_slides.view_slide_slide_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet" position="before">
+                <header>
+                    <button
+                        name="action_open_import_wizard"
+                        type="object"
+                        string="Importar plantilla HTML"
+                        class="oe_highlight"
+                        invisible="slide_type != 'article'"
+                        groups="website_slides.group_website_slides_officer,website_slides.group_website_slides_manager"
+                    />
+                </header>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Lista global -->
+    <record id="view_hr_employee_recurring_concept_list" model="ir.ui.view">
+        <field name="name">hr.employee.recurring.concept.list</field>
+        <field name="model">hr.employee.recurring.concept</field>
+        <field name="arch" type="xml">
+            <list string="Conceptos recurrentes" decoration-muted="not active">
+                <field name="currency_id" column_invisible="True"/>
+                <field name="is_template" widget="boolean_toggle" string="Plantilla" optional="show"/>
+                <field name="company_id" optional="show"/>
+                <field name="employee_id"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="concept_type" widget="badge"
+                       decoration-success="concept_type == 'income'"
+                       decoration-danger="concept_type == 'deduction'"/>
+                <field name="for_payroll" widget="boolean_toggle" string="Para planilla" optional="show"/>
+                <field name="amount_type" optional="hide"/>
+                <field name="amount" widget="monetary" sum="Total"/>
+                <field name="gn_next_deduction_amount" string="Próximo descuento" widget="monetary" optional="show"/>
+                <field name="gn_next_apply_biweek_label" string="Quincena" optional="hide"/>
+                <field name="is_loan" widget="boolean_toggle" optional="show"/>
+                <field name="loan_progress_percent" string="Progreso" widget="progressbar" optional="show"/>
+                <field name="loan_total_payment_count" optional="hide"/>
+                <field name="loan_has_residual" optional="hide"/>
+                <field name="loan_last_installment_amount" string="Última cuota" widget="monetary" optional="hide"/>
+                <field name="remaining_amount" string="Saldo" widget="monetary" sum="Total" optional="show"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="apply_biweek" widget="badge" optional="hide"
+                       decoration-info="apply_biweek == 'both'"
+                       decoration-success="apply_biweek == 'first'"
+                       decoration-warning="apply_biweek == 'second'"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Lista embebida en ficha de empleado (edición segura) -->
+    <record id="view_hr_employee_recurring_concept_list_embedded" model="ir.ui.view">
+        <field name="name">hr.employee.recurring.concept.list.embedded</field>
+        <field name="model">hr.employee.recurring.concept</field>
+        <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+            <list string="Conceptos recurrentes" decoration-muted="not active">
+                <field name="currency_id" column_invisible="True"/>
+                <field name="name_from_concept_id" string="Plantilla"
+                       domain="[('is_template', '=', True), ('company_id', '=', parent.company_id)]"
+                       options="{'no_create': True, 'no_open': True}"/>
+                <field name="name" optional="show" readonly="name_from_concept_id"/>
+                <field name="code" optional="show" readonly="name_from_concept_id"/>
+                <field name="concept_type" widget="badge" readonly="name_from_concept_id"
+                       decoration-success="concept_type == 'income'"
+                       decoration-danger="concept_type == 'deduction'"/>
+                <field name="is_loan" widget="boolean_toggle" optional="show"/>
+                <field name="amount" column_invisible="True" force_save="1"/>
+                <field name="loan_residual_amount" string="Monto residual" widget="monetary"
+                       optional="show" invisible="not is_loan"/>
+                <field name="total_amount" string="Total cuotas fijas" widget="monetary"
+                       optional="hide" readonly="1" invisible="not is_loan"/>
+                <field name="gn_next_deduction_amount" string="Cuota / próx. desc." widget="monetary"/>
+                <field name="loan_progress_percent" string="Progreso" widget="progressbar" optional="show"/>
+                <field name="paid_installments" string="Pagadas" optional="show"/>
+                <field name="installments" string="Cuotas" optional="show"/>
+                <field name="remaining_amount" string="Saldo" widget="monetary" optional="show"/>
+                <field name="apply_biweek" widget="badge" optional="hide"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Kanban préstamos -->
+    <record id="view_hr_employee_recurring_concept_kanban_loan" model="ir.ui.view">
+        <field name="name">hr.employee.recurring.concept.kanban.loan</field>
+        <field name="model">hr.employee.recurring.concept</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="loan_stage" class="o_kanban_mobile">
+                <field name="employee_id"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="loan_progress_percent"/>
+                <field name="loan_installments_remaining"/>
+                <field name="gn_next_deduction_amount"/>
+                <field name="remaining_amount"/>
+                <field name="loan_has_residual"/>
+                <field name="loan_stage"/>
+                <field name="currency_id"/>
+                <field name="active"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_top mb-2">
+                                <strong class="o_kanban_record_title">
+                                    <field name="employee_id"/>
+                                </strong>
+                                <span class="float-end badge text-bg-secondary">
+                                    <field name="code"/>
+                                </span>
+                            </div>
+                            <div class="o_kanban_record_body">
+                                <field name="name"/>
+                                <div class="mt-2">
+                                    <field name="loan_progress_percent" widget="progressbar"/>
+                                </div>
+                                <div class="text-muted small mt-1">
+                                    Cuotas restantes: <field name="loan_installments_remaining"/>
+                                    · Saldo: <field name="remaining_amount" widget="monetary"/>
+                                </div>
+                                <div class="mt-1">
+                                    Próximo descuento:
+                                    <field name="gn_next_deduction_amount" widget="monetary"/>
+                                </div>
+                                <span t-if="record.loan_has_residual.raw_value" class="badge text-bg-warning mt-1">
+                                    Residuo en última cuota
+                                </span>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Formulario con pestañas -->
+    <record id="view_hr_employee_recurring_concept_form" model="ir.ui.view">
+        <field name="name">hr.employee.recurring.concept.form</field>
+        <field name="model">hr.employee.recurring.concept</field>
+        <field name="arch" type="xml">
+            <form string="Concepto recurrente">
+                <header>
+                    <button name="action_assign_to_employees" string="Asignar a empleados" type="object"
+                            class="btn-secondary"
+                            invisible="employee_id or not is_shared"/>
+                </header>
+                <div class="px-3 pt-2 pb-0 border-bottom"
+                     invisible="not gn_form_has_warning">
+                    <field name="gn_form_has_warning" invisible="1"/>
+                    <field name="gn_form_warning_html" nolabel="1" readonly="1"/>
+                </div>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_payslip_inputs" type="object"
+                                class="oe_stat_button" icon="fa-file-text-o"
+                                invisible="payslip_input_count == 0">
+                            <field name="payslip_input_count" widget="statinfo" string="En nómina"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Inactivo" bg_color="text-bg-danger" invisible="active"/>
+                    <div class="alert alert-info" role="alert" invisible="employee_id or is_template">
+                        Concepto compartido: use «Asignar a empleados» o el asistente de asignación masiva.
+                    </div>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="loan_has_residual" invisible="1"/>
+                    <field name="loan_total_payment_count" invisible="1"/>
+                    <field name="loan_stage" invisible="1"/>
+                    <field name="apply_biweek" invisible="1"/>
+                    <field name="loan_split_quota_across_biweeks" invisible="1"/>
+                    <group>
+                        <group>
+                            <field name="is_template" widget="boolean_toggle" readonly="employee_id"/>
+                            <field name="is_shared" readonly="1" invisible="employee_id or is_template"/>
+                            <field name="company_id" readonly="employee_id"/>
+                            <field name="employee_id" options="{'no_create': True}"
+                                   invisible="is_template"
+                                   domain="[('company_id', '=', company_id)]"
+                                   placeholder="Vacío = concepto compartido"/>
+                        </group>
+                        <group>
+                            <field name="concept_type" readonly="name_from_concept_id"/>
+                            <field name="is_loan" widget="boolean_toggle"/>
+                            <field name="for_payroll" string="Para planilla" widget="boolean_toggle"
+                                   readonly="name_from_concept_id"/>
+                            <field name="active" widget="boolean_toggle"/>
+                            <field name="amount_type" readonly="name_from_concept_id"/>
+                            <field name="amount" force_save="1"/>
+                            <div colspan="2" class="text-muted small w-100"
+                                 invisible="apply_biweek != 'both' or loan_split_quota_across_biweeks">
+                                Con <strong>ambas quincenas</strong> (sin dividir), este monto se descuenta
+                                <strong>íntegro en cada quincena</strong> (p. ej. 250 en la 1.ª y 250 en la 2.ª).
+                            </div>
+                            <div colspan="2" class="text-muted small w-100"
+                                 invisible="apply_biweek != 'both' or not loan_split_quota_across_biweeks">
+                                Con <strong>ambas quincenas</strong> y división activa, este monto es el
+                                <strong>total mensual</strong> a repartir (p. ej. 150 + 100 = 250). Detalle en
+                                pestaña <em>Quincenas</em>.
+                            </div>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="General" name="general">
+                            <group>
+                                <group>
+                                    <field name="name_from_concept_id"
+                                           invisible="is_template"
+                                           options="{'no_create': True, 'no_open': True}"/>
+                                    <field name="name" readonly="name_from_concept_id"/>
+                                    <field name="code" readonly="name_from_concept_id"/>
+                                </group>
+                                <group>
+                                    <field name="date_start" required="not is_template"/>
+                                    <field name="date_end"/>
+                                    <field name="apply_biweek"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Préstamo" name="loan" invisible="not is_loan">
+                            <group invisible="not is_loan">
+                                <group string="Progreso">
+                                    <field name="loan_progress_percent" widget="progressbar"/>
+                                    <label for="paid_installments" string="Descuentos"/>
+                                    <div class="o_row">
+                                        <field name="paid_installments" readonly="1" nolabel="1" class="oe_inline"/>
+                                        <span class="oe_inline"> / </span>
+                                        <field name="loan_total_payment_count" readonly="1" nolabel="1" class="oe_inline"/>
+                                    </div>
+                                    <field name="installments" string="Cuotas fijas" readonly="1"/>
+                                    <field name="loan_installments_remaining" readonly="1"/>
+                                    <field name="remaining_amount" readonly="1"/>
+                                    <field name="gn_next_deduction_amount" readonly="1"/>
+                                    <field name="gn_next_apply_biweek_label" readonly="1"/>
+                                    <div class="text-muted small"
+                                         invisible="not is_loan or apply_biweek != 'both' or not loan_split_quota_across_biweeks">
+                                        Cuota del préstamo: se contabiliza al validar la nómina de la
+                                        <strong>2.ª quincena</strong> (cuando ya se descontó el total mensual).
+                                    </div>
+                                </group>
+                                <group string="Montos y cuotas">
+                                    <field name="installments" readonly="is_template and is_loan"/>
+                                    <field name="total_amount" readonly="1"/>
+                                    <field name="loan_residual_amount" invisible="not is_loan"/>
+                                    <field name="loan_last_installment_amount" readonly="1"
+                                           invisible="not loan_has_residual"/>
+                                    <field name="initial_paid_installments"
+                                           readonly="is_template and is_loan"/>
+                                    <field name="paid_installments" readonly="1"/>
+                                </group>
+                            </group>
+                            <group string="Primera cuota diferenciada">
+                                <field name="first_quota_differentiated" widget="boolean_toggle"/>
+                                <field name="first_quota_amount" invisible="not first_quota_differentiated"/>
+                            </group>
+                        </page>
+                        <page string="Quincenas" name="biweeks"
+                              invisible="apply_biweek != 'both'">
+                            <group>
+                                <field name="loan_split_quota_across_biweeks" widget="boolean_toggle"/>
+                                <field name="loan_first_biweek_amount"
+                                       invisible="not loan_split_quota_across_biweeks"/>
+                                <field name="loan_second_biweek_reference" readonly="1"
+                                       invisible="not loan_split_quota_across_biweeks or amount_type != 'fixed'"/>
+                            </group>
+                            <div class="alert alert-light border mb-2" role="alert"
+                                 invisible="loan_split_quota_across_biweeks">
+                                Si el descuento mensual debe repartirse entre quincenas (p. ej. 150 en la 1.ª
+                                y 100 en la 2.ª), active «Dividir monto entre quincenas». Si no, cada quincena
+                                descontará el monto íntegro indicado arriba.
+                            </div>
+                            <div class="alert alert-info mb-0 py-2" role="alert"
+                                 invisible="not loan_split_quota_across_biweeks">
+                                El campo <strong>Monto</strong> (arriba) es el total mensual (p. ej. 250).
+                                Indique cuánto corresponde a la 1.ª quincena (p. ej. 150); la 2.ª deducirá
+                                el resto (100). Si deja «Monto 1.ª quincena» en 0, se reparte mitad y mitad.
+                                <span invisible="not is_loan">
+                                    En <strong>préstamos</strong>, una cuota se marca pagada al validar
+                                    la nómina de la 2.ª quincena del periodo.
+                                </span>
+                            </div>
+                        </page>
+                        <page string="Aplicabilidad" name="applicability" invisible="employee_id">
+                            <group>
+                                <group>
+                                    <field name="applies_to_all" widget="boolean_toggle"/>
+                                    <field name="department_ids" widget="many2many_tags" invisible="applies_to_all"
+                                           domain="[('company_id', '=', company_id)]"/>
+                                    <field name="job_ids" widget="many2many_tags" invisible="applies_to_all"
+                                           domain="[('company_id', '=', company_id)]"/>
+                                </group>
+                                <group>
+                                    <field name="structure_type_ids" widget="many2many_tags"/>
+                                    <field name="description"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Notas" name="notes">
+                            <field name="notes" nolabel="1" placeholder="Notas internas..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Búsqueda -->
+    <record id="view_hr_employee_recurring_concept_search" model="ir.ui.view">
+        <field name="name">hr.employee.recurring.concept.search</field>
+        <field name="model">hr.employee.recurring.concept</field>
+        <field name="arch" type="xml">
+            <search string="Buscar conceptos recurrentes">
+                <field name="company_id"/>
+                <field name="employee_id"/>
+                <field name="name"/>
+                <field name="code"/>
+                <filter string="Compartidos" name="shared" domain="[('employee_id', '=', False)]"/>
+                <filter string="Plantillas" name="templates" domain="[('is_template', '=', True)]"/>
+                <filter string="Por empleado" name="employee_specific" domain="[('employee_id', '!=', False)]"/>
+                <filter string="Ingresos" name="income" domain="[('concept_type', '=', 'income')]"/>
+                <filter string="Deducciones" name="deduction" domain="[('concept_type', '=', 'deduction')]"/>
+                <filter string="Préstamos" name="loan" domain="[('is_loan', '=', True)]"/>
+                <filter string="Activos" name="active" domain="[('active', '=', True)]"/>
+                <separator/>
+                <filter string="Cuotas pendientes" name="loan_pending"
+                        domain="[('is_loan', '=', True), ('active', '=', True), ('loan_stage', 'in', ('active', 'almost_done', 'residual'))]"/>
+                <filter string="Por finalizar" name="loan_almost_done"
+                        domain="[('is_loan', '=', True), ('loan_installments_remaining', '&lt;=', 1), ('loan_installments_remaining', '&gt;', 0)]"/>
+                <filter string="Con residuo" name="loan_residual"
+                        domain="[('is_loan', '=', True), ('loan_has_residual', '=', True)]"/>
+                <filter string="Inactivos con saldo" name="inactive_with_balance"
+                        domain="[('is_loan', '=', True), ('active', '=', False), ('remaining_amount', '&gt;', 0)]"/>
+                <separator/>
+                <filter string="Compañía" name="group_by_company" context="{'group_by': 'company_id'}"/>
+                <filter string="Empleado" name="group_by_employee" context="{'group_by': 'employee_id'}"/>
+                <filter string="Tipo" name="group_by_type" context="{'group_by': 'concept_type'}"/>
+                <filter string="Estado préstamo" name="group_by_loan_stage" context="{'group_by': 'loan_stage'}"/>
+                <filter string="Código" name="group_by_code" context="{'group_by': 'code'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_hr_employee_recurring_concept" model="ir.actions.act_window">
+        <field name="name">Conceptos recurrentes (todos)</field>
+        <field name="res_model">hr.employee.recurring.concept</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('company_id', 'in', allowed_company_ids)]</field>
+    </record>
+
+    <record id="action_hr_employee_recurring_concept_template" model="ir.actions.act_window">
+        <field name="name">Plantillas de conceptos recurrentes</field>
+        <field name="res_model">hr.employee.recurring.concept</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">['&amp;', '&amp;', ('employee_id', '=', False), ('is_template', '=', True), '|', ('company_id', '=', False), ('company_id', 'in', allowed_company_ids)]</field>
+        <field name="context">{'default_employee_id': False, 'default_is_template': True, 'default_company_id': allowed_company_ids[0]}</field>
+    </record>
+
+    <record id="action_hr_employee_recurring_concept_employee" model="ir.actions.act_window">
+        <field name="name">Conceptos recurrentes por empleado</field>
+        <field name="res_model">hr.employee.recurring.concept</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">['&amp;', ('employee_id', '!=', False), ('company_id', 'in', allowed_company_ids)]</field>
+    </record>
+
+    <record id="action_hr_employee_recurring_concept_loans" model="ir.actions.act_window">
+        <field name="name">Préstamos (cartera)</field>
+        <field name="res_model">hr.employee.recurring.concept</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="domain">[('is_loan', '=', True), ('employee_id', '!=', False), ('company_id', 'in', allowed_company_ids)]</field>
+        <field name="context">{'search_default_loan_pending': 1}</field>
+    </record>
+
+    <!-- Aplicaciones en nómina desde concepto -->
+    <record id="view_hr_payslip_input_recurring_tree" model="ir.ui.view">
+        <field name="name">hr.payslip.input.recurring.tree</field>
+        <field name="model">hr.payslip.input</field>
+        <field name="arch" type="xml">
+            <list create="0" delete="0">
+                <field name="payslip_id"/>
+                <field name="name"/>
+                <field name="amount"/>
+                <field name="recurring_concept_id" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+</odoo>

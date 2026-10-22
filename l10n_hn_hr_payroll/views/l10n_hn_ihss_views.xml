@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_l10n_hn_ihss_settings_tree" model="ir.ui.view">
+        <field name="name">l10n.hn.ihss.settings.tree</field>
+        <field name="model">l10n.hn.ihss.settings</field>
+        <field name="arch" type="xml">
+            <list string="IHSS Settings">
+                <field name="name"/>
+                <field name="year"/>
+                <field name="company_id"/>
+                <field name="state"/>
+                <field name="ivm_ceiling_monthly"/>
+                <field name="em_ceiling_monthly"/>
+            </list>
+        </field>
+    </record>
+    
+    <record id="view_l10n_hn_ihss_settings_form" model="ir.ui.view">
+        <field name="name">l10n.hn.ihss.settings.form</field>
+        <field name="model">l10n.hn.ihss.settings</field>
+        <field name="arch" type="xml">
+            <form string="IHSS Settings">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,validated"/>
+                    <button name="action_validate" string="Validar" type="object" class="oe_highlight" 
+                            invisible="state == 'validated'"/>
+                    <button name="action_draft" string="Establecer en Borrador" type="object" 
+                            invisible="state == 'draft'"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="year"/>
+                            <field name="company_id"/>
+                        </group>
+                    </group>
+                    
+                    <!-- Main Configuration - Two Columns Layout matching image -->
+                    <group>
+                        <group>
+                            <field name="em_ceiling_monthly" string="Techo ENF-MAT"/>
+                            <field name="em_employee_rate" string="Porcentaje ENF-MAT (%)"/>
+                            <field name="ivm_employee_rate" string="Porcentaje IVM (%)"/>
+                            <field name="em_quota_monthly" string="Cuota ENF-MAT" readonly="1"/>
+                            <field name="ivm_quota_monthly" string="Cuota IVM" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="payment_periodicity" string="Periodicidad Pago"/>
+                            <field name="include_in" string="Incluir En"/>
+                            <field name="ivm_ceiling_monthly" string="Techo IVM"/>
+                            <field name="ihss_amount_monthly" string="Monto IHSS" readonly="1"/>
+                            <field name="ihss_quota_biweekly" string="Cuota Quincenal" readonly="1"/>
+                        </group>
+                    </group>
+                    
+                    <group string="Tasas Empleador (Informativas)" invisible="not em_employer_rate and not ivm_employer_rate">
+                        <group>
+                            <field name="em_employer_rate" string="Porcentaje ENF-MAT Empleador (%)" readonly="1"/>
+                            <field name="ivm_employer_rate" string="Porcentaje IVM Empleador (%)" readonly="1"/>
+                            <field name="ivm_state_rate" string="Porcentaje IVM Estado (%)" readonly="1"/>
+                        </group>
+                    </group>
+                    
+                    <notebook>
+                        <page string="Reglas de Aplicación">
+                            <group>
+                                <group>
+                                    <field name="apply_first_quincena" invisible="1"/>
+                                    <field name="apply_second_quincena" invisible="1"/>
+                                    <div class="alert alert-info" role="alert">
+                                        <p><strong>Nota:</strong> La configuración de aplicación se controla mediante el campo "Incluir En".</p>
+                                        <ul>
+                                            <li><strong>Primera Quincena:</strong> Se aplica solo en la primera quincena del mes</li>
+                                            <li><strong>Segunda Quincena:</strong> Se aplica solo en la segunda quincena del mes</li>
+                                            <li><strong>Ambas Quincenas:</strong> Se aplica en ambas quincenas del mes</li>
+                                        </ul>
+                                    </div>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Contabilidad">
+                            <group>
+                                <group>
+                                    <field name="ivm_employee_account_id"/>
+                                    <field name="ivm_employer_account_id"/>
+                                </group>
+                                <group>
+                                    <field name="em_employee_account_id"/>
+                                    <field name="em_employer_account_id"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <record id="action_l10n_hn_ihss_settings" model="ir.actions.act_window">
+        <field name="name">IHSS Settings</field>
+        <field name="res_model">l10n.hn.ihss.settings</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create IHSS Settings
+            </p>
+            <p>
+                Configure IHSS parameters by year and company.
+            </p>
+        </field>
+    </record>
+</odoo>

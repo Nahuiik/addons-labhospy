@@ -1,0 +1,380 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * gts_branch_management
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-21 12:00+0000\n"
+"PO-Revision-Date: 2025-12-21 12:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es_GT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: gts_branch_management
+#: model:ir.model,name:gts_branch_management.model_res_branch
+msgid "Branch"
+msgstr "Sucursal"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_res_branch__branch_code
+msgid "Branch Code/Ref."
+msgstr "Código/Referencia de Sucursal"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_res_branch__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_res_branch__address
+msgid "Branch Address"
+msgstr "Dirección de Sucursal"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_res_branch__telephone_no
+msgid "Telephone No."
+msgstr "Número de Teléfono"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_res_branch__gst_no
+msgid "GSTIN"
+msgstr "GSTIN"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_res_branch__state_id
+msgid "State"
+msgstr "Estado"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_res_branch__company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_res_branch__term_conditions
+msgid "Terms and Conditions (Quotation/Order)"
+msgstr "Términos y Condiciones (Cotización/Orden)"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_res_branch__term_conditions1
+msgid "Terms and Conditions (Invoice)"
+msgstr "Términos y Condiciones (Factura)"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_res_branch__term_conditions_proforma
+msgid "Terms and Conditions (Proforma)"
+msgstr "Términos y Condiciones (Proforma)"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_res_branch__term_conditions_purchase
+msgid "Terms and Conditions (Purchase)"
+msgstr "Términos y Condiciones (Compra)"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_res_branch__journal_id
+msgid "Journal"
+msgstr "Diario"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_res_branch__purchase_journal_id
+msgid "Purchase Journal"
+msgstr "Diario de Compras"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_res_branch__principal
+msgid "Principal"
+msgstr "Principal"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_res_branch__pdf_watermark_branch
+msgid "Invoice Template PDF"
+msgstr "Plantilla PDF de Factura"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,help:gts_branch_management.field_res_branch__pdf_watermark_branch
+msgid "Upload a watermark PDF to be used as the background of each page printed.\n                    Watermark uploaded here will override the one uploaded at company                    level in the general settings."
+msgstr "Cargue un PDF con marca de agua para usar como fondo de cada página impresa.\n                    La marca de agua cargada aquí sobrescribirá la cargada a nivel de                    compañía en la configuración general."
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_res_branch__pdf_watermark_fname_branch
+msgid "Watermark Filename Branch"
+msgstr "Nombre de Archivo de Marca de Agua Sucursal"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_res_branch__pdf_watermark_branch_order
+msgid "Quote Template PDF"
+msgstr "Plantilla PDF de Cotización"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,help:gts_branch_management.field_res_branch__pdf_watermark_branch_order
+msgid "Upload a watermark PDF to be used as the background of each page printed.\n                    Watermark uploaded here will override the one uploaded at company                    level in the general settings."
+msgstr "Cargue un PDF con marca de agua para usar como fondo de cada página impresa.\n                    La marca de agua cargada aquí sobrescribirá la cargada a nivel de                    compañía en la configuración general."
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_res_branch__pdf_watermark_fname_branch_order
+msgid "Watermark Filename Branch"
+msgstr "Nombre de Archivo de Marca de Agua Sucursal"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_res_branch__sale_sequence_id
+msgid "Secuencia de Venta"
+msgstr "Secuencia de Venta"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_res_branch__purchase_sequence_id
+msgid "Secuencia de Compra"
+msgstr "Secuencia de Compra"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_sale_order__branch_id
+msgid "Branch"
+msgstr "Sucursal"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_purchase_order__branch_id
+msgid "Branch"
+msgstr "Sucursal"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_account_move__branch_id
+msgid "Branch"
+msgstr "Sucursal"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_account_move__comment
+msgid "Comment"
+msgstr "Comentario"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_account_move__warehouse_id
+msgid "Warehouse"
+msgstr "Almacén"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_account_move__style
+msgid "Invoice Style"
+msgstr "Estilo de Factura"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,help:gts_branch_management.field_account_move__style
+msgid "Select Style to use when printing this invoice"
+msgstr "Seleccione el estilo a usar al imprimir esta factura"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_account_move__responsable_branch
+msgid "Responsable Branch"
+msgstr "Sucursal Responsable"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_account_payment__branch_id
+msgid "Branch"
+msgstr "Sucursal"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_res_users__branch_id
+msgid "Branch"
+msgstr "Sucursal"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_res_users__branch_ids
+msgid "Branches"
+msgstr "Sucursales"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_res_users__journal_default_id
+msgid "Diario"
+msgstr "Diario"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_report_template_settings__branch_id
+msgid "Branch"
+msgstr "Sucursal"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_stock_location__branch_id
+msgid "Branch"
+msgstr "Sucursal"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_stock_warehouse__branch_id
+msgid "Branch"
+msgstr "Sucursal"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_stock_picking__branch_id
+msgid "Branch"
+msgstr "Sucursal"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_account_move_line__branch_id
+msgid "Branch"
+msgstr "Sucursal"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_account_bank_statement__branch_id
+msgid "Branch"
+msgstr "Sucursal"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_account_bank_statement_line__branch_id
+msgid "Branch"
+msgstr "Sucursal"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_account_common_report__branch_ids
+msgid "Branch"
+msgstr "Sucursal"
+
+#. module: gts_branch_management
+#: model:ir.model.fields,field_description:gts_branch_management.field_account_common_journal_report__branch_ids
+msgid "Branch"
+msgstr "Sucursal"
+
+#. module: gts_branch_management
+#: model_terms:ir.ui.view,arch_db:gts_branch_management.view_res_branch_form
+msgid "Branch List"
+msgstr "Lista de Sucursales"
+
+#. module: gts_branch_management
+#: model_terms:ir.ui.view,arch_db:gts_branch_management.view_branch_tree
+msgid "Branches"
+msgstr "Sucursales"
+
+#. module: gts_branch_management
+#: model:ir.actions.act_window,name:gts_branch_management.action_res_branch
+msgid "Branches"
+msgstr "Sucursales"
+
+#. module: gts_branch_management
+#: model_terms:ir.ui.view,arch_db:gts_branch_management.view_user_form_inherited
+msgid "Branches"
+msgstr "Sucursales"
+
+#. module: gts_branch_management
+#: model_terms:ir.ui.view,arch_db:gts_branch_management.view_user_form_inherited
+msgid "Allowed Branches"
+msgstr "Sucursales Permitidas"
+
+#. module: gts_branch_management
+#: model_terms:ir.ui.view,arch_db:gts_branch_management.view_account_invoice_report_search_inherit1
+msgid "Branch"
+msgstr "Sucursal"
+
+#. module: gts_branch_management
+#: model_terms:ir.ui.view,arch_db:gts_branch_management.account_account_common_report_view
+msgid "Report Options"
+msgstr "Opciones de Reporte"
+
+#. module: gts_branch_management
+#: model_terms:ir.ui.view,arch_db:gts_branch_management.account_account_common_report_view
+msgid "Print"
+msgstr "Imprimir"
+
+#. module: gts_branch_management
+#: model_terms:ir.ui.view,arch_db:gts_branch_management.account_account_common_report_view
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: gts_branch_management
+#: code:addons/gts_branch_management/models/sale_order.py:0
+#, python-format
+msgid "New"
+msgstr "Nuevo"
+
+#. module: gts_branch_management
+#: code:addons/gts_branch_management/models/purchase_order.py:0
+#, python-format
+msgid "No Warehouse has the branch same as the one selected in the Purchase Order"
+msgstr "No hay Almacén con la misma sucursal seleccionada en la Orden de Compra"
+
+#. module: gts_branch_management
+#: code:addons/gts_branch_management/models/account_move.py:0
+#, python-format
+msgid "Please configure journals for selected branch."
+msgstr "Por favor configure los diarios para la sucursal seleccionada."
+
+#. module: gts_branch_management
+#: code:addons/gts_branch_management/models/stock_location.py:0
+#, python-format
+msgid "Configuration error\n You must select same branch on a location which is assigned on the related warehouse"
+msgstr "Error de configuración\n Debe seleccionar la misma sucursal en una ubicación que está asignada en el almacén relacionado"
+
+#. module: gts_branch_management
+#: code:addons/gts_branch_management/models/report.py:0
+#, python-format
+msgid "The uploaded watermark PDF document has security restrictions. Can not read or decrypt it!: "
+msgstr "El documento PDF de marca de agua cargado tiene restricciones de seguridad. No se puede leer o descifrar: "
+
+#. module: gts_branch_management
+#: code:addons/gts_branch_management/models/report.py:0
+#, python-format
+msgid "Failed to load the non PDF watermark..."
+msgstr "Error al cargar la marca de agua que no es PDF..."
+
+#. module: gts_branch_management
+#: code:addons/gts_branch_management/models/report.py:0
+#, python-format
+msgid "No usable watermark found, got "
+msgstr "No se encontró marca de agua utilizable, se obtuvo "
+
+#. module: gts_branch_management
+#: code:addons/gts_branch_management/models/report.py:0
+#, python-format
+msgid "Your watermark pdf does not contain a page or is not a standard PDF document"
+msgstr "Su PDF de marca de agua no contiene una página o no es un documento PDF estándar"
+
+#. module: gts_branch_management
+#: code:addons/gts_branch_management/models/report.py:0
+#, python-format
+msgid "Your watermark pdf contains more than one page. Only the first page will be used!"
+msgstr "Su PDF de marca de agua contiene más de una página. ¡Solo se usará la primera página!"
+
+#. module: gts_branch_management
+#: code:addons/gts_branch_management/models/report.py:0
+#, python-format
+msgid "The Last Page PDF document has security restrictions. Can not read or decrypt it!: "
+msgstr "El documento PDF de Última Página tiene restricciones de seguridad. No se puede leer o descifrar: "
+
+#. module: gts_branch_management
+#: model:ir.module.module,description:gts_branch_management.__manifest__
+msgid ""
+"This module allows to manage multiple branch or manage multiple unit or manage multiple operation \n"
+"            in Sales, Purchases, Accounting, Payment, Voucher, Accounting Reports\n"
+"            inside single company. \n"
+"            Do you have multiple unit for single company? Do you want them to be work as \n"
+"            separate entity inside the company? Here you go, we have make plugin that helps users to \n"
+"            make different branch for single company with multi branch concept which works same as multi-company environment.\n"
+"Also Don't worry about the access rights too, We have added branch user/manager roles inside the module, \n"
+"Branch user can only access records of its specific branch and Branch manager can see records of all Branches.\n"
+"Branch functionality added to Sale Order, Purchase Order, Invoice, Warehouse"
+msgstr ""
+"Este módulo permite gestionar múltiples sucursales o gestionar múltiples unidades o gestionar múltiples operaciones \n"
+"            en Ventas, Compras, Contabilidad, Pago, Voucher, Reportes Contables\n"
+"            dentro de una sola compañía. \n"
+"            ¿Tiene múltiples unidades para una sola compañía? ¿Desea que funcionen como \n"
+"            entidades separadas dentro de la compañía? Aquí tiene, hemos creado un complemento que ayuda a los usuarios a \n"
+"            crear diferentes sucursales para una sola compañía con concepto de múltiples sucursales que funciona igual que el entorno multi-compañía.\n"
+"También no se preocupe por los derechos de acceso, hemos añadido roles de usuario/gerente de sucursal dentro del módulo, \n"
+"El usuario de sucursal solo puede acceder a los registros de su sucursal específica y el Gerente de Sucursal puede ver los registros de todas las Sucursales.\n"
+"Funcionalidad de Sucursal añadida a Orden de Venta, Orden de Compra, Factura, Almacén"
+
+#. module: gts_branch_management
+#: model:ir.module.module,summary:gts_branch_management.__manifest__
+msgid "Manage multiple Branch or multiple Unit Operations in company"
+msgstr "Gestionar múltiples Sucursales o múltiples Operaciones de Unidad en la compañía"
+
+#. module: gts_branch_management
+#: model:ir.module.module,shortdesc:gts_branch_management.__manifest__
+msgid "GTS Branch Management | Multiple Branch(Unit) Operation Setup for All Applications Odoo/OpenERP"
+msgstr "GTS Gestión de Sucursales | Configuración de Operaciones de Múltiples Sucursales(Unidad) para Todas las Aplicaciones Odoo/OpenERP"
+
+#. module: gts_branch_management
+#: model:ir.model,name:gts_branch_management.model_account_common_report
+msgid "Accounting Report Branch Filter"
+msgstr "Filtro de Sucursal para Reporte Contable"

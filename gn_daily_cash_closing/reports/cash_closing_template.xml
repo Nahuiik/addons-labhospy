@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="cash_closing_template">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <style>
+                    @page {
+                        size: portrait;
+                        margin: 10mm 8mm;
+                    }
+                    body {
+                        font-family: Arial, Helvetica, sans-serif;
+                        font-size: 10px;
+                        color: #1a1a1a;
+                    }
+                    .cc-header {
+                        text-align: center;
+                        margin-bottom: 8px;
+                    }
+                    .cc-header h3 {
+                        margin: 0;
+                        font-size: 14px;
+                        text-decoration: underline;
+                    }
+                    .cc-header-info {
+                        width: 100%;
+                        font-size: 10px;
+                        margin-bottom: 6px;
+                    }
+                    .cc-header-info td {
+                        padding: 1px 4px;
+                    }
+                    .section-title {
+                        font-weight: bold;
+                        font-size: 11px;
+                        color: #003366;
+                        text-decoration: underline;
+                        margin: 6px 0 3px 0;
+                        padding: 0;
+                    }
+                    .two-col {
+                        width: 100%;
+                        border-collapse: collapse;
+                    }
+                    .two-col > tbody > tr > td {
+                        width: 50%;
+                        vertical-align: top;
+                        padding: 0 6px;
+                    }
+                    table.data-table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        font-size: 10px;
+                        margin-bottom: 4px;
+                    }
+                    table.data-table td {
+                        padding: 1px 4px;
+                    }
+                    table.data-table td.label-cell {
+                        font-weight: normal;
+                        text-align: left;
+                        padding-left: 12px;
+                    }
+                    table.data-table td.value-cell {
+                        text-align: right;
+                        font-family: 'Courier New', monospace;
+                        white-space: nowrap;
+                    }
+                    table.data-table tr.total-row td {
+                        font-weight: bold;
+                        border-top: 1px solid #333;
+                        padding-top: 2px;
+                    }
+                    .docs-section {
+                        margin-top: 8px;
+                    }
+                    .docs-title {
+                        font-weight: bold;
+                        font-size: 12px;
+                        text-align: center;
+                        text-decoration: underline;
+                        margin: 8px 0 4px 0;
+                    }
+                    .docs-subtitle {
+                        font-weight: bold;
+                        font-size: 10px;
+                        text-decoration: underline;
+                        margin: 6px 0 2px 0;
+                    }
+                    table.docs-table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        font-size: 10px;
+                        margin-bottom: 4px;
+                    }
+                    table.docs-table td {
+                        padding: 1px 6px;
+                    }
+                    table.docs-table td.num-cell {
+                        text-align: right;
+                        font-family: 'Courier New', monospace;
+                    }
+                    table.docs-table tr.docs-total td {
+                        font-weight: bold;
+                        border-top: 1px solid #333;
+                    }
+                    .obs-section {
+                        margin: 6px 0;
+                        font-size: 10px;
+                    }
+                    .obs-label {
+                        font-weight: bold;
+                        text-decoration: underline;
+                    }
+                    .footer-table {
+                        width: 100%;
+                        margin-top: 30px;
+                        border-top: 1px solid #333;
+                        font-size: 10px;
+                    }
+                    .footer-table td {
+                        text-align: center;
+                        padding-top: 4px;
+                        width: 33.33%;
+                    }
+                    .footer-table .footer-name {
+                        font-weight: bold;
+                        border-top: 1px solid #333;
+                        margin-top: 20px;
+                        padding-top: 2px;
+                    }
+                    .footer-table .footer-role {
+                        font-weight: bold;
+                        font-size: 9px;
+                    }
+                    .underline-total {
+                        border-bottom: 1px solid #333;
+                    }
+                </style>
+
+                <div class="page">
+                    <!-- ============ ENCABEZADO ============ -->
+                    <div class="cc-header">
+                        <h3 t-esc="company.name"/>
+                    </div>
+
+                    <table class="cc-header-info">
+                        <tr>
+                            <td><b>Sucursal </b><u><t t-esc="branch_name"/></u></td>
+                            <td style="text-align: right;">
+                                <b>Dia : </b>
+                                <t t-esc="report_date"/>
+                            </td>
+                        </tr>
+                        <t t-if="vendedor_name">
+                            <tr>
+                                <td colspan="2"><b>Vendedor </b><u><t t-esc="vendedor_name"/></u></td>
+                            </tr>
+                        </t>
+                        <tr>
+                            <td><b>Encargada </b><u><t t-esc="encargada"/></u></td>
+                            <td style="text-align: right;">
+                                <b>No. Partida</b>
+                                <t t-esc="no_partida"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td/>
+                            <td style="text-align: right;">
+                                <b>Impreso: </b>
+                                <t t-esc="print_date"/>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <!-- ============ CUERPO EN DOS COLUMNAS ============ -->
+                    <table class="two-col">
+                        <tr>
+                            <!-- ====== COLUMNA IZQUIERDA ====== -->
+                            <td>
+                                <!-- VENTAS -->
+                                <div class="section-title">VENTAS</div>
+                                <table class="data-table">
+                                    <tr>
+                                        <td class="label-cell">VENTAS DE CONTADO</td>
+                                        <td class="value-cell" t-esc="fmt(ventas['contado'])"/>
+                                    </tr>
+                                    <tr>
+                                        <td class="label-cell">CONTRA ENTREGA</td>
+                                        <td class="value-cell" t-esc="fmt(ventas['contra_entrega'])"/>
+                                    </tr>
+                                    <tr>
+                                        <td class="label-cell">CREDITOS</td>
+                                        <td class="value-cell underline-total" t-esc="fmt(ventas['creditos'])"/>
+                                    </tr>
+                                    <tr class="total-row">
+                                        <td class="label-cell">TOTAL DE VENTA DEL DIA</td>
+                                        <td class="value-cell" t-esc="fmt(ventas['total'])"/>
+                                    </tr>
+                                </table>
+
+                                <!-- ANULACIONES Y REBAJAS -->
+                                <div class="section-title">ANULACIONES  Y REBAJAS</div>
+                                <table class="data-table">
+                                    <tr>
+                                        <td class="label-cell">VENTAS ANULADAS</td>
+                                        <td class="value-cell" t-esc="fmt(anulaciones['ventas_anuladas'])"/>
+                                    </tr>
+                                    <tr>
+                                        <td class="label-cell">ANTICIPOS POR ANULACIONES</td>
+                                        <td class="value-cell" t-esc="fmt(anulaciones['anticipos_anulaciones'])"/>
+                                    </tr>
+                                    <tr>
+                                        <td class="label-cell">REBAJAS A CLIENTES</td>
+                                        <td class="value-cell" t-esc="fmt(anulaciones['rebajas_clientes'])"/>
+                                    </tr>
+                                </table>
+                            </td>
+
+                            <!-- ====== COLUMNA DERECHA ====== -->
+                            <td>
+                                <!-- INGRESOS -->
+                                <div class="section-title">INGRESOS</div>
+                                <table class="data-table">
+                                    <tr>
+                                        <td class="label-cell">EFECTIVO</td>
+                                        <td class="value-cell" t-esc="fmt(ingresos['efectivo'])"/>
+                                    </tr>
+                                    <tr>
+                                        <td class="label-cell">TARJETA</td>
+                                        <td class="value-cell" t-esc="fmt(ingresos['tarjeta'])"/>
+                                    </tr>
+                                    <tr>
+                                        <td class="label-cell">TRANSFERENCIA</td>
+                                        <td class="value-cell" t-esc="fmt(ingresos['transferencia'])"/>
+                                    </tr>
+                                    <tr>
+                                        <td class="label-cell">ANTICIPOS RECIBIDOS</td>
+                                        <td class="value-cell" t-esc="fmt(ingresos['anticipos'])"/>
+                                    </tr>
+                                    <tr>
+                                        <td class="label-cell">SOBRANTES RECIBIDOS</td>
+                                        <td class="value-cell underline-total" t-esc="fmt(ingresos['sobrantes'])"/>
+                                    </tr>
+                                    <tr class="total-row">
+                                        <td class="label-cell">TOTAL DE INGRESOS</td>
+                                        <td class="value-cell" t-esc="fmt(ingresos['total'])"/>
+                                    </tr>
+                                </table>
+
+                                <!-- REMESADO -->
+                                <div class="section-title">REMESADO</div>
+                                <table class="data-table">
+                                    <tr>
+                                        <td class="label-cell">TOTAL REMESADO</td>
+                                        <td class="value-cell" t-esc="fmt(remesado['total_remesado'])"/>
+                                    </tr>
+                                    <tr>
+                                        <td class="label-cell">REMESADO DE MAS</td>
+                                        <td class="value-cell" t-esc="fmt(remesado['remesado_de_mas'])"/>
+                                    </tr>
+                                    <tr>
+                                        <td class="label-cell">NO REMESADO</td>
+                                        <td class="value-cell" t-esc="fmt(remesado['no_remesado'])"/>
+                                    </tr>
+                                </table>
+
+                                <!-- LIQUIDACION DE TARJETAS -->
+                                <div class="section-title">LIQUIDACION DE TARJETAS</div>
+                                <table class="data-table">
+                                    <tr>
+                                        <td class="label-cell">MONTO DE VENTA LIQUIDADO</td>
+                                        <td class="value-cell" t-esc="fmt(liquidacion['monto_venta_liquidado'])"/>
+                                    </tr>
+                                    <tr>
+                                        <td class="label-cell">VALOR REMESADO</td>
+                                        <td class="value-cell" t-esc="fmt(liquidacion['valor_remesado'])"/>
+                                    </tr>
+                                    <tr>
+                                        <td class="label-cell">VALOR NO REMESADO</td>
+                                        <td class="value-cell underline-total" t-esc="fmt(liquidacion['valor_no_remesado'])"/>
+                                    </tr>
+                                    <tr>
+                                        <td class="label-cell"><b>No. Corte Liquidados</b></td>
+                                        <td class="value-cell" t-esc="liquidacion['no_corte_liquidados']"/>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <!-- ============ OBSERVACIONES ============ -->
+                    <div class="obs-section" t-if="observaciones">
+                        <span class="obs-label">OBSERVACIONES</span>
+                        <t t-esc="observaciones"/>
+                    </div>
+
+                    <!-- ============ DOCUMENTOS ANEXOS ============ -->
+                    <div class="docs-section">
+                        <div class="docs-title">DOCUMENTOS ANEXOS</div>
+
+                        <!-- REMESAS -->
+                        <div class="docs-subtitle">REMESAS</div>
+                        <t t-if="remesas_data">
+                            <table class="docs-table">
+                                <t t-foreach="remesas_data" t-as="rem">
+                                    <tr>
+                                        <td style="padding-left: 12px;" t-esc="rem['bank_name']"/>
+                                        <td t-esc="rem['account_number']"/>
+                                        <td t-esc="rem['reference']"/>
+                                        <td t-esc="rem['date']"/>
+                                        <td class="num-cell">$</td>
+                                        <td class="num-cell" t-esc="fmt(rem['amount'])"/>
+                                    </tr>
+                                </t>
+                                <tr class="docs-total">
+                                    <td colspan="4" style="text-align: right;">Total</td>
+                                    <td class="num-cell">$</td>
+                                    <td class="num-cell" t-esc="fmt(remesado['total_remesado'])"/>
+                                </tr>
+                            </table>
+                        </t>
+                        <t t-else="">
+                            <p style="padding-left: 12px; font-style: italic;">Sin remesas registradas.</p>
+                        </t>
+
+                        <!-- VENTAS (factura por factura) -->
+                        <div class="docs-subtitle">VENTAS</div>
+                        <t t-if="docs_ventas">
+                            <table class="docs-table">
+                                <tr style="font-weight: bold; background-color: #f0f0f0;">
+                                    <td style="padding-left: 12px;">Vendedor</td>
+                                    <td>Nº Control</td>
+                                    <td>Tipo</td>
+                                    <td class="num-cell">$</td>
+                                    <td class="num-cell">Total</td>
+                                </tr>
+                                <t t-foreach="docs_ventas" t-as="dv">
+                                    <tr>
+                                        <td style="padding-left: 12px;" t-esc="dv['vendedor']"/>
+                                        <td t-esc="dv['numero_control']"/>
+                                        <td t-esc="dv.get('tipo_pago', '')"/>
+                                        <td class="num-cell">$</td>
+                                        <td class="num-cell" t-esc="fmt(dv['total'])"/>
+                                    </tr>
+                                </t>
+                                <tr class="docs-total">
+                                    <td colspan="3" style="text-align: right;">Total</td>
+                                    <td class="num-cell">$</td>
+                                    <td class="num-cell" t-esc="fmt(sum(d['total'] for d in docs_ventas))"/>
+                                </tr>
+                            </table>
+                        </t>
+                        <t t-else="">
+                            <p style="padding-left: 12px; font-style: italic;">Sin ventas del día.</p>
+                        </t>
+
+                        <!-- COBROS (pagos normales, sin anticipos) -->
+                        <div class="docs-subtitle">COBROS</div>
+                        <t t-if="docs_cobros">
+                            <table class="docs-table">
+                                <tr style="font-weight: bold; background-color: #f0f0f0;">
+                                    <td style="padding-left: 12px;">Diario</td>
+                                    <td>Nº Control</td>
+                                    <td>Tipo</td>
+                                    <td class="num-cell">$</td>
+                                    <td class="num-cell">Total</td>
+                                </tr>
+                                <t t-foreach="docs_cobros" t-as="dc">
+                                    <tr>
+                                        <td style="padding-left: 12px;" t-esc="dc['diario']"/>
+                                        <td t-esc="dc['numero_control']"/>
+                                        <td t-esc="dc.get('tipo_pago', '')"/>
+                                        <td class="num-cell">$</td>
+                                        <td class="num-cell" t-esc="fmt(dc['total'])"/>
+                                    </tr>
+                                </t>
+                                <tr class="docs-total">
+                                    <td colspan="3" style="text-align: right;">Total</td>
+                                    <td class="num-cell">$</td>
+                                    <td class="num-cell" t-esc="fmt(sum(d['total'] for d in docs_cobros))"/>
+                                </tr>
+                            </table>
+                        </t>
+                        <t t-else="">
+                            <p style="padding-left: 12px; font-style: italic;">Sin cobros del día.</p>
+                        </t>
+
+                        <!-- COTIZACIONES CON ANTICIPOS (PRESUPUESTO) -->
+                        <div class="docs-subtitle">COTIZACIONES CON ANTICIPOS (PRESUPUESTO)</div>
+                        <t t-if="docs_anticipos_presupuesto">
+                            <table class="docs-table">
+                                <tr style="font-weight: bold; background-color: #f0f0f0;">
+                                    <td style="padding-left: 12px;">Diario</td>
+                                    <td>Nº Control</td>
+                                    <td>Tipo</td>
+                                    <td class="num-cell">$</td>
+                                    <td class="num-cell">Total</td>
+                                </tr>
+                                <t t-foreach="docs_anticipos_presupuesto" t-as="dap">
+                                    <tr>
+                                        <td style="padding-left: 12px;" t-esc="dap['diario']"/>
+                                        <td t-esc="dap['numero_control']"/>
+                                        <td t-esc="dap.get('tipo_pago', '')"/>
+                                        <td class="num-cell">$</td>
+                                        <td class="num-cell" t-esc="fmt(dap['total'])"/>
+                                    </tr>
+                                </t>
+                                <tr class="docs-total">
+                                    <td colspan="3" style="text-align: right;">Total</td>
+                                    <td class="num-cell">$</td>
+                                    <td class="num-cell" t-esc="fmt(sum(d['total'] for d in docs_anticipos_presupuesto))"/>
+                                </tr>
+                            </table>
+                        </t>
+                        <t t-else="">
+                            <p style="padding-left: 12px; font-style: italic;">Sin anticipos de cotizaciones en presupuesto.</p>
+                        </t>
+
+                        <!-- COTIZACIONES PRE-FACTURA CON ANTICIPOS -->
+                        <div class="docs-subtitle">COTIZACIONES PRE-FACTURA CON ANTICIPOS</div>
+                        <t t-if="docs_anticipos_prefactura">
+                            <table class="docs-table">
+                                <tr style="font-weight: bold; background-color: #f0f0f0;">
+                                    <td style="padding-left: 12px;">Diario</td>
+                                    <td>Nº Control</td>
+                                    <td>Tipo</td>
+                                    <td class="num-cell">$</td>
+                                    <td class="num-cell">Total</td>
+                                </tr>
+                                <t t-foreach="docs_anticipos_prefactura" t-as="daf">
+                                    <tr>
+                                        <td style="padding-left: 12px;" t-esc="daf['diario']"/>
+                                        <td t-esc="daf['numero_control']"/>
+                                        <td t-esc="daf.get('tipo_pago', '')"/>
+                                        <td class="num-cell">$</td>
+                                        <td class="num-cell" t-esc="fmt(daf['total'])"/>
+                                    </tr>
+                                </t>
+                                <tr class="docs-total">
+                                    <td colspan="3" style="text-align: right;">Total</td>
+                                    <td class="num-cell">$</td>
+                                    <td class="num-cell" t-esc="fmt(sum(d['total'] for d in docs_anticipos_prefactura))"/>
+                                </tr>
+                            </table>
+                        </t>
+                        <t t-else="">
+                            <p style="padding-left: 12px; font-style: italic;">Sin anticipos de cotizaciones pre-factura.</p>
+                        </t>
+
+                        <!-- TRASLADOS DE MERCADERIA -->
+                        <div class="docs-subtitle">TRASLADOS DE MERCADERIA</div>
+                        <t t-if="docs_traslados">
+                            <table class="docs-table">
+                                <t t-foreach="docs_traslados" t-as="dt">
+                                    <tr>
+                                        <td style="padding-left: 12px;" t-esc="dt['description']"/>
+                                        <td t-esc="dt['reference']"/>
+                                        <td t-esc="dt['uom']"/>
+                                        <td class="num-cell" t-esc="fmt(dt['qty'], 0)"/>
+                                    </tr>
+                                </t>
+                                <tr class="docs-total">
+                                    <td colspan="3" style="text-align: right;">Total</td>
+                                    <td class="num-cell" t-esc="fmt(sum(d['qty'] for d in docs_traslados), 0)"/>
+                                </tr>
+                            </table>
+                        </t>
+                        <t t-else="">
+                            <p style="padding-left: 12px; font-style: italic;">Sin traslados del día.</p>
+                        </t>
+                    </div>
+
+                    <!-- ============ FOOTER ============ -->
+                    <table class="footer-table">
+                        <tr style="height: 40px;">
+                            <td/>
+                            <td/>
+                            <td/>
+                        </tr>
+                        <tr>
+                            <td class="footer-name" t-esc="elaborado"/>
+                            <td class="footer-name"/>
+                            <td class="footer-role">CONTABILIZADO</td>
+                        </tr>
+                        <tr>
+                            <td class="footer-role">ELABORADO</td>
+                            <td class="footer-role">REVISADO</td>
+                            <td t-esc="no_partida_contab"/>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

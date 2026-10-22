@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Tipo de nómina anual (scheduled pay: annually) -->
+        <record id="structure_type_hn_vacation_yearly" model="hr.payroll.structure.type">
+            <field name="name">Nómina anual vacaciones HN</field>
+            <field name="default_schedule_pay">annually</field>
+            <field name="wage_type">monthly</field>
+            <field name="default_work_entry_type_id" ref="hr_work_entry.work_entry_type_attendance"/>
+        </record>
+
+        <record id="structure_hn_vacation_anniversary" model="hr.payroll.structure">
+            <field name="name">Vacaciones HN — Mes de aniversario</field>
+            <field name="country_id" ref="base.hn"/>
+            <field name="type_id" ref="l10n_hn_hr_payroll.structure_type_monthly"/>
+            <field name="code">HN_VAC_ANN</field>
+            <field name="periodicity">monthly</field>
+            <field name="use_worked_day_lines" eval="False"/>
+            <field name="hn_vacation_payroll_kind">anniversary_month</field>
+        </record>
+
+        <record id="structure_hn_vacation_december" model="hr.payroll.structure">
+            <field name="name">Vacaciones HN — Cierre anual</field>
+            <field name="country_id" ref="base.hn"/>
+            <field name="type_id" ref="structure_type_hn_vacation_yearly"/>
+            <field name="code">HN_VAC_DEC</field>
+            <field name="periodicity">yearly</field>
+            <field name="use_worked_day_lines" eval="False"/>
+            <field name="hn_vacation_payroll_kind">year_end_december</field>
+        </record>
+
+        <record id="salary_rule_hn_vac_pay_ann" model="hr.salary.rule">
+            <field name="struct_id" ref="structure_hn_vacation_anniversary"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_allowance"/>
+            <field name="name">Pago vacaciones HN (bruto)</field>
+            <field name="code">HN_VAC_PAY</field>
+            <field name="sequence">10</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = employee._hn_vacation_payroll_payable_days(payslip) > 0</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+days = employee._hn_vacation_payroll_payable_days(payslip)
+refd = payslip.date_to or payslip.date_from
+prom = employee._hn_vacation_payroll_salary_average_6m(refd) if refd else 0.0
+if days and prom:
+    daily = (prom * 14.0 / 12.0) / 30.0
+    result = days * daily
+else:
+    result = 0.0
+            </field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+
+        <record id="salary_rule_hn_vac_pay_dec" model="hr.salary.rule">
+            <field name="struct_id" ref="structure_hn_vacation_december"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_allowance"/>
+            <field name="name">Pago vacaciones HN (bruto)</field>
+            <field name="code">HN_VAC_PAY</field>
+            <field name="sequence">10</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = employee._hn_vacation_payroll_payable_days(payslip) > 0</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+days = employee._hn_vacation_payroll_payable_days(payslip)
+refd = payslip.date_to or payslip.date_from
+prom = employee._hn_vacation_payroll_salary_average_6m(refd) if refd else 0.0
+if days and prom:
+    daily = (prom * 14.0 / 12.0) / 30.0
+    result = days * daily
+else:
+    result = 0.0
+            </field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+    </data>
+
+    <!-- Eliminado bloque delete de xmlids inexistentes (evita tracebacks en log al actualizar) -->
+</odoo>

@@ -1,0 +1,108 @@
+
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_move_form_view_sar_inh">
+            <field name="name">account.move.form.sar.view.inh</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//notebook//page[3]//group[1]" position="inside">
+                    <group>
+                        <field name="add_invoice_attachment"
+                        invisible="move_type != 'in_invoice'"/>
+                        <field name="supplier_invoice_attachment"
+                        invisible="add_invoice_attachment == False"/>
+                    </group>
+                </xpath>
+                <xpath expr="//h1" position="replace">
+                    <h1>
+                        <field name="view_name" invisible="1"/>
+                        <field name="view_draft" invisible="1"/>
+                        <field name="name" invisible="view_name != True" readonly="state != 'draft'" placeholder="Draft"/>
+
+                        <span invisible="view_draft != True">Borrador</span>
+                    </h1>
+                </xpath>
+
+                <xpath expr="//notebook//page[3]//group[1]" position="inside">
+                    <group>
+                        <field name="add_invoice_attachment"
+                        invisible="move_type != 'in_invoice'"/>
+                        <field name="supplier_invoice_attachment"
+                        invisible="add_invoice_attachment == False"/>
+                    </group>
+                </xpath>
+
+
+                <field name="payment_reference" position="before">
+                    <!-- <field name="supplier_invoice_number" invisible="move_type in ('out_invoice', 'out_refund', 'out_receipt')"/> -->
+                    <field name="name" readonly="1" string="Factura de Proveedor"
+                            invisible="move_type in ('out_invoice', 'out_refund', 'out_receipt')"/>
+                    <field name="is_customer_invoice" invisible="1"/>
+                    <field name="is_vendor_invoice" invisible="1"/>
+                </field>
+                <field name="partner_id" position="attributes">
+                    <attribute name="domain">[('is_customer', '=', True)] if is_customer_invoice else [('is_supplier', '=', True)] if is_vendor_invoice else []</attribute>
+                    <attribute name="options">{'readonly': [('state', 'not in', ('draft', 'sent'))]}</attribute>
+                </field>
+                <!--<field name="narration" position="before">
+                	<div>
+                		<label for="amount_total_text"/>:
+                		<field name="amount_total_text" />
+                	</div>
+                </field>-->
+                <field name="payment_reference" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <xpath expr="//field[@name='invoice_line_ids']/list/field[@name='name']" position="attributes">
+                    <attribute name="string">Descripcion</attribute>
+                </xpath>
+                <field name="partner_shipping_id" position="before">
+                    <field name="exclude_from_hn_purchase_book"
+                           invisible="move_type not in ('in_invoice', 'in_refund', 'in_receipt')"/>
+                    <field name="excluir_importacion"
+                           invisible="move_type not in ('in_invoice', 'in_refund', 'in_receipt')"/>
+                    <field name="excluir_compra" string="Gasto DMC"
+                           invisible="move_type not in ('in_invoice', 'in_refund', 'in_receipt')"/>
+                    <field name="payment_reference" invisible="move_type not in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')" readonly="inalterable_hash != False"/>
+                	<field name="predict_next_number"
+                    invisible="predict_next_number == ''"/>
+                	<!-- <field name="predict_next_number" invisible="1"/> -->
+                    <!-- <field name="invoice_number"/> -->
+                    <field name="show_message" invisible="1"/>
+                </field>
+                <header position="inside">
+                    <button name="print_customer_receipt" string="Imprimir Recibo" class="oe_highlight" type="object"
+                            invisible="move_type in ('out_invoice', 'in_invoice', 'out_refund', 'entry')"/>
+                </header>
+
+                <xpath expr="//div[hasclass('oe_title')]" position="replace">
+
+                    <div class="oe_title">
+                            <!-- Invoice draft header -->
+                            <span class="o_form_label"><field name="move_type"
+                                                              invisible="move_type == 'entry'" readonly="1" nolabel="1"/></span>
+                            <!-- <h1 invisible="move_type not in ('out_invoice', 'out_refund', 'out_receipt')">
+
+                            </h1> -->
+
+                            <!-- Number -->
+                            <span class="text-warning" invisible="show_name_warning == False">The current highest number is <field name="highest_name"/>. You might want to put a higher number here.</span>
+                            <h1 invisible="move_type in ('out_invoice', 'out_refund', 'out_receipt')">
+                                <field name="supplier_invoice_number" readonly="state != 'draft'"
+                                       required="move_type in ('in_invoice', 'in_refund', 'in_receipt')"/>
+                            </h1>
+                            <!-- <h1 class="mt0" invisible="name == '/' and posted_before == False"> -->
+                            <h1 invisible="move_type not in ('out_invoice', 'out_refund', 'out_receipt')" >
+                                <span invisible="state != 'draft' or name != '/'">Borrador</span>
+                                <field name="name" readonly="move_type in ('out_invoice', 'out_refund', 'out_receipt')" invisible="name == '/' and move_type in ('out_invoice', 'out_refund', 'out_receipt')" placeholder="JRNL/2016/00001"/>
+                            </h1>
+
+                        </div>
+                </xpath>
+            </field>
+
+        </record>
+    </data>
+
+</odoo>

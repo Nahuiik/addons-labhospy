@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_purchase_dashboard.PurchaseChartPanel">
+        <section t-att-class="panelClass">
+            <header t-if="panelTitle" class="gn-pd-panel__head">
+                <h3 class="gn-pd-panel__title" t-esc="panelTitle"/>
+            </header>
+            <div t-if="props.loading" class="gn-pd-skeleton gn-pd-skeleton--chart"/>
+            <div t-else="" t-ref="chart" class="gn-pd-chart-panel__canvas"
+                 t-att-style="'height:' + chartHeight + '; min-height:' + chartHeight"/>
+        </section>
+    </t>
+</templates>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Sin noupdate: correcciones de reglas deben aplicarse al actualizar el módulo. -->
+    <data>
+        <!-- Solo RRHH / nómina: catálogo filtrado por país de la compañía actual. -->
+        <record id="ir_rule_hr_license_type_country" model="ir.rule">
+            <field name="name">Tipos de licencia: por país de compañía</field>
+            <field name="model_id" ref="model_hr_license_type"/>
+            <field name="domain_force">[('country_id', 'in', list(company_country_ids))]</field>
+            <!-- (6,0,...) fuerza reemplazo de grupos; evita regla global si el XML quedó con noupdate. -->
+            <field name="groups" eval="[(6, 0, [ref('hr.group_hr_user'), ref('hr.group_hr_manager'), ref('l10n_hn_payroll_base.group_hn_payroll_user'), ref('l10n_hn_payroll_base.group_hn_payroll_manager')])]"/>
+        </record>
+        <!-- Administración / ajustes: ven todos los tipos (multi-país, configuración). -->
+        <record id="ir_rule_hr_license_type_admin_full" model="ir.rule">
+            <field name="name">Tipos de licencia: acceso completo (administración)</field>
+            <field name="model_id" ref="model_hr_license_type"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(6, 0, [ref('base.group_system')])]"/>
+        </record>
+    </data>
+</odoo>

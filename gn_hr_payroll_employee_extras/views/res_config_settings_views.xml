@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_gn_payroll_mail_simulate" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.gn.payroll.mail.simulate</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="l10n_hn_payroll_base.res_config_settings_view_payroll"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@id='hr_payroll_settings']" position="inside">
+                <setting string="Pruebas de correo sin SMTP"
+                         help="Actívelo en servidores de prueba sin servidor saliente: los envíos no salen de Odoo pero el flujo (mail.mail, rastreos) se comporta como si se hubieran enviado.">
+                    <field name="gn_mail_testing_simulate_send"/>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+</odoo>

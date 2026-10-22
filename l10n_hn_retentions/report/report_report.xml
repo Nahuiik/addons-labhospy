@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <record id="actions_report_retentions_xls" model="ir.actions.report">
+            <field name="name">Comprobante de retención</field>
+            <field name="model">account.payment</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">l10n_hn_retentions.retention_print_view</field>
+            <field name="report_file">l10n_hn_retentions.retention_print_view</field>
+            <field name="paperformat_id" ref="paperformat_retentions_new"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="l10n_hn_payroll_base.HnTimeoffGantt">
+        <div t-att-class="rootClassNames()" t-ref="hnTlRoot">
+            <div class="o_hn_leave_tl_toolbar d-flex flex-wrap align-items-center gap-2 px-3 py-2 border-bottom bg-view">
+                <div class="btn-group btn-group-sm" role="group">
+                    <button type="button"
+                            t-attf-class="btn {{ state.mode === 'leave' ? 'btn-primary' : 'btn-outline-primary' }}"
+                            t-on-click="() => this.setMode('leave')">
+                        <t t-esc="tabRequestsLabel"/>
+                    </button>
+                    <button type="button"
+                            t-attf-class="btn {{ state.mode === 'allocation' ? 'btn-primary' : 'btn-outline-primary' }}"
+                            t-on-click="() => this.setMode('allocation')">
+                        <t t-esc="tabAllocationsLabel"/>
+                    </button>
+                </div>
+                <!-- Con panel de recurso ancho, la navegación vive en la cabecera del Gantt (encima de «Días»). -->
+                <div class="o_hn_tl_toolbar_center">
+                    <div t-if="!state.showResourcePanel" class="o_hn_tl_nav_group">
+                        <div class="btn-group btn-group-sm" role="group">
+                            <button type="button" class="btn btn-secondary" t-on-click="() => this.navigateStep(-1)">‹</button>
+                            <button type="button" class="btn btn-secondary" t-on-click="() => this.navigateStep(1)">›</button>
+                        </div>
+                        <span class="form-control form-control-sm o_hn_tl_range_readout d-inline-flex align-items-center justify-content-between gap-1 text-muted border bg-100 py-1">
+                            <span class="text-truncate" t-esc="spanSummary()"/>
+                            <i class="fa fa-caret-down text-muted small flex-shrink-0" aria-hidden="true"/>
+                        </span>
+                        <button type="button" class="btn btn-secondary btn-sm" t-on-click="() => this.jumpToToday()">
+                            <t t-esc="todayLabel"/>
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm" t-on-click="() => this.toggleFullscreen()"
+                                t-att-title="labelFullscreen"
+                                t-att-aria-label="labelFullscreen">
+                            <i class="fa fa-arrows-alt" aria-hidden="true"/>
+                        </button>
+                    </div>
+                    <div class="o_hn_tl_search_wrap">
+                        <div class="input-group input-group-sm o_hn_tl_toolbar_search">
+                            <span class="input-group-text bg-light border-end-0 py-1 px-2">
+                                <i class="fa fa-search text-muted" aria-hidden="true"/>
+                            </span>
+                            <input type="search"
+                                   class="form-control form-control-sm border-start-0"
+                                   t-att-value="state.employeeSearch"
+                                   t-att-placeholder="placeholderSearchEmployees"
+                                   t-att-aria-label="placeholderSearchEmployees"
+                                   t-on-input="onEmployeeSearchInput"/>
+                        </div>
+                    </div>
+                </div>
+                <div t-if="state.selection and state.mode === 'leave'" class="d-flex align-items-center gap-2">
+                    <span class="small text-nowrap" t-esc="selectionBarText()"/>
+                    <button type="button" class="btn btn-sm btn-success" t-on-click="() => this.createFromSelection()">
+                        <t t-esc="labelCreateSelection"/>
+                    </button>
+                    <button type="button" class="btn btn-sm btn-link" t-on-click="() => this.clearSelection()">
+                        <t t-esc="labelClearSelection"/>
+                    </button>
+                </div>
+                <div class="ms-auto d-flex flex-wrap align-items-center gap-2">
+                    <select class="form-select form-select-sm w-auto" t-on-change="onEmployeeSortChange">
+                        <option value="name_asc" t-att-selected="state.employeeSort === 'name_asc'">
+                            <t t-esc="labelSortNameAsc"/>
+                        </option>
+                        <option value="name_desc" t-att-selected="state.employeeSort === 'name_desc'">
+                            <t t-esc="labelSortNameDesc"/>
+                        </option>
+                        <option value="leaves_desc" t-att-selected="state.employeeSort === 'leaves_desc'">
+                            <t t-esc="labelSortLeavesDesc"/>
+                        </option>
+                    </select>
+                    <select class="form-select form-select-sm w-auto" t-on-change="onDepartmentChange">
+                        <option value=""><t t-esc="allDepartmentsLabel"/></option>
+                        <t t-foreach="state.departments" t-as="d" t-key="d.id">
+                            <option t-att-value="d.id" t-esc="d.name"/>
+                        </t>
+                    </select>
+                    <button type="button" class="btn btn-primary btn-sm" t-on-click="() => this.openMyRecords()">
+                        <t t-if="state.mode === 'leave'">
+                            <t t-esc="myTimeOffLabel"/>
+                        </t>
+                        <t t-else="">
+                            <t t-esc="myAllocationsLabel"/>
+                        </t>
+                    </button>
+                </div>
+            </div>
+            <div t-if="state.loading" class="p-4 text-center text-muted">
+                <t t-esc="loadingLabel"/>
+            </div>
+            <div t-elif="state.error" class="p-4 alert alert-danger">
+                <t t-esc="errorLoadLabel"/>
+            </div>
+            <div t-else="" class="o_hn_leave_tl_scroll flex-grow-1 overflow-auto min-h-0" t-ref="bodyScroll" t-on-scroll="onBodyScroll">
+                <HnTimeoffGanttRenderer t-props="rendererProps"/>
+            </div>
+        </div>
+    </t>
+</templates>

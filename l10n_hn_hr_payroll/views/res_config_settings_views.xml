@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_l10n_hn_hr_payroll" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.l10n.hn.hr.payroll</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="l10n_hn_payroll_base.res_config_settings_view_payroll"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@id='hr_payroll_settings']" position="inside">
+                <setting string="Responsables de Nómina" id="l10n_hn_payroll_responsibles_settings"
+                    help="Usuarios encargados de RRHH, aprobación y revisión de nómina. Solo se muestran usuarios activos."
+                    groups="l10n_hn_hr_payroll.group_hr_payroll_admin">
+                    <div class="content-group">
+                        <div class="mb-2"><label for="hr_payroll_manager_id" string="Nombre de Encargado RRHH"/> <field name="hr_payroll_manager_id" class="oe_inline" options="{'no_create': True}"/></div>
+                        <div class="mb-2"><label for="hr_payroll_approver_id" string="Nombre de Aprobador de Nómina"/> <field name="hr_payroll_approver_id" class="oe_inline" options="{'no_create': True}"/></div>
+                        <div class="mb-2"><label for="hr_payroll_reviewer_id" string="Nombre de Revisor de Nómina"/> <field name="hr_payroll_reviewer_id" class="oe_inline" options="{'no_create': True}"/></div>
+                        <div><label for="payroll_auditor_ids" string="Auditores de Nómina"/> <field name="payroll_auditor_ids" widget="many2many_tags" options="{'no_create': True}"/></div>
+                    </div>
+                </setting>
+                <setting string="Período de Prueba" id="l10n_hn_trial_period_settings"
+                    help="Cantidad de días del período de prueba y destinatarios de las alertas."
+                    groups="l10n_hn_hr_payroll.group_hr_payroll_admin">
+                    <div class="content-group">
+                        <div class="mb-2">
+                            <label for="l10n_hn_trial_period_days"/>
+                            <field name="l10n_hn_trial_period_days" class="oe_inline" style="width: 5ch;"/>
+                            <span class="ms-2">días calendario</span>
+                        </div>
+                        <div>
+                            <label for="l10n_hn_hr_alert_recipient_ids" string="Receptores de Alertas RRHH"/>
+                            <field name="l10n_hn_hr_alert_recipient_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                        </div>
+                    </div>
+                </setting>
+                <setting string="Fechas de Corte HE (Honduras)" id="l10n_hn_cutoff_settings"
+                    help="Parámetros globales para calcular el rango de Horas Extra por quincena."
+                    groups="l10n_hn_hr_payroll.group_hr_payroll_admin">
+                    <div class="content-group">
+                        <div class="mb-2"><strong>1ra Quincena (1-15):</strong> Día inicio <field name="l10n_hn_cutoff_start_day_1" class="oe_inline" style="width: 4ch;"/> Día fin <field name="l10n_hn_cutoff_end_day_1" class="oe_inline" style="width: 4ch;"/> <field name="l10n_hn_cutoff_from_prev_month_1"/></div>
+                        <div><strong>2da Quincena (16-Último):</strong> Día inicio <field name="l10n_hn_cutoff_start_day_2" class="oe_inline" style="width: 4ch;"/> Día fin <field name="l10n_hn_cutoff_end_day_2" class="oe_inline" style="width: 4ch;"/> <field name="l10n_hn_cutoff_from_prev_month_2"/></div>
+                        <p class="text-muted small mt-2 mb-0">Ej: 2da quincena feb (21-20, inicio mes ant.) = HE del 21 ene al 20 feb.</p>
+                    </div>
+                </setting>
+                <setting string="Modo Incapacidad IHSS" id="l10n_hn_incap_payroll_settings"
+                    help="Tratamiento contable de incapacidad IHSS en nómina."
+                    groups="l10n_hn_hr_payroll.group_hr_payroll_admin">
+                    <field name="l10n_hn_incap_payroll_mode"/>
+                </setting>
+                <setting string="Factores Turnos Extra (TE)" id="l10n_hn_turn_extra_settings"
+                    help="Factores de multiplicación para Turno A, B y C. 1.0 = 1 día de salario por turno."
+                    groups="l10n_hn_hr_payroll.group_hr_payroll_admin">
+                    <div class="content-group">
+                        <button name="%(l10n_hn_hr_payroll.action_l10n_hn_turn_extra_config)d" string="Configurar Factores" type="action" class="btn-link"/>
+                    </div>
+                </setting>
+                <setting string="Liquidación laboral (HN)" id="l10n_hn_liquidation_settings"
+                    groups="l10n_hn_hr_payroll.group_hr_payroll_admin">
+                    <div class="content-group">
+                        <div class="mb-2"><field name="is_microenterprise"/> <label for="is_microenterprise" string="Compañía es microempresa (Art. 120-A)"/></div>
+                        <div><field name="l10n_hn_liquidation_enable_resignation_notice_penalty"/>
+                            <label for="l10n_hn_liquidation_enable_resignation_notice_penalty" string="Habilitar descuento por falta de preaviso en renuncia (política)"/></div>
+                    </div>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="res_config_settings_view_form_hn_vacation" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.hn.vacation</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="hr.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@name='work_organization_setting_container']" position="after">
+                <block title="Vacaciones" name="hn_vacation_setting_container" groups="hr_holidays.group_hr_holidays_manager">
+                    <setting id="hn_default_vacation_plan_setting" title="Plan de vacaciones por defecto" help="Plan asignado a empleados que no tienen uno definido">
+                        <field name="hn_default_vacation_plan_id" class="w-100" options="{'no_create': True}" domain="[('company_id', 'in', [company_id, False])]"/>
+                    </setting>
+                    <setting id="hn_paternity_days_setting" title="Días licencia paternidad">
+                        <field name="hn_paternity_days" class="w-25"/><span> días</span>
+                    </setting>
+                    <setting id="hn_bereavement_days_setting" title="Días permiso duelo">
+                        <field name="hn_bereavement_days" class="w-25"/><span> días</span>
+                    </setting>
+                    <setting id="hn_marriage_days_setting" title="Días permiso matrimonio">
+                        <field name="hn_marriage_days" class="w-25"/><span> días</span>
+                    </setting>
+                    <setting id="hn_calamity_days_setting" title="Días permiso calamidad doméstica">
+                        <field name="hn_calamity_days" class="w-25"/><span> días</span>
+                    </setting>
+                    <setting id="hn_send_email_on_approve_setting" title="Notificaciones">
+                        <field name="hn_send_email_on_approve"/>
+                    </setting>
+                    <setting id="hn_reminder_days_setting" title="Recordatorio días antes" help="0 = desactivado">
+                        <field name="hn_reminder_days_before" class="w-25" invisible="not hn_send_email_on_approve"/><span invisible="not hn_send_email_on_approve"> días antes del inicio</span>
+                    </setting>
+                    <setting id="hn_warn_constancia_setting" title="Exigir constancia antes de aprobar">
+                        <field name="hn_warn_approve_without_constancia"/>
+                    </setting>
+                    <setting id="hn_max_overlap_setting" title="% máximo solapamiento departamento" help="0 = desactivado">
+                        <field name="hn_max_overlap_pct" class="w-25"/><span> %</span>
+                    </setting>
+                    <setting id="hn_enforce_min_days_setting" title="Exigir días mínimos para aprobar">
+                        <field name="hn_enforce_min_days_approval"/>
+                    </setting>
+                    <setting id="hn_min_days_setting" title="Días mínimos de anticipación" help="Aprobar con menos días requiere HR Manager y motivo">
+                        <field name="hn_min_days_before_approval" class="w-25" invisible="not hn_enforce_min_days_approval"/><span invisible="not hn_enforce_min_days_approval"> días</span>
+                    </setting>
+                    <setting id="hn_report_pdf_loopback_setting" title="PDF wkhtmltopdf: assets por localhost" help="Desactive solo si los PDF deben resolver CSS en otra URL; puede definir report.url en parámetros del sistema">
+                        <field name="report_pdf_use_loopback_assets"/>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>

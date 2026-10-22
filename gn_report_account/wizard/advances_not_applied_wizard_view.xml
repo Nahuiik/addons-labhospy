@@ -1,0 +1,39 @@
+<odoo>
+    <data>
+        <record id="advances_not_applied_wizard_form" model="ir.ui.view">
+            <field name="name">advances.not.applied.wizard.view</field>
+            <field name="model">advances.not.applied.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Advances Not Applied Report">
+                    <group col="2">
+                        <group>
+                            <field name="start_date"/>
+                        </group>
+                        <group>
+                            <field name="end_date"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button string="Print" icon="fa-file-o" class="btn_nahuiik text_uppercase btn btn-primary" name="action_print_report" type="object"/>
+                        <button special="cancel" class="btn_nahuiik text_uppercase btn btn-danger" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_advances_not_applied_report" model="ir.actions.act_window">
+            <field name="name">Advances Not Applied</field>
+            <field name="res_model">advances.not.applied.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+        <menuitem 
+            id="menuitem_advances_not_applied"
+            name="Advances Not Applied"
+            action="action_advances_not_applied_report"
+            parent="gn_report_account.nahuiik_accounting_menu"
+            sequence="1"/>
+    </data>
+</odoo>

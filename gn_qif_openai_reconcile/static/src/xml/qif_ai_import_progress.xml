@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_qif_openai_reconcile.QifAiImportProgress">
+        <div class="o_action o_qif_ai_import_client p-0">
+
+            <div class="o_qif_ai_header border-bottom bg-view px-4 py-3">
+                <div class="d-flex align-items-center gap-2 flex-wrap">
+                    <i class="fa fa-spin fa-refresh text-primary fs-2" t-if="state.phase === 'processing'" aria-hidden="true"/>
+                    <i class="fa fa-check text-success fs-2" t-if="state.phase === 'done'" aria-hidden="true"/>
+                    <i class="fa fa-exclamation-triangle text-danger fs-2" t-if="state.phase === 'error'" aria-hidden="true"/>
+                    <div>
+                        <h2 class="h4 mb-0 fw-bold text-900" t-esc="titleText"/>
+                        <p class="text-muted small mb-0" t-esc="subtitleText"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-4">
+                <div t-if="state.phase === 'processing' || state.phase === 'done'" class="card shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
+                            <span class="fw-semibold text-900" t-esc="phaseLabel"/>
+                            <span class="badge text-bg-primary rounded-pill">
+                                <t t-esc="state.processed"/> / <t t-esc="state.total"/>
+                                — <t t-esc="progressPercent"/>%
+                            </span>
+                        </div>
+                        <div class="progress" style="height: 28px;">
+                            <div t-att-class="progressBarClass"
+                                 role="progressbar"
+                                 t-att-style="'width: ' + progressPercent + '%'"
+                                 t-att-aria-valuenow="progressPercent"
+                                 aria-valuemin="0" aria-valuemax="100">
+                                <t t-esc="progressPercent"/>%
+                            </div>
+                        </div>
+                        <div class="mt-2 text-muted small" t-if="state.phase === 'processing' and state.lastResult and state.lastResult.message">
+                            <i class="fa fa-gear fa-spin me-1 text-primary" aria-hidden="true"/>
+                            <span t-esc="state.lastResult.message"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-danger d-flex align-items-start gap-2 mt-3" t-if="state.phase === 'error'">
+                    <i class="fa fa-exclamation-circle me-1 mt-1" aria-hidden="true"/>
+                    <span t-esc="state.errorDetail"/>
+                </div>
+
+                <div t-if="state.phase === 'processing' and state.processedResults.length" class="mt-4">
+                    <h3 class="h6 text-uppercase text-muted mb-2">Pasos</h3>
+                    <ul class="o_qif_ai_step_list list-group list-group-flush border rounded-2">
+                        <t t-foreach="state.processedResults" t-as="row" t-key="row_index">
+                            <li class="list-group-item small d-flex align-items-center gap-2">
+                                <i class="fa fa-check text-success" aria-hidden="true"/>
+                                <span t-esc="row.message"/>
+                            </li>
+                        </t>
+                    </ul>
+                </div>
+
+                <p class="text-success small d-flex align-items-center gap-2 mt-3 mb-0" t-if="state.phase === 'done'">
+                    <i class="fa fa-check-circle" aria-hidden="true"/>
+                    El asistente se reabre con los resultados.
+                </p>
+            </div>
+        </div>
+    </t>
+
+</templates>

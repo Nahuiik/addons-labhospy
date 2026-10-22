@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_financial_dashboard.KpiCard">
+        <div t-att-class="'gn-fd-kpi gn-fd-kpi--' + props.card.tone + (props.onClick ? ' gn-fd-kpi--clickable' : '')"
+             t-on-click="onCardClick">
+            <div class="gn-fd-kpi__icon"><i t-att-class="'fa ' + props.card.icon"/></div>
+            <div class="gn-fd-kpi__body">
+                <div class="gn-fd-kpi__label">
+                    <span t-esc="props.card.label"/>
+                    <span t-if="props.card.meta" class="gn-fd-kpi__help" tabindex="0">
+                        <i class="fa fa-question-circle-o"/>
+                        <span class="gn-fd-kpi__tooltip" role="tooltip">
+                            <strong class="d-block mb-1" t-esc="props.card.meta.title"/>
+                            <span class="d-block mb-1" t-esc="props.card.meta.desc"/>
+                            <span class="d-block"><b>Cálculo: </b><t t-esc="props.card.meta.formula"/></span>
+                            <span class="d-block"><b>Cuentas: </b><t t-esc="props.card.meta.accounts"/></span>
+                            <span class="d-block mt-1 fst-italic" t-esc="props.card.meta.hint"/>
+                        </span>
+                    </span>
+                </div>
+                <div class="gn-fd-kpi__value" t-esc="props.card.value"/>
+                <div t-if="props.card.delta"
+                     t-att-class="'gn-fd-kpi__delta gn-fd-kpi__delta--' + props.card.trend">
+                    <i t-att-class="'fa ' + (props.card.dir === 'up' ? 'fa-arrow-up' : 'fa-arrow-down')"/>
+                    <t t-esc="props.card.delta"/>
+                    <span t-if="props.card.deltaAbs" class="gn-fd-kpi__delta-abs">
+                        <t t-esc="' · ' + props.card.deltaAbs"/>
+                    </span>
+                </div>
+                <div t-if="props.card.trendInfo"
+                     t-att-class="'gn-fd-kpi__trend gn-fd-kpi__trend--' + props.card.trendInfo.direction"
+                     t-att-title="props.card.trendInfo.label">
+                    <i t-att-class="'fa me-1 ' + (props.card.trendInfo.direction === 'up' ? 'fa-line-chart' : props.card.trendInfo.direction === 'down' ? 'fa-chart-line-down' : 'fa-minus')"/>
+                    <t t-esc="props.card.trendInfo.label"/>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

@@ -1,0 +1,196 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* gn_sale_and_purchase_history
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-20 17:12+0000\n"
+"PO-Revision-Date: 2025-07-20 11:16-0600\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.6\n"
+
+#. module: gn_sale_and_purchase_history
+#: model:res.groups,name:gn_sale_and_purchase_history.allow_product_read_write
+msgid "Allow Product Read/Write"
+msgstr "Permitir lectura/escritura del producto"
+
+#. module: gn_sale_and_purchase_history
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_purchase_history__create_uid
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_sale_history__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: gn_sale_and_purchase_history
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_purchase_history__create_date
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_sale_history__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: gn_sale_and_purchase_history
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_purchase_history__order_date
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_sale_history__order_date
+msgid "Date"
+msgstr "Fecha"
+
+#. module: gn_sale_and_purchase_history
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_purchase_history__display_name
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_sale_history__display_name
+msgid "Display Name"
+msgstr "Mostrar nombre"
+
+#. module: gn_sale_and_purchase_history
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_product_product__edit_purchase_history
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_product_template__edit_purchase_history
+msgid "Edit History"
+msgstr "Editar Historial"
+
+#. module: gn_sale_and_purchase_history
+#: model:res.groups,name:gn_sale_and_purchase_history.allow_edit_purchase_history
+msgid "Edit purchase history"
+msgstr "Editar Historial"
+
+#. module: gn_sale_and_purchase_history
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_purchase_history__exclude_from_sale_price
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_purchase_order__exclude_from_sale_price
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_purchase_order_line__exclude_from_sale_price
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_sale_history__exclude_from_sale_price
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_sale_order__exclude_from_sale_price
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_sale_order_line__exclude_from_sale_price
+msgid "Exclude From Sale Price"
+msgstr "Excluir del precio de venta"
+
+#. module: gn_sale_and_purchase_history
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_product_product__history_ids
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_product_product__history_sale_ids
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_product_template__history_ids
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_product_template__history_sale_ids
+#: model_terms:ir.ui.view,arch_db:gn_sale_and_purchase_history.view_product_template_inherite_form
+msgid "History"
+msgstr "Historial"
+
+#. module: gn_sale_and_purchase_history
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_purchase_history__id
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_sale_history__id
+msgid "ID"
+msgstr ""
+
+#. module: gn_sale_and_purchase_history
+#: model:ir.model,name:gn_sale_and_purchase_history.model_account_move_line
+msgid "Journal Item"
+msgstr "Apunte contable"
+
+#. module: gn_sale_and_purchase_history
+#. odoo-python
+#: code:addons/gn_sale_and_purchase_history/models/product.py:0
+#, python-format
+msgid "La referencia interna '%s' ya existe."
+msgstr ""
+
+#. module: gn_sale_and_purchase_history
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_purchase_history__write_uid
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_sale_history__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: gn_sale_and_purchase_history
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_purchase_history__write_date
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_sale_history__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: gn_sale_and_purchase_history
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_purchase_history__po_order
+msgid "PO Number"
+msgstr "OC Número"
+
+#. module: gn_sale_and_purchase_history
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_purchase_history__price
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_sale_history__price
+msgid "Price"
+msgstr "Precio"
+
+#. module: gn_sale_and_purchase_history
+#: model:ir.model,name:gn_sale_and_purchase_history.model_product_template
+msgid "Product"
+msgstr "Producto"
+
+#. module: gn_sale_and_purchase_history
+#: model_terms:ir.ui.view,arch_db:gn_sale_and_purchase_history.product_history_view_tree
+#: model_terms:ir.ui.view,arch_db:gn_sale_and_purchase_history.purchase_order_manager_view_form
+msgid "Product History"
+msgstr "Historial Producto"
+
+#. module: gn_sale_and_purchase_history
+#: model:ir.model,name:gn_sale_and_purchase_history.model_purchase_history
+#: model_terms:ir.ui.view,arch_db:gn_sale_and_purchase_history.view_product_template_inherite_form
+msgid "Purchase History"
+msgstr "Historial Compra"
+
+#. module: gn_sale_and_purchase_history
+#: model:ir.model,name:gn_sale_and_purchase_history.model_purchase_order
+msgid "Purchase Order"
+msgstr "Orden de compra"
+
+#. module: gn_sale_and_purchase_history
+#: model:ir.model,name:gn_sale_and_purchase_history.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr "Línea de la orden de compra"
+
+#. module: gn_sale_and_purchase_history
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_purchase_history__qty
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_sale_history__qty
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: gn_sale_and_purchase_history
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_purchase_history__remark
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_sale_history__remark
+msgid "Remark"
+msgstr "Observación"
+
+#. module: gn_sale_and_purchase_history
+#: model:ir.model,name:gn_sale_and_purchase_history.model_sale_history
+#: model_terms:ir.ui.view,arch_db:gn_sale_and_purchase_history.view_product_template_inherite_form
+msgid "Sale History"
+msgstr "Historial Ventas"
+
+#. module: gn_sale_and_purchase_history
+#: model:ir.model,name:gn_sale_and_purchase_history.model_sale_order
+msgid "Sale Order"
+msgstr "Orden de venta"
+
+#. module: gn_sale_and_purchase_history
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_purchase_history__sale_order
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_sale_history__sale_order
+msgid "Sale Order Number"
+msgstr "Cotización número"
+
+#. module: gn_sale_and_purchase_history
+#: model:ir.model,name:gn_sale_and_purchase_history.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Línea de la orden de venta"
+
+#. module: gn_sale_and_purchase_history
+#: model:res.groups,name:gn_sale_and_purchase_history.sell_with_lower_up_group
+msgid "Sell with lower unit price"
+msgstr "Vender con precio unitario más bajo"
+
+#. module: gn_sale_and_purchase_history
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_purchase_history__partner_id
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_sale_history__partner_id
+msgid "Supplier"
+msgstr "Proveedor"
+
+#. module: gn_sale_and_purchase_history
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_purchase_history__product_id
+#: model:ir.model.fields,field_description:gn_sale_and_purchase_history.field_sale_history__product_id
+msgid "product"
+msgstr "Producto"

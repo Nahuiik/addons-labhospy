@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_payment_register_retention" model="ir.ui.view">
+        <field name="name">account.payment.register</field>
+        <field name="model">account.payment.register</field>
+        <field name="inherit_id" ref="account.view_account_payment_register_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_bank_id']" position="after">
+                <!--Campos Invisibles  -->
+                <field invisible="1" name="account_ret_1"/>
+                <field invisible="1" name="account_ret_12_5"/>
+                <field invisible="1" name="account_ret_15"/>
+                <field invisible="1" name="show_retention_option"/>
+                <field invisible="1" name="show_retention_1"/>
+                <field invisible="1" name="show_retention_12_5"/>
+                <field invisible="1" name="show_retention_15"/>
+                <!--Campos Invisibles  -->
+                <field name="apply_retentions" invisible="show_retention_option == False"/>
+                <field name="retention_1" readonly="0" invisible="apply_retentions == False or show_retention_option == False or show_retention_1 == False"/>
+                <field name="amount_ret_1" invisible="retention_1 == False or show_retention_option == False or show_retention_1 == False"/>
+                <field name="retention_12_5" readonly="0" invisible="apply_retentions == False or show_retention_option == False or show_retention_12_5 == False"/>
+                <field name="amount_ret_12_5" invisible="retention_12_5 == False or show_retention_option == False or show_retention_12_5 == False"/>
+                <field name="retention_15" readonly="0" invisible="apply_retentions == False or show_retention_option == False or show_retention_15 == False"/>
+                <field name="amount_ret_15" invisible="retention_15 == False or show_retention_option == False or show_retention_15 == False"/>
+            </xpath>
+            <xpath expr="//group[1]" position="before">
+                <div>
+                    <field invisible="1" name="is_payment_account"/>
+                </div>
+                <div class="alert alert-info" invisible="apply_retentions == False or is_payment_account == False or show_retention_option == False" role="alert" style="margin-bottom:0px;">
+                    <span class="fa fa-info-circle" title="Información"/> <strong><field name="partner_id"/></strong> tiene pagos a cuenta.
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='writeoff_account_id']" position="attributes">
+                <attribute name="invisible">retention_1 == True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='writeoff_label']" position="attributes">
+                <attribute name="invisible">retention_1 == True</attribute>
+            </xpath>
+            <!-- <xpath expr="//form//group[1]//group[3]//div[1]//label[2]" position="attributes">
+                <attribute name="attrs">{'invisible': [('retention_1', '=', True)]}</attribute>
+            </xpath>
+             --></field>
+    </record>
+</odoo>

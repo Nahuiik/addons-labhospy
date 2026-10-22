@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_trial_balance_form" model="ir.ui.view">
+        <field name="name">trial.balance.report.form</field>
+        <field name="model">trial.balance.report</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="date_from"  readonly = "date_range != False" force_save="1" required="1"/>
+                        <field name="date_range"/>
+                        <field name="target_move" widget="radio"/>
+                        <newline/>
+                    </group>
+                    <group>
+                        <field name="date_to"  readonly = "date_range != False" force_save="1" required="1"/>
+                        <newline/>
+                    </group>
+                </group>
+                <group>
+                    <field name="journal_ids" widget="many2many_tags"/>
+                    <field name="account_ids" widget="many2many_tags" string="Accounts" />
+                </group>
+                <footer>
+                    <button name="action_apply_filters_trial_balance" type="object" class="oe_highlight" string="Apply"/>
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_trial_balance" model="ir.actions.act_window">
+        <field name="name">Trial Balance Report</field>
+        <field name="res_model">trial.balance.report</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'report': 'trial_balance'}</field>
+    </record>
+</odoo>

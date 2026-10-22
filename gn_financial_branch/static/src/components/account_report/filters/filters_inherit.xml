@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t
+        t-name="account_reports.AccountReportFiltersCustomizable"
+        t-inherit="account_reports.AccountReportFiltersCustomizable"
+        t-inherit-mode="extension"
+    >
+        <xpath expr="//div[@id='filter_rounding_unit']" position="before">
+            <t t-if="'res_branch' in controller.cachedFilterOptions">
+                <div id="filter_res_branch" class="filter_res_branch">
+                    <t t-call="gn_financial_branch.AccountReportFilterResBranch"/>
+                </div>
+            </t>
+        </xpath>
+    </t>
+
+    <t t-name="gn_financial_branch.AccountReportFilterResBranch">
+        <Dropdown menuClass="'account_report_filter res_branch'">
+            <button class="btn btn-secondary">
+                <i class="fa fa-building me-1"/>Sucursales
+            </button>
+            <t t-set-slot="content">
+                <div class="dropdown-item gap-2 align-items-center">
+                    <label>Sucursales</label>
+                    <MultiRecordSelector t-props="getMultiRecordSelectorProps('res.branch', 'res_branch_ids')"/>
+                </div>
+            </t>
+        </Dropdown>
+    </t>
+</templates>

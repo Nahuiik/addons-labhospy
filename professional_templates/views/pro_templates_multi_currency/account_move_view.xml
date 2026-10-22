@@ -1,0 +1,24 @@
+<odoo>
+    <record id="account_invoice_add_multi_currency" model="ir.ui.view">
+        <field name="model">account.move</field>
+        <field name="name">account.move.view.form.inherit.multi.currency</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <field name="amount_residual" position="after">
+                <field name="company_currency_id" invisible="1"/>
+                <field name="exch_rate" invisible="is_same_currency == True"/>
+                <field name="currency_rate" invisible="1"/>
+                <field name="amount_local" invisible="is_same_currency == True" widget="monetary" options="{'currency_field': 'company_currency_id'}" />
+                <field name="due_amount_local" invisible="is_same_currency == True" widget="monetary" options="{'currency_field': 'company_currency_id'}" string="Adeudado HNL"/>
+                <field name="is_same_currency" invisible="1"/>
+            </field>
+            <div name="journal_div" position="after">
+                <field name="is_same_currency" invisible="1"/>
+                <label for="currency_rate" groups="base.group_multi_currency" invisible="is_same_currency == True"/>
+                <div groups="base.group_multi_currency" invisible="is_same_currency == True">
+                    <field name="currency_rate" invisible="is_same_currency == True" readonly="1" force_save="1"/>
+                </div>
+            </div>
+        </field>
+    </record>
+</odoo>

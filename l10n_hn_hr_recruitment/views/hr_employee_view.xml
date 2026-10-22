@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!--
+          Vista heredada obsoleta `hr_employee_view_form_inherit_skills_cert_to_education` eliminada
+          (xpath a //page certificación incompatible con gn_hr_recruitment_core). Limpieza de BD
+          vía migraciones 19.0.1.0.35 / 19.0.1.0.36, no reintroducir en XML.
+        -->
+        <record model="ir.ui.view" id="hr_employee_department_required_view">
+            <field name="name">hr.employee.department.required.l10n_hn</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <field name="department_id" position="attributes">
+                    <attribute name="required">True</attribute>
+                </field>
+            </field>
+        </record>
+
+        <!--
+          Pestañas quitadas respecto al diseño anterior (este módulo):
+          - Datos Personales HN → contenido movido al tab Personal (Odoo).
+          - Documentos (doc_ids) → se usa Documentos de Entrada (l10n_hn_hr_payroll).
+          - Familia, Salud y Seguridad → eliminadas.
+          Experiencia laboral y referencias → tab Currículum (módulo hr_skills). Queda Educación y Formación (oculta).
+        -->
+        <record model="ir.ui.view" id="hr_employee_view_form_inherit_l10n_hn">
+            <field name="name">hr.employee.form.inherit.l10n_hn</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='personal_information']" position="inside">
+                    <separator string="Honduras (reclutamiento)" groups="hr.group_hr_user" invisible="1"/>
+                    <group groups="hr.group_hr_user" invisible="1">
+                        <group string="Identificación">
+                            <field name="insurance_id" string="Certificado Seguro de Vida"/>
+                            <field name="has_license" widget="radio" options="{'horizontal': true}"/>
+                            <field name="class_license" modifiers="{'invisible': [('has_license', '=', 'not')]}"/>
+                            <field name="number_license" modifiers="{'invisible': [('has_license', '=', 'not')]}"/>
+                            <field name="due_date_license" modifiers="{'invisible': [('has_license', '=', 'not')]}"/>
+                            <field name="document_work"/>
+                            <field name="primary_bank_account_id" readonly="1"/>
+                            <field name="bank_names" readonly="1"/>
+                            <field name="bank_account_hover" readonly="1"/>
+                        </group>
+                        <group string="Información general">
+                            <field name="birth_date"/>
+                            <field name="age" readonly="1"/>
+                            <field name="gender" widget="radio" options="{'horizontal': true}"/>
+                            <field name="marital_status_id"/>
+                            <field name="others_marital" invisible="marital != 'other'"/>
+                            <field name="live_with" widget="radio" options="{'horizontal': true}"/>
+                            <field name="dependent_people" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            <field name="municipality"/>
+                            <field name="address_home"/>
+                            <field name="reference_point"/>
+                        </group>
+                    </group>
+                    <group groups="hr.group_hr_user" invisible="1">
+                        <group string="Contacto de emergencia (HN)">
+                            <field name="emergency_contact"/>
+                            <field name="emergency_phone"/>
+                            <field name="name_emergency"/>
+                            <field name="number_emergency2"/>
+                            <field name="relation_emergency_id"/>
+                            <field name="relation_emergency_2_id"/>
+                        </group>
+                        <group string="Información profesional">
+                            <field name="department_function"/>
+                            <field name="work_other"/>
+                            <field name="software"/>
+                            <field name="machine"/>
+                            <field name="number_employee"/>
+                        </group>
+                    </group>
+                </xpath>
+
+                <xpath expr="//notebook" position="inside">
+                    <page string="Educación y Formación" name="education_training" groups="hr.group_hr_user" invisible="1">
+                        <field name="academic_training_id">
+                            <list editable="bottom">
+                                <field name="name"/>
+                                <field name="field_of_study_id"/>
+                                <field name="address"/>
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+                                <field name="title_received"/>
+                            </list>
+                            <form>
+                                <group>
+                                    <field name="name"/>
+                                    <field name="field_of_study_id"/>
+                                    <field name="address"/>
+                                    <field name="date_from"/>
+                                    <field name="date_to"/>
+                                    <field name="title_received"/>
+                                </group>
+                            </form>
+                        </field>
+                        <field name="other_courses_id">
+                            <list editable="bottom">
+                                <field name="study_center"/>
+                                <field name="schedule"/>
+                                <field name="course"/>
+                                <field name="grade"/>
+                            </list>
+                            <form>
+                                <group>
+                                    <field name="study_center"/>
+                                    <field name="schedule"/>
+                                    <field name="course"/>
+                                    <field name="grade"/>
+                                </group>
+                            </form>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_employee_view_form_study_field_catalog" model="ir.ui.view">
+            <field name="name">hr.employee.form.study.field.catalog.l10n_hn</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <field name="study_field" position="replace">
+                    <field name="study_field_id" string="Campo de estudio"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_hr_employee_form_settings_after_education_hn" model="ir.ui.view">
+            <field name="name">hr.employee.form.settings.after.education.hn</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="priority" eval="1002"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='education_training']" position="after">
+                    <page name="hr_settings" position="move"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_employee_tree_view_inherit_l10n_hn" model="ir.ui.view">
+            <field name="name">hr.employee.tree.inherit.l10n_hn</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_tree"/>
+            <field name="arch" type="xml">
+                <field name="work_phone" position="replace">
+                    <field name="mobile_phone" class="o_force_ltr" readonly="1" optional="show"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

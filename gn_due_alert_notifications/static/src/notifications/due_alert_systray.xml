@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_due_alert_notifications.DueAlertSystray">
+        <div class="o_gn_due_alert_systray" t-on-click="onClick" role="button" title="Alertas de vencimiento">
+            <i class="fa fa-bell"/>
+            <span t-if="state.pendingCount" class="o_gn_due_alert_badge" t-esc="state.pendingCount"/>
+        </div>
+    </t>
+
+</templates>

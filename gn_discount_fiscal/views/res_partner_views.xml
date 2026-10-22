@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Coherente con l10n_hn_account (default_customer en Contactos): no activar «Es paciente» al crear -->
+    <record id="contacts.action_contacts" model="ir.actions.act_window">
+        <field name="context">{'default_is_company': True, 'default_customer': True, 'default_gn_is_patient': False}</field>
+    </record>
+
+    <record id="view_partner_form_gn_dni" model="ir.ui.view">
+        <field name="name">res.partner.form.gn.dni</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='rtn']" position="after">
+                <field name="gn_dni" invisible="is_company"  required="gn_is_patient and not is_company"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_partner_form_gn_discount_fiscal_ribbons" model="ir.ui.view">
+        <field name="name">res.partner.form.gn.discount.fiscal.ribbons</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/widget[@name='web_ribbon'][1]" position="after">
+                <field name="gn_fiscal_ribbon_type" invisible="1"/>
+                <widget name="web_ribbon" title="4ta Edad" bg_color="text-bg-warning" invisible="is_company or gn_fiscal_ribbon_type != 'fourth'"/>
+                <widget name="web_ribbon" title="3ra Edad" bg_color="text-bg-info" invisible="is_company or gn_fiscal_ribbon_type != 'third'"/>
+                <widget name="web_ribbon" title="Especial" bg_color="text-bg-success" invisible="is_company or gn_fiscal_ribbon_type != 'special'"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_partner_form_gn_discount_fiscal" model="ir.ui.view">
+        <field name="name">res.partner.form.gn.discount.fiscal</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Paciente / Descuento fiscal" name="gn_discount_fiscal_patient" invisible="is_company">
+                    <group>
+                        <group string="Paciente">
+                            <field name="gn_is_patient"/>
+                            <field name="gn_is_special_patient"/>
+                        </group>
+                        <group string="Nacimiento y edad">
+                            <field name="gn_birthdate" required="gn_is_patient"/>
+                            <field name="gn_age_display" string="Edad" invisible="not gn_birthdate" readonly="1" class="fw-bold"/>
+                            <field name="gn_fiscal_discount_percent" readonly="1"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

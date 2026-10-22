@@ -1,0 +1,1980 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_financial_dashboard.FinancialChart">
+        <div class="gn-fd-canvas-wrap" t-att-style="props.height ? ('height:' + props.height + 'px;') : ''">
+            <canvas t-ref="canvas"/>
+        </div>
+    </t>
+
+    <t t-name="gn_financial_dashboard.Dashboard">
+        <Layout display="display" className="'gn-fd-root'">
+            <div class="gn-fd-container">
+
+                <!-- Barra de filtros -->
+                <div class="gn-fd-filters">
+                    <div class="gn-fd-filter" t-if="state.filterOptions.multi_company">
+                        <label>Compañía</label>
+                        <select class="form-select form-select-sm" t-on-change="(ev) => this.onCompanyChange(ev)">
+                            <t t-foreach="state.filterOptions.companies" t-as="c" t-key="c.id">
+                                <option t-att-value="c.id" t-att-selected="c.id === state.filters.company_id">
+                                    <t t-esc="c.name"/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="gn-fd-filter">
+                        <label>Desde</label>
+                        <input type="date" class="form-control form-control-sm"
+                               t-att-value="state.filters.date_from"
+                               t-on-change="(ev) => this.onDateFromChange(ev)"/>
+                    </div>
+                    <div class="gn-fd-filter">
+                        <label>Hasta</label>
+                        <input type="date" class="form-control form-control-sm"
+                               t-att-value="state.filters.date_to"
+                               t-on-change="(ev) => this.onDateToChange(ev)"/>
+                    </div>
+                    <div class="gn-fd-filter">
+                        <label>Asientos</label>
+                        <select class="form-select form-select-sm" t-on-change="(ev) => this.onTargetMoveChange(ev)">
+                            <t t-foreach="state.filterOptions.target_move_options || []" t-as="o" t-key="o.id">
+                                <option t-att-value="o.id" t-att-selected="o.id === state.filters.target_move">
+                                    <t t-esc="o.name"/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="gn-fd-filter">
+                        <label>Tramo cartera</label>
+                        <select class="form-select form-select-sm" t-on-change="(ev) => this.onPeriodLengthChange(ev)">
+                            <t t-foreach="state.filterOptions.period_length_options || []" t-as="o" t-key="o.id">
+                                <option t-att-value="o.id" t-att-selected="o.id === state.filters.period_length">
+                                    <t t-esc="o.name"/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="gn-fd-filter">
+                        <label>Comparar</label>
+                        <select class="form-select form-select-sm" t-on-change="(ev) => this.onComparisonChange(ev)">
+                            <t t-foreach="state.filterOptions.comparison_options || []" t-as="o" t-key="o.id">
+                                <option t-att-value="o.id" t-att-selected="o.id === state.filters.comparison">
+                                    <t t-esc="o.name"/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="gn-fd-filter gn-fd-filter--journals">
+                        <label>Diarios</label>
+                        <details class="gn-fd-journals">
+                            <summary>
+                                <t t-if="!state.filters.journal_ids.length">Todos</t>
+                                <t t-else=""><t t-esc="state.filters.journal_ids.length"/> seleccionados</t>
+                            </summary>
+                            <div class="gn-fd-journals__list">
+                                <t t-foreach="state.filterOptions.journals" t-as="j" t-key="j.id">
+                                    <label class="gn-fd-journals__item">
+                                        <input type="checkbox"
+                                               t-att-checked="isJournalSelected(j.id)"
+                                               t-on-change="() => this.onToggleJournal(j.id)"/>
+                                        <span t-esc="j.name"/>
+                                    </label>
+                                </t>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Sucursal (gts_branch_management) -->
+                    <div t-if="hasBranchDim" class="gn-fd-filter gn-fd-filter--journals">
+                        <label>Sucursal</label>
+                        <details class="gn-fd-journals">
+                            <summary><t t-esc="branchSummary"/></summary>
+                            <div class="gn-fd-journals__list">
+                                <t t-foreach="state.filterOptions.branches" t-as="b" t-key="b.id">
+                                    <label class="gn-fd-journals__item">
+                                        <input type="checkbox"
+                                               t-att-checked="isBranchSelected(b.id)"
+                                               t-on-change="() => this.onToggleBranch(b.id)"/>
+                                        <span t-esc="b.name"/>
+                                    </label>
+                                </t>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Centro de costos (analitica). Agrupado por plan. -->
+                    <div t-if="hasAnalyticDim" class="gn-fd-filter gn-fd-filter--journals">
+                        <label>Centro de costos</label>
+                        <details class="gn-fd-journals">
+                            <summary><t t-esc="analyticSummary"/></summary>
+                            <div class="gn-fd-journals__list gn-fd-journals__list--wide">
+                                <t t-foreach="state.filterOptions.analytic_plans" t-as="plan" t-key="plan.plan_id || 'np'">
+                                    <div class="gn-fd-journals__group" t-esc="plan.plan_name"/>
+                                    <t t-foreach="plan.accounts" t-as="a" t-key="a.id">
+                                        <label class="gn-fd-journals__item">
+                                            <input type="checkbox"
+                                                   t-att-checked="isAnalyticSelected(a.id)"
+                                                   t-on-change="() => this.onToggleAnalytic(a.id)"/>
+                                            <span t-esc="a.name"/>
+                                        </label>
+                                    </t>
+                                </t>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Proyecto (resuelve a su cuenta analitica). -->
+                    <div t-if="hasProjectDim" class="gn-fd-filter gn-fd-filter--journals">
+                        <label>Proyecto</label>
+                        <details class="gn-fd-journals">
+                            <summary><t t-esc="projectSummary"/></summary>
+                            <div class="gn-fd-journals__list">
+                                <t t-foreach="state.filterOptions.projects" t-as="p" t-key="p.id">
+                                    <label class="gn-fd-journals__item">
+                                        <input type="checkbox"
+                                               t-att-checked="isProjectSelected(p.id)"
+                                               t-on-change="() => this.onToggleProject(p.id)"/>
+                                        <span t-esc="p.name"/>
+                                    </label>
+                                </t>
+                            </div>
+                        </details>
+                    </div>
+                    <!-- Espacio de trabajo (workspace) -->
+                    <div t-if="state.workspaces.list.length" class="gn-fd-filter">
+                        <label>Espacio</label>
+                        <div class="d-flex gap-1 align-items-center">
+                            <select class="form-select form-select-sm"
+                                    t-on-change="(ev) => this.onSelectWorkspace(ev)"
+                                    t-att-value="state.workspaces.active_id || ''">
+                                <t t-foreach="state.workspaces.list" t-as="w" t-key="w.id">
+                                    <option t-att-value="w.id"
+                                            t-att-selected="w.id === state.workspaces.active_id">
+                                        <t t-esc="w.name"/>
+                                        <t t-if="w.shared and w.owner_id !== uid"> (compartido)</t>
+                                        <t t-if="w.is_default"> ★</t>
+                                    </option>
+                                </t>
+                            </select>
+                            <button class="btn btn-light btn-sm"
+                                    t-on-click="() => this.onOpenWorkspaceEditor()"
+                                    title="Guardar / configurar workspace">
+                                <i class="fa fa-cog"/>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="gn-fd-filter gn-fd-filter--actions">
+                        <button class="btn btn-primary btn-sm" t-on-click="() => this.onApply()">
+                            <i class="fa fa-search me-1"/>Aplicar
+                        </button>
+                        <button class="btn btn-light btn-sm" t-on-click="() => this.onRefresh()" title="Refrescar">
+                            <i class="fa fa-refresh"/>
+                        </button>
+                        <button t-if="canExport" class="btn btn-light btn-sm" t-on-click="() => this.onExportPdf()" title="Exportar PDF">
+                            <i class="fa fa-file-pdf-o me-1"/>PDF
+                        </button>
+                        <button t-if="canExport" class="btn btn-light btn-sm" t-on-click="() => this.onExportExcel()" title="Exportar Excel">
+                            <i class="fa fa-file-excel-o me-1"/>Excel
+                        </button>
+                    </div>
+                    <div class="gn-fd-filter gn-fd-lastupdate" t-if="state.lastUpdate">
+                        <i class="fa fa-clock-o me-1"/>Actualizado: <t t-esc="state.lastUpdate"/>
+                    </div>
+                </div>
+
+                <!-- Estados -->
+                <t t-if="state.loading">
+                    <div class="gn-fd-skeleton">
+                        <div class="gn-fd-skel gn-fd-skel--health"/>
+                        <div class="gn-fd-skel-row">
+                            <t t-foreach="[1,2,3,4,5]" t-as="n" t-key="n">
+                                <div class="gn-fd-skel gn-fd-skel--kpi"/>
+                            </t>
+                        </div>
+                        <div class="gn-fd-skel-row">
+                            <div class="gn-fd-skel gn-fd-skel--chart"/>
+                            <div class="gn-fd-skel gn-fd-skel--chart"/>
+                        </div>
+                    </div>
+                </t>
+                <t t-elif="state.loadError">
+                    <div class="gn-fd-state gn-fd-state--error">
+                        <i class="fa fa-exclamation-triangle fa-2x"/>
+                        <p t-esc="state.loadError"/>
+                        <button class="btn btn-secondary btn-sm" t-on-click="() => this.onRefresh()">Reintentar</button>
+                    </div>
+                </t>
+                <t t-elif="!state.data.has_data">
+                    <div class="gn-fd-state">
+                        <i class="fa fa-bar-chart fa-2x"/>
+                        <p>No hay datos para los filtros seleccionados.</p>
+                    </div>
+                </t>
+                <t t-else="">
+
+                    <!-- Encabezado salud financiera con desglose explicable -->
+                    <HealthBreakdown health="state.data.health" period="state.data.period"/>
+
+                    <!-- Navegación por pestañas -->
+                    <ul class="gn-fd-tabs">
+                        <li t-foreach="tabs" t-as="tab" t-key="tab.key"
+                            t-att-class="'gn-fd-tab ' + (state.activeTab === tab.key ? 'gn-fd-tab--active' : '')"
+                            t-on-click="() => this.selectTab(tab.key)">
+                            <i t-att-class="'fa me-1 ' + tab.icon"/><t t-esc="tab.label"/>
+                        </li>
+                    </ul>
+
+                    <div t-if="state.tabLoading" class="gn-fd-tabloading">
+                        <i class="fa fa-circle-o-notch fa-spin me-1"/>Cargando sección…
+                    </div>
+
+                    <!-- ============ Ejecutivo ============ -->
+                    <t t-if="state.activeTab === 'executive' and state.tabLoaded.executive">
+                        <t t-if="executive">
+                            <!-- Cabecera: salud + narrativa IA -->
+                            <div class="gn-fd-grid gn-fd-grid--exec mt-1">
+                                <section t-att-class="'gn-fd-exec-health ' + execHealthCls">
+                                    <div class="gn-fd-exec-health__score">
+                                        <span class="gn-fd-exec-health__num" t-esc="executive.health.score"/>
+                                        <span class="gn-fd-exec-health__max">/100</span>
+                                    </div>
+                                    <div class="gn-fd-exec-health__label" t-esc="executive.health.label"/>
+                                    <div class="gn-fd-exec-health__company" t-esc="executive.company_name"/>
+                                </section>
+                                <section class="gn-fd-panel gn-fd-exec-narrative" t-if="execNarrative">
+                                    <header class="gn-fd-panel__head">
+                                        <span><i class="fa fa-magic me-2"/>Resumen ejecutivo</span>
+                                        <span class="gn-fd-ai-tag" t-if="executive.ai">
+                                            <i class="fa fa-robot me-1"/><t t-esc="execNarrative.source === 'rule_based' ? 'Automático' : 'IA'"/>
+                                        </span>
+                                    </header>
+                                    <p class="gn-fd-exec-narrative__head" t-esc="execNarrative.headline"/>
+                                    <ul class="gn-fd-exec-narrative__bullets">
+                                        <li t-foreach="execNarrative.bullets" t-as="b" t-key="b_index" t-esc="b"/>
+                                    </ul>
+                                </section>
+                            </div>
+
+                            <!-- KPIs clave -->
+                            <div class="gn-fd-grid gn-fd-grid--4 mt-2">
+                                <t t-foreach="execKpiCards" t-as="c" t-key="c.key">
+                                    <div class="gn-fd-exec-kpi">
+                                        <div class="gn-fd-exec-kpi__top">
+                                            <i t-att-class="'fa me-2 ' + c.icon"/>
+                                            <span t-esc="c.label"/>
+                                        </div>
+                                        <div class="gn-fd-exec-kpi__val" t-esc="c.value"/>
+                                        <div t-if="c.deltaPct !== null"
+                                             t-att-class="'gn-fd-exec-kpi__delta ' + (c.deltaUp ? 'text-success' : 'text-danger')">
+                                            <i t-att-class="'fa ' + (c.deltaUp ? 'fa-caret-up' : 'fa-caret-down')"/>
+                                            <t t-esc="(c.deltaUp ? '+' : '') + c.deltaPct"/>%
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+
+                            <div class="gn-fd-grid gn-fd-grid--2 mt-2">
+                                <!-- Utilidad por año -->
+                                <section class="gn-fd-panel">
+                                    <header class="gn-fd-panel__head">
+                                        <span><i class="fa fa-bar-chart me-2"/>Utilidad por año</span>
+                                    </header>
+                                    <FinancialChart config="execMultiyearConfig" fingerprint="execMultiyearFingerprint" height="240"/>
+                                </section>
+                                <!-- Alertas principales + pronóstico -->
+                                <section class="gn-fd-panel">
+                                    <header class="gn-fd-panel__head">
+                                        <span><i class="fa fa-bell me-2"/>Atención prioritaria</span>
+                                    </header>
+                                    <div class="gn-fd-exec-forecast" t-if="executive.forecast">
+                                        <span class="text-muted">Pronóstico utilidad fin de año:</span>
+                                        <span class="fw-bold ms-1" t-esc="fmt(executive.forecast.net_year_end)"/>
+                                        <span class="text-muted ms-1">(<t t-esc="executive.forecast.net_attainment"/>% meta)</span>
+                                    </div>
+                                    <div t-if="!execAlerts.length" class="gn-fd-state gn-fd-state--ok">
+                                        <i class="fa fa-check-circle fa-2x"/>
+                                        <p>Sin alertas prioritarias.</p>
+                                    </div>
+                                    <ul t-else="" class="gn-fd-alerts mt-2">
+                                        <li t-foreach="execAlerts" t-as="al" t-key="al_index"
+                                            t-att-class="'gn-fd-alert ' + severityCls(al.severity)">
+                                            <span class="gn-fd-alert__icon"><i t-att-class="'fa ' + severityIcon(al.severity)"/></span>
+                                            <div class="gn-fd-alert__body">
+                                                <span class="gn-fd-alert__title" t-esc="al.title"/>
+                                                <span class="gn-fd-alert__detail" t-esc="al.detail"/>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </section>
+                            </div>
+                        </t>
+                        <div t-else="" class="gn-fd-state">
+                            <i class="fa fa-info-circle fa-2x"/>
+                            <p>No hay datos ejecutivos disponibles.</p>
+                        </div>
+                    </t>
+
+                    <!-- ============ Resumen ============ -->
+                    <t t-elif="state.activeTab === 'overview'">
+                        <div class="gn-fd-kpis">
+                            <t t-foreach="overviewCards" t-as="card" t-key="card.id">
+                                <KpiCard card="card" onClick="this.isCardDrillable(card) ? ((c) => this.openAccountDetail(c)) : undefined"/>
+                            </t>
+                        </div>
+
+                        <!-- Puntaje por categoría -->
+                        <h6 class="gn-fd-section-title" t-if="healthCategories.length">
+                            <i class="fa fa-tachometer me-2"/>Puntaje por categoría
+                        </h6>
+                        <CategoryScores t-if="healthCategories.length"
+                                        categories="healthCategories"
+                                        onSelect="(cat) => this.selectTab('diagnostics')"/>
+
+                        <!-- Velocímetro + Radar -->
+                        <div class="gn-fd-grid gn-fd-grid--2" t-if="riskIndicator or radarConfig">
+                            <RiskGauge t-if="riskIndicator" risk="riskIndicator"/>
+                            <section class="gn-fd-panel" t-if="radarConfig">
+                                <header class="gn-fd-panel__head">
+                                    <span><i class="fa fa-bullseye me-2"/>Radar financiero</span>
+                                </header>
+                                <FinancialChart config="radarConfig" fingerprint="radarFingerprint" height="280"/>
+                            </section>
+                        </div>
+
+                        <section class="gn-fd-panel mt-2">
+                            <header class="gn-fd-panel__head"><span><i class="fa fa-heartbeat me-2"/>Alertas</span></header>
+                            <div class="gn-fd-alerts">
+                                <t t-if="!state.data.health.alerts.length">
+                                    <div class="gn-fd-alert gn-fd-alert--ok"><i class="fa fa-check-circle me-2"/>Sin alertas para el período.</div>
+                                </t>
+                                <t t-foreach="state.data.health.alerts" t-as="al" t-key="al_index">
+                                    <div t-att-class="'gn-fd-alert gn-fd-alert--' + al.severity">
+                                        <i t-att-class="'fa me-2 ' + (al.severity === 'danger' ? 'fa-exclamation-circle' : 'fa-exclamation-triangle')"/>
+                                        <div>
+                                            <strong t-esc="al.title"/>
+                                            <div class="gn-fd-alert__msg" t-esc="al.message"/>
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                        </section>
+                    </t>
+
+                    <!-- ============ Rentabilidad ============ -->
+                    <t t-elif="state.activeTab === 'profitability' and state.tabLoaded.profitability">
+                        <t t-if="isSectionVisible('profitability')">
+                            <div class="gn-fd-kpis">
+                                <t t-foreach="profitCards" t-as="card" t-key="card.id">
+                                    <KpiCard card="card" onClick="this.isCardDrillable(card) ? ((c) => this.openAccountDetail(c)) : undefined"/>
+                                </t>
+                            </div>
+                            <div class="gn-fd-grid gn-fd-grid--2">
+                                <section class="gn-fd-panel gn-fd-clickable-chart">
+                                    <header class="gn-fd-panel__head">
+                                        <span>
+                                            <i class="fa fa-bar-chart me-2"/>Evolución mensual
+                                            <InfoTip t-props="chartMeta('chart_monthly') or {}"/>
+                                        </span>
+                                        <button class="btn btn-sm btn-link" t-on-click="() => this.openBiReport('profit_and_loss')">Estado de resultados →</button>
+                                    </header>
+                                    <FinancialChart config="monthlyConfig" fingerprint="monthlyFingerprint" height="300" onClick="(p) => this.onMonthlyClick(p)"/>
+                                </section>
+                                <section class="gn-fd-panel gn-fd-clickable-chart">
+                                    <header class="gn-fd-panel__head">
+                                        <span>
+                                            <i class="fa fa-sort-amount-desc me-2"/>Cascada de resultados
+                                            <InfoTip t-props="chartMeta('chart_waterfall') or {}"/>
+                                        </span>
+                                    </header>
+                                    <FinancialChart config="waterfallConfig" fingerprint="waterfallFingerprint" height="300" onClick="(p) => this.onWaterfallClick(p)"/>
+                                </section>
+                            </div>
+                            <section class="gn-fd-panel mt-2 gn-fd-clickable-chart" t-if="hasExpenseData">
+                                <header class="gn-fd-panel__head">
+                                    <span>
+                                        <i class="fa fa-pie-chart me-2"/>Composición de gastos
+                                        <InfoTip t-props="chartMeta('chart_expense_breakdown') or {}"/>
+                                    </span>
+                                </header>
+                                <FinancialChart config="expenseConfig" fingerprint="expenseFingerprint" height="300" onClick="(p) => this.onExpenseDonutClick(p)"/>
+                            </section>
+                        </t>
+                        <t t-if="isSectionVisible('expense_ranking')">
+                            <h6 class="gn-fd-section-title"><i class="fa fa-sort-amount-desc me-2"/>Top gastos</h6>
+                            <RankingTable title="'Top 10 gastos'"
+                                          icon="'fa-money'"
+                                          headers="expenseRanking.headers"
+                                          rows="expenseRanking.rows"
+                                          onRowClick="(row) => this.onRankingRowClick(row)"
+                                          emptyText="'Sin gastos en el período.'"/>
+                        </t>
+                    </t>
+
+                    <!-- ============ Liquidez ============ -->
+                    <t t-elif="state.activeTab === 'liquidity' and state.tabLoaded.liquidity">
+                        <div class="gn-fd-kpis">
+                            <t t-foreach="liquidityCards" t-as="card" t-key="card.id">
+                                <KpiCard card="card" onClick="this.isCardDrillable(card) ? ((c) => this.openAccountDetail(c)) : undefined"/>
+                            </t>
+                        </div>
+                        <t t-if="hasCashflow">
+                            <h6 class="gn-fd-section-title mt-3"><i class="fa fa-exchange me-2"/>Flujo de caja</h6>
+                            <section class="gn-fd-panel gn-fd-clickable-chart">
+                                <FinancialChart config="cashflowConfig" fingerprint="cashflowFingerprint" height="320"/>
+                            </section>
+                        </t>
+                    </t>
+
+                    <!-- ============ Cartera ============ -->
+                    <t t-elif="state.activeTab === 'aging' and state.tabLoaded.aging">
+                        <t t-if="isSectionVisible('aging')">
+                            <h6 class="gn-fd-section-title"><i class="fa fa-handshake-o me-2"/>Cobranza y pago</h6>
+                            <div class="gn-fd-kpis">
+                                <t t-foreach="collectionCards" t-as="card" t-key="card.id">
+                                    <KpiCard card="card"/>
+                                </t>
+                            </div>
+                            <div class="gn-fd-kpis mt-2">
+                                <t t-foreach="paymentCards" t-as="card" t-key="card.id">
+                                    <KpiCard card="card"/>
+                                </t>
+                            </div>
+                            <h6 class="gn-fd-section-title"><i class="fa fa-clock-o me-2"/>Cartera por antigüedad</h6>
+                            <div class="gn-fd-grid gn-fd-grid--2">
+                                <AgingPanel t-if="receivableAgingConfig"
+                                            title="'Por cobrar — total ' + fmt(state.data.aging.receivable.total)"
+                                            icon="'fa-hand-holding-usd'"
+                                            data="state.data.aging.receivable"
+                                            chartConfig="receivableAgingConfig"
+                                            fingerprint="agingFingerprint"
+                                            currencySymbol="currencySymbol"
+                                            actionLabel="'Detalle →'"
+                                            onAction="() => this.openBiReport('aged_receivable')"
+                                            onBucketClick="(p) => this.onReceivableAgingClick(p)"/>
+                                <AgingPanel t-if="payableAgingConfig"
+                                            title="'Por pagar — total ' + fmt(state.data.aging.payable.total)"
+                                            icon="'fa-file-invoice'"
+                                            data="state.data.aging.payable"
+                                            chartConfig="payableAgingConfig"
+                                            fingerprint="agingFingerprint"
+                                            currencySymbol="currencySymbol"
+                                            actionLabel="'Detalle →'"
+                                            onAction="() => this.openBiReport('aged_payable')"
+                                            onBucketClick="(p) => this.onPayableAgingClick(p)"/>
+                            </div>
+                        </t>
+                        <t t-if="isSectionVisible('partner_ranking')">
+                            <h6 class="gn-fd-section-title"><i class="fa fa-users me-2"/>Top terceros</h6>
+                            <div class="gn-fd-grid gn-fd-grid--2">
+                                <RankingTable title="'Top clientes por cobrar'"
+                                              icon="'fa-hand-holding-usd'"
+                                              headers="receivableRanking.headers"
+                                              rows="receivableRanking.rows"
+                                              sortState="receivableRanking.sortState"
+                                              onSort="(key) => this.onAgingSort('receivable', key)"
+                                              onRowClick="(row) => this.onRankingRowClick(row)"
+                                              emptyText="'Sin cartera por cobrar.'"/>
+                                <RankingTable title="'Top proveedores por pagar'"
+                                              icon="'fa-file-invoice'"
+                                              headers="payableRanking.headers"
+                                              rows="payableRanking.rows"
+                                              sortState="payableRanking.sortState"
+                                              onSort="(key) => this.onAgingSort('payable', key)"
+                                              onRowClick="(row) => this.onRankingRowClick(row)"
+                                              emptyText="'Sin cartera por pagar.'"/>
+                            </div>
+                        </t>
+                    </t>
+
+                    <!-- ============ Flujo de caja ============ -->
+                    <t t-elif="state.activeTab === 'cashflow' and state.tabLoaded.cashflow">
+                        <t t-if="hasCashflow">
+                            <div class="gn-fd-kpis">
+                                <t t-foreach="cashflowCards" t-as="card" t-key="card.id">
+                                    <KpiCard card="card"/>
+                                </t>
+                            </div>
+                            <section class="gn-fd-panel mt-2 gn-fd-clickable-chart">
+                                <header class="gn-fd-panel__head">
+                                    <span>
+                                        <i class="fa fa-area-chart me-2"/>Entradas, salidas y saldo acumulado
+                                        <InfoTip t-props="chartMeta('chart_cashflow') or {}"/>
+                                    </span>
+                                </header>
+                                <FinancialChart config="cashflowConfig" fingerprint="cashflowFingerprint" height="300" onClick="(p) => this.onCashflowClick(p)"/>
+                            </section>
+                        </t>
+                        <div t-else="" class="gn-fd-state">
+                            <i class="fa fa-info-circle fa-2x"/>
+                            <p>No hay cuentas de efectivo con movimiento en el período.</p>
+                        </div>
+                    </t>
+
+                    <!-- ============ Planeación ============ -->
+                    <t t-elif="state.activeTab === 'planning' and state.tabLoaded.planning">
+                        <t t-if="planning">
+                            <!-- Encabezado: año + acción editar presupuesto -->
+                            <div class="gn-fd-plan-head">
+                                <h6 class="gn-fd-section-title mb-0">
+                                    <i class="fa fa-bullseye me-2"/>Planeación <t t-esc="planning.year"/>
+                                </h6>
+                                <button t-if="planning.can_edit_budget" class="btn btn-sm btn-outline-primary"
+                                        t-on-click="() => this.openBudgetEditor()">
+                                    <i class="fa fa-pencil me-1"/>Editar presupuesto
+                                </button>
+                            </div>
+
+                            <!-- Presupuesto vs Real: tarjetas por categoría -->
+                            <div class="gn-fd-grid gn-fd-grid--4 mt-2">
+                                <t t-foreach="budgetCategories" t-as="cat" t-key="cat.key">
+                                    <div class="gn-fd-budget-card">
+                                        <div class="gn-fd-budget-card__label" t-esc="cat.label"/>
+                                        <div class="gn-fd-budget-card__actual" t-esc="fmt(cat.actual_ytd)"/>
+                                        <div class="gn-fd-budget-card__sub">
+                                            Meta YTD: <t t-esc="fmt(cat.budget_ytd)"/>
+                                        </div>
+                                        <div class="gn-fd-budget-card__bar">
+                                            <span t-att-style="'width:' + Math.min(Math.max(cat.progress,0),100) + '%'"/>
+                                        </div>
+                                        <div class="gn-fd-budget-card__foot">
+                                            <span><t t-esc="cat.progress"/>% de meta anual</span>
+                                            <span t-att-class="devCls(cat.favorable)">
+                                                <t t-esc="(cat.deviation >= 0 ? '+' : '') + fmt(cat.deviation)"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </t>
+                                <div t-if="budgetNet" class="gn-fd-budget-card gn-fd-budget-card--net">
+                                    <div class="gn-fd-budget-card__label">Utilidad neta</div>
+                                    <div class="gn-fd-budget-card__actual" t-esc="fmt(budgetNet.actual_ytd)"/>
+                                    <div class="gn-fd-budget-card__sub">Meta YTD: <t t-esc="fmt(budgetNet.budget_ytd)"/></div>
+                                    <div class="gn-fd-budget-card__bar">
+                                        <span t-att-style="'width:' + Math.min(Math.max(budgetNet.progress,0),100) + '%'"/>
+                                    </div>
+                                    <div class="gn-fd-budget-card__foot">
+                                        <span><t t-esc="budgetNet.progress"/>% de meta anual</span>
+                                        <span t-att-class="devCls(budgetNet.deviation >= 0)">
+                                            <t t-esc="(budgetNet.deviation >= 0 ? '+' : '') + fmt(budgetNet.deviation)"/>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="gn-fd-grid gn-fd-grid--2 mt-2">
+                                <!-- Gráfico presupuesto vs real -->
+                                <section class="gn-fd-panel">
+                                    <header class="gn-fd-panel__head">
+                                        <span><i class="fa fa-line-chart me-2"/>Utilidad neta acumulada: meta vs real</span>
+                                    </header>
+                                    <FinancialChart config="planningChartConfig" fingerprint="planningFingerprint" height="280"/>
+                                </section>
+
+                                <!-- Pronóstico fin de año -->
+                                <section class="gn-fd-panel" t-if="forecast">
+                                    <header class="gn-fd-panel__head">
+                                        <span>
+                                            <i class="fa fa-magic me-2"/>Pronóstico a fin de año
+                                            <InfoTip title="'Pronóstico'"
+                                                     desc="'Proyección a diciembre según la tendencia de los meses con datos.'"
+                                                     formula="'Regresión lineal simple sobre el real acumulado.'"
+                                                     hint="'Es una estimación; mejora con más meses cerrados.'"/>
+                                        </span>
+                                    </header>
+                                    <table class="gn-fd-forecast">
+                                        <thead>
+                                            <tr>
+                                                <th>Concepto</th>
+                                                <th class="text-end">Proyección anual</th>
+                                                <th class="text-end">Meta</th>
+                                                <th class="text-end">Cumpl.</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Ingresos</td>
+                                                <td class="text-end" t-esc="fmt(forecast.income.year_end)"/>
+                                                <td class="text-end text-muted" t-esc="fmt(forecast.income.budget_total)"/>
+                                                <td class="text-end" t-esc="forecast.income.attainment + '%'"/>
+                                            </tr>
+                                            <tr>
+                                                <td>Costo de ventas</td>
+                                                <td class="text-end" t-esc="fmt(forecast.cogs.year_end)"/>
+                                                <td class="text-end text-muted" t-esc="fmt(forecast.cogs.budget_total)"/>
+                                                <td class="text-end" t-esc="forecast.cogs.attainment + '%'"/>
+                                            </tr>
+                                            <tr>
+                                                <td>Gastos</td>
+                                                <td class="text-end" t-esc="fmt(forecast.expenses.year_end)"/>
+                                                <td class="text-end text-muted" t-esc="fmt(forecast.expenses.budget_total)"/>
+                                                <td class="text-end" t-esc="forecast.expenses.attainment + '%'"/>
+                                            </tr>
+                                            <tr class="gn-fd-forecast__net">
+                                                <td>Utilidad neta</td>
+                                                <td class="text-end fw-bold" t-esc="fmt(forecast.net.year_end)"/>
+                                                <td class="text-end text-muted" t-esc="fmt(forecast.net.budget_total)"/>
+                                                <td class="text-end fw-bold" t-esc="forecast.net.attainment + '%'"/>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </section>
+                            </div>
+
+                            <div class="gn-fd-grid gn-fd-grid--2 mt-2">
+                                <!-- Simulador what-if -->
+                                <section class="gn-fd-panel">
+                                    <header class="gn-fd-panel__head">
+                                        <span>
+                                            <i class="fa fa-sliders me-2"/>Simulador “¿qué pasaría si…?”
+                                            <InfoTip title="'Simulador'"
+                                                     desc="'Aplica variaciones % sobre la proyección anual para estimar la utilidad resultante.'"
+                                                     hint="'No modifica datos contables; es solo exploratorio.'"/>
+                                        </span>
+                                        <button class="btn btn-sm btn-link" t-on-click="() => this.resetSim()">Reiniciar</button>
+                                    </header>
+                                    <div class="gn-fd-sim">
+                                        <div class="gn-fd-sim__row">
+                                            <label>Ingresos <span t-esc="(state.sim.income>=0?'+':'') + state.sim.income + '%'"/></label>
+                                            <input type="range" min="-50" max="50" step="1"
+                                                   t-att-value="state.sim.income"
+                                                   t-on-input="(ev) => this.onSimInput('income', ev)"/>
+                                        </div>
+                                        <div class="gn-fd-sim__row">
+                                            <label>Costo de ventas <span t-esc="(state.sim.cogs>=0?'+':'') + state.sim.cogs + '%'"/></label>
+                                            <input type="range" min="-50" max="50" step="1"
+                                                   t-att-value="state.sim.cogs"
+                                                   t-on-input="(ev) => this.onSimInput('cogs', ev)"/>
+                                        </div>
+                                        <div class="gn-fd-sim__row">
+                                            <label>Gastos <span t-esc="(state.sim.expenses>=0?'+':'') + state.sim.expenses + '%'"/></label>
+                                            <input type="range" min="-50" max="50" step="1"
+                                                   t-att-value="state.sim.expenses"
+                                                   t-on-input="(ev) => this.onSimInput('expenses', ev)"/>
+                                        </div>
+                                        <div class="gn-fd-sim__result">
+                                            <div class="gn-fd-sim__net">
+                                                <span class="gn-fd-sim__net-label">Utilidad simulada</span>
+                                                <span class="gn-fd-sim__net-val" t-esc="fmt(simResult.net)"/>
+                                            </div>
+                                            <div class="gn-fd-sim__meta">
+                                                <span>Base: <t t-esc="fmt(simResult.baseNet)"/></span>
+                                                <span t-att-class="simResult.delta >= 0 ? 'text-success' : 'text-danger'">
+                                                    <t t-esc="(simResult.delta >= 0 ? '+' : '') + fmt(simResult.delta)"/>
+                                                </span>
+                                                <span>Margen: <t t-esc="simResult.margin.toFixed(1)"/>%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+
+                                <!-- Línea de tiempo -->
+                                <section class="gn-fd-panel">
+                                    <header class="gn-fd-panel__head">
+                                        <span><i class="fa fa-clock-o me-2"/>Línea de tiempo financiera</span>
+                                    </header>
+                                    <ul class="gn-fd-tl">
+                                        <li t-foreach="timeline" t-as="ev" t-key="ev_index"
+                                            t-att-class="'gn-fd-tl__item ' + timelineStatusClass(ev)">
+                                            <span class="gn-fd-tl__dot"><i t-att-class="'fa ' + timelineIconClass(ev)"/></span>
+                                            <div class="gn-fd-tl__body">
+                                                <span class="gn-fd-tl__title" t-esc="ev.title"/>
+                                                <span class="gn-fd-tl__date" t-esc="fmtDate(ev.date)"/>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </section>
+                            </div>
+                        </t>
+                        <div t-else="" class="gn-fd-state">
+                            <i class="fa fa-info-circle fa-2x"/>
+                            <p>No hay datos de planeación disponibles.</p>
+                        </div>
+                    </t>
+
+                    <!-- ============ Vigilancia ============ -->
+                    <t t-elif="state.activeTab === 'watch' and state.tabLoaded.watch">
+                        <t t-if="watch">
+                            <!-- Centro de alertas inteligentes -->
+                            <section class="gn-fd-panel">
+                                <header class="gn-fd-panel__head">
+                                    <span><i class="fa fa-bell me-2"/>Centro de alertas</span>
+                                    <span class="gn-fd-alert-counts" t-if="alertCenter">
+                                        <span class="gn-fd-alert-badge gn-fd-alert-badge--critical" t-if="alertCenter.counts.critical">
+                                            <i class="fa fa-exclamation-circle me-1"/><t t-esc="alertCenter.counts.critical"/>
+                                        </span>
+                                        <span class="gn-fd-alert-badge gn-fd-alert-badge--warning" t-if="alertCenter.counts.warning">
+                                            <i class="fa fa-exclamation-triangle me-1"/><t t-esc="alertCenter.counts.warning"/>
+                                        </span>
+                                        <span class="gn-fd-alert-badge gn-fd-alert-badge--info" t-if="alertCenter.counts.info">
+                                            <i class="fa fa-info-circle me-1"/><t t-esc="alertCenter.counts.info"/>
+                                        </span>
+                                    </span>
+                                </header>
+                                <div t-if="!watchAlerts.length" class="gn-fd-state gn-fd-state--ok">
+                                    <i class="fa fa-check-circle fa-2x"/>
+                                    <p>Sin alertas. Todo en orden.</p>
+                                </div>
+                                <ul t-else="" class="gn-fd-alerts">
+                                    <li t-foreach="watchAlerts" t-as="al" t-key="al_index"
+                                        t-att-class="'gn-fd-alert ' + severityCls(al.severity)">
+                                        <span class="gn-fd-alert__icon"><i t-att-class="'fa ' + severityIcon(al.severity)"/></span>
+                                        <div class="gn-fd-alert__body">
+                                            <div class="gn-fd-alert__head">
+                                                <span class="gn-fd-alert__title" t-esc="al.title"/>
+                                                <span class="gn-fd-alert__cat" t-esc="al.category"/>
+                                            </div>
+                                            <span class="gn-fd-alert__detail" t-esc="al.detail"/>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </section>
+
+                            <div class="gn-fd-grid gn-fd-grid--2 mt-2">
+                                <!-- Comparación multi-año -->
+                                <section class="gn-fd-panel" t-if="multiyear">
+                                    <header class="gn-fd-panel__head">
+                                        <span>
+                                            <i class="fa fa-bar-chart me-2"/>Comparación multi-año
+                                            <InfoTip title="'Comparación multi-año'"
+                                                     desc="'Ingresos, gastos y utilidad de los últimos años.'"
+                                                     hint="'El año en curso es parcial (hasta la fecha de corte).'"/>
+                                        </span>
+                                        <span class="gn-fd-growth" t-if="multiyear.growth">
+                                            <span t-att-class="multiyear.growth.income >= 0 ? 'text-success' : 'text-danger'">
+                                                Ingresos <t t-esc="(multiyear.growth.income >= 0 ? '+' : '') + multiyear.growth.income"/>%
+                                            </span>
+                                            <span t-att-class="multiyear.growth.net >= 0 ? 'text-success' : 'text-danger'" class="ms-2">
+                                                Utilidad <t t-esc="(multiyear.growth.net >= 0 ? '+' : '') + multiyear.growth.net"/>%
+                                            </span>
+                                        </span>
+                                    </header>
+                                    <FinancialChart config="multiyearConfig" fingerprint="multiyearFingerprint" height="280"/>
+                                </section>
+
+                                <!-- Calendario financiero -->
+                                <section class="gn-fd-panel" t-if="calendar">
+                                    <header class="gn-fd-panel__head">
+                                        <span><i class="fa fa-calendar me-2"/>Calendario financiero (<t t-esc="calendar.horizon_days"/> días)</span>
+                                    </header>
+                                    <div class="gn-fd-cal-summary">
+                                        <div class="gn-fd-cal-summary__item">
+                                            <span class="text-muted">Por cobrar</span>
+                                            <span class="text-success fw-semibold" t-esc="fmt(calendar.total_receivable)"/>
+                                        </div>
+                                        <div class="gn-fd-cal-summary__item">
+                                            <span class="text-muted">Por pagar</span>
+                                            <span class="text-danger fw-semibold" t-esc="fmt(calendar.total_payable)"/>
+                                        </div>
+                                        <div class="gn-fd-cal-summary__item">
+                                            <span class="text-muted">Neto</span>
+                                            <span t-att-class="calendar.net >= 0 ? 'text-success fw-bold' : 'text-danger fw-bold'" t-esc="fmt(calendar.net)"/>
+                                        </div>
+                                    </div>
+                                    <div t-if="!calendarEvents.length" class="gn-fd-state">
+                                        <i class="fa fa-info-circle fa-2x"/>
+                                        <p>Sin vencimientos en el horizonte.</p>
+                                    </div>
+                                    <ul t-else="" class="gn-fd-callist">
+                                        <li t-foreach="calendarEvents" t-as="ev" t-key="ev_index"
+                                            t-att-class="'gn-fd-callist__item gn-fd-callist__item--' + ev.type">
+                                            <span class="gn-fd-callist__date" t-esc="fmtDate(ev.date)"/>
+                                            <span class="gn-fd-callist__title" t-esc="ev.title"/>
+                                            <span class="gn-fd-callist__amount" t-esc="fmt(ev.amount)"/>
+                                        </li>
+                                    </ul>
+                                </section>
+                            </div>
+
+                            <!-- Benchmark multi-compañía -->
+                            <section class="gn-fd-panel mt-2" t-if="benchmark and benchmark.multi">
+                                <header class="gn-fd-panel__head">
+                                    <span><i class="fa fa-building-o me-2"/>Comparativa entre compañías</span>
+                                </header>
+                                <table class="gn-fd-bench">
+                                    <thead>
+                                        <tr>
+                                            <th>Compañía</th>
+                                            <th class="text-end">Ingresos</th>
+                                            <th class="text-end">Utilidad neta</th>
+                                            <th class="text-end">Margen</th>
+                                            <th class="text-end">Razón corr.</th>
+                                            <th class="text-end">Saldo banco</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="benchmarkRows" t-as="row" t-key="row.company_id"
+                                            t-att-class="'gn-fd-bench__row ' + rankCls(row.rank_margin) + (row.is_current ? ' gn-fd-bench__row--current' : '')">
+                                            <td>
+                                                <i t-if="row.is_current" class="fa fa-star text-warning me-1"/>
+                                                <t t-esc="row.name"/>
+                                            </td>
+                                            <td class="text-end" t-esc="fmt(row.revenue)"/>
+                                            <td class="text-end fw-semibold" t-esc="fmt(row.net_profit)"/>
+                                            <td class="text-end" t-esc="row.net_margin + '%'"/>
+                                            <td class="text-end" t-esc="row.current_ratio"/>
+                                            <td class="text-end" t-esc="fmt(row.closing_bank)"/>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </section>
+                        </t>
+                        <div t-else="" class="gn-fd-state">
+                            <i class="fa fa-info-circle fa-2x"/>
+                            <p>No hay datos de vigilancia disponibles.</p>
+                        </div>
+                    </t>
+
+                    <!-- ============ Mis KPIs (V20 Fase 2) ============ -->
+                    <t t-elif="state.activeTab === 'mykpis' and state.tabLoaded.mykpis">
+                        <section class="gn-fd-panel">
+                            <header class="gn-fd-panel__head">
+                                <span>
+                                    <i class="fa fa-star-o me-2"/>Mis KPIs personalizados
+                                </span>
+                                <div class="d-flex gap-2">
+                                    <button t-if="state.customKpis.can_configure"
+                                            class="btn btn-light btn-sm"
+                                            t-on-click="() => this.onOpenKpiBuilder()">
+                                        <i class="fa fa-plus me-1"/>Crear / Editar KPI
+                                    </button>
+                                    <button t-if="state.customKpis.can_configure"
+                                            class="btn btn-light btn-sm"
+                                            t-on-click="() => this.onOpenGoalsConfig()">
+                                        <i class="fa fa-bullseye me-1"/>Configurar objetivos
+                                    </button>
+                                </div>
+                            </header>
+                            <div t-if="!customKpiItems.length" class="gn-fd-empty">
+                                <i class="fa fa-lightbulb-o fa-2x mb-2"/>
+                                <p>
+                                    Aún no has creado KPIs personalizados.
+                                    <span t-if="state.customKpis.can_configure">
+                                        Pulsa
+                                        <strong>"Crear / Editar KPI"</strong>
+                                        para definir tu primer indicador.
+                                    </span>
+                                </p>
+                            </div>
+                            <div t-else="" class="gn-fd-kpis">
+                                <t t-foreach="customKpiItems" t-as="ck" t-key="ck.id">
+                                    <CustomKpiCard kpi="ck"
+                                                   onClick="(k) => this.onCustomKpiClick(k)"/>
+                                </t>
+                            </div>
+                        </section>
+
+                        <div class="mt-2">
+                            <GoalsPanel payload="state.goals"
+                                        onGoalClick="(g) => this.onGoalClick(g)"/>
+                        </div>
+                    </t>
+
+                    <!-- ============ Indicadores (gauges punto de referencia) ============ -->
+                    <t t-elif="state.activeTab === 'indicators' and state.tabLoaded.indicators">
+                        <section class="gn-fd-panel">
+                            <header class="gn-fd-panel__head">
+                                <span>
+                                    <i class="fa fa-tachometer me-2"/>Indicadores financieros
+                                </span>
+                                <small t-if="state.indicatorsData?.period" class="text-muted">
+                                    <t t-esc="fmtDate(state.indicatorsData.period.date_from)"/>
+                                    —
+                                    <t t-esc="fmtDate(state.indicatorsData.period.date_to)"/>
+                                </small>
+                            </header>
+                            <div t-if="!state.indicatorsData or !state.indicatorsData.items?.length"
+                                 class="gn-fd-empty">
+                                <i class="fa fa-tachometer fa-2x mb-2"/>
+                                <p>No hay datos suficientes para calcular los indicadores en el período seleccionado.</p>
+                            </div>
+                            <div t-else="" class="gn-fd-indicators">
+                                <t t-foreach="state.indicatorsData.items" t-as="ind" t-key="ind.key">
+                                    <IndicatorGauge indicator="ind"/>
+                                </t>
+                            </div>
+                        </section>
+                    </t>
+
+                    <!-- ============ Inteligencia (V20 Fase 3) ============ -->
+                    <t t-elif="state.activeTab === 'intelligence' and state.tabLoaded.intelligence">
+                        <ul class="gn-fd-subtabs">
+                            <li t-att-class="'gn-fd-subtab ' + (state.intelSubtab === 'products' ? 'gn-fd-subtab--active' : '')"
+                                t-on-click="() => this.onSelectIntelTab('products')">
+                                <i class="fa fa-cube me-1"/>Productos
+                            </li>
+                            <li t-att-class="'gn-fd-subtab ' + (state.intelSubtab === 'customers' ? 'gn-fd-subtab--active' : '')"
+                                t-on-click="() => this.onSelectIntelTab('customers')">
+                                <i class="fa fa-users me-1"/>Clientes
+                            </li>
+                            <li t-att-class="'gn-fd-subtab ' + (state.intelSubtab === 'suppliers' ? 'gn-fd-subtab--active' : '')"
+                                t-on-click="() => this.onSelectIntelTab('suppliers')">
+                                <i class="fa fa-truck me-1"/>Proveedores
+                            </li>
+                        </ul>
+
+                        <div t-if="state.intelLoading" class="gn-fd-tabloading">
+                            <i class="fa fa-circle-o-notch fa-spin me-1"/>Calculando inteligencia…
+                        </div>
+
+                        <!-- Sub-tab: Productos -->
+                        <t t-if="state.intelSubtab === 'products' and state.intelLoaded.products">
+                            <t t-if="state.intelProducts">
+                                <div class="gn-fd-grid gn-fd-grid--4 mt-2">
+                                    <div class="gn-fd-intel-stat">
+                                        <span class="gn-fd-intel-stat__label">Ingresos totales</span>
+                                        <span class="gn-fd-intel-stat__value">
+                                            <t t-esc="intelCurrencySymbol"/><t t-esc="fmtNum(state.intelProducts.total_revenue, 2)"/>
+                                        </span>
+                                    </div>
+                                    <div class="gn-fd-intel-stat">
+                                        <span class="gn-fd-intel-stat__label">Productos vendidos</span>
+                                        <span class="gn-fd-intel-stat__value"><t t-esc="state.intelProducts.total_products"/></span>
+                                    </div>
+                                    <div class="gn-fd-intel-stat gn-fd-intel-stat--a">
+                                        <span class="gn-fd-intel-stat__label">Grupo A (80%)</span>
+                                        <span class="gn-fd-intel-stat__value">
+                                            <t t-esc="state.intelProducts.abc_summary.a_count"/>
+                                            <small class="text-muted ms-1">productos</small>
+                                        </span>
+                                    </div>
+                                    <div class="gn-fd-intel-stat gn-fd-intel-stat--loss" t-if="state.intelProducts.loss_items.length">
+                                        <span class="gn-fd-intel-stat__label">Productos en pérdida</span>
+                                        <span class="gn-fd-intel-stat__value text-danger">
+                                            <i class="fa fa-warning me-1"/>
+                                            <t t-esc="state.intelProducts.loss_items.length"/>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <section class="gn-fd-panel mt-2">
+                                    <header class="gn-fd-panel__head">
+                                        <span><i class="fa fa-trophy me-2"/>Top productos (análisis ABC)</span>
+                                        <small class="text-muted">A: 80% · B: 15% · C: 5% de los ingresos</small>
+                                    </header>
+                                    <IntelligenceTable kind="'product'"
+                                                       items="state.intelProducts.items"
+                                                       columns="productColumns"
+                                                       currencySymbol="intelCurrencySymbol"
+                                                       onRowClick="(it) => this.onProductClick(it)"/>
+                                </section>
+
+                                <section t-if="state.intelProducts.loss_items.length" class="gn-fd-panel mt-2">
+                                    <header class="gn-fd-panel__head">
+                                        <span><i class="fa fa-exclamation-triangle me-2 text-danger"/>Productos con pérdida</span>
+                                        <small class="text-muted">Revisa precios, costos o descuentos aplicados</small>
+                                    </header>
+                                    <IntelligenceTable kind="'product'"
+                                                       items="state.intelProducts.loss_items"
+                                                       columns="productColumns"
+                                                       currencySymbol="intelCurrencySymbol"
+                                                       onRowClick="(it) => this.onProductClick(it)"/>
+                                </section>
+                            </t>
+                        </t>
+
+                        <!-- Sub-tab: Clientes -->
+                        <t t-if="state.intelSubtab === 'customers' and state.intelLoaded.customers">
+                            <t t-if="state.intelCustomers">
+                                <div class="gn-fd-grid gn-fd-grid--4 mt-2">
+                                    <div class="gn-fd-intel-stat">
+                                        <span class="gn-fd-intel-stat__label">Ingresos del periodo</span>
+                                        <span class="gn-fd-intel-stat__value">
+                                            <t t-esc="intelCurrencySymbol"/><t t-esc="fmtNum(state.intelCustomers.total_revenue, 2)"/>
+                                        </span>
+                                    </div>
+                                    <div class="gn-fd-intel-stat">
+                                        <span class="gn-fd-intel-stat__label">Clientes activos</span>
+                                        <span class="gn-fd-intel-stat__value"><t t-esc="state.intelCustomers.partners_count"/></span>
+                                    </div>
+                                    <div class="gn-fd-intel-stat">
+                                        <span class="gn-fd-intel-stat__label">Concentración top 5</span>
+                                        <span class="gn-fd-intel-stat__value"><t t-esc="state.intelCustomers.concentration.top5_pct"/>%</span>
+                                    </div>
+                                    <div class="gn-fd-intel-stat">
+                                        <span class="gn-fd-intel-stat__label">Concentración top 10</span>
+                                        <span class="gn-fd-intel-stat__value"><t t-esc="state.intelCustomers.concentration.top10_pct"/>%</span>
+                                    </div>
+                                </div>
+
+                                <div class="gn-fd-tier-pills mt-2">
+                                    <span class="gn-fd-tier-pill gn-fd-tier-pill--champion">
+                                        <i class="fa fa-star me-1"/>Champions: <strong t-esc="state.intelCustomers.tier_summary.champion"/>
+                                    </span>
+                                    <span class="gn-fd-tier-pill gn-fd-tier-pill--good">
+                                        <i class="fa fa-thumbs-up me-1"/>Buenos: <strong t-esc="state.intelCustomers.tier_summary.good"/>
+                                    </span>
+                                    <span class="gn-fd-tier-pill gn-fd-tier-pill--average">
+                                        <i class="fa fa-minus me-1"/>Promedio: <strong t-esc="state.intelCustomers.tier_summary.average"/>
+                                    </span>
+                                    <span class="gn-fd-tier-pill gn-fd-tier-pill--risky">
+                                        <i class="fa fa-exclamation me-1"/>En riesgo: <strong t-esc="state.intelCustomers.tier_summary.risky"/>
+                                    </span>
+                                    <span class="gn-fd-tier-pill gn-fd-tier-pill--critical">
+                                        <i class="fa fa-times-circle me-1"/>Críticos: <strong t-esc="state.intelCustomers.tier_summary.critical"/>
+                                    </span>
+                                </div>
+
+                                <section t-if="state.intelCustomers.alerts.length" class="gn-fd-panel mt-2">
+                                    <header class="gn-fd-panel__head">
+                                        <span><i class="fa fa-bell me-2 text-danger"/>Clientes clave con score crítico</span>
+                                    </header>
+                                    <ul class="gn-fd-alerts">
+                                        <li t-foreach="state.intelCustomers.alerts" t-as="al" t-key="al.partner_id"
+                                            class="gn-fd-alert gn-fd-alert--danger"
+                                            t-on-click="() => this.onCustomerClick(al)">
+                                            <i class="fa fa-exclamation-circle me-2"/>
+                                            <div>
+                                                <strong t-esc="al.name"/>
+                                                <div class="gn-fd-alert__msg" t-esc="al.reason"/>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </section>
+
+                                <section class="gn-fd-panel mt-2">
+                                    <header class="gn-fd-panel__head">
+                                        <span><i class="fa fa-trophy me-2"/>Top clientes</span>
+                                        <small class="text-muted">Score = valor + frecuencia + pago + mora + antigüedad</small>
+                                    </header>
+                                    <IntelligenceTable kind="'customer'"
+                                                       items="state.intelCustomers.items"
+                                                       columns="customerColumns"
+                                                       currencySymbol="intelCurrencySymbol"
+                                                       onRowClick="(it) => this.onCustomerClick(it)"/>
+                                </section>
+                            </t>
+                        </t>
+
+                        <!-- Sub-tab: Proveedores -->
+                        <t t-if="state.intelSubtab === 'suppliers' and state.intelLoaded.suppliers">
+                            <t t-if="state.intelSuppliers">
+                                <div class="gn-fd-grid gn-fd-grid--4 mt-2">
+                                    <div class="gn-fd-intel-stat">
+                                        <span class="gn-fd-intel-stat__label">Compras del periodo</span>
+                                        <span class="gn-fd-intel-stat__value">
+                                            <t t-esc="intelCurrencySymbol"/><t t-esc="fmtNum(state.intelSuppliers.total_purchases, 2)"/>
+                                        </span>
+                                    </div>
+                                    <div class="gn-fd-intel-stat">
+                                        <span class="gn-fd-intel-stat__label">Proveedores activos</span>
+                                        <span class="gn-fd-intel-stat__value"><t t-esc="state.intelSuppliers.partners_count"/></span>
+                                    </div>
+                                    <div class="gn-fd-intel-stat">
+                                        <span class="gn-fd-intel-stat__label">Concentración top 5</span>
+                                        <span class="gn-fd-intel-stat__value"><t t-esc="state.intelSuppliers.concentration.top5_pct"/>%</span>
+                                    </div>
+                                    <div class="gn-fd-intel-stat">
+                                        <span class="gn-fd-intel-stat__label">Concentración top 10</span>
+                                        <span class="gn-fd-intel-stat__value"><t t-esc="state.intelSuppliers.concentration.top10_pct"/>%</span>
+                                    </div>
+                                </div>
+
+                                <section t-if="state.intelSuppliers.risk_alerts.length" class="gn-fd-panel mt-2">
+                                    <header class="gn-fd-panel__head">
+                                        <span><i class="fa fa-shield me-2 text-warning"/>Riesgo de dependencia</span>
+                                    </header>
+                                    <ul class="gn-fd-alerts">
+                                        <li t-foreach="state.intelSuppliers.risk_alerts" t-as="al" t-key="al.partner_id"
+                                            class="gn-fd-alert gn-fd-alert--warning"
+                                            t-on-click="() => this.onSupplierClick(al)">
+                                            <i class="fa fa-warning me-2"/>
+                                            <div>
+                                                <strong t-esc="al.name"/>
+                                                <div class="gn-fd-alert__msg" t-esc="al.reason"/>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </section>
+
+                                <section class="gn-fd-panel mt-2">
+                                    <header class="gn-fd-panel__head">
+                                        <span><i class="fa fa-truck me-2"/>Top proveedores</span>
+                                        <small class="text-muted">Score = valor + frecuencia + pago + dependencia + antigüedad</small>
+                                    </header>
+                                    <IntelligenceTable kind="'supplier'"
+                                                       items="state.intelSuppliers.items"
+                                                       columns="supplierColumns"
+                                                       currencySymbol="intelCurrencySymbol"
+                                                       onRowClick="(it) => this.onSupplierClick(it)"/>
+                                </section>
+                            </t>
+                        </t>
+                    </t>
+
+                    <!-- ============ Predicciones (V20 Fase 5) ============ -->
+                    <t t-elif="state.activeTab === 'predictions' and state.tabLoaded.predictions">
+                        <ul class="gn-fd-subtabs">
+                            <li t-att-class="'gn-fd-subtab ' + (state.predictSubtab === 'forecast' ? 'gn-fd-subtab--active' : '')"
+                                t-on-click="() => this.onSelectPredictTab('forecast')">
+                                <i class="fa fa-line-chart me-1"/>Pronóstico
+                            </li>
+                            <li t-att-class="'gn-fd-subtab ' + (state.predictSubtab === 'score' ? 'gn-fd-subtab--active' : '')"
+                                t-on-click="() => this.onSelectPredictTab('score')">
+                                <i class="fa fa-shield me-1"/>Score predictivo
+                            </li>
+                            <li t-att-class="'gn-fd-subtab ' + (state.predictSubtab === 'scenarios' ? 'gn-fd-subtab--active' : '')"
+                                t-on-click="() => this.onSelectPredictTab('scenarios')">
+                                <i class="fa fa-flask me-1"/>Simulación
+                            </li>
+                            <li t-att-class="'gn-fd-subtab ' + (state.predictSubtab === 'benchmark' ? 'gn-fd-subtab--active' : '')"
+                                t-on-click="() => this.onSelectPredictTab('benchmark')">
+                                <i class="fa fa-balance-scale me-1"/>Benchmark
+                            </li>
+                        </ul>
+
+                        <div t-if="state.predictLoading" class="gn-fd-tabloading">
+                            <i class="fa fa-circle-o-notch fa-spin me-1"/>Calculando proyecciones…
+                        </div>
+
+                        <t t-if="!state.predictLoading and state.predictData">
+                            <!-- Sub: PRONÓSTICO -->
+                            <t t-if="state.predictSubtab === 'forecast'">
+                                <section class="gn-fd-panel mt-2">
+                                    <header class="gn-fd-panel__head">
+                                        <span><i class="fa fa-sliders me-2"/>Parámetros del pronóstico</span>
+                                    </header>
+                                    <div class="d-flex flex-wrap gap-3 p-3 align-items-end">
+                                        <div>
+                                            <label class="small text-muted d-block">Horizonte (meses)</label>
+                                            <select class="form-select form-select-sm" style="width:120px"
+                                                    t-on-change="onChangeForecastHorizon">
+                                                <t t-foreach="[3,6,9,12]" t-as="h" t-key="h">
+                                                    <option t-att-value="h" t-att-selected="state.predictHorizon === h ? 'selected' : ''">
+                                                        <t t-esc="h"/> meses
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="small text-muted d-block">Histórico (meses)</label>
+                                            <select class="form-select form-select-sm" style="width:140px"
+                                                    t-on-change="onChangeHistoryMonths">
+                                                <t t-foreach="[12,18,24,36]" t-as="h" t-key="h">
+                                                    <option t-att-value="h" t-att-selected="state.predictHistoryMonths === h ? 'selected' : ''">
+                                                        <t t-esc="h"/> meses
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <button class="btn btn-light btn-sm ms-auto" t-on-click="loadPredictions">
+                                            <i class="fa fa-refresh me-1"/>Recalcular
+                                        </button>
+                                    </div>
+                                </section>
+
+                                <div class="gn-fd-grid gn-fd-grid--2 mt-2">
+                                    <section class="gn-fd-panel">
+                                        <header class="gn-fd-panel__head">
+                                            <span><i class="fa fa-money me-2"/>Ingresos: histórico + pronóstico</span>
+                                            <small class="text-muted" t-if="state.predictData.forecast.revenue?.forecast_meta">
+                                                Δ/mes: <t t-esc="predictCurrency"/><t t-esc="fmtNum(state.predictData.forecast.revenue.forecast_meta.slope, 0)"/>
+                                            </small>
+                                        </header>
+                                        <FinancialChart config="revenueForecastConfig" fingerprint="revenueForecastFingerprint" height="260"/>
+                                    </section>
+                                    <section class="gn-fd-panel">
+                                        <header class="gn-fd-panel__head">
+                                            <span><i class="fa fa-line-chart me-2"/>Utilidad neta: histórico + pronóstico</span>
+                                        </header>
+                                        <FinancialChart config="netProfitForecastConfig" fingerprint="netProfitForecastFingerprint" height="260"/>
+                                    </section>
+                                </div>
+
+                                <div class="gn-fd-grid gn-fd-grid--2 mt-2">
+                                    <section class="gn-fd-panel">
+                                        <header class="gn-fd-panel__head">
+                                            <span><i class="fa fa-tint me-2"/>Flujo de caja mensual</span>
+                                        </header>
+                                        <FinancialChart config="cashFlowForecastConfig" fingerprint="cashFlowForecastFingerprint" height="240"/>
+                                    </section>
+                                    <section class="gn-fd-panel">
+                                        <header class="gn-fd-panel__head">
+                                            <span><i class="fa fa-arrows-h me-2"/>Utilidad bruta</span>
+                                        </header>
+                                        <FinancialChart config="grossProfitForecastConfig" fingerprint="grossProfitForecastFingerprint" height="240"/>
+                                    </section>
+                                </div>
+                            </t>
+
+                            <!-- Sub: SCORE PREDICTIVO -->
+                            <t t-if="state.predictSubtab === 'score'">
+                                <div class="gn-fd-grid gn-fd-grid--2 mt-2">
+                                    <section class="gn-fd-panel">
+                                        <header class="gn-fd-panel__head">
+                                            <span><i class="fa fa-shield me-2"/>Score predictivo del negocio</span>
+                                        </header>
+                                        <div class="p-3 text-center">
+                                            <div t-att-class="'gn-fd-score-big gn-fd-score-big--' + state.predictData.score.tier">
+                                                <t t-esc="state.predictData.score.score"/>
+                                            </div>
+                                            <h4 class="mt-2 mb-0">
+                                                <t t-esc="state.predictData.score.label"/>
+                                            </h4>
+                                            <small class="text-muted">de 100 puntos</small>
+                                        </div>
+                                        <div class="px-3 pb-3">
+                                            <ul class="list-unstyled small">
+                                                <t t-foreach="state.predictData.score.narrative" t-as="n" t-key="n_index">
+                                                    <li class="mb-1"><i class="fa fa-circle me-1 small text-muted"/><t t-esc="n"/></li>
+                                                </t>
+                                            </ul>
+                                        </div>
+                                    </section>
+                                    <section class="gn-fd-panel">
+                                        <header class="gn-fd-panel__head">
+                                            <span><i class="fa fa-bars me-2"/>Componentes del score</span>
+                                        </header>
+                                        <table class="table table-sm gn-fd-itable mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Indicador</th>
+                                                    <th class="text-end">Valor</th>
+                                                    <th class="text-end">Puntaje</th>
+                                                    <th class="text-end">Peso</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <t t-foreach="state.predictData.score.components" t-as="c" t-key="c_index">
+                                                    <tr>
+                                                        <td>
+                                                            <t t-esc="c.label"/>
+                                                            <small t-if="c.note" class="d-block text-muted"><t t-esc="c.note"/></small>
+                                                        </td>
+                                                        <td class="text-end"><t t-esc="formatScoreComponent(c)"/></td>
+                                                        <td class="text-end">
+                                                            <span t-att-class="'gn-fd-score-pill ' + (c.score >= 80 ? 'good' : (c.score >= 50 ? 'warn' : 'bad'))">
+                                                                <t t-esc="c.score"/>
+                                                            </span>
+                                                        </td>
+                                                        <td class="text-end text-muted"><t t-esc="c.weight"/></td>
+                                                    </tr>
+                                                </t>
+                                            </tbody>
+                                        </table>
+                                    </section>
+                                </div>
+                            </t>
+
+                            <!-- Sub: SIMULACIÓN DE ESCENARIOS -->
+                            <t t-if="state.predictSubtab === 'scenarios'">
+                                <div class="gn-fd-grid gn-fd-grid--2 mt-2">
+                                    <section class="gn-fd-panel">
+                                        <header class="gn-fd-panel__head">
+                                            <span><i class="fa fa-sliders me-2"/>Parámetros del escenario</span>
+                                        </header>
+                                        <div class="p-3">
+                                            <div class="row g-2 small">
+                                                <div class="col-12 fw-bold text-muted mt-1">Ventas</div>
+                                                <div class="col-6">
+                                                    <label class="mb-0">Precio (%)</label>
+                                                    <input type="number" class="form-control form-control-sm"
+                                                           t-att-value="state.scenarioInputs.price_delta_pct"
+                                                           t-on-input="(ev) => this.onScenarioInput('price_delta_pct', ev)"
+                                                           step="0.5"/>
+                                                </div>
+                                                <div class="col-6">
+                                                    <label class="mb-0">Volumen (%)</label>
+                                                    <input type="number" class="form-control form-control-sm"
+                                                           t-att-value="state.scenarioInputs.volume_delta_pct"
+                                                           t-on-input="(ev) => this.onScenarioInput('volume_delta_pct', ev)"
+                                                           step="1"/>
+                                                </div>
+                                                <div class="col-12 fw-bold text-muted mt-2">Costos &amp; Gastos</div>
+                                                <div class="col-6">
+                                                    <label class="mb-0">Costo (%)</label>
+                                                    <input type="number" class="form-control form-control-sm"
+                                                           t-att-value="state.scenarioInputs.cost_delta_pct"
+                                                           t-on-input="(ev) => this.onScenarioInput('cost_delta_pct', ev)"
+                                                           step="0.5"/>
+                                                </div>
+                                                <div class="col-6">
+                                                    <label class="mb-0">Gastos opex (%)</label>
+                                                    <input type="number" class="form-control form-control-sm"
+                                                           t-att-value="state.scenarioInputs.opex_delta_pct"
+                                                           t-on-input="(ev) => this.onScenarioInput('opex_delta_pct', ev)"
+                                                           step="0.5"/>
+                                                </div>
+                                                <div class="col-12 fw-bold text-muted mt-2">Capital de trabajo</div>
+                                                <div class="col-6">
+                                                    <label class="mb-0">Δ DSO (días)</label>
+                                                    <input type="number" class="form-control form-control-sm"
+                                                           t-att-value="state.scenarioInputs.dso_delta_days"
+                                                           t-on-input="(ev) => this.onScenarioInput('dso_delta_days', ev)"
+                                                           step="1"/>
+                                                </div>
+                                                <div class="col-6">
+                                                    <label class="mb-0">Δ DPO (días)</label>
+                                                    <input type="number" class="form-control form-control-sm"
+                                                           t-att-value="state.scenarioInputs.dpo_delta_days"
+                                                           t-on-input="(ev) => this.onScenarioInput('dpo_delta_days', ev)"
+                                                           step="1"/>
+                                                </div>
+                                                <div class="col-12">
+                                                    <label class="mb-0">Capex extraordinario (<t t-esc="predictCurrency"/>)</label>
+                                                    <input type="number" class="form-control form-control-sm"
+                                                           t-att-value="state.scenarioInputs.capex"
+                                                           t-on-input="(ev) => this.onScenarioInput('capex', ev)"
+                                                           step="10000"/>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex gap-2 mt-3">
+                                                <button class="btn btn-primary btn-sm"
+                                                        t-att-disabled="state.scenarioRunning"
+                                                        t-on-click="onRunScenario">
+                                                    <i t-att-class="state.scenarioRunning ? 'fa fa-circle-o-notch fa-spin me-1' : 'fa fa-play me-1'"/>Simular
+                                                </button>
+                                                <button class="btn btn-light btn-sm" t-on-click="onScenarioReset">
+                                                    <i class="fa fa-eraser me-1"/>Reiniciar
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <section class="gn-fd-panel">
+                                        <header class="gn-fd-panel__head">
+                                            <span><i class="fa fa-flask me-2"/>Resultado simulado</span>
+                                        </header>
+                                        <t t-if="!state.scenarioResult">
+                                            <div class="text-center text-muted p-4">
+                                                <i class="fa fa-flask fa-2x mb-2"/>
+                                                <p>Ajusta los parámetros y pulsa <strong>Simular</strong> para ver el impacto.</p>
+                                            </div>
+                                        </t>
+                                        <t t-else="">
+                                            <table class="table table-sm gn-fd-itable mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Indicador</th>
+                                                        <th class="text-end">Actual</th>
+                                                        <th class="text-end">Simulado</th>
+                                                        <th class="text-end">Δ %</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <t t-foreach="['revenue','gross_profit','net_profit','gross_margin_pct','operating_margin_pct','net_margin_pct','receivables','payables','closing_bank','current_assets','current_liab','current_ratio']" t-as="k" t-key="k">
+                                                        <t t-set="d" t-value="state.scenarioResult.deltas[k]"/>
+                                                        <t t-if="d">
+                                                            <tr>
+                                                                <td><code><t t-esc="k"/></code></td>
+                                                                <td class="text-end text-muted"><t t-esc="fmtNum(d.base, 2)"/></td>
+                                                                <td class="text-end fw-bold"><t t-esc="fmtNum(d.new, 2)"/></td>
+                                                                <td t-att-class="'text-end ' + (d.delta &gt; 0 ? 'text-success' : (d.delta &lt; 0 ? 'text-danger' : 'text-muted'))">
+                                                                    <t t-if="d.delta &gt; 0">+</t><t t-esc="d.delta_pct"/>%
+                                                                </td>
+                                                            </tr>
+                                                        </t>
+                                                    </t>
+                                                </tbody>
+                                            </table>
+                                        </t>
+                                    </section>
+                                </div>
+                            </t>
+
+                            <!-- Sub: BENCHMARK -->
+                            <t t-if="state.predictSubtab === 'benchmark'">
+                                <section class="gn-fd-panel mt-2">
+                                    <header class="gn-fd-panel__head">
+                                        <span><i class="fa fa-balance-scale me-2"/>Comparativa sectorial</span>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <label class="small text-muted mb-0">Sector:</label>
+                                            <select class="form-select form-select-sm" style="width:200px"
+                                                    t-on-change="onChangeBenchmarkSector">
+                                                <t t-foreach="state.predictData.benchmark.sector_options" t-as="so" t-key="so.key">
+                                                    <option t-att-value="so.key" t-att-selected="state.predictBenchmarkSector === so.key ? 'selected' : ''">
+                                                        <t t-esc="so.label"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                    </header>
+                                    <t t-if="state.predictData.benchmark.comparisons.length">
+                                        <table class="table table-sm gn-fd-itable mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>KPI</th>
+                                                    <th class="text-end">Tu compañía</th>
+                                                    <th class="text-end">Benchmark</th>
+                                                    <th class="text-end">Brecha</th>
+                                                    <th class="text-center">Estado</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <t t-foreach="state.predictData.benchmark.comparisons" t-as="c" t-key="c.kpi_code">
+                                                    <tr>
+                                                        <td>
+                                                            <t t-esc="c.label"/>
+                                                            <small class="d-block text-muted" t-if="c.source"><t t-esc="c.source"/></small>
+                                                        </td>
+                                                        <td class="text-end fw-bold"><t t-esc="benchmarkValueDisplay(c)"/></td>
+                                                        <td class="text-end text-muted"><t t-esc="benchmarkTargetDisplay(c)"/></td>
+                                                        <td t-att-class="'text-end ' + (c.gap &gt; 0 ? 'text-success' : (c.gap &lt; 0 ? 'text-danger' : 'text-muted'))">
+                                                            <t t-if="c.gap &gt; 0">+</t><t t-esc="c.gap_pct"/>%
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <span t-att-class="'gn-fd-benchmark-pill gn-fd-benchmark-pill--' + c.status">
+                                                                <t t-if="c.status === 'good'">✓ Cumple</t>
+                                                                <t t-if="c.status === 'warn'">⚠ Por debajo</t>
+                                                                <t t-if="c.status === 'bad'">✗ En riesgo</t>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                            </tbody>
+                                        </table>
+                                    </t>
+                                    <div t-else="" class="text-center text-muted p-4">
+                                        <i class="fa fa-balance-scale fa-2x mb-2"/>
+                                        <p>No hay benchmarks definidos para este sector. Configura algunos en
+                                           <strong>Contabilidad → Configuración → Benchmarks sectoriales</strong>.</p>
+                                    </div>
+                                </section>
+                            </t>
+                        </t>
+                    </t>
+
+                    <!-- ============ Áreas (V20 Fase 4) ============ -->
+                    <t t-elif="state.activeTab === 'areas' and state.tabLoaded.areas">
+                        <ul class="gn-fd-subtabs">
+                            <t t-foreach="availableAreaSubtabs" t-as="at" t-key="at.key">
+                                <li t-att-class="'gn-fd-subtab ' + (state.areaSubtab === at.key ? 'gn-fd-subtab--active' : '')"
+                                    t-on-click="() => this.onSelectAreaTab(at.key)">
+                                    <i t-att-class="'fa me-1 ' + at.icon"/><t t-esc="at.label"/>
+                                </li>
+                            </t>
+                        </ul>
+
+                        <div t-if="state.areaLoading" class="gn-fd-tabloading">
+                            <i class="fa fa-circle-o-notch fa-spin me-1"/>Cargando área…
+                        </div>
+
+                        <!-- Sub-área: Comercial -->
+                        <t t-if="state.areaSubtab === 'sales' and state.areaLoaded.sales">
+                            <t t-if="salesData and salesData.available">
+                                <div class="gn-fd-grid gn-fd-grid--4 mt-2">
+                                    <div class="gn-fd-intel-stat gn-fd-intel-stat--a">
+                                        <span class="gn-fd-intel-stat__label">Ventas confirmadas</span>
+                                        <span class="gn-fd-intel-stat__value">
+                                            <t t-esc="activeAreaCurrencySymbol"/><t t-esc="fmtNum(salesData.kpis.confirmed_amount, 2)"/>
+                                            <small class="text-muted ms-1">(<t t-esc="salesData.kpis.confirmed_count"/>)</small>
+                                        </span>
+                                    </div>
+                                    <div class="gn-fd-intel-stat">
+                                        <span class="gn-fd-intel-stat__label">Pipeline</span>
+                                        <span class="gn-fd-intel-stat__value">
+                                            <t t-esc="activeAreaCurrencySymbol"/><t t-esc="fmtNum(salesData.kpis.pipeline_amount, 2)"/>
+                                            <small class="text-muted ms-1">(<t t-esc="salesData.kpis.pipeline_count"/>)</small>
+                                        </span>
+                                    </div>
+                                    <div class="gn-fd-intel-stat">
+                                        <span class="gn-fd-intel-stat__label">Ticket promedio</span>
+                                        <span class="gn-fd-intel-stat__value">
+                                            <t t-esc="activeAreaCurrencySymbol"/><t t-esc="fmtNum(salesData.kpis.avg_ticket, 2)"/>
+                                        </span>
+                                    </div>
+                                    <div class="gn-fd-intel-stat">
+                                        <span class="gn-fd-intel-stat__label">Conversión</span>
+                                        <span class="gn-fd-intel-stat__value"><t t-esc="salesData.kpis.conversion_pct"/>%</span>
+                                    </div>
+                                </div>
+
+                                <section class="gn-fd-panel mt-2" t-if="salesData.monthly.labels.length">
+                                    <header class="gn-fd-panel__head">
+                                        <span><i class="fa fa-bar-chart me-2"/>Ventas confirmadas por mes</span>
+                                        <button class="btn btn-light btn-sm" t-on-click="() => this.onAreaSalesOrderList()">
+                                            <i class="fa fa-external-link me-1"/>Ver órdenes
+                                        </button>
+                                    </header>
+                                    <FinancialChart config="salesMonthlyConfig" fingerprint="salesMonthlyFingerprint" height="220"/>
+                                </section>
+
+                                <div class="gn-fd-grid gn-fd-grid--2 mt-2">
+                                    <section class="gn-fd-panel">
+                                        <header class="gn-fd-panel__head">
+                                            <span><i class="fa fa-user me-2"/>Top vendedores</span>
+                                        </header>
+                                        <IntelligenceTable kind="'sales'"
+                                                           items="salesData.top_sellers"
+                                                           columns="salesSellerColumns"
+                                                           currencySymbol="activeAreaCurrencySymbol"/>
+                                    </section>
+                                    <section class="gn-fd-panel" t-if="salesData.top_teams.length">
+                                        <header class="gn-fd-panel__head">
+                                            <span><i class="fa fa-users me-2"/>Top equipos</span>
+                                        </header>
+                                        <IntelligenceTable kind="'sales'"
+                                                           items="salesData.top_teams"
+                                                           columns="salesTeamColumns"
+                                                           currencySymbol="activeAreaCurrencySymbol"/>
+                                    </section>
+                                </div>
+
+                                <div class="gn-fd-grid gn-fd-grid--2 mt-2">
+                                    <section class="gn-fd-panel">
+                                        <header class="gn-fd-panel__head">
+                                            <span><i class="fa fa-trophy me-2"/>Top clientes (ventas)</span>
+                                        </header>
+                                        <IntelligenceTable kind="'sales'"
+                                                           items="salesData.top_customers"
+                                                           columns="salesCustomerColumns"
+                                                           currencySymbol="activeAreaCurrencySymbol"/>
+                                    </section>
+                                    <section class="gn-fd-panel">
+                                        <header class="gn-fd-panel__head">
+                                            <span><i class="fa fa-cube me-2"/>Top productos vendidos</span>
+                                        </header>
+                                        <IntelligenceTable kind="'sales'"
+                                                           items="salesData.top_products"
+                                                           columns="salesProductColumns"
+                                                           currencySymbol="activeAreaCurrencySymbol"/>
+                                    </section>
+                                </div>
+                            </t>
+                            <div t-else="" class="gn-fd-empty">
+                                <i class="fa fa-shopping-cart fa-2x mb-2"/>
+                                <p>El módulo Comercial no está disponible.</p>
+                            </div>
+                        </t>
+
+                        <!-- Sub-área: Compras -->
+                        <t t-if="state.areaSubtab === 'purchase' and state.areaLoaded.purchase">
+                            <t t-if="purchaseData and purchaseData.available">
+                                <div class="gn-fd-grid gn-fd-grid--4 mt-2">
+                                    <div class="gn-fd-intel-stat gn-fd-intel-stat--a">
+                                        <span class="gn-fd-intel-stat__label">Compras confirmadas</span>
+                                        <span class="gn-fd-intel-stat__value">
+                                            <t t-esc="activeAreaCurrencySymbol"/><t t-esc="fmtNum(purchaseData.kpis.confirmed_amount, 2)"/>
+                                            <small class="text-muted ms-1">(<t t-esc="purchaseData.kpis.confirmed_count"/>)</small>
+                                        </span>
+                                    </div>
+                                    <div class="gn-fd-intel-stat">
+                                        <span class="gn-fd-intel-stat__label">RFQ / borradores</span>
+                                        <span class="gn-fd-intel-stat__value">
+                                            <t t-esc="activeAreaCurrencySymbol"/><t t-esc="fmtNum(purchaseData.kpis.rfq_amount, 2)"/>
+                                            <small class="text-muted ms-1">(<t t-esc="purchaseData.kpis.rfq_count"/>)</small>
+                                        </span>
+                                    </div>
+                                    <div class="gn-fd-intel-stat">
+                                        <span class="gn-fd-intel-stat__label">Lead time promedio</span>
+                                        <span class="gn-fd-intel-stat__value"><t t-esc="purchaseData.kpis.avg_lead_days"/> d</span>
+                                    </div>
+                                    <div class="gn-fd-intel-stat">
+                                        <span class="gn-fd-intel-stat__label">Entregas a tiempo</span>
+                                        <span class="gn-fd-intel-stat__value"><t t-esc="purchaseData.kpis.on_time_pct"/>%</span>
+                                    </div>
+                                </div>
+
+                                <section class="gn-fd-panel mt-2" t-if="purchaseData.monthly.labels.length">
+                                    <header class="gn-fd-panel__head">
+                                        <span><i class="fa fa-bar-chart me-2"/>Compras confirmadas por mes</span>
+                                        <button class="btn btn-light btn-sm" t-on-click="() => this.onAreaPurchaseOrderList()">
+                                            <i class="fa fa-external-link me-1"/>Ver órdenes
+                                        </button>
+                                    </header>
+                                    <FinancialChart config="purchaseMonthlyConfig" fingerprint="purchaseMonthlyFingerprint" height="220"/>
+                                </section>
+
+                                <div class="gn-fd-grid gn-fd-grid--2 mt-2">
+                                    <section class="gn-fd-panel">
+                                        <header class="gn-fd-panel__head">
+                                            <span><i class="fa fa-truck me-2"/>Top proveedores</span>
+                                        </header>
+                                        <IntelligenceTable kind="'purchase'"
+                                                           items="purchaseData.top_suppliers"
+                                                           columns="purchaseSupplierColumns"
+                                                           currencySymbol="activeAreaCurrencySymbol"/>
+                                    </section>
+                                    <section class="gn-fd-panel">
+                                        <header class="gn-fd-panel__head">
+                                            <span><i class="fa fa-user me-2"/>Top compradores</span>
+                                        </header>
+                                        <IntelligenceTable kind="'purchase'"
+                                                           items="purchaseData.top_buyers"
+                                                           columns="purchaseBuyerColumns"
+                                                           currencySymbol="activeAreaCurrencySymbol"/>
+                                    </section>
+                                </div>
+
+                                <section class="gn-fd-panel mt-2">
+                                    <header class="gn-fd-panel__head">
+                                        <span><i class="fa fa-cube me-2"/>Top productos comprados</span>
+                                    </header>
+                                    <IntelligenceTable kind="'purchase'"
+                                                       items="purchaseData.top_products"
+                                                       columns="purchaseProductColumns"
+                                                       currencySymbol="activeAreaCurrencySymbol"/>
+                                </section>
+                            </t>
+                            <div t-else="" class="gn-fd-empty">
+                                <i class="fa fa-truck fa-2x mb-2"/>
+                                <p>El módulo Compras no está disponible.</p>
+                            </div>
+                        </t>
+
+                        <!-- Sub-área: Inventario -->
+                        <t t-if="state.areaSubtab === 'inventory' and state.areaLoaded.inventory">
+                            <t t-if="inventoryData and inventoryData.available">
+                                <div class="gn-fd-grid gn-fd-grid--4 mt-2">
+                                    <div class="gn-fd-intel-stat gn-fd-intel-stat--a">
+                                        <span class="gn-fd-intel-stat__label">Valor total del stock</span>
+                                        <span class="gn-fd-intel-stat__value">
+                                            <t t-esc="activeAreaCurrencySymbol"/><t t-esc="fmtNum(inventoryData.kpis.total_value, 2)"/>
+                                        </span>
+                                    </div>
+                                    <div class="gn-fd-intel-stat">
+                                        <span class="gn-fd-intel-stat__label">SKUs en stock</span>
+                                        <span class="gn-fd-intel-stat__value"><t t-esc="inventoryData.kpis.n_products"/></span>
+                                    </div>
+                                    <div class="gn-fd-intel-stat" t-att-class="inventoryData.kpis.slow_movers_count ? 'gn-fd-intel-stat gn-fd-intel-stat--loss' : 'gn-fd-intel-stat'">
+                                        <span class="gn-fd-intel-stat__label">Sin movimiento (<t t-esc="inventoryData.kpis.no_move_days"/>d)</span>
+                                        <span class="gn-fd-intel-stat__value"><t t-esc="inventoryData.kpis.slow_movers_count"/></span>
+                                    </div>
+                                    <div class="gn-fd-intel-stat">
+                                        <span class="gn-fd-intel-stat__label">Movimientos del periodo</span>
+                                        <span class="gn-fd-intel-stat__value">
+                                            <span class="text-success">+<t t-esc="inventoryData.kpis.moves_in"/></span>
+                                            <span class="text-muted mx-1">/</span>
+                                            <span class="text-danger">-<t t-esc="inventoryData.kpis.moves_out"/></span>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="gn-fd-grid gn-fd-grid--2 mt-2">
+                                    <section class="gn-fd-panel">
+                                        <header class="gn-fd-panel__head">
+                                            <span><i class="fa fa-cubes me-2"/>Top productos por valor</span>
+                                        </header>
+                                        <IntelligenceTable kind="'inventory'"
+                                                           items="inventoryData.top_products"
+                                                           columns="inventoryProductColumns"
+                                                           currencySymbol="activeAreaCurrencySymbol"
+                                                           onRowClick="(it) => this.onAreaInventoryProductClick(it)"/>
+                                    </section>
+                                    <section class="gn-fd-panel" t-if="inventoryData.slow_movers.length">
+                                        <header class="gn-fd-panel__head">
+                                            <span><i class="fa fa-warning me-2 text-warning"/>Stock parado (sin movimiento)</span>
+                                            <small class="text-muted">Liberar caja</small>
+                                        </header>
+                                        <IntelligenceTable kind="'inventory'"
+                                                           items="inventoryData.slow_movers"
+                                                           columns="inventoryProductColumns"
+                                                           currencySymbol="activeAreaCurrencySymbol"
+                                                           onRowClick="(it) => this.onAreaInventoryProductClick(it)"/>
+                                    </section>
+                                </div>
+                            </t>
+                            <div t-else="" class="gn-fd-empty">
+                                <i class="fa fa-cubes fa-2x mb-2"/>
+                                <p>El módulo Inventario no está disponible.</p>
+                            </div>
+                        </t>
+
+                        <!-- Paneles personalizados (hook) -->
+                        <t t-foreach="areaCaps.customs || []" t-as="cp" t-key="cp.key">
+                            <t t-if="state.areaSubtab === cp.key and state.areaLoaded[cp.key]">
+                                <section class="gn-fd-panel mt-2">
+                                    <header class="gn-fd-panel__head">
+                                        <span><i t-att-class="'fa me-2 ' + (cp.icon || 'fa-puzzle-piece')"/><t t-esc="cp.label"/></span>
+                                    </header>
+                                    <pre class="text-muted small p-2">
+                                        <t t-esc="JSON.stringify(state.areaPayloads[cp.key], null, 2)"/>
+                                    </pre>
+                                    <p class="text-muted px-2">
+                                        Este panel personalizado se renderiza con datos crudos.
+                                        Para una vista enriquecida, define un componente OWL
+                                        en tu módulo y regístralo desde XML.
+                                    </p>
+                                </section>
+                            </t>
+                        </t>
+                    </t>
+
+                    <!-- ============ Decisiones e IA (V20 Fase 6) ============ -->
+                    <t t-elif="state.activeTab === 'decisions' and state.tabLoaded.decisions">
+                        <ul class="gn-fd-subtabs">
+                            <li t-att-class="'gn-fd-subtab ' + (state.decisionsSubtab === 'center' ? 'gn-fd-subtab--active' : '')"
+                                t-on-click="() => this.onSelectDecisionsTab('center')">
+                                <i class="fa fa-bolt me-1"/>Centro de decisiones
+                            </li>
+                            <li t-att-class="'gn-fd-subtab ' + (state.decisionsSubtab === 'alerts' ? 'gn-fd-subtab--active' : '')"
+                                t-on-click="() => this.onSelectDecisionsTab('alerts')">
+                                <i class="fa fa-bell me-1"/>Alertas
+                                <span t-if="state.alertsData and state.alertsData.live_alerts.length"
+                                      class="badge bg-danger ms-1"
+                                      t-esc="state.alertsData.live_alerts.length"/>
+                            </li>
+                            <li t-att-class="'gn-fd-subtab ' + (state.decisionsSubtab === 'ai' ? 'gn-fd-subtab--active' : '')"
+                                t-on-click="() => this.onSelectDecisionsTab('ai')">
+                                <i class="fa fa-comments-o me-1"/>Asistente IA
+                            </li>
+                            <li class="ms-auto">
+                                <button class="btn btn-sm btn-outline-secondary"
+                                        t-on-click="() => this.onSyncAlerts()"
+                                        title="Sincronizar alertas con histórico">
+                                    <i class="fa fa-refresh me-1"/>Sincronizar
+                                </button>
+                            </li>
+                        </ul>
+
+                        <div t-if="state.decisionsLoading" class="text-center text-muted py-4">
+                            <i class="fa fa-circle-o-notch fa-spin fa-2x me-2"/>
+                            Cargando decisiones e inteligencia...
+                        </div>
+
+                        <!-- Centro de decisiones -->
+                        <t t-if="state.decisionsSubtab === 'center' and state.decisionsData and !state.decisionsLoading">
+                            <div class="gn-fd-section-title">
+                                <i class="fa fa-bolt me-2"/>Top decisiones recomendadas
+                            </div>
+                            <DecisionHub
+                                decisions="state.decisionsData.decisions"
+                                total="state.decisionsData.total"
+                                onDrill="(d) => this.onDecisionDrill(d)"/>
+                        </t>
+
+                        <!-- Alertas inteligentes -->
+                        <t t-if="state.decisionsSubtab === 'alerts' and state.alertsData and !state.decisionsLoading">
+                            <div class="row g-3">
+                                <div class="col-md-3">
+                                    <div class="gn-fd-stat-card gn-fd-stat-card--danger">
+                                        <div class="gn-fd-stat-label">Críticas</div>
+                                        <div class="gn-fd-stat-value"
+                                             t-esc="state.alertsData.by_severity.critical || 0"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="gn-fd-stat-card gn-fd-stat-card--warning">
+                                        <div class="gn-fd-stat-label">Advertencias</div>
+                                        <div class="gn-fd-stat-value"
+                                             t-esc="state.alertsData.by_severity.warning || 0"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="gn-fd-stat-card gn-fd-stat-card--info">
+                                        <div class="gn-fd-stat-label">Informativas</div>
+                                        <div class="gn-fd-stat-value"
+                                             t-esc="state.alertsData.by_severity.info || 0"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="gn-fd-stat-card">
+                                        <div class="gn-fd-stat-label">Total</div>
+                                        <div class="gn-fd-stat-value"
+                                             t-esc="state.alertsData.live_alerts.length"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <AlertList
+                                alerts="state.alertsData.live_alerts"
+                                title="'Alertas activas'"
+                                onDrill="(a) => this.onAlertDrill(a)"/>
+
+                            <div t-if="state.alertsData.recent_events.length" class="mt-4">
+                                <div class="gn-fd-section-title">
+                                    <i class="fa fa-history me-2"/>Histórico reciente
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-sm gn-fd-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Fecha</th>
+                                                <th>Alerta</th>
+                                                <th>Severidad</th>
+                                                <th>Estado</th>
+                                                <th>Valor</th>
+                                                <th>Umbral</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr t-foreach="state.alertsData.recent_events" t-as="ev" t-key="ev.id">
+                                                <td t-esc="fmtDateTime(ev.date)"/>
+                                                <td t-esc="ev.name"/>
+                                                <td>
+                                                    <span class="badge"
+                                                          t-att-class="ev.severity === 'critical' ? 'bg-danger' : (ev.severity === 'warning' ? 'bg-warning text-dark' : 'bg-info text-dark')"
+                                                          t-esc="ev.severity"/>
+                                                </td>
+                                                <td>
+                                                    <span class="badge"
+                                                          t-att-class="ev.state === 'open' ? 'bg-danger' : (ev.state === 'ack' ? 'bg-warning text-dark' : (ev.state === 'resolved' ? 'bg-success' : 'bg-secondary'))"
+                                                          t-esc="ev.state"/>
+                                                </td>
+                                                <td t-esc="ev.kpi_value"/>
+                                                <td t-esc="ev.threshold"/>
+                                                <td>
+                                                    <button t-if="ev.state === 'open'"
+                                                            class="btn btn-sm btn-outline-warning me-1"
+                                                            t-on-click="() => this.onAcknowledgeAlert(ev.id)"
+                                                            title="Reconocer">
+                                                        <i class="fa fa-eye"/>
+                                                    </button>
+                                                    <button t-if="['open','ack'].includes(ev.state)"
+                                                            class="btn btn-sm btn-outline-success me-1"
+                                                            t-on-click="() => this.onResolveAlert(ev.id)"
+                                                            title="Marcar resuelta">
+                                                        <i class="fa fa-check"/>
+                                                    </button>
+                                                    <div t-if="['open','ack'].includes(ev.state)" class="btn-group">
+                                                        <button type="button"
+                                                                class="btn btn-sm btn-outline-secondary dropdown-toggle"
+                                                                data-bs-toggle="dropdown"
+                                                                title="Posponer">
+                                                            <i class="fa fa-clock-o"/>
+                                                        </button>
+                                                        <ul class="dropdown-menu dropdown-menu-end">
+                                                            <li><a class="dropdown-item" href="#"
+                                                                   t-on-click.prevent="() => this.onSnoozeAlert(ev.id, 1)">1 hora</a></li>
+                                                            <li><a class="dropdown-item" href="#"
+                                                                   t-on-click.prevent="() => this.onSnoozeAlert(ev.id, 4)">4 horas</a></li>
+                                                            <li><a class="dropdown-item" href="#"
+                                                                   t-on-click.prevent="() => this.onSnoozeAlert(ev.id, 24)">24 horas</a></li>
+                                                            <li><a class="dropdown-item" href="#"
+                                                                   t-on-click.prevent="() => this.onSnoozeAlert(ev.id, 168)">7 días</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </t>
+
+                        <!-- Asistente IA -->
+                        <t t-if="state.decisionsSubtab === 'ai'">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <div class="gn-fd-section-title mb-0">
+                                    <i class="fa fa-comments-o me-2"/>Asistente financiero
+                                </div>
+                                <button class="btn btn-sm btn-outline-secondary"
+                                        t-on-click="() => this.onClearChat()"
+                                        t-att-disabled="!state.chatHistory.length">
+                                    <i class="fa fa-trash me-1"/>Limpiar
+                                </button>
+                            </div>
+                            <ChatPanel
+                                history="state.chatHistory"
+                                loading="state.chatLoading"
+                                suggestions="state.askSuggestions"
+                                onAsk="(q) => this.onAskAI(q)"/>
+                        </t>
+                    </t>
+
+                    <!-- ============ Diagnóstico ============ -->
+                    <t t-elif="state.activeTab === 'diagnostics' and state.tabLoaded.diagnostics">
+                        <DecisionCenter t-if="decisions.length"
+                                        title="'Centro de decisiones'"
+                                        decisions="decisions"
+                                        fmt="fmtBound()"/>
+                        <div class="gn-fd-grid gn-fd-grid--2 mt-2">
+                            <RecommendationsPanel t-if="recommendations.length"
+                                                  title="'Recomendaciones automáticas'"
+                                                  recommendations="recommendations"
+                                                  fmt="fmtBound()"/>
+                            <AnalysisPanel t-if="isSectionVisible('analysis')" notes="analysisNotes"/>
+                        </div>
+                        <div t-if="varianceItems.length" class="mt-2">
+                            <VariancePanel items="varianceItems"
+                                           currencySymbol="currencySymbol"
+                                           onAccountClick="(aid, kpi) => this.onVarianceAccountClick(aid, kpi)"
+                                           onPartnerClick="(pid, kpi) => this.onVariancePartnerClick(pid, kpi)"/>
+                        </div>
+                        <div class="gn-fd-grid gn-fd-grid--2 mt-2">
+                            <section class="gn-fd-panel" t-if="isSectionVisible('data_quality')">
+                                <header class="gn-fd-panel__head">
+                                    <span><i class="fa fa-check-square-o me-2"/>Calidad de datos y cierre</span>
+                                </header>
+                                <div class="gn-fd-closing" t-if="closingSummary">
+                                    <i class="fa fa-info-circle me-1"/>
+                                    <t t-esc="closingSummary"/>
+                                    <span t-if="closingStatus.empty_months and closingStatus.empty_months.length"
+                                          class="text-warning ms-2">
+                                        · <t t-esc="closingStatus.empty_months.length"/> mes(es) sin movimiento
+                                    </span>
+                                </div>
+                                <div class="gn-fd-alerts mt-2">
+                                    <t t-if="!dataQualityChecks.length">
+                                        <div class="gn-fd-alert gn-fd-alert--ok"><i class="fa fa-check-circle me-2"/>Sin incidencias de calidad de datos.</div>
+                                    </t>
+                                    <t t-foreach="dataQualityChecks" t-as="chk" t-key="chk_index">
+                                        <div t-att-class="'gn-fd-alert gn-fd-alert--' + chk.severity">
+                                            <i t-att-class="'fa me-2 ' + (chk.severity === 'danger' ? 'fa-exclamation-circle' : 'fa-exclamation-triangle')"/>
+                                            <div>
+                                                <strong t-esc="chk.title"/>
+                                                <div class="gn-fd-alert__msg" t-esc="chk.message"/>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </div>
+                            </section>
+                        </div>
+                    </t>
+
+                </t>
+
+                <!-- Modal: editor de workspace (V20 Fase 2) -->
+                <t t-if="state.workspaceEditor.visible">
+                    <div class="gn-fd-modal-backdrop" t-on-click="() => this.onCloseWorkspaceEditor()"/>
+                    <div class="gn-fd-modal" role="dialog">
+                        <header class="gn-fd-modal__head">
+                            <span><i class="fa fa-th-large me-2"/>Espacio de trabajo</span>
+                            <button class="btn-close" t-on-click="() => this.onCloseWorkspaceEditor()"/>
+                        </header>
+                        <div class="gn-fd-modal__body">
+                            <div class="mb-2">
+                                <label>Nombre</label>
+                                <input type="text" class="form-control form-control-sm"
+                                       t-model="state.workspaceEditor.name"/>
+                            </div>
+                            <div class="form-check mb-1">
+                                <input type="checkbox" class="form-check-input"
+                                       id="gn-fd-ws-default"
+                                       t-model="state.workspaceEditor.isDefault"/>
+                                <label class="form-check-label" for="gn-fd-ws-default">
+                                    Predeterminado al abrir el tablero
+                                </label>
+                            </div>
+                            <div class="form-check mb-1">
+                                <input type="checkbox" class="form-check-input"
+                                       id="gn-fd-ws-shared"
+                                       t-model="state.workspaceEditor.shared"/>
+                                <label class="form-check-label" for="gn-fd-ws-shared">
+                                    Compartir con la compañía (solo lectura para los demás)
+                                </label>
+                            </div>
+                            <p class="text-muted small mt-2">
+                                Se guardará la pestaña y el orden de secciones
+                                actuales. Puedes crear varios espacios para
+                                distintos roles o procesos.
+                            </p>
+                        </div>
+                        <footer class="gn-fd-modal__foot">
+                            <button class="btn btn-light btn-sm"
+                                    t-if="state.workspaceEditor.id"
+                                    t-on-click="() => this.onDuplicateWorkspace()">
+                                <i class="fa fa-copy me-1"/>Duplicar
+                            </button>
+                            <button class="btn btn-light btn-sm text-danger"
+                                    t-if="state.workspaceEditor.id and activeWorkspace and activeWorkspace.owner_id"
+                                    t-on-click="() => this.onDeleteWorkspace()">
+                                <i class="fa fa-trash me-1"/>Eliminar
+                            </button>
+                            <span class="ms-auto"/>
+                            <button class="btn btn-secondary btn-sm"
+                                    t-on-click="() => this.onCloseWorkspaceEditor()">
+                                Cancelar
+                            </button>
+                            <button class="btn btn-primary btn-sm"
+                                    t-on-click="() => this.onSaveWorkspace()">
+                                <i class="fa fa-save me-1"/>Guardar
+                            </button>
+                        </footer>
+                    </div>
+                </t>
+            </div>
+        </Layout>
+    </t>
+
+</templates>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_gn_labhospy_supplier_tree" model="ir.ui.view">
+        <field name="name">gn.labhospy.supplier.tree</field>
+        <field name="model">gn.labhospy.supplier</field>
+        <field name="arch" type="xml">
+            <list sample="1">
+                <field name="name"/>
+                <field name="reference"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_gn_labhospy_supplier_form" model="ir.ui.view">
+        <field name="name">gn.labhospy.supplier.form</field>
+        <field name="model">gn.labhospy.supplier</field>
+        <field name="arch" type="xml">
+            <form string="Proveedor de Catálogo">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="reference"/>
+                        <field name="active"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_gn_labhospy_suppliers" model="ir.actions.act_window">
+        <field name="name">Proveedores de Catálogo</field>
+        <field name="res_model">gn.labhospy.supplier</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p>
+                Catálogo maestro de proveedores para productos controlados.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_gn_labhospy_suppliers"
+              name="Proveedores de Catálogo"
+              parent="stock.menu_stock_config_settings"
+              action="action_gn_labhospy_suppliers"
+              sequence="45"/>
+</odoo>
+

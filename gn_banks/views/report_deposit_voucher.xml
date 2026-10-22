@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+	<template id="deposit_print">
+		<t t-call="web.basic_layout">
+			<t t-foreach="docs" t-as="o">
+				<div class="page">
+					<div class="oe_inline">
+						<div class="col-xs-6">
+							<img t-if="o.company_id.logo"
+								t-att-src="'data:image/png;base64,%s' % to_text(o.company_id.logo)"
+								style="height: 75px;" />
+						</div>
+						<div class="col-xs-6">
+							<center>
+								<strong>
+									<h2>RECIBO DE CAJA</h2>
+								</strong>
+								<p t-esc="o.company_id.street"></p>
+								<t t-set="x_textIdent" t-value=" ' Identificacion ' "/>
+	                           <t t-if="o.company_id.id==1"> <t t-set="x_textIdent" t-value=" 'RTN' "/> </t>
+								<t t-if="o.company_id.company_registry">
+	                           		<p t-esc="x_textIdent +':  ' + o.company_id.company_registry"></p>
+								</t>
+								<t t-if="not o.company_id.company_registry">
+	                           		<p t-esc="x_textIdent +':  ' + ' '"></p>
+								</t>
+							</center>
+						</div>
+					</div>
+					<br />
+					<br />
+					<div class="oe_structure" />
+					<div class="row">
+						<table width="100%" border="0" style="border-collapse: collapse;">
+							<tr>
+								<td width="50%">
+									<table width="100%" border="0" style="border-collapse: collapse;">
+										<tr>
+											<td width="30%">
+												<strong>Date:</strong>
+											</td>
+											<td>
+												<span t-field="o.date" />
+											</td>
+										</tr>
+										<tr>
+											<td width="30%">
+												<strong>Customer:</strong>
+											</td>
+											<td>
+												<span t-field="o.partner_id" />
+											</td>
+										</tr>
+										<tr>
+											<td width="30%">
+												<strong>Total:</strong>
+											</td>
+											<td>
+												<span t-field="o.total" />
+											</td>
+										</tr>
+										<tr>
+											<td width="30%">
+												<strong>Amount In Word:</strong>
+											</td>
+											<td>
+												<span t-field="o.amount_in_words" />
+											</td>
+										</tr>
+										<tr>
+											<td width="30%">
+												<strong>In Concept of:</strong>
+											</td>
+											<td>
+												<span t-field="o.description" />
+											</td>
+										</tr>
+									</table>
+								</td>
+								<td class="text-end" style="padding-left:30px">
+									
+										<h4>
+											<strong>N°. 
+											<span t-field="o.name" /></strong>
+										</h4>
+										<h4>
+											<strong>Amount:
+											<span t-field="o.total" /></strong>
+										</h4>
+									
+								</td>
+							</tr>
+						</table>
+					</div>
+
+					<hr />
+					<br />
+					<br />
+					<br />
+					<br />
+					<br />
+					<table style="width:100%; font-size:14px; padding:25px 25px 25px 25px; border-collapse: collapse;" border="0">
+						<tbody>
+							<tr>
+								<td width="30%" style="border-bottom: 1px solid #000000;">
+									<u>
+										<p class="text-center">
+											<br />
+											<span t-field="user.name" />
+										</p>
+									</u>
+								</td>
+								<td width="3%">
+									<p class="text-center">
+										<br />
+									</p>
+								</td>
+								<td width="30%">
+									<p class="text-center">
+										<br />
+									</p>
+								</td>
+								<td width="3%">
+									<p class="text-center">
+										<br />
+									</p>
+								</td>
+								<td width="34%" style="border-bottom: 1px solid #000000;">
+									<p class="text-center">
+										<br />
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<td style="width:30%; padding:5px 10px 10px 10px;">
+									<p class="text-center">Elaborador Por</p>
+								</td>
+								<td style="width:3%;" />
+								<td style="width:30%; padding:5px 10px 10px 10px;"></td>
+								<td style="width:3%;" />
+								<td style="width:34%; padding:5px 10px 10px 10px;">
+									<p class="text-center">Entregué Conforme</p>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<center>
+						<div style="margin-top:0;">
+
+							<div class="col-xs-12 text-center">
+								<strong>
+									<p>Original: Cliente</p>
+								</strong>
+							</div>
+							<div class="col-xs-12 text-center">
+								<strong>
+									<p>Copia: Contabilidad</p>
+								</strong>
+							</div>
+						</div>
+					</center>
+				</div>
+
+			</t>
+		</t>
+	</template>
+</odoo>

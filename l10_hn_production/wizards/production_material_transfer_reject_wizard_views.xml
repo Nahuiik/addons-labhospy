@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hn_production_material_transfer_reject_wizard_form" model="ir.ui.view">
+        <field name="name">hn.production.material.transfer.reject.wizard.form</field>
+        <field name="model">hn.production.material.transfer.reject.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Rechazar transferencia">
+                <group>
+                    <field name="transfer_id" readonly="1"/>
+                    <field name="rejection_reason" placeholder="Indique el motivo del rechazo..."/>
+                </group>
+                <footer>
+                    <button
+                        name="action_confirm_reject"
+                        string="Confirmar rechazo"
+                        type="object"
+                        class="btn-primary"
+                    />
+                    <button string="Descartar" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

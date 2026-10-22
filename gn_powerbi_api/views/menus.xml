@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_powerbi_root"
+              name="Power BI"
+              sequence="100"
+              web_icon="gn_powerbi_api,static/description/icon.png"/>
+
+    <!-- Conexión -->
+    <menuitem id="menu_powerbi_connection"
+              name="Conexión"
+              parent="menu_powerbi_root"
+              action="gn_powerbi_api.action_powerbi_connection"
+              groups="gn_powerbi_api.group_powerbi_manager"
+              sequence="10"/>
+
+    <!-- Workspaces -->
+    <menuitem id="menu_powerbi_workspace"
+              name="Workspaces"
+              parent="menu_powerbi_root"
+              action="gn_powerbi_api.action_powerbi_workspace"
+              sequence="20"/>
+
+    <!-- Datasets -->
+    <menuitem id="menu_powerbi_dataset"
+              name="Datasets"
+              parent="menu_powerbi_root"
+              action="gn_powerbi_api.action_powerbi_dataset"
+              sequence="30"/>
+
+    <!-- Tablas -->
+    <menuitem id="menu_powerbi_table"
+              name="Tablas"
+              parent="menu_powerbi_root"
+              action="gn_powerbi_api.action_powerbi_table"
+              sequence="40"/>
+
+    <!-- Plantillas -->
+    <menuitem id="menu_powerbi_template"
+              name="Plantillas"
+              parent="menu_powerbi_root"
+              action="gn_powerbi_api.action_powerbi_table_template"
+              sequence="50"/>
+
+    <!-- Monitoreo -->
+    <menuitem id="menu_powerbi_monitoring"
+              name="Monitoreo"
+              parent="menu_powerbi_root"
+              sequence="60"/>
+
+    <menuitem id="menu_powerbi_metric"
+              name="Métricas"
+              parent="menu_powerbi_monitoring"
+              action="gn_powerbi_api.action_powerbi_metric"
+              sequence="10"/>
+
+    <menuitem id="menu_powerbi_alert"
+              name="Alertas"
+              parent="menu_powerbi_monitoring"
+              action="gn_powerbi_api.action_powerbi_alert"
+              sequence="20"/>
+
+    <menuitem id="menu_powerbi_sync_log"
+              name="Logs de Sincronización"
+              parent="menu_powerbi_monitoring"
+              action="gn_powerbi_api.action_powerbi_sync_log"
+              sequence="30"/>
+
+    <!-- Configuración -->
+    <menuitem id="menu_powerbi_config"
+              name="Configuración"
+              parent="menu_powerbi_root"
+              action="gn_powerbi_api.action_res_config_settings"
+              groups="gn_powerbi_api.group_powerbi_manager"
+              sequence="100"/>
+</odoo>
+

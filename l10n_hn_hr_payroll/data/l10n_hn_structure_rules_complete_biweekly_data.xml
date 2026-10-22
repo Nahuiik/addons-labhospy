@@ -1,0 +1,1014 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- ============================================ -->
+        <!-- REGLAS COMPLETAS PARA ESTRUCTURA QUINCENAL -->
+        <!-- ============================================ -->
+        
+        <!-- Salario Base (BASIC) -->
+        <record id="salary_rule_basic_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_basic"/>
+            <field name="name">Salario Base</field>
+            <field name="code">BASIC</field>
+            <field name="sequence">1</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = (version or employee.current_version_id) and ((version or employee.current_version_id).wage or employee.wage or 0) > 0</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+# Wage mensual en hr.version. BASIC = media quincena * (días bajo contrato / 15).
+# hn_contract_period_days = días del período cubiertos por contrato (ingreso/salida a mitad), sin restar ausencias.
+# Sin goce: regla UNPAID_LEAVE = (wage_monthly / 30) * días (valor día mensual / 30, no BASIC/15).
+# DED_SAL_2DA: pago solo en 1.ª quincena; en la 2.ª BASIC = 0.
+result = 0.0
+if 'DED_SAL_2DA' in inputs and payslip.date_from and payslip.date_from.day >= 16:
+    result = 0.0
+else:
+    ver = version or employee.current_version_id
+    std = payslip.standard_period_days or 15
+    cd = float(payslip.hn_contract_period_days or 0)
+    wage_monthly = (ver.wage if ver else 0.0) or (employee.wage or 0.0)
+    if wage_monthly and std:
+        result = (wage_monthly / 2.0) * (cd / float(std))
+    elif wage_monthly:
+        result = wage_monthly / 2.0
+            </field>
+            <field name="is_ihss_base" eval="True"/>
+            <field name="is_rap_base" eval="True"/>
+            <field name="is_isr_base" eval="True"/>
+            <field name="is_computable" eval="True"/>
+            <field name="periodicity">all</field>
+        </record>
+        
+        <!-- 1. Salario Bruto (GROSS) - categoría Bruto -->
+        <record id="salary_rule_gross_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_gross"/>
+            <field name="name">Salario Bruto</field>
+            <field name="code">GROSS</field>
+            <field name="sequence">2</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = categories.get('BASIC', 0) + categories.get('ALW', 0)</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- IHSS Empleado (IVM + EM) - Nueva regla consolidada -->
+        <record id="salary_rule_ihss_employee_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">IHSS Empleado</field>
+            <field name="code">IHSS_EMP</field>
+            <field name="sequence">20</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = not employee.ihss_excluded</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+ver = version or employee.current_version_id
+if ver and ver.ihss_manual and ver.amount_ihss_manual:
+    result = -round(abs(ver.amount_ihss_manual), 2)
+elif not employee.ihss_excluded:
+    year = payslip.date_to.year if payslip.date_to else 2026
+    ihss_settings = payslip.env['l10n.hn.ihss.settings'].search([
+        ('year', '=', year),
+        ('state', '=', 'validated'),
+        ('company_id', '=', payslip.company_id.id)
+    ], limit=1)
+    if ihss_settings:
+        base = categories.get('BASIC', 0)
+        period_days = (payslip.date_to - payslip.date_from).days + 1 if payslip.date_from and payslip.date_to else 15
+        ceiling_15 = ihss_settings.get_ceiling_for_period(15, 'ivm')
+        apply_ihss = True
+        if period_days &lt;= 16:
+            if payslip.date_to and payslip.date_to.day &lt;= 15:
+                apply_ihss = ihss_settings.apply_first_quincena
+            else:
+                apply_ihss = ihss_settings.apply_second_quincena
+        if apply_ihss:
+            if base >= ceiling_15:
+                result = -round(ihss_settings.ihss_quota_biweekly, 2)
+            else:
+                taxable_ivm = min(base, ihss_settings.get_ceiling_for_period(15, 'ivm'))
+                taxable_em = min(base, ihss_settings.get_ceiling_for_period(15, 'em'))
+                result = -(round(taxable_ivm * (ihss_settings.ivm_employee_rate / 100.0), 2) + round(taxable_em * (ihss_settings.em_employee_rate / 100.0), 2))
+            </field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- Reglas antiguas IHSS - Mantenidas como inactivas para compatibilidad con payslips históricos -->
+        <record id="salary_rule_ihss_ivm_employee_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">IHSS IVM Empleado (Inactiva)</field>
+            <field name="code">IHSS_IVM_EMP</field>
+            <field name="sequence">21</field>
+            <field name="active" eval="False"/>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = False</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = 0</field>
+            <field name="appears_on_payslip" eval="False"/>
+        </record>
+        
+        <record id="salary_rule_ihss_em_employee_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">IHSS EM Empleado (Inactiva)</field>
+            <field name="code">IHSS_EM_EMP</field>
+            <field name="sequence">22</field>
+            <field name="active" eval="False"/>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = False</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = 0</field>
+            <field name="appears_on_payslip" eval="False"/>
+        </record>
+        
+        <!-- RAP FOVIIF Empleado -->
+        <record id="salary_rule_rap_foviif_employee_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">RAP FOVIIF Empleado</field>
+            <field name="code">RAP_FOVIIF_EMP</field>
+            <field name="sequence">40</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = not employee.rap_excluded</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if not employee.rap_excluded:
+    version = employee.current_version_id
+    if version:
+        # Check include_in: skip period if not applicable
+        apply = True
+        rap_config = version.rap_setup_id
+        if rap_config and rap_config.include_in and payslip.date_from:
+            day = payslip.date_from.day
+            if rap_config.include_in == 'first' and day > 15:
+                apply = False
+            elif rap_config.include_in == 'second' and day &lt;= 15:
+                apply = False
+        if apply:
+            if version.rap_manual:
+                result = -round(abs(version.amount_rap_manual), 2)
+            elif version.rap_fee:
+                result = -round(abs(version.rap_fee), 2)
+            elif version.rap_foviif_amount_biweekly:
+                result = -round(abs(version.rap_foviif_amount_biweekly), 2)
+            </field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- AFP Descontado de Nómina -->
+        <record id="salary_rule_ded_afp_nomina_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">AFP Descontado de Nómina</field>
+            <field name="code">DED_AFP_NOMINA</field>
+            <field name="sequence">44</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = not employee.isr_excluded</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if not employee.isr_excluded and payslip.date_from and payslip.date_to:
+    total = payslip.env['l10n.hn.isr.employee_deduction'].get_amount_by_type_for_payslip(payslip, 'afp_nomina')
+    result = -round(total, 2) if total else 0
+            </field>
+            <field name="appears_on_payslip" eval="True"/>
+            <field name="isr_deductible" eval="True"/>
+        </record>
+        <!-- Colegio Profesional -->
+        <record id="salary_rule_ded_colegio_profesional_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">Colegio Profesional</field>
+            <field name="code">DED_COLEGIO_PROFESIONAL</field>
+            <field name="sequence">45</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = not employee.isr_excluded</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if not employee.isr_excluded and payslip.date_from and payslip.date_to:
+    total = payslip.env['l10n.hn.isr.employee_deduction'].get_amount_by_type_for_payslip(payslip, 'colegio_profesional')
+    result = -round(total, 2) if total else 0
+            </field>
+            <field name="appears_on_payslip" eval="True"/>
+            <field name="isr_deductible" eval="True"/>
+        </record>
+        <!-- Otras deducciones ISR (tipo Otros descontadas de nómina) -->
+        <record id="salary_rule_ded_isr_otros_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">Otras deducciones ISR</field>
+            <field name="code">DED_ISR_OTROS</field>
+            <field name="sequence">46</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = not employee.isr_excluded</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if not employee.isr_excluded and payslip.date_from and payslip.date_to:
+    total = payslip.env['l10n.hn.isr.employee_deduction'].get_amount_by_type_for_payslip(payslip, 'otros')
+    result = -round(total, 2) if total else 0
+            </field>
+            <field name="appears_on_payslip" eval="True"/>
+            <field name="isr_deductible" eval="True"/>
+        </record>
+        
+        <!-- ISR Retención -->
+        <record id="salary_rule_isr_retencion_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">ISR Retención</field>
+            <field name="code">ISR</field>
+            <field name="sequence">50</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = not employee.isr_excluded</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+if not employee.isr_excluded:
+    # Use new ISR withholding calculation service
+    calculation = payslip.env['l10n.hn.isr.config'].compute_withholding(payslip)
+    result = calculation.get('period_amount', 0)
+            </field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- Impuesto Vecinal -->
+        <record id="salary_rule_vecinal_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">Impuesto Vecinal</field>
+            <field name="code">HN_VECINAL</field>
+            <field name="sequence">60</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = True</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+year = (payslip.date_to or payslip.date_from).year if (payslip.date_to or payslip.date_from) else 2020
+settings = payslip.env['l10n.hn.vecinal.settings'].search([
+    ('year_apply', '=', year),
+    ('company_id', '=', payslip.company_id.id),
+    ('active', '=', True)
+], limit=1)
+if settings:
+    # Get employee income for base year
+    income_record = payslip.env['l10n.hn.vecinal.employee_income'].search([
+        ('employee_id', '=', employee.id),
+        ('year_base', '=', settings.income_year_base),
+        ('company_id', '=', payslip.company_id.id),
+        ('state', '=', 'confirmed')
+    ], limit=1)
+    if income_record and income_record.annual_income > 0:
+        # Calculate annual tax
+        annual_tax = settings.calculate_annual_tax(income_record.annual_income)
+        # Use the new method to get period amount based on deduction method
+        result = settings.get_period_amount(annual_tax, payslip.date_from, payslip.date_to)
+        # Create history record
+        if result != 0:
+            payslip.env['l10n.hn.vecinal.retention_history'].create_from_payslip(
+                payslip, income_record.annual_income, annual_tax, result, settings
+            )
+    else:
+        # No income record or zero income
+        result = 0
+            </field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 2. Horas Extra (HOR_EXT) -->
+        <record id="salary_rule_horas_extra_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_allowance"/>
+            <field name="name">Horas Extra</field>
+            <field name="code">HOR_EXT</field>
+            <field name="sequence">10</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'HOR_EXT' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs.get('HOR_EXT', 0).amount if 'HOR_EXT' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 3. Horas de Lactancia (HL) -->
+        <record id="salary_rule_horas_lactancia_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_allowance"/>
+            <field name="name">Horas de Lactancia</field>
+            <field name="code">HL</field>
+            <field name="sequence">11</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'HL' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs.get('HL', 0).amount if 'HL' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 4. Depreciación Vehículo (DV) -->
+        <record id="salary_rule_depreciacion_vehiculo_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_allowance"/>
+            <field name="name">Depreciación Vehículo</field>
+            <field name="code">DV</field>
+            <field name="sequence">12</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'DV' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs.get('DV', 0).amount if 'DV' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 5. Meriendas (MERIENDAS) -->
+        <record id="salary_rule_meriendas_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_allowance"/>
+            <field name="name">Meriendas</field>
+            <field name="code">MERIENDAS</field>
+            <field name="sequence">13</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'MERIENDAS' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs.get('MERIENDAS', 0).amount if 'MERIENDAS' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 6. Vacaciones (VACACIONES) -->
+        <record id="salary_rule_vacaciones_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_allowance"/>
+            <field name="name">Vacaciones</field>
+            <field name="code">VACACIONES</field>
+            <field name="sequence">14</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'VACACIONES' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs.get('VACACIONES', 0).amount if 'VACACIONES' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 7. Otros Ingresos (OI) -->
+        <record id="salary_rule_otros_ingresos_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_allowance"/>
+            <field name="name">Otros Ingresos</field>
+            <field name="code">OI</field>
+            <field name="sequence">15</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'OI' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs.get('OI', 0).amount if 'OI' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 8. Bonificaciones (BONIFICACIONES) -->
+        <record id="salary_rule_bonificaciones_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_allowance"/>
+            <field name="name">Bonificaciones</field>
+            <field name="code">BONIFICACIONES</field>
+            <field name="sequence">16</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'BONIFICACIONES' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs.get('BONIFICACIONES', 0).amount if 'BONIFICACIONES' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 9. Bono de Transporte (BONO_TRANS) -->
+        <record id="salary_rule_bono_transporte_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_allowance"/>
+            <field name="name">Bono de Transporte</field>
+            <field name="code">BONO_TRANS</field>
+            <field name="sequence">17</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'BONO_TRANS' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs.get('BONO_TRANS', 0).amount if 'BONO_TRANS' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 10. Bono de Alimentación (BONO_ALIM) -->
+        <record id="salary_rule_bono_alimentacion_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_allowance"/>
+            <field name="name">Bono de Alimentación</field>
+            <field name="code">BONO_ALIM</field>
+            <field name="sequence">18</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'BONO_ALIM' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs.get('BONO_ALIM', 0).amount if 'BONO_ALIM' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 11. Viáticos (VIATICOS) -->
+        <record id="salary_rule_viaticos_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_allowance"/>
+            <field name="name">Viáticos</field>
+            <field name="code">VIATICOS</field>
+            <field name="sequence">19</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'VIATICOS' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs.get('VIATICOS', 0).amount if 'VIATICOS' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 12. Comisiones (COMISIONES) -->
+        <record id="salary_rule_comisiones_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_allowance"/>
+            <field name="name">Comisiones</field>
+            <field name="code">COMISIONES</field>
+            <field name="sequence">20</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'COMISIONES' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs.get('COMISIONES', 0).amount if 'COMISIONES' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 15. Bono Escolar (BONO_ESCOLAR) -->
+        <record id="salary_rule_bono_escolar_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_allowance"/>
+            <field name="name">Bono Escolar</field>
+            <field name="code">BONO_ESCOLAR</field>
+            <field name="sequence">23</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'BONO_ESCOLAR' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs.get('BONO_ESCOLAR', 0).amount if 'BONO_ESCOLAR' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 16. Subsidio de Vivienda (SUB_VIVIENDA) -->
+        <record id="salary_rule_subsidio_vivienda_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_allowance"/>
+            <field name="name">Subsidio de Vivienda</field>
+            <field name="code">SUB_VIVIENDA</field>
+            <field name="sequence">24</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'SUB_VIVIENDA' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs.get('SUB_VIVIENDA', 0).amount if 'SUB_VIVIENDA' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 17. Seguro Médico Complementario (SEG_MEDICO) -->
+        <record id="salary_rule_seguro_medico_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_allowance"/>
+            <field name="name">Seguro Médico Complementario</field>
+            <field name="code">SEG_MEDICO</field>
+            <field name="sequence">25</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'SEG_MEDICO' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs.get('SEG_MEDICO', 0).amount if 'SEG_MEDICO' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 18. Bono de Productividad (BONO_PROD) -->
+        <record id="salary_rule_bono_productividad_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_allowance"/>
+            <field name="name">Bono de Productividad</field>
+            <field name="code">BONO_PROD</field>
+            <field name="sequence">26</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'BONO_PROD' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs.get('BONO_PROD', 0).amount if 'BONO_PROD' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 19. Turnos Extras (TURNOS_EXT) -->
+        <record id="salary_rule_turnos_extras_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_allowance"/>
+            <field name="name">Turnos Extras</field>
+            <field name="code">TURNOS_EXT</field>
+            <field name="sequence">27</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'TURNOS_EXT' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs.get('TURNOS_EXT', 0).amount if 'TURNOS_EXT' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 20. Incentivos (INCENTIVOS) -->
+        <record id="salary_rule_incentivos_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_allowance"/>
+            <field name="name">Incentivos</field>
+            <field name="code">INCENTIVOS</field>
+            <field name="sequence">28</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'INCENTIVOS' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs.get('INCENTIVOS', 0).amount if 'INCENTIVOS' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 53. Ajuste Salarial (AJUSTE_SAL) -->
+        <record id="salary_rule_ajuste_salarial_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_allowance"/>
+            <field name="name">Ajuste Salarial</field>
+            <field name="code">AJUSTE_SAL</field>
+            <field name="sequence">29</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'AJUSTE_SAL' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs.get('AJUSTE_SAL', 0).amount if 'AJUSTE_SAL' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- ============================================ -->
+        <!-- PRÉSTAMOS Y CRÉDITOS -->
+        <!-- ============================================ -->
+        
+        <!-- 25. Préstamos Empleado (PEM) -->
+        <record id="salary_rule_prestamo_empleado_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">Préstamo Empleado</field>
+            <field name="code">PEM</field>
+            <field name="sequence">70</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'PEM' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -abs(inputs.get('PEM', 0).amount) if 'PEM' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 26. Préstamo RAP (PRAP) -->
+        <record id="salary_rule_prestamo_rap_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">Préstamo RAP</field>
+            <field name="code">PRAP</field>
+            <field name="sequence">71</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'PRAP' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -abs(inputs.get('PRAP', 0).amount) if 'PRAP' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 27. Créditos de Empleados (CE) -->
+        <record id="salary_rule_creditos_empleados_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">Créditos de Empleados</field>
+            <field name="code">CE</field>
+            <field name="sequence">72</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'CE' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -abs(inputs.get('CE', 0).amount) if 'CE' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 28. Préstamo Personal (PREST_PERS, compatibilidad PRESTAMO) -->
+        <record id="salary_rule_prestamo_personal_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">Préstamo Personal</field>
+            <field name="code">PREST_PERS</field>
+            <field name="sequence">73</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'PREST_PERS' in inputs or 'PRESTAMO' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">amt = (inputs.get('PREST_PERS', 0).amount if 'PREST_PERS' in inputs else 0) or (inputs.get('PRESTAMO', 0).amount if 'PRESTAMO' in inputs else 0); result = -abs(amt) if amt else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 29. Préstamo Vehicular (PREST_VEH) -->
+        <record id="salary_rule_prestamo_vehicular_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">Préstamo Vehicular</field>
+            <field name="code">PREST_VEH</field>
+            <field name="sequence">74</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'PREST_VEH' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -abs(inputs.get('PREST_VEH', 0).amount) if 'PREST_VEH' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 30. Préstamo Hipotecario (PREST_HIP) -->
+        <record id="salary_rule_prestamo_hipotecario_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">Préstamo Hipotecario</field>
+            <field name="code">PREST_HIP</field>
+            <field name="sequence">75</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'PREST_HIP' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -abs(inputs.get('PREST_HIP', 0).amount) if 'PREST_HIP' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- ============================================ -->
+        <!-- ANTICIPOS Y ADELANTOS -->
+        <!-- ============================================ -->
+        
+        <!-- 31. Adelanto de Salario (AS) -->
+        <record id="salary_rule_adelanto_salario_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">Adelanto de Salario</field>
+            <field name="code">AS</field>
+            <field name="sequence">80</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'AS' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -abs(inputs.get('AS', 0).amount) if 'AS' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 32. Anticipo de Vacaciones (ANT_VAC) -->
+        <record id="salary_rule_anticipo_vacaciones_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">Anticipo de Vacaciones</field>
+            <field name="code">ANT_VAC</field>
+            <field name="sequence">81</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'ANT_VAC' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -abs(inputs.get('ANT_VAC', 0).amount) if 'ANT_VAC' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- ============================================ -->
+        <!-- RETENCIONES JUDICIALES Y LEGALES -->
+        <!-- ============================================ -->
+        
+        <!-- 33. Embargos de Sueldo (ES) -->
+        <record id="salary_rule_embargos_sueldo_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">Embargos de Sueldo</field>
+            <field name="code">ES</field>
+            <field name="sequence">90</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'ES' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -abs(inputs.get('ES', 0).amount) if 'ES' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 34. Alimenticia (ALIMENTICIA) -->
+        <record id="salary_rule_alimenticia_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">Alimenticia</field>
+            <field name="code">ALIMENTICIA</field>
+            <field name="sequence">91</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'ALIMENTICIA' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -abs(inputs.get('ALIMENTICIA', 0).amount) if 'ALIMENTICIA' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 35. Retención Judicial (RET_JUD) -->
+        <record id="salary_rule_retencion_judicial_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">Retención Judicial</field>
+            <field name="code">RET_JUD</field>
+            <field name="sequence">92</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'RET_JUD' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -abs(inputs.get('RET_JUD', 0).amount) if 'RET_JUD' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 54. Impuesto Vecinal Municipal (IVM) -->
+        <record id="salary_rule_impuesto_vecinal_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">Impuesto Vecinal Municipal</field>
+            <field name="code">IVM</field>
+            <field name="sequence">93</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'IVM' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -abs(inputs.get('IVM', 0).amount) if 'IVM' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- ============================================ -->
+        <!-- DEDUCCIONES POR SERVICIOS Y EQUIPOS -->
+        <!-- ============================================ -->
+        
+        <!-- 36. Celular (CEL) -->
+        <record id="salary_rule_celular_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">Celular</field>
+            <field name="code">CEL</field>
+            <field name="sequence">100</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'CEL' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -abs(inputs.get('CEL', 0).amount) if 'CEL' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 37. Cuota Cooperativa (CUOTA_COOP) -->
+        <record id="salary_rule_cuota_cooperativa_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">Cuota Cooperativa</field>
+            <field name="code">CUOTA_COOP</field>
+            <field name="sequence">101</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'CUOTA_COOP' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -abs(inputs.get('CUOTA_COOP', 0).amount) if 'CUOTA_COOP' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 38. Seguro de Vida (SEG_VIDA) -->
+        <record id="salary_rule_seguro_vida_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">Seguro de Vida</field>
+            <field name="code">SEG_VIDA</field>
+            <field name="sequence">102</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'SEG_VIDA' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -abs(inputs.get('SEG_VIDA', 0).amount) if 'SEG_VIDA' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 39. Ahorro Voluntario (AHORRO_VOL) -->
+        <record id="salary_rule_ahorro_voluntario_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">Ahorro Voluntario</field>
+            <field name="code">AHORRO_VOL</field>
+            <field name="sequence">103</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'AHORRO_VOL' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -abs(inputs.get('AHORRO_VOL', 0).amount) if 'AHORRO_VOL' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 40. Cuota Médica (CUOTA_MED) -->
+        <record id="salary_rule_cuota_medica_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">Cuota Médica</field>
+            <field name="code">CUOTA_MED</field>
+            <field name="sequence">104</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'CUOTA_MED' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -abs(inputs.get('CUOTA_MED', 0).amount) if 'CUOTA_MED' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 41. Deducción Óptico (DO) -->
+        <record id="salary_rule_deduccion_optico_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">Deducción Óptico</field>
+            <field name="code">DO</field>
+            <field name="sequence">105</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'DO' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -abs(inputs.get('DO', 0).amount) if 'DO' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- ============================================ -->
+        <!-- DEDUCCIONES POR FALTAS E INCIDENCIAS -->
+        <!-- ============================================ -->
+        
+        <!-- 42. Falta/Incapacidad (F/I) -->
+        <record id="salary_rule_falta_incapacidad_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">Falta/Incapacidad</field>
+            <field name="code">F/I</field>
+            <field name="sequence">110</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'F/I' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -abs(inputs.get('F/I', 0).amount) if 'F/I' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 42. Deducción por ausencia sin goce (activar vía l10n_hn_salary_rule_unpaid_leave_update.xml) -->
+        <record id="salary_rule_unpaid_leave_biweekly" model="hr.salary.rule">
+            <field name="active" eval="False"/>
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">Deducción por ausencia sin goce de sueldo</field>
+            <field name="code">UNPAID_LEAVE</field>
+            <field name="sequence">110</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">
+# Días sin goce = líneas con work_entry_type en unpaid_work_entry_type_ids
+unpaid_days = 0.0
+struct = payslip.struct_id
+if struct and struct.use_worked_day_lines and struct.unpaid_work_entry_type_ids:
+    unpaid_ids = struct.unpaid_work_entry_type_ids.ids
+    for wd in (worked_days or {}).values():
+        if not wd:
+            continue
+        wet = wd.work_entry_type_id
+        if wet and wet.id in unpaid_ids:
+            unpaid_days += abs(wd.number_of_days or 0)
+result = unpaid_days > 0
+            </field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+# Valor día = salario mensual / 30. No BASIC/std (BASIC ya prorrateado si ingresó a mitad de período).
+unpaid_days = 0.0
+struct = payslip.struct_id
+if struct and struct.use_worked_day_lines and struct.unpaid_work_entry_type_ids:
+    unpaid_ids = struct.unpaid_work_entry_type_ids.ids
+    for wd in (worked_days or {}).values():
+        if not wd:
+            continue
+        wet = wd.work_entry_type_id
+        if wet and wet.id in unpaid_ids:
+            unpaid_days += abs(wd.number_of_days or 0)
+ver = version or employee.current_version_id
+wage_m = (ver.wage if ver else 0.0) or (employee.wage or 0.0)
+daily = wage_m / 30.0 if wage_m else 0.0
+result = -(daily * unpaid_days) if unpaid_days and daily else 0
+            </field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 43. Ausencias Laborales (AL) -->
+        <record id="salary_rule_ausencias_laborales_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">Ausencias Laborales</field>
+            <field name="code">AL</field>
+            <field name="sequence">111</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'AL' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -abs(inputs.get('AL', 0).amount) if 'AL' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 44. Entrada Tardía (ET) -->
+        <record id="salary_rule_entrada_tardia_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">Entrada Tardía</field>
+            <field name="code">ET</field>
+            <field name="sequence">112</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'ET' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -abs(inputs.get('ET', 0).amount) if 'ET' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 45. Incapacidades IHSS (IIHSS) -->
+        <record id="salary_rule_incapacidades_ihss_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">Incapacidades IHSS</field>
+            <field name="code">IIHSS</field>
+            <field name="sequence">113</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'IIHSS' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -abs(inputs.get('IIHSS', 0).amount) if 'IIHSS' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- ============================================ -->
+        <!-- DEDUCCIONES POR DAÑOS Y FALTANTES -->
+        <!-- ============================================ -->
+        
+        <!-- 46. Faltantes de Caja (FC) -->
+        <record id="salary_rule_faltantes_caja_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">Faltantes de Caja</field>
+            <field name="code">FC</field>
+            <field name="sequence">120</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'FC' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -abs(inputs.get('FC', 0).amount) if 'FC' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 47. Faltantes de Farmacia (FF) -->
+        <record id="salary_rule_faltantes_farmacia_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">Faltantes de Farmacia</field>
+            <field name="code">FF</field>
+            <field name="sequence">121</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'FF' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -abs(inputs.get('FF', 0).amount) if 'FF' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 48. Daños a Equipo (DE) -->
+        <record id="salary_rule_danos_equipo_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">Daños a Equipo</field>
+            <field name="code">DE</field>
+            <field name="sequence">122</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'DE' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -abs(inputs.get('DE', 0).amount) if 'DE' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 49. Daños a Vehículos (DAV) -->
+        <record id="salary_rule_danos_vehiculos_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">Daños a Vehículos</field>
+            <field name="code">DAV</field>
+            <field name="sequence">123</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'DAV' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -abs(inputs.get('DAV', 0).amount) if 'DAV' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- 50. Cargos no Realizados (CNR) -->
+        <record id="salary_rule_cargos_no_realizados_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">Cargos no Realizados</field>
+            <field name="code">CNR</field>
+            <field name="sequence">124</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'CNR' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -abs(inputs.get('CNR', 0).amount) if 'CNR' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- ============================================ -->
+        <!-- OTRAS DEDUCCIONES -->
+        <!-- ============================================ -->
+        
+        <!-- 52. Otros (OTHER) -->
+        <record id="salary_rule_otros_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_ded"/>
+            <field name="name">Otros</field>
+            <field name="code">OTHER</field>
+            <field name="sequence">130</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = 'OTHER' in inputs</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -abs(inputs.get('OTHER', 0).amount) if 'OTHER' in inputs else 0</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+        <!-- Salario Neto (NET) -->
+        <record id="salary_rule_net_biweekly" model="hr.salary.rule">
+            <field name="struct_id" ref="l10n_hn_hr_payroll.structure_biweekly"/>
+            <field name="category_id" ref="l10n_hn_payroll_base.cat_net"/>
+            <field name="name">Salario Neto</field>
+            <field name="code">NET</field>
+            <field name="sequence">100</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = categories.get('BASIC', 0) + categories.get('ALW', 0) - categories.get('DED', 0)</field>
+            <field name="appears_on_payslip" eval="True"/>
+        </record>
+        
+    </data>
+</odoo>

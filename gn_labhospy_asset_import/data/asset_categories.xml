@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- 1. Edificios (40 años) -->
+        <record id="asset_cat_edificios" model="account.asset.category">
+            <field name="name">Edificios</field>
+            <field name="account_asset_id" search="[('code','=','1020101.02')]"/>
+            <field name="account_depreciation_id" search="[('code','=','1020105.01')]"/>
+            <field name="account_depreciation_expense_id" search="[('code','=','6020101.01')]"/>
+            <field name="journal_id" search="[('code','=','MISCE')]"/>
+            <field name="company_id" search="[]"/>
+            <field name="method">linear</field>
+            <field name="method_time">number</field>
+            <field name="method_number">480</field>
+            <field name="method_period">1</field>
+            <field name="prorata" eval="False"/>
+            <field name="open_asset" eval="False"/>
+            <field name="type">purchase</field>
+            <field name="group_entries" eval="False"/>
+        </record>
+
+        <!-- 2. Vehiculos (5 años) -->
+        <record id="asset_cat_vehiculos" model="account.asset.category">
+            <field name="name">Vehiculos</field>
+            <field name="account_asset_id" search="[('code','=','1020101.03')]"/>
+            <field name="account_depreciation_id" search="[('code','=','1020105.02')]"/>
+            <field name="account_depreciation_expense_id" search="[('code','=','6020101.02')]"/>
+            <field name="journal_id" search="[('code','=','MISCE')]"/>
+            <field name="company_id" search="[]"/>
+            <field name="method">linear</field>
+            <field name="method_time">number</field>
+            <field name="method_number">60</field>
+            <field name="method_period">1</field>
+            <field name="prorata" eval="False"/>
+            <field name="open_asset" eval="False"/>
+            <field name="type">purchase</field>
+            <field name="group_entries" eval="False"/>
+        </record>
+
+        <!-- 3. Mobiliario y Equipo (10 años) -->
+        <record id="asset_cat_mobiliario" model="account.asset.category">
+            <field name="name">Mobiliario y Equipo</field>
+            <field name="account_asset_id" search="[('code','=','1020102.01')]"/>
+            <field name="account_depreciation_id" search="[('code','=','1020105.03')]"/>
+            <field name="account_depreciation_expense_id" search="[('code','=','6020101.03')]"/>
+            <field name="journal_id" search="[('code','=','MISCE')]"/>
+            <field name="company_id" search="[]"/>
+            <field name="method">linear</field>
+            <field name="method_time">number</field>
+            <field name="method_number">120</field>
+            <field name="method_period">1</field>
+            <field name="prorata" eval="False"/>
+            <field name="open_asset" eval="False"/>
+            <field name="type">purchase</field>
+            <field name="group_entries" eval="False"/>
+        </record>
+
+        <!-- 4. Equipo de Computo (4 años) -->
+        <record id="asset_cat_computo" model="account.asset.category">
+            <field name="name">Equipo de Computo</field>
+            <field name="account_asset_id" search="[('code','=','1020102.02')]"/>
+            <field name="account_depreciation_id" search="[('code','=','1020105.04')]"/>
+            <field name="account_depreciation_expense_id" search="[('code','=','6020101.04')]"/>
+            <field name="journal_id" search="[('code','=','MISCE')]"/>
+            <field name="company_id" search="[]"/>
+            <field name="method">linear</field>
+            <field name="method_time">number</field>
+            <field name="method_number">48</field>
+            <field name="method_period">1</field>
+            <field name="prorata" eval="False"/>
+            <field name="open_asset" eval="False"/>
+            <field name="type">purchase</field>
+            <field name="group_entries" eval="False"/>
+        </record>
+
+        <!-- 5. Herramientas (4 años) -->
+        <record id="asset_cat_herramientas" model="account.asset.category">
+            <field name="name">Herramientas</field>
+            <field name="account_asset_id" search="[('code','=','1020102.03')]"/>
+            <field name="account_depreciation_id" search="[('code','=','1020105.05')]"/>
+            <field name="account_depreciation_expense_id" search="[('code','=','6020101.05')]"/>
+            <field name="journal_id" search="[('code','=','MISCE')]"/>
+            <field name="company_id" search="[]"/>
+            <field name="method">linear</field>
+            <field name="method_time">number</field>
+            <field name="method_number">48</field>
+            <field name="method_period">1</field>
+            <field name="prorata" eval="False"/>
+            <field name="open_asset" eval="False"/>
+            <field name="type">purchase</field>
+            <field name="group_entries" eval="False"/>
+        </record>
+
+        <!-- 6. Otros Activos Menores (10 años) -->
+        <record id="asset_cat_otros" model="account.asset.category">
+            <field name="name">Otros Activos Menores</field>
+            <field name="account_asset_id" search="[('code','=','1020102.04')]"/>
+            <field name="account_depreciation_id" search="[('code','=','1020105.06')]"/>
+            <field name="account_depreciation_expense_id" search="[('code','=','6020101.06')]"/>
+            <field name="journal_id" search="[('code','=','MISCE')]"/>
+            <field name="company_id" search="[]"/>
+            <field name="method">linear</field>
+            <field name="method_time">number</field>
+            <field name="method_number">120</field>
+            <field name="method_period">1</field>
+            <field name="prorata" eval="False"/>
+            <field name="open_asset" eval="False"/>
+            <field name="type">purchase</field>
+            <field name="group_entries" eval="False"/>
+        </record>
+
+        <!-- 7. Mejoras Propiedad Arrendada (10 años) -->
+        <record id="asset_cat_mejoras_arrendada" model="account.asset.category">
+            <field name="name">Mejoras Propiedad Arrendada</field>
+            <field name="account_asset_id" search="[('code','=','1020103.01')]"/>
+            <field name="account_depreciation_id" search="[('code','=','1020105.07')]"/>
+            <field name="account_depreciation_expense_id" search="[('code','=','6020101.07')]"/>
+            <field name="journal_id" search="[('code','=','MISCE')]"/>
+            <field name="company_id" search="[]"/>
+            <field name="method">linear</field>
+            <field name="method_time">number</field>
+            <field name="method_number">120</field>
+            <field name="method_period">1</field>
+            <field name="prorata" eval="False"/>
+            <field name="open_asset" eval="False"/>
+            <field name="type">purchase</field>
+            <field name="group_entries" eval="False"/>
+        </record>
+
+        <!-- 8. Mejoras Edificio Principal (10 años) -->
+        <record id="asset_cat_mejoras_edif" model="account.asset.category">
+            <field name="name">Mejoras Edificio Principal</field>
+            <field name="account_asset_id" search="[('code','=','1020103.02')]"/>
+            <field name="account_depreciation_id" search="[('code','=','1020105.08')]"/>
+            <field name="account_depreciation_expense_id" search="[('code','=','6020101.08')]"/>
+            <field name="journal_id" search="[('code','=','MISCE')]"/>
+            <field name="company_id" search="[]"/>
+            <field name="method">linear</field>
+            <field name="method_time">number</field>
+            <field name="method_number">120</field>
+            <field name="method_period">1</field>
+            <field name="prorata" eval="False"/>
+            <field name="open_asset" eval="False"/>
+            <field name="type">purchase</field>
+            <field name="group_entries" eval="False"/>
+        </record>
+
+        <!-- 9. Mejoras en Techo (10 años) -->
+        <record id="asset_cat_mejoras_techo" model="account.asset.category">
+            <field name="name">Mejoras en Techo</field>
+            <field name="account_asset_id" search="[('code','=','1020103.03')]"/>
+            <field name="account_depreciation_id" search="[('code','=','1020105.09')]"/>
+            <field name="account_depreciation_expense_id" search="[('code','=','6020101.09')]"/>
+            <field name="journal_id" search="[('code','=','MISCE')]"/>
+            <field name="company_id" search="[]"/>
+            <field name="method">linear</field>
+            <field name="method_time">number</field>
+            <field name="method_number">120</field>
+            <field name="method_period">1</field>
+            <field name="prorata" eval="False"/>
+            <field name="open_asset" eval="False"/>
+            <field name="type">purchase</field>
+            <field name="group_entries" eval="False"/>
+        </record>
+
+        <!-- 10. Software (5 años) -->
+        <record id="asset_cat_software" model="account.asset.category">
+            <field name="name">Software</field>
+            <field name="account_asset_id" search="[('code','=','1020104.01')]"/>
+            <field name="account_depreciation_id" search="[('code','=','1020105.10')]"/>
+            <field name="account_depreciation_expense_id" search="[('code','=','6020101.10')]"/>
+            <field name="journal_id" search="[('code','=','MISCE')]"/>
+            <field name="company_id" search="[]"/>
+            <field name="method">linear</field>
+            <field name="method_time">number</field>
+            <field name="method_number">60</field>
+            <field name="method_period">1</field>
+            <field name="prorata" eval="False"/>
+            <field name="open_asset" eval="False"/>
+            <field name="type">purchase</field>
+            <field name="group_entries" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

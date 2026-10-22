@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_move_form_gn_discount_fiscal" model="ir.ui.view">
+        <field name="name">account.move.form.gn.discount.fiscal</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="before">
+                <div
+                    class="alert alert-warning w-100"
+                    role="alert"
+                    invisible="not gn_fiscal_matrix_notice"
+                >
+                    <field name="gn_fiscal_matrix_notice" nolabel="1" readonly="1" class="fw-bold"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="ir_cron_gn_due_alert_notifications" model="ir.cron">
+        <field name="name">Alertas visuales: evaluar vencimientos</field>
+        <field name="model_id" ref="model_gn_due_alert_engine"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_evaluate_due_alerts()</field>
+        <field name="interval_number">6</field>
+        <field name="interval_type">hours</field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="ir_cron_gn_due_alert_migrate_lines" model="ir.cron">
+        <field name="name">Alertas visuales: migrar apuntes</field>
+        <field name="model_id" ref="model_gn_due_alert_engine"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_migrate_notification_lines()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active" eval="False"/>
+    </record>
+
+    <!-- Intervalos cada 6 horas para crons de correo existentes -->
+    <record id="gn_invoice_due_alerts.cron_invoice_due_alerts" model="ir.cron">
+        <field name="interval_number">6</field>
+        <field name="interval_type">hours</field>
+    </record>
+
+    <record id="gn_customer_due_alerts.cron_customer_due_alerts" model="ir.cron">
+        <field name="interval_number">6</field>
+        <field name="interval_type">hours</field>
+    </record>
+
+</odoo>

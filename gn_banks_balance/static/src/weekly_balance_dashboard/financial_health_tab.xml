@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_banks_balance.FinancialHealthTab">
+        <t t-if="props.loading">
+            <FinancialHealthSkeleton/>
+        </t>
+        <t t-elif="props.loadError">
+            <FinancialHealthErrorState message="props.loadError" onRetry="props.onRetry"/>
+        </t>
+        <t t-elif="!hasData">
+            <FinancialHealthEmptyState message="props.data?.error_message"/>
+        </t>
+        <t t-else="">
+            <div class="gn-wb-fh">
+                <FinancialHealthHeader
+                    summary="props.data.executive_summary"
+                    scoreData="props.data.liquidity_score"
+                    riskData="props.data.liquidity_risk"
+                />
+
+                <ul class="nav nav-pills gn-wb-fh-subtabs">
+                    <li class="nav-item" t-foreach="subTabs" t-as="tab" t-key="tab.id">
+                        <button type="button"
+                                t-att-class="'nav-link' + (state.subTab === tab.id ? ' active' : '')"
+                                t-on-click="() => this.setSubTab(tab.id)"
+                                t-esc="tab.label"/>
+                    </li>
+                </ul>
+
+                <t t-if="state.subTab === 'summary'">
+                    <div class="row g-2 mb-2">
+                        <div class="col-md-4"><CashRunwayCard runwayData="props.data.cash_runway"/></div>
+                        <div class="col-md-4"><CashForecastPanel forecastData="props.data.cash_forecast" currencyId="props.currencyId"/></div>
+                        <div class="col-md-4"><LiquidityTrendCard trendData="props.data.liquidity_trend"/></div>
+                    </div>
+                    <div class="gn-wb-fh-block mb-2">
+                        <h6 class="gn-wb-fh-block__title">Desglose del score</h6>
+                        <LiquidityScoreBreakdown scoreData="props.data.liquidity_score"/>
+                    </div>
+                    <HistoricalComparisonPanel comparisonData="props.data.historical_comparison" currencyId="props.currencyId"/>
+                    <SmartAlertsPanel alerts="props.data.smart_alerts" currencyId="props.currencyId"/>
+                    <RecommendationsPanel recommendations="props.data.recommendations"/>
+                </t>
+
+                <t t-elif="state.subTab === 'indicators'">
+                    <IndicatorGaugesPanel indicatorData="props.data.indicator_gauges"
+                                          loading="props.loading"/>
+                </t>
+
+                <t t-elif="state.subTab === 'forecast'">
+                    <div class="row g-2 mb-2">
+                        <div class="col-md-4"><CashRunwayCard runwayData="props.data.cash_runway"/></div>
+                        <div class="col-md-8"><CashForecastPanel forecastData="props.data.cash_forecast" currencyId="props.currencyId"/></div>
+                    </div>
+                    <div class="gn-wb-fh-block mb-2">
+                        <h6 class="gn-wb-fh-block__title">Trayectoria histórica + proyectada</h6>
+                        <ProjectedTrajectoryChart forecastData="props.data.cash_forecast" currencySymbol="props.currencySymbol"/>
+                    </div>
+                    <LiquidityTrendCard trendData="props.data.liquidity_trend"/>
+                </t>
+
+                <t t-elif="state.subTab === 'ratios'">
+                    <FinancialRatiosGrid ratios="props.data.financial_ratios" currencyId="props.currencyId"/>
+                </t>
+
+                <t t-elif="state.subTab === 'banks'">
+                    <BankConcentrationPanel concentrationData="props.data.bank_concentration" currencyId="props.currencyId"/>
+                </t>
+
+                <t t-else="">
+                    <FinancialTimeline events="props.data.financial_timeline" currencyId="props.currencyId"/>
+                </t>
+            </div>
+        </t>
+    </t>
+
+</templates>

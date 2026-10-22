@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_departure_wizard_view_form_inherit_l10n_hn" model="ir.ui.view">
+        <field name="name">hr.departure.wizard.view.form.inherit.l10n_hn</field>
+        <field name="model">hr.departure.wizard</field>
+        <field name="inherit_id" ref="hr.hr_departure_wizard_view_form"/>
+        <field name="arch" type="xml">
+                <xpath expr="//field[@name='departure_reason_id']" position="after">
+                    <field name="departure_specific_reason_id"
+                           options="{'no_create': True, 'no_open': False}"/>
+                </xpath>
+                <xpath expr="//div[@id='activities']" position="inside">
+                    <div>
+                        <field name="include_in_current_payroll"/>
+                        <label for="include_in_current_payroll" string="Incluir en nómina de quincena en curso"/>
+                    </div>
+                    <div>
+                        <field name="apply_offboarding_plan"/>
+                        <label for="apply_offboarding_plan" string="Aplicar plan de offboarding"/>
+                    </div>
+                </xpath>
+        </field>
+    </record>
+</odoo>

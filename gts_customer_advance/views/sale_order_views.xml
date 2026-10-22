@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Filtro de búsqueda para cotizaciones con anticipos (debe ir antes de la acción) -->
+    <record id="view_sale_order_search_advances" model="ir.ui.view">
+        <field name="name">sale.order.search.advances</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.sale_order_view_search_inherit_sale"/>
+        <field name="arch" type="xml">
+            <filter name="order_date" position="after">
+                <separator/>
+                <filter string="Con Abonos/Anticipos" name="filter_advances" domain="[('advance_linked_amount', '>', 0)]"/>
+            </filter>
+        </field>
+    </record>
+
+    <!-- Vista base para Cotizaciones con Anticipo: hereda de sale_order_tree (no de view_quotation_tree)
+         para que create=0 no afecte la lista principal de Cotizaciones -->
+    <record id="view_quotation_tree_advances" model="ir.ui.view">
+        <field name="name">sale.order.list (advances report)</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.sale_order_tree"/>
+        <field name="mode">primary</field>
+        <field name="priority">4</field>
+        <field name="arch" type="xml">
+            <list position="attributes">
+                <attribute name="string">Cotizaciones con Anticipo</attribute>
+            </list>
+            <field name="date_order" position="replace">
+                <field name="create_date" string="Creation Date" optional="show"/>
+            </field>
+            <field name="state" position="attributes">
+                <attribute name="optional">show</attribute>
+            </field>
+            <field name="invoice_status" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </field>
+        </field>
+    </record>
+
+    <!-- Vista tree Cotizaciones con Anticipo: hereda de nuestra vista base (no de view_quotation_tree) -->
+    <record id="view_sale_order_advances_report_tree" model="ir.ui.view">
+        <field name="name">sale.order.advances.report.tree</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="gts_customer_advance.view_quotation_tree_advances"/>
+        <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+            <list position="attributes">
+                <attribute name="multi_edit">0</attribute>
+                <attribute name="create">0</attribute>
+            </list>
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="branch_id" string="Sucursal" optional="show"/>
+            </xpath>
+            <field name="amount_total" position="after">
+                <field name="advance_linked_amount" string="Abonos/Anticipos" widget="monetary" options="{'currency_field': 'currency_id'}" sum="Total"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Acción para cotizaciones con anticipos -->
+    <record id="action_sale_order_advances_report" model="ir.actions.act_window">
+        <field name="name">Cotizaciones con Anticipo</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="gts_customer_advance.view_sale_order_search_advances"/>
+        <field name="domain">[('state', 'in', ('draft', 'sent')), ('advance_linked_amount', '>', 0)]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay cotizaciones con Abonos/Anticipos asociados.
+            </p>
+            <p>
+                Los Abonos/Anticipos se asocian desde la pestaña "Abonos/Anticipos" de cada cotización.
+            </p>
+        </field>
+    </record>
+
+    <!-- Enlace acción-vista para usar nuestra tree en el reporte -->
+    <record id="action_sale_order_advances_report_view_list" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="view_sale_order_advances_report_tree"/>
+        <field name="act_window_id" ref="action_sale_order_advances_report"/>
+    </record>
+    <record id="action_sale_order_advances_report_view_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="sale.view_order_form"/>
+        <field name="act_window_id" ref="action_sale_order_advances_report"/>
+    </record>
+
+    <!-- Menú Cotizaciones con Anticipo en Ventas > Órdenes -->
+    <menuitem id="menu_sale_order_advances_report"
+              name="Cotizaciones con Anticipo"
+              parent="sale.sale_order_menu"
+              action="gts_customer_advance.action_sale_order_advances_report"
+              sequence="24"
+              groups="gts_customer_advance.group_advance_customers_manager"/>
+
+    <!-- Menú Anticipos en Ventas > Órdenes -->
+    <menuitem id="menu_sale_customer_advances"
+              name="Abonos/Anticipos a clientes"
+              parent="sale.sale_order_menu"
+              action="gts_customer_advance.action_account_payment_customer_advances"
+              sequence="25"
+              groups="gts_customer_advance.group_advance_customers_manager"/>
+
+    <!-- Vista tree para anticipos asociados -->
+    <record id="view_sale_order_advance_link_tree" model="ir.ui.view">
+        <field name="name">sale.order.advance.link.tree</field>
+        <field name="model">sale.order.advance.link</field>
+        <field name="arch" type="xml">
+            <list create="0" delete="1" editable="bottom">
+                <field name="payment_id"/>
+                <field name="amount" string="Monto asignado" widget="monetary" options="{'currency_field': 'currency_id'}" sum="Total"/>
+                <field name="currency_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Vista tree para plan de cuotas -->
+    <record id="view_sale_order_advance_quota_tree" model="ir.ui.view">
+        <field name="name">sale.order.advance.quota.tree</field>
+        <field name="model">sale.order.advance.quota</field>
+        <field name="arch" type="xml">
+            <list create="1" delete="1" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="due_date"/>
+                <field name="amount" string="Monto por cobrar" widget="monetary" options="{'currency_field': 'currency_id'}" sum="Total por cobrar"/>
+                <field name="amount_assigned" string="Monto asignado" widget="monetary" options="{'currency_field': 'currency_id'}" sum="Total asignado"/>
+                <field name="state"/>
+                <field name="currency_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Agregar stat button, banner y pestañas de anticipos en el formulario de ventas -->
+    <record id="view_sale_order_form_advance" model="ir.ui.view">
+        <field name="name">sale.order.form.advance</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <!-- Botón Registrar Anticipo en el header (entre Confirmar y Vista previa) -->
+            <xpath expr="//button[@name='action_preview_sale_order']" position="before">
+                <button name="action_register_advance"
+                        type="object"
+                        string="Registrar Abono/Anticipo"
+                        class="btn-secondary"
+                        icon="fa-money"
+                        groups="gts_customer_advance.group_advance_customers_manager"
+                        invisible="state not in ('draft', 'sent') or not partner_id"/>
+            </xpath>
+
+            <!-- Stat button de anticipos disponibles -->
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_available_advances"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-money"
+                        groups="gts_customer_advance.group_advance_customers_manager"
+                        invisible="not has_available_advances">
+                    <div class="o_stat_info">
+                        <field name="available_advances_amount"
+                               widget="monetary"
+                               options="{'currency_field': 'currency_id'}"
+                               class="o_stat_value"/>
+                        <span class="o_stat_text">
+                            Abonos/Anticipos
+                        </span>
+                    </div>
+                </button>
+                <field name="has_available_advances" invisible="1"/>
+                <field name="available_advances_count" invisible="1"/>
+            </xpath>
+
+            <!-- Banner: anticipos asignados (suma + saldo) -->
+            <xpath expr="//sheet" position="before">
+                <div class="alert alert-success mb-3"
+                     role="alert"
+                     groups="gts_customer_advance.group_advance_customers_manager"
+                     invisible="state not in ('draft', 'sent', 'sale', 'done') or advance_linked_amount &lt;= 0"
+                     style="border-left: 4px solid #28a745; background-color: #d4edda;">
+                    <i class="fa fa-check-circle me-2" style="color: #28a745; font-size: 1.2em;" title="Anticipos Asignados"/>
+                    <strong style="color: #155724;">Anticipos asignados a esta cotización:</strong>
+                    <strong style="font-size: 1.1em; color: #155724;">
+                        <field name="advance_linked_amount"
+                               widget="monetary"
+                               readonly="1"
+                               options="{'currency_field': 'currency_id'}"/>
+                    </strong>
+                    <span style="color: #155724;"> — </span>
+                    <strong style="color: #155724;">Saldo pendiente:</strong>
+                    <strong style="font-size: 1.1em; color: #155724;">
+                        <field name="advance_balance"
+                               widget="monetary"
+                               readonly="1"
+                               options="{'currency_field': 'currency_id'}"/>
+                    </strong>
+                    <button name="action_view_available_advances"
+                            type="object"
+                            string="Ver Abonos/Anticipos"
+                            class="btn btn-success btn-sm ms-2"
+                            icon="fa-external-link"/>
+                </div>
+                <!-- Banner: anticipos disponibles (solo si no hay asignados) -->
+                <div class="alert alert-success mb-3"
+                     role="alert"
+                     groups="gts_customer_advance.group_advance_customers_manager"
+                     invisible="state not in ('draft', 'sent', 'sale', 'done') or advance_linked_amount &gt; 0 or not has_available_advances"
+                     style="border-left: 4px solid #28a745; background-color: #d4edda;">
+                    <i class="fa fa-check-circle me-2" style="color: #28a745; font-size: 1.2em;" title="Abonos/Anticipos Disponibles"/>
+                    <strong style="color: #155724;">¡Abonos/Anticipos Disponibles!</strong>
+                    <span style="color: #155724;">
+                        Este cliente tiene
+                        <strong style="font-size: 1.1em;">
+                            <field name="available_advances_count" readonly="1"/>
+                        </strong>
+                        Abono(s)/Anticipo(s) por un total de
+                        <strong style="font-size: 1.1em;">
+                            <field name="available_advances_amount"
+                                   widget="monetary"
+                                   readonly="1"
+                                   options="{'currency_field': 'currency_id'}"/>
+                        </strong>
+                        disponible(s) para aplicar a sus facturas y un saldo de
+                        <strong style="font-size: 1.1em;">
+                            <field name="advance_balance"
+                                   widget="monetary"
+                                   readonly="1"
+                                   options="{'currency_field': 'currency_id'}"/>
+                        </strong>
+                    </span>
+                    <button name="action_view_available_advances"
+                            type="object"
+                            string="Ver Abonos/Anticipos"
+                            class="btn btn-success btn-sm ms-2"
+                            icon="fa-external-link"/>
+                </div>
+            </xpath>
+
+            <!-- TAB Anticipos: idéntico al desarrollo (progreso, total, asociados, sub-tabs) -->
+            <xpath expr="//notebook" position="inside">
+                <page string="Abonos/Anticipos" name="advance_plan"
+                      groups="gts_customer_advance.group_advance_customers_manager"
+                      invisible="state not in ('draft', 'sent')">
+                    <group>
+                        <group string="Resumen" >
+                            <div class="o_row" style="display: flex; gap: 24px; align-items: flex-start; flex-wrap: nowrap;">
+                                <div style="min-width: 140px;">
+                                    <label for="advance_progress" string="Avance %"/>
+                                    <field name="advance_progress" widget="progressbar" nolabel="1"/>
+                                </div>
+                                <field name="advance_progress_display" invisible="1"/>
+                                <div style="min-width: 140px;">
+                                    <strong><label for="amount_total" string="Total cotización"/></strong>
+                                    <field name="amount_total" widget="monetary" options="{'currency_field': 'currency_id'}" readonly="1"/>
+                                </div>
+                                <div style="min-width: 140px;">
+                                    <strong><label for="advance_linked_amount" string="Abonos/Anticipos asociados"/></strong>
+                                    <field name="advance_linked_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                </div>
+                                <div style="min-width: 140px;">
+                                    <strong><label for="advance_calculation_display" string="Cálculo"/></strong>
+                                    <field name="advance_calculation_display" readonly="1"/>
+                                </div>
+                            </div>
+                        </group>
+                        <group string="Acciones">
+                            <button name="action_auto_link_advances"
+                                    type="object"
+                                    string="Asociar automáticamente"
+                                    class="btn-primary"
+                                    icon="fa-magic"
+                                    title="Asocia todos los Abonos/Anticipos disponibles hasta cubrir el total"/>
+                            <button name="action_open_link_advance_wizard"
+                                    type="object"
+                                    string="Asociar Abono/Anticipo (elegir montos)"
+                                    class="btn-secondary"
+                                    icon="fa-link"/>
+                            <button name="action_generate_quotas"
+                                    type="object"
+                                    string="Generar cuotas"
+                                    invisible="not advance_show_generate_quotas_button"/>
+                            <field name="advance_show_generate_quotas_button" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Plan de cuotas" name="advance_quotas_sub">
+                            <field name="advance_quota_ids" nolabel="1"/>
+                        </page>
+                        <page string="Abonos/Anticipos asociados" name="advance_links_sub">
+                            <field name="advance_link_ids" nolabel="1"
+                                   options="{'no_create': True}"/>
+                        </page>
+                    </notebook>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

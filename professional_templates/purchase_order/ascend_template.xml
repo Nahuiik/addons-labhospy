@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="PO_14_document" name="Ascend Template">
+            <!-- Multicompany -->
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"></t>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"></t>
+            </t>
+            <div class="header">
+                <div  t-if="style.header" class="row mb-2 text-center" t-attf-style="color:{{style.text_color}} !important;font-size:{{int(style.header_font)}}px !important;font-family:{{style.font_family}} !important;">
+                    <div  class="p-2">
+                        <span t-if="style.logo">
+                            <img t-if="style.logo" t-att-src="image_data_uri(style.logo)"  alt="Logo"/>
+                        </span>
+                        <span t-if="not style.logo">
+                            <img t-if="company.logo" t-att-src="image_data_uri(company.logo)"  alt="Logo"/>
+                        </span>
+                    </div>
+                </div> 
+            </div> <!--end of Header-->
+            <!-- START OF PAGE -->
+            <div class="article page" t-attf-data-oe-model="purchase.order" t-attf-data-oe-id="{{o.id}}" t-attf-style="color:{{style.text_color}} !important;font-size:{{int(style.body_font)}}px !important;font-family:{{style.font_family}} !important;">
+                <div class="col-12" t-attf-style="white-space:pre-line;color:#{style.wm_color};left:#{style.leftpadding}mm; top:#{style.toppadding}mm;font-size:#{style.fontsize}px; opacity:#{style.opacity};z-index:-99; -webkit-transform:rotate(-#{style.rotate}deg);position:fixed;"><t t-esc="style.wm_eval(o, time, user, res_company)"/></div>
+
+                <div class="row mb-2">
+                    <div class="col-6" t-attf-style="font-size:{{int(style.header_font)}}px !important;">
+                        <span t-field="company.display_name"/><t t-esc="','" t-if="company.street"/>
+                        <span t-field="company.street"/><t t-esc="','" t-if="company.street2"/>
+                        <span t-field="company.street2"/><t t-esc="','" t-if="company.zip"/>
+                        <span t-field="company.zip"/><t t-esc="','" t-if="company.city"/>
+                        <span t-field="company.city"/>
+                    </div>
+                    <div class="col-6"/>
+                </div>
+                <div class="row mb-2">
+                    <div t-attf-class="col-6" style="font-size:16px;">
+                        <address t-if="o.dest_address_id and o.dest_address_id != o.partner_id" t-field="o.dest_address_id" style="margin-bottom:0px;"
+                            t-options='{"widget": "contact", "fields":["name", "address"],"no_marker": true}'/>
+                        <address t-if="not o.dest_address_id or  o.dest_address_id == o.partner_id" t-field="o.partner_id" style="margin-bottom:0px;"
+                            t-options='{"widget": "contact", "fields":["name", "address"],"no_marker": true}'/>
+                    </div>
+                    <div class="col-6"/>
+                </div>
+                <div class="row mb-2">
+                    <div class="offset-7 col-5 p-2" style="font-size:16px;">
+                        <div t-if="o.state in ['purchase','done'] and o.date_approve">
+                            <strong>Fecha de Orden:</strong>
+                            <span t-field="o.date_approve"/>
+                        </div>
+                        <div t-if="o.date_order" name="deadline">
+                            <strong>Fecha Limite: </strong>
+                            <span class="m-0" t-field="o.date_order"/>
+                        </div>
+                        <div t-if="o.partner_id.ref" name="customer_code">
+                            <strong>Codigo de Proveedor: </strong>
+                            <span class="m-0" t-field="o.partner_id.ref"/>
+                        </div>
+                        <div t-if="o.partner_ref" name="reference">
+                            <strong>Referencia del Proveedor: </strong>
+                            <span class="m-0" t-field="o.partner_ref"/>
+                        </div>
+                        <div t-if="o.partner_id.ref">
+                            <strong>Codigo de Proveedor: </strong>
+                            <span t-field="o.partner_id.ref"/>
+                        </div>
+                        <div t-if="o.partner_id.vat">
+                            <strong>Vendor Tax ID: </strong>
+                            <span t-field="o.partner_id.vat"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="mt-2">
+                        <h3>
+                            <span t-if="o.state in ['draft', 'sent', 'to approve']">Solicitud de Cotizacion #<span t-field="o.name"/></span>
+                            <span t-if="o.state in ['purchase', 'done']">Orden de Compra #<span t-field="o.name"/></span>
+                            <span t-if="o.state == 'cancel'">Orden de Compra Cancelada #<span t-field="o.name"/></span>
+                        </h3>
+                    </div>
+                </div>
+                <!-- DATA-->
+                <t t-call="professional_templates.purchase_lines"/>
+                    <!--/DATA-->
+            </div><!--End of PAGE-->
+            <!--FOOTER -->
+            <div class="footer" t-attf-style="font-size:{{style.footer_font}}px !important;font-family:{{style.font_family}} !important;">
+                <t t-call="professional_templates.company_footer"/>
+            </div>
+            <!--/FOOTER-->
+        </template>
+
+    </data>
+</odoo>

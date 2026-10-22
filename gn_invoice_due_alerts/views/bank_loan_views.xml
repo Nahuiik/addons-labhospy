@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_gn_bank_loan_list" model="ir.ui.view">
+        <field name="name">gn.bank.loan.list</field>
+        <field name="model">gn.bank.loan</field>
+        <field name="arch" type="xml">
+            <list string="Préstamos bancarios"
+                  decoration-danger="due_bucket == 'overdue'"
+                  decoration-warning="due_bucket in ('today', 'due_1_7')"
+                  decoration-success="due_bucket == 'paid'">
+                <field name="bank"/>
+                <field name="loan_number"/>
+                <field name="purpose"/>
+                <field name="monthly_fee" sum="Cuota mensual"/>
+                <field name="balance" sum="Saldo"/>
+                <field name="payment_day"/>
+                <field name="next_due_date"/>
+                <field name="days_to_due"/>
+                <field name="due_bucket"/>
+                <field name="end_date"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_gn_bank_loan_form" model="ir.ui.view">
+        <field name="name">gn.bank.loan.form</field>
+        <field name="model">gn.bank.loan</field>
+        <field name="arch" type="xml">
+            <form string="Préstamo bancario">
+                <header>
+                    <button name="action_register_debit" type="object"
+                            string="Registrar débito (cuota)"
+                            class="btn-primary"
+                            invisible="state != 'active'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_debits" type="object"
+                                class="oe_stat_button" icon="fa-university">
+                            <field name="debit_count" widget="statinfo"
+                                   string="Pagos"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="bank"/>
+                            <field name="loan_number"/>
+                            <field name="purpose"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="total_amount"/>
+                            <field name="monthly_fee"/>
+                            <field name="balance"/>
+                            <field name="rate"/>
+                            <field name="payment_day"/>
+                            <field name="end_date"/>
+                        </group>
+                    </group>
+                    <group string="Vencimiento">
+                        <group>
+                            <field name="next_due_date"/>
+                            <field name="days_to_due"/>
+                            <field name="due_bucket"/>
+                            <field name="paid_current_month"/>
+                        </group>
+                        <group>
+                            <field name="last_payment_date"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_gn_bank_loan_search" model="ir.ui.view">
+        <field name="name">gn.bank.loan.search</field>
+        <field name="model">gn.bank.loan</field>
+        <field name="arch" type="xml">
+            <search string="Préstamos">
+                <field name="bank"/>
+                <field name="loan_number"/>
+                <field name="purpose"/>
+                <filter name="active_loans" string="Activos"
+                        domain="[('state', '=', 'active')]"/>
+                <filter name="overdue" string="Vencidas"
+                        domain="[('due_bucket', '=', 'overdue')]"/>
+                <filter name="due_today" string="Vencen hoy"
+                        domain="[('due_bucket', '=', 'today')]"/>
+                <group>
+                    <filter name="group_bank" string="Banco"
+                            context="{'group_by': 'bank'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_gn_bank_loan" model="ir.actions.act_window">
+        <field name="name">Préstamos bancarios</field>
+        <field name="res_model">gn.bank.loan</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_active_loans': 1}</field>
+    </record>
+
+    <record id="action_loan_due_dashboard" model="ir.actions.client">
+        <field name="name">Vencimientos de préstamos</field>
+        <field name="tag">gn_loan_due_dashboard</field>
+    </record>
+
+    <menuitem id="menu_loan_due_dashboard"
+              name="Vencimientos de préstamos"
+              parent="menu_invoice_due_root"
+              action="action_loan_due_dashboard"
+              sequence="12"/>
+
+    <menuitem id="menu_gn_bank_loan"
+              name="Préstamos bancarios"
+              parent="menu_invoice_due_root"
+              action="action_gn_bank_loan"
+              sequence="25"/>
+
+</odoo>

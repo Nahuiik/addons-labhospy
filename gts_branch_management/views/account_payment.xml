@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="account_payment_form_branch" model="ir.ui.view">
+        <field name="name">account.payment.branch.form</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="arch" type="xml">
+            <field name="journal_id" position="after">
+                <field name="payment_is_editable" invisible="1"/>
+                <field name="gts_no_exigir_sucursal" widget="boolean_toggle"
+                       readonly="not payment_is_editable"/>
+                <field name="branch_id" string="Sucursal"
+                       options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'
+                       required="not gts_no_exigir_sucursal"
+                       readonly="not payment_is_editable"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Formulario solo editable en borrador (confirmado = in_process, pagado = paid). -->
+    <record id="account_payment_form_lock_when_registered" model="ir.ui.view">
+        <field name="name">account.payment.form.lock.registered</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="priority">200</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="after">
+                <field name="payment_is_editable" invisible="1"/>
+            </xpath>
+            <xpath expr="//form[1]" position="attributes">
+                <attribute name="edit">payment_is_editable</attribute>
+            </xpath>
+            <xpath expr="//field[@name='payment_type']" position="attributes">
+                <attribute name="readonly">not payment_is_editable</attribute>
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="readonly">not payment_is_editable</attribute>
+                <attribute name="options">{'no_open': True, 'no_create': True, 'no_quick_create': True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='amount']" position="attributes">
+                <attribute name="readonly">not payment_is_editable</attribute>
+            </xpath>
+            <xpath expr="//field[@name='currency_id']" position="attributes">
+                <attribute name="readonly">not payment_is_editable</attribute>
+            </xpath>
+            <xpath expr="//field[@name='date']" position="attributes">
+                <attribute name="readonly">not payment_is_editable</attribute>
+            </xpath>
+            <xpath expr="//field[@name='memo']" position="attributes">
+                <attribute name="readonly">not payment_is_editable</attribute>
+            </xpath>
+            <xpath expr="//field[@name='journal_id']" position="attributes">
+                <attribute name="readonly">not payment_is_editable</attribute>
+                <attribute name="options">{'no_open': True, 'no_create': True, 'no_create_edit': True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='payment_method_line_id']" position="attributes">
+                <attribute name="readonly">not payment_is_editable</attribute>
+            </xpath>
+            <xpath expr="//field[@name='partner_bank_id']" position="attributes">
+                <attribute name="readonly">not payment_is_editable</attribute>
+            </xpath>
+            <xpath expr="//field[@name='payment_move_type']" position="attributes">
+                <attribute name="readonly">not payment_is_editable</attribute>
+            </xpath>
+            <xpath expr="//field[@name='style']" position="attributes">
+                <attribute name="readonly">not payment_is_editable</attribute>
+                <attribute name="options">{'no_open': True, 'no_create': True, 'no_create_edit': True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_lines']" position="attributes">
+                <attribute name="readonly">not payment_is_editable</attribute>
+            </xpath>
+            <!-- Secuencia del pago: siempre solo lectura (borrador incluido). -->
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

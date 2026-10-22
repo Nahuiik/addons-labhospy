@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="l10n_hn_base.AccountantHub">
+        <div class="o_hn_accountant_hub p-4">
+            <h1 class="mb-4">Accountant hub</h1>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Bank matching</h5>
+                            <p class="card-text text-muted small">Kanban and list of bank statement lines.</p>
+                            <button class="btn btn-primary" t-on-click="() => this.openAction('l10n_hn_base.action_bank_statement_line_hn_kanban')">
+                                Open
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Bank statements</h5>
+                            <p class="card-text text-muted small">Registered bank statements.</p>
+                            <button class="btn btn-primary" t-on-click="() => this.openAction('account.action_bank_statement_tree')">
+                                Open
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Audit trail</h5>
+                            <p class="card-text text-muted small">Native accounting audit log (mail.message).</p>
+                            <button class="btn btn-primary" t-on-click="() => this.openAction('account.action_account_audit_trail_report')">
+                                Open
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

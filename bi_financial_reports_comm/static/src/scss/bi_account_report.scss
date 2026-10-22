@@ -1,0 +1,950 @@
+.o_bi_report_bar {
+    min-width: 0;
+}
+
+/* Unified filter bar: wrap + explicit two-row layout for partner ageing */
+.o_bi_filter_bar {
+    row-gap: 0.5rem;
+
+    .btn-secondary.btn-sm {
+        white-space: nowrap;
+    }
+}
+
+.o_bi_filter_ageing_rows {
+    min-width: 0;
+}
+
+.o_bi_filter_ageing_row {
+    min-width: 0;
+}
+
+/* Dropdown menus with input field (Contacts, Tags, Analytic) */
+.bi_filter_menu_with_input {
+    min-width: 220px;
+}
+
+/* Date filter dropdown - Mes, Trimestre, Año, Fechas personalizadas */
+.bi_date_filter_menu {
+    min-width: 280px;
+
+    .bi_date_filter_row {
+        cursor: pointer;
+
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.04);
+        }
+    }
+
+    .bi_date_period_value {
+        min-width: 5rem;
+        text-align: right;
+    }
+}
+
+/* Dropdown de comparación: input para "1 Período / 2 Períodos" */
+.bi_comparison_filter_menu {
+    min-width: 320px;
+
+    .bi_comparison_period_row {
+        cursor: pointer;
+
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.04);
+        }
+    }
+
+    .bi_comparison_number_input {
+        width: 60px;
+        text-align: center;
+    }
+}
+
+.o_bi_report_bar .o_searchview {
+    min-width: 180px;
+    max-width: 280px;
+
+    .o_searchview_input {
+        min-width: 0;
+    }
+}
+
+.bi_account_report {
+    .o_bi_report_loading,
+    .o_bi_report_empty {
+        min-height: 200px;
+    }
+
+    .o_bi_draft_warning_alert {
+        cursor: pointer;
+        user-select: none;
+
+        &:hover {
+            background-color: rgba(13, 110, 253, 0.12);
+        }
+    }
+
+    .o_bi_report_card_container {
+        margin: 12px auto;
+        width: 75%;
+        max-width: 75%;
+        padding: 0 16px;
+    }
+
+    .o_bi_report_card {
+        background: #fff;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        overflow: hidden;
+    }
+
+    .o_account_report_scroll_container {
+        overflow-x: auto;
+        padding: 0 4px;
+    }
+
+    /* Executive Summary - section headers grey background */
+.o_bi_es_section_header td {
+    background-color: #e9ecef !important;
+    font-weight: 600;
+    padding: 10px 12px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.o_bi_es_row td {
+    border-bottom: 1px solid #eee;
+}
+
+.bi_report_table {
+        border-collapse: separate;
+        border-spacing: 0;
+        font-family: var(--o-font-family-sans-serif, "Inter", "Roboto", system-ui, sans-serif);
+        font-size: 0.8rem;
+
+        thead th {
+            padding: 0.4rem 0.4rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        tbody td {
+            padding: 0.35rem 0.4rem;
+            vertical-align: middle;
+        }
+
+        .toggle-row {
+            &.o_bi_row_unfolded {
+                font-weight: bold;
+            }
+        }
+
+        .line_name {
+            white-space: nowrap;
+
+            .account_name,
+            .move_name {
+                margin-right: 0.5rem;
+            }
+
+            .btn-link {
+                padding: 0;
+                font-size: 0.75rem;
+            }
+        }
+
+        .o_bi_th_account,
+        .o_bi_ledger_total td:nth-child(2) {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            min-width: 0;
+        }
+
+        tbody td:nth-child(2) {
+            min-width: 0;
+
+            .account_name,
+            .move_name {
+                display: inline-block;
+                max-width: calc(100% - 6rem);
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                vertical-align: middle;
+            }
+        }
+
+        /* Links visible only on row hover (Enterprise style) */
+        .o_bi_row_actions {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.15s ease;
+        }
+
+        tr:hover .o_bi_row_actions,
+        tr.o_bi_row_unfolded .o_bi_row_actions {
+            opacity: 1;
+            pointer-events: auto;
+
+            .btn {
+                pointer-events: auto;
+            }
+        }
+
+        .o_bi_row_action_btn {
+            font-size: 0.65rem !important;
+            padding: 0.2rem 0.5rem !important;
+            border-radius: 9999px;
+            background-color: #b2ebf2 !important;
+            color: #006064 !important;
+            text-decoration: none !important;
+            border: none;
+            transition: background-color 0.15s ease;
+
+            &:hover {
+                background-color: #80deea !important;
+                color: #006064 !important;
+            }
+        }
+
+        .data-communication {
+            white-space: normal;
+            max-width: 250px;
+        }
+
+        .o_bi_amount_zero {
+            color: #adb5bd;
+        }
+    }
+
+    .bi_report_table_ledger {
+        table-layout: fixed;
+        width: 100%;
+
+        .o_bi_col_caret   { width: 24px; }
+        .o_bi_col_account { width: 40%; }
+        .o_bi_col_date    { width: 7%; }
+        .o_bi_col_contact { width: auto; }
+        .o_bi_col_debit,
+        .o_bi_col_credit,
+        .o_bi_col_balance { width: 11%; }
+
+        .o_bi_date_row th {
+            padding: 0.35rem 0.5rem;
+            font-weight: 500;
+            font-size: 0.85em;
+            color: #475569;
+        }
+
+        .o_bi_date_row th.o_bi_th_period {
+            background-color: #fafbfc;
+            border: 1px solid #e2e8f0;
+            padding: 0.35rem 0.5rem;
+        }
+
+        .o_bi_subheader th {
+            font-weight: 700;
+            font-size: 0.9em;
+            color: #64748b;
+            padding-top: 0.3rem;
+            padding-bottom: 0.4rem;
+        }
+
+
+        /* Alternating columns (Enterprise style): Fecha, Deber, Balance = grey; Contacto, Haber = white */
+        tbody td:nth-child(3),
+        tbody td:nth-child(5),
+        tbody td:nth-child(7) {
+            background-color: #f8f9fa;
+        }
+
+        tbody td:nth-child(4),
+        tbody td:nth-child(6) {
+            background-color: #fff;
+        }
+
+        /* Row hover highlight (Enterprise style) */
+        tbody tr:not(.o_bi_ledger_total):hover td {
+            background-color: #f0f2f5 !important;
+        }
+
+        .o_bi_subheader th:nth-child(3),
+        .o_bi_subheader th:nth-child(5),
+        .o_bi_subheader th:nth-child(7) {
+            background-color: #f8f9fa;
+        }
+
+        .o_bi_subheader th:nth-child(4),
+        .o_bi_subheader th:nth-child(6) {
+            background-color: #fff;
+        }
+
+        .o_bi_ledger_total {
+            background-color: #fff !important;
+            border-top: 1px solid #e2e8f0;
+
+            td {
+                padding: 0.4rem 0.4rem;
+                font-weight: 700;
+                border-bottom: none;
+            }
+
+            td:nth-child(3),
+            td:nth-child(5),
+            td:nth-child(7) {
+                background-color: #fff !important;
+            }
+        }
+
+        .toggle-row .fa,
+        .o_bi_ledger_row .fa {
+            color: #94a3b8;
+        }
+    }
+
+    .bi_report_table_customer_statement {
+        table-layout: fixed;
+        width: 100%;
+
+        .o_bi_cs_col_caret { width: 24px; }
+        .o_bi_cs_col_partner { width: 35%; min-width: 160px; }
+        .o_bi_cs_col_followup { width: 8%; }
+        .o_bi_cs_col_date,
+        .o_bi_cs_col_due { width: 12%; }
+        .o_bi_cs_col_amount,
+        .o_bi_cs_col_balance { width: 13%; }
+
+        .o_bi_date_row th.o_bi_th_contact_blank {
+            background-color: transparent;
+            border: none;
+        }
+
+        .o_bi_date_row th.o_bi_th_period {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            padding: 0.4rem 0.5rem;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .o_bi_subheader th {
+            background-color: #f8f9fa;
+        }
+    }
+
+    .bi_report_table_ageing {
+        width: 100%;
+
+        .o_bi_th_partner { min-width: 200px; }
+        .o_bi_th_bucket,
+        .o_bi_th_balance {
+            white-space: nowrap;
+            width: 11%;
+        }
+
+        .o_bi_date_row th.o_bi_th_period {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            padding: 0.4rem 0.5rem;
+            font-weight: 700;
+        }
+
+        .o_bi_subheader th {
+            background-color: #f8f9fa;
+            white-space: nowrap;
+        }
+
+        .o_bi_ageing_detail td {
+            font-size: 0.9em;
+            color: #475569;
+        }
+
+        .o_bi_ageing_total td {
+            border-top: 2px solid #cbd5e1;
+            background-color: #f8fafc;
+        }
+    }
+
+    .bi_report_table_partner_ledger {
+        /* Contacto más ancha; resto de columnas más estrechas */
+        .o_bi_pl_col_caret { width: 24px; }
+        .o_bi_pl_col_contact { width: 32%; min-width: 140px; }
+        .o_bi_pl_col_journal { width: 6%; }
+        .o_bi_pl_col_account { width: 8%; }
+        .o_bi_pl_col_date,
+        .o_bi_pl_col_due { width: 7%; }
+        .o_bi_pl_col_matching { width: 6%; }
+        .o_bi_pl_col_debit,
+        .o_bi_pl_col_credit,
+        .o_bi_pl_col_balance { width: 9%; }
+
+        .o_bi_date_row th.o_bi_th_contact_blank {
+            background-color: transparent;
+            border: none;
+        }
+
+        .o_bi_date_row th.o_bi_th_period {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            padding: 0.4rem 0.5rem;
+            text-align: center;
+            font-weight: 700;
+
+            span {
+                font-weight: 700;
+            }
+        }
+
+        .o_bi_subheader th {
+            background-color: #f8f9fa;
+        }
+    }
+
+    .bi_report_table_trial_balance {
+        table-layout: auto;
+        width: 100%;
+
+        .o_bi_tb_col_account { width: auto; min-width: 320px; }
+        .o_bi_tb_col_balance_ini,
+        .o_bi_tb_col_balance_fin { width: 120px; min-width: 90px; }
+        .o_bi_tb_col_debit,
+        .o_bi_tb_col_credit { width: 110px; min-width: 80px; }
+
+        .o_bi_date_row th {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            padding: 0.4rem 0.5rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .o_bi_subheader th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+
+        .o_bi_tb_group_row {
+            font-weight: 600;
+
+            td {
+                padding: 0.4rem 0.5rem;
+            }
+
+            .fa {
+                color: #6c757d;
+            }
+
+            &.o_bi_row_unfolded {
+                font-weight: 700;
+            }
+        }
+
+        .o_bi_tb_account_row td {
+            font-weight: 400;
+        }
+
+        .o_bi_tb_cell_account {
+            .o_bi_tb_caret_placeholder {
+                display: inline-block;
+                width: 1rem;
+                margin-right: 0.25rem;
+            }
+        }
+
+        .o_bi_tb_group_total_row {
+            background-color: #f8f9fa;
+            font-weight: 700;
+
+            td {
+                padding: 0.4rem 0.5rem;
+            }
+        }
+
+        .o_bi_tb_total_row {
+            border-top: 1px solid #dee2e6;
+            background-color: #fff;
+
+            td {
+                padding: 0.5rem 0.4rem;
+                font-weight: 700;
+            }
+        }
+    }
+
+    .bi_report_table_profit_loss {
+        table-layout: auto;
+        width: 100%;
+
+        .o_bi_pl_col_caret { width: 24px; min-width: 24px; }
+        .o_bi_pl_col_account { width: auto; min-width: 320px; }
+        .o_bi_pl_col_balance { width: 140px; min-width: 100px; }
+        .o_bi_pl_col_info { width: 96px; min-width: 96px; }
+
+        .o_bi_pl_caret,
+        .o_bi_th_caret,
+        .o_bi_pl_info_col,
+        .o_bi_th_info { text-align: center; vertical-align: middle; }
+        .o_bi_th_info { width: 96px; }
+        .o_bi_pl_info_col {
+            white-space: nowrap;
+            text-align: end;
+            padding-right: 0.4rem;
+            line-height: 1;
+
+            .btn { padding: 0 0.25rem; line-height: 1; vertical-align: middle; }
+        }
+        .o_bi_pl_info_icon { font-size: 0.8rem; opacity: 0.6; }
+
+        .o_bi_pl_group_row {
+            font-weight: 600;
+
+            td {
+                padding: 0.35rem 0.5rem;
+            }
+        }
+
+        .o_bi_pl_group_total_row td {
+            background-color: #f8f9fa;
+            font-weight: 700;
+            padding: 0.35rem 0.5rem;
+        }
+
+        .o_bi_pl_col_percent { width: 80px; min-width: 70px; }
+
+        .o_bi_pl_section_row td,
+        .o_bi_pl_account_row td { padding: 0.35rem 0.5rem; }
+
+        .o_bi_pl_section_row {
+            .o_bi_pl_section_label {
+                font-weight: 600;
+            }
+
+            td:nth-child(3),
+            td:nth-child(4) {
+                font-weight: 600;
+            }
+
+            &.o_bi_row_unfolded .o_bi_pl_section_label {
+                font-weight: 700;
+            }
+        }
+
+        .o_bi_pl_account_row td {
+            font-weight: 400;
+        }
+
+        .o_bi_pl_account_row:hover td,
+        .o_bi_bs_account_row:hover td {
+            background-color: #f0f2f5 !important;
+        }
+
+        .o_bi_auditable {
+            cursor: pointer;
+
+            &:hover {
+                color: #017e84 !important;
+            }
+
+            &.text-danger:hover {
+                color: #c0392b !important;
+            }
+        }
+
+        .o_bi_pl_info_col,
+        .o_bi_bs_info_col {
+            .o_bi_row_actions {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.15rem;
+                margin-right: 0.25rem;
+            }
+
+            .o_bi_btn_action {
+                opacity: 0;
+                background-color: #fff;
+                color: #6c757d;
+                border: 1px solid #dee2e6;
+                border-radius: 0.25rem;
+                padding: 0 0.35rem !important;
+                font-size: 0.75rem;
+                line-height: 1.5;
+                white-space: nowrap;
+                transition: opacity 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+
+                &:hover {
+                    color: #017e84 !important;
+                    border-color: #017e84;
+                }
+            }
+
+            .o_bi_btn_annotation {
+                opacity: 0;
+                border: 0;
+                background: transparent;
+                color: #adb5bd;
+                padding: 0 !important;
+                line-height: 1;
+                transition: opacity 0.15s ease, color 0.15s ease;
+
+                &:hover {
+                    color: #017e84 !important;
+                }
+            }
+        }
+
+        tr.o_bi_pl_account_row:hover,
+        tr.o_bi_bs_account_row:hover {
+            .o_bi_btn_action,
+            .o_bi_btn_annotation {
+                opacity: 1;
+            }
+
+            .o_bi_auditable {
+                color: #017e84 !important;
+
+                &.text-danger {
+                    color: #c0392b !important;
+                }
+            }
+        }
+
+        .o_bi_pl_section_row td:nth-child(2),
+        .o_bi_pl_account_row td:nth-child(2),
+        .o_bi_pl_subtotal_row td:nth-child(2) {
+            white-space: nowrap;
+            overflow: visible;
+        }
+        .o_bi_pl_subtotal_row td {
+            background-color: #e9ecef;
+            font-weight: 700;
+            padding: 0.45rem 0.5rem;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .o_bi_date_row th.o_bi_th_period {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            padding: 0.4rem 0.5rem;
+            text-align: center;
+            font-weight: 700;
+        }
+        .o_bi_subheader th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+    }
+
+    .o_bi_bs_horizontal_split {
+        .col-lg-6 {
+            min-width: 0;
+        }
+    }
+
+    .bi_report_table_balance_sheet {
+        table-layout: auto;
+        width: 100%;
+
+        &.o_bi_bs_split_table {
+            margin-bottom: 0;
+        }
+
+        .o_bi_bs_col_caret { width: 24px; min-width: 24px; }
+        .o_bi_bs_col_account { width: auto; min-width: 320px; }
+        .o_bi_bs_col_balance { width: 140px; min-width: 100px; }
+        .o_bi_bs_col_info { width: 96px; min-width: 96px; }
+
+        .o_bi_bs_caret,
+        .o_bi_th_caret,
+        .o_bi_bs_info_col,
+        .o_bi_th_info { text-align: center; vertical-align: middle; }
+        .o_bi_th_info { width: 96px; }
+        .o_bi_bs_info_col {
+            white-space: nowrap;
+            text-align: end;
+            padding-right: 0.4rem;
+            line-height: 1;
+
+            .btn { padding: 0 0.25rem; line-height: 1; vertical-align: middle; }
+        }
+        .o_bi_bs_info_icon { font-size: 0.8rem; opacity: 0.6; }
+
+        .o_bi_bs_group_row {
+            font-weight: 600;
+        }
+
+        .o_bi_bs_col_percent { width: 80px; min-width: 70px; }
+
+        .o_bi_bs_main_header td {
+            background-color: #e9ecef;
+            font-weight: 700;
+            padding: 0.5rem 0.5rem;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .o_bi_bs_section_row {
+            .o_bi_bs_section_label {
+                font-weight: 600;
+            }
+
+            td:nth-child(3),
+            td:nth-child(4) {
+                font-weight: 600;
+            }
+
+            &.o_bi_row_unfolded .o_bi_bs_section_label {
+                font-weight: 700;
+            }
+        }
+
+        .o_bi_bs_account_row td {
+            font-weight: 400;
+        }
+
+        .o_bi_bs_account_row:hover td {
+            background-color: #f0f2f5 !important;
+        }
+
+        .o_bi_bs_section_row td,
+        .o_bi_bs_account_row td { padding: 0.35rem 0.5rem; }
+
+        .o_bi_bs_account_row td:nth-child(2),
+        .o_bi_bs_section_row td:nth-child(2),
+        .o_bi_bs_subtotal_row td:nth-child(2),
+        .o_bi_bs_main_header td:nth-child(2),
+        .o_bi_bs_main_total td:nth-child(2) {
+            white-space: nowrap;
+            overflow: visible;
+        }
+
+        .o_bi_bs_subtotal_row td {
+            font-weight: 700;
+            padding: 0.35rem 0.5rem;
+            padding-left: 1.5rem;
+        }
+
+        .o_bi_bs_main_total td {
+            background-color: #e9ecef;
+            font-weight: 700;
+            padding: 0.45rem 0.5rem;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .o_bi_date_row th.o_bi_th_period {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            padding: 0.4rem 0.5rem;
+            text-align: center;
+            font-weight: 700;
+        }
+        .o_bi_subheader th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+    }
+
+    .bi_report_table_tax_report,
+    .bi_report_table_tax_return {
+        table-layout: auto;
+        width: 100%;
+
+        .o_bi_tx_col_caret { width: 24px; min-width: 24px; }
+        .o_bi_tx_col_account { width: auto; min-width: 280px; }
+        .o_bi_tx_col_balance { width: 160px; min-width: 120px; }
+
+        .o_bi_bs_main_header td,
+        .o_bi_bs_main_total td {
+            background-color: #e9ecef;
+            font-weight: 700;
+            padding: 0.45rem 0.5rem;
+            border-top: 1px solid #dee2e6;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .o_bi_bs_section_row td,
+        .o_bi_bs_account_row td { padding: 0.35rem 0.5rem; }
+        .o_bi_bs_account_row td { color: #495057; }
+
+        .o_bi_date_row th.o_bi_th_period {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            padding: 0.4rem 0.5rem;
+            text-align: center;
+            font-weight: 700;
+        }
+        .o_bi_subheader th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+    }
+
+    .bi_report_table_cash_flow {
+        table-layout: auto;
+        width: 100%;
+
+        .o_bi_bs_col_caret { width: 24px; min-width: 24px; }
+        .o_bi_bs_col_account { width: auto; min-width: 320px; }
+        .o_bi_bs_col_balance { width: 160px; min-width: 120px; }
+        .o_bi_bs_col_info { width: 96px; min-width: 96px; }
+
+        .o_bi_bs_caret,
+        .o_bi_th_caret,
+        .o_bi_bs_info_col,
+        .o_bi_th_info { text-align: center; vertical-align: middle; }
+        .o_bi_th_info { width: 96px; }
+        .o_bi_bs_info_col {
+            white-space: nowrap;
+            text-align: end;
+            padding-right: 0.4rem;
+            line-height: 1;
+
+            .btn { padding: 0 0.25rem; line-height: 1; vertical-align: middle; }
+        }
+        .o_bi_bs_info_icon { font-size: 0.8rem; opacity: 0.6; }
+
+        // Filas resumen (saldo inicial, incremento neto, saldo de cierre)
+        // y diferencia no explicada: fondo gris destacado.
+        .o_bi_bs_main_header td,
+        .o_bi_bs_main_total td {
+            background-color: #e9ecef;
+            font-weight: 700;
+            padding: 0.5rem 0.5rem;
+            border-top: 1px solid #dee2e6;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        // Secciones (Operativas, Inversión, Financiamiento, No clasificadas)
+        .o_bi_bs_section_row td {
+            padding: 0.4rem 0.5rem;
+            border-top: 1px solid #f1f3f5;
+            font-weight: 600;
+        }
+
+        .o_bi_bs_account_row td {
+            padding: 0.3rem 0.5rem;
+            color: #495057;
+        }
+
+        .o_bi_bs_account_row td:nth-child(2),
+        .o_bi_bs_section_row td:nth-child(2),
+        .o_bi_bs_main_header td:nth-child(2),
+        .o_bi_bs_main_total td:nth-child(2) {
+            white-space: nowrap;
+            overflow: visible;
+        }
+
+        .o_bi_date_row th.o_bi_th_period {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            padding: 0.4rem 0.5rem;
+            text-align: center;
+            font-weight: 700;
+        }
+        .o_bi_subheader th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+    }
+}
+
+.o_bi_analytic_filter_row {
+    min-width: 320px;
+
+    label {
+        white-space: nowrap;
+        font-weight: 500;
+        color: #495057;
+        min-width: 60px;
+    }
+
+    .o_multi_record_selector,
+    .o_record_selector,
+    input.o_input {
+        flex: 1 1 auto;
+        min-width: 200px;
+    }
+}
+
+.o_bi_info_btn {
+    border: 0;
+    background: transparent;
+    line-height: 1;
+    cursor: pointer;
+    color: #6c757d;
+
+    &:hover {
+        color: #0d6efd;
+    }
+
+    .fa-info-circle {
+        font-size: 0.85rem;
+        opacity: 0.7;
+    }
+
+    &:hover .fa-info-circle {
+        opacity: 1;
+    }
+}
+
+.o_bi_info_popover {
+    padding: 0.5rem 0.75rem;
+    min-width: 260px;
+    max-width: 360px;
+    font-size: 0.85rem;
+
+    .o_bi_info_popover_table {
+        width: 100%;
+        border-collapse: collapse;
+
+        td {
+            padding: 0.2rem 0.4rem;
+            vertical-align: top;
+        }
+
+        .o_bi_info_popover_label {
+            color: #6c757d;
+            white-space: nowrap;
+            font-weight: 500;
+            width: 80px;
+        }
+
+        .o_bi_info_popover_value {
+            color: #212529;
+            word-break: break-word;
+        }
+
+        .o_bi_info_popover_formula {
+            color: #c0392b;
+            font-family: ui-monospace, "Cascadia Mono", "SF Mono", Menlo, Consolas, monospace;
+            word-break: break-word;
+        }
+    }
+}
+
+// Analytic-accounts-as-columns matrix (P&L / Balance Sheet / Trial Balance).
+.o_bi_analytic_matrix {
+    th.o_bi_th_period {
+        min-width: 8.5rem;
+    }
+
+    // Keep the account label column readable and pinned while scrolling wide
+    // analytic matrices horizontally.
+    td:nth-child(2),
+    th:nth-child(2) {
+        position: sticky;
+        left: 0;
+        z-index: 1;
+        background-color: inherit;
+        min-width: 16rem;
+    }
+
+    thead th:nth-child(2) {
+        background-color: #f8f9fa;
+    }
+
+    // The "Total" column is the last analytic column: emphasise it slightly.
+    td:last-child,
+    th:last-child {
+        border-left: 1px solid rgba(0, 0, 0, 0.08);
+        font-weight: 600;
+    }
+}

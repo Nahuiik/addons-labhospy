@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form_due" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.due.alerts</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app string="Alertas de Pago" name="gn_invoice_due_alerts"
+                     groups="gn_invoice_due_alerts.group_invoice_due_alert_manager">
+                    <block title="Alertas de vencimiento de facturas">
+                        <setting string="Activar alertas automáticas"
+                                 help="Envía correos y notificaciones emergentes mediante una tarea programada diaria.">
+                            <field name="due_alert_enabled"/>
+                        </setting>
+                        <setting string="Días de anticipación"
+                                 invisible="not due_alert_enabled">
+                            <field name="due_alert_days_before"/>
+                        </setting>
+                        <setting string="Incluir facturas vencidas"
+                                 invisible="not due_alert_enabled">
+                            <field name="due_alert_include_overdue"/>
+                        </setting>
+                        <setting string="Notificación emergente persistente"
+                                 invisible="not due_alert_enabled">
+                            <field name="due_alert_popup_sticky"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_invoice_due_settings" model="ir.actions.act_window">
+        <field name="name">Configuración de Alertas de Pago</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+        <field name="context">{'module': 'gn_invoice_due_alerts'}</field>
+    </record>
+
+</odoo>

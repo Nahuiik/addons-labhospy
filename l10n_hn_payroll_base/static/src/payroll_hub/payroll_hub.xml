@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="l10n_hn_payroll_base.PayrollHub">
+        <div class="o_payroll_hub o_action d-flex flex-column h-100">
+            <div class="o_payroll_hub_header px-4 pt-4 pb-2 flex-shrink-0">
+                <div class="o_hn_payroll_section_label" t-esc="state.sectionTitle || ''"/>
+            </div>
+            <div class="o_payroll_hub_body flex-grow-1 overflow-auto px-4 pb-5 pt-2">
+                <t t-if="state.loading">
+                    <div class="o_hn_payroll_muted small" t-esc="loadingLabel"/>
+                </t>
+                <t t-elif="state.error">
+                    <div class="alert alert-warning" role="alert">
+                        <t t-esc="errorLabel"/>
+                    </div>
+                </t>
+                <t t-elif="!state.items.length">
+                    <div class="o_hn_payroll_muted small" t-esc="emptyLabel"/>
+                </t>
+                <t t-else="">
+                    <div class="o_hn_payroll_card_stack d-flex flex-column gap-3">
+                        <t t-foreach="state.items" t-as="item" t-key="item.key">
+                            <div
+                                t-attf-class="o_hn_payroll_card o_hn_payroll_card--#{item.accent} #{item.variant === 'emphasis' ? 'o_hn_payroll_card--emphasis' : ''} d-flex flex-wrap align-items-stretch gap-3 p-3 rounded-3">
+                                <div class="o_hn_payroll_card_body flex-grow-1 pe-md-3 min-w-0">
+                                    <div class="o_hn_payroll_card_title fw-semibold" t-esc="item.title"/>
+                                    <t t-if="item.subtitle">
+                                        <div class="o_hn_payroll_card_subtitle small mt-2" t-esc="item.subtitle"/>
+                                    </t>
+                                </div>
+                                <div class="o_hn_payroll_card_action align-self-center flex-shrink-0">
+                                    <button type="button"
+                                            t-attf-class="btn btn-sm o_hn_payroll_cta #{item.variant === 'emphasis' ? 'o_hn_payroll_cta--solid' : 'o_hn_payroll_cta--outline'}"
+                                            t-on-click="() => this.openItem(item.action)">
+                                        <t t-esc="item.button_label"/>
+                                    </button>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </t>
+            </div>
+        </div>
+    </t>
+</templates>

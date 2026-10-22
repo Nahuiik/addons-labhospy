@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_powerbi_alert_tree" model="ir.ui.view">
+        <field name="name">powerbi.alert.tree</field>
+        <field name="model">powerbi.alert</field>
+        <field name="arch" type="xml">
+            <list string="Alertas Power BI">
+                <field name="date"/>
+                <field name="name"/>
+                <field name="alert_type"/>
+                <field name="table_id"/>
+                <field name="resolved" widget="boolean_toggle"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_powerbi_alert_form" model="ir.ui.view">
+        <field name="name">powerbi.alert.form</field>
+        <field name="model">powerbi.alert</field>
+        <field name="arch" type="xml">
+            <form string="Alerta Power BI">
+                <header>
+                    <button name="action_resolve" string="Marcar como Resuelta" type="object" invisible="resolved"/>
+                    <button name="action_notify" string="Enviar Notificación" type="object"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="alert_type"/>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                            <field name="table_id"/>
+                            <field name="dataset_id"/>
+                            <field name="resolved" widget="boolean_toggle"/>
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                    </group>
+                    <field name="message" nolabel="1"/>
+                    <group>
+                        <group>
+                            <field name="notification_method"/>
+                        </group>
+                        <group>
+                            <field name="user_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_powerbi_alert" model="ir.actions.act_window">
+        <field name="name">Alertas Power BI</field>
+        <field name="res_model">powerbi.alert</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('resolved', '=', False)]</field>
+    </record>
+</odoo>
+

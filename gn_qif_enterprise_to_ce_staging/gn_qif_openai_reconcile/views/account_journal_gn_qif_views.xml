@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_journal_form_gn_qif" model="ir.ui.view">
+        <field name="name">account.journal.form.gn.qif</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="arch" type="xml">
+            <field name="bank_account_id" position="after">
+                <field name="qif_date_format" groups="account.group_account_user"
+                       invisible="type not in ('bank', 'cash')"/>
+                <field name="qif_decimal_point" groups="account.group_account_user"
+                       invisible="type not in ('bank', 'cash')"/>
+            </field>
+        </field>
+    </record>
+</odoo>

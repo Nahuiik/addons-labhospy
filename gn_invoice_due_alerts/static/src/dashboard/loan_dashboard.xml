@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_invoice_due_alerts.LoanDashboard">
+        <div class="o_gn_dashboard_root o_gn_loan">
+            <div class="o_gn_loan_header">
+                <div>
+                    <h2 class="o_gn_loan_title">Control de Prestamos Bancarios</h2>
+                    <p class="o_gn_loan_sub">Vencimientos de cuotas mensuales</p>
+                </div>
+                <div class="o_gn_loan_header_right">
+                    <span class="o_gn_loan_cutoff">
+                        <i class="fa fa-calendar mr-1"/>
+                        Fecha de corte: <strong t-esc="state.data ? state.data.today : ''"/>
+                    </span>
+                    <button t-if="state.data and state.data.can_manage"
+                            class="btn btn-primary btn-sm ml-2" t-on-click="newLoan">
+                        <i class="fa fa-plus"/> Nuevo prestamo
+                    </button>
+                    <button class="btn btn-secondary btn-sm ml-2" t-on-click="onReload">
+                        <i class="fa fa-refresh"/> Actualizar
+                    </button>
+                </div>
+            </div>
+
+            <div t-if="state.loading" class="o_gn_loan_msg">
+                <i class="fa fa-spinner fa-spin mr-2"/>Cargando...
+            </div>
+            <div t-if="state.error" class="o_gn_loan_msg text-danger">
+                <t t-esc="state.error"/>
+            </div>
+
+            <t t-if="!state.loading and !state.error and state.data">
+                <div class="o_gn_kpi_scroll">
+                <div class="o_gn_loan_kpis">
+                    <t t-foreach="cardOrder" t-as="key" t-key="key">
+                        <div t-attf-class="o_gn_kpi_card o_gn_kpi_{{ key }}"
+                             t-att-title="cardHelp(key)"
+                             t-on-click="() => this.onCardClick(key)">
+                            <div class="o_gn_kpi_icon">
+                                <i class="fa" t-attf-class="{{ cardIcon(key) }}"/>
+                            </div>
+                            <div class="o_gn_kpi_body">
+                                <div class="o_gn_kpi_label">
+                                    <t t-esc="state.data.cards[key].label"/>
+                                    <i class="fa fa-question-circle-o o_gn_kpi_help ml-1"
+                                       t-att-title="cardHelp(key)"/>
+                                </div>
+                                <div class="o_gn_kpi_count">
+                                    <t t-esc="state.data.cards[key].count"/> prestamos
+                                </div>
+                                <div class="o_gn_kpi_amount">
+                                    <t t-esc="state.data.cards[key].total_str"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+                </div>
+
+                <div class="o_gn_loan_summary row mb-3">
+                    <div class="col-md-4">
+                        <div class="o_gn_loan_stat_box">
+                            <span>Cuota mensual total</span>
+                            <strong t-esc="state.data.footer.grand_fee_str"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="o_gn_loan_stat_box">
+                            <span>Saldo total prestamos</span>
+                            <strong t-esc="state.data.footer.grand_balance_str"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="o_gn_loan_stat_box o_gn_loan_stat_warn">
+                            <span>Cuotas vencidas</span>
+                            <strong>
+                                <t t-esc="state.data.footer.overdue_count"/> —
+                                <t t-esc="state.data.footer.overdue_total_str"/>
+                            </strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div t-attf-class="o_gn_due_today_text {{ state.data.due_today.count ? 'o_gn_due_today_alert' : 'o_gn_due_today_ok' }}">
+                    <h4>
+                        <i class="fa fa-bell mr-1"/>
+                        Cuotas que vencen hoy
+                    </h4>
+                    <pre class="o_gn_due_today_pre" t-esc="state.data.due_today.text"/>
+                </div>
+
+                <div class="o_gn_loan_panel">
+                    <div class="o_gn_loan_panel_head">
+                        <h3>Detalle por banco</h3>
+                        <div class="o_gn_loan_filters">
+                            <button t-attf-class="btn btn-sm {{ state.filter === 'all' ? 'btn-primary' : 'btn-light' }}"
+                                    t-on-click="() => this.setFilter('all')">Todos</button>
+                            <button t-attf-class="btn btn-sm {{ state.filter === 'overdue' ? 'btn-danger' : 'btn-light' }}"
+                                    t-on-click="() => this.setFilter('overdue')">Vencidas</button>
+                            <button t-attf-class="btn btn-sm {{ state.filter === 'today' ? 'btn-warning' : 'btn-light' }}"
+                                    t-on-click="() => this.setFilter('today')">Hoy</button>
+                            <button t-attf-class="btn btn-sm {{ state.filter === 'due_1_7' ? 'btn-warning' : 'btn-light' }}"
+                                    t-on-click="() => this.setFilter('due_1_7')">1-7 dias</button>
+                            <button t-attf-class="btn btn-sm {{ state.filter === 'paid' ? 'btn-success' : 'btn-light' }}"
+                                    t-on-click="() => this.setFilter('paid')">Pagadas</button>
+                        </div>
+                    </div>
+                    <div class="o_gn_table_wrap">
+                        <table class="table table-sm table-hover o_gn_loan_table">
+                            <thead>
+                                <tr>
+                                    <th>Banco</th>
+                                    <th>No. Prestamo</th>
+                                    <th>Destino</th>
+                                    <th class="text-center">Dia cuota</th>
+                                    <th class="text-center">Prox. vencimiento</th>
+                                    <th class="text-center">Dias</th>
+                                    <th class="text-right">Cuota</th>
+                                    <th class="text-right">Saldo</th>
+                                    <th class="text-center">Estatus</th>
+                                    <th class="text-center">Semaforo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="groupedBanks" t-as="grp" t-key="grp.id">
+                                    <tr class="o_gn_group_header"
+                                        t-on-click="(ev) => this.toggleGroup(grp.id, ev)">
+                                        <td colspan="6">
+                                            <i t-attf-class="fa mr-2 {{ isGroupOpen(grp.id) ? 'fa-chevron-down' : 'fa-chevron-right' }}"/>
+                                            <strong t-esc="grp.name"/>
+                                            <span class="text-muted ml-2">
+                                                (<t t-esc="grp.count"/> prestamos)
+                                            </span>
+                                        </td>
+                                        <td class="text-right"><strong t-esc="grp.total_str"/></td>
+                                        <td colspan="3"/>
+                                    </tr>
+                                    <t t-if="isGroupOpen(grp.id)">
+                                        <t t-foreach="grp.lines" t-as="line" t-key="line.id">
+                                            <tr class="o_gn_loan_row" t-on-click="(ev) => this.openLoan(line.id, ev)">
+                                                <td t-esc="line.bank"/>
+                                                <td><a href="#" t-on-click.stop="(ev) => this.openLoan(line.id, ev)">
+                                                    <t t-esc="line.loan_number"/></a></td>
+                                                <td t-esc="line.purpose"/>
+                                                <td class="text-center" t-esc="line.payment_day"/>
+                                                <td class="text-center" t-esc="line.next_due_date"/>
+                                                <td class="text-center" t-esc="line.days"/>
+                                                <td class="text-right" t-esc="line.monthly_fee_str"/>
+                                                <td class="text-right" t-esc="line.balance_str"/>
+                                                <td class="text-center" t-esc="line.status"/>
+                                                <td class="text-center">
+                                                    <span t-attf-class="o_gn_loan_dot {{ bucketClass(line.bucket) }}"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="text-muted small mt-2">
+                        <i class="fa fa-info-circle mr-1"/>
+                        Los pagos de cuotas se registran en Bancos → Debitos, vinculando el prestamo correspondiente.
+                    </p>
+                </div>
+            </t>
+        </div>
+    </t>
+
+</templates>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="sale_receipt_report_action" model="ir.actions.report">
+            <field name="name">Recibo de venta</field>
+            <field name="model">sale.receipt</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">gn_sale_receipt.report_sale_receipt</field>
+            <field name="report_file">gn_sale_receipt.report_sale_receipt</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Formulario jefe: solicitar ausencia por subalterno directo (hr.employee.child_ids) -->
+    <template id="portal_team_leaves_new" name="Solicitar ausencia por colaborador">
+        <t t-call="portal.portal_layout">
+            <div class="container mt-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h1 class="mb-0">Solicitar ausencia por colaborador</h1>
+                    <a href="/my/team/leaves" class="btn btn-link">Volver al equipo</a>
+                </div>
+                <t t-if="manager_employee">
+                    <p class="text-muted mb-3">Solicitante (jefe): <strong t-esc="manager_employee.name"/></p>
+                </t>
+                <t t-if="not employee.hn_vacation_requests_allowed">
+                    <div class="alert alert-info">
+                        El colaborador <strong t-esc="employee.name"/> no puede solicitar vacaciones (tipo principal)
+                        desde su propio acceso al portal; como jefe puede registrar aquí esa solicitud en su nombre.
+                    </div>
+                </t>
+                <div id="team_leave_restrictions_alert" class="alert d-none mb-3" role="alert"></div>
+                <div class="row">
+                    <div class="col-lg-7">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <form method="post" action="/my/team/leaves/new" id="portal_team_leave_form" enctype="multipart/form-data">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <div class="mb-3">
+                                        <label class="form-label">Colaborador</label>
+                                        <select name="target_employee_id" id="team_target_employee" class="form-select" required="1"
+                                                t-attf-onchange="window.location.href='/my/team/leaves/new?employee_id='+this.value">
+                                            <t t-foreach="subordinates" t-as="sub">
+                                                <option t-att-value="sub.id" t-att-selected="'selected' if sub.id == employee.id else None" t-esc="sub.name"/>
+                                            </t>
+                                        </select>
+                                        <small class="text-muted">Si cambia de colaborador, se actualiza el saldo indicado a la derecha.</small>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Tipo de ausencia</label>
+                                        <select name="holiday_status_id" id="team_leave_type_select" class="form-select" required="1">
+                                            <option value="">-- Seleccione --</option>
+                                            <t t-foreach="leave_types" t-as="lt">
+                                                <option t-att-value="lt.id" t-att-data-request-unit="lt.request_unit" t-esc="lt.name"/>
+                                            </t>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Fecha inicio</label>
+                                        <input type="date" name="request_date_from" id="team_request_date_from" class="form-control" required="1"/>
+                                    </div>
+                                    <div id="team_leave_section_date_to" class="mb-3">
+                                        <label class="form-label">Fecha fin</label>
+                                        <input type="date" name="request_date_to" id="team_request_date_to" class="form-control" placeholder="dd/mm/aaaa"/>
+                                        <small class="text-muted">Déjelo vacío si es un solo día.</small>
+                                    </div>
+                                    <div id="team_leave_section_hour_multi" class="leave_section mb-3" style="display:none;">
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="team_leave_multi_day" name="leave_multi_day"/>
+                                            <label class="form-check-label" for="team_leave_multi_day">Solicitar por varios días</label>
+                                        </div>
+                                    </div>
+                                    <div id="team_leave_section_half_day" class="leave_section mb-3" style="display:none;">
+                                        <div class="mb-3">
+                                            <label class="form-label">Período inicio</label>
+                                            <select name="request_date_from_period" class="form-select">
+                                                <option value="am">Mañana</option>
+                                                <option value="pm">Tarde</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Período fin</label>
+                                            <select name="request_date_to_period" class="form-select">
+                                                <option value="am">Mañana</option>
+                                                <option value="pm">Tarde</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div id="team_leave_section_hour" class="leave_section mb-3" style="display:none;">
+                                        <div class="mb-3">
+                                            <label class="form-label">Hora desde</label>
+                                            <select name="request_hour_from" class="form-select">
+                                                <option value="">-- Seleccione --</option>
+                                                <t t-foreach="calendar_hours" t-as="h">
+                                                    <option t-att-value="h" t-esc="str(h) + ':00'"/>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Hora hasta</label>
+                                            <select name="request_hour_to" class="form-select">
+                                                <option value="">-- Seleccione --</option>
+                                                <t t-foreach="calendar_hours" t-as="h">
+                                                    <option t-att-value="h" t-esc="str(h) + ':00'"/>
+                                                </t>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Motivo (opcional)</label>
+                                        <textarea name="notes" class="form-control" rows="3" placeholder="Motivo de la solicitud..."/>
+                                    </div>
+                                    <t t-if="enable_leave_attachments">
+                                        <div class="mb-3">
+                                            <label class="form-label">Adjuntos (opcional)</label>
+                                            <input type="file" name="attachment" class="form-control" multiple="1" accept=".pdf,.jpg,.jpeg,.png,.gif"/>
+                                        </div>
+                                    </t>
+                                    <div class="mb-2">
+                                        <button type="button" id="team_btn_simulate" class="btn btn-outline-secondary btn-sm">Simular duración</button>
+                                        <span id="team_simulate_result" class="ms-2 small text-muted"></span>
+                                    </div>
+                                    <div class="d-flex gap-2 mt-3">
+                                        <a href="/my/team/leaves" class="btn btn-secondary">Cancelar</a>
+                                        <button type="submit" class="btn btn-info">Enviar solicitud</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <t t-if="leave_balance">
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h5 class="card-title mb-3">Saldo del colaborador (<span t-esc="employee.name"/>)</h5>
+                                    <p class="mb-2">
+                                        <strong>Disponibles:</strong> <span class="fs-4" t-esc="'%.2f' % leave_balance['totals']['disponibles']"/> días
+                                    </p>
+                                    <p class="text-muted small mb-3">
+                                        Puede solicitar hasta <strong t-esc="'%.2f' % leave_balance['totals']['solicitables']"/> días considerando pendientes.
+                                    </p>
+                                    <p class="text-muted small mb-3">
+                                        Cálculo en zona horaria <strong t-esc="user_tz"/>.
+                                    </p>
+                                    <h6 class="small text-uppercase text-muted mb-2">Límites por tipo</h6>
+                                    <ul class="list-unstyled mb-0">
+                                        <t t-foreach="leave_balance['type_limits']" t-as="tl">
+                                            <li class="d-flex justify-content-between py-1 border-bottom border-light">
+                                                <span t-esc="tl['name']"/>
+                                                <span t-esc="tl['limit']"/>
+                                            </li>
+                                        </t>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            <script>
+                (function() {
+                    var form = document.getElementById('portal_team_leave_form');
+                    var select = document.getElementById('team_leave_type_select');
+                    var dateToSection = document.getElementById('team_leave_section_date_to');
+                    var halfSection = document.getElementById('team_leave_section_half_day');
+                    var hourSection = document.getElementById('team_leave_section_hour');
+                    var hourMultiSection = document.getElementById('team_leave_section_hour_multi');
+                    var multiDayCheck = document.getElementById('team_leave_multi_day');
+                    var dateFrom = document.getElementById('team_request_date_from');
+                    var dateTo = document.getElementById('team_request_date_to');
+                    var hourFrom = document.querySelector('#team_leave_section_hour select[name="request_hour_from"]');
+                    var hourTo = document.querySelector('#team_leave_section_hour select[name="request_hour_to"]');
+                    var empSel = document.getElementById('team_target_employee');
+                    var restrictionsAlert = document.getElementById('team_leave_restrictions_alert');
+                    var restrictionTimer = null;
+
+                    function collectTeamLeaveParams() {
+                        var typeId = select.value;
+                        var fromVal = dateFrom.value;
+                        var toVal = dateTo.value;
+                        if (!empSel || !typeId || !fromVal) {
+                            return null;
+                        }
+                        if (document.getElementById('team_leave_section_hour').style.display !== 'none' &amp;&amp; !multiDayCheck.checked) {
+                            toVal = fromVal;
+                        }
+                        var params = {
+                            employee_id: parseInt(empSel.value, 10),
+                            holiday_status_id: parseInt(typeId, 10),
+                            request_date_from: fromVal,
+                            request_date_to: toVal || fromVal
+                        };
+                        var unit = select.options[select.selectedIndex].getAttribute('data-request-unit');
+                        if (unit === 'half_day') {
+                            params.request_date_from_period = document.querySelector('#portal_team_leave_form select[name="request_date_from_period"]').value;
+                            params.request_date_to_period = document.querySelector('#portal_team_leave_form select[name="request_date_to_period"]').value;
+                        } else if (unit === 'hour' &amp;&amp; hourFrom &amp;&amp; hourTo) {
+                            params.request_hour_from = hourFrom.value ? hourFrom.value + ':00' : '';
+                            params.request_hour_to = hourTo.value ? hourTo.value + ':00' : '';
+                        }
+                        return params;
+                    }
+
+                    function renderTeamRestrictionsAlert(blocking, warnings, errorStr) {
+                        if (!restrictionsAlert) return;
+                        restrictionsAlert.className = 'alert mb-3';
+                        restrictionsAlert.innerHTML = '';
+                        restrictionsAlert.classList.add('d-none');
+                        if (errorStr) {
+                            restrictionsAlert.classList.remove('d-none');
+                            restrictionsAlert.classList.add('alert-danger');
+                            restrictionsAlert.textContent = errorStr;
+                            return;
+                        }
+                        var msgs = [];
+                        if (blocking &amp;&amp; blocking.length) {
+                            restrictionsAlert.classList.remove('d-none');
+                            restrictionsAlert.classList.add('alert-danger');
+                            msgs = msgs.concat(blocking);
+                        } else if (warnings &amp;&amp; warnings.length) {
+                            restrictionsAlert.classList.remove('d-none');
+                            restrictionsAlert.classList.add('alert-warning');
+                            msgs = msgs.concat(warnings);
+                        }
+                        if (!msgs.length) return;
+                        var ul = document.createElement('ul');
+                        ul.className = 'mb-0 ps-3';
+                        msgs.forEach(function(t) {
+                            var li = document.createElement('li');
+                            li.textContent = t;
+                            ul.appendChild(li);
+                        });
+                        restrictionsAlert.appendChild(ul);
+                    }
+
+                    function runTeamRestrictionsCheck() {
+                        var params = collectTeamLeaveParams();
+                        if (!params) {
+                            renderTeamRestrictionsAlert([], [], null);
+                            return;
+                        }
+                        var csrf = document.querySelector('#portal_team_leave_form input[name="csrf_token"]');
+                        var headers = {'Content-Type': 'application/json'};
+                        if (csrf) headers['X-CSRF-TOKEN'] = csrf.value;
+                        fetch('/my/team/leaves/check_restrictions', {
+                            method: 'POST',
+                            headers: headers,
+                            body: JSON.stringify({
+                                jsonrpc: '2.0',
+                                method: 'call',
+                                params: params,
+                                id: 1
+                            })
+                        }).then(function(r) { return r.json(); }).then(function(resp) {
+                            var data = resp.result || resp;
+                            if (!data) {
+                                renderTeamRestrictionsAlert([], [], 'No se pudo validar la solicitud.');
+                                return;
+                            }
+                            if (data.error) {
+                                renderTeamRestrictionsAlert([], [], String(data.error));
+                                return;
+                            }
+                            renderTeamRestrictionsAlert(data.blocking || [], data.warnings || [], null);
+                        }).catch(function() {
+                            renderTeamRestrictionsAlert([], [], 'Error de red al validar.');
+                        });
+                    }
+
+                    function scheduleTeamRestrictionsCheck() {
+                        if (restrictionTimer) clearTimeout(restrictionTimer);
+                        restrictionTimer = setTimeout(runTeamRestrictionsCheck, 450);
+                    }
+
+                    function updateSections() {
+                        var opt = select.options[select.selectedIndex];
+                        var unit = opt ? (opt.getAttribute('data-request-unit') || 'day') : 'day';
+                        var isHour = (unit === 'hour');
+                        var isHalfDay = (unit === 'half_day');
+
+                        halfSection.style.display = isHalfDay ? 'block' : 'none';
+                        hourSection.style.display = isHour ? 'block' : 'none';
+                        hourMultiSection.style.display = isHour ? 'block' : 'none';
+
+                        if (isHour) {
+                            dateToSection.style.display = multiDayCheck.checked ? 'block' : 'none';
+                            dateTo.required = multiDayCheck.checked;
+                            if (!multiDayCheck.checked) dateTo.value = dateFrom.value;
+                        } else {
+                            dateToSection.style.display = 'block';
+                            dateTo.required = false;
+                        }
+                        if (hourFrom) hourFrom.required = isHour;
+                        if (hourTo) hourTo.required = isHour;
+                        scheduleTeamRestrictionsCheck();
+                    }
+
+                    function onMultiDayChange() {
+                        dateToSection.style.display = multiDayCheck.checked ? 'block' : 'none';
+                        dateTo.required = multiDayCheck.checked;
+                        if (!multiDayCheck.checked) {
+                            dateTo.value = dateFrom.value;
+                        }
+                        scheduleTeamRestrictionsCheck();
+                    }
+
+                    form.addEventListener('submit', function() {
+                        if (document.getElementById('team_leave_section_hour').style.display !== 'none' &amp;&amp; !multiDayCheck.checked) {
+                            dateTo.value = dateFrom.value;
+                        }
+                        if (!dateTo.value &amp;&amp; dateFrom.value) {
+                            dateTo.value = dateFrom.value;
+                        }
+                    });
+
+                    select.addEventListener('change', updateSections);
+                    if (multiDayCheck) multiDayCheck.addEventListener('change', onMultiDayChange);
+                    if (dateFrom) dateFrom.addEventListener('change', function() {
+                        if (document.getElementById('team_leave_section_hour').style.display !== 'none' &amp;&amp; !multiDayCheck.checked) {
+                            dateTo.value = dateFrom.value;
+                        }
+                        scheduleTeamRestrictionsCheck();
+                    });
+                    if (dateTo) dateTo.addEventListener('change', scheduleTeamRestrictionsCheck);
+                    var halfSel = document.querySelectorAll('#team_leave_section_half_day select');
+                    if (halfSel.length) {
+                        halfSel.forEach(function(el) { el.addEventListener('change', scheduleTeamRestrictionsCheck); });
+                    }
+                    if (hourFrom) hourFrom.addEventListener('change', scheduleTeamRestrictionsCheck);
+                    if (hourTo) hourTo.addEventListener('change', scheduleTeamRestrictionsCheck);
+                    if (empSel) empSel.addEventListener('change', scheduleTeamRestrictionsCheck);
+
+                    if (select.value) updateSections();
+
+                    var btnSimulate = document.getElementById('team_btn_simulate');
+                    var resultSpan = document.getElementById('team_simulate_result');
+                    if (btnSimulate &amp;&amp; resultSpan &amp;&amp; empSel) {
+                        btnSimulate.addEventListener('click', function() {
+                            var params = collectTeamLeaveParams();
+                            if (!params) {
+                                resultSpan.textContent = 'Seleccione tipo y fecha desde.';
+                                return;
+                            }
+                            resultSpan.textContent = 'Calculando...';
+                            var csrf = document.querySelector('#portal_team_leave_form input[name="csrf_token"]');
+                            var headers = {'Content-Type': 'application/json'};
+                            if (csrf) headers['X-CSRF-TOKEN'] = csrf.value;
+                            var body = JSON.stringify({
+                                jsonrpc: '2.0',
+                                method: 'call',
+                                params: params,
+                                id: 1
+                            });
+                            fetch('/my/team/leaves/simulate', {
+                                method: 'POST',
+                                headers: headers,
+                                body: body
+                            }).then(function(r) { return r.json(); }).then(function(resp) {
+                                var data = resp.result || resp;
+                                if (data &amp;&amp; data.error) {
+                                    resultSpan.textContent = 'Error: ' + data.error;
+                                } else if (data) {
+                                    var txt = 'Días: ' + data.number_of_days + ' | Saldo disponible: ' + data.virtual_remaining_leaves;
+                                    if (data.number_of_hours &gt; 0) txt += ' | Horas: ' + data.number_of_hours;
+                                    resultSpan.textContent = txt;
+                                } else {
+                                    resultSpan.textContent = 'Error al simular.';
+                                }
+                            }).catch(function() {
+                                resultSpan.textContent = 'Error al simular.';
+                            });
+                        });
+                    }
+                })();
+            </script>
+            </div>
+        </t>
+    </template>
+</odoo>

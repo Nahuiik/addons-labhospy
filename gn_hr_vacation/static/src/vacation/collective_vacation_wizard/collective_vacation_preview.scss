@@ -1,0 +1,19 @@
+// Vista previa del wizard de vacaciones colectivas: tabla a ancho completo del modal
+.o_dialog_container .o_collective_vacation_preview {
+    grid-column: 1 / -1;
+    width: 100%;
+    max-width: 100%;
+
+    .o_inner_group {
+        width: 100%;
+    }
+
+    .o_field_widget {
+        width: 100%;
+    }
+
+    .o_x2many_list_view_controller,
+    .o_list_renderer {
+        width: 100%;
+    }
+}

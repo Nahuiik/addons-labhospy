@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_financial_dashboard.RankingTable">
+        <section class="gn-fd-panel">
+            <header class="gn-fd-panel__head">
+                <span>
+                    <i t-if="props.icon" t-att-class="'fa me-2 ' + props.icon"/>
+                    <t t-esc="props.title"/>
+                </span>
+                <button t-if="props.actionLabel" class="btn btn-sm btn-link"
+                        t-on-click="() => props.onAction and props.onAction()">
+                    <t t-esc="props.actionLabel"/>
+                </button>
+            </header>
+            <div t-if="!props.rows.length" class="gn-fd-ranking__empty">
+                <t t-esc="props.emptyText || 'Sin datos para el período.'"/>
+            </div>
+            <table t-else="" class="gn-fd-ranking">
+                <thead>
+                    <tr>
+                        <th t-foreach="props.headers" t-as="h" t-key="h_index"
+                            t-att-class="(h.align === 'end' ? 'text-end ' : '') + (h.sortKey ? 'gn-fd-ranking__sort' : '')"
+                            t-on-click="() => this.onHeaderClick(h)">
+                            <t t-esc="h.label"/>
+                            <i t-if="h.sortKey" t-att-class="'fa ms-1 ' + sortIcon(h)"/>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="props.rows" t-as="row" t-key="row.id"
+                        t-att-class="(props.onRowClick and row.clickable !== false) ? 'gn-fd-ranking__row--click' : ''"
+                        t-on-click="() => this.onRowClick(row)">
+                        <td t-foreach="row.cells" t-as="cell" t-key="cell_index"
+                            t-att-class="cell.cls || ''">
+                            <t t-esc="cell.text"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </t>
+
+</templates>

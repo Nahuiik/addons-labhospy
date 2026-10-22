@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_gn_purchase_command_center_root"
+              name="Command Center"
+              parent="purchase.menu_purchase_root"
+              sequence="2"/>
+
+    <menuitem id="menu_gn_purchase_command_center"
+              name="Dashboard de Compras"
+              parent="menu_gn_purchase_command_center_root"
+              action="action_gn_purchase_command_center"
+              sequence="1"
+              groups="gn_purchase_dashboard.group_purchase_dashboard_user"/>
+</odoo>

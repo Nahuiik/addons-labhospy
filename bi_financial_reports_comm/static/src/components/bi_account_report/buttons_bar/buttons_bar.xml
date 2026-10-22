@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="bi_financial_reports_comm.BiAccountReportButtonsBar">
+        <div class="d-flex gap-1 flex-shrink-0 align-items-center" t-if="showReportExportBar">
+            <button type="button" class="btn btn-primary btn-sm" t-if="canPrintPdf" t-on-click="printReport">
+                <i class="fa fa-file-pdf-o"/> <span t-esc="_t('PDF')"/>
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm" t-if="canExportXlsx" t-on-click="exportXls">
+                <i class="fa fa-file-excel-o"/> <span t-esc="_t('XLSX')"/>
+            </button>
+        </div>
+    </t>
+</templates>

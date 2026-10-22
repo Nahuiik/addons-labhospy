@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_gn_banks_balance_weekly_dashboard" model="ir.actions.client">
+        <field name="name">Balance semanal por banco</field>
+        <field name="tag">gn_banks_balance_weekly_dashboard</field>
+        <field name="path">banks-weekly-balance</field>
+    </record>
+
+    <menuitem id="menu_banks_weekly_balance_dashboard"
+              name="Balance semanal (interactivo)"
+              parent="gn_banks.menu_banks_reports"
+              action="action_gn_banks_balance_weekly_dashboard"
+              sequence="4"
+              groups="gn_banks.banks_debit_credit_user"/>
+
+</odoo>

@@ -1,0 +1,115 @@
+.report-table-container {
+    max-width: 85%;
+    margin: 0 auto;
+    height: calc(90vh - 90px);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.report-container{
+    max-height: 900px;
+}
+
+.report-table {
+    width: 100%;
+    font-size: 14px;
+    border-collapse: collapse;
+    table-layout: fixed;
+    border: 1px solid;
+    overflow-x: auto;
+}
+
+.report-table th,
+.report-table td {
+    text-align: center;
+    white-space: nowrap;
+}
+
+.data-communication {
+    padding: 10px;
+    text-align: center;
+    white-space: normal !important;
+}
+.report-table th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
+
+.account-row {
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+.account-row:hover {
+    background-color: #f1f1f1;
+}
+
+.wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.btn_foldable {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.name {
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.btn_journalentry {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 5px 10px;
+    cursor: pointer;
+    white-space: nowrap;
+    display: none;
+    
+}
+
+.btn_general_ledger {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 5px 10px;
+    cursor: pointer;
+    white-space: nowrap;
+    
+}
+
+.btn_viewpartner{
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 5px 10px;
+    cursor: pointer;
+    white-space: nowrap;
+    display: none;
+    margin-right :3px;
+}
+
+.toggle-row:hover .btn_journalentry {
+    display: inline-block;
+}
+.toggle-row:hover .btn_viewpartner{
+    display: inline-block;
+}
+
+.btn_entry {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 5px 10px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+

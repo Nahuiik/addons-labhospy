@@ -1,0 +1,23 @@
+// Colores heredados del navbar (como el systray del core de Odoo).
+// En modo oscuro/claro/automático Odoo recompila los assets con las variables del tema.
+.o_main_navbar .o_menu_systray .o_gn_bank_rate_systray {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 12px;
+    font-weight: 600;
+    color: var(--NavBar-entry-color, #{$o-navbar-entry-color});
+
+    .o_gn_bank_time,
+    .o_gn_bank_rate {
+        font-size: 16px;
+        color: inherit;
+    }
+}
+
+@media (max-width: 768px) {
+    .o_main_navbar .o_menu_systray .o_gn_bank_rate_systray {
+        font-size: 14px;
+        gap: 6px;
+    }
+}

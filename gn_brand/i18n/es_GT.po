@@ -1,0 +1,64 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* gn_brand
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-06 21:00:00\n"
+"PO-Revision-Date: 2026-01-06 21:00:00\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es_GT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: gn_brand
+#: model:ir.module.module,summary:gn_brand.__manifest__
+msgid "Campo personalizado para nombre en Systray"
+msgstr "Campo personalizado para nombre en Systray"
+
+#. module: gn_brand
+#: model:ir.module.module,description:gn_brand.__manifest__
+msgid ""
+"Campo personalizado para nombre en Systray\n"
+"==========================================\n"
+"\n"
+"Este módulo permite personalizar el texto que aparece en el systray (barra superior) mediante un campo personalizado en la configuración de la empresa.\n"
+"\n"
+"Características:\n"
+"----------------\n"
+"* Agrega un campo \"Nombre Systray\" en la configuración de la empresa\n"
+"* El texto ingresado en este campo se muestra en el systray en lugar del nombre de la empresa\n"
+"* Permite personalizar el texto visible en la barra superior\n"
+"* Compatible con todas las versiones de Odoo 19.0+"
+msgstr ""
+"Campo personalizado para nombre en Systray\n"
+"==========================================\n"
+"\n"
+"Este módulo permite personalizar el texto que aparece en el systray (barra superior) mediante un campo personalizado en la configuración de la empresa.\n"
+"\n"
+"Características:\n"
+"----------------\n"
+"* Agrega un campo \"Nombre Systray\" en la configuración de la empresa\n"
+"* El texto ingresado en este campo se muestra en el systray en lugar del nombre de la empresa\n"
+"* Permite personalizar el texto visible en la barra superior\n"
+"* Compatible con todas las versiones de Odoo 19.0+"
+
+#. module: gn_brand
+#: model:ir.model.fields,field_description:gn_brand.field_res_company__systray_name
+msgid "Nombre Systray"
+msgstr "Nombre Systray"
+
+#. module: gn_brand
+#: model:ir.model.fields,help:gn_brand.field_res_company__systray_name
+msgid "Texto personalizado que se mostrará en el systray (barra superior) en lugar del nombre de la empresa"
+msgstr "Texto personalizado que se mostrará en el systray (barra superior) en lugar del nombre de la empresa"
+
+#. module: gn_brand
+#: model_terms:ir.ui.view,arch_db:gn_brand.view_company_form_inherit_gn_brand
+msgid "Nombre para mostrar en el systray"
+msgstr "Nombre para mostrar en el systray"

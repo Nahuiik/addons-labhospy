@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sales_dashboard_target_user,sales.dashboard.target user,model_sales_dashboard_target,gn_sales_dashboard.group_sales_dashboard_user,1,0,0,0
+access_sales_dashboard_target_manager,sales.dashboard.target manager,model_sales_dashboard_target,gn_sales_dashboard.group_sales_dashboard_manager,1,1,1,0
+access_sales_dashboard_target_admin,sales.dashboard.target admin,model_sales_dashboard_target,gn_sales_dashboard.group_sales_dashboard_admin,1,1,1,1
+access_sales_dashboard_config_user,sales.dashboard.config user,model_sales_dashboard_config,gn_sales_dashboard.group_sales_dashboard_user,1,0,0,0
+access_sales_dashboard_config_admin,sales.dashboard.config admin,model_sales_dashboard_config,gn_sales_dashboard.group_sales_dashboard_admin,1,1,1,1

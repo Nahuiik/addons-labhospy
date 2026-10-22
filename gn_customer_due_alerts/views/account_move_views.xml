@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_customer_due_list" model="ir.ui.view">
+        <field name="name">account.move.customer.due.alert.list</field>
+        <field name="model">account.move</field>
+        <field name="arch" type="xml">
+            <list string="Facturas por cobrar"
+                  create="false"
+                  default_order="invoice_date_due asc"
+                  decoration-danger="gn_customer_due_status == 'overdue'"
+                  decoration-warning="gn_customer_due_status == 'today'"
+                  decoration-bf="gn_customer_due_status in ('today','soon')">
+                <field name="name" string="Factura de Cliente"/>
+                <field name="ref" string="Referencia" optional="hide"/>
+                <field name="state" column_invisible="1"/>
+                <field name="move_type" column_invisible="1"/>
+                <field name="partner_id"/>
+                <field name="invoice_date"/>
+                <field name="invoice_date_due"/>
+                <field name="gn_customer_days_to_due" string="Dias"/>
+                <field name="gn_customer_due_status" string="Estado"/>
+                <field name="amount_total" sum="Total"/>
+                <field name="amount_residual" sum="Saldo pendiente"/>
+                <field name="payment_state"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="currency_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_customer_due_search" model="ir.ui.view">
+        <field name="name">account.move.customer.due.alert.search</field>
+        <field name="model">account.move</field>
+        <field name="arch" type="xml">
+            <search string="Facturas por cobrar">
+                <field name="name" string="Factura de Cliente"/>
+                <field name="ref"/>
+                <field name="partner_id"/>
+                <filter name="overdue" string="Vencidas"
+                        domain="[('invoice_date_due','&lt;', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter name="due_today" string="Vencen hoy"
+                        domain="[('invoice_date_due','=', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter name="due_soon" string="Proximas (7 dias)"
+                        domain="[('invoice_date_due','&gt;', context_today().strftime('%Y-%m-%d')),
+                                 ('invoice_date_due','&lt;=', (context_today()+relativedelta(days=7)).strftime('%Y-%m-%d'))]"/>
+                <separator/>
+                <group>
+                    <filter name="group_partner" string="Cliente"
+                            context="{'group_by': 'partner_id'}"/>
+                    <filter name="group_due" string="Fecha de vencimiento"
+                            context="{'group_by': 'invoice_date_due'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_customer_due_list" model="ir.actions.act_window">
+        <field name="name">Facturas por cobrar (lista)</field>
+        <field name="res_model">account.move</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_customer_due_list"/>
+        <field name="search_view_id" ref="view_customer_due_search"/>
+        <field name="domain">[('move_type','in',('out_invoice','out_refund')),
+                             ('state','=','posted'),
+                             ('payment_state','in',('not_paid','partial')),
+                             ('amount_residual','&gt;',0)]</field>
+        <field name="context">{'search_default_overdue': 1}</field>
+    </record>
+
+</odoo>

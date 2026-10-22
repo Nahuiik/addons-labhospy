@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_account_report_form_branch_filter" model="ir.ui.view">
+        <field name="name">account.report.form.branch.filter</field>
+        <field name="model">account.report</field>
+        <field name="inherit_id" ref="account_reports.account_report_form"/>
+        <field name="arch" type="xml">
+            <field name="filter_partner" position="after">
+                <field name="filter_res_branch"/>
+            </field>
+        </field>
+    </record>
+</odoo>

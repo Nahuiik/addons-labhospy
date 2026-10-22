@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+	<template id="check_print">
+		<t t-call="web.basic_layout">
+			<t t-foreach="docs" t-as="o">
+				<div class="page">
+					<div class="oe_structure"/>
+
+					<style>
+						tr.box {
+						  width: 300px;
+						  padding: 25px;
+						  border: 0;
+						  margin: 25px;
+						}
+						.head {
+						  size : 40px;
+						}
+					</style>
+
+					<table style="width:100%; font-size:15px; border:0; padding:3px 0px 0px 0px; border-collapse: collapse;" border="0">
+
+						<tr>
+							<td style="width:100%;">
+								<t t-if="o.date">
+									<table style="width:100%; font-size:14px; padding:0px 0px 0px 0px; border-collapse: collapse;" border="0">
+										<tbody>
+											<tr>
+												<t t-if="o.date">
+													<td style="width:30%;"/>
+													<td style="width:25%;"/>
+													<td style="width:45%;">
+														<table style="width:100%; font-size:16px; border-collapse: collapse;" border="0">
+															<tbody>
+																<tr>
+																	<td style="width:30%;">
+																		<strong>
+																			<p class="text-left">Tegucigalpa</p>
+																		</strong>
+																	</td>
+																	<td style="width:10%;">
+																		<strong>
+																			<p class="text-left">
+																				<span t-field="o.date" t-field-options="{&quot;format&quot;: &quot;dd&quot;}"/>
+																			</p>
+																		</strong>
+																	</td>
+																	<td style="width:10%;">
+																		<strong>
+																			<p class="text-left">de</p>
+																		</strong>
+																	</td>
+																	<td style="width:25%;">
+																		<strong>
+																			<p class="text-left">
+																				<span t-field="o.date" t-field-options="{&quot;format&quot;: &quot;MMMM&quot;}"/>
+																			</p>
+																		</strong>
+																	</td>
+																	<td style="width:15%;">
+																		<strong>
+																			<p class="text-left">de</p>
+																		</strong>
+																	</td>
+																	<td style="width:10%;">
+																		<strong>
+																			<p class="text-left">
+																				<span t-field="o.date" t-field-options="{&quot;format&quot;: &quot;yyyy&quot;}"/>
+																			</p>
+																		</strong>
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</td>
+												</t>
+											</tr>
+										</tbody>
+									</table>
+								</t>
+
+							</td>
+						</tr>
+						<br>
+							<tr>
+								<td style="width:100%; padding:10px 0px 1px 0px;">
+									<table style="width:100%; font-size:18px; border:0; border-collapse: collapse;" border="0">
+										<tbody>
+											<tr>
+												<td style="width:74%;">
+													<strong>
+														<p class="text-center">
+															**
+															<span t-esc="o.partner_id.name"/>
+															**
+														</p>
+													</strong>
+												</td>
+												<td style="width:26%;">
+													<strong>
+														<p class="text-end">
+															<span/>
+															**
+															<span t-field="o.total" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+															**
+														</p>
+													</strong>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td style="width:100%; padding:42px 20px 40px 0px;">
+									<table style="width:100%; font-size:18px; border:0; border-collapse: collapse;" border="0">
+										<tbody>
+
+											<tr>
+												<td style="width:90%;">
+													<strong>
+														<p class="text-center">
+															**
+															<span t-esc="o.amount_in_words"/>
+															**
+														</p>
+													</strong>
+												</td>
+												<td style="width:10%;"/>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+						</br>
+					</table>
+
+						<br/>
+						<p>
+							<h2>
+								<strong>
+									<span t-if="o.state == 'draft'">BORRADOR: </span>
+									<span t-field="o.name"/>
+								</strong>
+							</h2>
+						</p>
+						<br/>
+						<table style="width:100%; font-size:14px; border:0; padding:80px 20px 20px 20px; border-collapse: collapse;" border="0">
+							<tbody>
+								<tr>
+									<td style="width:60%;">
+										<p class="text-left">
+											<span t-field="o.company_id"/>
+										</p>
+									</td>
+									<td style="width:40%;"/>
+								</tr>
+								<tr>
+									<td style="width:60%;">
+										<p class="text-left">
+											<strong>BANCO DEL QUE SE EMITE: </strong>
+											<span t-field="o.journal_id.name"/>
+										</p>
+									</td>
+									<td style="width:40%;"/>
+								</tr>
+								<tr>
+									<td style="width:60%;">
+										<p class="text-left">
+											<strong>NUMERO DE CUENTA: </strong>
+											<span t-field="o.journal_id.bank_acc_number"/>
+										</p>
+									</td>
+									<td style="width:40%;"/>
+								</tr>
+								<tr>
+									<td>
+										<strong>
+											<p class="text-left">
+												CHEQUE No.
+												<span t-field="o.name"/>
+												, EMITIDO EL
+												<span t-field="o.date" t-field-options="{&quot;format&quot;: &quot;dd MMMM yyyy&quot;}"/>
+											</p>
+										</strong>
+									</td>
+								</tr>
+								<tr>
+									<td style="width:60%;">
+										<p class="text-left">
+											<strong>A FAVOR DE: </strong>
+											***
+											<span t-esc="o.partner_id.name"/>
+											***
+										</p>
+									</td>
+									<td style="width:40%;"/>
+								</tr>
+								<tr>
+									<td style="width:60%;">
+										<p class="text-left">
+											<strong>DESCRIPCION: </strong>
+											<span t-esc="o.description"/>
+										</p>
+									</td>
+									<td style="width:40%;"/>
+								</tr>
+							</tbody>
+						</table>
+
+						<hr/>
+
+						<table class="table table-condensed" style="width:100%;font-size:12px; border-collapse: collapse;" border="0">
+							<thead>
+								<tr>
+									<th class="text-left" style="width:15%;">
+										<strong>Número de Cuenta</strong>
+									</th>
+									<th class="text-center" style="width:20%;">
+										<strong>Nombre de Cuenta</strong>
+									</th>
+									<th class="text-center" style="width:20%;">
+										<strong>Descripción</strong>
+									</th>
+									<th class="text-center" style="width:20%;">
+										<strong>Debe</strong>
+									</th>
+									<th class="text-center" style="width:20%;">
+										<strong>Haber</strong>
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr t-foreach="o.check_lines" t-as="line">
+									<td class="text-left" style="width:15%;">
+										<span t-field="line.account_id.code"/>
+									</td>
+
+									<td class="text-center" style="width:20%;">
+										<span t-field="line.account_id.name"/>
+									</td>
+
+									<td class="text-center" style="width:20%;">
+										<span t-field="line.name"/>
+									</td>
+
+									<td class="text-center" style="width:20%;">
+										<span t-field="line.amount"/>
+									</td>
+
+									<td class="text-center" style="width:20%;">
+										0.00
+									</td>
+
+								</tr>
+								<tr>
+									<td class="text-left" style="width:15%;">
+										<span t-field="o.journal_id.payment_credit_account_id.code"/>
+									</td>
+
+									<td class="text-center" style="width:20%;">
+										<span t-field="o.journal_id.payment_credit_account_id.name"/>
+									</td>
+
+									<td class="text-center" style="width:20%;">
+										<span t-field="o.description"/>
+									</td>
+
+									<td class="text-center" style="width:20%;">
+										0.00
+									</td>
+
+									<td class="text-center" style="width:20%;">
+										<span t-field="o.total"/>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<hr/>
+						<br/>
+						<br/>
+						<br/>
+						<table style="width:100%; font-size:14px; padding:25px 25px 25px 25px; border-collapse: collapse;" border="0">
+							<tbody>
+								<tr>
+									<td width="30%" style="border-bottom: 1px solid #000000;">
+										<u>
+											<p class="text-center">
+												<br/>
+												<span t-field="user.name"/>
+											</p>
+										</u>
+									</td>
+									<td width="3%">
+										<p class="text-center">
+											<br/>
+										</p>
+									</td>
+									<td width="30%" style="border-bottom: 1px solid #000000;">
+										<p class="text-center"/>
+									</td>
+									<td width="3%">
+										<p class="text-center">
+											<br/>
+										</p>
+									</td>
+									<td width="34%" style="border-bottom: 1px solid #000000;">
+										<p class="text-center">
+											<br/>
+										</p>
+									</td>
+								</tr>
+								<tr>
+									<td style="width:30%; padding:5px 10px 10px 10px;">
+										<p class="text-center">Elaborador Por</p>
+									</td>
+									<td style="width:3%;"/>
+									<td style="width:30%; padding:5px 10px 10px 10px;">
+										<p class="text-center">Autorizado Por</p>
+									</td>
+									<td style="width:3%;"/>
+									<td style="width:34%; padding:5px 10px 10px 10px;">
+										<p class="text-center">Recibido Por</p>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+
+				</div>
+
+			</t>
+		</t>
+	</template>
+</odoo>

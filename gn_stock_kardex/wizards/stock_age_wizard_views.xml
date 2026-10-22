@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_gn_stock_age_wizard_form" model="ir.ui.view">
+        <field name="name">gn.stock.age.wizard.form</field>
+        <field name="model">gn.stock.age.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Reporte de Antigüedad de Stock">
+                <group>
+                    <group string="PRODUCTO Y CATEGORÍAS">
+                        <field name="categ_ids" widget="many2many_tags" nolabel="0"
+                               string="Categoría"
+                               options="{'no_create': True}"
+                               placeholder="Todas las categorías…"/>
+                        <field name="product_ids" widget="many2many_tags" nolabel="0"
+                               string="Producto"
+                               options="{'no_create': True}"
+                               placeholder="Todos los productos con stock…"/>
+                    </group>
+                    <group string="COMPAÑÍA Y CONFIGURACIÓN">
+                        <field name="company_id" groups="base.group_multi_company"/>
+                        <field name="warehouse_id" string="Almacén"
+                               options="{'no_create': True, 'no_open': True}"/>
+                        <field name="breakdown_days" string="Días por rango"/>
+                        <field name="num_brackets" string="Número de rangos"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_view_onscreen" type="object"
+                            string="Ver reporte" class="btn-primary"
+                            icon="fa-table"/>
+                    <button name="action_print_xlsx" type="object"
+                            string="Excel" class="btn-secondary"
+                            icon="fa-file-excel-o"/>
+                    <button name="action_print_pdf" type="object"
+                            string="PDF" class="btn-secondary"
+                            icon="fa-file-pdf-o"/>
+                    <button string="Cerrar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_gn_stock_age_wizard" model="ir.actions.act_window">
+        <field name="name">Antigüedad de Stock</field>
+        <field name="res_model">gn.stock.age.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

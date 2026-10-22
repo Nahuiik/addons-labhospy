@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_l10n_hn_turn_extra_config_tree" model="ir.ui.view">
+        <field name="name">l10n.hn.turn.extra.config.tree</field>
+        <field name="model">l10n.hn.turn.extra.config</field>
+        <field name="arch" type="xml">
+            <list string="Factores Turnos Extra">
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="turn_a_factor" string="Recargo Turno A"/>
+                <field name="turn_b_factor" string="Recargo Turno B"/>
+                <field name="turn_c_factor" string="Recargo Turno C"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_l10n_hn_turn_extra_config_form" model="ir.ui.view">
+        <field name="name">l10n.hn.turn.extra.config.form</field>
+        <field name="model">l10n.hn.turn.extra.config</field>
+        <field name="arch" type="xml">
+            <form string="Factores Turnos Extra">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="turn_a_factor"/>
+                            <field name="turn_b_factor"/>
+                            <field name="turn_c_factor"/>
+                        </group>
+                    </group>
+                    <div class="alert alert-info" role="alert">
+                        <p><strong>Fórmula TE:</strong> (Días por turno) × (Sueldo diario) × Recargo del turno. El sueldo diario = salario/30. Recargo 1.0 = sin recargo; 1.25 = 25% adicional.</p>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_l10n_hn_turn_extra_config" model="ir.actions.act_window">
+        <field name="name">Factores Turnos Extra</field>
+        <field name="res_model">l10n.hn.turn.extra.config</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p>Configure los recargos para Turnos Extra (TE). Fórmula: (Días por turno) × (Sueldo diario) × Recargo del turno.</p>
+        </field>
+    </record>
+</odoo>

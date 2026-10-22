@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_banks_balance.BanksWeeklyBalanceSkeleton">
+        <div class="gn-wb-skeleton">
+            <div class="gn-wb-skeleton__kpis gn-wb-skeleton__kpis--primary">
+                <div class="gn-wb-skeleton__block gn-wb-skeleton__block--kpi-primary" t-foreach="[1,2,3,4,5]" t-as="i" t-key="i"/>
+            </div>
+            <div class="gn-wb-skeleton__kpis gn-wb-skeleton__kpis--secondary">
+                <div class="gn-wb-skeleton__block gn-wb-skeleton__block--kpi-secondary" t-foreach="[1,2,3,4,5]" t-as="j" t-key="j"/>
+            </div>
+            <div class="gn-wb-skeleton__block gn-wb-skeleton__block--waterfall"/>
+            <div class="gn-wb-skeleton__charts">
+                <div class="gn-wb-skeleton__block gn-wb-skeleton__block--chart"/>
+                <div class="gn-wb-skeleton__block gn-wb-skeleton__block--chart"/>
+            </div>
+            <div class="gn-wb-skeleton__table">
+                <div class="gn-wb-skeleton__block gn-wb-skeleton__block--row" t-foreach="[1,2,3,4,5,6]" t-as="r" t-key="r"/>
+            </div>
+        </div>
+    </t>
+</templates>

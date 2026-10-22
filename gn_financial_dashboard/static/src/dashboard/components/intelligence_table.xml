@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_financial_dashboard.IntelligenceTable">
+        <div class="gn-fd-itable-wrap">
+            <div t-if="!props.items.length" class="gn-fd-empty">
+                <i class="fa fa-search fa-2x mb-2"/>
+                <p t-esc="props.emptyHint || 'Sin datos para los filtros actuales.'"/>
+            </div>
+            <table t-else="" class="gn-fd-itable">
+                <thead>
+                    <tr>
+                        <th class="gn-fd-itable__num">#</th>
+                        <th t-foreach="props.columns" t-as="col" t-key="col.key"
+                            t-att-class="'gn-fd-itable__h ' + (col.align === 'right' ? 'text-end' : col.align === 'center' ? 'text-center' : '')"
+                            t-att-style="col.width ? ('width:' + col.width + ';') : ''"
+                            t-esc="col.label"/>
+                        <th t-if="props.onRowClick" class="gn-fd-itable__h"/>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="props.items" t-as="it" t-key="it.product_id || it.partner_id || it_index"
+                        t-att-class="rowCls(it)"
+                        t-on-click="() => this.onRowClick(it)">
+                        <td class="gn-fd-itable__num">
+                            <t t-esc="it_index + 1"/>
+                            <span t-if="badgeLabel(it)"
+                                  t-att-class="badgeCls(it)"
+                                  t-esc="badgeLabel(it)"/>
+                        </td>
+                        <td t-foreach="props.columns" t-as="col" t-key="col.key"
+                            t-att-class="col.align === 'right' ? 'text-end' : col.align === 'center' ? 'text-center' : ''">
+                            <t t-if="col.key === 'name'">
+                                <span class="gn-fd-itable__name"><t t-esc="it.name"/></span>
+                            </t>
+                            <t t-elif="col.key === 'score'">
+                                <span t-att-class="'gn-fd-score gn-fd-score--' + it.tier">
+                                    <t t-esc="cellValue(it, col)"/>
+                                </span>
+                            </t>
+                            <t t-else="">
+                                <t t-esc="cellValue(it, col)"/>
+                            </t>
+                        </td>
+                        <td t-if="props.onRowClick" class="text-end">
+                            <i class="fa fa-chevron-right text-muted"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </t>
+
+</templates>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="page_plexus_template" name="Plexus Animation Page">
+        <t t-call="website.layout">
+            <div id="wrap" class="gn-plexus-page">
+                <section class="s_section">
+                    <div class="container">
+                        <h1 class="text-center mb-4">Animación Plexus</h1>
+                        <p class="lead text-center mb-5">Ejemplo de cómo embeber la animación sin usar el snippet.</p>
+                    </div>
+                </section>
+                <t t-call="gn_website_plexus.snippet_animation"/>
+            </div>
+        </t>
+    </template>
+
+    <record id="page_plexus" model="website.page">
+        <field name="name">Animación Plexus</field>
+        <field name="url">/plexus-animation</field>
+        <field name="view_id" ref="gn_website_plexus.page_plexus_template"/>
+    </record>
+</odoo>

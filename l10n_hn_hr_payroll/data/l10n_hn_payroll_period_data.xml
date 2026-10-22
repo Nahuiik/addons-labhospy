@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="0">
+    <!-- Explicitly register the model to ensure it's available for security rules -->
+    <!-- Note: Odoo usually creates this automatically when loading Python models,
+         but we register it explicitly here to ensure it exists before the CSV is loaded -->
+    <record id="model_l10n_hn_payroll_period" model="ir.model">
+        <field name="name">Payroll Period (Quincena)</field>
+        <field name="model">l10n.hn.payroll.period</field>
+        <field name="info">Payroll Period (Quincena) for Honduras bi-weekly payroll</field>
+    </record>
+</odoo>

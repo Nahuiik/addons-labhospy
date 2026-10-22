@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mrp_production_form_inherit_l10_hn_production" model="ir.ui.view">
+        <field name="name">mrp.production.form.inherit.l10.hn.production</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button
+                    name="action_generate_material_transfer"
+                    type="object"
+                    class="oe_stat_button"
+                    icon="fa-truck"
+                    invisible="not hn_can_request_material_transfer or state in ('draft', 'done', 'cancel')"
+                    groups="mrp.group_mrp_user"
+                >
+                    <span class="o_stat_text">Solicitar faltantes</span>
+                </button>
+                <button
+                    name="action_view_material_transfers"
+                    type="object"
+                    class="oe_stat_button"
+                    icon="fa-exchange"
+                    invisible="material_transfer_count == 0"
+                >
+                    <field name="material_transfer_count" widget="statinfo" string="Transf. materiales"/>
+                </button>
+                <field name="hn_can_request_material_transfer" invisible="1"/>
+            </xpath>
+            <xpath expr="//page[@name='miscellaneous']" position="after">
+                <page string="Pack" name="hn_pack">
+                    <field name="company_currency_id" invisible="1"/>
+                    <field
+                        name="hn_pack_ids"
+                        readonly="state in ('done', 'cancel')"
+                        context="{'default_product_uom_qty': product_qty}"
+                    >
+                        <list editable="bottom">
+                            <field name="currency_id" column_invisible="1"/>
+                            <field name="company_id" column_invisible="1"/>
+                            <field name="sequence" column_invisible="1"/>
+                            <field
+                                name="product_id"
+                                string="Producto pack"
+                                context="{'default_hn_is_pack': True}"
+                                options="{'no_create_edit': False}"
+                            />
+                            <field name="product_uom_qty" string="Cantidad"/>
+                            <field name="product_uom_id" string="UdM" groups="uom.group_uom"/>
+                            <field name="bom_id" optional="hide" readonly="1"/>
+                            <field
+                                name="unit_cost"
+                                string="Costo unitario"
+                                readonly="1"
+                                groups="l10n_hn_stock.group_view_costs_margins"
+                            />
+                            <field
+                                name="total_cost"
+                                string="Costo"
+                                readonly="1"
+                                sum="Total"
+                                groups="l10n_hn_stock.group_view_costs_margins"
+                            />
+                        </list>
+                    </field>
+                    <separator string="Materiales del pack"/>
+                    <field name="hn_pack_move_ids" readonly="1">
+                        <list create="0" delete="0" edit="0">
+                            <field name="company_currency_id" column_invisible="1"/>
+                            <field name="forecast_expected_date" column_invisible="1"/>
+                            <field name="date_deadline" column_invisible="1"/>
+                            <field name="product_qty" column_invisible="1"/>
+                            <field name="state" column_invisible="1"/>
+                            <field name="is_storable" column_invisible="1"/>
+                            <field name="hn_pack_id" string="Pack" optional="show"/>
+                            <field name="product_id" string="Producto" readonly="1"/>
+                            <field
+                                name="forecast_availability"
+                                string=""
+                                widget="forecast_widget"
+                                column_invisible="parent.state in ('done', 'cancel')"
+                            />
+                            <field name="product_uom_qty" string="Por consumir" readonly="1"/>
+                            <field name="product_uom" string="UdM" groups="uom.group_uom" readonly="1"/>
+                            <field
+                                name="hn_overview_unit_cost"
+                                string="Costo unit."
+                                readonly="1"
+                                groups="l10n_hn_stock.group_view_costs_margins"
+                            />
+                            <field
+                                name="hn_overview_total_cost"
+                                string="Costo"
+                                readonly="1"
+                                sum="Total"
+                                groups="l10n_hn_stock.group_view_costs_margins"
+                            />
+                        </list>
+                    </field>
+                    <group class="oe_subtotal_footer oe_right" groups="l10n_hn_stock.group_view_costs_margins">
+                        <field name="hn_pack_cost_total" readonly="1"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

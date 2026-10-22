@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_banks_balance.CashflowChart">
+        <div class="gn-wb-chart-card">
+            <h6 class="gn-wb-chart-card__title">Flujo semanal</h6>
+            <t t-if="chartState.kind === 'ready'">
+                <div class="gn-wb-chart-card__canvas">
+                    <canvas t-ref="canvas"/>
+                </div>
+            </t>
+            <t t-elif="chartState.kind === 'no_activity'">
+                <DashboardStatePanel variant="'no_activity'" compact="true"/>
+            </t>
+            <t t-else="">
+                <DashboardStatePanel variant="'empty'" compact="true"/>
+            </t>
+        </div>
+    </t>
+</templates>

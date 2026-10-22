@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="seq_sale_receipt" model="ir.sequence">
+            <field name="name">Recibo de Ventas</field>
+            <field name="code">sale.receipt</field>
+            <field name="prefix">RECIBO-</field>
+            <field name="padding">4</field>
+            <field name="implementation">no_gap</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="desktop_voucher">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="company" t-value="o.company_id or res_company"/>
+                <t t-set="pay_method" t-value="o.move_type"/>
+                <t t-call="web.external_layout">
+                <div class="page">
+                    <style>
+                        tr.box {
+                            width: 300px;
+                            padding: 25px;
+                            border: 0;
+                            margin: 25px;
+                        }
+
+                        .head {
+                        size : 40px;
+                        }
+                    </style>
+                    <table style="width:100%; font-size:15px; border:0; border-collapse: collapse;" border="0"> 
+                        <tbody> 
+                            <tr>    
+                                <td style="width:100%;">            
+                                    <table style="width:100%; font-size:15px; border:0; border-collapse: collapse;" border="0"> 
+                                        <tbody>
+                                            <tr>
+                                                <td style="width:10%;"/>
+                                                <td style="width:6%;" colspan="2">
+                                                    <table style="width:100%; font-size:14px; border-collapse: collapse;" border="0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="text-align:center">TEGUCIGALPA <span t-esc="o.date.strftime('%d')"/> DE 
+                                                                    <span t-esc="o.date.strftime('%B').upper()"/> DE
+                                                                    <span t-esc="o.date.strftime('%Y')"/>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr> 
+                                <td style="width:100%;">
+                                    <table style="width:100%; font-size:14px; font-weight: bold; border:0; border-collapse: collapse;" border="0"> 
+                                        <tbody>
+                                            <br/>
+                                            <tr>
+                                                <td style="width:2%;"><p class="text-center"></p></td>
+                                                <td style="width:60%;"><p class="text-left">***<span t-field="o.partner_id"/>***</p></td>
+                                                <td style="width:40%;"><p class="text-end">***<span t-field="o.total"/>***</p></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width:2%;"><p class="text-left"></p></td>
+                                                <td style="width:60%;"><p class="text-left"></p></td>
+                                                <td style="width:40%;"><p class="text-left"></p></td>
+                                            </tr>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <tr>
+                                                <td style="width:2%;"><p class="text-left"></p></td>
+                                                <td style="width:60%;"><p class="text-left"></p></td>
+                                                <td style="width:30%;"><p class="text-left"></p></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width:2%;"><p class="text-left"></p></td>
+                                                <td style="width:60%;"><p class="text-left"></p></td>
+                                                <td style="width:30%;"><p class="text-left"></p></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width:2%;"><p class="text-left"></p></td>
+                                                <td style="width:93%; text-transform:uppercase;font-size:12px" colspan="2"><p class="text-left">**<span t-field="o.amount_in_words"/>**</p></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table style="width:100%; font-size:14px; border:0; padding:20px 20px 20px 20px; border-collapse: collapse;" border="0"> 
+                                        <tbody>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <tr>
+                                                <td style="font-size:14px; font-family: sans-serif;"><p class="text-left"><span t-field="o.description"/></p></td>
+                                            </tr>    
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <br/>
+                            <tr>
+                            <table style="width:100%; font-size:12px; font-family: sans-serif; border:0; padding:40px 20px 20px 20px; border-collapse: collapse;" border="0"> 
+                                    <tbody>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <t t-set="total_debit" t-value="0"/>
+                                        <t t-set="total_credit" t-value="0"/>
+                                        <t t-foreach="o.move_id.line_ids" t-as="a">
+                                            <tr>
+                                                <t t-set="total_debit" t-value="total_debit+a.debit"/>
+                                                <t t-set="total_credit" t-value="total_credit+a.credit"/> 
+                                                <td style="width:10%"><p class="text-left"><span t-field="a.account_id.code"/></p></td>
+                                                <td style="width:55%"><p class="text-left"><span t-esc="a.name"/></p></td>
+                                                <td style="width:15%"><p class="text-end"> <span t-esc="'{0:,.2f}'.format(a.debit)"/></p></td>
+                                                <td style="width:15%"><p class="text-end"> <span t-esc="'{0:,.2f}'.format(a.credit)"/></p></td>
+                                            </tr>
+                                        </t>
+                                        <tr class="border-black">
+                                            <td/>
+                                            <td/>
+                                            <td style="font-family: courier;"><p class="text-end"><strong><span t-esc="'{0:,.2f}'.format(total_debit)"/></strong></p></td>
+                                            <td style="font-family: courier;"><p class="text-end"><strong><span t-esc="'{0:,.2f}'.format(total_credit)"/></strong></p></td>
+                                        </tr>  
+                                </tbody>
+                        </table>
+                            </tr>
+                            <br/>
+                        
+                            <br/>
+                            <br/>
+                            <br/>
+                        </tbody>
+                    </table>
+                </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

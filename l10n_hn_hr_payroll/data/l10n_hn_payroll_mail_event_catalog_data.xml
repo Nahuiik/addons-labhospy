@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mail_event_cat_vac_anniversary" model="l10n.hn.payroll.mail.event.catalog">
+        <field name="sequence">10</field>
+        <field name="module">l10n_hn_hr_payroll</field>
+        <field name="name">Recordatorio por aniversario laboral (vacaciones)</field>
+        <field name="trigger_description">Cron diario (_cron_hn_vacation_notifications): fecha objetivo ≈ 30 días antes del aniversario de inicio de contrato; empleado activo con al menos un año en la empresa.</field>
+        <field name="template_xml_id">l10n_hn_hr_payroll.mail_template_hn_anniversary</field>
+    </record>
+    <record id="mail_event_cat_vac_3m" model="l10n.hn.payroll.mail.event.catalog">
+        <field name="sequence">20</field>
+        <field name="module">l10n_hn_hr_payroll</field>
+        <field name="name">Alerta: tres meses sin programar vacaciones</field>
+        <field name="trigger_description">Cron diario: asignación de vacaciones HN validada con saldo pendiente; el día coincide con inicio de período + 3 meses.</field>
+        <field name="template_xml_id">l10n_hn_hr_payroll.mail_template_hn_3months_expiry</field>
+    </record>
+    <record id="mail_event_cat_vac_10d" model="l10n.hn.payroll.mail.event.catalog">
+        <field name="sequence">30</field>
+        <field name="module">l10n_hn_hr_payroll</field>
+        <field name="name">Recordatorio 10 días antes del inicio de vacaciones</field>
+        <field name="trigger_description">Cron diario (_cron_hn_vacation_reminder): solicitud de vacaciones HN en estado validado; la fecha de inicio es dentro de 10 días.</field>
+        <field name="template_xml_id">l10n_hn_hr_payroll.mail_template_hn_10day_reminder</field>
+    </record>
+    <record id="mail_event_cat_vac_payment" model="l10n.hn.payroll.mail.event.catalog">
+        <field name="sequence">40</field>
+        <field name="module">l10n_hn_hr_payroll</field>
+        <field name="name">Pago de vacaciones pendiente</field>
+        <field name="trigger_description">Cron diario: 5 días antes del inicio de vacaciones HN validadas, sin pago anticipado registrado (hn_paid_in_advance falso).</field>
+        <field name="template_xml_id">l10n_hn_hr_payroll.mail_template_hn_payment_pending</field>
+    </record>
+    <record id="mail_event_cat_vac_custom_reminder" model="l10n.hn.payroll.mail.event.catalog">
+        <field name="sequence">50</field>
+        <field name="module">l10n_hn_hr_payroll</field>
+        <field name="name">Recordatorio configurable (días antes del inicio)</field>
+        <field name="trigger_description">Cron diario: si el parámetro l10n_hn_hr_payroll.reminder_days_before es mayor que 0 y distinto de 10, notificación al empleado por message_notify el día correspondiente.</field>
+        <field name="template_xml_id">— (message_notify; sin mail.template)</field>
+    </record>
+    <record id="mail_event_cat_vac_approve" model="l10n.hn.payroll.mail.event.catalog">
+        <field name="sequence">60</field>
+        <field name="module">l10n_hn_hr_payroll</field>
+        <field name="name">Aprobación de vacaciones HN</field>
+        <field name="trigger_description">Al aprobar/validar la solicitud, si está activo el parámetro l10n_hn_hr_payroll.send_email_on_approve: notificación al usuario del empleado vía message_notify.</field>
+        <field name="template_xml_id">— (message_notify; sin mail.template)</field>
+    </record>
+    <record id="mail_event_cat_vac_preaviso" model="l10n.hn.payroll.mail.event.catalog">
+        <field name="sequence">70</field>
+        <field name="module">l10n_hn_hr_payroll</field>
+        <field name="name">Envío de preaviso de vacaciones por correo</field>
+        <field name="trigger_description">Acción manual action_send_preaviso_email: usa mail.template_hn_approved y adjunta el PDF del preaviso si el informe está disponible.</field>
+        <field name="template_xml_id">l10n_hn_hr_payroll.mail_template_hn_approved</field>
+    </record>
+    <record id="mail_event_cat_trial" model="l10n.hn.payroll.mail.event.catalog">
+        <field name="sequence">110</field>
+        <field name="module">l10n_hn_hr_payroll</field>
+        <field name="name">Alerta de fin de período de prueba</field>
+        <field name="trigger_description">Cron diario (_cron_trial_period_alert): por compañía, cuando la fecha del primer contrato del empleado coincide con “hoy menos N días” (N = días de período de prueba, p. ej. 45). Destinatarios: jefe directo y usuarios configurados en alertas de RRHH de la compañía. Marca trial_period_notified.</field>
+        <field name="template_xml_id">l10n_hn_hr_payroll.mail_template_trial_period_alert</field>
+    </record>
+    <record id="mail_event_cat_emp_submit" model="l10n.hn.payroll.mail.event.catalog">
+        <field name="sequence">200</field>
+        <field name="module">gn_employee_data</field>
+        <field name="name">Solicitud de ingreso enviada</field>
+        <field name="trigger_description">Al pasar la solicitud a enviada (action_submit).</field>
+        <field name="template_xml_id">gn_employee_data.email_template_application_submitted</field>
+    </record>
+    <record id="mail_event_cat_emp_approve" model="l10n.hn.payroll.mail.event.catalog">
+        <field name="sequence">210</field>
+        <field name="module">gn_employee_data</field>
+        <field name="name">Solicitud de ingreso aprobada</field>
+        <field name="trigger_description">Al aprobar la solicitud y crear/actualizar empleado (action_approve); requiere usuario vinculado en la solicitud.</field>
+        <field name="template_xml_id">gn_employee_data.email_template_application_approved</field>
+    </record>
+    <record id="mail_event_cat_emp_reject" model="l10n.hn.payroll.mail.event.catalog">
+        <field name="sequence">220</field>
+        <field name="module">gn_employee_data</field>
+        <field name="name">Solicitud de ingreso rechazada</field>
+        <field name="trigger_description">Al rechazar la solicitud (action_reject); requiere usuario vinculado.</field>
+        <field name="template_xml_id">gn_employee_data.email_template_application_rejected</field>
+    </record>
+    <record id="mail_event_cat_emp_invite" model="l10n.hn.payroll.mail.event.catalog">
+        <field name="sequence">230</field>
+        <field name="module">gn_employee_data</field>
+        <field name="name">Invitación para completar datos (portal)</field>
+        <field name="trigger_description">Asistente de invitación (_send_invitation_email).</field>
+        <field name="template_xml_id">gn_employee_data.email_template_employee_invitation</field>
+    </record>
+    <record id="mail_event_cat_emp_update" model="l10n.hn.payroll.mail.event.catalog">
+        <field name="sequence">240</field>
+        <field name="module">gn_employee_data</field>
+        <field name="name">Solicitud de actualización de datos</field>
+        <field name="trigger_description">Asistente (_send_update_request_email); puede reutilizar plantilla de invitación según flujo.</field>
+        <field name="template_xml_id">gn_employee_data.email_template_data_update_request</field>
+    </record>
+</odoo>

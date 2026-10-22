@@ -1,0 +1,15 @@
+<odoo>
+  <data noupdate="0">
+    <record id="cron_get_currency_rate" model="ir.cron">
+      <field name="name">Get BCH Bank Currency Rate</field>
+      <field name="model_id" ref="base.model_res_currency"/>
+      <field name="state">code</field>
+      <field name="code">model.get_currency_bch_rate_from_bank()</field>
+      <field name="active" eval="True"/>
+      <field name="user_id" ref="base.user_admin"/>
+      <field name="interval_number">1</field>
+      <field name="interval_type">days</field>
+      <!-- NO pongas numbercall / max_number_of_calls / doall / repeat_missed aquí -->
+    </record>
+  </data>
+</odoo>

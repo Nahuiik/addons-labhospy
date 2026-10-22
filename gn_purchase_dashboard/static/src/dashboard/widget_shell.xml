@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_purchase_dashboard.PurchaseWidgetShell">
+        <div class="gn-pd-widget-shell"
+             t-att-class="props.editMode ? 'gn-pd-widget-shell--edit' : ''"
+             t-att-style="shellStyle"
+             t-att-draggable="props.editMode"
+             t-on-dragstart="onDragStart"
+             t-on-dragover="onDragOver"
+             t-on-drop="onDrop">
+            <header class="gn-pd-widget-shell__header">
+                <i t-if="props.editMode" class="fa fa-arrows gn-pd-widget-shell__drag" aria-hidden="true"/>
+                <span t-else="" class="gn-pd-widget-shell__header-icon">
+                    <i t-att-class="iconClass" aria-hidden="true"/>
+                </span>
+                <div class="gn-pd-widget-shell__header-text">
+                    <span class="gn-pd-widget-shell__title" t-esc="title"/>
+                    <span t-if="description" class="gn-pd-widget-shell__desc" t-esc="description"/>
+                </div>
+                <span t-if="props.editMode" class="gn-pd-widget-shell__size" t-esc="props.item.w + '×' + props.item.h"/>
+            </header>
+            <div class="gn-pd-widget-shell__body">
+                <t t-slot="default"/>
+            </div>
+            <div t-if="props.editMode" class="gn-pd-widget-shell__resize"
+                 t-on-mousedown="onResizeMouseDown" title="Redimensionar"/>
+        </div>
+    </t>
+</templates>

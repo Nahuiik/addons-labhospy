@@ -1,0 +1,11 @@
+<odoo>
+    <data>
+        <!--inherits the original payment receipt report and override its name -->
+        <record id="account.action_report_payment_receipt" model="ir.actions.report">
+            <field name="name">Payment Receipt</field>
+            <field name="model">account.payment</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">professional_templates.report_payment_receipt</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="AnalyticReport">
+        <div class="report-button-container">
+            <div class="d-flex justify-content-between align-items-center mb-3 mt-3">
+                <div>
+                    <h2 style="margin-left: 45px;">Analytic Report</h2>
+                </div>
+                <div>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-primary" style="margin-right: 7px;" t-on-click="openAnalyticPopup">
+                            <i class="fa fa-filter"></i> Filters
+                        </button>
+                        <button class="btn btn-primary" style="margin-right: 7px;" t-on-click="printReport">
+                            <i class="fa fa-print"></i> Print
+                        </button>
+                        <button class="btn btn-primary" style="margin-right: 20px;" t-on-click="printXls">
+                            <i class="fa fa-file-excel-o"></i> XLS
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <div class="report-container">
+                <div class="table-responsive report-table-container">
+                    <table class="table table-hover report-table">
+                        <thead class="table-header">
+                            <tr>
+                                <th style="text-align: center;width: 1%;"></th>
+                                <th style="text-align: center;width: 15%;"></th>
+                                <th style="text-align: center;width: 10%;">Partner</th>
+                                <th style="text-align: center;width: 15%;">Journal</th>
+                                <th style="text-align: center;width: 15%;">Account</th>
+                                <th style="text-align: center;width: 15%;">Plan</th>
+                                <th style="text-align: center;width: 20%;">Product</th>
+                                <th style="text-align: center;width: 10%;">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="state.analytic_accounts" t-as="account" t-key="account.name">
+                                <tr class="toggle-row" t-att-data-account="account.name">
+                                    <td style="padding: 6px 5px;" data-id="account.id" class="line_name text unfoldable" tabindex="-1" colspan="1">
+                                        <div class="wrapper">
+                                            <div class="toggle_button">
+                                                <t t-if="account.analytic_items and account.analytic_items.length > 0">
+                                                    <button data-id="btn_foldable" class="btn btn_foldable" tabindex="-1" t-on-click="toggleLines"><i class="fa fa-caret-right dropdowntoggle"></i></button>
+                                                </t>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td style="padding: 6px 5px;" data-id="account.id" class="line_name text unfoldable" tabindex="-1" colspan="1">
+                                        <div class="wrapper" style="padding-left: 10px;">
+                                            <div class="account_name">
+                                                <t t-esc="account.name"/>
+                                            </div>
+                                            <div class="item_button">
+                                                <t t-if="account.analytic_items and account.analytic_items.length > 0">
+                                                    <button class="btn btn_journalentry" t-on-click="_onClickAnalyticItems"> Analytic Items </button>
+                                                </t>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td style="padding: 6px 5px;"/>
+                                    <td style="padding: 6px 5px;"/>
+                                    <td style="padding: 6px 5px;"/>
+                                    <td style="padding: 6px 5px;"/>
+                                    <td style="padding: 6px 5px;"/>
+                                    <td style="padding: 6px 5px;"><t t-esc="account.amount"/></td>
+                                </tr>
+                                <t t-if="state.expandedAccounts[account.name]">
+                                    <t t-foreach="account.analytic_items" t-as="item" t-key="item.id">
+                                        <tr t-att-data-id="item.id">
+                                            <td style="padding: 6px 5px;"/>
+                                            <td style="padding: 6px 5px;" data-id="item.id" class="line_name text unfoldable" tabindex="-1" colspan="1">
+                                                <div class="wrapper">
+                                                    <div><t t-esc="item.date"/></div>
+                                                    <button class="btn btn_entry" t-on-click="_onClickEntry"> Entry </button>
+                                                </div>
+                                            </td>
+                                            <td style="padding: 6px 5px;white-space: normal !important;"><t t-esc=" item.partner_id[1]"/></td>
+                                            <td style="padding: 6px 5px;white-space: normal !important;"><t t-esc="item.journal_id[1]"/></td>
+                                            <td style="padding: 6px 5px;"><t t-esc="item.account"/></td>
+                                            <td style="padding: 6px 5px;"><t t-esc="item.plan"/></td>
+                                            <td style="padding: 6px 5px;white-space: normal !important;"><t t-esc="item.product[1]"/></td>
+                                            <td style="padding: 6px 5px;"><t t-esc="item.amount"/></td>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </t>
+                            <tr>
+                                <td style="padding: 6px 5px;"/>
+                                <td style="padding: 6px 5px;text-align:left;font-weight:bold;">Total</td>
+                                <td style="padding: 6px 5px;"/>
+                                <td style="padding: 6px 5px;"/>
+                                <td style="padding: 6px 5px;"/>
+                                <td style="padding: 6px 5px;"/>
+                                <td style="padding: 6px 5px;"/>
+                                <td style="padding: 6px 5px;text-align:center;font-weight:bold;"><t t-esc="state.TotalAmount"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>
+

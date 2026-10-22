@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="paperformat_inventory_adjustment" model="report.paperformat">
+        <field name="name">Wizard Inventario LabHosPy</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">12</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_spacing">8</field>
+    </record>
+
+    <record id="action_report_inventory_adjustment_pdf" model="ir.actions.report">
+        <field name="name">Inventario físico (PDF)</field>
+        <field name="model">gn.inventory.adjustment</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">gn_inventory_ajustment.inventory_adjustment_template</field>
+        <field name="report_file">gn_inventory_ajustment.inventory_adjustment_template</field>
+        <field name="paperformat_id" ref="paperformat_inventory_adjustment"/>
+    </record>
+
+    <record id="action_report_inventory_adjustment_xlsx" model="ir.actions.report">
+        <field name="name">Inventario físico (Excel)</field>
+        <field name="model">gn.inventory.adjustment</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">gn_inventory_ajustment.inventory_adjustment_xlsx</field>
+        <field name="report_file">gn_inventory_ajustment.inventory_adjustment_xlsx</field>
+    </record>
+</odoo>

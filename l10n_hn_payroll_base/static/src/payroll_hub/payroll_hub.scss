@@ -1,0 +1,102 @@
+// Centro de nómina CE: tarjetas de alerta con acento lateral.
+
+.o_payroll_hub {
+    background: $o-view-background-color;
+
+    .o_hn_payroll_section_label {
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #dc2626;
+    }
+
+    .o_hn_payroll_muted {
+        color: $text-muted;
+    }
+
+    .o_hn_payroll_card_stack {
+        max-width: 52rem;
+    }
+
+    .o_hn_payroll_card {
+        position: relative;
+        border: 1px solid rgba($border-color, 0.55);
+        border-left-width: 4px;
+        border-left-style: solid;
+        border-left-color: var(--hn-payroll-dash-accent, #{$border-color});
+        background-color: $o-view-background-color;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+        transition: box-shadow 0.18s ease, transform 0.18s ease;
+
+        &:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 0.45rem 1.1rem rgba(0, 0, 0, 0.08);
+        }
+    }
+
+    .o_hn_payroll_card_title {
+        font-size: 1.05rem;
+        color: $body-color;
+    }
+
+    .o_hn_payroll_card_subtitle {
+        color: $text-muted;
+        line-height: 1.35;
+    }
+
+    .o_hn_payroll_card--emphasis {
+        background: linear-gradient(
+            100deg,
+            rgba($warning, 0.2) 0%,
+            $o-view-background-color 38%,
+            $o-view-background-color 100%
+        );
+        box-shadow: 0 0 0 1px rgba($warning, 0.25), 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+
+    .o_hn_payroll_cta--outline {
+        color: $body-color;
+        background-color: transparent;
+        border: 1px solid $border-color;
+
+        &:hover {
+            background-color: $gray-100;
+            border-color: $gray-400;
+        }
+    }
+
+    .o_hn_payroll_cta--solid {
+        background: #7c3aed;
+        border: 1px solid #7c3aed;
+        color: #fff;
+
+        &:hover {
+            background: #6d28d9;
+            border-color: #6d28d9;
+            color: #fff;
+        }
+    }
+
+    .o_hn_payroll_card--purple {
+        --hn-payroll-dash-accent: #7c3aed;
+    }
+    .o_hn_payroll_card--blue {
+        --hn-payroll-dash-accent: #2563eb;
+    }
+    .o_hn_payroll_card--pink {
+        --hn-payroll-dash-accent: #db2777;
+    }
+    .o_hn_payroll_card--yellow {
+        --hn-payroll-dash-accent: #ca8a04;
+    }
+    .o_hn_payroll_card--orange {
+        --hn-payroll-dash-accent: #ea580c;
+    }
+    .o_hn_payroll_card--cyan {
+        --hn-payroll-dash-accent: #0891b2;
+    }
+    .o_hn_payroll_card--teal {
+        --hn-payroll-dash-accent: #0d9488;
+    }
+}

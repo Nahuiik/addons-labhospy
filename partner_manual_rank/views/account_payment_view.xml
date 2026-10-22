@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_account_payment_form_partner_manual_rank" model="ir.ui.view">
+        <field name="name">account.payment.form.partner.manual.rank</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="attributes">
+                <attribute name="domain">[('is_customer', '=', True)] if partner_type == 'customer' else [('is_supplier', '=', True)] if partner_type == 'supplier' else []</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>
+

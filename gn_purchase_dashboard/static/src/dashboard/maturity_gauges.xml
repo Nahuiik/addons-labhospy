@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_purchase_dashboard.MaturityGaugeCard">
+        <article class="gn-pd-maturity-card"
+                 t-on-mouseenter="onEnter"
+                 t-on-mouseleave="onLeave">
+            <div class="gn-pd-maturity-card__gauge-wrap">
+                <div class="gn-pd-maturity-card__gauge" t-ref="gaugeChart"/>
+            </div>
+            <div class="gn-pd-maturity-card__content">
+                <strong t-att-class="'gn-pd-maturity-card__value gn-pd-maturity-card__value--' + status.key + (state.pulse ? ' gn-pd-maturity-card__value--pulse' : '')"
+                        t-att-style="'color:' + color"
+                        t-esc="displayValue"/>
+                <span t-att-class="'gn-pd-maturity-card__badge gn-pd-maturity-card__badge--' + status.key"
+                      t-esc="status.label"/>
+                <h4 class="gn-pd-maturity-card__name" t-esc="props.index.label"/>
+                <p class="gn-pd-maturity-card__desc" t-esc="shortDesc"/>
+            </div>
+            <div t-if="state.showTip" class="gn-pd-maturity-card__tooltip" role="tooltip">
+                <strong t-esc="props.index.label"/>
+                <div class="gn-pd-maturity-card__tip-row">
+                    <span t-esc="'Valor: ' + displayValue + ' / 100'"/>
+                </div>
+                <p t-esc="shortDesc"/>
+                <dl class="gn-pd-maturity-card__tip-dl">
+                    <dt t-esc="'Cómo se calcula'"/>
+                    <dd t-esc="tooltipMeta.calculation"/>
+                    <dt t-esc="'Qué significa'"/>
+                    <dd t-esc="tooltipMeta.meaning"/>
+                    <dt t-esc="'Recomendación'"/>
+                    <dd t-esc="tooltipMeta.recommendation"/>
+                </dl>
+            </div>
+        </article>
+    </t>
+
+    <t t-name="gn_purchase_dashboard.MaturityGauges">
+        <section class="gn-pd-maturity">
+            <div t-if="props.loading" class="gn-pd-skeleton gn-pd-skeleton--maturity"/>
+            <t t-else="">
+                <header class="gn-pd-maturity__header">
+                    <div class="gn-pd-maturity__header-text">
+                        <h3 class="gn-pd-maturity__title">Índices de Madurez</h3>
+                        <p class="gn-pd-maturity__subtitle">
+                            Evaluación ejecutiva del desempeño del proceso de compras.
+                        </p>
+                    </div>
+                    <div class="gn-pd-maturity__summary">
+                        <div class="gn-pd-maturity__summary-item">
+                            <span class="gn-pd-maturity__summary-label">Promedio General</span>
+                            <strong t-esc="average + ' / 100'"/>
+                        </div>
+                        <div class="gn-pd-maturity__summary-item">
+                            <span class="gn-pd-maturity__summary-label">Estado General</span>
+                            <span t-att-class="'gn-pd-maturity-card__badge gn-pd-maturity-card__badge--' + generalStatus.key"
+                                  t-esc="generalStatus.label"/>
+                        </div>
+                    </div>
+                </header>
+                <div class="gn-pd-maturity__grid">
+                    <MaturityGaugeCard t-foreach="items" t-as="idx" t-key="idx.key"
+                                       index="idx" darkMode="props.darkMode"/>
+                </div>
+            </t>
+        </section>
+    </t>
+</templates>

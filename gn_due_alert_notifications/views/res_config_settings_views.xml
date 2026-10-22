@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form_due_notif" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.due.notif</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//app[@name='account']" position="inside">
+                <block title="Notificaciones visuales de vencimiento"
+                       groups="gn_due_alert_notifications.group_due_alert_notif_manager">
+                    <setting string="Tarjetas en tiempo real"
+                             help="Muestra alertas apiladas en la esquina superior derecha.">
+                        <field name="gn_due_notif_enabled"/>
+                        <field name="gn_due_notif_realtime_enabled"/>
+                    </setting>
+                    <setting string="Parametros de vencimiento">
+                        <div class="content-group">
+                            <div class="row mt16">
+                                <label for="gn_due_notif_days_before" class="col-lg-4"/>
+                                <field name="gn_due_notif_days_before"/>
+                            </div>
+                            <div class="row">
+                                <label for="gn_due_notif_critical_days" class="col-lg-4"/>
+                                <field name="gn_due_notif_critical_days"/>
+                            </div>
+                            <div class="row">
+                                <label for="gn_due_notif_repeat_hours" class="col-lg-4"/>
+                                <field name="gn_due_notif_repeat_hours"/>
+                            </div>
+                            <div class="row">
+                                <label for="gn_due_notif_snooze_days" class="col-lg-4"/>
+                                <field name="gn_due_notif_snooze_days"/>
+                            </div>
+                            <div class="row">
+                                <label for="gn_due_notif_max_visible_cards" class="col-lg-4"/>
+                                <field name="gn_due_notif_max_visible_cards"/>
+                            </div>
+                        </div>
+                    </setting>
+                    <setting string="Destinatarios">
+                        <field name="gn_due_notif_default_responsible_id"/>
+                        <field name="gn_due_notif_recipient_user_ids" widget="many2many_tags"/>
+                        <field name="gn_due_notif_notify_account_admins"/>
+                    </setting>
+                    <setting string="Resumen y sonido">
+                        <field name="gn_due_notif_daily_summary_enabled"/>
+                        <field name="gn_due_notif_daily_summary_hour"/>
+                        <field name="gn_due_notif_sound_enabled"/>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

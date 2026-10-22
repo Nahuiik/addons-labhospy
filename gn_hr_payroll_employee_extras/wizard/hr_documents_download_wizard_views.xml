@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_documents_download_wizard_view_form" model="ir.ui.view">
+        <field name="name">hr.documents.download.wizard.form</field>
+        <field name="model">hr.documents.download.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Documentos de Empleados">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="company_id"/>
+                            <field name="department_id"/>
+                            <field name="include_archived"/>
+                        </group>
+                    </group>
+                    <group string="Descargar documentos">
+                        <group>
+                            <field name="document_type_id" placeholder="Opcional: seleccione para descargar solo un tipo"
+                                   domain="[('company_id', '=', company_id)]"
+                                   context="{'default_company_id': company_id}"/>
+                        </group>
+                        <group>
+                            <div class="alert alert-info mb-0" role="alert">
+                                <p class="mb-0"><strong>Todos los documentos:</strong> Deje el tipo vacío y use "Descargar ZIP".</p>
+                                <p class="mb-0 mt-1"><strong>Un solo tipo:</strong> Seleccione el tipo y use "Descargar tipo seleccionado".</p>
+                                <p class="mb-0 mt-1">Nombre de archivos: <code>Nombre empleado - Tipo documento.ext</code></p>
+                            </div>
+                        </group>
+                    </group>
+                    <group string="Eliminar tipo de documento">
+                        <group>
+                            <div class="text-muted">
+                                Seleccione un tipo arriba y use "Eliminar tipo" para borrar ese tipo de documento de todos los empleados del filtro.
+                            </div>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_download" string="Descargar ZIP (todos)" type="object" class="btn-primary" icon="fa-download"/>
+                    <button name="action_download_document_type" string="Descargar tipo seleccionado" type="object"
+                            class="btn-secondary" icon="fa-download"
+                            invisible="not document_type_id"/>
+                    <button name="action_discard_document_type" string="Eliminar tipo" type="object"
+                            class="btn-danger" icon="fa-trash"
+                            invisible="not document_type_id"
+                            confirm="¿Está seguro? Se eliminarán todos los documentos del tipo seleccionado. Esta acción no se puede deshacer."/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hr_documents_download_wizard" model="ir.actions.act_window">
+        <field name="name">Documentos de Empleados</field>
+        <field name="res_model">hr.documents.download.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Documentos de empleados</p>
+            <p>Descargue todos los documentos en un ZIP o elimine un tipo de documento de todos los empleados.</p>
+        </field>
+    </record>
+</odoo>

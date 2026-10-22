@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_banks_dashboard.GnBanksJournalMultiSelector">
+        <div class="gn-bd-journal-selector">
+            <div class="gn-bd-journal-selector__toolbar">
+                <span class="gn-bd-journal-selector__summary text-muted">
+                    <i class="fa fa-university me-1"/>
+                    <t t-esc="selectionSummary"/>
+                </span>
+                <div class="gn-bd-journal-selector__actions">
+                    <button type="button" class="btn btn-link btn-sm p-0"
+                            t-on-click="onSelectAll"
+                            t-att-title="labels.selectAllTitle"
+                            t-esc="labels.selectAll"/>
+                    <span class="text-muted mx-1">|</span>
+                    <button type="button" class="btn btn-link btn-sm p-0"
+                            t-on-click="onClear"
+                            t-att-title="labels.clearTitle"
+                            t-esc="labels.clear"/>
+                </div>
+            </div>
+            <div class="o_input d-flex flex-wrap gap-1 o_multi_record_selector gn-bd-journal-selector__input"
+                 t-ref="journalSelector">
+                <TagsList tags="tags" visibleItemsLimit="visibleItemsLimit"/>
+                <RecordAutocomplete
+                    resModel="'account.journal'"
+                    value="''"
+                    domain="journalDomain"
+                    className="'o_record_autocomplete_with_caret flex-grow-1'"
+                    fieldString="fieldString"
+                    placeholder="placeholder"
+                    multiSelect="true"
+                    getIds.bind="getIds"
+                    update.bind="update">
+                    <t t-set-slot="autoCompleteItem" t-slot-scope="autoCompleteItemScope">
+                        <div class="d-flex flex-column lh-sm py-1">
+                            <span t-esc="autoCompleteItemScope.label"/>
+                            <small t-if="journalBankName(autoCompleteItemScope.data.record.id)"
+                                   class="text-muted"
+                                   t-esc="journalBankName(autoCompleteItemScope.data.record.id)"/>
+                        </div>
+                    </t>
+                </RecordAutocomplete>
+            </div>
+        </div>
+    </t>
+
+</templates>

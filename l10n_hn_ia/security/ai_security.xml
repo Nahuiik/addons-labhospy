@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- AI Groups -->
+    <record id="ai_group_sales_manager" model="res.groups">
+        <field name="name">AI Sales Manager</field>
+        <field name="comment">Can configure AI provider, templates, prices; can force automatic creation without review.</field>
+    </record>
+    
+    <record id="ai_group_sales_user" model="res.groups">
+        <field name="name">AI Sales User</field>
+        <field name="comment">Can use AI assistant, review/apply suggestions, create quotations.</field>
+    </record>
+</odoo>
+

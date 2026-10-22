@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        Añade "Alcance" y "Recepción" a la tabla de Costos adicionales del
+        reporte de invoice_in_landed_cost. Se conserva la columna Costo al
+        final del renglón; se inserta antes de "Método de división" para
+        respetar el orden lógico (alcance → recepción → método → monto).
+    -->
+    <template id="report_landed_cost_document_scope_columns"
+              inherit_id="invoice_in_landed_cost.report_landed_cost_document">
+        <xpath expr="//table[1]/thead/tr/th[contains(text(), 'Método de división')]"
+               position="before">
+            <th>Alcance</th>
+            <th>Recepción</th>
+        </xpath>
+        <xpath expr="//table[1]/tbody/t/tr/td[11]" position="before">
+            <td>
+                <span t-if="line.expense_scope == 'picking'">Solo esta recepción</span>
+                <span t-else="">Toda la importación</span>
+            </td>
+            <td>
+                <span t-if="line.picking_id" t-field="line.picking_id.name"/>
+                <span t-if="not line.picking_id">-</span>
+            </td>
+        </xpath>
+        <xpath expr="//table[1]/tfoot/tr/td[@colspan='11']" position="attributes">
+            <attribute name="colspan">13</attribute>
+        </xpath>
+    </template>
+</odoo>

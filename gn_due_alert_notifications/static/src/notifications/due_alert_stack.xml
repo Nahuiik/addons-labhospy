@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_due_alert_notifications.DueAlertStack">
+        <div class="o_gn_due_alert_stack" t-if="state.cards.length">
+            <t t-foreach="state.cards" t-as="card" t-key="card.id">
+                <DueAlertCard card="card"
+                              onClose="(id) => this.onCardClosed(id)"
+                              onRefresh="() => this.onRefresh()"/>
+            </t>
+            <t t-if="state.pendingCount > state.maxVisible">
+                <div class="o_gn_due_alert_stack_more">
+                    + <t t-esc="state.pendingCount - state.maxVisible"/> mas en el centro de alertas
+                </div>
+            </t>
+        </div>
+    </t>
+
+</templates>

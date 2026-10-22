@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- web.html_container genera &lt;main&gt; requerido por ir.actions.report al armar PDF -->
+    <template id="report_remission_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+
+                <t t-call="web.basic_layout">
+                    <t t-foreach="range(3)" t-as="i">
+                    <div class="page" t-att-style="('page-break-before: always; ' if i else '') + 'display:flex;flex-direction:column;min-height:100vh;box-sizing:border-box;'">
+                        <h2 class="text-center">Guía de Remisión</h2>
+                        <div class="row mt16 mb16">
+                            <div class="col-6">
+                                <p>
+                                    <strong>Guía:</strong>
+                                    <span t-esc="doc.hn_remission_number or '-'"/>
+                                </p>
+                                <p>
+                                    <strong>Picking:</strong>
+                                    <span t-esc="doc.name"/>
+                                </p>
+                                <p>
+                                    <strong>Vendedor:</strong>
+                                    <span t-esc="doc.salesperson_id.name if doc.salesperson_id else '-'"/>
+                                </p>
+                            </div>
+                            <div class="col-6">
+                                <p>
+                                    <strong>Origen:</strong>
+                                    <span t-esc="doc.origin or '-'"/>
+                                </p>
+                                <p>
+                                    <strong>Factura:</strong>
+                                    <span t-esc="doc.invoice_name or '-'"/>
+                                </p>
+                                <p>
+                                    <strong>Fecha:</strong>
+                                    <span t-if="doc.scheduled_date" t-field="doc.scheduled_date" t-options="{'widget': 'date'}"/>
+                                    <span t-else="">-</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <table class="table table-sm" style="width:100%; border-collapse:collapse; border:2px solid #1a365d; margin:16px 0;">
+                            <thead>
+                                <tr>
+                                    <th style="background-color:#2c5282;color:#fff;font-weight:600;padding:10px;text-align:left;border:1px solid #1a365d;text-transform:uppercase;">Producto</th>
+                                    <th class="text-right" style="background-color:#2c5282;color:#fff;font-weight:600;padding:10px;border:1px solid #1a365d;text-transform:uppercase;">Cantidad</th>
+                                    <th style="background-color:#2c5282;color:#fff;font-weight:600;padding:10px;text-align:left;border:1px solid #1a365d;text-transform:uppercase;">UoM</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="doc.move_ids_without_package" t-as="line">
+                                    <td style="padding:9px 10px;border:1px solid #e2e8f0;vertical-align:top;">
+                                        <span t-esc="line.product_id.display_name if line.product_id else (line.name or '')"/>
+                                        <t if="line.product_id.gn_labhospy_catalog_code">
+                                            <br/>CATALOGO: <span t-field="line.product_id.gn_labhospy_catalog_code"/>
+                                        </t>
+                                        <t if="line.product_id.gn_labhospy_model">
+                                            <br/>MODELO: <span t-field="line.product_id.gn_labhospy_model"/>
+                                        </t>
+                                        <t if="line.lot_ids">
+                                            <br/>SERIE: <span t-esc="', '.join([sn for sn in line.lot_ids.mapped('name') if sn])"/>
+                                        </t>
+                                    </td>
+                                    <td class="text-right" style="padding:9px 10px;border:1px solid #e2e8f0;vertical-align:top;" t-esc="line.quantity if doc.state == 'done' and line.quantity else line.product_uom_qty"/>
+                                    <td style="padding:9px 10px;border:1px solid #e2e8f0;vertical-align:top;" t-esc="line.product_uom.display_name if line.product_uom else '-'"/>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="mt32">
+                            <p>
+                                <strong>Observaciones:</strong>
+                            </p>
+                            <p t-esc="doc.note or ''"/>
+                        </div>
+
+                        <footer style="margin-top:auto;padding-top:10px;border-top:1px solid #dee2e6;text-align:end;font-size:11px;">
+                            <p class="mb-0" t-if="i == 0">Original: Destinatario</p>
+                            <p class="mb-0" t-if="i == 1">Copia 1: Emisor</p>
+                            <p class="mb-0" t-if="i == 2">Copia 2: Servicio de Administración de Rentas</p>
+                        </footer>
+                    </div>
+                    </t>    
+                </t>
+            </t>
+        </t>    
+    </template>
+</odoo>

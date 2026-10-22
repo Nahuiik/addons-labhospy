@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="wizard_isv_form_view" model="ir.ui.view">
+        <field name="name">wizard.isv.report.form</field>
+        <field name="model">l10n_hn_account.wizard_isv_report</field>
+        <field name="arch" type="xml">
+            <form string="Reporte ISV">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="fiscal_credit"/>
+                            <field name="pos"/>
+                            <field name="month" required="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="print_report" type="object"
+                                string="Imprimir" class="btn-primary"
+                                context="{'xls_export': False}"/>
+                        <button name="print_report" type="object"
+                                string="Excel" class="btn-secondary"
+                                context="{'xls_export': True}"/>
+                        <button special="cancel" string="Cancelar" class="btn-secondary"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="wizard_isv_report_action" model="ir.actions.act_window">
+        <field name="name">Reporte ISV</field>
+        <field name="res_model">l10n_hn_account.wizard_isv_report</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="isv_report_menuitem"
+              name="Reporte ISV"
+              action="wizard_isv_report_action"
+              parent="l10n_hn_account.menu_hn_libros_root"
+              sequence="3"/>
+</odoo>

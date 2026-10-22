@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_company_form_inherit_l10_hn_production" model="ir.ui.view">
+        <field name="name">res.company.form.inherit.l10.hn.production</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Producción" name="l10_hn_production_settings" groups="stock.group_stock_manager">
+                    <group string="Transferencia de materiales">
+                        <field
+                            name="hn_production_source_warehouse_id"
+                            options="{'no_create': True}"
+                            domain="[('company_id', '=', id)]"
+                        />
+                        <field
+                            name="hn_production_dest_warehouse_id"
+                            options="{'no_create': True}"
+                            domain="[('company_id', '=', id)]"
+                        />
+                        <field name="hn_production_allow_self_approval"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

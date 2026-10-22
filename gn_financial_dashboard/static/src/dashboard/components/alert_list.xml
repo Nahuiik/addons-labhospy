@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_financial_dashboard.AlertList">
+        <div class="gn-fd-alert-list">
+            <div t-if="props.title" class="gn-fd-section-title">
+                <i class="fa fa-bell me-2"/><t t-esc="props.title"/>
+                <span class="badge bg-secondary ms-2" t-esc="props.alerts.length"/>
+            </div>
+
+            <div t-if="!props.alerts.length" class="gn-fd-empty">
+                <i class="fa fa-check-circle text-success me-2"/>
+                <t t-esc="props.emptyLabel || 'No hay alertas activas. Todo en orden.'"/>
+            </div>
+
+            <div t-else="" class="gn-fd-alert-items">
+                <div t-foreach="props.alerts" t-as="a" t-key="a.code || a_index"
+                     class="gn-fd-alert-item" t-att-class="'gn-fd-alert-item--' + a.severity">
+                    <div class="gn-fd-alert-row">
+                        <span t-att-class="severityBadge(a.severity)" t-esc="severityLabel(a.severity)"/>
+                        <span class="gn-fd-alert-cat" t-esc="categoryLabel(a.category)"/>
+                        <span class="gn-fd-alert-name" t-esc="a.name"/>
+                        <span class="flex-grow-1"/>
+                        <div class="gn-fd-alert-actions">
+                            <button t-if="canDrill(a)" class="btn btn-sm btn-link"
+                                    t-on-click="() => this.onDrillClick(a)" title="Ver detalle">
+                                <i class="fa fa-search-plus"/>
+                            </button>
+                            <button t-if="props.withPersistence and a.event_id and a.state == 'open'"
+                                    class="btn btn-sm btn-outline-warning"
+                                    t-on-click="(ev) => this.onAckClick(a, ev)" title="Reconocer">
+                                <i class="fa fa-eye"/>
+                            </button>
+                            <button t-if="props.withPersistence and a.event_id and ['open','ack'].includes(a.state)"
+                                    class="btn btn-sm btn-outline-success"
+                                    t-on-click="(ev) => this.onResolveClick(a, ev)" title="Marcar resuelta">
+                                <i class="fa fa-check"/>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="gn-fd-alert-msg" t-esc="a.message"/>
+                    <div t-if="a.action_hint" class="gn-fd-alert-hint">
+                        <i class="fa fa-lightbulb-o me-1"/><t t-esc="a.action_hint"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

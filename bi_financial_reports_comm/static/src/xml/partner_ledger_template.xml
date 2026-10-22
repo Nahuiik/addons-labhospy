@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="PartnerLedgerReport">
+        <div class="report-button-container">
+            <div class="d-flex justify-content-between align-items-center mb-3 mt-3">
+                <div>
+                    <h2 style="margin-left: 45px;">Partner Ledger</h2>
+                </div>
+                <div>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-primary" style="margin-right: 7px;" t-on-click="openFilterPopup">
+                            <i class="fa fa-filter"></i> Filters
+                        </button>
+                        <button class="btn btn-primary" style="margin-right: 7px;" t-on-click="printReport">
+                            <i class="fa fa-print"></i> Print
+                        </button>
+                        <button class="btn btn-primary" style="margin-right: 20px;" t-on-click="printXls">
+                            <i class="fa fa-file-excel-o"></i> XLS
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <div class="report-container">
+                <div class="table-responsive report-table-container">
+                    <table class="table table-hover report-table" >
+                        <thead class="table-header">
+                            <tr>
+                                <th style="text-align: center;width: 1%;background-color: #f5f5f5;"></th>
+                                <th style="text-align: center;width: 15%;"></th>
+                                <th style="text-align: center;width: 15%;">Journal</th>
+                                <th style="text-align: center;width: 10%;">Invoice Date</th>
+                                <th style="text-align: center;width: 10%;">Due Date</th>
+                                <th style="text-align: center;width: 10%;">Account</th>
+                                <th style="text-align: center;width: 10%;">Matching</th>
+                                <th style="text-align: center;width: 7%;">Debit</th>
+                                <th style="text-align: center;width: 7%;">Credit</th>
+                                <th style="text-align: center;width: 10%;">Amount Currency</th>
+                                <th style="text-align: center;width: 10%;">Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        
+                            <t t-foreach="state.partners" t-as="partner" t-key="partner.name">
+                                <tr class="toggle-row" t-att-data-partner="partner.name">
+                                    <td style="padding: 6px 5px;" data-id="partner.id" class="line_name text unfoldable" tabindex="-1" colspan="1">
+                                        <div class="wrapper">
+                                            <div class="toggle_button">
+                                                <t t-if="partner.journal_items and partner.journal_items.length > 0">
+                                                    <button data-id="btn_foldable" class="btn btn_foldable" tabindex="-1" t-on-click="toggleLines"><i class="fa fa-caret-right dropdowntoggle"></i></button>
+                                                </t>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td style="padding: 6px 5px;" data-id="partner.id" class="line_name text unfoldable" tabindex="-1" colspan="1">
+                                        <div class="wrapper" style="padding-left: 10px;">
+                                            <div class="partner_name">
+                                                <t t-esc="partner.name"/>
+                                            </div>
+                                            <div class="item_button">
+                                                <t>
+                                                    <button class="btn btn_viewpartner" t-on-click="_onClickPartner"> Partner </button>
+                                                </t>
+                                                <t t-if="partner.journal_items and partner.journal_items.length > 0">
+                                                    <button class="btn btn_journalentry" t-on-click="_onClickJournalItems"> Journal Items </button>
+                                                </t>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td style="padding: 6px 5px;"/>
+                                    <td style="padding: 6px 5px;"/>
+                                    <td style="padding: 6px 5px;"/>
+                                    <td style="padding: 6px 5px;"/>
+                                    <td style="padding: 6px 5px;"/>
+                                    <td style="padding: 6px 5px;"><t t-esc="partner.debit"/></td>
+                                    <td style="padding: 6px 5px;"><t t-esc="partner.credit"/></td>
+                                    <td style="padding: 6px 5px;"/>
+                                    <td style="padding: 6px 5px;"><t t-esc="partner.balance"/></td>
+                                </tr>
+                                <t t-if="state.expandedPartners[partner.name]">
+                                    <t t-foreach="partner.journal_items" t-as="item" t-key="item.id">
+                                        <tr t-att-data-id="item.id">
+                                            <td style="padding: 6px 5px;"/>
+                                            <td style="padding: 6px 5px;" data-id="item.id" class="line_name text unfoldable" tabindex="-1" colspan="1">
+                                                <div class="wrapper">
+                                                    <div class="move_name"><t t-esc="item.move_name"/></div>
+                                                    <button class="btn btn_entry" t-on-click="_onClickEntry"> Entry </button>
+                                                </div>
+                                            </td>
+                                            <td style="padding: 6px 5px;white-space: normal !important;"><t t-esc=" item.journal_id"/></td>
+                                            <td style="padding: 6px 5px;"><t t-esc="item.invoice_date"/></td>
+                                            <td style="padding: 6px 5px;"><t t-esc="item.due_date || ''"/></td>
+                                            <td style="padding: 6px 5px;"><t t-esc="item.account_code"/></td>
+                                            <td style="padding: 6px 5px;"><t t-esc="item.matching"/></td>
+                                            <td style="padding: 6px 5px;"><t t-esc="item.debit"/></td>
+                                            <td style="padding: 6px 5px;"><t t-esc="item.credit"/></td>
+                                            <td style="padding: 6px 5px;"><t t-esc="item.amount_currency"/></td>
+                                            <td style="padding: 6px 5px;"><t t-esc="item.balance"/></td>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </t>
+                            <tr>
+                                <td style="padding: 6px 5px;"/>
+                                <td style="padding: 6px 5px;text-align:left;font-weight:bold;">Total</td>
+                                <td style="padding: 6px 5px;"/>
+                                <td style="padding: 6px 5px;"/>
+                                <td style="padding: 6px 5px;"/>
+                                <td style="padding: 6px 5px;"/>
+                                <td style="padding: 6px 5px;"/>
+                                <td style="padding: 6px 5px;text-align:center;font-weight:bold;"><t t-esc="state.partnertotalDebit"/></td>
+                                <td style="padding: 6px 5px;text-align:center;font-weight:bold;"><t t-esc="state.partnertotalCredit"/></td>
+                                <td style="padding: 6px 5px;"/>
+                                <td style="padding: 6px 5px;text-align:center;font-weight:bold;"><t t-esc="state.partnertotalBalance"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>
+

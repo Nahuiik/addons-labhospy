@@ -1,0 +1,43 @@
+Paquete de Instalación: l10n_hn_hr_payroll
+Versión: 19.0.1.0.0
+Fecha de creación: 2026-02-04 21:52:38
+Generado por: build_package.py
+
+Archivos incluidos: 48
+Archivos excluidos: 16
+
+INSTRUCCIONES DE INSTALACIÓN:
+============================
+
+1. Descomprimir el archivo ZIP en el directorio de addons de Odoo:
+   cp l10n_hn_hr_payroll_v19.0.1.0.0_20260204_215238.zip /ruta/a/addons/
+   cd /ruta/a/addons/
+   unzip l10n_hn_hr_payroll_v19.0.1.0.0_20260204_215238.zip
+
+2. Asegurarse de que el módulo esté en el path de addons:
+   --addons-path=/ruta/a/addons
+
+3. Actualizar la lista de módulos en Odoo:
+   - Ir a Aplicaciones
+   - Activar modo desarrollador
+   - Clic en "Actualizar lista de aplicaciones"
+
+4. Instalar el módulo:
+   - Buscar "Honduras Payroll Localization"
+   - Clic en Instalar
+
+5. Configurar el módulo según la documentación.
+
+DEPENDENCIAS:
+=============
+- hr
+- hr_payroll
+- hr_payroll_account
+- account
+- openpyxl (Python)
+
+NOTAS:
+======
+- Este módulo requiere Odoo 19.0
+- Asegúrese de tener permisos de administrador para instalar
+- Revise los permisos de seguridad después de la instalación

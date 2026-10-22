@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="action_purcharse_ticket_report" model="ir.actions.report">
+            <field name="name">Boleta de Compra</field>
+            <field name="model">debit.credit</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">gn_purchase_ticket.purchase_ticket_report_pdf</field>
+            <field name="report_file">gn_purchase_ticket.purchase_ticket_report_pdf</field>
+            <field name="print_report_name">'Boleta de Compra'</field>
+            <field name="binding_type">report</field>
+            <field name="binding_model_id" ref="gn_banks.model_debit_credit"/>
+            <field name="paperformat_id" ref="gn_purchase_ticket.paperformat_purchase_ticket"/>
+        </record>
+        <record id="action_check_report" model="ir.actions.report">
+            <field name="name">Imprimir Cheque</field>
+            <field name="model">debit.credit</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">gn_purchase_ticket.check_voucher_pdf</field>
+            <field name="report_file">gn_purchase_ticket.check_voucher_pdf</field>
+            <field name="print_report_name">'Check Report'</field>
+            <field name="binding_type">report</field>
+            <field name="binding_model_id" ref="gn_banks.model_debit_credit"/>
+        </record>
+
+        <!-- <report
+            id="action_check_report"
+            model="debit.credit"
+            string="Imprimir Cheque"
+            report_type="qweb-pdf"
+            name="gn_purchase_ticket.check_voucher_pdf"
+            file="Check Report"
+            attachment_use="False"
+            menu="False"
+            paperformat="gn_purchase_ticket.paperformat_purchase_ticket"
+        /> -->
+
+        <!--<record id="desktop_check_paper_format_bc" model="report.paperformat">
+            <field name="name">Check</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">280</field>
+            <field name="page_width">220</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">5</field>
+            <field name="margin_bottom">5</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">35</field>
+            <field name="dpi">100</field>
+        </record>
+
+         <record id="purchase_voucher" model="ir.actions.report">
+            <field name="name">Print Check</field>
+            <field name="model">debit.credit</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">gn_purchase_ticket.check_voucher</field>
+            <field name="report_file">gn_purchase_ticket.check_voucher</field>
+            <field name="print_report_name">'Imprimir Cheque'</field>
+            <field name="binding_model_id" ref="model_bank_check"/>
+            <field name="binding_type">report</field>
+        </record> -->
+    </data>
+</odoo>

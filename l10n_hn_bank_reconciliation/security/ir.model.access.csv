@@ -1,0 +1,6 @@
+model_id:id,group_id:id,id,name,perm_read,perm_write,perm_create,perm_unlink
+model_bank_reconciliation,reconciliation_bank_manager,access_bank_reconciliation_manager,bank.reconciliation,1,1,1,1
+model_bank_reconciliation,reconciliation_bank_user,access_bank_reconciliation_user,bank.reconciliation,1,0,0,0
+model_bank_reconciliation_line,reconciliation_bank_manager,access_bank_reconciliation_liner_manager,bank.reconciliation.line,1,1,1,1
+model_bank_reconciliation_line,reconciliation_bank_user,access_bank_reconciliation_line_user,bank.reconciliation.line,1,1,1,1
+model_vitt_banks_journal_settings,base.group_user,access_vitt_banks_journal_settings,vitt.banks.journal.settings,1,1,1,1

@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="0">
+    <!-- Template mejorado para Payslip con diseño profesional.
+         noupdate="0" para que l10n_sv_hr_payroll pueda heredar (xpath //tr[@id='employee_id_row']). -->
+    <template id="report_payslip" inherit_id="l10n_hn_payroll_base.report_payslip">
+        <xpath expr="//t[@t-call='web.external_layout']" position="replace">
+            <t t-call="web.html_container">
+                <div class="page" style="font-family: 'Arial', 'Helvetica', sans-serif; color: #333; margin: 0; padding: 10px 15px; font-size: 12px;">
+                <!-- Header con Logo y Título -->
+                <!-- Color del logotipo: usar primary_color si existe, sino usar un color corporativo por defecto -->
+                <t t-set="logo_color" t-value="o.company_id.primary_color if o.company_id.primary_color else '#0066cc'"/>
+                <div t-att-style="'border-bottom: 3px solid ' + logo_color + '; padding-bottom: 20px; margin-bottom: 30px; margin-top: 0;'">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr>
+                            <td style="width: 30%; vertical-align: middle;">
+                                <div style="text-align: left;">
+                                    <t t-if="o.company_id.logo">
+                                        <img t-att-src="'data:image/png;base64,%s' % o.company_id.logo.decode('utf-8')" 
+                                             style="max-height: 80px; max-width: 200px;"/>
+                                    </t>
+                                    <t t-else="">
+                                        <div t-att-style="'font-size: 23px; font-weight: bold; color: ' + logo_color + ';'">
+                                            <span t-field="o.company_id.name"/>
+                                        </div>
+                                    </t>
+                                </div>
+                            </td>
+                            <td style="width: 70%; vertical-align: middle; text-align: right;">
+                                <h1 t-att-style="'margin: 0; font-size: 27px; font-weight: bold; color: ' + logo_color + '; text-transform: uppercase;'">
+                                    Recibo de Salario
+                                </h1>
+                                <p style="margin: 5px 0 0 0; font-size: 13px; color: #7f8c8d;">
+                                    <span t-field="o.name"/>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- Advertencia si no está validado -->
+                <t t-set="is_invalid" t-value="o._is_invalid()"/>
+                <div t-if="is_invalid" style="background-color: #fff3cd; border: 2px solid #ffc107; border-radius: 5px; padding: 15px; margin-bottom: 20px;">
+                    <strong style="color: #856404; font-size: 13px;">
+                        <span t-out="is_invalid"/>
+                    </strong>
+                </div>
+
+                <!-- Información del Empleado y Contrato -->
+                <div style="background-color: #f8f9fa; border-radius: 8px; padding: 20px; margin-bottom: 25px;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr>
+                                <th t-att-style="'background-color: ' + logo_color + '; color: white; padding: 12px; text-align: left; border-radius: 5px 5px 0 0;'">
+                                    Información del Empleado
+                                </th>
+                                <th t-att-style="'background-color: ' + logo_color + '; color: white; padding: 12px; text-align: left; border-radius: 5px 5px 0 0;'">
+                                    Información del Contrato
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 15px; vertical-align: top; background-color: white; border-right: 1px solid #dee2e6;">
+                                    <table style="width: 100%; border-collapse: collapse;">
+                                        <tr>
+                                            <td style="padding: 8px 0; border-bottom: 1px solid #e9ecef;">
+                                                <strong style="color: #495057; min-width: 140px; display: inline-block; font-size: 12px;">Nombre:</strong>
+                                                <span t-field="o.employee_id.legal_name" style="font-weight: 500; font-size: 12px;"/>
+                                            </td>
+                                        </tr>
+                                        <tr id="employee_id_row">
+                                            <td style="padding: 8px 0; border-bottom: 1px solid #e9ecef;">
+                                                <strong style="color: #495057; min-width: 140px; display: inline-block; font-size: 12px;">ID:</strong>
+                                                <span t-if="o.version_id.identification_id" t-field="o.version_id.identification_id" style="font-weight: 500; font-size: 12px;"/>
+                                                <span t-else="" style="color: #6c757d; font-style: italic; font-size: 12px;">Sin número de identificación</span>
+                                            </td>
+                                        </tr>
+                                        <tr t-if="o.employee_id.rtn">
+                                            <td style="padding: 8px 0; border-bottom: 1px solid #e9ecef;">
+                                                <strong style="color: #495057; min-width: 140px; display: inline-block; font-size: 12px;">RTN:</strong>
+                                                <span t-field="o.employee_id.rtn" style="font-weight: 500; font-size: 12px;"/>
+                                            </td>
+                                        </tr>
+                                        <tr t-if="o.employee_id.work_email">
+                                            <td style="padding: 8px 0; border-bottom: 1px solid #e9ecef;">
+                                                <strong style="color: #495057; min-width: 140px; display: inline-block; font-size: 12px;">Email:</strong>
+                                                <span t-field="o.employee_id.work_email" style="font-weight: 500; font-size: 12px;"/>
+                                            </td>
+                                        </tr>
+                                        <tr t-if="o.version_id.job_id">
+                                            <td style="padding: 8px 0; border-bottom: 1px solid #e9ecef;">
+                                                <strong style="color: #495057; min-width: 140px; display: inline-block; font-size: 12px;">Cargo:</strong>
+                                                <span t-field="o.version_id.job_id" style="font-weight: 500; font-size: 12px;"/>
+                                            </td>
+                                        </tr>
+                                        <tr t-if="o.version_id.department_id">
+                                            <td style="padding: 8px 0; border-bottom: 1px solid #e9ecef;">
+                                                <strong style="color: #495057; min-width: 140px; display: inline-block; font-size: 12px;">Departamento:</strong>
+                                                <span t-field="o.version_id.department_id" style="font-weight: 500; font-size: 12px;"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 8px 0;">
+                                                <strong style="color: #495057; min-width: 140px; display: inline-block;">Estado Civil:</strong>
+                                                <span t-field="o.version_id.marital" style="font-weight: 500;"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td style="padding: 15px; vertical-align: top; background-color: white;">
+                                    <table style="width: 100%; border-collapse: collapse;">
+                                        <tr t-if="not o.struct_id.hide_basic_on_pdf">
+                                            <td style="padding: 8px 0; border-bottom: 1px solid #e9ecef;">
+                                                <strong style="color: #495057; min-width: 180px; display: inline-block; font-size: 12px;">Salario del Contrato:</strong>
+                                                <span t-out="o.version_id._get_contract_wage()" 
+                                                      t-options="{'widget': 'monetary', 'display_currency': o.company_id.currency_id}" 
+                                                      style="font-weight: bold; color: #28a745; font-size: 15px;"/>
+                                                <span style="color: #6c757d; font-size: 11px;">
+                                                    (<span class="text-capitalize" t-out="o.version_id.schedule_pay if o.version_id.wage_type == 'monthly' else o.version_id.wage_type"/>)
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 8px 0; border-bottom: 1px solid #e9ecef;">
+                                                <strong style="color: #495057; min-width: 180px; display: inline-block; font-size: 12px;">Periodo de Paga:</strong>
+                                                <span t-if="o.date_from &lt; o.version_id.contract_date_start" t-field="o.version_id.contract_date_start" style="font-size: 12px;"/>
+                                                <span t-else="" t-field="o.date_from" style="font-size: 12px;"/>
+                                                <span style="font-size: 12px;"> - </span>
+                                                <span t-if="o.version_id.contract_date_end and o.date_to &gt; o.version_id.contract_date_end" t-field="o.version_id.contract_date_end" style="font-size: 12px;"/>
+                                                <span t-else="" t-field="o.date_to" style="font-size: 12px;"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 8px 0; border-bottom: 1px solid #e9ecef;">
+                                                <strong style="color: #495057; min-width: 180px; display: inline-block; font-size: 12px;">Calculado en:</strong>
+                                                <span t-field="o.compute_date" style="font-size: 12px;"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 8px 0; border-bottom: 1px solid #e9ecef;">
+                                                <strong style="color: #495057; min-width: 180px; display: inline-block; font-size: 12px;">Fecha Inicio Contrato:</strong>
+                                                <span t-field="o.version_id.contract_date_start" style="font-size: 12px;"/>
+                                            </td>
+                                        </tr>
+                                        <tr t-if="o.version_id.contract_type_id">
+                                            <td style="padding: 8px 0; border-bottom: 1px solid #e9ecef;">
+                                                <strong style="color: #495057; min-width: 180px; display: inline-block; font-size: 12px;">Tipo de Contrato:</strong>
+                                                <span t-field="o.version_id.contract_type_id" style="font-size: 12px;"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Tabla de Desglose de Salario -->
+                <div style="margin-bottom: 25px;">
+                    <h3 t-att-style="'background-color: ' + logo_color + '; color: white; padding: 12px; margin: 0; border-radius: 5px 5px 0 0;'">
+                        Desglose de Salario
+                    </h3>
+                    <table style="width: 100%; border-collapse: collapse; border: 1px solid #dee2e6; background-color: white;">
+                        <thead>
+                            <tr style="background-color: #f8f9fa;">
+                                <th t-att-style="'padding: 12px; text-align: left; border-bottom: 2px solid ' + logo_color + '; font-weight: bold;'">Concepto</th>
+                                <th t-att-style="'padding: 12px; text-align: right; border-bottom: 2px solid ' + logo_color + '; font-weight: bold;'">Cantidad</th>
+                                <th t-att-style="'padding: 12px; text-align: right; border-bottom: 2px solid ' + logo_color + '; font-weight: bold;'">Tasa</th>
+                                <th t-att-style="'padding: 12px; text-align: right; border-bottom: 2px solid ' + logo_color + '; font-weight: bold;'">Total</th>
+                                <th t-if="o.ytd_computation" t-att-style="'padding: 12px; text-align: right; border-bottom: 2px solid ' + logo_color + '; font-weight: bold;'">YTD</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip)" t-as="line">
+                                <t t-set="line_styling" t-value="line.get_payslip_styling_dict()"/>
+                                <t t-set="line_style" t-value="line_styling['line_style']"/>
+                                <t t-set="line_class" t-value="line_styling['line_class']"/>
+                                <t t-set="is_total" t-value="line.salary_rule_id.category_id.code in ['NET', 'GROSS']"/>
+                                <tr t-att-style="'background-color: #f8f9fa; font-weight: bold;' if is_total else ''">
+                                    <td style="padding: 10px; border-bottom: 1px solid #e9ecef;" t-att-colspan="99 if line.salary_rule_id.title else 1">
+                                        <span t-field="line.name" style="font-weight: 500; font-size: 12px;"/>
+                                        <span t-if="line.salary_rule_id.note" style="display: block; font-size: 10px; color: #6c757d; margin-top: 3px;">
+                                            <span t-field="line.salary_rule_id.note"/>
+                                        </span>
+                                    </td>
+                                    <td style="padding: 10px; text-align: right; border-bottom: 1px solid #e9ecef;">
+                                        <span t-if="line.quantity &gt; 1" t-out="round(line.quantity, 2)" style="font-size: 12px;"/>
+                                    </td>
+                                    <td style="padding: 10px; text-align: right; border-bottom: 1px solid #e9ecef;">
+                                        <span t-if="line.rate &lt; 100" t-out="str(round(line.rate, 2)) + ' %'" style="font-size: 12px;"/>
+                                    </td>
+                                    <td style="padding: 10px; text-align: right; border-bottom: 1px solid #e9ecef;" 
+                                        t-att-style="'color: #dc3545; font-size: 12px;' if line.total &lt; 0 else ('color: #28a745; font-weight: bold; font-size: 12px;' if is_total else 'font-size: 12px;')">
+                                        <span t-out="line.total"
+                                            t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/>
+                                    </td>
+                                    <td t-if="o.ytd_computation" style="padding: 10px; text-align: right; border-bottom: 1px solid #e9ecef;">
+                                        <span t-esc="line.ytd" style="font-size: 12px;"
+                                            t-options="{'widget': 'monetary', 'display_currency': o.company_id.currency_id}"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Monto a Pagar -->
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 8px; padding: 25px; margin-top: 30px; text-align: center;">
+                    <t t-if="o.net_wage >= 0">
+                        <t t-set="allocations" t-value="o.compute_salary_allocations()"/>
+                        <t t-foreach="allocations.items()" t-as="alloc">
+                            <t t-set="bank" t-value="o.employee_id.bank_account_ids.filtered(lambda b: str(b.id) == alloc[0])[0]"/>
+                            <p style="color: white; font-size: 15px; margin: 10px 0;">
+                                Pago a realizar en cuenta 
+                                <strong style="font-size: 17px;"><span t-esc="bank.acc_number or 'N/A'"/></strong>
+                                de <span t-field="o.employee_id.legal_name"/>:
+                                <strong style="font-size: 23px; display: block; margin-top: 10px;">
+                                    <span t-esc="alloc[1]" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                </strong>
+                            </p>
+                        </t>
+                        <t t-if="not allocations">
+                            <p style="color: white; font-size: 15px; margin: 0;">
+                                Monto a pagar a <span t-field="o.employee_id.legal_name"/>:
+                            </p>
+                            <p style="color: white; font-size: 31px; font-weight: bold; margin: 15px 0 0 0;">
+                                <span t-esc="o.net_wage" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                            </p>
+                        </t>
+                    </t>
+                    <p t-if="o.net_wage &lt; 0" style="color: white; font-size: 15px; margin: 0;">
+                        El monto neto será recuperado del primer salario positivo establecido después de este.
+                    </p>
+                </div>
+
+                <!-- Footer con información de la compañía -->
+                <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #e9ecef; text-align: center; color: #6c757d; font-size: 10px;">
+                    <p style="margin: 5px 0;">
+                        <span t-field="o.company_id.name"/>
+                        <t t-if="o.company_id.street"> - <span t-field="o.company_id.street"/></t>
+                        <t t-if="o.company_id.city">, <span t-field="o.company_id.city"/></t>
+                        <t t-if="o.company_id.phone"> - Tel: <span t-field="o.company_id.phone"/></t>
+                    </p>
+                    <p style="margin: 5px 0;">
+                        <t t-if="o.company_id.vat">RTN: <span t-field="o.company_id.vat"/></t>
+                    </p>
+                </div>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>

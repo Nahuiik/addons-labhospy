@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="lots_serials_in_purchase_order_lines_form">
+            <field name="name">purchase.order.inherit.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/list/field[@name='price_unit']" position="before">
+                    <field name="lot_ids" string="Lots / Serials" widget="many2many_tags" readonly="1"/>
+                    <button name="action_view_lot_ids" type="object" icon="fa-list"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

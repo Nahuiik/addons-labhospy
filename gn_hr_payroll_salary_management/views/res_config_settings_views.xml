@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_gn_salary_management" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.gn.salary.management</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="l10n_hn_payroll_base.res_config_settings_view_payroll"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@id='hr_payroll_settings']" position="inside">
+                <setting string="Anticipos salariales" id="gn_salary_advance_settings"
+                    help="Diario (banco o efectivo) y cuentas por defecto para el asiento del anticipo."
+                    groups="l10n_hn_payroll_base.group_hn_payroll_manager">
+                    <div class="content-group">
+                        <div class="mb-2"><label for="salary_advance_journal_id" string="Diario de pago"/> <field name="salary_advance_journal_id" class="oe_inline" options="{'no_create': True}"/></div>
+                        <div class="mb-2"><label for="salary_advance_debit_account_id" string="Cuenta débito (anticipo / empleado)"/> <field name="salary_advance_debit_account_id" class="oe_inline" options="{'no_create': True}"/></div>
+                        <div><label for="salary_advance_credit_account_id" string="Cuenta crédito (banco/caja)"/> <field name="salary_advance_credit_account_id" class="oe_inline" options="{'no_create': True}"/></div>
+                    </div>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+</odoo>

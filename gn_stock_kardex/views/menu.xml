@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_gn_stock_dashboard" model="ir.actions.client">
+        <field name="name">Panel de Stock</field>
+        <field name="tag">gn_stock_dashboard</field>
+    </record>
+
+    <menuitem
+        id="menu_gn_stock_dashboard"
+        name="Panel de Stock"
+        parent="stock.menu_warehouse_report"
+        action="action_gn_stock_dashboard"
+        sequence="49"
+        groups="stock.group_stock_user"/>
+
+    <menuitem
+        id="menu_gn_stock_kardex"
+        name="Kardex (AVCO)"
+        parent="stock.menu_warehouse_report"
+        action="action_gn_stock_kardex_wizard"
+        sequence="50"
+        groups="stock.group_stock_manager"/>
+
+    <menuitem
+        id="menu_gn_stock_age"
+        name="Antigüedad de Stock"
+        parent="stock.menu_warehouse_report"
+        action="action_gn_stock_age_wizard"
+        sequence="51"
+        groups="stock.group_stock_manager"/>
+</odoo>

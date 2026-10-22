@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="paperformat_account_statement" model="report.paperformat">
+            <field name="name">Estado de Cuenta</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">279</field>
+            <field name="page_width">216</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">20</field>
+            <field name="margin_bottom">20</field>
+            <field name="margin_left">9</field>
+            <field name="margin_right">9</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">20</field>
+            <field name="dpi">96</field>
+        </record>
+
+        <report 
+            id="action_customer_invoice_outstanding"
+            string="Arqueo de Caja Diario"
+            model="gn_cash_register.invoice_outstanding" 
+            report_type="qweb-pdf"
+            file="gn_cash_register.invoice_outstanding" 
+            name="gn_cash_register.invoice_outstanding" 
+            paperformat="paperformat_account_statement"
+        />
+    </data>
+</odoo>

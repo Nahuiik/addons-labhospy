@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_banks_ui.BankStatusSteps">
+        <div class="gn-bk-steps">
+            <div class="gn-bk-steps__track">
+                <t t-foreach="stepItems" t-as="step" t-key="step.key">
+                    <div t-attf-class="gn-bk-steps__item gn-bk-steps__item--{{ step.status }}">
+                        <div class="text-center">
+                            <div class="gn-bk-steps__dot">
+                                <i t-if="step.status === 'done'" class="fa fa-check"/>
+                                <i t-elif="step.status === 'cancelled'" class="fa fa-times"/>
+                                <span t-else="" t-esc="step_index + 1"/>
+                            </div>
+                            <div class="gn-bk-steps__label" t-esc="step.label"/>
+                        </div>
+                        <div t-if="!step_last" class="gn-bk-steps__line"/>
+                    </div>
+                </t>
+            </div>
+        </div>
+    </t>
+</templates>

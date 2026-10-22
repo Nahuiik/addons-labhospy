@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hn_production_material_transfer_tree" model="ir.ui.view">
+        <field name="name">hn.production.material.transfer.list</field>
+        <field name="model">hn.production.material.transfer</field>
+        <field name="arch" type="xml">
+            <list
+                decoration-warning="state == 'pending_approval'"
+                decoration-success="state == 'done'"
+                decoration-muted="state == 'cancelled'"
+            >
+                <field name="name"/>
+                <field name="production_id"/>
+                <field name="source_warehouse_id"/>
+                <field name="dest_warehouse_id"/>
+                <field name="submitted_by"/>
+                <field name="submitted_date"/>
+                <field name="approved_by"/>
+                <field name="state" widget="badge"
+                    decoration-warning="state == 'pending_approval'"
+                    decoration-info="state == 'approved'"
+                    decoration-success="state == 'done'"
+                    decoration-danger="state == 'cancelled'"
+                />
+            </list>
+        </field>
+    </record>
+
+    <record id="view_hn_production_material_transfer_form" model="ir.ui.view">
+        <field name="name">hn.production.material.transfer.form</field>
+        <field name="model">hn.production.material.transfer</field>
+        <field name="arch" type="xml">
+            <form string="Transferencia a producción">
+                <header>
+                    <button
+                        name="action_approve"
+                        string="Aprobar"
+                        type="object"
+                        class="btn-primary"
+                        invisible="state != 'pending_approval' or not can_user_approve"
+                        groups="l10_hn_production.group_production_material_approver"
+                    />
+                    <button
+                        name="action_reject"
+                        string="Rechazar"
+                        type="object"
+                        invisible="state != 'pending_approval' or not can_user_approve"
+                        groups="l10_hn_production.group_production_material_approver"
+                    />
+                    <button
+                        name="action_cancel"
+                        string="Cancelar"
+                        type="object"
+                        invisible="state in ('done', 'cancelled')"
+                        groups="l10_hn_production.group_production_material_approver"
+                    />
+                    <field
+                        name="state"
+                        widget="statusbar"
+                        statusbar_visible="pending_approval,approved,done"
+                    />
+                </header>
+                <sheet>
+                    <field name="is_current_user_submitter" invisible="1"/>
+                    <field name="can_user_approve" invisible="1"/>
+                    <field name="can_edit_transfer_lines" invisible="1"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            name="action_view_picking"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-truck"
+                            invisible="not picking_id"
+                        >
+                            <span class="o_stat_text">Transferencia</span>
+                        </button>
+                    </div>
+                    <div class="alert alert-info" role="alert"
+                        invisible="not can_edit_transfer_lines or state != 'pending_approval' or not is_current_user_submitter or can_user_approve">
+                        Complete <strong>lote/serie</strong> y <strong>cantidad</strong> en la pestaña
+                        Componentes (solo lotes con stock en la bodega origen). Cuando termine,
+                        otro usuario autorizado debe aprobar la solicitud.
+                    </div>
+                    <div class="alert alert-warning" role="alert"
+                        invisible="state != 'pending_approval' or not is_current_user_submitter or can_user_approve"
+                        groups="l10_hn_production.group_production_material_approver">
+                        Usted generó esta solicitud y la autoaprobación está desactivada.
+                        Pida a otro responsable que la apruebe, o active
+                        <strong>Permitir autoaprobación</strong> en Ajustes → Fabricación.
+                    </div>
+                    <div class="alert alert-success" role="alert"
+                        invisible="state != 'pending_approval' or not can_user_approve or not is_current_user_submitter">
+                        Pulse <strong>Aprobar</strong> y luego valide el picking (Marcar hecho)
+                        para que el material llegue a materia prima.
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="production_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="source_warehouse_id"/>
+                            <field name="dest_warehouse_id"/>
+                        </group>
+                        <group>
+                            <field name="location_id"/>
+                            <field name="location_dest_id"/>
+                            <field name="picking_id" readonly="1"/>
+                            <field name="submitted_by"/>
+                            <field name="submitted_date"/>
+                            <field name="approved_by" invisible="not approved_by"/>
+                            <field name="approved_date" invisible="not approved_by"/>
+                            <field name="rejected_by" invisible="not rejected_by"/>
+                            <field name="rejected_date" invisible="not rejected_by"/>
+                            <field name="rejection_reason" invisible="not rejection_reason"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Componentes" name="lines">
+                            <field name="line_ids" readonly="not can_edit_transfer_lines">
+                                <list
+                                    editable="bottom"
+                                    create="0"
+                                    delete="0"
+                                >
+                                    <field name="can_edit_lines" column_invisible="1"/>
+                                    <field name="transfer_state" column_invisible="1"/>
+                                    <field name="allowed_lot_ids" column_invisible="1"/>
+                                    <field name="product_id" readonly="1"/>
+                                    <field name="product_tracking" column_invisible="1"/>
+                                    <field name="product_uom_id" groups="uom.group_uom" readonly="1"/>
+                                    <field
+                                        name="lot_id"
+                                        readonly="product_tracking == 'none' or not can_edit_lines"
+                                        required="product_tracking in ('lot', 'serial') and can_edit_lines"
+                                        groups="stock.group_production_lot"
+                                        options="{'no_create': True, 'no_create_edit': True}"
+                                    />
+                                    <field name="qty_required" readonly="1"/>
+                                    <field name="qty_available_dest" readonly="1"/>
+                                    <field
+                                        name="qty_available_origin"
+                                        readonly="1"
+                                        optional="show"
+                                    />
+                                    <field
+                                        name="qty_to_transfer"
+                                        readonly="not can_edit_lines"
+                                    />
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_hn_production_material_transfer_search" model="ir.ui.view">
+        <field name="name">hn.production.material.transfer.search</field>
+        <field name="model">hn.production.material.transfer</field>
+        <field name="arch" type="xml">
+            <search string="Transferencias a producción">
+                <field name="name"/>
+                <field name="production_id"/>
+                <filter string="Pendiente aprobación" name="filter_pending" domain="[('state', '=', 'pending_approval')]"/>
+                <filter string="Aprobado" name="filter_approved" domain="[('state', '=', 'approved')]"/>
+                <filter string="Hecho" name="filter_done" domain="[('state', '=', 'done')]"/>
+                <filter string="Mis solicitudes" name="filter_my_requests" domain="[('submitted_by', '=', uid)]"/>
+                <group>
+                    <filter string="Estado" name="group_state" context="{'group_by': 'state'}"/>
+                    <filter string="Orden de producción" name="group_production" context="{'group_by': 'production_id'}"/>
+                    <filter string="Solicitante" name="group_submitted_by" context="{'group_by': 'submitted_by'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_hn_production_material_transfer" model="ir.actions.act_window">
+        <field name="name">Transferencias a producción</field>
+        <field name="res_model">hn.production.material.transfer</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_hn_production_material_transfer_search"/>
+        <field name="context">{'search_default_filter_pending': 1}</field>
+    </record>
+
+    <menuitem
+        id="menu_hn_production_material_transfer"
+        name="Transferencias a producción"
+        parent="mrp.menu_mrp_manufacturing"
+        action="action_hn_production_material_transfer"
+        sequence="45"
+        groups="mrp.group_mrp_user,stock.group_stock_user"
+    />
+</odoo>

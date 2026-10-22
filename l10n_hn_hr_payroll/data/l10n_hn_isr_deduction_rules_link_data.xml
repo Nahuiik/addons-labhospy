@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Link deducción-por-tipo rules to ISR config deductible_rule_ids -->
+        <!-- So legacy ISR calculation counts them; SAR 2026 uses model directly -->
+        <record id="isr_config_2026_default" model="l10n.hn.isr.config">
+            <field name="deductible_rule_ids" eval="[(6, 0, [
+                ref('l10n_hn_hr_payroll.salary_rule_ded_afp_nomina_monthly'),
+                ref('l10n_hn_hr_payroll.salary_rule_ded_afp_nomina_biweekly'),
+                ref('l10n_hn_hr_payroll.salary_rule_ded_colegio_profesional_monthly'),
+                ref('l10n_hn_hr_payroll.salary_rule_ded_colegio_profesional_biweekly'),
+                ref('l10n_hn_hr_payroll.salary_rule_ded_isr_otros_monthly'),
+                ref('l10n_hn_hr_payroll.salary_rule_ded_isr_otros_biweekly'),
+            ])]"/>
+        </record>
+    </data>
+</odoo>

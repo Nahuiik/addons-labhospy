@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gts_customer_advance.AdvanceDashboard">
+        <Layout display="display">
+            <t t-set-slot="control-panel-always-buttons">
+                <button class="btn btn-sm btn-outline-secondary me-2" t-on-click="toggleSidebar"
+                        t-att-title="state.sidebarVisible ? 'Ocultar filtros' : 'Mostrar filtros'">
+                    <i t-att-class="state.sidebarVisible ? 'fa fa-chevron-left' : 'fa fa-sliders'"/>
+                </button>
+                <span class="gts-advance-dashboard-title fw-bold fs-5 me-3">Dashboard de Abonos/Anticipos</span>
+            </t>
+            <div class="gts-advance-dashboard-wrap">
+                <div class="gts-advance-dashboard">
+                    <div class="gts-advance-dashboard__sidebar" t-if="state.sidebarVisible">
+                        <FilterPanel
+                            filters="state.filters"
+                            filterOptions="state.filterOptions"
+                            onFiltersChanged.bind="onFiltersChanged"
+                        />
+                    </div>
+                    <div class="gts-advance-dashboard__main">
+                        <t t-if="state.loading">
+                            <div class="gts-advance-dashboard__loading">
+                                <i class="fa fa-spinner fa-spin fa-2x"/> Cargando datos...
+                            </div>
+                        </t>
+                        <t t-else="">
+                            <t t-if="state.data.kpis">
+                                <div class="gts-advance-kpi-row">
+                                    <t t-foreach="kpis" t-as="kpi" t-key="kpi.label">
+                                        <KpiCard label="kpi.label" value="kpi.value" icon="kpi.icon" color="kpi.color"/>
+                                    </t>
+                                </div>
+                            </t>
+
+                            <DataTable data="state.data" onDrilldown.bind="onDrilldown"/>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </Layout>
+    </t>
+
+</templates>

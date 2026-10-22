@@ -1,0 +1,27 @@
+<odoo>
+		
+		<record id="purchase_order_form_inherit_05" model="ir.ui.view">
+            <field name="name">purchase.order.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+
+				<field name="partner_id" position="attributes">
+					<attribute name="options">{'readonly': [('state', 'not in', ('draft'))]}</attribute>
+				</field>
+            <field name="tax_totals" position="before">
+            		<field name="exonerate_amount" />
+            		<field name="exempt_sale_amount" />
+            		<field name="amount_tax_15_per" invisible="1"/>
+           			<field name="amount_tax_18_per" invisible="1"/>
+            		<field name="taxed_sales" invisible="1"/>
+            		<field name="tax_15_per" invisible="1"/>
+            		<field name="tax_18_per" invisible="1"/>
+            	</field>				
+            <field name="partner_ref" position="after">
+                <field name="vendor_invoice_number" string="Factura del proveedor"/>
+            </field>
+            </field>
+		</record>
+                
+</odoo>

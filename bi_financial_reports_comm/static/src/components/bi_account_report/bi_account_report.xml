@@ -1,0 +1,1830 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="bi_financial_reports_comm.BiAccountReport">
+        <div class="o_action bi_account_report">
+            <Layout display="display">
+                <t t-set-slot="control-panel-create-button">
+                    <div class="d-flex gap-1 align-items-center flex-shrink-0">
+                        <BiAccountReportButtonsBar controller="controller"/>
+                        <span class="o_bi_report_title fw-bold ms-2" t-if="reportType === 'general_ledger'"><t t-esc="_t('Libro mayor')"/></span>
+                        <span class="o_bi_report_title fw-bold ms-2" t-elif="reportType === 'partner_ledger' and reportVariant === 'customer_statement'"><t t-esc="_t('Estado de cuenta del cliente')"/></span>
+                        <span class="o_bi_report_title fw-bold ms-2" t-elif="reportType === 'partner_ledger'"><t t-esc="_t('Libro mayor de la empresa')"/></span>
+                        <span class="o_bi_report_title fw-bold ms-2" t-elif="reportType === 'trial_balance'"><t t-esc="_t('Balance de comprobación')"/></span>
+                        <span class="o_bi_report_title fw-bold ms-2" t-elif="reportType === 'profit_loss' or reportType === 'profit_and_loss'"><t t-esc="_t('Estado de Resultados')"/></span>
+                        <span class="o_bi_report_title fw-bold ms-2" t-elif="reportType === 'balance_sheet'"><t t-esc="_t('Balance general')"/></span>
+                        <span class="o_bi_report_title fw-bold ms-2" t-elif="reportType === 'cash_flow'"><t t-esc="_t('Estado de flujo de efectivo')"/></span>
+                        <span class="o_bi_report_title fw-bold ms-2" t-elif="reportType === 'bank_reconciliation'"><t t-esc="_t('Conciliación bancaria')"/></span>
+                        <span class="o_bi_report_title fw-bold ms-2" t-elif="reportType === 'tax_report'"><t t-esc="_t('Reporte fiscal')"/></span>
+                        <span class="o_bi_report_title fw-bold ms-2" t-elif="reportType === 'tax_return'"><t t-esc="_t('Declaración fiscal')"/></span>
+                        <span class="o_bi_report_title fw-bold ms-2" t-elif="reportType === 'partner_ageing' and controller.state.options.account_type === 'payable'"><t t-esc="_t('Cuenta por pagar vencida')"/></span>
+                        <span class="o_bi_report_title fw-bold ms-2" t-elif="reportType === 'partner_ageing' and controller.state.options.account_type === 'receivable'"><t t-esc="_t('Cuenta por cobrar vencida')"/></span>
+                        <span class="o_bi_report_title fw-bold ms-2" t-elif="reportType === 'partner_ageing'"><t t-esc="_t('Reporte de seguimiento')"/></span>
+                        <span class="o_bi_report_title fw-bold ms-2" t-elif="reportType === 'analytic_report'"><t t-esc="_t('Reporte analítico')"/></span>
+                        <span class="o_bi_report_title fw-bold ms-2" t-elif="reportType === 'executive_summary'"><t t-esc="_t('Resumen ejecutivo')"/></span>
+                        <span class="o_bi_report_title fw-bold ms-2" t-else=""><t t-esc="controller.reportTitle"/></span>
+                    </div>
+                </t>
+                <t t-set-slot="layout-actions">
+                    <div class="o_bi_report_bar d-flex flex-wrap align-items-center gap-2 flex-grow-1 w-100">
+                        <BiAccountReportFilters/>
+                    </div>
+                </t>
+                <t t-if="!controller.state.loading and controller.state.data and controller.state.data.report_currency_note">
+                    <div class="alert alert-light border py-2 px-3 mx-2 mt-2 mb-0 small" role="status">
+                        <i class="fa fa-info-circle me-1" title="Info"/>
+                        <t t-esc="controller.state.data.report_currency_note"/>
+                    </div>
+                </t>
+                <t t-if="controller.state.loading">
+                    <div class="o_bi_report_loading d-flex justify-content-center align-items-center py-5">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </t>
+                <t t-elif="!controller.state.data">
+                    <div class="o_bi_report_empty py-5 text-center text-muted">
+                        <t t-esc="_t('No data to display')"/>
+                    </div>
+                </t>
+                <t t-elif="reportType === 'partner_ledger' and (!controller.state.data.partners or controller.state.data.partners.length === 0)">
+                    <div class="o_bi_report_empty py-5 text-center text-muted">
+                        <t t-esc="_t('No data to display')"/>
+                    </div>
+                </t>
+                <t t-elif="reportType === 'partner_ageing'">
+                    <t t-if="controller.state.data and controller.state.data.has_draft_warning">
+                        <div class="alert alert-info py-2 px-3 mx-1 mt-2 mb-0 text-center o_bi_draft_warning_alert" role="button" tabindex="0" t-on-click="onClickDraftWarning" t-on-keydown="onClickDraftWarning">
+                            <t t-esc="_t('Hay asientos contables sin registrar anteriores o incluidos en este periodo.')"/>
+                        </div>
+                    </t>
+                    <div class="o_bi_report_card_container">
+                        <div class="o_bi_report_card">
+                            <div class="o_account_report_scroll_container table-responsive">
+                                <t t-set="data" t-value="controller.state.data"/>
+                                <t t-set="reportYear" t-value="data.report_year || ''"/>
+                                <t t-foreach="['receivable', 'payable']" t-as="sectionKey" t-key="sectionKey">
+                                    <t t-set="section" t-value="sectionKey === 'receivable' ? (data.receivable || {}) : (data.payable || {})"/>
+                                    <t t-set="partners" t-value="section.partners || []"/>
+                                    <t t-if="partners.length &gt; 0">
+                                        <t t-set="periods" t-value="data.periods || {}"/>
+                                        <table class="table table-borderless table-hover bi_report_table bi_report_table_ageing mb-4">
+                                            <thead>
+                                                <tr class="o_bi_date_row">
+                                                    <th style="width: 1%;"/>
+                                                    <th class="o_bi_th_partner">
+                                                        <span class="fw-bold"><t t-esc="section.section_label || reportYear"/></span>
+                                                    </th>
+                                                    <th colspan="7" class="text-end o_bi_th_period">
+                                                        <span class="fw-bold"><t t-esc="reportYear"/></span>
+                                                    </th>
+                                                </tr>
+                                                <tr class="o_bi_subheader">
+                                                    <th style="width: 1%;"/>
+                                                    <th class="o_bi_th_partner"><t t-esc="_t('Partner')"/></th>
+                                                    <th class="text-end o_bi_th_bucket"><t t-esc="(periods['0'] || {}).name || _t('At Date')"/></th>
+                                                    <th class="text-end o_bi_th_bucket"><t t-esc="(periods['1'] || {}).name || '1-30'"/></th>
+                                                    <th class="text-end o_bi_th_bucket"><t t-esc="(periods['2'] || {}).name || '31-60'"/></th>
+                                                    <th class="text-end o_bi_th_bucket"><t t-esc="(periods['3'] || {}).name || '61-90'"/></th>
+                                                    <th class="text-end o_bi_th_bucket"><t t-esc="(periods['4'] || {}).name || '91-120'"/></th>
+                                                    <th class="text-end o_bi_th_bucket"><t t-esc="(periods['5'] || {}).name || '120+'"/></th>
+                                                    <th class="text-end o_bi_th_balance"><t t-esc="_t('Total')"/></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <t t-foreach="partners" t-as="partner" t-key="partner.id">
+                                                    <tr class="toggle-row" t-att-data-partner="partner.name" t-att-data-partner-id="partner.id" t-att-class="controller.state.expandedPartners[partner.name] ? 'o_bi_row_unfolded' : ''">
+                                                        <td>
+                                                            <t t-if="partner.journal_items and partner.journal_items.length &gt; 0">
+                                                                <button type="button" class="btn btn-link btn-sm p-0" t-on-click="togglePartnerLines">
+                                                                    <i class="fa" t-att-class="controller.state.expandedPartners[partner.name] ? 'fa-caret-down' : 'fa-caret-right'"/>
+                                                                </button>
+                                                            </t>
+                                                        </td>
+                                                        <td>
+                                                            <span class="partner_name"><t t-esc="partner.name"/></span>
+                                                            <span class="o_bi_row_actions ms-1">
+                                                                <button type="button" class="btn btn-link btn-sm o_bi_row_action_btn" t-on-click.stop="onClickPartnerContact"><t t-esc="_t('Contacto')"/></button>
+                                                                <button type="button" class="btn btn-link btn-sm o_bi_row_action_btn" t-on-click.stop="onClickPartnerJournalItems"><t t-esc="_t('Apuntes contables')"/></button>
+                                                            </span>
+                                                        </td>
+                                                        <td t-att-class="'text-end ' + (partner.period0_negative ? 'text-danger' : '')"><t t-esc="partner.period0"/></td>
+                                                        <td t-att-class="'text-end ' + (partner.period1_negative ? 'text-danger' : '')"><t t-esc="partner.period1"/></td>
+                                                        <td t-att-class="'text-end ' + (partner.period2_negative ? 'text-danger' : '')"><t t-esc="partner.period2"/></td>
+                                                        <td t-att-class="'text-end ' + (partner.period3_negative ? 'text-danger' : '')"><t t-esc="partner.period3"/></td>
+                                                        <td t-att-class="'text-end ' + (partner.period4_negative ? 'text-danger' : '')"><t t-esc="partner.period4"/></td>
+                                                        <td t-att-class="'text-end ' + (partner.period5_negative ? 'text-danger' : '')"><t t-esc="partner.period5"/></td>
+                                                        <td t-att-class="'text-end fw-bold ' + (partner.total_negative ? 'text-danger' : '')"><t t-esc="partner.total"/></td>
+                                                    </tr>
+                                                    <t t-if="controller.state.expandedPartners[partner.name]">
+                                                        <t t-foreach="partner.journal_items" t-as="item" t-key="item.id">
+                                                            <tr t-att-data-id="item.id" class="o_bi_ageing_detail">
+                                                                <td/>
+                                                                <td>
+                                                                    <span class="move_name"><t t-esc="item.move_name"/></span>
+                                                                    <small class="text-muted ms-1" t-if="item.due_date">(<t t-esc="_t('vence')"/> <t t-esc="item.due_date"/>)</small>
+                                                                    <span class="o_bi_row_actions ms-1">
+                                                                        <button type="button" class="btn btn-link btn-sm o_bi_row_action_btn" t-on-click.stop="onClickEntry"><t t-esc="_t('Entry')"/></button>
+                                                                    </span>
+                                                                </td>
+                                                                <td class="text-end" t-att-class="item.amount_negative ? 'text-danger' : ''"><t t-if="item.period_key === 'period0'"><t t-esc="item.amount"/></t></td>
+                                                                <td class="text-end" t-att-class="item.amount_negative ? 'text-danger' : ''"><t t-if="item.period_key === 'period1'"><t t-esc="item.amount"/></t></td>
+                                                                <td class="text-end" t-att-class="item.amount_negative ? 'text-danger' : ''"><t t-if="item.period_key === 'period2'"><t t-esc="item.amount"/></t></td>
+                                                                <td class="text-end" t-att-class="item.amount_negative ? 'text-danger' : ''"><t t-if="item.period_key === 'period3'"><t t-esc="item.amount"/></t></td>
+                                                                <td class="text-end" t-att-class="item.amount_negative ? 'text-danger' : ''"><t t-if="item.period_key === 'period4'"><t t-esc="item.amount"/></t></td>
+                                                                <td class="text-end" t-att-class="item.amount_negative ? 'text-danger' : ''"><t t-if="item.period_key === 'period5'"><t t-esc="item.amount"/></t></td>
+                                                                <td t-att-class="'text-end ' + (item.amount_negative ? 'text-danger' : '')"><t t-esc="item.amount"/></td>
+                                                            </tr>
+                                                        </t>
+                                                    </t>
+                                                </t>
+                                                <tr class="fw-bold o_bi_ageing_total">
+                                                    <td/>
+                                                    <td><t t-esc="_t('Total')"/></td>
+                                                    <td t-att-class="'text-end ' + ((section.period_total || {}).period0_negative ? 'text-danger' : '')" t-esc="(section.period_total || {}).period0"/>
+                                                    <td t-att-class="'text-end ' + ((section.period_total || {}).period1_negative ? 'text-danger' : '')" t-esc="(section.period_total || {}).period1"/>
+                                                    <td t-att-class="'text-end ' + ((section.period_total || {}).period2_negative ? 'text-danger' : '')" t-esc="(section.period_total || {}).period2"/>
+                                                    <td t-att-class="'text-end ' + ((section.period_total || {}).period3_negative ? 'text-danger' : '')" t-esc="(section.period_total || {}).period3"/>
+                                                    <td t-att-class="'text-end ' + ((section.period_total || {}).period4_negative ? 'text-danger' : '')" t-esc="(section.period_total || {}).period4"/>
+                                                    <td t-att-class="'text-end ' + ((section.period_total || {}).period5_negative ? 'text-danger' : '')" t-esc="(section.period_total || {}).period5"/>
+                                                    <td t-att-class="'text-end ' + ((section.period_total || {}).total_negative ? 'text-danger' : '')" t-esc="(section.period_total || {}).total"/>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </t>
+                                </t>
+                                <t t-set="hasReceivable" t-value="((controller.state.data.receivable || {}).partners || []).length &gt; 0"/>
+                                <t t-set="hasPayable" t-value="((controller.state.data.payable || {}).partners || []).length &gt; 0"/>
+                                <t t-if="!hasReceivable and !hasPayable">
+                                    <div class="o_bi_report_empty py-5 text-center text-muted"><t t-esc="_t('No data to display')"/></div>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+                <t t-elif="analyticColumnMode and (reportType === 'profit_loss' or reportType === 'profit_and_loss' or reportType === 'balance_sheet' or reportType === 'trial_balance')">
+                    <t t-if="controller.state.data and controller.state.data.has_draft_warning">
+                        <div class="alert alert-info py-2 px-3 mx-1 mt-2 mb-0 text-center o_bi_draft_warning_alert" role="button" tabindex="0" t-on-click="onClickDraftWarning" t-on-keydown="onClickDraftWarning">
+                            <t t-esc="_t('Hay asientos contables sin registrar anteriores o incluidos en este periodo.')"/>
+                        </div>
+                    </t>
+                    <div class="o_bi_report_card_container">
+                        <div class="o_bi_report_card">
+                            <div class="o_account_report_scroll_container table-responsive">
+                                <t t-set="data" t-value="controller.state.data"/>
+                                <t t-set="currency" t-value="data.currency_data || {}"/>
+                                <t t-set="symbol" t-value="currency.symbol || ''"/>
+                                <t t-set="cols" t-value="analyticMatrixColumns"/>
+                                <t t-if="!analyticMatrixRows.length">
+                                    <div class="o_bi_report_empty py-5 text-center text-muted"><t t-esc="_t('No data to display')"/></div>
+                                </t>
+                                <t t-else="">
+                                    <table class="table table-borderless table-hover bi_report_table o_bi_analytic_matrix">
+                                        <thead>
+                                            <tr class="o_bi_date_row">
+                                                <th class="o_bi_th_caret"/>
+                                                <th/>
+                                                <t t-foreach="cols" t-as="col" t-key="col.key">
+                                                    <th class="text-center o_bi_th_period"><span class="fw-bold"><t t-esc="col.label"/></span></th>
+                                                </t>
+                                            </tr>
+                                            <tr class="o_bi_subheader">
+                                                <th class="o_bi_th_caret"/>
+                                                <th><t t-esc="_t('Cuenta')"/></th>
+                                                <t t-foreach="cols" t-as="col" t-key="'sub_' + col.key">
+                                                    <th class="text-end"><t t-esc="_t('Balance')"/></th>
+                                                </t>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="analyticMatrixRows" t-as="row" t-key="row.key">
+                                                <t t-if="row.type === 'section'">
+                                                    <tr class="o_bi_pl_section_row" t-att-class="controller.isAnalyticRowExpanded(row.key) ? 'o_bi_row_unfolded' : ''">
+                                                        <td class="o_bi_pl_caret">
+                                                            <t t-if="row.expandable">
+                                                                <button type="button" class="btn btn-link btn-sm p-0" t-att-data-arow="row.key" t-on-click="onToggleAnalyticRow">
+                                                                    <i class="fa" t-att-class="controller.isAnalyticRowExpanded(row.key) ? 'fa-caret-down' : 'fa-caret-right'"/>
+                                                                </button>
+                                                            </t>
+                                                        </td>
+                                                        <td><span class="o_bi_pl_section_label"><t t-esc="row.label"/></span></td>
+                                                        <t t-foreach="cols" t-as="col" t-key="'sc_' + row.key + '_' + col.key">
+                                                            <td t-att-class="'text-end fw-semibold ' + getFormatAmountClass(getMatrixCell(row, col.key))">
+                                                                <t t-esc="formatAmount(getMatrixCell(row, col.key), symbol)"/>
+                                                            </td>
+                                                        </t>
+                                                    </tr>
+                                                </t>
+                                                <t t-elif="row.type === 'account'">
+                                                    <tr class="o_bi_pl_account_row o_bi_line_account">
+                                                        <td class="o_bi_pl_caret"/>
+                                                        <td t-att-style="'padding-left: ' + (8 + (row.level || 1) * 20) + 'px'"><span><t t-esc="row.label"/></span></td>
+                                                        <t t-foreach="cols" t-as="col" t-key="'ac_' + row.key + '_' + col.key">
+                                                            <td t-att-class="'text-end ' + getFormatAmountClass(getMatrixCell(row, col.key))">
+                                                                <t t-if="row.account_id">
+                                                                    <a href="#" t-att-class="'o_bi_auditable text-decoration-none ' + getFormatAmountClass(getMatrixCell(row, col.key))" t-on-click="(ev) => this.onDrillAnalyticCell(ev, row.account_id, col.analytic_id)">
+                                                                        <t t-esc="formatAmount(getMatrixCell(row, col.key), symbol)"/>
+                                                                    </a>
+                                                                </t>
+                                                                <t t-else=""><t t-esc="formatAmount(getMatrixCell(row, col.key), symbol)"/></t>
+                                                            </td>
+                                                        </t>
+                                                    </tr>
+                                                </t>
+                                                <t t-elif="row.type === 'main_header'">
+                                                    <tr class="o_bi_bs_main_header">
+                                                        <td class="o_bi_pl_caret"/>
+                                                        <td><strong class="text-uppercase"><t t-esc="row.label"/></strong></td>
+                                                        <t t-foreach="cols" t-as="col" t-key="'mh_' + row.key + '_' + col.key">
+                                                            <td t-att-class="'text-end fw-bold ' + getFormatAmountClass(getMatrixCell(row, col.key))">
+                                                                <t t-esc="formatAmount(getMatrixCell(row, col.key), symbol)"/>
+                                                            </td>
+                                                        </t>
+                                                    </tr>
+                                                </t>
+                                                <t t-else="">
+                                                    <tr class="o_bi_pl_subtotal_row fw-bold">
+                                                        <td class="o_bi_pl_caret"/>
+                                                        <td><span class="fw-bold"><t t-esc="row.label"/></span></td>
+                                                        <t t-foreach="cols" t-as="col" t-key="'st_' + row.key + '_' + col.key">
+                                                            <td t-att-class="'text-end fw-bold ' + getFormatAmountClass(getMatrixCell(row, col.key))">
+                                                                <t t-esc="formatAmount(getMatrixCell(row, col.key), symbol)"/>
+                                                            </td>
+                                                        </t>
+                                                    </tr>
+                                                </t>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+                <t t-elif="reportType === 'trial_balance'">
+                    <t t-if="controller.state.data and controller.state.data.has_draft_warning">
+                        <div class="alert alert-info py-2 px-3 mx-1 mt-2 mb-0 text-center o_bi_draft_warning_alert" role="button" tabindex="0" t-on-click="onClickDraftWarning" t-on-keydown="onClickDraftWarning">
+                            <t t-esc="_t('Hay asientos contables sin registrar anteriores o incluidos en este periodo.')"/>
+                        </div>
+                    </t>
+                    <div class="o_bi_report_card_container">
+                        <div class="o_bi_report_card">
+                            <div class="o_account_report_scroll_container table-responsive">
+                                <t t-set="data" t-value="controller.state.data"/>
+                                <t t-set="tbRows" t-value="trialBalanceRows"/>
+                                <t t-if="!data or !data.accounts or data.accounts.length === 0">
+                                    <div class="o_bi_report_empty py-5 text-center text-muted"><t t-esc="_t('No data to display')"/></div>
+                                </t>
+                                <t t-elif="tbRows.length === 0">
+                                    <div class="o_bi_report_empty py-5 text-center text-muted"><t t-esc="_t('No matching accounts')"/></div>
+                                </t>
+                                <t t-else="">
+                                    <table class="table table-borderless table-hover bi_report_table bi_report_table_trial_balance">
+                                        <colgroup>
+                                            <col class="o_bi_tb_col_account"/>
+                                            <col class="o_bi_tb_col_balance_ini"/>
+                                            <col class="o_bi_tb_col_debit"/>
+                                            <col class="o_bi_tb_col_credit"/>
+                                            <col class="o_bi_tb_col_balance_fin"/>
+                                        </colgroup>
+                                        <thead>
+                                            <tr class="o_bi_date_row">
+                                                <th class="o_bi_th_account"/>
+                                                <th class="text-center o_bi_th_balance_ini"><t t-esc="_t('Balance inicial')"/></th>
+                                                <th colspan="2" class="text-center o_bi_th_period">
+                                                    <span class="fw-bold"><t t-esc="periodHeaderLabel"/></span>
+                                                </th>
+                                                <th class="text-center o_bi_th_balance_fin"><t t-esc="_t('Balance final')"/></th>
+                                            </tr>
+                                            <tr class="o_bi_subheader">
+                                                <th><t t-esc="_t('Account')"/></th>
+                                                <th class="text-end"><t t-esc="_t('Balance')"/></th>
+                                                <th class="text-end"><t t-esc="_t('Deber')"/></th>
+                                                <th class="text-end"><t t-esc="_t('Haber')"/></th>
+                                                <th class="text-end"><t t-esc="_t('Balance')"/></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="tbRows" t-as="row" t-key="row.key">
+                                                <t t-if="row.type === 'group'">
+                                                    <tr class="o_bi_tb_group_row" t-att-data-group="row.key" t-att-class="controller.isTrialGroupExpanded(row.key) ? 'o_bi_row_unfolded' : ''">
+                                                        <td class="o_bi_tb_cell_account" t-att-style="'padding-left: ' + (8 + row.level * 20) + 'px'">
+                                                            <t t-if="row.expandable">
+                                                                <button type="button" class="btn btn-link btn-sm p-0 me-1" t-on-click="onToggleTrialGroup" t-att-data-group="row.key">
+                                                                    <i class="fa" t-att-class="controller.isTrialGroupExpanded(row.key) ? 'fa-caret-down' : 'fa-caret-right'"/>
+                                                                </button>
+                                                            </t>
+                                                            <t t-else=""><span class="o_bi_tb_caret_placeholder"/></t>
+                                                            <strong><t t-esc="row.label"/></strong>
+                                                        </td>
+                                                        <td colspan="4"/>
+                                                    </tr>
+                                                </t>
+                                                <t t-elif="row.type === 'account'">
+                                                    <tr class="o_bi_tb_account_row">
+                                                        <td class="o_bi_tb_cell_account" t-att-style="'padding-left: ' + (8 + (row.level + 1) * 20) + 'px'">
+                                                            <span class="account_name"><t t-esc="row.code"/> <t t-esc="row.name"/></span>
+<button type="button" class="btn btn-link btn-sm p-0 ms-1 align-baseline o_bi_drill_btn" title="Ver asientos" t-on-click="(ev) => this.onDrillAccountAml(ev, row.id, 'current')">
+                                                            <i class="fa fa-search text-muted" role="img" aria-label="Ver asientos"/>
+                                                            </button>
+                                                        </td>
+                                                        <td t-att-class="'text-end ' + (row.balance_inicial_negative ? 'text-danger' : '')"><t t-esc="row.balance_inicial"/></td>
+                                                        <td class="text-end"><t t-esc="row.period_debit"/></td>
+                                                        <td class="text-end"><t t-esc="row.period_credit"/></td>
+                                                        <td t-att-class="'text-end ' + (row.balance_final_negative ? 'text-danger' : '')"><t t-esc="row.balance_final"/></td>
+                                                    </tr>
+                                                </t>
+                                                <t t-elif="row.type === 'total'">
+                                                    <tr class="fw-bold o_bi_tb_group_total_row">
+                                                        <td class="o_bi_tb_cell_account" t-att-style="'padding-left: ' + (8 + row.level * 20) + 'px'"><t t-esc="row.label"/></td>
+                                                        <td t-att-class="'text-end ' + (row.totals.total_balance_inicial_negative ? 'text-danger' : '')"><t t-esc="row.totals.total_balance_inicial"/></td>
+                                                        <td class="text-end"><t t-esc="row.totals.total_period_debit"/></td>
+                                                        <td class="text-end"><t t-esc="row.totals.total_period_credit"/></td>
+                                                        <td t-att-class="'text-end ' + (row.totals.total_balance_final_negative ? 'text-danger' : '')"><t t-esc="row.totals.total_balance_final"/></td>
+                                                    </tr>
+                                                </t>
+                                            </t>
+                                            <tr class="fw-bold o_bi_tb_total_row">
+                                                <td><t t-esc="_t('Total')"/></td>
+                                                <td t-att-class="'text-end ' + (data.total_balance_inicial_negative ? 'text-danger' : '')"><t t-esc="data.total_balance_inicial"/></td>
+                                                <td class="text-end"><t t-esc="data.total_period_debit"/></td>
+                                                <td class="text-end"><t t-esc="data.total_period_credit"/></td>
+                                                <td t-att-class="'text-end ' + (data.total_balance_final_negative ? 'text-danger' : '')"><t t-esc="data.total_balance_final"/></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+                <t t-elif="reportType === 'profit_loss' or reportType === 'profit_and_loss'">
+                    <t t-if="controller.state.data and controller.state.data.has_draft_warning">
+                        <div class="alert alert-info py-2 px-3 mx-1 mt-2 mb-0 text-center o_bi_draft_warning_alert" role="button" tabindex="0" t-on-click="onClickDraftWarning" t-on-keydown="onClickDraftWarning">
+                            <t t-esc="_t('Hay asientos contables sin registrar anteriores o incluidos en este periodo.')"/>
+                        </div>
+                    </t>
+                    <div class="o_bi_report_card_container">
+                        <div class="o_bi_report_card">
+                            <div class="o_account_report_scroll_container table-responsive">
+                                <t t-set="data" t-value="controller.state.data"/>
+                                <t t-if="!data">
+                                    <div class="o_bi_report_empty py-5 text-center text-muted"><t t-esc="_t('No data to display')"/></div>
+                                </t>
+                                <t t-else="">
+                                    <t t-set="currency" t-value="data.currency_data || {}"/>
+                                    <t t-set="symbol" t-value="currency.symbol || ''"/>
+                                    <table class="table table-borderless table-hover bi_report_table bi_report_table_profit_loss">
+                                        <colgroup>
+                                            <col class="o_bi_pl_col_caret"/>
+                                            <col class="o_bi_pl_col_account"/>
+                                            <t t-foreach="profitLossPeriods" t-as="period" t-key="period.key">
+                                                <col class="o_bi_pl_col_balance"/>
+                                            </t>
+                                            <col t-if="hasProfitLossComparison" class="o_bi_pl_col_percent"/>
+                                            <col class="o_bi_pl_col_info"/>
+                                        </colgroup>
+                                        <thead>
+                                            <tr class="o_bi_date_row">
+                                                <th class="o_bi_th_caret"/>
+                                                <th/>
+                                                <t t-foreach="profitLossPeriods" t-as="period" t-key="'hdr_' + period.key">
+                                                    <th class="text-center o_bi_th_period"><span class="fw-bold"><t t-esc="period.label"/></span></th>
+                                                </t>
+                                                <t t-if="hasProfitLossComparison">
+                                                    <th class="text-center o_bi_th_percent"><span class="fw-bold">%</span></th>
+                                                </t>
+                                                <th class="o_bi_th_info"/>
+                                            </tr>
+                                            <tr class="o_bi_subheader">
+                                                <th class="o_bi_th_caret"/>
+                                                <th><t t-esc="_t('Account')"/></th>
+                                                <t t-foreach="profitLossPeriods" t-as="period" t-key="'sub_' + period.key">
+                                                    <th class="text-end"><t t-esc="_t('Balance')"/></th>
+                                                </t>
+                                                <t t-if="hasProfitLossComparison">
+                                                    <th class="text-end">%</th>
+                                                </t>
+                                                <th class="o_bi_th_info"/>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="profitLossDisplayRows" t-as="row" t-key="row.type + '_' + (row.sectionKey || '') + '_' + row.key + '_' + row_index">
+                                                <t t-if="row.type === 'section'">
+                                                    <tr class="o_bi_pl_section_row" t-att-data-section="row.key" t-att-class="controller.isPlSectionExpanded(row.key) ? 'o_bi_row_unfolded' : ''">
+                                                        <td class="o_bi_pl_caret">
+                                                            <t t-if="isPlSectionExpandable(row)">
+                                                                <button type="button" class="btn btn-link btn-sm p-0" t-att-data-section="row.key" t-on-click="onTogglePlSection">
+                                                                    <i class="fa" t-att-class="controller.isPlSectionExpanded(row.key) ? 'fa-caret-down' : 'fa-caret-right'"/>
+                                                                </button>
+                                                            </t>
+                                                        </td>
+                                                        <td><span class="o_bi_pl_section_label"><t t-esc="getPlSectionLabel(row.labelKey)"/></span></td>
+                                                        <t t-foreach="profitLossPeriods" t-as="period" t-key="'sec_' + row.key + '_' + period.key">
+                                                            <td t-att-class="'text-end ' + getFormatAmountClass(getProfitLossPeriodAmount(row, period.key))">
+                                                                <t t-esc="formatAmount(getProfitLossPeriodAmount(row, period.key), symbol)"/>
+                                                            </td>
+                                                        </t>
+                                                        <t t-if="hasProfitLossComparison">
+                                                            <td t-att-class="'text-end ' + getProfitLossPercentChangeClass(row)">
+                                                                <t t-esc="getProfitLossPercentChange(row)"/>
+                                                            </td>
+                                                        </t>
+                                                        <td class="o_bi_pl_info_col">
+                                                            <button type="button" class="btn btn-link btn-sm p-0 o_bi_info_btn" t-on-click="(ev) => this.openInfoPopover(ev, this.infoForPlSection(row))">
+                                                                <i class="fa fa-info-circle text-muted o_bi_pl_info_icon" role="img" aria-label="Info"/>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                                <t t-elif="row.type === 'subtotal'">
+                                                    <tr class="o_bi_pl_subtotal_row">
+                                                        <td class="o_bi_pl_caret"/>
+                                                        <td><span class="fw-bold"><t t-esc="getPlSectionLabel(row.labelKey)"/></span></td>
+                                                        <t t-foreach="profitLossPeriods" t-as="period" t-key="'subt_' + row.key + '_' + period.key">
+                                                            <td t-att-class="'text-end fw-bold ' + getFormatAmountClass(getProfitLossPeriodAmount(row, period.key))">
+                                                                <t t-esc="formatAmount(getProfitLossPeriodAmount(row, period.key), symbol)"/>
+                                                            </td>
+                                                        </t>
+                                                        <t t-if="hasProfitLossComparison">
+                                                            <td t-att-class="'text-end fw-bold ' + getProfitLossPercentChangeClass(row)">
+                                                                <t t-esc="getProfitLossPercentChange(row)"/>
+                                                            </td>
+                                                        </t>
+                                                        <td class="o_bi_pl_info_col">
+                                                            <button type="button" class="btn btn-link btn-sm p-0 o_bi_info_btn" t-on-click="(ev) => this.openInfoPopover(ev, this.infoForPlSubtotal(row))">
+                                                                <i class="fa fa-info-circle text-muted o_bi_pl_info_icon" role="img" aria-label="Info"/>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                                <t t-elif="row.type === 'group'">
+                                                    <tr class="o_bi_pl_group_row o_bi_tb_group_row" t-att-data-group="row.key" t-att-class="controller.isPlGroupExpanded(row.key) ? 'o_bi_row_unfolded' : ''">
+                                                        <td class="o_bi_pl_caret">
+                                                            <t t-if="row.expandable">
+                                                                <button type="button" class="btn btn-link btn-sm p-0" t-att-data-group="row.key" t-on-click="onTogglePlGroup">
+                                                                    <i class="fa" t-att-class="controller.isPlGroupExpanded(row.key) ? 'fa-caret-down' : 'fa-caret-right'"/>
+                                                                </button>
+                                                            </t>
+                                                        </td>
+                                                        <td t-att-style="'padding-left: ' + (8 + (row.level || 0) * 20) + 'px'">
+                                                            <strong><t t-esc="row.label"/></strong>
+                                                        </td>
+                                                        <t t-foreach="profitLossPeriods" t-as="period" t-key="'grp_' + row.key + '_' + period.key">
+                                                            <td t-att-class="'text-end fw-semibold ' + getFormatAmountClass(getProfitLossPeriodAmount(row, period.key))">
+                                                                <t t-esc="formatAmount(getProfitLossPeriodAmount(row, period.key), symbol)"/>
+                                                            </td>
+                                                        </t>
+                                                        <t t-if="hasProfitLossComparison"><td/></t>
+                                                        <td class="o_bi_pl_info_col"/>
+                                                    </tr>
+                                                </t>
+                                                <t t-elif="row.type === 'group_total'">
+                                                    <tr class="o_bi_pl_group_total_row fw-bold">
+                                                        <td class="o_bi_pl_caret"/>
+                                                        <td t-att-style="'padding-left: ' + (8 + (row.level || 0) * 20) + 'px'"><t t-esc="row.label"/></td>
+                                                        <t t-foreach="profitLossPeriods" t-as="period" t-key="'grpt_' + row.key + '_' + period.key">
+                                                            <td t-att-class="'text-end ' + getFormatAmountClass(getProfitLossPeriodAmount(row, period.key))">
+                                                                <t t-esc="formatAmount(getProfitLossPeriodAmount(row, period.key), symbol)"/>
+                                                            </td>
+                                                        </t>
+                                                        <t t-if="hasProfitLossComparison"><td/></t>
+                                                        <td class="o_bi_pl_info_col"/>
+                                                    </tr>
+                                                </t>
+                                                <t t-elif="row.type === 'account'">
+                                                    <tr class="o_bi_pl_account_row o_bi_line_account">
+                                                        <td class="o_bi_pl_caret"/>
+                                                        <td t-att-style="'padding-left: ' + (8 + (row.level || 1) * 20) + 'px'">
+                                                            <span><t t-esc="row.code"/> <t t-esc="row.name"/></span>
+                                                        </td>
+                                                        <t t-foreach="profitLossPeriods" t-as="period" t-key="'acc_' + row.key + '_' + period.key">
+                                                            <td t-att-class="'text-end ' + getFormatAmountClass(getProfitLossPeriodAmount(row, period.key))">
+                                                                <t t-if="row.id">
+                                                                    <a href="#" t-att-class="'o_bi_auditable text-decoration-none ' + getFormatAmountClass(getProfitLossPeriodAmount(row, period.key))" t-on-click="(ev) => this.onDrillAccountAml(ev, row.id, period.key)">
+                                                                        <t t-esc="formatAmount(getProfitLossPeriodAmount(row, period.key), symbol)"/>
+                                                                    </a>
+                                                                </t>
+                                                                <t t-else="">
+                                                                    <t t-esc="formatAmount(getProfitLossPeriodAmount(row, period.key), symbol)"/>
+                                                                </t>
+                                                            </td>
+                                                        </t>
+                                                        <t t-if="hasProfitLossComparison"><td/></t>
+                                                        <td class="o_bi_pl_info_col">
+                                                            <span class="o_bi_row_actions" t-if="row.id">
+                                                                <button type="button" class="btn o_bi_btn_action" t-on-click="(ev) => this.onDrillAccountAml(ev, row.id, 'current')">
+                                                                    <t t-esc="_t('Apuntes')"/>
+                                                                </button>
+                                                                <button type="button" class="btn o_bi_btn_annotation" title="Anotación" t-on-click="(ev) => this.openAnnotationPopover(ev, reportType, 'pl_acc_' + row.id)">
+                                                                    <i class="fa fa-commenting-o" role="img" aria-label="Anotación"/>
+                                                                </button>
+                                                            </span>
+                                                            <button type="button" class="btn btn-link btn-sm p-0 o_bi_info_btn" t-on-click="(ev) => this.openInfoPopover(ev, this.infoForPlAccount(row))">
+                                                                <i class="fa fa-info-circle text-muted o_bi_pl_info_icon" role="img" aria-label="Info"/>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+                <t t-elif="reportType === 'balance_sheet'">
+                    <t t-if="controller.state.data and controller.state.data.has_draft_warning">
+                        <div class="alert alert-info py-2 px-3 mx-1 mt-2 mb-0 text-center o_bi_draft_warning_alert" role="button" tabindex="0" t-on-click="onClickDraftWarning" t-on-keydown="onClickDraftWarning">
+                            <t t-esc="_t('Hay asientos contables sin registrar anteriores o incluidos en este periodo.')"/>
+                        </div>
+                    </t>
+                    <div class="o_bi_report_card_container">
+                        <div class="o_bi_report_card">
+                            <div class="o_account_report_scroll_container table-responsive">
+                                <t t-set="data" t-value="controller.state.data"/>
+                                <t t-if="!data">
+                                    <div class="o_bi_report_empty py-5 text-center text-muted"><t t-esc="_t('No data to display')"/></div>
+                                </t>
+                                <t t-else="">
+                                    <t t-set="currency" t-value="data.currency_data || {}"/>
+                                    <t t-set="symbol" t-value="currency.symbol || ''"/>
+                                    <table class="table table-borderless bi_report_table bi_report_table_balance_sheet">
+                                        <colgroup>
+                                            <col class="o_bi_bs_col_caret"/>
+                                            <col class="o_bi_bs_col_account"/>
+                                            <col class="o_bi_bs_col_balance"/>
+                                            <col t-att-style="hasBalanceSheetComparison ? 'width: 100px;' : 'display: none;'"/>
+                                            <col t-att-style="hasBalanceSheetComparison ? 'width: 80px;' : 'display: none;'"/>
+                                            <col class="o_bi_bs_col_info"/>
+                                        </colgroup>
+                                        <thead>
+                                            <tr class="o_bi_date_row">
+                                                <th class="o_bi_th_caret"/>
+                                                <th/>
+                                                <t t-if="hasBalanceSheetComparison and comparisonPeriodOrderAscending">
+                                                    <th class="text-center o_bi_th_period"><span class="fw-bold"><t t-esc="balanceSheetComparisonLabel"/></span></th>
+                                                    <th class="text-center o_bi_th_period"><span class="fw-bold"><t t-esc="periodHeaderLabel"/></span></th>
+                                                </t>
+                                                <t t-elif="hasBalanceSheetComparison">
+                                                    <th class="text-center o_bi_th_period"><span class="fw-bold"><t t-esc="periodHeaderLabel"/></span></th>
+                                                    <th class="text-center o_bi_th_period"><span class="fw-bold"><t t-esc="balanceSheetComparisonLabel"/></span></th>
+                                                </t>
+                                                <t t-else="">
+                                                    <th class="text-center o_bi_th_period"><span class="fw-bold"><t t-esc="periodHeaderLabel"/></span></th>
+                                                </t>
+                                                <t t-if="hasBalanceSheetComparison">
+                                                    <th class="text-center o_bi_th_percent"><span class="fw-bold">%</span></th>
+                                                </t>
+                                                <th class="o_bi_th_info"/>
+                                            </tr>
+                                            <tr class="o_bi_subheader">
+                                                <th class="o_bi_th_caret"/>
+                                                <th><t t-esc="_t('Account')"/></th>
+                                                <t t-if="hasBalanceSheetComparison">
+                                                    <th class="text-end"><t t-esc="_t('Balance')"/></th>
+                                                    <th class="text-end"><t t-esc="_t('Balance')"/></th>
+                                                    <th class="text-end">%</th>
+                                                </t>
+                                                <t t-else="">
+                                                    <th class="text-end"><t t-esc="_t('Balance')"/></th>
+                                                </t>
+                                                <th class="o_bi_th_info"/>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="balanceSheetRows" t-as="row" t-key="row.type + '_' + (row.key || row.label)">
+                                                <t t-if="row.type === 'main_header'">
+                                                    <tr class="o_bi_bs_main_header">
+                                                        <td class="o_bi_bs_caret"/>
+                                                        <td><strong class="text-uppercase"><t t-esc="row.label"/></strong></td>
+                                                        <t t-if="hasBalanceSheetComparison and comparisonPeriodOrderAscending">
+                                                            <td t-att-class="'text-end ' + getFormatAmountClass(row.comparisonTotal)">
+                                                                <t t-esc="formatAmount(row.comparisonTotal, symbol)"/>
+                                                            </td>
+                                                            <td t-att-class="'text-end ' + getFormatAmountClass(row.total)">
+                                                                <t t-esc="formatAmount(row.total, symbol)"/>
+                                                            </td>
+                                                        </t>
+                                                        <t t-elif="hasBalanceSheetComparison">
+                                                            <td t-att-class="'text-end ' + getFormatAmountClass(row.total)">
+                                                                <t t-esc="formatAmount(row.total, symbol)"/>
+                                                            </td>
+                                                            <td t-att-class="'text-end ' + getFormatAmountClass(row.comparisonTotal)">
+                                                                <t t-esc="formatAmount(row.comparisonTotal, symbol)"/>
+                                                            </td>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <td t-att-class="'text-end ' + getFormatAmountClass(row.total)">
+                                                                <t t-esc="formatAmount(row.total, symbol)"/>
+                                                            </td>
+                                                        </t>
+                                                        <t t-if="hasBalanceSheetComparison">
+                                                            <td t-att-class="'text-end ' + getPercentChangeClass(row.total, row.comparisonTotal)">
+                                                                <t t-esc="formatPercentChange(row.total, row.comparisonTotal)"/>
+                                                            </td>
+                                                        </t>
+                                                        <td class="o_bi_bs_info_col">
+                                                            <button type="button" class="btn btn-link btn-sm p-0 o_bi_info_btn" t-on-click="(ev) => this.openInfoPopover(ev, this.infoForBsMainHeader(row))">
+                                                                <i class="fa fa-info-circle text-muted o_bi_bs_info_icon" role="img" aria-label="Info"/>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                                <t t-elif="row.type === 'section' and !isBsSectionHidden(row)">
+                                                    <tr class="o_bi_bs_section_row" t-att-data-section="row.key" t-att-class="controller.isBsSectionExpanded(row.key) ? 'o_bi_row_unfolded' : ''">
+                                                        <td class="o_bi_bs_caret">
+                                                            <t t-if="controller.state.options.hierarchy and (row.accounts || []).length > 0">
+                                                                <button type="button" class="btn btn-link btn-sm p-0" t-att-data-section="row.key" t-on-click="onToggleBsSection">
+                                                                    <i class="fa" t-att-class="controller.isBsSectionExpanded(row.key) ? 'fa-caret-down' : 'fa-caret-right'"/>
+                                                                </button>
+                                                            </t>
+                                                        </td>
+                                                        <td><span class="o_bi_bs_section_label"><t t-esc="row.label"/></span></td>
+                                                        <t t-if="hasBalanceSheetComparison and comparisonPeriodOrderAscending">
+                                                            <td t-att-class="'text-end ' + getFormatAmountClass(row.comparisonTotal)">
+                                                                <t t-esc="formatAmount(row.comparisonTotal, symbol)"/>
+                                                            </td>
+                                                            <td t-att-class="'text-end ' + getFormatAmountClass(row.total)">
+                                                                <t t-esc="formatAmount(row.total, symbol)"/>
+                                                            </td>
+                                                        </t>
+                                                        <t t-elif="hasBalanceSheetComparison">
+                                                            <td t-att-class="'text-end ' + getFormatAmountClass(row.total)">
+                                                                <t t-esc="formatAmount(row.total, symbol)"/>
+                                                            </td>
+                                                            <td t-att-class="'text-end ' + getFormatAmountClass(row.comparisonTotal)">
+                                                                <t t-esc="formatAmount(row.comparisonTotal, symbol)"/>
+                                                            </td>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <td t-att-class="'text-end ' + getFormatAmountClass(row.total)">
+                                                                <t t-esc="formatAmount(row.total, symbol)"/>
+                                                            </td>
+                                                        </t>
+                                                        <t t-if="hasBalanceSheetComparison">
+                                                            <td t-att-class="'text-end ' + getPercentChangeClass(row.total, row.comparisonTotal)">
+                                                                <t t-esc="formatPercentChange(row.total, row.comparisonTotal)"/>
+                                                            </td>
+                                                        </t>
+                                                        <td class="o_bi_bs_info_col">
+                                                            <button type="button" class="btn btn-link btn-sm p-0 o_bi_info_btn" t-on-click="(ev) => this.openInfoPopover(ev, this.infoForBsSection(row))">
+                                                                <i class="fa fa-info-circle text-muted o_bi_bs_info_icon" role="img" aria-label="Info"/>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                    <t t-if="controller.state.options.hierarchy and controller.isBsSectionExpanded(row.key)">
+                                                        <t t-set="bsHierRows" t-value="(row.use_hierarchy and (row.hierarchy || []).length) ? this.bsHierarchyRows(row) : null"/>
+                                                        <t t-if="bsHierRows">
+                                                            <t t-foreach="bsHierRows" t-as="hrow" t-key="row.key + '_' + hrow.key + '_' + hrow_index">
+                                                                <t t-if="hrow.type === 'group'">
+                                                                    <tr class="o_bi_bs_group_row o_bi_pl_group_row" t-att-class="controller.isBsGroupExpanded(hrow.key) ? 'o_bi_row_unfolded' : ''">
+                                                                        <td class="o_bi_bs_caret">
+                                                                            <t t-if="hrow.expandable">
+                                                                                <button type="button" class="btn btn-link btn-sm p-0" t-att-data-group="hrow.key" t-on-click="onToggleBsGroup">
+                                                                                    <i class="fa" t-att-class="controller.isBsGroupExpanded(hrow.key) ? 'fa-caret-down' : 'fa-caret-right'"/>
+                                                                                </button>
+                                                                            </t>
+                                                                        </td>
+                                                                        <td t-att-style="'padding-left: ' + (16 + (hrow.level || 0) * 20) + 'px'"><strong><t t-esc="hrow.label"/></strong></td>
+                                                                        <td t-att-class="'text-end fw-semibold ' + getFormatAmountClass(getBalanceSheetPeriodAmount(hrow, 'current'))">
+                                                                            <t t-esc="formatAmount(getBalanceSheetPeriodAmount(hrow, 'current'), symbol)"/>
+                                                                        </td>
+                                                                        <t t-if="hasBalanceSheetComparison"><td colspan="2"/></t>
+                                                                        <td class="o_bi_bs_info_col"/>
+                                                                    </tr>
+                                                                </t>
+                                                                <t t-elif="hrow.type === 'group_total'">
+                                                                    <tr class="o_bi_bs_group_total_row fw-bold">
+                                                                        <td class="o_bi_bs_caret"/>
+                                                                        <td t-att-style="'padding-left: ' + (16 + (hrow.level || 0) * 20) + 'px'"><t t-esc="hrow.label"/></td>
+                                                                        <td t-att-class="'text-end fw-bold ' + getFormatAmountClass(getBalanceSheetPeriodAmount(hrow, 'current'))">
+                                                                            <t t-esc="formatAmount(getBalanceSheetPeriodAmount(hrow, 'current'), symbol)"/>
+                                                                        </td>
+                                                                        <t t-if="hasBalanceSheetComparison"><td colspan="2"/></t>
+                                                                        <td class="o_bi_bs_info_col"/>
+                                                                    </tr>
+                                                                </t>
+                                                                <t t-else="">
+                                                                    <tr class="o_bi_bs_account_row">
+                                                                        <td class="o_bi_bs_caret"/>
+                                                                        <td t-att-style="'padding-left: ' + (16 + (hrow.level || 1) * 20) + 'px'"><t t-esc="hrow.code"/> <t t-esc="hrow.name"/></td>
+                                                                        <td t-att-class="'text-end ' + getFormatAmountClass(getBalanceSheetPeriodAmount(hrow, 'current'))">
+                                                                            <t t-esc="formatAmount(getBalanceSheetPeriodAmount(hrow, 'current'), symbol)"/>
+                                                                        </td>
+                                                                        <t t-if="hasBalanceSheetComparison"><td colspan="2"/></t>
+                                                                        <td class="o_bi_bs_info_col">
+                                                                            <t t-if="hrow.id">
+                                                                                <button type="button" class="btn btn-link btn-sm p-0 o_bi_drill_btn me-1" title="Ver asientos (periodo)" t-on-click="(ev) => this.onDrillAccountAml(ev, hrow.id, 'current')">
+                                                                                    <i class="fa fa-search text-muted" role="img" aria-label="Apuntes"/>
+                                                                                </button>
+                                                                                <button type="button" class="btn btn-link btn-sm p-0 o_bi_annotation_btn me-1" title="Anotación" t-on-click="(ev) => this.openAnnotationPopover(ev, reportType, 'bs_acc_' + hrow.id)">
+                                                                                    <i class="fa fa-sticky-note-o text-muted" role="img" aria-label="Anotación"/>
+                                                                                </button>
+                                                                            </t>
+                                                                            <button type="button" class="btn btn-link btn-sm p-0 o_bi_info_btn" t-on-click="(ev) => this.openInfoPopover(ev, this.infoForBsAccount(hrow))">
+                                                                                <i class="fa fa-info-circle text-muted o_bi_bs_info_icon" role="img" aria-label="Info"/>
+                                                                            </button>
+                                                                        </td>
+                                                                    </tr>
+                                                                </t>
+                                                            </t>
+                                                        </t>
+                                                        <t t-else="">
+                                                        <t t-foreach="bsVisibleAccounts(row)" t-as="acc" t-key="acc.id">
+                                                            <tr class="o_bi_bs_account_row">
+                                                                <td class="o_bi_bs_caret"/>
+                                                                <td class="ps-4"><t t-esc="acc.code"/> <t t-esc="acc.name"/></td>
+                                                                <td t-att-class="'text-end ' + getFormatAmountClass(acc.balance)">
+                                                                    <div><t t-esc="formatAmount(acc.balance, symbol)"/></div>
+                                                                    <div t-if="acc.fx_symbol" class="small text-muted mt-1">
+                                                                        <t t-esc="acc.fx_symbol"/> <t t-esc="formatAmount(acc.fx_balance || 0, acc.fx_symbol)"/>
+                                                                    </div>
+                                                                </td>
+                                                                <t t-if="hasBalanceSheetComparison">
+                                                                    <td colspan="2"/>
+                                                                </t>
+                                                                <td class="o_bi_bs_info_col">
+                                                                    <t t-if="acc.id">
+                                                                        <button type="button" class="btn btn-link btn-sm p-0 o_bi_drill_btn me-1" title="Ver asientos (periodo)" t-on-click="(ev) => this.onDrillAccountAml(ev, acc.id, 'current')">
+                                                                            <i class="fa fa-search text-muted" role="img" aria-label="Apuntes"/>
+                                                                        </button>
+                                                                        <t t-if="hasBalanceSheetComparison">
+                                                                            <button type="button" class="btn btn-link btn-sm p-0 o_bi_drill_btn me-1" title="Ver asientos (comparativa)" t-on-click="(ev) => this.onDrillAccountAml(ev, acc.id, 'comparison')">
+                                                                                <i class="fa fa-search-plus text-muted" role="img" aria-label="Apuntes comparativa"/>
+                                                                            </button>
+                                                                        </t>
+                                                                        <button type="button" class="btn btn-link btn-sm p-0 o_bi_annotation_btn me-1" title="Anotación" t-on-click="(ev) => this.openAnnotationPopover(ev, reportType, 'bs_acc_' + acc.id)">
+                                                                            <i class="fa fa-sticky-note-o text-muted" role="img" aria-label="Anotación"/>
+                                                                        </button>
+                                                                    </t>
+                                                                    <button type="button" class="btn btn-link btn-sm p-0 o_bi_info_btn" t-on-click="(ev) => this.openInfoPopover(ev, this.infoForBsAccount(acc))">
+                                                                        <i class="fa fa-info-circle text-muted o_bi_bs_info_icon" role="img" aria-label="Info"/>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        </t>
+                                                        </t>
+                                                        <tr class="o_bi_bs_subtotal_row">
+                                                            <td class="o_bi_bs_caret"/>
+                                                            <td class="ps-4"><span class="fw-bold"><t t-esc="_t('Total')"/> <t t-esc="row.label"/></span></td>
+                                                            <t t-if="hasBalanceSheetComparison and comparisonPeriodOrderAscending">
+                                                                <td t-att-class="'text-end fw-bold ' + getFormatAmountClass(row.comparisonTotal)">
+                                                                    <t t-esc="formatAmount(row.comparisonTotal, symbol)"/>
+                                                                </td>
+                                                                <td t-att-class="'text-end fw-bold ' + getFormatAmountClass(row.total)">
+                                                                    <t t-esc="formatAmount(row.total, symbol)"/>
+                                                                </td>
+                                                            </t>
+                                                            <t t-elif="hasBalanceSheetComparison">
+                                                                <td t-att-class="'text-end fw-bold ' + getFormatAmountClass(row.total)">
+                                                                    <t t-esc="formatAmount(row.total, symbol)"/>
+                                                                </td>
+                                                                <td t-att-class="'text-end fw-bold ' + getFormatAmountClass(row.comparisonTotal)">
+                                                                    <t t-esc="formatAmount(row.comparisonTotal, symbol)"/>
+                                                                </td>
+                                                            </t>
+                                                            <t t-else="">
+                                                                <td t-att-class="'text-end fw-bold ' + getFormatAmountClass(row.total)">
+                                                                    <t t-esc="formatAmount(row.total, symbol)"/>
+                                                                </td>
+                                                            </t>
+                                                            <t t-if="hasBalanceSheetComparison">
+                                                                <td t-att-class="'text-end fw-bold ' + getPercentChangeClass(row.total, row.comparisonTotal)">
+                                                                    <t t-esc="formatPercentChange(row.total, row.comparisonTotal)"/>
+                                                                </td>
+                                                            </t>
+                                                            <td class="o_bi_bs_info_col">
+                                                                <button type="button" class="btn btn-link btn-sm p-0 o_bi_info_btn" t-on-click="(ev) => this.openInfoPopover(ev, this.infoForBsSubtotal(row))">
+                                                                    <i class="fa fa-info-circle text-muted o_bi_bs_info_icon" role="img" aria-label="Info"/>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    </t>
+                                                </t>
+                                                <t t-elif="row.type === 'main_total'">
+                                                    <tr class="o_bi_bs_main_total">
+                                                        <td class="o_bi_bs_caret"/>
+                                                        <td><span class="fw-bold text-uppercase"><t t-esc="row.label"/></span></td>
+                                                        <t t-if="hasBalanceSheetComparison and comparisonPeriodOrderAscending">
+                                                            <td t-att-class="'text-end fw-bold ' + getFormatAmountClass(row.comparisonTotal)">
+                                                                <t t-esc="formatAmount(row.comparisonTotal, symbol)"/>
+                                                            </td>
+                                                            <td t-att-class="'text-end fw-bold ' + getFormatAmountClass(row.total)">
+                                                                <t t-esc="formatAmount(row.total, symbol)"/>
+                                                            </td>
+                                                        </t>
+                                                        <t t-elif="hasBalanceSheetComparison">
+                                                            <td t-att-class="'text-end fw-bold ' + getFormatAmountClass(row.total)">
+                                                                <t t-esc="formatAmount(row.total, symbol)"/>
+                                                            </td>
+                                                            <td t-att-class="'text-end fw-bold ' + getFormatAmountClass(row.comparisonTotal)">
+                                                                <t t-esc="formatAmount(row.comparisonTotal, symbol)"/>
+                                                            </td>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <td t-att-class="'text-end fw-bold ' + getFormatAmountClass(row.total)">
+                                                                <t t-esc="formatAmount(row.total, symbol)"/>
+                                                            </td>
+                                                        </t>
+                                                        <t t-if="hasBalanceSheetComparison">
+                                                            <td t-att-class="'text-end fw-bold ' + getPercentChangeClass(row.total, row.comparisonTotal)">
+                                                                <t t-esc="formatPercentChange(row.total, row.comparisonTotal)"/>
+                                                            </td>
+                                                        </t>
+                                                        <td class="o_bi_bs_info_col">
+                                                            <button type="button" class="btn btn-link btn-sm p-0 o_bi_info_btn" t-on-click="(ev) => this.openInfoPopover(ev, this.infoForBsMainTotal(row))">
+                                                                <i class="fa fa-info-circle text-muted o_bi_bs_info_icon" role="img" aria-label="Info"/>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+                <t t-elif="reportType === 'cash_flow'">
+                    <t t-if="controller.state.data and controller.state.data.has_draft_warning">
+                        <div class="alert alert-info py-2 px-3 mx-1 mt-2 mb-0 text-center o_bi_draft_warning_alert" role="button" tabindex="0" t-on-click="onClickDraftWarning" t-on-keydown="onClickDraftWarning">
+                            <t t-esc="_t('Hay asientos contables sin registrar anteriores o incluidos en este periodo.')"/>
+                        </div>
+                    </t>
+                    <div class="o_bi_report_card_container">
+                        <div class="o_bi_report_card">
+                            <div class="o_account_report_scroll_container table-responsive">
+                                <t t-set="data" t-value="controller.state.data"/>
+                                <t t-if="!data">
+                                    <div class="o_bi_report_empty py-5 text-center text-muted"><t t-esc="_t('No data to display')"/></div>
+                                </t>
+                                <t t-else="">
+                                    <t t-set="symbol" t-value="(data.currency_data || {}).symbol || ''"/>
+                                    <table class="table table-borderless bi_report_table bi_report_table_cash_flow">
+                                        <colgroup>
+                                            <col class="o_bi_bs_col_caret"/>
+                                            <col class="o_bi_bs_col_account"/>
+                                            <col class="o_bi_bs_col_balance"/>
+                                            <col t-if="hasCashFlowComparison" style="width: 100px;"/>
+                                            <col t-if="hasCashFlowComparison" style="width: 80px;"/>
+                                            <col class="o_bi_bs_col_info"/>
+                                        </colgroup>
+                                        <thead>
+                                            <tr class="o_bi_date_row">
+                                                <th class="o_bi_th_caret"/>
+                                                <th/>
+                                                <t t-if="hasCashFlowComparison and comparisonPeriodOrderAscending">
+                                                    <th class="text-center o_bi_th_period"><span class="fw-bold"><t t-esc="cashFlowComparisonLabel"/></span></th>
+                                                    <th class="text-center o_bi_th_period"><span class="fw-bold"><t t-esc="periodHeaderLabel"/></span></th>
+                                                </t>
+                                                <t t-elif="hasCashFlowComparison">
+                                                    <th class="text-center o_bi_th_period"><span class="fw-bold"><t t-esc="periodHeaderLabel"/></span></th>
+                                                    <th class="text-center o_bi_th_period"><span class="fw-bold"><t t-esc="cashFlowComparisonLabel"/></span></th>
+                                                </t>
+                                                <t t-else="">
+                                                    <th class="text-center o_bi_th_period"><span class="fw-bold"><t t-esc="periodHeaderLabel"/></span></th>
+                                                </t>
+                                                <t t-if="hasCashFlowComparison">
+                                                    <th class="text-center o_bi_th_percent"><span class="fw-bold">%</span></th>
+                                                </t>
+                                                <th class="o_bi_th_info"/>
+                                            </tr>
+                                            <tr class="o_bi_subheader">
+                                                <th class="o_bi_th_caret"/>
+                                                <th><t t-esc="_t('Concepto')"/></th>
+                                                <t t-if="hasCashFlowComparison">
+                                                    <th class="text-end"><t t-esc="_t('Balance')"/></th>
+                                                    <th class="text-end"><t t-esc="_t('Balance')"/></th>
+                                                    <th class="text-end">%</th>
+                                                </t>
+                                                <t t-else="">
+                                                    <th class="text-end"><t t-esc="_t('Balance')"/></th>
+                                                </t>
+                                                <th class="o_bi_th_info"/>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="cashFlowRows" t-as="row" t-key="row.type + '_' + row.key">
+                                                <t t-if="row.type === 'summary'">
+                                                    <tr class="o_bi_bs_main_header">
+                                                        <td class="o_bi_bs_caret"/>
+                                                        <td><strong><t t-esc="row.label"/></strong></td>
+                                                        <t t-if="hasCashFlowComparison and comparisonPeriodOrderAscending">
+                                                            <td t-att-class="'text-end fw-bold ' + getFormatAmountClass(row.comparisonTotal)">
+                                                                <t t-esc="formatAmount(row.comparisonTotal, symbol)"/>
+                                                            </td>
+                                                            <td t-att-class="'text-end fw-bold ' + getFormatAmountClass(row.total)">
+                                                                <t t-esc="formatAmount(row.total, symbol)"/>
+                                                            </td>
+                                                        </t>
+                                                        <t t-elif="hasCashFlowComparison">
+                                                            <td t-att-class="'text-end fw-bold ' + getFormatAmountClass(row.total)">
+                                                                <t t-esc="formatAmount(row.total, symbol)"/>
+                                                            </td>
+                                                            <td t-att-class="'text-end fw-bold ' + getFormatAmountClass(row.comparisonTotal)">
+                                                                <t t-esc="formatAmount(row.comparisonTotal, symbol)"/>
+                                                            </td>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <td t-att-class="'text-end fw-bold ' + getFormatAmountClass(row.total)">
+                                                                <t t-esc="formatAmount(row.total, symbol)"/>
+                                                            </td>
+                                                        </t>
+                                                        <t t-if="hasCashFlowComparison">
+                                                            <td t-att-class="'text-end ' + getPercentChangeClass(row.total, row.comparisonTotal)">
+                                                                <t t-esc="formatPercentChange(row.total, row.comparisonTotal)"/>
+                                                            </td>
+                                                        </t>
+                                                        <td class="o_bi_bs_info_col">
+                                                            <button type="button" class="btn btn-link btn-sm p-0 o_bi_info_btn" t-on-click="(ev) => this.openInfoPopover(ev, this.infoForCashFlow(row))">
+                                                                <i class="fa fa-info-circle text-muted o_bi_bs_info_icon" role="img" aria-label="Info"/>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                                <t t-elif="row.type === 'net_increase'">
+                                                    <tr class="o_bi_bs_main_total">
+                                                        <td class="o_bi_bs_caret"/>
+                                                        <td><span class="fw-bold"><t t-esc="row.label"/></span></td>
+                                                        <t t-if="hasCashFlowComparison and comparisonPeriodOrderAscending">
+                                                            <td t-att-class="'text-end fw-bold ' + getFormatAmountClass(row.comparisonTotal)">
+                                                                <t t-esc="formatAmount(row.comparisonTotal, symbol)"/>
+                                                            </td>
+                                                            <td t-att-class="'text-end fw-bold ' + getFormatAmountClass(row.total)">
+                                                                <t t-esc="formatAmount(row.total, symbol)"/>
+                                                            </td>
+                                                        </t>
+                                                        <t t-elif="hasCashFlowComparison">
+                                                            <td t-att-class="'text-end fw-bold ' + getFormatAmountClass(row.total)">
+                                                                <t t-esc="formatAmount(row.total, symbol)"/>
+                                                            </td>
+                                                            <td t-att-class="'text-end fw-bold ' + getFormatAmountClass(row.comparisonTotal)">
+                                                                <t t-esc="formatAmount(row.comparisonTotal, symbol)"/>
+                                                            </td>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <td t-att-class="'text-end fw-bold ' + getFormatAmountClass(row.total)">
+                                                                <t t-esc="formatAmount(row.total, symbol)"/>
+                                                            </td>
+                                                        </t>
+                                                        <t t-if="hasCashFlowComparison">
+                                                            <td t-att-class="'text-end ' + getPercentChangeClass(row.total, row.comparisonTotal)">
+                                                                <t t-esc="formatPercentChange(row.total, row.comparisonTotal)"/>
+                                                            </td>
+                                                        </t>
+                                                        <td class="o_bi_bs_info_col">
+                                                            <button type="button" class="btn btn-link btn-sm p-0 o_bi_info_btn" t-on-click="(ev) => this.openInfoPopover(ev, this.infoForCashFlow(row))">
+                                                                <i class="fa fa-info-circle text-muted o_bi_bs_info_icon" role="img" aria-label="Info"/>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                                <t t-elif="row.type === 'section'">
+                                                    <tr class="o_bi_bs_section_row" t-att-data-section="row.key" t-att-class="controller.isCfSectionExpanded(row.key) ? 'o_bi_row_unfolded' : ''">
+                                                        <td class="o_bi_bs_caret">
+                                                            <button type="button" class="btn btn-link btn-sm p-0" t-att-data-section="row.key" t-on-click="onToggleCfSection">
+                                                                <i class="fa" t-att-class="row.expanded ? 'fa-caret-down' : 'fa-caret-right'"/>
+                                                            </button>
+                                                        </td>
+                                                        <td class="ps-3"><span class="fw-bold"><t t-esc="row.label"/></span></td>
+                                                        <t t-if="hasCashFlowComparison and comparisonPeriodOrderAscending">
+                                                            <td t-att-class="'text-end fw-bold ' + getFormatAmountClass(row.comparisonTotal)">
+                                                                <t t-esc="formatAmount(row.comparisonTotal, symbol)"/>
+                                                            </td>
+                                                            <td t-att-class="'text-end fw-bold ' + getFormatAmountClass(row.total)">
+                                                                <t t-esc="formatAmount(row.total, symbol)"/>
+                                                            </td>
+                                                        </t>
+                                                        <t t-elif="hasCashFlowComparison">
+                                                            <td t-att-class="'text-end fw-bold ' + getFormatAmountClass(row.total)">
+                                                                <t t-esc="formatAmount(row.total, symbol)"/>
+                                                            </td>
+                                                            <td t-att-class="'text-end fw-bold ' + getFormatAmountClass(row.comparisonTotal)">
+                                                                <t t-esc="formatAmount(row.comparisonTotal, symbol)"/>
+                                                            </td>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <td t-att-class="'text-end fw-bold ' + getFormatAmountClass(row.total)">
+                                                                <t t-esc="formatAmount(row.total, symbol)"/>
+                                                            </td>
+                                                        </t>
+                                                        <t t-if="hasCashFlowComparison">
+                                                            <td t-att-class="'text-end ' + getPercentChangeClass(row.total, row.comparisonTotal)">
+                                                                <t t-esc="formatPercentChange(row.total, row.comparisonTotal)"/>
+                                                            </td>
+                                                        </t>
+                                                        <td class="o_bi_bs_info_col">
+                                                            <button type="button" class="btn btn-link btn-sm p-0 o_bi_info_btn" t-on-click="(ev) => this.openInfoPopover(ev, this.infoForCashFlow(row))">
+                                                                <i class="fa fa-info-circle text-muted o_bi_bs_info_icon" role="img" aria-label="Info"/>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                                <t t-elif="row.type === 'subsection'">
+                                                    <tr class="o_bi_bs_section_row" t-att-data-section="row.key" t-att-class="controller.isCfSectionExpanded(row.key) ? 'o_bi_row_unfolded' : ''">
+                                                        <td class="o_bi_bs_caret">
+                                                            <t t-if="row.expandable">
+                                                                <button type="button" class="btn btn-link btn-sm p-0" t-att-data-section="row.key" t-on-click="onToggleCfSection">
+                                                                    <i class="fa" t-att-class="row.expanded ? 'fa-caret-down' : 'fa-caret-right'"/>
+                                                                </button>
+                                                            </t>
+                                                        </td>
+                                                        <td class="ps-5"><t t-esc="row.label"/></td>
+                                                        <t t-if="hasCashFlowComparison and comparisonPeriodOrderAscending">
+                                                            <td t-att-class="'text-end ' + getFormatAmountClass(row.comparisonTotal)">
+                                                                <t t-esc="formatAmount(row.comparisonTotal, symbol)"/>
+                                                            </td>
+                                                            <td t-att-class="'text-end ' + getFormatAmountClass(row.total)">
+                                                                <t t-esc="formatAmount(row.total, symbol)"/>
+                                                            </td>
+                                                        </t>
+                                                        <t t-elif="hasCashFlowComparison">
+                                                            <td t-att-class="'text-end ' + getFormatAmountClass(row.total)">
+                                                                <t t-esc="formatAmount(row.total, symbol)"/>
+                                                            </td>
+                                                            <td t-att-class="'text-end ' + getFormatAmountClass(row.comparisonTotal)">
+                                                                <t t-esc="formatAmount(row.comparisonTotal, symbol)"/>
+                                                            </td>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <td t-att-class="'text-end ' + getFormatAmountClass(row.total)">
+                                                                <t t-esc="formatAmount(row.total, symbol)"/>
+                                                            </td>
+                                                        </t>
+                                                        <t t-if="hasCashFlowComparison">
+                                                            <td t-att-class="'text-end ' + getPercentChangeClass(row.total, row.comparisonTotal)">
+                                                                <t t-esc="formatPercentChange(row.total, row.comparisonTotal)"/>
+                                                            </td>
+                                                        </t>
+                                                        <td class="o_bi_bs_info_col">
+                                                            <button type="button" class="btn btn-link btn-sm p-0 o_bi_info_btn" t-on-click="(ev) => this.openInfoPopover(ev, this.infoForCashFlow(row))">
+                                                                <i class="fa fa-info-circle text-muted o_bi_bs_info_icon" role="img" aria-label="Info"/>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                                <t t-elif="row.type === 'account'">
+                                                    <tr class="o_bi_bs_account_row">
+                                                        <td class="o_bi_bs_caret"/>
+                                                        <td class="ps-5 ms-3"><span style="margin-left: 1.5rem;"><t t-esc="row.label"/></span></td>
+                                                        <t t-if="hasCashFlowComparison and comparisonPeriodOrderAscending">
+                                                            <td t-att-class="'text-end ' + getFormatAmountClass(row.comparisonTotal)">
+                                                                <t t-esc="formatAmount(row.comparisonTotal, symbol)"/>
+                                                            </td>
+                                                            <td t-att-class="'text-end ' + getFormatAmountClass(row.total)">
+                                                                <t t-esc="formatAmount(row.total, symbol)"/>
+                                                            </td>
+                                                        </t>
+                                                        <t t-elif="hasCashFlowComparison">
+                                                            <td t-att-class="'text-end ' + getFormatAmountClass(row.total)">
+                                                                <t t-esc="formatAmount(row.total, symbol)"/>
+                                                            </td>
+                                                            <td t-att-class="'text-end ' + getFormatAmountClass(row.comparisonTotal)">
+                                                                <t t-esc="formatAmount(row.comparisonTotal, symbol)"/>
+                                                            </td>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <td t-att-class="'text-end ' + getFormatAmountClass(row.total)">
+                                                                <t t-esc="formatAmount(row.total, symbol)"/>
+                                                            </td>
+                                                        </t>
+                                                        <t t-if="hasCashFlowComparison">
+                                                            <td t-att-class="'text-end ' + getPercentChangeClass(row.total, row.comparisonTotal)">
+                                                                <t t-esc="formatPercentChange(row.total, row.comparisonTotal)"/>
+                                                            </td>
+                                                        </t>
+                                                        <td class="o_bi_bs_info_col">
+                                                            <t t-if="row.account and row.account.id">
+                                                                <button type="button" class="btn btn-link btn-sm p-0 o_bi_drill_btn me-1" title="Ver asientos (periodo)" t-on-click="(ev) => this.onDrillAccountAml(ev, row.account.id, 'current')">
+                                                                    <i class="fa fa-search text-muted" role="img" aria-label="Apuntes"/>
+                                                                </button>
+                                                                <t t-if="hasCashFlowComparison">
+                                                                    <button type="button" class="btn btn-link btn-sm p-0 o_bi_drill_btn me-1" title="Ver asientos (comparativa)" t-on-click="(ev) => this.onDrillAccountAml(ev, row.account.id, 'comparison')">
+                                                                        <i class="fa fa-search-plus text-muted" role="img" aria-label="Apuntes comparativa"/>
+                                                                    </button>
+                                                                </t>
+                                                            </t>
+                                                            <button type="button" class="btn btn-link btn-sm p-0 o_bi_info_btn" t-on-click="(ev) => this.openInfoPopover(ev, this.infoForCashFlow(row))">
+                                                                <i class="fa fa-info-circle text-muted o_bi_bs_info_icon" role="img" aria-label="Info"/>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                                <t t-elif="row.type === 'unexplained'">
+                                                    <tr class="o_bi_bs_main_header">
+                                                        <td class="o_bi_bs_caret"/>
+                                                        <td><span class="text-warning fw-bold"><t t-esc="row.label"/></span></td>
+                                                        <t t-if="hasCashFlowComparison and comparisonPeriodOrderAscending">
+                                                            <td class="text-end fw-bold text-warning">
+                                                                <t t-esc="formatAmount(row.comparisonTotal, symbol)"/>
+                                                            </td>
+                                                            <td class="text-end fw-bold text-warning">
+                                                                <t t-esc="formatAmount(row.total, symbol)"/>
+                                                            </td>
+                                                        </t>
+                                                        <t t-elif="hasCashFlowComparison">
+                                                            <td class="text-end fw-bold text-warning">
+                                                                <t t-esc="formatAmount(row.total, symbol)"/>
+                                                            </td>
+                                                            <td class="text-end fw-bold text-warning">
+                                                                <t t-esc="formatAmount(row.comparisonTotal, symbol)"/>
+                                                            </td>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <td t-att-class="'text-end fw-bold text-warning'">
+                                                                <t t-esc="formatAmount(row.total, symbol)"/>
+                                                            </td>
+                                                        </t>
+                                                        <t t-if="hasCashFlowComparison">
+                                                            <td t-att-class="'text-end ' + getPercentChangeClass(row.total, row.comparisonTotal)">
+                                                                <t t-esc="formatPercentChange(row.total, row.comparisonTotal)"/>
+                                                            </td>
+                                                        </t>
+                                                        <td class="o_bi_bs_info_col"/>
+                                                    </tr>
+                                                </t>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+                <t t-elif="reportType === 'bank_reconciliation'">
+                    <t t-if="controller.state.data and controller.state.data.has_draft_warning">
+                        <div class="alert alert-info py-2 px-3 mx-1 mt-2 mb-0 text-center o_bi_draft_warning_alert" role="status">
+                            <t t-esc="_t('Hay asientos en borrador en bancos/efectivo.')"/>
+                        </div>
+                    </t>
+                    <div class="o_bi_report_card_container">
+                        <div class="o_bi_report_card">
+                            <div class="o_account_report_scroll_container table-responsive">
+                                <t t-set="brk" t-value="controller.state.data"/>
+                                <t t-if="!brk or !(brk.lines) || brk.lines.length === 0">
+                                    <div class="o_bi_report_empty py-5 text-center text-muted"><t t-esc="_t('No data to display')"/></div>
+                                </t>
+                                <t t-else="">
+                                    <table class="table table-borderless table-hover bi_report_table">
+                                        <thead>
+                                            <tr>
+                                                <th><t t-esc="_t('Diario')"/></th>
+                                                <th><t t-esc="_t('Cuenta')"/></th>
+                                                <th class="text-end"><t t-esc="_t('Saldo libros')"/></th>
+                                                <th class="text-end"><t t-esc="_t('Saldo extractos')"/></th>
+                                                <th class="text-end"><t t-esc="_t('Diferencia')"/></th>
+                                                <th/>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="brk.lines" t-as="line" t-key="line.journal_id">
+                                                <tr>
+                                                    <td><t t-esc="line.journal_code"/> — <t t-esc="line.journal_name"/></td>
+                                                    <td><t t-esc="line.account_code"/></td>
+                                                    <td class="text-end"><t t-esc="line.book_balance_fmt"/></td>
+                                                    <td class="text-end"><t t-esc="line.statement_balance_fmt"/></td>
+                                                    <td t-att-class="'text-end ' + (line.difference_negative ? 'text-danger' : '')"><t t-esc="line.difference_fmt"/></td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-link btn-sm" t-on-click="(ev) => this.onOpenBankReconLines(ev, line)"><t t-esc="_t('Ver apuntes')"/></button>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+                <t t-elif="reportType === 'tax_report' or reportType === 'tax_return'">
+                    <t t-if="controller.state.data and controller.state.data.has_draft_warning">
+                        <div class="alert alert-info py-2 px-3 mx-1 mt-2 mb-0 text-center o_bi_draft_warning_alert" role="button" tabindex="0" t-on-click="onClickDraftWarning" t-on-keydown="onClickDraftWarning">
+                            <t t-esc="_t('Hay asientos contables sin registrar anteriores o incluidos en este periodo.')"/>
+                        </div>
+                    </t>
+                    <div class="o_bi_report_card_container">
+                        <div class="o_bi_report_card">
+                            <div class="o_account_report_scroll_container table-responsive">
+                                <t t-set="data" t-value="controller.state.data"/>
+                                <t t-if="!data">
+                                    <div class="o_bi_report_empty py-5 text-center text-muted"><t t-esc="_t('No data to display')"/></div>
+                                </t>
+                                <t t-else="">
+                                    <t t-set="symbol" t-value="(data.currency_data || {}).symbol || ''"/>
+                                    <t t-set="cols" t-value="data.columns || []"/>
+                                    <t t-if="reportType === 'tax_return'">
+                                        <table class="table table-borderless bi_report_table bi_report_table_tax_return mb-3">
+                                            <thead>
+                                                <tr class="o_bi_date_row">
+                                                    <th><t t-esc="_t('Resumen de la declaración')"/></th>
+                                                    <t t-foreach="cols" t-as="col" t-key="col.key">
+                                                        <th class="text-center o_bi_th_period"><span class="fw-bold"><t t-esc="col.label"/></span></th>
+                                                    </t>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <t t-foreach="taxReturnRowsByColumn" t-as="row" t-key="row.key">
+                                                    <tr t-att-class="row.kind === 'total' ? 'o_bi_bs_main_total' : 'o_bi_bs_section_row'">
+                                                        <td><span t-att-class="row.kind === 'total' ? 'fw-bold' : ''"><t t-esc="row.label"/></span></td>
+                                                        <t t-foreach="cols" t-as="col" t-key="col.key">
+                                                            <t t-set="val" t-value="row.values[col.key] || 0"/>
+                                                            <td t-att-class="'text-end ' + (row.kind === 'total' ? 'fw-bold ' : '') + getFormatAmountClass(val)">
+                                                                <t t-esc="formatAmount(val, symbol)"/>
+                                                            </td>
+                                                        </t>
+                                                    </tr>
+                                                </t>
+                                            </tbody>
+                                        </table>
+                                    </t>
+                                    <table class="table table-borderless bi_report_table bi_report_table_tax_report">
+                                        <thead>
+                                            <tr class="o_bi_date_row">
+                                                <th/>
+                                                <th/>
+                                                <t t-foreach="cols" t-as="col" t-key="col.key">
+                                                    <th colspan="2" class="text-center o_bi_th_period"><span class="fw-bold"><t t-esc="col.label"/></span></th>
+                                                </t>
+                                                <th class="o_bi_th_info"/>
+                                            </tr>
+                                            <tr class="o_bi_subheader">
+                                                <th/>
+                                                <th><t t-esc="_t('Impuesto')"/></th>
+                                                <t t-foreach="cols" t-as="col" t-key="col.key">
+                                                    <th class="text-end"><t t-esc="_t('Base')"/></th>
+                                                    <th class="text-end"><t t-esc="_t('Importe del impuesto')"/></th>
+                                                </t>
+                                                <th class="o_bi_th_info"/>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="taxSections" t-as="sec" t-key="sec.key">
+                                                <t t-set="visibleTaxes" t-value="sec.visibleTaxes"/>
+                                                <t t-set="showHeader" t-value="visibleTaxes.length &gt; 0 or sec.hasAnyAmount"/>
+                                                <t t-if="showHeader">
+                                                    <tr class="o_bi_bs_main_header">
+                                                        <td/>
+                                                        <td><strong class="text-uppercase"><t t-esc="sec.label"/></strong></td>
+                                                        <t t-foreach="cols" t-as="col" t-key="col.key">
+                                                            <td t-att-class="'text-end ' + getFormatAmountClass(sec.data.totals[col.key].base)">
+                                                                <t t-esc="formatAmount(sec.data.totals[col.key].base, symbol)"/>
+                                                            </td>
+                                                            <td t-att-class="'text-end ' + getFormatAmountClass(sec.data.totals[col.key].tax)">
+                                                                <t t-esc="formatAmount(sec.data.totals[col.key].tax, symbol)"/>
+                                                            </td>
+                                                        </t>
+                                                        <td/>
+                                                    </tr>
+                                                    <t t-if="hierarchyEnabled">
+                                                        <t t-foreach="visibleTaxes" t-as="tax" t-key="tax.id">
+                                                            <tr class="o_bi_bs_account_row">
+                                                                <td/>
+                                                                <td class="ps-4">
+                                                                    <span><t t-esc="tax.name"/></span>
+                                                                    <span t-if="tax.amount_label" class="text-muted ms-2">(<t t-esc="tax.amount_label"/>)</span>
+                                                                </td>
+                                                                <t t-foreach="cols" t-as="col" t-key="col.key">
+                                                                    <t t-set="amts" t-value="tax.amounts[col.key] || {base:0, tax:0}"/>
+                                                                    <td t-att-class="'text-end ' + getFormatAmountClass(amts.base)">
+                                                                        <span><t t-esc="formatAmount(amts.base, symbol)"/></span>
+                                                                        <button type="button" class="btn btn-link btn-sm p-0 ms-1 o_bi_drill_btn" title="Ver apuntes (base)" t-on-click="(ev) => this.onDrillTaxAml(ev, tax.id, 'base', col)">
+                                                                            <i class="fa fa-search text-muted small"/>
+                                                                        </button>
+                                                                    </td>
+                                                                    <td t-att-class="'text-end ' + getFormatAmountClass(amts.tax)">
+                                                                        <span><t t-esc="formatAmount(amts.tax, symbol)"/></span>
+                                                                        <button type="button" class="btn btn-link btn-sm p-0 ms-1 o_bi_drill_btn" title="Ver apuntes (impuesto)" t-on-click="(ev) => this.onDrillTaxAml(ev, tax.id, 'tax', col)">
+                                                                            <i class="fa fa-search text-muted small"/>
+                                                                        </button>
+                                                                    </td>
+                                                                </t>
+                                                                <td class="o_bi_bs_info_col">
+                                                                    <button type="button" class="btn btn-link btn-sm p-0 o_bi_annotation_btn me-1" title="Anotación" t-on-click="(ev) => this.openAnnotationPopover(ev, reportType, 'tax_' + sec.key + '_' + tax.id)">
+                                                                        <i class="fa fa-sticky-note-o text-muted" role="img" aria-label="Anotación"/>
+                                                                    </button>
+                                                                    <button type="button" class="btn btn-link btn-sm p-0 o_bi_info_btn" t-on-click="(ev) => this.openInfoPopover(ev, this.infoForTaxRow(tax))">
+                                                                        <i class="fa fa-info-circle text-muted o_bi_bs_info_icon" role="img" aria-label="Info"/>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        </t>
+                                                        <tr class="o_bi_bs_main_total">
+                                                            <td/>
+                                                            <td><span class="fw-bold"><t t-esc="_t('Total')"/> <t t-esc="sec.label"/></span></td>
+                                                            <t t-foreach="cols" t-as="col" t-key="col.key">
+                                                                <td t-att-class="'text-end fw-bold ' + getFormatAmountClass(sec.data.totals[col.key].base)">
+                                                                    <t t-esc="formatAmount(sec.data.totals[col.key].base, symbol)"/>
+                                                                </td>
+                                                                <td t-att-class="'text-end fw-bold ' + getFormatAmountClass(sec.data.totals[col.key].tax)">
+                                                                    <t t-esc="formatAmount(sec.data.totals[col.key].tax, symbol)"/>
+                                                                </td>
+                                                            </t>
+                                                            <td/>
+                                                        </tr>
+                                                    </t>
+                                                </t>
+                                            </t>
+                                            <t t-if="!hasAnyTaxRow">
+                                                <tr>
+                                                    <td t-att-colspan="3 + 2 * cols.length" class="text-center text-muted py-4"><t t-esc="_t('No hay datos fiscales en el período.')"/></td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+                <t t-elif="reportType === 'executive_summary'">
+                    <t t-if="controller.state.data and controller.state.data.has_draft_warning">
+                        <div class="alert alert-info py-2 px-3 mx-1 mt-2 mb-0 text-center o_bi_draft_warning_alert" role="button" tabindex="0" t-on-click="onClickDraftWarning" t-on-keydown="onClickDraftWarning">
+                            <t t-esc="_t('Hay asientos contables sin registrar anteriores o incluidos en este periodo.')"/>
+                        </div>
+                    </t>
+                    <div class="o_bi_report_card_container">
+                        <div class="o_bi_report_card">
+                            <div class="o_account_report_scroll_container table-responsive">
+                                <t t-set="data" t-value="controller.state.data"/>
+                                <t t-if="!data">
+                                    <div class="o_bi_report_empty py-5 text-center text-muted"><t t-esc="_t('No data to display')"/></div>
+                                </t>
+                                <t t-else="">
+                                    <t t-set="symbol" t-value="(data.currency_data || {}).symbol || ''"/>
+                                    <table class="table table-borderless bi_report_table bi_report_table_executive_summary">
+                                        <colgroup>
+                                            <col class="o_bi_es_col_label"/>
+                                            <col class="o_bi_es_col_balance"/>
+                                            <col t-att-style="hasExecutiveSummaryComparison ? 'width: 100px;' : 'display: none;'"/>
+                                            <col t-att-style="hasExecutiveSummaryComparison ? 'width: 80px;' : 'display: none;'"/>
+                                            <col class="o_bi_es_col_info"/>
+                                        </colgroup>
+                                        <thead>
+                                            <tr class="o_bi_date_row">
+                                                <th/>
+                                                <t t-if="hasExecutiveSummaryComparison and comparisonPeriodOrderAscending">
+                                                    <th class="text-center o_bi_th_period"><span class="fw-bold"><t t-esc="executiveSummaryComparisonLabel"/></span></th>
+                                                    <th class="text-center o_bi_th_period"><span class="fw-bold"><t t-esc="periodHeaderLabel"/></span></th>
+                                                </t>
+                                                <t t-elif="hasExecutiveSummaryComparison">
+                                                    <th class="text-center o_bi_th_period"><span class="fw-bold"><t t-esc="periodHeaderLabel"/></span></th>
+                                                    <th class="text-center o_bi_th_period"><span class="fw-bold"><t t-esc="executiveSummaryComparisonLabel"/></span></th>
+                                                </t>
+                                                <t t-else="">
+                                                    <th class="text-center o_bi_th_period"><span class="fw-bold"><t t-esc="periodHeaderLabel"/></span></th>
+                                                </t>
+                                                <t t-if="hasExecutiveSummaryComparison">
+                                                    <th class="text-center o_bi_th_percent"><span class="fw-bold">%</span></th>
+                                                </t>
+                                                <th class="o_bi_es_col_info"/>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="executiveSummaryRows" t-as="row" t-key="row.key">
+                                                <t t-if="row.isSectionHeader">
+                                                    <tr class="o_bi_es_section_header">
+                                                        <td t-att-colspan="hasExecutiveSummaryComparison ? 5 : 3"><strong class="text-uppercase"><t t-esc="getExecutiveSummarySectionLabel(row.section)"/></strong></td>
+                                                    </tr>
+                                                </t>
+                                                <t t-elif="row.label">
+                                                    <tr class="o_bi_es_row">
+                                                        <td><t t-esc="getExecutiveSummaryRowLabel(row.label)"/></td>
+                                                        <t t-if="hasExecutiveSummaryComparison and comparisonPeriodOrderAscending">
+                                                            <td t-att-class="'text-end ' + (row.negative_red &amp;&amp; row.comparison_value &lt; 0 ? 'text-danger' : '')"><t t-esc="row.comparison_formatted || ''"/></td>
+                                                            <td t-att-class="'text-end ' + (row.negative_red &amp;&amp; row.value &lt; 0 ? 'text-danger' : '')"><t t-esc="row.formatted"/></td>
+                                                        </t>
+                                                        <t t-elif="hasExecutiveSummaryComparison">
+                                                            <td t-att-class="'text-end ' + (row.negative_red &amp;&amp; row.value &lt; 0 ? 'text-danger' : '')"><t t-esc="row.formatted"/></td>
+                                                            <td t-att-class="'text-end ' + (row.negative_red &amp;&amp; row.comparison_value &lt; 0 ? 'text-danger' : '')"><t t-esc="row.comparison_formatted || ''"/></td>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <td t-att-class="'text-end ' + (row.negative_red &amp;&amp; row.value &lt; 0 ? 'text-danger' : '')"><t t-esc="row.formatted"/></td>
+                                                        </t>
+                                                        <t t-if="hasExecutiveSummaryComparison">
+                                                            <td t-att-class="'text-end ' + (row.percent_change_class || '')"><t t-esc="row.percent_change || ''"/></td>
+                                                        </t>
+                                                        <td class="o_bi_es_info_col">
+                                                            <button type="button" class="btn btn-link btn-sm p-0 o_bi_info_btn" t-on-click="(ev) => this.openInfoPopover(ev, this.infoForExecutiveSummary(row))">
+                                                                <i class="fa fa-info-circle text-muted o_bi_pl_info_icon" role="img" aria-label="Info"/>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+                <t t-elif="reportType === 'analytic_report'">
+                    <div class="o_bi_report_card_container">
+                        <div class="o_bi_report_card">
+                            <div class="o_account_report_scroll_container table-responsive">
+                                <t t-set="data" t-value="controller.state.data"/>
+                                <t t-if="!data or !(data.accounts or []).length">
+                                    <div class="o_bi_report_empty py-5 text-center text-muted"><t t-esc="_t('No data to display')"/></div>
+                                </t>
+                                <t t-else="">
+                                    <table class="table table-borderless table-hover bi_report_table bi_report_table_analytic">
+                                        <colgroup>
+                                            <col class="o_bi_ar_col_caret"/>
+                                            <col class="o_bi_ar_col_account"/>
+                                            <col class="o_bi_ar_col_date"/>
+                                            <col class="o_bi_ar_col_partner"/>
+                                            <col class="o_bi_ar_col_journal"/>
+                                            <col class="o_bi_ar_col_plan"/>
+                                            <col class="o_bi_ar_col_amount"/>
+                                        </colgroup>
+                                        <thead>
+                                            <tr class="o_bi_date_row">
+                                                <th class="o_bi_th_caret"/>
+                                                <th/>
+                                                <th colspan="5" class="text-center o_bi_th_period">
+                                                    <span class="fw-bold"><t t-esc="periodHeaderLabel"/></span>
+                                                </th>
+                                            </tr>
+                                            <tr class="o_bi_subheader">
+                                                <th/>
+                                                <th><t t-esc="_t('Cuenta analítica')"/></th>
+                                                <th class="text-center"><t t-esc="_t('Fecha')"/></th>
+                                                <th><t t-esc="_t('Contacto')"/></th>
+                                                <th class="text-center"><t t-esc="_t('Diario')"/></th>
+                                                <th class="text-center"><t t-esc="_t('Plan')"/></th>
+                                                <th class="text-end"><t t-esc="_t('Importe')"/></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="(data.accounts || [])" t-as="account" t-key="account.id">
+                                                <tr class="toggle-row o_bi_analytic_row" t-att-data-account="account.name" t-att-data-account-id="account.id" t-att-class="controller.state.expandedAccounts[account.name] ? 'o_bi_row_unfolded' : ''">
+                                                    <td class="o_bi_ar_caret">
+                                                        <t t-if="account.analytic_items and account.analytic_items.length &gt; 0">
+                                                            <button type="button" class="btn btn-link btn-sm p-0" t-on-click="toggleLines">
+                                                                <i class="fa" t-att-class="controller.state.expandedAccounts[account.name] ? 'fa-caret-down' : 'fa-caret-right'"/>
+                                                            </button>
+                                                        </t>
+                                                    </td>
+                                                    <td>
+                                                        <span class="account_name"><t t-esc="account.name"/></span>
+                                                        <span class="o_bi_row_actions ms-1" t-if="account.analytic_items and account.analytic_items.length &gt; 0">
+                                                            <button type="button" class="btn btn-link btn-sm o_bi_row_action_btn" t-on-click.stop="onClickAnalyticItems"><t t-esc="_t('Apuntes analíticos')"/></button>
+                                                        </span>
+                                                    </td>
+                                                    <td colspan="4"/>
+                                                    <td t-att-class="'text-end ' + (account.amount_negative ? 'text-danger' : '')"><t t-esc="account.amount"/></td>
+                                                </tr>
+                                                <t t-if="controller.state.expandedAccounts[account.name]">
+                                                    <t t-foreach="account.analytic_items" t-as="item" t-key="item.id">
+                                                        <tr class="o_bi_analytic_detail_row" t-att-data-id="item.id">
+                                                            <td class="o_bi_ar_caret"/>
+                                                            <td>
+                                                                <span class="move_name"><t t-esc="item.date"/></span>
+                                                                <span class="o_bi_row_actions ms-1">
+                                                                    <button type="button" class="btn btn-link btn-sm o_bi_row_action_btn" t-on-click.stop="onClickAnalyticEntry"><t t-esc="_t('Apunte')"/></button>
+                                                                </span>
+                                                            </td>
+                                                            <td class="text-center"><t t-esc="item.date"/></td>
+                                                            <td><t t-esc="item.partner_id ? item.partner_id[1] : ''"/></td>
+                                                            <td class="text-center"><t t-esc="item.journal_id ? item.journal_id[1] : ''"/></td>
+                                                            <td class="text-center"><t t-esc="item.plan or ''"/></td>
+                                                            <td t-att-class="'text-end ' + (item.amount_negative ? 'text-danger' : '')"><t t-esc="item.amount"/></td>
+                                                        </tr>
+                                                    </t>
+                                                </t>
+                                            </t>
+                                            <tr class="fw-bold o_bi_analytic_total">
+                                                <td/>
+                                                <td><t t-esc="_t('Total')"/></td>
+                                                <td colspan="4"/>
+                                                <td t-att-class="'text-end ' + (data.total_amount_negative ? 'text-danger' : '')"><t t-esc="data.total_amount"/></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+                <t t-elif="reportType !== 'general_ledger' and reportType !== 'partner_ledger'">
+                    <div class="o_bi_report_empty py-5 text-center text-muted">
+                        <t t-esc="_t('This report is being migrated. Use the filters button for now.')"/>
+                    </div>
+                </t>
+                <t t-elif="reportType === 'general_ledger' and (!controller.state.data.accounts or controller.state.data.accounts.length === 0)">
+                    <div class="o_bi_report_empty py-5 text-center text-muted">
+                        <t t-esc="_t('No data to display')"/>
+                    </div>
+                </t>
+                <t t-elif="reportType === 'partner_ledger' and reportVariant === 'customer_statement'">
+                    <t t-if="controller.state.data and controller.state.data.has_draft_warning">
+                        <div class="alert alert-info py-2 px-3 mx-1 mt-2 mb-0 text-center o_bi_draft_warning_alert" role="button" tabindex="0" t-on-click="onClickDraftWarning" t-on-keydown="onClickDraftWarning">
+                            <t t-esc="_t('Hay asientos contables sin registrar anteriores o incluidos en este periodo.')"/>
+                        </div>
+                    </t>
+                    <div class="o_bi_report_card_container">
+                        <div class="o_bi_report_card">
+                            <div class="o_account_report_scroll_container table-responsive">
+                                <table class="table table-borderless table-hover bi_report_table bi_report_table_ledger bi_report_table_customer_statement">
+                            <colgroup>
+                                <col class="o_bi_cs_col_caret"/>
+                                <col class="o_bi_cs_col_partner"/>
+                                <col class="o_bi_cs_col_followup"/>
+                                <col class="o_bi_cs_col_date"/>
+                                <col class="o_bi_cs_col_due"/>
+                                <col class="o_bi_cs_col_amount"/>
+                                <col class="o_bi_cs_col_balance"/>
+                                <col t-if="partnerLedgerShowsFxColumn" class="o_bi_cs_col_fx"/>
+                            </colgroup>
+                            <thead>
+                                <tr class="o_bi_date_row">
+                                    <th class="o_bi_th_caret" style="width: 1%;"/>
+                                    <th class="o_bi_th_contact_blank"/>
+                                    <th class="text-center o_bi_th_period" t-att-colspan="partnerLedgerShowsFxColumn ? 6 : 5">
+                                        <span class="fw-bold"><t t-esc="periodHeaderLabel"/></span>
+                                    </th>
+                                </tr>
+                                <tr class="o_bi_subheader">
+                                    <th style="width: 1%;"/>
+                                    <th class="o_bi_th_partner"><t t-esc="_t('Partner')"/></th>
+                                    <th class="o_bi_th_followup text-center"><t t-esc="_t('No follow-up')"/></th>
+                                    <th class="o_bi_th_date text-center"><t t-esc="_t('Invoice Date')"/></th>
+                                    <th class="o_bi_th_due text-center"><t t-esc="_t('Due Date')"/></th>
+                                    <th class="text-end o_bi_th_amount"><t t-esc="_t('Amount')"/></th>
+                                    <th class="text-end o_bi_th_balance"><t t-esc="_t('Adeudado')"/></th>
+                                    <th t-if="partnerLedgerShowsFxColumn" class="text-end"><t t-esc="_t('Importe doc.')"/></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="controller.state.data.partners" t-as="partner" t-key="partner.name">
+                                    <tr class="toggle-row" t-att-data-partner="partner.name" t-att-data-partner-id="partner.id" t-att-class="controller.state.expandedPartners[partner.name] ? 'o_bi_row_unfolded' : ''">
+                                        <td>
+                                            <t t-if="partner.journal_items and partner.journal_items.length &gt; 0">
+                                                <button type="button" class="btn btn-link btn-sm p-0" t-on-click="togglePartnerLines">
+                                                    <i class="fa" t-att-class="controller.state.expandedPartners[partner.name] ? 'fa-caret-down' : 'fa-caret-right'"/>
+                                                </button>
+                                            </t>
+                                        </td>
+                                        <td>
+                                            <span class="partner_name"><t t-esc="partner.name"/></span>
+                                            <span class="o_bi_row_actions ms-1">
+                                                <button type="button" class="btn btn-link btn-sm o_bi_row_action_btn" t-on-click.stop="onClickPartnerContact"><t t-esc="_t('Contacto')"/></button>
+                                                <button type="button" class="btn btn-link btn-sm o_bi_row_action_btn" t-on-click.stop="onClickPartnerJournalItems"><t t-esc="_t('Apuntes contables')"/></button>
+                                            </span>
+                                        </td>
+                                        <td colspan="3"/>
+                                        <td t-att-class="'text-end ' + (partner.balance_negative ? 'text-danger' : '')"><t t-esc="partner.balance"/></td>
+                                        <td t-att-class="'text-end ' + (partner.balance_negative ? 'text-danger' : '')"><t t-esc="partner.balance"/></td>
+                                        <td t-if="partnerLedgerShowsFxColumn"/>
+                                    </tr>
+                                        <t t-if="controller.state.expandedPartners[partner.name]">
+                                        <t t-foreach="partner.journal_items" t-as="item" t-key="item.id">
+                                            <tr t-att-data-id="item.id">
+                                                <td/>
+                                                <td>
+                                                    <span class="move_name"><t t-esc="item.move_name"/></span>
+                                                    <span class="o_bi_row_actions ms-1">
+                                                        <button type="button" class="btn btn-link btn-sm o_bi_row_action_btn" t-on-click.stop="onClickEntry"><t t-esc="_t('Entry')"/></button>
+                                                    </span>
+                                                </td>
+                                                <td class="text-center">
+                                                    <t t-if="item.no_followup"><span class="fa fa-check text-muted"/></t>
+                                                    <t t-else=""><span class="text-muted">—</span></t>
+                                                </td>
+                                                <td class="text-center"><t t-esc="item.invoice_date"/></td>
+                                                <td class="text-center"><t t-esc="item.due_date or ''"/></td>
+                                                <td t-att-class="'text-end ' + (item.amount_negative ? 'text-danger' : '')"><t t-esc="item.amount"/></td>
+                                                <td t-att-class="'text-end ' + (item.cumulative_negative ? 'text-danger' : '')"><t t-esc="item.cumulative_balance"/></td>
+                                                <td t-if="partnerLedgerShowsFxColumn" class="text-end text-muted small"><t t-esc="item.amount_original_formatted or ''"/></td>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                </t>
+                                <tr class="fw-bold">
+                                    <td/>
+                                    <td><t t-esc="_t('Total')"/></td>
+                                    <td colspan="3"/>
+                                    <td t-att-class="'text-end ' + (controller.state.data.total_balance_negative ? 'text-danger' : '')"><t t-esc="controller.state.data.total_balance"/></td>
+                                    <td t-att-class="'text-end ' + (controller.state.data.total_balance_negative ? 'text-danger' : '')"><t t-esc="controller.state.data.total_balance"/></td>
+                                    <td t-if="partnerLedgerShowsFxColumn"/>
+                                </tr>
+                            </tbody>
+                        </table>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+                <t t-elif="reportType === 'partner_ledger'">
+                    <t t-if="controller.state.data and controller.state.data.has_draft_warning">
+                        <div class="alert alert-info py-2 px-3 mx-1 mt-2 mb-0 text-center o_bi_draft_warning_alert" role="button" tabindex="0" t-on-click="onClickDraftWarning" t-on-keydown="onClickDraftWarning">
+                            <t t-esc="_t('Hay asientos contables sin registrar anteriores o incluidos en este periodo.')"/>
+                        </div>
+                    </t>
+                    <div class="o_bi_report_card_container">
+                        <div class="o_bi_report_card">
+                            <div class="o_account_report_scroll_container table-responsive">
+                                <table class="table table-borderless table-hover bi_report_table bi_report_table_ledger bi_report_table_partner_ledger">
+                            <colgroup>
+                                <col class="o_bi_pl_col_caret"/>
+                                <col class="o_bi_pl_col_contact"/>
+                                <col class="o_bi_pl_col_journal"/>
+                                <col class="o_bi_pl_col_account"/>
+                                <col class="o_bi_pl_col_date"/>
+                                <col class="o_bi_pl_col_due"/>
+                                <col class="o_bi_pl_col_matching"/>
+                                <col class="o_bi_pl_col_debit"/>
+                                <col class="o_bi_pl_col_credit"/>
+                                <col class="o_bi_pl_col_balance"/>
+                                <col t-if="partnerLedgerShowsFxColumn" class="o_bi_pl_col_fx"/>
+                            </colgroup>
+                            <thead>
+                                <tr class="o_bi_date_row">
+                                    <th class="o_bi_th_caret" style="width: 1%;"/>
+                                    <th class="o_bi_th_contact_blank"/>
+                                    <th class="text-center o_bi_th_period" t-att-colspan="partnerLedgerShowsFxColumn ? 9 : 8">
+                                        <span class="fw-bold"><t t-esc="periodHeaderLabel"/></span>
+                                    </th>
+                                </tr>
+                                <tr class="o_bi_subheader">
+                                    <th style="width: 1%;"/>
+                                    <th class="o_bi_th_partner"/>
+                                    <th class="o_bi_th_journal text-center"><t t-esc="_t('Diario')"/></th>
+                                    <th class="o_bi_th_account text-center"><t t-esc="_t('Cuenta')"/></th>
+                                    <th class="o_bi_th_date text-center"><t t-esc="_t('Fecha de factura')"/></th>
+                                    <th class="o_bi_th_due text-center"><t t-esc="_t('Fecha límite')"/></th>
+                                    <th class="o_bi_th_matching text-center"><t t-esc="_t('Conciliación')"/></th>
+                                    <th class="text-end o_bi_th_debit"><t t-esc="_t('Deber')"/></th>
+                                    <th class="text-end o_bi_th_credit"><t t-esc="_t('Haber')"/></th>
+                                    <th class="text-end o_bi_th_balance"><t t-esc="_t('Adeudado')"/></th>
+                                    <th t-if="partnerLedgerShowsFxColumn" class="text-end"><t t-esc="_t('Importe doc.')"/></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="controller.state.data.partners" t-as="partner" t-key="partner.name">
+                                    <tr class="toggle-row" t-att-data-partner="partner.name" t-att-data-partner-id="partner.id" t-att-class="controller.state.expandedPartners[partner.name] ? 'o_bi_row_unfolded' : ''">
+                                        <td>
+                                            <t t-if="partner.journal_items and partner.journal_items.length &gt; 0">
+                                                <button type="button" class="btn btn-link btn-sm p-0" t-on-click="togglePartnerLines">
+                                                    <i class="fa" t-att-class="controller.state.expandedPartners[partner.name] ? 'fa-caret-down' : 'fa-caret-right'"/>
+                                                </button>
+                                            </t>
+                                        </td>
+                                        <td>
+                                            <span class="partner_name"><t t-esc="partner.name"/></span>
+                                            <span class="o_bi_row_actions ms-1">
+                                                <button type="button" class="btn btn-link btn-sm o_bi_row_action_btn" t-on-click.stop="onClickPartnerContact"><t t-esc="_t('Contacto')"/></button>
+                                                <button type="button" class="btn btn-link btn-sm o_bi_row_action_btn" t-on-click.stop="onClickPartnerJournalItems"><t t-esc="_t('Apuntes contables')"/></button>
+                                            </span>
+                                        </td>
+                                        <td colspan="5"/>
+                                        <td t-att-class="'text-end ' + (partner.debit_negative ? 'text-danger' : '')"><t t-esc="partner.debit"/></td>
+                                        <td t-att-class="'text-end ' + (partner.credit_negative ? 'text-danger' : '')"><t t-esc="partner.credit"/></td>
+                                        <td t-att-class="'text-end ' + (partner.balance_negative ? 'text-danger' : '')"><t t-esc="partner.balance"/></td>
+                                        <td t-if="partnerLedgerShowsFxColumn"/>
+                                    </tr>
+                                        <t t-if="controller.state.expandedPartners[partner.name]">
+                                        <t t-foreach="partner.journal_items" t-as="item" t-key="item.id">
+                                            <tr t-att-data-id="item.id">
+                                                <td/>
+                                                <td>
+                                                    <span class="move_name"><t t-esc="item.move_name"/></span>
+                                                    <span class="o_bi_row_actions ms-1">
+                                                        <button type="button" class="btn btn-link btn-sm o_bi_row_action_btn" t-on-click.stop="onClickEntry"><t t-esc="_t('Entry')"/></button>
+                                                    </span>
+                                                </td>
+                                                <td class="text-center"><t t-esc="item.journal_id"/></td>
+                                                <td class="text-center"><t t-esc="item.account_code"/></td>
+                                                <td class="text-center"><t t-esc="item.invoice_date"/></td>
+                                                <td class="text-center"><t t-esc="item.due_date or ''"/></td>
+                                                <td class="text-center"><t t-esc="item.matching"/></td>
+                                                <td t-att-class="'text-end ' + (item.debit_negative ? 'text-danger' : '')"><t t-esc="item.debit"/></td>
+                                                <td t-att-class="'text-end ' + (item.credit_negative ? 'text-danger' : '')"><t t-esc="item.credit"/></td>
+                                                <td t-att-class="'text-end ' + (item.balance_negative ? 'text-danger' : '')"><t t-esc="item.balance"/></td>
+                                                <td t-if="partnerLedgerShowsFxColumn" class="text-end text-muted small"><t t-esc="item.amount_original_formatted or ''"/></td>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                </t>
+                                <tr class="fw-bold">
+                                    <td/>
+                                    <td><t t-esc="_t('Total')"/></td>
+                                    <td colspan="5"/>
+                                    <td t-att-class="'text-end ' + (controller.state.data.total_debit_negative ? 'text-danger' : '')"><t t-esc="controller.state.data.total_debit"/></td>
+                                    <td t-att-class="'text-end ' + (controller.state.data.total_credit_negative ? 'text-danger' : '')"><t t-esc="controller.state.data.total_credit"/></td>
+                                    <td t-att-class="'text-end ' + (controller.state.data.total_balance_negative ? 'text-danger' : '')"><t t-esc="controller.state.data.total_balance"/></td>
+                                    <td t-if="partnerLedgerShowsFxColumn"/>
+                                </tr>
+                            </tbody>
+                        </table>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+                <t t-else="">
+                    <t t-if="controller.state.data and controller.state.data.has_draft_warning">
+                        <div class="alert alert-info py-2 px-3 mx-1 mt-2 mb-0 text-center o_bi_draft_warning_alert" role="button" tabindex="0" t-on-click="onClickDraftWarning" t-on-keydown="onClickDraftWarning">
+                            <t t-esc="_t('Hay asientos contables sin registrar anteriores o incluidos en este periodo.')"/>
+                        </div>
+                    </t>
+                    <div class="o_bi_report_card_container">
+                        <div class="o_bi_report_card">
+                            <div class="o_account_report_scroll_container table-responsive">
+                                <table class="table table-borderless bi_report_table bi_report_table_ledger">
+                                    <colgroup>
+                                        <col class="o_bi_col_caret"/>
+                                        <col class="o_bi_col_account"/>
+                                        <col class="o_bi_col_date"/>
+                                        <col class="o_bi_col_contact"/>
+                                        <col class="o_bi_col_debit"/>
+                                        <col class="o_bi_col_credit"/>
+                                        <col class="o_bi_col_balance"/>
+                                        <col t-if="glShowsFxColumn" class="o_bi_col_amount_doc"/>
+                                    </colgroup>
+                                    <thead>
+                                        <tr class="o_bi_date_row">
+                                            <th class="o_bi_th_caret"/>
+                                            <th class="o_bi_th_account"/>
+                                            <th class="text-center o_bi_th_period" t-att-colspan="glShowsFxColumn ? 6 : 5">
+                                            <t t-if="periodParts">
+                                                <span class="fw-bold"><t t-esc="periodParts.month"/></span> <t t-esc="periodParts.year"/>
+                                            </t>
+                                            <t t-else=""><t t-esc="periodLabel"/></t>
+                                        </th>
+                                        </tr>
+                                        <tr class="o_bi_subheader">
+                                            <th/>
+                                            <th/>
+                                            <th class="o_bi_th_date text-center"><t t-esc="_t('Date')"/></th>
+                                            <th class="o_bi_th_contact"><t t-esc="_t('Contacto')"/></th>
+                                            <th class="text-end o_bi_th_debit"><t t-esc="_t('Deber')"/></th>
+                                            <th class="text-end o_bi_th_credit"><t t-esc="_t('Haber')"/></th>
+                                            <th class="text-end o_bi_th_balance"><t t-esc="_t('Balance')"/></th>
+                                            <th t-if="glShowsFxColumn" class="text-end o_bi_th_amount_doc"><t t-esc="_t('Importe doc.')"/></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="controller.state.data.accounts" t-as="account" t-key="account.id">
+                                            <tr class="toggle-row o_bi_ledger_row" t-att-data-account="account.code + ' ' + account.name" t-att-data-account-id="account.id" t-att-class="controller.state.expandedAccounts[account.code + ' ' + account.name] ? 'o_bi_row_unfolded' : ''">
+                                                <td class="line_name">
+                                                    <t t-if="account.journal_items and account.journal_items.length &gt; 0">
+                                                        <button type="button" class="btn btn-link btn-sm p-0" t-on-click="toggleLines">
+                                                            <i class="fa" t-att-class="controller.state.expandedAccounts[account.code + ' ' + account.name] ? 'fa-caret-down' : 'fa-caret-right'"/>
+                                                        </button>
+                                                    </t>
+                                                </td>
+                                                <td class="line_name">
+                                                    <span class="account_name"><t t-esc="account.code"/> <t t-esc="account.name"/></span>
+                                                    <span class="o_bi_row_actions ms-1" t-if="account.journal_items and account.journal_items.length &gt; 0">
+                                                        <button type="button" class="btn btn-link btn-sm o_bi_row_action_btn" t-on-click.stop="onClickJournalItems"><t t-esc="_t('Journal Items')"/></button>
+                                                    </span>
+                                                </td>
+                                                <td/>
+                                                <td/>
+                                                <td class="text-end"><t t-esc="account.debit"/></td>
+                                                <td class="text-end"><t t-esc="account.credit"/></td>
+                                                <td t-att-class="'text-end ' + (account.balance_negative ? 'text-danger' : (account.balance_zero ? 'o_bi_amount_zero' : ''))"><t t-esc="account.balance"/></td>
+                                                <td t-if="glShowsFxColumn"/>
+                                            </tr>
+                                            <t t-if="controller.state.expandedAccounts[account.code + ' ' + account.name]">
+                                                <t t-foreach="account.journal_items" t-as="item" t-key="item.id">
+                                                    <tr class="o_bi_ledger_row" t-att-data-id="item.id">
+                                                        <td/>
+                                                        <td>
+                                                            <span class="move_name"><t t-esc="item.move_name"/></span>
+                                                            <span class="o_bi_row_actions ms-1">
+                                                                <button type="button" class="btn btn-link btn-sm o_bi_row_action_btn" t-on-click.stop="onClickEntry"><t t-esc="_t('Entry')"/></button>
+                                                            </span>
+                                                        </td>
+                                                        <td class="text-center"><t t-esc="item.date"/></td>
+                                                        <td><t t-esc="item.partner_id or ''"/></td>
+                                                        <td class="text-end"><t t-esc="item.debit"/></td>
+                                                        <td class="text-end"><t t-esc="item.credit"/></td>
+                                                        <td t-att-class="'text-end ' + (item.balance_negative ? 'text-danger' : (item.balance_zero ? 'o_bi_amount_zero' : ''))"><t t-esc="item.balance"/></td>
+                                                        <td t-if="glShowsFxColumn" class="text-end text-muted small"><t t-esc="item.amount_original_formatted or ''"/></td>
+                                                    </tr>
+                                                </t>
+                                            </t>
+                                        </t>
+                                        <tr class="o_bi_ledger_total fw-bold">
+                                            <td/>
+                                            <td><t t-esc="_t('Total Libro mayor')"/></td>
+                                            <td/>
+                                            <td/>
+                                            <td class="text-end"><t t-esc="controller.state.data.total_debit"/></td>
+                                            <td class="text-end"><t t-esc="controller.state.data.total_credit"/></td>
+                                            <td t-att-class="'text-end ' + (controller.state.data.total_balance_negative ? 'text-danger' : '')"><t t-esc="controller.state.data.total_balance"/></td>
+                                            <td t-if="glShowsFxColumn"/>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </Layout>
+        </div>
+    </t>
+</templates>

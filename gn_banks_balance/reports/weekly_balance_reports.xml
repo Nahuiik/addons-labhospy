@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_banks_weekly_balance_report_xlsx" model="ir.actions.report">
+            <field name="name">Balance semanal por banco (mes)</field>
+            <field name="model">banks.weekly.balance.report</field>
+            <field name="report_type">xlsx</field>
+            <field name="report_name">gn_banks_balance.weekly_balance_report_xlsx.xlsx</field>
+            <field name="report_file">Balance_semanal_bancos_mes</field>
+        </record>
+
+        <record id="action_banks_weekly_balance_report_html" model="ir.actions.report">
+            <field name="name">Balance semanal por banco (HTML)</field>
+            <field name="model">banks.weekly.balance.report</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">gn_banks_balance.report_banks_weekly_balance</field>
+            <field name="report_file">Balance_semanal_bancos_mes</field>
+        </record>
+
+        <record id="action_banks_weekly_balance_report_pdf" model="ir.actions.report">
+            <field name="name">Balance semanal por banco (PDF)</field>
+            <field name="model">banks.weekly.balance.report</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">gn_banks_balance.report_banks_weekly_balance</field>
+            <field name="report_file">Balance_semanal_bancos_mes</field>
+            <field name="print_report_name">'Balance_semanal_%s' % (object.month)</field>
+        </record>
+    </data>
+</odoo>

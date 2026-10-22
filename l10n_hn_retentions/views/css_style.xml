@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <!-- Load css File -->
+    <template id="l10n_hn_retentions_css_asset" name="bank_reconciliation_css_assets" inherit_id="web.assets_backend">
+      <xpath expr="." position="inside">
+        <link rel="stylesheet" href="/l10n_hn_retentions/static/css/style.css"/>
+      </xpath>
+    </template>
+  </data>
+</openerp>

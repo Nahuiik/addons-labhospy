@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_gn_sales_command_center_root"
+              name="Command Center"
+              parent="sale.sale_menu_root"
+              sequence="2"/>
+
+    <menuitem id="menu_gn_sales_command_center"
+              name="Dashboard de Ventas"
+              parent="menu_gn_sales_command_center_root"
+              action="action_gn_sales_command_center"
+              sequence="1"
+              groups="gn_sales_dashboard.group_sales_dashboard_user"/>
+
+    <menuitem id="menu_sales_dashboard_targets"
+              name="Metas comerciales"
+              parent="menu_gn_sales_command_center_root"
+              action="action_sales_dashboard_target"
+              sequence="80"
+              groups="gn_sales_dashboard.group_sales_dashboard_manager"/>
+
+    <menuitem id="menu_sales_dashboard_config"
+              name="Configuración"
+              parent="menu_gn_sales_command_center_root"
+              action="action_sales_dashboard_config"
+              sequence="90"
+              groups="gn_sales_dashboard.group_sales_dashboard_admin"/>
+</odoo>

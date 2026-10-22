@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_banks_dashboard.GnBanksDashboardFilterBar">
+        <div class="gn-bd-filters gn-bd-filters--toolbar">
+            <div class="gn-bd-filters__toolbar">
+                <div class="gn-bd-filters__group gn-bd-filters__group--period">
+                    <label class="gn-bd-filters__chip-label" t-esc="labels.month"/>
+                    <select class="form-select form-select-sm gn-bd-filters__input gn-bd-filters__month"
+                            t-att-value="selectedMonth"
+                            t-on-change="onMonthChange">
+                        <t t-foreach="months" t-as="mo" t-key="mo.value">
+                            <option t-att-value="mo.value"
+                                    t-att-selected="mo.value === selectedMonth"
+                                    t-esc="mo.label"/>
+                        </t>
+                    </select>
+                    <input type="number"
+                           class="form-control form-control-sm gn-bd-filters__input gn-bd-filters__year"
+                           t-att-value="selectedYear"
+                           min="2000"
+                           max="2100"
+                           t-att-title="labels.year"
+                           t-on-change="onYearChange"/>
+                </div>
+
+                <span class="gn-bd-filters__divider" aria-hidden="true"/>
+
+                <div class="gn-bd-filters__group gn-bd-filters__group--dates">
+                    <label class="gn-bd-filters__chip-label" t-esc="labels.dateFrom"/>
+                    <DateTimeInput type="'date'" value="dateFromValue" onChange.bind="onDateFromChange"/>
+                    <span class="gn-bd-filters__range-sep">→</span>
+                    <label class="gn-bd-filters__chip-label gn-bd-filters__chip-label--inline" t-esc="labels.dateTo"/>
+                    <DateTimeInput type="'date'" value="dateToValue" onChange.bind="onDateToChange"/>
+                </div>
+
+                <span class="gn-bd-filters__divider" t-if="showCompany" aria-hidden="true"/>
+
+                <div class="gn-bd-filters__group gn-bd-filters__group--company" t-if="showCompany">
+                    <label class="gn-bd-filters__chip-label" t-esc="labels.company"/>
+                    <select class="form-select form-select-sm gn-bd-filters__input"
+                            t-att-value="props.draftFilters.company_id"
+                            t-on-change="onCompanyChange">
+                        <t t-foreach="props.filterOptions.companies || []" t-as="co" t-key="co.id">
+                            <option t-att-value="co.id"
+                                    t-att-selected="co.id === props.draftFilters.company_id"
+                                    t-esc="co.name"/>
+                        </t>
+                    </select>
+                </div>
+
+                <span class="gn-bd-filters__divider" aria-hidden="true"/>
+
+                <div class="gn-bd-filters__group gn-bd-filters__group--journals">
+                    <label class="gn-bd-filters__chip-label" t-esc="labels.banksJournals"/>
+                    <GnBanksJournalMultiSelector
+                        resIds="journalResIds"
+                        companyId="companyId"
+                        allJournalIds="allJournalIds"
+                        journalMeta="journalMeta"
+                        onUpdate.bind="onJournalsUpdate"/>
+                </div>
+
+                <span class="gn-bd-filters__divider" aria-hidden="true"/>
+
+                <div class="gn-bd-filters__group gn-bd-filters__group--flow">
+                    <label class="gn-bd-filters__chip-label" t-esc="labels.flowSource"/>
+                    <div class="gn-bd-flow-toggle btn-group btn-group-sm" role="group">
+                        <button type="button"
+                                t-att-class="'btn ' + (flowSource === 'treasury' ? 'btn-primary' : 'btn-outline-secondary')"
+                                t-att-title="labels.flowTreasuryTitle"
+                                t-on-click="() => this.onFlowSourceChange('treasury')"
+                                t-esc="labels.flowTreasury"/>
+                        <button type="button"
+                                t-att-class="'btn ' + (flowSource === 'ledger' ? 'btn-primary' : 'btn-outline-secondary')"
+                                t-att-title="labels.flowLedgerTitle"
+                                t-on-click="() => this.onFlowSourceChange('ledger')"
+                                t-esc="labels.flowLedger"/>
+                    </div>
+                </div>
+
+                <div class="gn-bd-filters__actions">
+                    <button type="button" class="btn btn-sm gn-bd-filters__apply"
+                            t-on-click="props.onApply"
+                            t-att-disabled="props.loading">
+                        <i class="fa fa-filter"/>
+                        <t t-esc="labels.apply"/>
+                    </button>
+                    <button type="button" class="btn btn-sm gn-bd-filters__reset"
+                            t-on-click="props.onReset"
+                            t-att-title="labels.resetFiltersTitle">
+                        <i class="fa fa-eraser"/>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

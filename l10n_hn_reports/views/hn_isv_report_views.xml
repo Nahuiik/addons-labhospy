@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hn_isv_report_form" model="ir.ui.view">
+        <field name="name">hn.isv.report.form</field>
+        <field name="model">hn.isv.report</field>
+        <field name="arch" type="xml">
+            <form string="ISV 904">
+                <group>
+                    <field name="year"/>
+                    <field name="month"/>
+                </group>
+                <footer>
+                    <button name="action_export_xlsx" type="object" string="Exportar XLSX" class="btn-primary"/>
+                    <button string="Cerrar" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

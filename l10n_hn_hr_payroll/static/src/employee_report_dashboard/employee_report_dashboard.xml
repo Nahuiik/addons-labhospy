@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="l10n_hn_hr_payroll.EmployeeReportDashboard">
+        <Layout display="display">
+            <t t-set-slot="control-panel-always-buttons">
+                <span class="oe-dashboard-title fw-bold fs-5 me-3">Informes de Empleados</span>
+                <button class="btn btn-primary" t-on-click="openFullWizard" title="Abrir wizard completo para seleccionar múltiples reportes">
+                    <i class="fa fa-file-excel-o me-1"/> Wizard completo
+                </button>
+            </t>
+            <div class="oe-report-dashboard-wrap">
+            <div class="oe-report-dashboard">
+                <div class="oe-report-dashboard__intro">
+                    <p class="oe-report-dashboard__intro-text">
+                        Seleccione un informe para generar el reporte en Excel. Puede filtrar por empleados en el wizard que se abrirá.
+                    </p>
+                </div>
+                <div class="oe-report-dashboard__grid">
+                    <t t-foreach="reportCategories" t-as="category" t-key="category.id">
+                        <div class="oe-report-card oe-report-card--category">
+                            <div class="oe-report-card__header" t-att-style="'--category-color: ' + category.color">
+                                <i t-att-class="'fa ' + category.icon + ' oe-report-card__category-icon'"/>
+                                <span class="oe-report-card__category-label" t-esc="category.label"/>
+                            </div>
+                            <div class="oe-report-card__body">
+                                <t t-foreach="category.reports" t-as="report" t-key="report.action">
+                                    <button type="button"
+                                            class="oe-report-item"
+                                            t-att-data-action="report.action"
+                                            t-on-click="(ev) => this.openReport(ev.currentTarget.dataset.action)"
+                                            t-att-title="'Generar reporte: ' + report.label">
+                                        <i t-att-class="'fa ' + report.icon + ' oe-report-item__icon'"/>
+                                        <span class="oe-report-item__label" t-esc="report.label"/>
+                                        <i class="fa fa-chevron-right oe-report-item__arrow"/>
+                                    </button>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </div>
+            </div>
+        </Layout>
+    </t>
+
+</templates>

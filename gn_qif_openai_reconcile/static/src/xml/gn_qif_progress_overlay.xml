@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_qif_openai_reconcile.GnQifProgressOverlay">
+        <div t-if="state.active"
+             class="o_gn_qif_progress_owl position-fixed top-0 start-0 w-100 p-0"
+             style="z-index: 99999; pointer-events: none;">
+
+            <div class="card shadow m-3 ms-auto" style="max-width: 420px;">
+                <div class="card-body py-3">
+                    <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="fa fa-refresh fa-spin text-primary" t-if="!state.done" title="Procesando" aria-hidden="true"/>
+                            <i class="fa fa-check text-success" t-else="" title="Completado" aria-hidden="true"/>
+                            <div class="d-flex flex-column">
+                                <span class="fw-bold" t-esc="titleText"/>
+                                <span class="text-muted small" t-esc="phaseText"/>
+                            </div>
+                        </div>
+                        <span class="fs-6 text-primary fw-bold" t-esc="percentLabel"/>
+                    </div>
+
+                    <div class="progress mb-0" style="height: 24px;">
+                        <div t-att-class="barClasses"
+                             role="progressbar"
+                             t-att-style="'width: ' + progressPct + '%'"
+                             t-att-aria-valuenow="progressPct"
+                             aria-valuemin="0" aria-valuemax="100">
+                            <t t-esc="percentLabel"/>
+                        </div>
+                    </div>
+
+                    <div t-if="state.message" class="mt-2 text-muted small text-truncate d-flex align-items-center">
+                        <i t-if="!state.done" class="fa fa-gear fa-spin me-1" role="img" aria-hidden="true"/>
+                        <span t-esc="state.message"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

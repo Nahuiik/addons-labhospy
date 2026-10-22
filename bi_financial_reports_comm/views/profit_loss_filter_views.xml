@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_profit_loss_form" model="ir.ui.view">
+        <field name="name">profit.loss.form</field>
+        <field name="model">profit.loss.report</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="date_from" readonly = "date_range != False" force_save="1" required="1"/>
+                        <field name="date_range"/>
+                        
+                        <newline/>
+                    </group>
+                    <group>
+                        <field name="date_to" readonly = "date_range != False" force_save="1" required="1"/>
+                        <field name="journal_ids" widget="many2many_tags"/>
+                        <newline/>
+                        
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_apply_filters_profitloss" type="object" class="oe_highlight" string="Apply"/>
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_profit_loss" model="ir.actions.act_window">
+        <field name="name">Estado de Resultados</field>
+        <field name="res_model">profit.loss.report</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'report': 'profit_loss'}</field>
+    </record>
+</odoo>

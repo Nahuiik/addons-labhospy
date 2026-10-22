@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Server Action: AI Generate Suggestion -->
+    <record id="server_action_ai_generate_suggestion" model="ir.actions.server">
+        <field name="name">AI: Generate Quotation Suggestion</field>
+        <field name="model_id" ref="crm.model_crm_lead"/>
+        <field name="binding_model_id" ref="crm.model_crm_lead"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+# Generate AI suggestion for leads
+for record in records:
+    record.action_ai_suggest_quote()
+        </field>
+    </record>
+    
+    <!-- Automation: Auto-generate AI suggestion for livechat leads -->
+    <record id="automation_ai_livechat_lead" model="base.automation">
+        <field name="name">AI: Auto-generate suggestion for Live Chat leads</field>
+        <field name="model_id" ref="crm.model_crm_lead"/>
+        <field name="trigger">on_create</field>
+        <field name="active" eval="False"/>
+        <field name="filter_domain">[('source_id.name', 'ilike', 'livechat'), ('description', '!=', False)]</field>
+        <field name="action_server_ids" eval="[(4, ref('server_action_ai_generate_suggestion'))]"/>
+    </record>
+</odoo>
+

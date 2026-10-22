@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <record id="view_partner_form_inherit" model="ir.ui.view">
+            <field name="name">view.res.partner.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//group/group[1]" position="inside">
+                    <field name="supplier_rank" invisible="1"/>
+                    <field name="is_payment_account" invisible="supplier_rank == 0"/>
+                </xpath>
+                <xpath expr="//notebook[1]" position="inside">
+                    <page string="Pagos a Cuentas" invisible="is_payment_account != True">
+                        <group col="4">
+                            <field name="date_payments_account" invisible="is_payment_account != True"/>
+                        </group>
+                        <group>
+                            <field name="file_account_pay_ids" widget="many2many" context="{'tree_view_ref': 'l10n_hn_retentions.file_payments_to_account_tree'}"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        
+
+        <record model="ir.ui.view" id="file_payments_to_account_form_view">
+            <field name="name">payment.account.tofile.form</field>
+            <field name="model">payment.account.tofile</field>
+            <field name="arch" type="xml">
+                <form string="File payments to account">
+                    <group col="4">
+                        <field name="name"/>
+                        <field name="date_file"/>
+                        <field name="file_payment_account"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="file_payments_to_account_tree">
+            <field name="name">payment.account.tofile.list</field>
+            <field name="model">payment.account.tofile</field>
+            <field name="arch" type="xml">
+                <list string="File payments to account" editable="bottom">
+                    <field name="name"/>
+                    <field name="date_file"/>
+                    <field name="file_payment_account"/>
+                </list>
+            </field>
+        </record>
+    </data>
+</odoo>

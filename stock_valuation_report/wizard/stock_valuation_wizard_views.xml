@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista del Wizard -->
+    <record id="view_stock_valuation_wizard_form" model="ir.ui.view">
+        <field name="name">stock.valuation.wizard.form</field>
+        <field name="model">stock.valuation.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Reporte de Valoración de Inventario">
+                <group>
+                    <group string="Compañía">
+                        <field name="company_id" 
+                               options="{'no_open': True, 'no_create': True}" 
+                               placeholder="Todas las compañías"/>
+                    </group>
+                    <group string="Almacenes">
+                        <field name="warehouse_ids" 
+                               widget="many2many_tags"
+                               options="{'no_open': True, 'no_create': True}" 
+                               placeholder="Todos los almacenes"/>
+                    </group>
+                </group>
+                <group>
+                    <group string="Ubicación">
+                        <field name="location_id" 
+                               options="{'no_open': True, 'no_create': True}" 
+                               placeholder="Todas las ubicaciones"/>
+                    </group>
+                    <group string="Período">
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                    </group>
+                </group>
+                <group>
+                    <group string="Opciones de Visualización">
+                        <field name="only_summary"/>
+                        <field name="only_with_movement"/>
+                    </group>
+                </group>
+                <group string="Filtrar por Categorías">
+                    <field name="filter_product_categ_ids" 
+                           nolabel="1" 
+                           widget="many2many_tags"
+                           placeholder="Todas las categorías"
+                           options="{'no_open': True, 'no_create': True}"/>
+                </group>
+                <group string="Filtrar por Proveedor (LabHosPy)">
+                    <field name="filter_gn_labhospy_supplier_ids"
+                           nolabel="1"
+                           widget="many2many_tags"
+                           placeholder="Todos los proveedores"
+                           options="{'no_open': True, 'no_create': True}"/>
+                </group>
+                <footer>
+                    <button name="action_print_pdf" 
+                            string="Imprimir PDF" 
+                            type="object" 
+                            class="btn-primary"/>
+                    <button name="action_print_xlsx" 
+                            string="Exportar Excel" 
+                            type="object" 
+                            class="btn-primary"/>
+                    <button string="Cancelar" 
+                            class="btn-secondary" 
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acción del Wizard -->
+    <record model="ir.actions.act_window" id="action_stock_valuation_wizard">
+        <field name="name">Valoración de Inventario</field>
+        <field name="res_model">stock.valuation.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_stock_valuation_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Menú en Reportes de Inventario -->
+    <menuitem id="menu_stock_valuation_wizard" 
+              name="Valoración de Inventario"
+              action="action_stock_valuation_wizard"
+              parent="stock.menu_warehouse_report" 
+              sequence="50"
+              groups="stock_valuation_report.group_stock_valuation_user"/>
+
+</odoo>

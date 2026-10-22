@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_gn_qif_suggestion_list" model="ir.ui.view">
+        <field name="name">gn.qif.suggestion.list</field>
+        <field name="model">gn.qif.suggestion</field>
+        <field name="arch" type="xml">
+            <list string="Sugerencias QIF (IA)" decoration-muted="state == 'dismissed'">
+                <field name="create_date"/>
+                <field name="name"/>
+                <field name="journal_id"/>
+                <field name="qif_filename"/>
+                <field name="state" widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_gn_qif_suggestion_form" model="ir.ui.view">
+        <field name="name">gn.qif.suggestion.form</field>
+        <field name="model">gn.qif.suggestion</field>
+        <field name="arch" type="xml">
+            <form string="Sugerencia QIF">
+                <header>
+                    <button name="action_set_seen" type="object" string="Marcar visto" invisible="state != 'new'"/>
+                    <button name="action_set_applied" type="object" string="Marcar aplicado" invisible="state in ('applied','dismissed')"/>
+                    <button name="action_set_dismissed" type="object" string="Descartar" invisible="state == 'dismissed'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="new,seen,applied,dismissed"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="journal_id"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                        <field name="qif_filename"/>
+                    </group>
+                    <group>
+                        <field name="summary" colspan="2"/>
+                    </group>
+                    <field name="detail" widget="text" colspan="2" nolabel="1"/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_gn_qif_suggestion" model="ir.actions.act_window">
+        <field name="name">Sugerencias QIF (IA)</field>
+        <field name="res_model">gn.qif.suggestion</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_gn_qif_suggestion"
+              name="Sugerencias QIF (IA)"
+              parent="account.account_transactions_menu"
+              action="action_gn_qif_suggestion"
+              sequence="93"/>
+
+</odoo>

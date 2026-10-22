@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_leave_view_form_gn_portal_submitter" model="ir.ui.view">
+        <field name="name">hr.leave.form.gn.portal.submitter</field>
+        <field name="model">hr.leave</field>
+        <field name="inherit_id" ref="hr_holidays.hr_leave_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="gn_portal_submitter_id" readonly="1" invisible="not gn_portal_submitter_id" groups="hr.group_hr_user"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Kanban «Todo el tiempo personal» / vista estándar hr.leave -->
+    <record id="hr_leave_view_kanban_gn_portal_submitter" model="ir.ui.view">
+        <field name="name">hr.leave.kanban.gn.portal.submitter</field>
+        <field name="model">hr.leave</field>
+        <field name="inherit_id" ref="hr_holidays.hr_leave_view_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//kanban/field[@name='employee_id']" position="after">
+                <field name="gn_portal_submitter_id"/>
+            </xpath>
+            <xpath expr="//field[@name='employee_id'][hasclass('fw-bold', 'fs-3', 'mb-2')]" position="after">
+                <div t-if="record.gn_portal_submitter_id.raw_value" class="small text-muted mt-1">
+                    Solicitado por: <t t-esc="record.gn_portal_submitter_id.value"/>
+                </div>
+            </xpath>
+            <xpath expr="//div[hasclass('hr_leave_kanban_title')]" position="after">
+                <div t-if="record.gn_portal_submitter_id.raw_value" class="small text-muted mb-1">
+                    Solicitado por: <t t-esc="record.gn_portal_submitter_id.value"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

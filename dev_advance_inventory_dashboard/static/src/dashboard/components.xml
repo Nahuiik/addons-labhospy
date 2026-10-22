@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="dev_advance_inventory_dashboard.InvDashboardFilterBar">
+        <section class="inv-dash__filters inv-dash__filters--advanced">
+            <select class="form-select form-select-sm" t-on-change="onPeriodChange">
+                <t t-foreach="props.filterOptions.period_presets or []" t-as="p" t-key="p.id">
+                    <option t-att-value="p.id" t-att-selected="props.draftFilters.period === p.id" t-esc="p.name"/>
+                </t>
+            </select>
+            <input type="date" class="form-control form-control-sm"
+                   t-att-value="props.draftFilters.date_from or ''"
+                   t-on-change="onDateFromChange"/>
+            <input type="date" class="form-control form-control-sm"
+                   t-att-value="props.draftFilters.date_to or ''"
+                   t-on-change="onDateToChange"/>
+            <select class="form-select form-select-sm" t-on-change="onLotChange">
+                <option value="">Lote</option>
+                <t t-foreach="props.filterOptions.lots or []" t-as="lot" t-key="lot.id">
+                    <option t-att-value="lot.id" t-att-selected="props.draftFilters.lot_id === lot.id" t-esc="lot.name"/>
+                </t>
+            </select>
+            <select class="form-select form-select-sm" t-on-change="onWarehouseChange">
+                <option value=""><t t-esc="props.labels.warehouse or 'Almacén'"/></option>
+                <t t-foreach="props.filterOptions.warehouses or []" t-as="w" t-key="w.id">
+                    <option t-att-value="w.id" t-att-selected="props.draftFilters.warehouse_id === w.id" t-esc="w.name"/>
+                </t>
+            </select>
+            <select class="form-select form-select-sm" t-if="props.filterOptions.branches and props.filterOptions.branches.length"
+                    t-on-change="onBranchChange">
+                <option value=""><t t-esc="props.labels.branch or 'Sucursal'"/></option>
+                <t t-foreach="props.filterOptions.branches or []" t-as="b" t-key="b.id">
+                    <option t-att-value="b.id" t-att-selected="props.draftFilters.branch_id === b.id" t-esc="b.name"/>
+                </t>
+            </select>
+            <select class="form-select form-select-sm" t-on-change="onLocationChange">
+                <option value="">Ubicación</option>
+                <t t-foreach="props.filterOptions.locations or []" t-as="l" t-key="l.id">
+                    <option t-att-value="l.id" t-att-selected="props.draftFilters.location_id === l.id" t-esc="l.name"/>
+                </t>
+            </select>
+            <select class="form-select form-select-sm" t-on-change="onCategoryChange">
+                <option value="">Categoría</option>
+                <t t-foreach="props.filterOptions.categories or []" t-as="c" t-key="c.id">
+                    <option t-att-value="c.id" t-att-selected="props.draftFilters.category_id === c.id" t-esc="c.name"/>
+                </t>
+            </select>
+            <select class="form-select form-select-sm" t-on-change="onOperationTypeChange">
+                <option value="">Tipo operación</option>
+                <t t-foreach="props.filterOptions.operation_types or []" t-as="o" t-key="o.id">
+                    <option t-att-value="o.id" t-att-selected="props.draftFilters.operation_type_id === o.id" t-esc="o.name"/>
+                </t>
+            </select>
+            <select class="form-select form-select-sm" t-on-change="onSupplierChange">
+                <option value="">Proveedor</option>
+                <t t-foreach="props.filterOptions.suppliers or []" t-as="s" t-key="s.id">
+                    <option t-att-value="s.id" t-att-selected="props.draftFilters.supplier_id === s.id" t-esc="s.name"/>
+                </t>
+            </select>
+            <select class="form-select form-select-sm" t-on-change="onCustomerChange">
+                <option value="">Cliente</option>
+                <t t-foreach="props.filterOptions.customers or []" t-as="cu" t-key="cu.id">
+                    <option t-att-value="cu.id" t-att-selected="props.draftFilters.customer_id === cu.id" t-esc="cu.name"/>
+                </t>
+            </select>
+            <select class="form-select form-select-sm" t-on-change="onResponsibleChange">
+                <option value="">Responsable</option>
+                <t t-foreach="props.filterOptions.users or []" t-as="u" t-key="u.id">
+                    <option t-att-value="u.id" t-att-selected="props.draftFilters.responsible_id === u.id" t-esc="u.name"/>
+                </t>
+            </select>
+            <select class="form-select form-select-sm" t-if="props.filterOptions.multi_company"
+                    t-on-change="onCompanyChange">
+                <t t-foreach="props.filterOptions.companies or []" t-as="co" t-key="co.id">
+                    <option t-att-value="co.id" t-att-selected="props.draftFilters.company_id === co.id" t-esc="co.name"/>
+                </t>
+            </select>
+            <button type="button" class="btn btn-primary btn-sm" t-on-click="onApplyClick">
+                <t t-esc="props.labels.apply"/>
+            </button>
+            <button type="button" class="btn btn-outline-secondary btn-sm" t-on-click="onResetClick">
+                <t t-esc="props.labels.reset"/>
+            </button>
+        </section>
+    </t>
+
+    <t t-name="dev_advance_inventory_dashboard.InvDashboardLayoutEditor">
+        <div class="inv-layout-modal">
+            <div class="inv-layout-modal__panel">
+                <div class="inv-layout-modal__head">
+                    <h4 t-esc="props.labels.configureLayout"/>
+                    <select class="form-select form-select-sm" style="max-width:180px" t-on-change="onPresetChange">
+                        <option value="">Plantilla rol…</option>
+                        <t t-foreach="props.layoutPresets or []" t-as="pr" t-key="pr.id">
+                            <option t-att-value="pr.id" t-esc="pr.name"/>
+                        </t>
+                    </select>
+                    <button type="button" class="btn-close" t-on-click="onCloseClick"/>
+                </div>
+                <div class="inv-layout-modal__body">
+                    <t t-foreach="props.widgets" t-as="w" t-key="w.id">
+                        <div class="inv-layout-row"
+                             draggable="true"
+                             t-on-dragstart="(ev) => this.onDragStart(ev, w.id)"
+                             t-on-drop="(ev) => this.onDrop(ev, w.id)"
+                             t-on-dragover="onDragOver">
+                            <label>
+                                <input type="checkbox" t-att-checked="w.visible !== false"
+                                       t-on-change="() => this.onWidgetToggle(w.id)"/>
+                                <t t-esc="w.id"/>
+                            </label>
+                            <span>
+                                <button type="button" class="btn btn-sm btn-outline-secondary"
+                                        t-on-click="() => this.onWidgetMove(w.id, -1)">↑</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary"
+                                        t-on-click="() => this.onWidgetMove(w.id, 1)">↓</button>
+                            </span>
+                        </div>
+                    </t>
+                </div>
+                <div class="inv-layout-modal__foot">
+                    <button type="button" class="btn btn-primary btn-sm" t-on-click="onSaveClick"
+                            t-esc="props.labels.saveLayout"/>
+                    <button type="button" class="btn btn-outline-secondary btn-sm" t-on-click="onResetLayoutClick"
+                            t-esc="props.labels.resetLayout"/>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

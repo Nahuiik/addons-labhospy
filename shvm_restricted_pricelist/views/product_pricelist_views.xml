@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="product_pricelist_extended_form_view" model="ir.ui.view">
+        <field name="name">product.pricelist.extended.form.view</field>
+        <field name="model">product.pricelist</field>
+        <field name="inherit_id" ref="product.product_pricelist_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='pricelist_rules']" position="after">
+                <page string="User Access" groups="shvm_restricted_pricelist.group_pricelist_user_access">
+                    <group>
+                        <group name="users" string="Users">
+                            <field name="user_ids" domain="[('share','=',False)]" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_pricelist_extended_tree_view" model="ir.ui.view">
+        <field name="name">product.pricelist.extended.tree.view</field>
+        <field name="model">product.pricelist</field>
+        <field name="inherit_id" ref="product.product_pricelist_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//list" position="attributes">
+                <attribute name="multi_edit">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="user_ids" domain="[('share','=',False)]" widget="many2many_tags"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,86 @@
+// Reporte ISV — cajas tipo formulario SAR (variables --nh-*). Encabezado/pie: web.external_layout.
+.nh-isv-decl {
+  font-size: 11px;
+  color: var(--nh-ink);
+
+  .nh-isv-period-line {
+    font-size: 11px;
+    color: var(--nh-muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .nh-isv-box {
+    border: 1px solid var(--nh-accent);
+    margin-bottom: 14px;
+    padding: 0;
+    background: #fff;
+  }
+  .nh-isv-box-title {
+    margin: 0;
+    padding: 8px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    text-align: center;
+    color: var(--nh-heading);
+    border-bottom: 1px solid var(--nh-border);
+    background: var(--nh-row-alt);
+  }
+  .nh-isv-row {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+    border-top: 1px solid var(--nh-border);
+    &:first-of-type {
+      border-top: none;
+    }
+  }
+  .nh-isv-label,
+  .nh-isv-val {
+    display: table-cell;
+    padding: 6px 12px;
+    vertical-align: middle;
+  }
+  .nh-isv-label {
+    width: 62%;
+    color: var(--nh-muted);
+    font-size: 10px;
+  }
+  .nh-isv-val {
+    text-align: right;
+    font-weight: 600;
+    color: var(--nh-ink);
+    font-size: 11px;
+    white-space: nowrap;
+  }
+  .nh-isv-row.spacer .nh-isv-label,
+  .nh-isv-row.spacer .nh-isv-val {
+    padding: 10px 12px;
+    border-top: none;
+  }
+
+  .nh-isv-footer {
+    margin-top: 16px;
+    padding-top: 10px;
+    .nh-isv-row .nh-isv-label {
+      color: var(--nh-ink);
+      font-weight: 500;
+    }
+    .nh-isv-total-final {
+      margin-top: 6px;
+      padding-top: 8px;
+      border-top: 2px solid var(--nh-accent);
+      .nh-isv-label,
+      .nh-isv-val {
+        font-weight: 700;
+        font-size: 12px;
+        color: var(--nh-heading);
+      }
+    }
+  }
+  .nh-isv-nota {
+    font-size: 9px;
+    color: var(--nh-muted);
+    margin-top: 12px;
+    line-height: 1.35;
+  }
+}

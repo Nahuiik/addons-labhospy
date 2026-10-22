@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="paperformat_employee_declaration" model="report.paperformat">
+            <field name="name">Constancia de trabajo</field>
+            <field name="default" eval="False"/>
+            <field name="format">custom</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">15</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">20</field>
+            <field name="margin_right">20</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+            <field name="dpi">100</field>
+        </record>
+
+        <record id="action_report_employee_declaration" model="ir.actions.report">
+            <field name="name">Constancia de trabajo</field>
+            <field name="model">hr.version</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">l10n_hn_payroll_base.report_employee_declaration</field>
+            <field name="report_file">l10n_hn_payroll_base.report_employee_declaration</field>
+            <field name="print_report_name">object._get_report_base_filename()</field>
+            <field name="paperformat_id" ref="paperformat_employee_declaration"/>
+        </record>
+
+        <record id="action_report_employee_cancelled_declaration" model="ir.actions.report">
+            <field name="name">Constancia de salida</field>
+            <field name="model">hr.version</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">l10n_hn_payroll_base.report_employee_cancelled_declaration</field>
+            <field name="report_file">l10n_hn_payroll_base.report_employee_cancelled_declaration</field>
+            <field name="print_report_name">object._get_report_base_filename()</field>
+            <field name="paperformat_id" ref="paperformat_employee_declaration"/>
+        </record>
+    </data>
+</odoo>

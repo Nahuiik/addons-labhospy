@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="l10n_hn_hr_payroll.StepReview">
+        <div class="o_step_review">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Resumen</h5>
+                    <p class="mb-1"><strong>Empleados seleccionados:</strong> <t t-esc="props.selectedCount"/></p>
+                    <p class="mb-1"><strong>Período:</strong> <t t-esc="props.config.date_start"/> - <t t-esc="props.config.date_end"/></p>
+                    <p class="mb-0">Se generarán <t t-esc="props.selectedCount"/> nómina(s) para el período indicado.</p>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

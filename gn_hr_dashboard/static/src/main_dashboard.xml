@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_hr_dashboard.MainDashboard">
+        <div class="o_gn_hr_main_dashboard h-100 d-flex flex-column bg-view">
+            <t t-if="!state.initialized">
+                <div class="d-flex justify-content-center align-items-center flex-grow-1">
+                    <div class="spinner-border text-primary" role="status"/>
+                </div>
+            </t>
+            <t t-else="">
+                <ul class="nav nav-tabs px-3 pt-2 border-bottom bg-view" role="tablist">
+                    <li class="nav-item" role="presentation" t-if="state.showRegional">
+                        <button type="button"
+                                class="nav-link"
+                                t-att-class="{'active': state.activeTab === 'regional'}"
+                                t-on-click="() => this.setTab('regional')"
+                                role="tab"
+                                t-esc="tabRegional()"/>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button type="button"
+                                class="nav-link"
+                                t-att-class="{'active': state.activeTab === 'reports'}"
+                                t-on-click="() => this.setTab('reports')"
+                                role="tab"
+                                t-esc="tabReports()"/>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button type="button"
+                                class="nav-link"
+                                t-att-class="{'active': state.activeTab === 'help'}"
+                                t-on-click="() => this.setTab('help')"
+                                role="tab"
+                                t-esc="tabHelp()"/>
+                    </li>
+                </ul>
+                <div class="flex-grow-1 overflow-auto">
+                    <div t-if="state.showRegional" t-att-class="{'d-none': state.activeTab !== 'regional'}">
+                        <RegionalHrDashboard/>
+                    </div>
+                    <div t-att-class="{'d-none': state.activeTab !== 'reports'}">
+                        <EmployeeReportDashboard/>
+                    </div>
+                    <div t-att-class="{'d-none': state.activeTab !== 'help'}" class="o_gn_hr_help_tab">
+                        <div class="container-fluid p-4" style="max-width: 920px;">
+                            <h4 class="mb-3" t-esc="helpTitle()"/>
+                            <p class="text-muted" t-esc="helpIntro()"/>
+                            <h5 class="mt-4 mb-2 fs-6 fw-semibold" t-esc="helpKpisBlock1()"/>
+                            <ul class="small mb-0 ps-3">
+                                <li class="mb-2"><span t-esc="helpKpiHeadcount()"/></li>
+                                <li class="mb-2"><span t-esc="helpKpiPayroll()"/></li>
+                                <li class="mb-2"><span t-esc="helpKpiTurnover()"/></li>
+                                <li class="mb-2"><span t-esc="helpKpiAbsencePct()"/></li>
+                                <li class="mb-2"><span t-esc="helpKpiOvertime()"/></li>
+                                <li class="mb-2"><span t-esc="helpKpiLeaveBal()"/></li>
+                            </ul>
+                            <h5 class="mt-4 mb-2 fs-6 fw-semibold" t-esc="helpKpisBlock2()"/>
+                            <ul class="small mb-0 ps-3">
+                                <li class="mb-2"><span t-esc="helpKpiAbsenceDays()"/></li>
+                                <li class="mb-2"><span t-esc="helpKpiLate()"/></li>
+                                <li class="mb-2"><span t-esc="helpKpiPayrollVar()"/></li>
+                                <li class="mb-2"><span t-esc="helpKpiMovement()"/></li>
+                                <li class="mb-2"><span t-esc="helpKpiContracts()"/></li>
+                                <li class="mb-2"><span t-esc="helpKpiTenure()"/></li>
+                            </ul>
+                            <h5 class="mt-4 mb-2 fs-6 fw-semibold" t-esc="helpKpisBlockExtra()"/>
+                            <ul class="small mb-0 ps-3">
+                                <li class="mb-2"><span t-esc="helpKpiPayrollPerEmployee()"/></li>
+                                <li class="mb-2"><span t-esc="helpAbsenceByType()"/></li>
+                                <li class="mb-2"><span t-esc="helpDiversitySex()"/></li>
+                                <li class="mb-2"><span t-esc="helpRecruitment()"/></li>
+                                <li class="mb-2"><span t-esc="helpOvertimeVariation()"/></li>
+                                <li class="mb-2"><span t-esc="helpTenureBands()"/></li>
+                            </ul>
+                            <h5 class="mt-4 mb-2 fs-6 fw-semibold" t-esc="helpSectionChartsAlerts()"/>
+                            <ul class="small mb-0 ps-3">
+                                <li class="mb-2"><span t-esc="helpCharts()"/></li>
+                                <li class="mb-2"><span t-esc="helpPayrollPerEmpTrendChart()"/></li>
+                                <li class="mb-2"><span t-esc="helpMovementHeadcountLine()"/></li>
+                                <li class="mb-2"><span t-esc="helpContractTypeCharts()"/></li>
+                                <li class="mb-2"><span t-esc="helpAlerts()"/></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </div>
+    </t>
+</templates>

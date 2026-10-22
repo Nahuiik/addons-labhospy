@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_sale_receipt_form" model="ir.ui.view">
+            <field name="name">sale.receipt.form</field>
+            <field name="model">sale.receipt</field>
+            <field name="arch" type="xml">
+                <form string="Recibo de ventas">
+                    <sheet>
+                        <header>
+                            <button name="action_get_invoices" type="object" string="Obtener facturas" class="btn-secondary" invisible="state != 'draft'"/>
+                            <button name="action_post" type="object" string="Publicar" class="btn-primary" invisible="state != 'draft'"/>
+                            <button name="action_cancel" type="object" string="Cancelar recibo" class="btn-secondary" invisible="state != 'posted'"/>
+                            <button name="action_print_receipt" type="object" string="Imprimir Recibo" class="btn-secondary" icon="fa-print" invisible="state != 'posted'"/>
+                            <button name="action_reset_to_draft" type="object" string="Restablecer" class="btn-secondary" invisible="state != 'cancelled'" groups="gn_sale_receipt.group_sale_receipt_cancel"/>
+                            <field name="state" widget="statusbar" statusbar_visible="draft,posted,cancelled"/>
+                        </header>
+                        <div class="oe_button_box" name="button_box">
+                            <button type="object" name="action_view_move" string="Asiento contable" class="oe_stat_button" icon="fa-book" invisible="not move_id"/>
+                        </div>
+                        <div class="oe_title">
+                            <label for="name" string="Recibo de ventas"/>
+                            <h1><field name="name" readonly="1" placeholder="Draft"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="partner_id" readonly="state != 'draft'"/>
+                                <field name="payment_way" readonly="state != 'draft'"/>
+                                <field name="payment_method_journal_id" readonly="state != 'draft'"/>
+                            </group>
+                            <group>
+                                <field name="journal_receipt_id" readonly="state != 'draft'"/>
+                                <field name="date" readonly="state != 'draft'"/>
+                                <field name="user_cashier_id" readonly="state != 'draft'"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Información de ventas">
+                                <field name="line_ids" 
+                                       context="{'default_currency_id': currency_id}"
+                                       readonly="state != 'draft'"
+                                       views="{'list': 'gn_sale_receipt.sale_receipt_line_list'}"/>
+                                <group>
+                                    <group>
+                                        <field name="amount_to_text" readonly="1"/>
+                                    </group>
+                                    <group class="oe_right">
+                                        <field name="amount_tax" readonly="1" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                        <field name="amount_total" readonly="1" widget="monetary" class="oe_subtotal_footer_separator oe_amount_total_if_has_tax" options="{'currency_field': 'currency_id'}"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Facturas">
+                                <field name="invoice_line_ids" 
+                                       readonly="state != 'draft'"
+                                       views="{'list': 'gn_sale_receipt.view_sale_receipt_invoice_line_list'}"/>
+                            </page>
+                        </notebook>
+                        <group>
+                            <field name="payment_ref" placeholder="Notas adicionales..." readonly="state != 'draft'"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_sale_receipt_list" model="ir.ui.view">
+            <field name="name">sale.receipt.list</field>
+            <field name="model">sale.receipt</field>
+            <field name="arch" type="xml">
+                <list string="Recibos de venta" export_xlsx="1">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="date"/>
+                    <field name="journal_receipt_id"/>
+                    <field name="payment_method_journal_id"/>
+                    <field name="user_cashier_id"/>
+                    <field name="state"/>
+                    <field name="amount_total" sum="Total"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_sale_receipt_search" model="ir.ui.view">
+            <field name="name">sale.receipt.search</field>
+            <field name="model">sale.receipt</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="date"/>
+                    <filter name="posted" string="Publicado" domain="[('state','=','posted')]"/>
+                </search>
+            </field>
+        </record>
+    </data>
+</odoo>

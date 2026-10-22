@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_stock_move_form_branch" model="ir.ui.view">
+        <field name="name">stock.move.form.branch.gts</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='location_dest_id']" position="after">
+                <field name="gts_no_exigir_sucursal" widget="boolean_toggle"/>
+                <field name="branch_id" string="Sucursal"
+                       options='{"no_open": True, "no_create": 1, "no_create_edit": 1}'
+                       required="not gts_no_exigir_sucursal"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

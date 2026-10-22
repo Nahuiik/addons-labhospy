@@ -1,0 +1,163 @@
+.o_gn_due_alert_stack {
+    position: fixed;
+    top: 46px;
+    right: 12px;
+    z-index: 1060;
+    width: 400px;
+    max-width: calc(100vw - 24px);
+    max-height: calc(100vh - 60px);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+
+    > * {
+        pointer-events: auto;
+    }
+}
+
+.o_gn_due_alert_stack_more {
+    background: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    text-align: center;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+.o_gn_due_alert_card {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+    overflow: hidden;
+    color: #fff;
+    font-size: 13px;
+
+    &.o_gn_due_alert_soon {
+        background: linear-gradient(135deg, #2980b9, #3498db);
+    }
+    &.o_gn_due_alert_today {
+        background: linear-gradient(135deg, #d35400, #e67e22);
+    }
+    &.o_gn_due_alert_overdue {
+        background: linear-gradient(135deg, #c0392b, #e74c3c);
+    }
+    &.o_gn_due_alert_critical {
+        background: linear-gradient(135deg, #7b241c, #922b21);
+    }
+    &.o_gn_due_alert_resolved {
+        background: linear-gradient(135deg, #1e8449, #27ae60);
+    }
+}
+
+.o_gn_due_alert_card_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    background: rgba(0, 0, 0, 0.15);
+}
+
+.o_gn_due_alert_card_body {
+    padding: 10px 12px 6px;
+}
+
+.o_gn_due_alert_title {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 0 0 6px;
+}
+
+.o_gn_due_alert_row {
+    margin-bottom: 2px;
+}
+
+.o_gn_due_alert_meta {
+    opacity: 0.9;
+    font-size: 12px;
+    margin: 4px 0;
+}
+
+.o_gn_due_alert_days {
+    font-weight: 600;
+    margin: 6px 0;
+}
+
+.o_gn_due_alert_amounts {
+    margin: 6px 0;
+    .o_gn_due_alert_residual {
+        font-size: 16px;
+        font-weight: 700;
+    }
+}
+
+.o_gn_due_alert_responsible {
+    font-size: 12px;
+    opacity: 0.95;
+    margin-bottom: 4px;
+}
+
+.o_gn_due_alert_message {
+    font-size: 12px;
+    margin: 6px 0 0;
+    opacity: 0.95;
+}
+
+.o_gn_due_alert_actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 8px 10px 10px;
+    background: rgba(0, 0, 0, 0.12);
+
+    .btn {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        flex: 1 1 auto;
+        min-width: calc(50% - 4px);
+    }
+}
+
+.o_gn_due_alert_systray {
+    position: relative;
+    cursor: pointer;
+    padding: 0 8px;
+    color: inherit;
+
+    .fa-bell {
+        font-size: 16px;
+    }
+}
+
+.o_gn_due_alert_badge {
+    position: absolute;
+    top: -2px;
+    right: 2px;
+    background: #e74c3c;
+    color: #fff;
+    border-radius: 10px;
+    min-width: 16px;
+    height: 16px;
+    line-height: 16px;
+    font-size: 10px;
+    text-align: center;
+    padding: 0 4px;
+}
+
+@media (prefers-color-scheme: dark) {
+    .o_gn_due_alert_stack_more {
+        background: rgba(30, 30, 30, 0.92);
+    }
+}
+
+@media (max-width: 768px) {
+    .o_gn_due_alert_stack {
+        width: calc(100vw - 16px);
+        right: 8px;
+    }
+}

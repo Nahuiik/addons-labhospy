@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hn_constancia_wizard_form" model="ir.ui.view">
+        <field name="name">hn.constancia.wizard.form</field>
+        <field name="model">hn.constancia.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Registrar constancia firmada">
+                <group>
+                    <field name="leave_id"/>
+                    <field name="sign_date"/>
+                    <field name="signer_name"/>
+                    <field name="signer_id_number"/>
+                    <field name="signature" widget="signature"/>
+                </group>
+                <footer>
+                    <button name="action_confirm" type="object" class="btn-primary" string="Confirmar"/>
+                    <button special="cancel" string="Cancelar"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_hn_payment_wizard_form" model="ir.ui.view">
+        <field name="name">hn.payment.wizard.form</field>
+        <field name="model">hn.payment.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Registrar pago anticipado">
+                <group>
+                    <field name="leave_id"/>
+                    <field name="paid_date"/>
+                    <field name="paid_amount"/>
+                    <field name="payment_attachment_id"/>
+                    <field name="has_hr_payroll" invisible="1"/>
+                    <field name="register_in_payroll" invisible="not has_hr_payroll"/>
+                </group>
+                <footer>
+                    <button name="action_confirm" type="object" class="btn-primary" string="Confirmar"/>
+                    <button special="cancel" string="Cancelar"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

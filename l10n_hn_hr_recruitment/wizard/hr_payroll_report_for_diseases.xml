@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <record id="hr_report_for_diseases_view" model="ir.ui.view">
+            <field name="name">report.wzard.payroll.diseases.view</field>
+            <field name="model">report.wzard.payroll.diseases</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Reporte de Enfermedades">
+                    <group col="4">
+                        <field name="date_from"  required="1" />
+                        <field name="date_to" required="1"/>
+                    </group>
+                    <footer>
+                        <button string="Imprimir" icon="fa-file-o" class="btn btn-primary" type="object" name="get_print_report"/>
+                        <button special="cancel" class="btn btn-danger" string="Cancelar"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_hr_report_for_diseases" model="ir.actions.act_window">
+            <field name="name">Reporte de Enfermedades</field>
+            <field name="res_model">report.wzard.payroll.diseases</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="parent_menu_report_for_diseases" 
+            name="Reporte de Enfermedades" 
+            action="action_hr_report_for_diseases" 
+            parent="hr.hr_menu_hr_reports" 
+            sequence="15"
+            groups="l10n_hn_hr_recruitment.group_project_manager"/>
+        
+    </data>
+</odoo>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_dynamic_check_print">
+        <t t-call="web.html_container">
+
+            <div class="divTable">
+                <div class="divTableBody">
+                    <div class="divTableRow">
+                        <div class="divTableCell">
+                            <span t-esc="docs.date.strftime('%d%m%Y')"
+                                  t-att-style="'font-size:' + str(docs.cheque_format.font_size) + 'px;'+'margin-top:' + str(docs.cheque_format.top_margin) + 'px;'+'margin-left:' + str(docs.cheque_format.left_margin) + 'px;'+'letter-spacing:' + str(docs.cheque_format.char_spacing) + 'px;'"/>
+                        </div>
+                    </div>
+                    <div class="divTableRow">
+                        <div class="divTableCell">
+                            <t t-if="docs.cheque_format.ac_pay == True">
+                                <span t-att-style="'font-size:' + str(docs.cheque_format.ac_font_size) + 'px;'+'margin-top:' + str(docs.cheque_format.ac_top_margin) + 'px;'+'margin-left:' + str(docs.cheque_format.ac_left_margin) + 'px;'+'text-decoration: underline overline;'+'font-family: Palatino, serif;' + 'px;'">
+                                    A/C Pay
+                                </span>
+                            </t>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="divTableRow">
+                        <div class="divTableCell">
+                            <span t-esc="docs.partner_id.name"
+                                  t-att-style="'font-size:' + str(docs.cheque_format.payee_font_size) + 'px;'+'margin-top:' + str(docs.cheque_format.payee_top_margin) + 'px;'+'margin-left:' + str(docs.cheque_format.payee_left_margin) + 'px;'+'width:' + str(docs.cheque_format.payee_width) + 'px;'"/>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="divTableRow">
+                        <div class="divTableCell">
+                            <div style="width: 80%;float:left;" t-att-style="'margin-top:' + str(docs.cheque_format.fl_top_margin) + 'px;'">
+<!--                                <t t-if="docs.cheque_format.sc_currency_name == True and docs.cheque_format.sc_currency_name_position == 'before'">-->
+<!--                                    <span t-esc="docs.partner_id.company_id.currency_id.name"-->
+<!--                                          t-att-style="'margin-top:' + str(docs.cheque_format.fl_top_margin) + 'px;'+'margin-left:' + str(cheque_format.fl_left_margin) + 'px;'"/>-->
+<!--                                </t>-->
+                                <span t-esc="docs.amount_in_words"
+                                      t-att-style="'font-size:' + str(docs.cheque_format.sc_font_size) + 'px;'+
+                                       'px;'+'width:' + str(docs.cheque_format.fl_width) + 'px;' + 'margin-left:' + str(docs.cheque_format.fl_left_margin) + 'px;'"/>
+                                <br/>
+<!--                                <t t-if="docs.cheque_format.sc_currency_name == True and docs.cheque_format.sc_currency_name_position == 'after'">-->
+<!--                                    <span t-esc="docs.partner_id.company_id.currency_id.name"-->
+<!--                                          t-att-style="'margin-top:' + str(docs.cheque_format.fl_top_margin) + 'px;'+'margin-left:' + str(docs.cheque_format.fl_left_margin) + 'px;'"/>-->
+<!--                                </t>-->
+                            </div>
+
+                            <div class="col-2" style="float:right;margin-right:10px;margin-top:25px">
+                                <t t-if="docs.cheque_format.af_currency_symbol == True and docs.cheque_format.af_currency_symbol_position == 'before'">
+                                    <span t-esc="docs.currency_id.symbol"/>
+                                </t>
+								<div t-att-style="'font-size:' + str(docs.cheque_format.af_font_size) + 'px;'+'margin-top:' + str(docs.cheque_format.af_top_margin) + 'px;'+'margin-left:' + str(docs.cheque_format.af_left_margin) + 'px;'+'width:' + str(docs.cheque_format.af_width) + 'px;'">
+									<span t-esc="docs.total"
+                                      />
+                                <t t-if="docs.cheque_format.af_currency_symbol == True and docs.cheque_format.af_currency_symbol_position == 'after'">
+                                    &#160;&#160;<span t-esc="docs.currency_id.symbol"/>
+									 </t>
+								</div>
+
+
+                            </div>
+                        </div>
+                        <br/>
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="divTableRow">
+                        <div class="divTableCell" style="width: 80%;float:left;">
+                            <t t-if="docs.cheque_format.comapny_name == True">
+                                <span t-esc="docs.partner_id.company_id.name or request.env.user.company_id.name"
+                                      t-att-style="'font-size:' + str(docs.cheque_format.comp_font_size) + 'px;'+'margin-top:' + str(docs.cheque_format.comp_top_margin) + 'px;'+'margin-left:' + str(docs.cheque_format.comp_left_margin) + 'px;'"/>
+                            </t>
+                        </div>
+                        <div class="divTableCell" style="width:20%;float:right;">
+                            <div t-att-style="'width:' + str(docs.cheque_format.sb_width) + 'px;'+'height:' + str(docs.cheque_format.sb_hight)+'px;'+'margin-top:' + str(docs.cheque_format.sb_top_margin) +'px;'+'margin-left:' + str(docs.cheque_format.sb_left_margin) + 'px;'+'border: 3px solid gray;'">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <record id="dynamic_cheque_print_report_action"  model="ir.actions.report">
+        <field name="name">Print Dynamic Cheque</field>
+        <field name="model">bank.check</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">gn_banks.report_dynamic_check_print</field>
+        <field name="report_file">gn_banks.report_dynamic_check_print</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_gn_qif_reconcile_learn_list" model="ir.ui.view">
+        <field name="name">gn.qif.reconcile.learn.list</field>
+        <field name="model">gn.qif.reconcile.learn</field>
+        <field name="arch" type="xml">
+            <list string="Patrones IA → conciliación CE">
+                <field name="active"/>
+                <field name="name"/>
+                <field name="journal_id"/>
+                <field name="file_format_key" optional="show"/>
+                <field name="bank_hint" optional="hide"/>
+                <field name="match_label"/>
+                <field name="match_label_param"/>
+                <field name="account_id"/>
+                <field name="trigger"/>
+                <field name="hit_count"/>
+                <field name="reconcile_model_id" optional="show"/>
+                <field name="last_hit_date" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_gn_qif_reconcile_learn_form" model="ir.ui.view">
+        <field name="name">gn.qif.reconcile.learn.form</field>
+        <field name="model">gn.qif.reconcile.learn</field>
+        <field name="arch" type="xml">
+            <form string="Patrón aprendido (IA)">
+                <header>
+                    <button name="action_open_reconcile_model" type="object" string="Abrir modelo Odoo"
+                            class="btn-primary" invisible="not reconcile_model_id"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="active"/>
+                            <field name="journal_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="file_format_key"/>
+                            <field name="bank_hint"/>
+                        </group>
+                        <group>
+                            <field name="match_label"/>
+                            <field name="match_label_param"/>
+                            <field name="trigger"/>
+                            <field name="account_id"/>
+                            <field name="account_code_snap" readonly="1"/>
+                            <field name="fingerprint" readonly="1"/>
+                            <field name="reconcile_model_id" readonly="1"/>
+                            <field name="hit_count"/>
+                            <field name="last_hit_date"/>
+                            <field name="last_filename"/>
+                            <field name="qif_ai_wizard_id" groups="base.group_no_one"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_gn_qif_reconcile_learn" model="ir.actions.act_window">
+        <field name="name">Patrones aprendidos (IA → CE)</field>
+        <field name="res_model">gn.qif.reconcile.learn</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_active': 1}</field>
+    </record>
+
+    <menuitem id="menu_gn_qif_reconcile_learn"
+              name="Patrones conciliación (IA)"
+              parent="account.account_transactions_menu"
+              action="action_gn_qif_reconcile_learn"
+              sequence="87"/>
+
+    <menuitem id="menu_account_reconcile_model_ce_bridge"
+              name="Modelos de conciliación (Odoo CE)"
+              parent="account.account_transactions_menu"
+              action="account.action_account_reconcile_model"
+              sequence="86"/>
+
+</odoo>

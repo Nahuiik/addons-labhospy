@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_consume_warehouse_exit_document">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <t t-set="doc_barcode_ref" t-value="doc.picking_ids[:1].name or doc.name"/>
+                <t t-set="wh_label" t-value="doc.location_id.warehouse_id and doc.location_id.warehouse_id.display_name or doc.location_id.complete_name"/>
+
+                <div class="row mb-3">
+                    <div class="col-8">
+                        <h3 class="mb-3">Movimientos de Salida de Bodega</h3>
+                        <p class="mb-1">
+                            <strong>Documento:</strong>
+                            <span t-esc="doc_barcode_ref"/>
+                        </p>
+                    </div>
+                    <div class="col-4 text-end">
+                        <div
+                            t-out="doc_barcode_ref"
+                            t-options="{'widget': 'barcode', 'width': 600, 'height': 100, 'img_style': 'width:280px;height:45px;'}"
+                        >
+                            Código documento
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3" style="padding:12px;border:1px solid #dee2e6;border-radius:4px;overflow:visible;">
+                    <table style="width:100%;border-collapse:collapse;table-layout:fixed;">
+                        <tr>
+                            <td style="padding:6px 0;vertical-align:top;word-wrap:break-word;">
+                                <strong>Fecha:</strong>
+                                <span t-field="doc.date" t-options='{"widget": "datetime", "format": "dd/MM/yyyy HH:mm:ss"}'/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:6px 0;vertical-align:top;word-wrap:break-word;">
+                                <strong>Creado por:</strong>
+                                <span t-if="doc.create_uid" t-field="doc.create_uid"/>
+                                <span t-else="">—</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:6px 0;vertical-align:top;word-wrap:break-word;">
+                                <strong>Salida de:</strong>
+                                <span t-esc="wh_label"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:6px 0;vertical-align:top;word-wrap:break-word;">
+                                <strong>A:</strong>
+                                <t t-if="doc.consumption_reason_type_id">
+                                    <span t-field="doc.consumption_reason_type_id"/>
+                                    <t t-if="doc.consumption_reason_note">
+                                        —
+                                        <span t-field="doc.consumption_reason_note"/>
+                                    </t>
+                                </t>
+                                <t t-else="">
+                                    <span t-field="doc.dest_location_id"/>
+                                </t>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:6px 0;vertical-align:top;word-wrap:break-word;">
+                                <strong>Notas:</strong>
+                                <span t-if="doc.notes" t-field="doc.notes"/>
+                                <span t-else="">—</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <table class="table table-sm o_main_table">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th class="text-end">Cantidad</th>
+                            <th>Desde</th>
+                            <th class="text-center">Vencimiento</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="doc.consume_line" t-as="line">
+                            <td>
+                                <span t-if="line.gn_labhospy_catalog_code">[<span t-esc="line.gn_labhospy_catalog_code"/>] </span>
+                                <span t-elif="line.product_id.default_code">[<span t-esc="line.product_id.default_code"/>] </span>
+                                <span t-field="line.product_id.name"/>
+                            </td>
+                            <td class="text-end">
+                                <span t-field="line.quantity"/>
+                                <span t-field="line.uom_id"/>
+                            </td>
+                            <td>
+                                <span t-esc="wh_label"/>
+                            </td>
+                            <td class="text-center">
+                                <t t-set="expiry_lbl" t-value="line._l10n_hn_exit_report_expiry_label()"/>
+                                <span t-if="expiry_lbl" t-esc="expiry_lbl"/>
+                                <span t-else="">—</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="row mt-5 pt-3" style="page-break-inside: avoid;">
+                    <div class="col-4 text-center">
+                        <div style="border-top: 1px solid #000; margin: 0 8px 8px 8px;"/>
+                        <span>Autoriza salida</span>
+                    </div>
+                    <div class="col-4 text-center">
+                        <div style="border-top: 1px solid #000; margin: 0 8px 8px 8px;"/>
+                        <span>Transportista</span>
+                    </div>
+                    <div class="col-4 text-center">
+                        <div style="border-top: 1px solid #000; margin: 0 8px 8px 8px;"/>
+                        <span>Recibe sucursal</span>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_consume_warehouse_exit">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="o" t-value="doc"/>
+                <t t-call="l10n_hn_stock.report_consume_warehouse_exit_document"/>
+            </t>
+        </t>
+    </template>
+</odoo>

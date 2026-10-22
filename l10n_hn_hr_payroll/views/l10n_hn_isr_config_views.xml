@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ISR Configuration Views -->
+    
+    <record id="view_l10n_hn_isr_config_tree" model="ir.ui.view">
+        <field name="name">l10n.hn.isr.config.tree</field>
+        <field name="model">l10n.hn.isr.config</field>
+        <field name="arch" type="xml">
+            <list string="ISR Configuration">
+                <field name="name"/>
+                <field name="year"/>
+                <field name="company_id"/>
+                <field name="periodicity"/>
+                <field name="state" widget="badge" decoration-success="state == 'validated'" decoration-info="state == 'draft'"/>
+                <field name="active" invisible="1"/>
+            </list>
+        </field>
+    </record>
+    
+    <record id="view_l10n_hn_isr_config_form" model="ir.ui.view">
+        <field name="name">l10n.hn.isr.config.form</field>
+        <field name="model">l10n.hn.isr.config</field>
+        <field name="arch" type="xml">
+            <form string="ISR Configuration">
+                <header>
+                    <button name="action_calculate_isr_review" string="Calcular ISR para Revisión" 
+                            type="object" class="oe_highlight" icon="fa-calculator"
+                            invisible="state != 'validated'"/>
+                    <button name="action_validate" string="Validar" type="object" class="oe_highlight"
+                            invisible="state == 'validated'"/>
+                    <button name="action_draft" string="Marcar borrador" type="object"
+                            invisible="state == 'draft'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,validated"/>
+                </header>
+                <sheet>
+                    <group invisible="state != 'validated'">
+                        <button name="action_calculate_isr_review" string="Calcular ISR para Revisión" 
+                                type="object" class="oe_highlight" icon="fa-calculator"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1" string="Nombre"/>
+                            <field name="year" string="Año"/>
+                            <field name="company_id" string="Compañía"/>
+                            <field name="active" string="Activo"/>
+                        </group>
+                        <group>
+                            <field name="periodicity" string="Periodicidad de pago"/>
+                            <field name="apply_in" invisible="periodicity != 'biweekly'" string="Aplicar en"/>
+                            <field name="salario_minimo_promedio"/>
+                            <field name="multiplicador_tope_exento_decimos"/>
+                            <field name="tope_exento_decimos" readonly="1"/>
+                        </group>
+                    </group>
+                    
+                    <group string="Retención y Exoneraciones">
+                        <group>
+                            <field name="salario_exento"/>
+                            <field name="meses_retencion"/>
+                            <field name="meses_excluidos_retencion" placeholder="Ej: 6,12"/>
+                        </group>
+                        <group>
+                            <field name="edad_tercera_edad"/>
+                            <field name="exoneracion_tercera_edad_monto"/>
+                        </group>
+                    </group>
+                    
+                    <notebook>
+                        <page string="Tramos ISR" name="brackets">
+                            <field name="bracket_ids" nolabel="1">
+                                <list string="Tramos del ISR" editable="bottom">
+                                    <field name="sequence" widget="handle" string="Secuencia"/>
+                                    <field name="from_amount" string="Monto desde"/>
+                                    <field name="to_amount" string="Monto hasta"/>
+                                    <field name="rate" string="Tasa (%)"/>
+                                    <field name="fixed_quota" string="Cuota fija"/>
+                                    <field name="excess_over" string="Exceso sobre"/>
+                                </list>
+                            </field>
+                        </page>
+                        
+                        <page string="Deductible Rules" name="deductible_rules">
+                            <group>
+                                <group string="Deductible Salary Rules">
+                                    <field name="deductible_rule_ids" widget="many2many_tags" 
+                                           options="{'no_create': True, 'no_create_edit': True}"/>
+                                    <p class="text-muted">
+                                        Select salary rules that reduce taxable income (e.g., AFP, Colegio Profesional)
+                                    </p>
+                                </group>
+                                <group string="Deductible Input Types">
+                                    <field name="deductible_input_type_ids" widget="many2many_tags"
+                                           options="{'no_create': True, 'no_create_edit': True}"/>
+                                    <p class="text-muted">
+                                        Select payslip input types that reduce taxable income
+                                    </p>
+                                </group>
+                            </group>
+                        </page>
+                        
+                        <page string="Medical Expenses" name="medical_expenses">
+                            <group>
+                                <field name="medical_expenses_enabled"/>
+                                <field name="medical_expenses_by_age" invisible="not medical_expenses_enabled"/>
+                                <field name="medical_expenses_default_limit" invisible="not medical_expenses_enabled"/>
+                            </group>
+                            <field name="medical_expenses_age_rules" invisible="not medical_expenses_by_age" nolabel="1">
+                                <list string="Medical Expenses by Age Rules" editable="bottom">
+                                    <field name="age_from"/>
+                                    <field name="age_to"/>
+                                    <field name="limit_amount"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <record id="view_l10n_hn_isr_config_search" model="ir.ui.view">
+        <field name="name">l10n.hn.isr.config.search</field>
+        <field name="model">l10n.hn.isr.config</field>
+        <field name="arch" type="xml">
+            <search string="ISR Configuration">
+                <field name="year"/>
+                <field name="company_id"/>
+                <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                <filter string="Validated" name="validated" domain="[('state', '=', 'validated')]"/>
+                <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]"/>
+                <separator/>
+                <filter string="Group by Year" name="group_year" domain="[]" context="{'group_by': 'year'}"/>
+                <filter string="Group by Company" name="group_company" domain="[]" context="{'group_by': 'company_id'}"/>
+                <filter string="Group by State" name="group_state" domain="[]" context="{'group_by': 'state'}"/>
+            </search>
+        </field>
+    </record>
+    
+    <record id="action_l10n_hn_isr_config" model="ir.actions.act_window">
+        <field name="name">ISR Configuration</field>
+        <field name="res_model">l10n.hn.isr.config</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create ISR Configuration
+            </p>
+            <p>
+                Configure ISR withholding settings including tax brackets, deductible rules, and medical expenses.
+            </p>
+        </field>
+    </record>
+    
+    <!-- Employee ISR Deduction Views -->
+    
+    <record id="view_l10n_hn_isr_employee_deduction_tree" model="ir.ui.view">
+        <field name="name">l10n.hn.isr.employee.deduction.tree</field>
+        <field name="model">l10n.hn.isr.employee_deduction</field>
+        <field name="arch" type="xml">
+            <list string="Employee ISR Deductions">
+                <field name="employee_id"/>
+                <field name="year"/>
+                <field name="deduction_type_id" options="{'no_create': True}"/>
+                <field name="is_self_paid" string="Por Cuenta Propia" widget="boolean_toggle"/>
+                <field name="amount"/>
+                <field name="periodicity"/>
+                <field name="apply_in_quincena" optional="hide"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="active" invisible="1"/>
+            </list>
+        </field>
+    </record>
+    
+    <record id="view_l10n_hn_isr_employee_deduction_form" model="ir.ui.view">
+        <field name="name">l10n.hn.isr.employee.deduction.form</field>
+        <field name="model">l10n.hn.isr.employee_deduction</field>
+        <field name="arch" type="xml">
+            <form string="Employee ISR Deduction">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="employee_id"/>
+                            <field name="company_id"/>
+                            <field name="year"/>
+                        </group>
+                        <group>
+                            <field name="deduction_type_id"/>
+                            <field name="amount"/>
+                            <field name="periodicity"/>
+                            <field name="apply_in_quincena"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                        </group>
+                    </group>
+                    <div class="alert alert-info" role="alert" invisible="deduction_type_id.code != 'afp' or not is_self_paid">
+                        <strong>Información sobre AFP Privado:</strong><br/>
+                        Esta deducción representa aportaciones que el empleado hace directamente al AFP privado por cuenta propia.
+                        Estas aportaciones NO se descuentan de la nómina, pero son deducibles de la renta anual para efectos de ISR.
+                        <ul>
+                            <li><strong>Aportación Anual Única:</strong> El empleado hace un pago único al año y reporta el monto total.</li>
+                            <li><strong>Aportaciones Mensuales Regulares:</strong> El empleado se compromete con el AFP a hacer aportaciones mensuales y reporta el monto mensual.</li>
+                        </ul>
+                    </div>
+                    <div class="alert alert-info" role="alert">
+                        <strong>Audit Information:</strong><br/>
+                        Created by: <field name="create_uid" readonly="1"/> on <field name="create_date" readonly="1"/><br/>
+                        Last updated by: <field name="write_uid" readonly="1"/> on <field name="write_date" readonly="1"/>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <record id="view_l10n_hn_isr_employee_deduction_search" model="ir.ui.view">
+        <field name="name">l10n.hn.isr.employee.deduction.search</field>
+        <field name="model">l10n.hn.isr.employee_deduction</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="employee_id"/>
+                <field name="year"/>
+                <field name="deduction_type_id"/>
+                <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                <separator/>
+                <filter string="Group by Employee" name="group_employee" domain="[]" context="{'group_by': 'employee_id'}"/>
+                <filter string="Group by Year" name="group_year" domain="[]" context="{'group_by': 'year'}"/>
+            </search>
+        </field>
+    </record>
+    
+    <record id="action_l10n_hn_isr_employee_deduction" model="ir.actions.act_window">
+        <field name="name">Employee ISR Deductions</field>
+        <field name="res_model">l10n.hn.isr.employee_deduction</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create Employee ISR Deduction
+            </p>
+            <p>
+                Declare employee deductions that reduce taxable income for ISR calculation (e.g., AFP, Colegio Profesional).
+            </p>
+        </field>
+    </record>
+    
+    <!-- ISR Audit Views -->
+    
+    <record id="view_l10n_hn_isr_audit_tree" model="ir.ui.view">
+        <field name="name">l10n.hn.isr.audit.tree</field>
+        <field name="model">l10n.hn.isr.audit</field>
+        <field name="arch" type="xml">
+            <list string="ISR Calculation Audit" default_order="year desc, period_start desc">
+                <field name="employee_id"/>
+                <field name="company_id" optional="hide"/>
+                <field name="year"/>
+                <field name="period_start"/>
+                <field name="period_end"/>
+                <field name="total_taxable_income_ytd" sum="Total Ingresos YTD"/>
+                <field name="total_deductions_ytd" sum="Total Deducciones YTD"/>
+                <field name="projected_taxable_base" sum="Base Gravable Proyectada"/>
+                <field name="isr_annual_calculated" sum="ISR Anual Calculado"/>
+                <field name="isr_retained_ytd" sum="ISR Retenido YTD"/>
+                <field name="isr_balance" sum="Saldo ISR"/>
+                <field name="isr_period_amount" sum="ISR Período"/>
+                <field name="payslip_id" widget="many2one" optional="hide"/>
+                <button name="action_open_report_wizard" 
+                        type="object" 
+                        string="Reportes" 
+                        icon="fa-file-excel"
+                        class="oe_stat_button"/>
+            </list>
+        </field>
+    </record>
+    
+    <record id="view_l10n_hn_isr_audit_form" model="ir.ui.view">
+        <field name="name">l10n.hn.isr.audit.form</field>
+        <field name="model">l10n.hn.isr.audit</field>
+        <field name="arch" type="xml">
+            <form string="ISR Calculation Audit">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="company_id"/>
+                            <field name="year"/>
+                            <field name="period_start"/>
+                            <field name="period_end"/>
+                            <field name="payslip_id"/>
+                            <field name="config_id"/>
+                        </group>
+                    </group>
+                    
+                    <notebook>
+                        <page string="Income Breakdown" name="income">
+                            <group>
+                                <group>
+                                    <field name="basic_income_ytd"/>
+                                    <field name="variable_income_ytd"/>
+                                    <field name="thirteenth_month_taxable"/>
+                                    <field name="fourteenth_month_taxable"/>
+                                </group>
+                                <group>
+                                    <field name="total_taxable_income_ytd"/>
+                                </group>
+                            </group>
+                        </page>
+                        
+                        <page string="Deductions Breakdown" name="deductions">
+                            <group>
+                                <group>
+                                    <field name="payroll_deductions_ytd"/>
+                                    <field name="employee_declared_deductions_ytd"/>
+                                    <field name="medical_expenses_ytd"/>
+                                </group>
+                                <group>
+                                    <field name="total_deductions_ytd"/>
+                                </group>
+                            </group>
+                        </page>
+                        
+                        <page string="Projection" name="projection">
+                            <group>
+                                <group>
+                                    <field name="projected_annual_income"/>
+                                    <field name="projected_annual_deductions"/>
+                                    <field name="projected_taxable_base"/>
+                                </group>
+                                <group>
+                                    <field name="periods_remaining"/>
+                                </group>
+                            </group>
+                        </page>
+                        
+                        <page string="ISR Calculation" name="isr_calc">
+                            <group>
+                                <group>
+                                    <field name="isr_annual_calculated"/>
+                                    <field name="isr_retained_ytd"/>
+                                    <field name="isr_balance"/>
+                                    <field name="isr_period_amount"/>
+                                </group>
+                            </group>
+                        </page>
+                        
+                        <page string="Notes" name="notes">
+                            <field name="calculation_notes" nolabel="1" placeholder="Calculation notes..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <record id="view_l10n_hn_isr_audit_search" model="ir.ui.view">
+        <field name="name">l10n.hn.isr.audit.search</field>
+        <field name="model">l10n.hn.isr.audit</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="employee_id"/>
+                <field name="year"/>
+                <field name="payslip_id"/>
+                <separator/>
+                <filter string="Group by Employee" name="group_employee" domain="[]" context="{'group_by': 'employee_id'}"/>
+                <filter string="Group by Year" name="group_year" domain="[]" context="{'group_by': 'year'}"/>
+            </search>
+        </field>
+    </record>
+    
+    <record id="action_l10n_hn_isr_audit" model="ir.actions.act_window">
+        <field name="name">ISR Calculation Audit</field>
+        <field name="res_model">l10n.hn.isr.audit</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                ISR Calculation Audit
+            </p>
+            <p>
+                View detailed ISR calculation traceability for each payslip period.
+            </p>
+        </field>
+    </record>
+    
+    <!-- ISR deductions moved to Historial de Beneficios y Deducciones tab (hr_employee_views.xml) -->
+    
+</odoo>

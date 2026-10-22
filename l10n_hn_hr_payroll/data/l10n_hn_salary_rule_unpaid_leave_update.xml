@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BASIC usa hn_contract_period_days (sin restar sin goce). UNPAID_LEAVE descuenta wage_mensual/30 * días. -->
+<odoo>
+    <data noupdate="0">
+        <record id="l10n_hn_hr_payroll.salary_rule_unpaid_leave_biweekly" model="hr.salary.rule">
+            <field name="active" eval="True"/>
+            <field name="condition_python">
+# getattr no existe en el sandbox de reglas salariales
+unpaid_days = 0.0
+struct = payslip.struct_id
+if struct and struct.use_worked_day_lines and struct.unpaid_work_entry_type_ids:
+    unpaid_ids = struct.unpaid_work_entry_type_ids.ids
+    for wd in (worked_days or {}).values():
+        if not wd:
+            continue
+        wet = wd.work_entry_type_id
+        if wet and wet.id in unpaid_ids:
+            unpaid_days += abs(wd.number_of_days or 0)
+result = unpaid_days > 0
+            </field>
+            <field name="amount_python_compute">
+# Valor día = salario mensual / 30 (Honduras).
+unpaid_days = 0.0
+struct = payslip.struct_id
+if struct and struct.use_worked_day_lines and struct.unpaid_work_entry_type_ids:
+    unpaid_ids = struct.unpaid_work_entry_type_ids.ids
+    for wd in (worked_days or {}).values():
+        if not wd:
+            continue
+        wet = wd.work_entry_type_id
+        if wet and wet.id in unpaid_ids:
+            unpaid_days += abs(wd.number_of_days or 0)
+ver = version or employee.current_version_id
+wage_m = (ver.wage if ver else 0.0) or (employee.wage or 0.0)
+daily = wage_m / 30.0 if wage_m else 0.0
+result = -(daily * unpaid_days) if unpaid_days and daily else 0
+            </field>
+        </record>
+        <record id="l10n_hn_hr_payroll.salary_rule_unpaid_leave_monthly" model="hr.salary.rule">
+            <field name="active" eval="True"/>
+            <field name="condition_python">
+unpaid_days = 0.0
+struct = payslip.struct_id
+if struct and struct.use_worked_day_lines and struct.unpaid_work_entry_type_ids:
+    unpaid_ids = struct.unpaid_work_entry_type_ids.ids
+    for wd in (worked_days or {}).values():
+        if not wd:
+            continue
+        wet = wd.work_entry_type_id
+        if wet and wet.id in unpaid_ids:
+            unpaid_days += abs(wd.number_of_days or 0)
+result = unpaid_days > 0
+            </field>
+            <field name="amount_python_compute">
+# Valor día = salario mensual / 30.
+unpaid_days = 0.0
+struct = payslip.struct_id
+if struct and struct.use_worked_day_lines and struct.unpaid_work_entry_type_ids:
+    unpaid_ids = struct.unpaid_work_entry_type_ids.ids
+    for wd in (worked_days or {}).values():
+        if not wd:
+            continue
+        wet = wd.work_entry_type_id
+        if wet and wet.id in unpaid_ids:
+            unpaid_days += abs(wd.number_of_days or 0)
+ver = version or employee.current_version_id
+wage_m = (ver.wage if ver else 0.0) or (employee.wage or 0.0)
+daily = wage_m / 30.0 if wage_m else 0.0
+result = -(daily * unpaid_days) if unpaid_days and daily else 0
+            </field>
+        </record>
+    </data>
+</odoo>

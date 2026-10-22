@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista de configuración - Agregar sección de anticipos dentro de contabilidad -->
+    <record id="res_config_settings_view_form_advance" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.advance</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <!-- Agregar bloque de anticipos dentro de la app de contabilidad -->
+            <!-- Buscar dentro de la app de account y agregar el bloque -->
+            <xpath expr="//app[@name='account']" position="inside">
+                <block title="Anticipos" name="advance_settings">
+                    <!-- Configuración de Anticipos de Clientes -->
+                    <h2>Anticipos de Clientes</h2>
+                    <setting string="Cuenta de Anticipo de Clientes" 
+                             help="Cuenta de pasivo corriente conciliable para anticipos de clientes por defecto"
+                             id="advance_account_id_setting">
+                        <field name="advance_account_id" 
+                               widget="many2one"
+                               options="{'no_create': True, 'no_create_edit': True}"
+                               placeholder="Seleccione una cuenta de pasivo corriente conciliable"/>
+                    </setting>
+                    <setting string="Secuencia Anticipos de Clientes" 
+                             help="Secuencia para numerar anticipos de clientes"
+                             id="customer_advance_sequence_id_setting">
+                        <field name="customer_advance_sequence_id" 
+                               placeholder="Seleccione una secuencia"/>
+                    </setting>
+                    
+                    <!-- Configuración de Anticipos de Proveedores -->
+                    <h2>Anticipos de Proveedores</h2>
+                    <setting string="Cuenta de Anticipo de Proveedores" 
+                             help="Cuenta de activo corriente conciliable para anticipos de proveedores por defecto"
+                             id="vendor_advance_account_id_setting">
+                        <field name="vendor_advance_account_id" 
+                               widget="many2one"
+                               options="{'no_create': True, 'no_create_edit': True}"
+                               placeholder="Seleccione una cuenta de activo corriente conciliable"/>
+                    </setting>
+                    <setting string="Secuencia Anticipos de Proveedores" 
+                             help="Secuencia para numerar anticipos de proveedores"
+                             id="vendor_advance_sequence_id_setting">
+                        <field name="vendor_advance_sequence_id" 
+                               placeholder="Seleccione una secuencia"/>
+                    </setting>
+                    
+                    <!-- Configuración General -->
+                    <h2>Configuración General</h2>
+                    <setting string="Diario de Reclasificación" 
+                             help="Diario contable usado para los asientos de reclasificación de anticipos"
+                             id="reclass_journal_id_setting">
+                        <field name="reclass_journal_id" 
+                               placeholder="Seleccione un diario general"/>
+                    </setting>
+                    <setting string="Origen de Fecha del Asiento de Reclasificación" 
+                             help="Define qué fecha usar para el asiento de reclasificación"
+                             id="reclass_date_source_setting">
+                        <field name="reclass_date_source"/>
+                    </setting>
+                    <setting string="Permitir Fraccionar Anticipo" 
+                             help="Permite aplicar un anticipo a múltiples facturas (fraccionamiento)"
+                             id="allow_split_advance_setting">
+                        <field name="allow_split_advance"/>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+

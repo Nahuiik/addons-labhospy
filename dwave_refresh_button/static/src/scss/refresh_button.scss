@@ -1,0 +1,12 @@
+.o_main_navbar .o_menu_systray .o_systray_icon.o_navbar_refresh {
+    font-size: 22px;
+    line-height: 22px;
+    margin-top: 3px;
+    padding-right: 5px;
+    color: var(--NavBar-entry-color, #{$o-navbar-entry-color});
+    cursor: pointer;
+
+    &:hover {
+        color: var(--NavBar-entry-color--hover, #{$o-navbar-entry-color--hover});
+    }
+}

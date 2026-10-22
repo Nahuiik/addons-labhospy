@@ -1,0 +1,52 @@
+// Asistente QIF + IA: layout y acabado (OWL form + assets backend)
+
+.o_gn_qif_import_banner {
+  border-left: 4px solid #198754;
+}
+
+.o_qif_ai_wizard {
+    .o_qif_ai_sheet {
+        max-width: 1180px;
+    }
+
+    .o_qif_ai_hero,
+    .o_qif_meta {
+        background: var(--O-Bg-Muted, rgba(0, 0, 0, 0.04));
+        border: 1px solid var(--border-color, rgba(0, 0, 0, 0.08));
+    }
+
+    .o_qif_stat_card {
+        border: 1px solid var(--border-color, rgba(0, 0, 0, 0.08));
+        border-radius: 0.5rem;
+        padding: 1rem 0.75rem;
+        text-align: center;
+        background: var(--O-Bg, #fff);
+        transition: box-shadow 0.15s ease;
+
+        &:hover {
+            box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.06);
+        }
+
+        .o_qif_stat_value {
+            font-size: 1.75rem;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+    }
+
+    .o_qif_notebook {
+        .nav-tabs {
+            border-bottom: 1px solid var(--border-color, rgba(0, 0, 0, 0.1));
+        }
+    }
+}
+
+// Client action análisis (OWL)
+.o_qif_ai_import_client {
+    min-height: 60vh;
+    background: var(--O-Bg-Muted, rgba(0, 0, 0, 0.03));
+}
+
+.o_qif_ai_step_list .list-group-item {
+    background: transparent;
+}

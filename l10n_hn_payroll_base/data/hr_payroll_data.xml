@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="contrib_register_employees" model="hr.contribution.register">
+        <field name="name">Employees</field>
+    </record>
+    <record id="cat_basic" model="hr.salary.rule.category">
+        <field name="name">Basic</field>
+        <field name="code">BASIC</field>
+        <field name="color" eval="4"/>
+    </record>
+    <record id="cat_allowance" model="hr.salary.rule.category">
+        <field name="name">Allowance</field>
+        <field name="code">ALW</field>
+        <field name="color" eval="10"/>
+    </record>
+    <record id="cat_gross" model="hr.salary.rule.category">
+        <field name="name">Gross</field>
+        <field name="code">GROSS</field>
+        <field name="color" eval="3"/>
+    </record>
+    <record id="cat_ded" model="hr.salary.rule.category">
+        <field name="name">Deduction</field>
+        <field name="code">DED</field>
+        <field name="color" eval="1"/>
+    </record>
+    <record id="cat_net" model="hr.salary.rule.category">
+        <field name="name">Net</field>
+        <field name="code">NET</field>
+        <field name="color" eval="11"/>
+    </record>
+    <record id="cat_comp" model="hr.salary.rule.category">
+        <field name="name">Company Contribution</field>
+        <field name="code">COMP</field>
+        <field name="color" eval="5"/>
+    </record>
+    <record id="rule_basic" model="hr.salary.rule">
+        <field name="name">Basic Salary</field>
+        <field name="sequence" eval="1"/>
+        <field name="code">BASIC</field>
+        <field name="category_id" ref="cat_basic"/>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = contract.wage</field>
+    </record>
+    <record id="rule_gross" model="hr.salary.rule">
+        <field name="name">Gross</field>
+        <field name="sequence" eval="100"/>
+        <field name="code">GROSS</field>
+        <field name="category_id" ref="cat_gross"/>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = categories.BASIC + categories.ALW</field>
+    </record>
+    <record id="rule_net" model="hr.salary.rule">
+        <field name="name">Net Salary</field>
+        <field name="sequence" eval="200"/>
+        <field name="code">NET</field>
+        <field name="category_id" ref="cat_net"/>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = categories.BASIC + categories.ALW + categories.DED</field>
+        <field name="register_id" ref="contrib_register_employees"/>
+    </record>
+    <record id="structure_base" model="hr.payroll.structure">
+        <field name="sequence" eval="1"/>
+        <field name="code">BASE</field>
+        <field name="name">Base for new structures</field>
+        <field name="type_id" ref="hr.structure_type_employee"/>
+        <field name="schedule_pay">monthly</field>
+        <field name="rule_ids" eval="[(6, 0, [ref('rule_basic'), ref('rule_gross'), ref('rule_net')])]"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+</odoo>

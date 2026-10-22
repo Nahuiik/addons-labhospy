@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+
+        <template id="template_purchase_ticket_report_pdf">
+
+
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="o">
+                    <!-- <div class="header">
+                      </div> -->
+                    <!-- <div class="col-xs-12" style="margin-top:-20px;"/> -->
+
+                    <t t-set="copies" t-value="2"/>
+                    <t t-foreach="range(copies)" t-as="copy">
+
+                    <t t-call="gn_purchase_ticket.external_layout_nahuiik_original"/>
+                    <t t-if="copy==1">
+                        <div class="container" style="border: 1px solid gray;border-radius: 5px;margin-top:10px;">
+                    <div class="row" style="min-height:90;">
+                        <div class="col-xs-12">
+                            <div style="position:absolute;z-index:0;">
+                                <div style="width: 100px;float: left; padding-left:10px; padding-top:10px; border-radius:10px !important">
+                                    <img src='/web/binary/company_logo' style="width:100%; border-radius:10px !important"/>
+                                </div>
+                            </div>
+                            <div class="text-center text-uppercase" style="margin-top:15px;z-index: 1;">
+                                <h3 t-if="res_company.name"> <t t-esc="res_company.name"/> </h3>
+                                <p>
+                                    <span class="duo" t-if="res_company.street" ><t t-esc="res_company.street + ' ' "/> </span>
+                                    <span class="duo" t-if="res_company.street2" ><t t-esc="res_company.street2 + ' ' "/></span> 
+                                    <br/>
+                                    <!-- <p class="duo" t-if="res_company.email" > -->
+                                        <span class="fa fa-envelope-open"></span> 
+                                        <t t-esc=" '  Correo: ' + res_company.email+' ' "/> 
+                                    <!-- <br/> -->
+                                    <!-- </p>
+                                    <p class="duo" t-if="res_company.phone" > -->
+                                        <span class="fa fa-phone-square"></span> 
+                                        <t t-esc=" '  Telefono: ' + res_company.phone+' ' "/> 
+                                    <!-- </p> -->
+                                    <br/>
+                                    <p t-if="res_company.company_registry" style="margin-right:0px;">
+                                        <span class="fa fa-suitcase"></span>
+                                        <t t-esc=" 'RTN: '+res_company.company_registry"/> 
+                                    </p>
+                                </p>       
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 text-right">
+                                        <!-- <p t-if="res_company.company_registry" style="margin-right:0px;">
+                                            <span class="fa fa-suitcase"></span>
+                                            <t t-esc=" 'RTN: '+res_company.company_registry"/> 
+                                        </p> -->
+                                </div>            
+                            </div>
+                            <div t-if="res_company.logo or res_company.report_header" class="row zero_min_height">
+                                <div class="col-xs-12">
+                                </div>            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    </t>
+
+                    <div class="page" style="height:630px">
+                       <div class="col-xs-12">
+                          <table class="table table-condensed" style="font-size:13pt; border: none !important;width:100%; height:100px;">
+                            <tr style="border: 0px white solid !important;">
+                                <td style="text-align:end; border: none !important;font-size:18px;font-weight:bold;" colspan="2">
+                                  <strong><span style="font-size:34px; ">BOLETA DE COMPRA #<span style="font-size:34px;" t-field="o.name"/></span></strong>
+                                </td>
+                            </tr>
+                            <tr style="border: none !important; ">
+                              <td  style="width:35%;border: 0px white solid !important; ">
+                                <div t-attf-style="color:#000000;white-space:nowrap;font-size:20px;font-weight:500;"><strong>PROVEEDOR:</strong></div>
+                                <div t-field="o.supplier_id.name" t-attf-style="color:#000000;white-space:nowrap;font-size:20px;font-weight:500;"/>
+                                <!-- <div t-field="o.supplier_id" style="margin-bottom:0px;padding-bottom:0px;white-space:nowrap;" t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;phone&quot;,  &quot;email&quot;, &quot;website&quot;], &quot;no_marker&quot;: false}"/> -->
+                                <div style="margin-bottom:0px;padding-bottom:0px;white-space:nowrap;font-size:20px;">RTN : <span style="font-size:20px;" t-field="o.supplier_id.rtn"/></div>
+                                <div style="margin-bottom:0px;padding-bottom:0px;white-space:nowrap;font-size:20px;">Fecha de Emisión: <span style="font-size:20px;" t-field="o.date"/></div>
+                              </td>
+
+                              <td style="width:65%; border: 0px white solid !important;">
+                                <table class="table table-condensed" style="width:100%; border: none !important;">
+                                  <tr>
+                                    <td style="text-align:end;font-size:20px;border:1px solid black;border-bottom:0px;padding:2px" coslpan="2"><div><strong style="white-space:nowrap;">Fecha Límite de Emisión: </strong><span t-field="o.ticket_seq_id.fiscal_regime.cai.expiration_date"/></div></td>
+                                  </tr>
+                                  <tr>
+                                    <td style="text-align:end;font-size:20px;border:1px solid black;border-bottom:0px;border-top:0px;padding:2px" coslpan="2"><strong style="white-space:nowrap;">CAI: </strong><span t-field="o.ticket_seq_id.fiscal_regime.cai"/></td>
+                                  </tr>
+                                  <tr>
+                                    <td style="text-align:end;font-size:20px;border:1px solid black;border-top:0px;padding:2px" coslpan="2"><strong style="white-space:nowrap;">Rango Autorizado: </strong><span t-field="o.ticket_seq_id.dis_min_value"> </span> a <span t-field="o.ticket_seq_id.dis_max_value"> </span></td>
+                                  </tr>
+                                  
+                                </table>
+                              </td>
+                            </tr>
+                          </table>
+                        </div>
+                        <div class="col-xs-12">
+                            <table class="table table-condensed" style="font-size:19pt;border:1px solid black;">
+                                    <thead style="background:gray;font-color:white;">
+                                        <tr style="font-size:20px;line-height: 1px;">
+                                        <th style="width:15%;border:1px solid black;">Cant. </th>
+                                        <th colspan="3" class="text-center" style="width:60%;border:1px solid black;">Descripción</th>
+                                        <th class="text-center" style="width:25%;border:1px solid black;">Monto Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="invoice_tbody" style="font-size:20px;">
+                                        <t t-foreach="o.debit_line_ids" t-as="line">
+                                        <tr style="line-height: 1px;">
+                                            <td class="text-center" style="width:15%;;border:1px solid black;">
+                                                    <!-- <span t-field="line.quantity"/> -->
+                                                    <span>1</span>
+                                            </td>
+                                            <td colspan="3" class="text-center" style="width:60%;;border:1px solid black;">
+                                            <span t-field="line.name"/>
+                                            </td>
+                                            <td class="text-center" style="width:25%;border:1px solid black;">
+                                            <span t-field="line.amount" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.currency_id&quot;}"/>
+                                            </td>
+                                        </tr>
+                                        </t>
+                                        <tr style="line-height: 4px;">
+                                            <td colspan="3" style='font-size:13pt;border: 1px solid black;text-align:center;' width="60%">
+                                            <b> DATOS DE ADQUIRIENTE EXONERADO </b>
+                                            </td>
+                                            <td rowspan="4" style='text-align:center;vertical-align:middle;border: 1px solid black;text-align:center;' width="15%">
+                                                <h5><b>TOTAL LPS.</b></h5>
+                                            </td>
+                                            <td rowspan="4" style='text-align:center;vertical-align:middle;border: 1px solid black;text-align:center;font-size:16px' width="25%">
+                                                <span t-field="o.total" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.currency_id&quot;}"/>
+                                            </td>
+                                            </tr>
+                                            <tr style="line-height: 3px;">
+                                                <td colspan="2" style='font-size:12pt;border: 1px solid black;text-align:left;' width="30%">
+                                                    <b>Nº Orden Exenta:</b>
+                                                </td>
+                                                <td style='border: 1px solid black;text-align:left;' width="30%"></td>
+                                            </tr>
+                                            <tr style="line-height: 3px;">
+                                                <td colspan="2" style='font-size:12pt;border: 1px solid black;text-align:left;' width="30%">
+                                                <b>Nº Constancia Exonerada:</b>
+                                                </td>
+                                                <td style='border: 1px solid black;text-align:left;' width="30%"></td>
+                                            </tr>
+                                            <tr style="line-height: 3px;">
+                                                <td colspan="2" style='font-size:12pt;border: 1px solid black;text-align:left;' width="30%">
+                                                    <b>Nº Registro SAG:</b>
+                                                </td>
+                                                <td style='border: 1px solid black;text-align:left;' width="30%"></td>
+                                            </tr>
+                                                <tr style="line-height: 4px;">
+                                                    <td colspan="5" style="font-size:20px;">Son: <span t-field="o.amount_in_words"/></td>
+                                                </tr>
+                                        </tbody>
+                                </table>
+                            </div>
+
+                        <div class="col-xs-12" style="margin-top:40px;"/> 
+                        <div class="row" style="100%">
+                            <div class="col-xs-5 text-center">
+                                _____________________________________<br/>
+                                <h4> <i>AUTORIZADO POR </i></h4>
+                            </div>
+                            <div class="col-2"/>
+                            <div class="col-xs-5 text-center">
+                                _____________________________________<br/>
+                                <h4> <i>RECEPTOR</i></h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="100%">
+                        <div class="col-xs-12 text-right" style="font-size:14pt;">
+                            <t t-if="copy==0">
+                                <p><b>-ORIGINAL: CLIENTE- -COPIA: OBLIGADO TRIBUTARIO-</b></p>
+                                <br/>
+                                <br/>
+                            </t>
+                            <t t-if="copy==1">
+                                <p><b>-COPIA: CONTABILIDAD-</b></p>
+                            </t>
+                        </div>
+                    </div>
+                    <t t-if="copy==0">
+                        <!-- <div style="padding:10px;"/>
+                        <div style="width:100%;border:1px dashed black;"/>
+                        <div style="padding:10px;"/> -->
+                    </t>
+                </t>
+                </t>
+            </t>
+
+        </template>
+
+        <template id="purchase_ticket_report_pdf">
+		    <t t-call="web.html_container">
+		        <t t-foreach="docs" t-as="o">
+		            <t t-call="gn_purchase_ticket.template_purchase_ticket_report_pdf" t-lang="o.partner_id.lang"/>
+		        </t>
+		    </t>
+		</template>
+
+
+
+        
+
+    </data>
+</odoo>

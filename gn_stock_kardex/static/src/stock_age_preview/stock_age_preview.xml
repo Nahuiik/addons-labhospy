@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_stock_kardex.StockAgePreview">
+        <div class="o_sa d-flex flex-column h-100">
+
+            <t t-if="!state.rows.length">
+                <div class="p-4 text-center text-muted">No hay datos de stock para los filtros seleccionados.</div>
+            </t>
+            <t t-else="">
+
+                <!-- Toolbar -->
+                <div class="o_sa_toolbar d-flex align-items-center justify-content-between px-3 py-2 bg-white border-bottom">
+                    <div class="d-flex align-items-center gap-2">
+                        <h5 class="mb-0 fw-bold">Reporte de Antigüedad de Stock</h5>
+                        <span class="border-start mx-1" style="height:20px;"/>
+                        <i class="fa fa-search text-muted"/>
+                        <input type="text" class="form-control form-control-sm"
+                               style="width:220px;"
+                               placeholder="Buscar producto…"
+                               t-att-value="state.search"
+                               t-on-input="onSearchInput"/>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="fw-semibold small" t-esc="state.companyName"/>
+                        <t t-if="state.warehouseName">
+                            <span class="text-primary fw-semibold small">
+                                <i class="fa fa-warehouse me-1"/> <t t-esc="state.warehouseName"/>
+                            </span>
+                        </t>
+                        <span class="badge bg-secondary">
+                            <t t-esc="getFilteredRows().length"/> productos
+                        </span>
+                        <button type="button" class="btn btn-sm btn-light border" t-on-click="openWizard">
+                            <i class="fa fa-cog me-1"/> Filtros
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Table -->
+                <div class="flex-grow-1 overflow-auto">
+                    <table class="o_sa_table">
+                        <thead>
+                            <tr class="o_sa_hdr1">
+                                <th rowspan="2" class="o_sa_sticky_col">Producto</th>
+                                <th rowspan="2">Categoría</th>
+                                <th rowspan="2" class="text-end">Stock Total</th>
+                                <th rowspan="2" class="text-end">Valor Stock</th>
+                                <t t-foreach="state.brackets" t-as="br" t-key="br_index">
+                                    <th colspan="2" class="text-center o_sa_bl">
+                                        <t t-esc="br"/>
+                                    </th>
+                                </t>
+                            </tr>
+                            <tr class="o_sa_hdr2">
+                                <t t-foreach="state.brackets" t-as="br" t-key="br_index">
+                                    <th class="text-end o_sa_bl">Stock</th>
+                                    <th class="text-end">Valor</th>
+                                </t>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="getVisibleRows()" t-as="row" t-key="row.product_id">
+                                <tr>
+                                    <td class="o_sa_sticky_col o_sa_product fw-semibold" t-esc="row.product_name"/>
+                                    <td class="o_sa_categ" t-esc="row.categ_name"/>
+                                    <td class="text-end font-monospace fw-bold" t-esc="fmt(row.total_stock)"/>
+                                    <td class="text-end font-monospace fw-bold" t-esc="fmt(row.stock_value)"/>
+                                    <t t-foreach="row.buckets" t-as="bk" t-key="bk_index">
+                                        <td class="text-end font-monospace o_sa_bl"
+                                            t-att-class="'text-end font-monospace o_sa_bl' + (bk.stock > 0 ? '' : ' text-muted')"
+                                            t-esc="fmt(bk.stock)"/>
+                                        <td class="text-end font-monospace"
+                                            t-att-class="'text-end font-monospace' + (bk.value > 0 ? '' : ' text-muted')"
+                                            t-esc="fmt(bk.value)"/>
+                                    </t>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pager -->
+                <div class="o_sa_pager d-flex align-items-center justify-content-between px-3 py-2 border-top bg-white small">
+                    <span class="text-muted">
+                        <t t-esc="getPageFrom()"/>-<t t-esc="getPageTo()"/>
+                        de <t t-esc="getFilteredRows().length"/> productos
+                    </span>
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="text-muted">
+                            Página <t t-esc="state.currentPage"/> de <t t-esc="getTotalPages()"/>
+                        </span>
+                        <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-1"
+                                t-on-click="prevPage"
+                                t-att-disabled="state.currentPage &lt;= 1">‹</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-1"
+                                t-on-click="nextPage"
+                                t-att-disabled="state.currentPage >= getTotalPages()">›</button>
+                    </div>
+                </div>
+
+            </t>
+        </div>
+    </t>
+</templates>

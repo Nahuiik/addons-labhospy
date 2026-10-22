@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hn_vacation_salary_map_tree" model="ir.ui.view">
+        <field name="name">gn.hn.vacation.salary.map.tree</field>
+        <field name="model">gn.hn.vacation.salary.map</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="rule_code"/>
+                <field name="rule_type"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_l10n_hn_payroll_mail_event_catalog_list" model="ir.ui.view">
+        <field name="name">l10n.hn.payroll.mail.event.catalog.list</field>
+        <field name="model">l10n.hn.payroll.mail.event.catalog</field>
+        <field name="arch" type="xml">
+            <list string="Eventos que envían correo" create="false" edit="false" delete="false" default_order="sequence">
+                <field name="sequence" column_invisible="1"/>
+                <field name="module"/>
+                <field name="name"/>
+                <field name="trigger_description"/>
+                <field name="template_xml_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_l10n_hn_payroll_mail_event_catalog" model="ir.actions.act_window">
+        <field name="name">Eventos que envían correo</field>
+        <field name="res_model">l10n.hn.payroll.mail.event.catalog</field>
+        <field name="view_mode">list</field>
+        <field name="help" type="html">
+            <p>
+                Referencia de los envíos de correo (plantillas <code>mail.template</code> o notificaciones)
+                implementados en los addons de Grupohmm (ecosistema RRHH / nómina Honduras).
+            </p>
+            <p>
+                Para definir <strong>a quién</strong> llegan ciertas alertas de empleado (contrato, permiso, auditoría, datos personales),
+                use el menú <em>Destinatarios de notificaciones</em> del mismo grupo <em>Alertas por correo</em>.
+            </p>
+        </field>
+    </record>
+</odoo>

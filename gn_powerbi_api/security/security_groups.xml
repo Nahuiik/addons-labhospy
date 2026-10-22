@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Categoría del módulo -->
+        <record id="module_category_powerbi" model="ir.module.category">
+            <field name="name">Power BI</field>
+            <field name="description">Permisos para el conector Power BI</field>
+            <field name="sequence">100</field>
+        </record>
+
+        <!-- Privilegio principal -->
+        <record id="privilege_powerbi" model="res.groups.privilege">
+            <field name="name">Power BI Connector</field>
+            <field name="category_id" ref="module_category_powerbi"/>
+            <field name="sequence">10</field>
+        </record>
+
+        <!-- Grupos de usuarios -->
+        <record id="group_powerbi_user" model="res.groups">
+            <field name="name">User</field>
+            <field name="comment">Usuario que puede consultar datos exportados y métricas básicas</field>
+            <field name="privilege_id" ref="privilege_powerbi"/>
+            <field name="sequence">10</field>
+        </record>
+
+        <record id="group_powerbi_officer" model="res.groups">
+            <field name="name">Officer</field>
+            <field name="comment">Analista que puede crear/editar datasets, tablas y ejecutar exportaciones</field>
+            <field name="privilege_id" ref="privilege_powerbi"/>
+            <field name="sequence">20</field>
+            <field name="implied_ids" eval="[(4, ref('group_powerbi_user'))]"/>
+        </record>
+
+        <record id="group_powerbi_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="comment">Administrador con acceso completo al conector Power BI</field>
+            <field name="privilege_id" ref="privilege_powerbi"/>
+            <field name="sequence">30</field>
+            <field name="implied_ids" eval="[(4, ref('group_powerbi_officer'))]"/>
+        </record>
+    </data>
+</odoo>

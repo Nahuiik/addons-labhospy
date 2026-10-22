@@ -1,0 +1,494 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* os_customer_vendor_statements
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-09 12:00:00\n"
+"PO-Revision-Date: 2026-01-09 12:00:00\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es_GT\n"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model,name:os_customer_vendor_statements.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model,name:os_customer_vendor_statements.model_account_move
+msgid "Journal Entry"
+msgstr "Asiento Contable"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model,name:os_customer_vendor_statements.model_filtered_customer_statements
+msgid "Filtered Customer Statements"
+msgstr "Estados de Cuenta Filtrados de Cliente"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model,name:os_customer_vendor_statements.model_filtered_vendor_statements
+msgid "Filtered Vendor Statements"
+msgstr "Estados de Cuenta Filtrados de Proveedor"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model,name:os_customer_vendor_statements.model_res_company
+msgid "Company"
+msgstr "Compañía"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model,name:os_customer_vendor_statements.model_custom_customer_statement_wizard
+msgid "Send Custom Customer Statements"
+msgstr "Enviar Estados de Cuenta Personalizados de Cliente"
+
+#. module: os_customer_vendor_statements
+#: model_terms:ir.ui.view,arch_db:os_customer_vendor_statements.view_partner_form
+msgid "Customer Statements"
+msgstr "Estados de Cuenta de Cliente"
+
+#. module: os_customer_vendor_statements
+#: model_terms:ir.ui.view,arch_db:os_customer_vendor_statements.view_partner_form
+msgid "Customer Statement By Date"
+msgstr "Estado de Cuenta de Cliente por Fecha"
+
+#. module: os_customer_vendor_statements
+#: model_terms:ir.ui.view,arch_db:os_customer_vendor_statements.view_partner_form
+msgid "Print Statement"
+msgstr "Imprimir Estado de Cuenta"
+
+#. module: os_customer_vendor_statements
+#: model_terms:ir.ui.view,arch_db:os_customer_vendor_statements.view_partner_form
+msgid "Send Statement"
+msgstr "Enviar Estado de Cuenta"
+
+#. module: os_customer_vendor_statements
+#: model_terms:ir.ui.view,arch_db:os_customer_vendor_statements.view_partner_form
+msgid "Print Overdue Statement"
+msgstr "Imprimir Estado de Cuenta Vencido"
+
+#. module: os_customer_vendor_statements
+#: model_terms:ir.ui.view,arch_db:os_customer_vendor_statements.view_partner_form
+msgid "Send Overdue Statement"
+msgstr "Enviar Estado de Cuenta Vencido"
+
+#. module: os_customer_vendor_statements
+#: model_terms:ir.ui.view,arch_db:os_customer_vendor_statements.view_partner_form
+msgid "Vendor Statements"
+msgstr "Estados de Cuenta de Proveedor"
+
+#. module: os_customer_vendor_statements
+#: model_terms:ir.ui.view,arch_db:os_customer_vendor_statements.view_partner_form
+msgid "Vendor Statements By Date"
+msgstr "Estados de Cuenta de Proveedor por Fecha"
+
+#. module: os_customer_vendor_statements
+#: model_terms:ir.ui.view,arch_db:os_customer_vendor_statements.view_partner_form
+msgid "Print Vendor Statements"
+msgstr "Imprimir Estados de Cuenta de Proveedor"
+
+#. module: os_customer_vendor_statements
+#: model_terms:ir.ui.view,arch_db:os_customer_vendor_statements.view_res_partner_filter
+msgid "Overdue Customers"
+msgstr "Clientes con Saldo Vencido"
+
+#. module: os_customer_vendor_statements
+#: model_terms:ir.ui.view,arch_db:os_customer_vendor_statements.view_customer_filtered_statements
+msgid "Customer Form"
+msgstr "Formulario de Cliente"
+
+#. module: os_customer_vendor_statements
+#: model_terms:ir.ui.view,arch_db:os_customer_vendor_statements.view_customer_filtered_statements
+msgid "Get Filtered Customer Statements"
+msgstr "Obtener Estados de Cuenta Filtrados de Cliente"
+
+#. module: os_customer_vendor_statements
+#: model_terms:ir.ui.view,arch_db:os_customer_vendor_statements.view_customer_filtered_statements
+msgid "Filter Customer Statements"
+msgstr "Filtrar Estados de Cuenta de Cliente"
+
+#. module: os_customer_vendor_statements
+#: model_terms:ir.ui.view,arch_db:os_customer_vendor_statements.view_customer_filtered_statements
+msgid "Print Filtered Customer Statements"
+msgstr "Imprimir Estados de Cuenta Filtrados de Cliente"
+
+#. module: os_customer_vendor_statements
+#: model_terms:ir.ui.view,arch_db:os_customer_vendor_statements.view_customer_filtered_statements
+msgid "Send Filtered Customer Statements"
+msgstr "Enviar Estados de Cuenta Filtrados de Cliente"
+
+#. module: os_customer_vendor_statements
+#: model_terms:ir.ui.view,arch_db:os_customer_vendor_statements.view_vendor_filtered_statements
+msgid "Vendor Form"
+msgstr "Formulario de Proveedor"
+
+#. module: os_customer_vendor_statements
+#: model_terms:ir.ui.view,arch_db:os_customer_vendor_statements.view_vendor_filtered_statements
+msgid "Get Filtered Vendor Statements"
+msgstr "Obtener Estados de Cuenta Filtrados de Proveedor"
+
+#. module: os_customer_vendor_statements
+#: model_terms:ir.ui.view,arch_db:os_customer_vendor_statements.view_vendor_filtered_statements
+msgid "Filter Vendor Statements"
+msgstr "Filtrar Estados de Cuenta de Proveedor"
+
+#. module: os_customer_vendor_statements
+#: model_terms:ir.ui.view,arch_db:os_customer_vendor_statements.view_vendor_filtered_statements
+msgid "Print Filtered Customer Statements"
+msgstr "Imprimir Estados de Cuenta Filtrados de Proveedor"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_partner__customer_amount_due
+msgid "Customer Due Amount"
+msgstr "Monto a Pagar de Cliente"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_partner__customer_amount_overdue
+msgid "Customer Total Overdue Amount"
+msgstr "Total de Monto Vencido de Cliente"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_partner__vendor_amount_due
+msgid "Vendor Due Amount"
+msgstr "Monto a Pagar de Proveedor"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_partner__vendor_amount_overdue
+msgid "Vendor Total Overdue Amount"
+msgstr "Total de Monto Vencido de Proveedor"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_partner__exclude_auto_sent
+msgid "Exclude Auto Sent"
+msgstr "Excluir Envío Automático"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_company__enable_customer_statements
+msgid "Send customer's Statement"
+msgstr "Enviar Estado de Cuenta de Cliente"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_company__enable_overdue_sent
+msgid "Send Overdue customer Statement"
+msgstr "Enviar Estado de Cuenta Vencido de Cliente"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_company__monthly_statement_auto_upt
+msgid "Auto Monthly Statement"
+msgstr "Estado de Cuenta Mensual Automático"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_company__weekly_statement_auto_upt
+msgid "Auto Weekly Statement"
+msgstr "Estado de Cuenta Semanal Automático"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_company__sent_day_weekly
+msgid "Weekly Send Day"
+msgstr "Día de Envío Semanal"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_company__monthly_sent_day
+msgid "Monthly Send Day"
+msgstr "Día de Envío Mensual"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_company__overdue_sent_date
+msgid "Overdue Statement Send Date"
+msgstr "Fecha de Envío de Estado de Cuenta Vencido"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_company__overdue_temp_id
+msgid "Template for Overdue Statements"
+msgstr "Plantilla para Estados de Cuenta Vencidos"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_company__mail_template_weekly_id
+msgid "Weekly Statement Email Template"
+msgstr "Plantilla de Correo para Estado de Cuenta Semanal"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_company__mail_template_monthly_id
+msgid "Monthly Statement Email Template"
+msgstr "Plantilla de Correo para Estado de Cuenta Mensual"
+
+#. module: os_customer_vendor_statements
+#: model:ir.cron,name:os_customer_vendor_statements.ir_cron_weekly_customer_statements
+msgid "Scheduled Action to Send Weekly Customer Statements"
+msgstr "Acción Programada para Enviar Estados de Cuenta Semanales de Cliente"
+
+#. module: os_customer_vendor_statements
+#: model:ir.cron,name:os_customer_vendor_statements.ir_cron_customer_overdue_statements
+msgid "Scheduled Action to Send Customer Overdue Statements"
+msgstr "Acción Programada para Enviar Estados de Cuenta Vencidos de Cliente"
+
+#. module: os_customer_vendor_statements
+#: model:ir.cron,name:os_customer_vendor_statements.ir_cron_monthly_customer_statements
+msgid "Scheduled Action to Send Customer Monthly Statements"
+msgstr "Acción Programada para Enviar Estados de Cuenta Mensuales de Cliente"
+
+#. module: os_customer_vendor_statements
+#: code:addons/os_customer_vendor_statements/models/res_partner.py:0
+#, python-format
+msgid "Monthly Customer's Statement sent to %s - %s"
+msgstr "Estado de Cuenta Mensual de Cliente enviado a %s - %s"
+
+#. module: os_customer_vendor_statements
+#: code:addons/os_customer_vendor_statements/models/res_partner.py:0
+#, python-format
+msgid "Weekly Customer's Statement sent to %s - %s"
+msgstr "Estado de Cuenta Semanal de Cliente enviado a %s - %s"
+
+#. module: os_customer_vendor_statements
+#: code:addons/os_customer_vendor_statements/models/res_partner.py:0
+#, python-format
+msgid "Customer's Overdue Statement sent to %s - %s"
+msgstr "Estado de Cuenta Vencido de Cliente enviado a %s - %s"
+
+#. module: os_customer_vendor_statements
+#: code:addons/os_customer_vendor_statements/models/res_partner.py:0
+#, python-format
+msgid "Customer's Statement sent to %s - %s"
+msgstr "Estado de Cuenta de Cliente enviado a %s - %s"
+
+#. module: os_customer_vendor_statements
+#: code:addons/os_customer_vendor_statements/models/res_partner.py:0
+#, python-format
+msgid " Customer's Filtered Statement sent to %s - %s"
+msgstr "Estado de Cuenta Filtrado de Cliente enviado a %s - %s"
+
+#. module: os_customer_vendor_statements
+#: code:addons/os_customer_vendor_statements/models/res_partner.py:0
+#, python-format
+msgid " Customer's Custom Statement sent to %s - %s"
+msgstr "Estado de Cuenta Personalizado de Cliente enviado a %s - %s"
+
+#. module: os_customer_vendor_statements
+#: code:addons/os_customer_vendor_statements/models/res_company.py:0
+#, python-format
+msgid "Date range is not valid for taking Overdue Statements!"
+msgstr "¡El rango de fechas no es válido para tomar Estados de Cuenta Vencidos!"
+
+#. module: os_customer_vendor_statements
+#: code:addons/os_customer_vendor_statements/models/res_company.py:0
+#, python-format
+msgid "Date range is not valid for taking Statements"
+msgstr "El rango de fechas no es válido para tomar Estados de Cuenta"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_account_move__remaining_due_amount
+msgid "Remaining Due Amount"
+msgstr "Monto Restante a Pagar"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_account_move__credit_amount
+msgid "Credit Amount"
+msgstr "Monto de Crédito"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_filtered_customer_statements__reference
+msgid "Name"
+msgstr "Nombre"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_filtered_customer_statements__invoice_date
+msgid "Invoice Date"
+msgstr "Fecha de Factura"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_filtered_customer_statements__due_invoice_date
+msgid "Due Date"
+msgstr "Fecha de Vencimiento"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_filtered_customer_statements__remaining_due_amount
+msgid "Balance"
+msgstr "Saldo"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_filtered_customer_statements__credit_amount
+msgid "Payments/Credits"
+msgstr "Pagos/Créditos"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_filtered_customer_statements__amount_total
+msgid "Invoices/Debits"
+msgstr "Facturas/Débitos"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_filtered_customer_statements__state
+msgid "State"
+msgstr "Estado"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_filtered_customer_statements__payment_state
+msgid "Payment Status"
+msgstr "Estado de Pago"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_filtered_customer_statements__move_type
+msgid "Type"
+msgstr "Tipo"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_partner__customer_filter_date_from
+msgid "Customer Filter From Date"
+msgstr "Fecha Desde Filtro de Cliente"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_partner__customer_filter_date_to
+msgid "Customer Filter To Date"
+msgstr "Fecha Hasta Filtro de Cliente"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_partner__customer_init_balance
+msgid "Initial Balance"
+msgstr "Saldo Inicial"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_partner__customer_filter_amount_due
+msgid "Customer Filtered Balance Due Amount"
+msgstr "Monto de Saldo Filtrado a Pagar de Cliente"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_partner__customer_filter_amount_overdue
+msgid "Customer Filtered Total Overdue Amount"
+msgstr "Total de Monto Vencido Filtrado de Cliente"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_partner__vendor_filter_date_from
+msgid "Vendor Filter From Date"
+msgstr "Fecha Desde Filtro de Proveedor"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_partner__vendor_filter_date_to
+msgid "Vendor Filter To Date"
+msgstr "Fecha Hasta Filtro de Proveedor"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_partner__vendor_init_balance
+msgid "Vendor Initial Balance"
+msgstr "Saldo Inicial de Proveedor"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_partner__vendor_filter_amount_due
+msgid "Vendor Filtered Balance Due Amount"
+msgstr "Monto de Saldo Filtrado a Pagar de Proveedor"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_partner__vendor_filter_amount_overdue
+msgid "Vendor Filtered Total Overdue Amount"
+msgstr "Total de Monto Vencido Filtrado de Proveedor"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_partner__weekly_customer_amount_due
+msgid "Weekly Balance Due Amount"
+msgstr "Monto de Saldo Semanal a Pagar"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_partner__weekly_customer_amount_overdue
+msgid "Weekly Total Overdue Amount"
+msgstr "Total de Monto Vencido Semanal"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_partner__monthly_customer_amount_due
+msgid "Monthly Balance Due Amount"
+msgstr "Monto de Saldo Mensual a Pagar"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_partner__monthly_customer_amount_overdue
+msgid "Monthly Total Overdue Amount"
+msgstr "Total de Monto Vencido Mensual"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_partner__custom_customer_amount_due
+msgid "Custom Balance Due Amount"
+msgstr "Monto de Saldo Personalizado a Pagar"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_partner__custom_customer_amount_overdue
+msgid "Custom Total Overdue Amount"
+msgstr "Total de Monto Vencido Personalizado"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_partner__custom_period
+msgid "Duration"
+msgstr "Duración"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_partner__c_date_from
+msgid "Custom Analysis From Date"
+msgstr "Fecha Desde Análisis Personalizado"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_partner__c_date_to
+msgid "Custom Analysis To Date"
+msgstr "Fecha Hasta Análisis Personalizado"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_partner__first_thirty
+msgid "Aged Analysis 0-30"
+msgstr "Análisis de Antigüedad 0-30"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_partner__thirty_sixty
+msgid "Aged Analysis 30-60"
+msgstr "Análisis de Antigüedad 30-60"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_partner__sixty_ninety
+msgid "Aged Analysis 60-90"
+msgstr "Análisis de Antigüedad 60-90"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_partner__ninety_plus
+msgid "Aged Analysis 90+"
+msgstr "Análisis de Antigüedad 90+"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_partner__analysis_total
+msgid "Aged Analysis Total"
+msgstr "Total de Análisis de Antigüedad"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_partner__c_first_thirty
+msgid "Custom 0-30"
+msgstr "Personalizado 0-30"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_partner__c_thirty_sixty
+msgid "Custom 30-60"
+msgstr "Personalizado 30-60"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_partner__c_sixty_ninety
+msgid "Custom 60-90"
+msgstr "Personalizado 60-90"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_partner__c_ninety_plus
+msgid "Custom 90+"
+msgstr "Personalizado 90+"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_res_partner__c_analysis_total
+msgid "Custom Total"
+msgstr "Total Personalizado"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_custom_customer_statement_wizard__custom_period
+msgid "Duration"
+msgstr "Duración"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_custom_customer_statement_wizard__c_date_from
+msgid "From Date"
+msgstr "Desde Fecha"
+
+#. module: os_customer_vendor_statements
+#: model:ir.model.fields,field_description:os_customer_vendor_statements.field_custom_customer_statement_wizard__c_date_to
+msgid "To Date"
+msgstr "Hasta Fecha"

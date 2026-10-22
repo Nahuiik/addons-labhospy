@@ -1,0 +1,13 @@
+<odoo>
+    <record model="ir.cron" id="cron_cai_expiry_notification">
+        <field name="name">CAI Expirty Notification</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="model_id" ref="model_dei_cai"/>
+        <field name="state">code</field>
+        <field name="code">model.send_cai_expiry_mail()</field>
+    </record>
+
+</odoo>

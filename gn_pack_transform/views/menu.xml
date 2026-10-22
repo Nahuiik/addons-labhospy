@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_gn_pack_transform"
+              name="Transformación paquete → unidad"
+              parent="stock.menu_stock_warehouse_mgmt"
+              action="action_gn_pack_transform"
+              sequence="45"
+              groups="stock.group_stock_user"/>
+
+</odoo>

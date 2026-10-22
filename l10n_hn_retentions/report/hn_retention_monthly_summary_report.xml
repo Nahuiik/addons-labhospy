@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="retention_monthly_summary">
+        <t t-call="web.basic_layout">
+            <t t-set="company" t-value="docs[:1].company_id if docs else None"/>
+            <div class="page">
+                <h2 class="mt-0">Resumen de retenciones</h2>
+                <p t-if="company">
+                    <strong><span t-esc="company.name"/></strong><br/>
+                    <span t-esc="date_from"/> — <span t-esc="date_to"/>
+                    <t t-if="docs[:1]">
+                        (<span t-esc="docs[:1].month"/> / <span t-esc="docs[:1].year"/>)
+                    </t>
+                </p>
+                <table class="table table-sm table-bordered" style="width:100%; font-size: 11px;">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Pago</th>
+                            <th>Contacto</th>
+                            <th>Tipo</th>
+                            <th class="text-end">%</th>
+                            <th class="text-end">Monto</th>
+                            <th>Cuenta</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="lines" t-as="line">
+                            <td><span t-esc="line['fecha']"/></td>
+                            <td><span t-esc="line['pago']"/></td>
+                            <td><span t-esc="line['partner']"/></td>
+                            <td><span t-esc="line['tipo']"/></td>
+                            <td class="text-end"><span t-esc="line['pct']"/></td>
+                            <td class="text-end"><span t-esc="'{:.2f}'.format(line['monto'])"/></td>
+                            <td><span t-esc="line['cuenta']"/></td>
+                            <td><span t-esc="line['descripcion']"/></td>
+                        </tr>
+                        <tr t-if="not lines">
+                            <td colspan="8" class="text-center text-muted">Sin líneas de retención en el período.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="fw-bold mt-3">
+                    Total retenido: <span t-esc="'{:.2f}'.format(total_retention)"/>
+                </p>
+                <p class="text-muted small">
+                    Información obtenida de pagos publicados y líneas de diferencia (write-off) del módulo de retenciones.
+                    Validar cifras ante el SAR o el asesor fiscal.
+                </p>
+            </div>
+        </t>
+    </template>
+
+    <record id="action_report_retention_monthly_pdf" model="ir.actions.report">
+        <field name="name">Resumen retenciones (PDF)</field>
+        <field name="model">hn.retention.monthly.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hn_retentions.retention_monthly_summary</field>
+        <field name="report_file">l10n_hn_retentions.retention_monthly_summary</field>
+        <field name="binding_model_id" ref="l10n_hn_retentions.model_hn_retention_monthly_wizard"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_retentions_new"/>
+    </record>
+
+    <record id="action_report_retention_monthly_html" model="ir.actions.report">
+        <field name="name">Resumen retenciones (HTML)</field>
+        <field name="model">hn.retention.monthly.wizard</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">l10n_hn_retentions.retention_monthly_summary</field>
+        <field name="report_file">l10n_hn_retentions.retention_monthly_summary</field>
+    </record>
+</odoo>

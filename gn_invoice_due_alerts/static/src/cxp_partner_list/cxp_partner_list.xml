@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_invoice_due_alerts.CxpPartnerListView" t-inherit="web.ListView" t-inherit-mode="primary">
+        <xpath expr="//t[@t-set-slot='control-panel-create-button']" position="inside">
+            <button t-if="isGroupedView"
+                    type="button"
+                    class="btn btn-secondary o_partner_group_toggle"
+                    t-att-title="allGroupsExpanded ? 'Contraer grupos' : 'Expandir grupos'"
+                    t-att-aria-label="allGroupsExpanded ? 'Contraer grupos' : 'Expandir grupos'"
+                    t-on-click="onToggleAllGroups">
+                <i t-att-class="'oi oi-fw ' + (allGroupsExpanded ? 'oi-view-list' : 'oi-group')"/>
+            </button>
+        </xpath>
+    </t>
+
+</templates>

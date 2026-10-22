@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- App principal estándar de Odoo (Facturación/Invoicing): etiqueta e icono tipo Contabilidad Odoo 19 -->
+    <record id="account.menu_finance" model="ir.ui.menu">
+        <field name="name">Contabilidad</field>
+        <field name="web_icon">bi_financial_reports_comm,static/description/icon.png</field>
+    </record>
+
+    <!-- Reaplica la traducción al español en cada instalación/actualización
+         (el post_init_hook solo corre al instalar). -->
+    <function model="ir.ui.menu" name="_bi_set_finance_menu_label"/>
+</odoo>

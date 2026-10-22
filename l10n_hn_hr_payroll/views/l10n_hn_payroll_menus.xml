@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ============================================ -->
+    <!-- Honduras Payroll bajo Nómina > Configuración -->
+    <!-- ============================================ -->
+    <menuitem id="menu_l10n_hn_payroll_config" 
+              name="Honduras Payroll" 
+              parent="l10n_hn_payroll_base.menu_hr_payroll_configuration"
+              sequence="100"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user,l10n_hn_hr_payroll.group_hr_payroll_auditor"/>
+
+    <!-- ============================================ -->
+    <!-- Nómina HN: raíz de Nómina (no bajo Configuración: ahí solo entra Payroll Manager en estándar Odoo) -->
+    <!-- ============================================ -->
+    <menuitem id="menu_l10n_hn_management"
+              name="Nómina HN"
+              parent="l10n_hn_payroll_base.menu_hn_payroll_root"
+              sequence="75"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user,l10n_hn_hr_payroll.group_hr_payroll_auditor"/>
+
+    <!-- ============================================ -->
+    <!-- ISR -->
+    <!-- ============================================ -->
+    <menuitem id="menu_l10n_hn_isr_root"
+              name="ISR"
+              parent="menu_l10n_hn_management"
+              sequence="60"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user"/>
+
+    <menuitem id="menu_hr_isr_employee_settings_root"
+              name="Establecer ISR"
+              parent="menu_l10n_hn_isr_root"
+              action="action_hr_isr_employee"
+              sequence="10"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user"/>
+
+    <menuitem id="menu_l10n_hn_isr_config_root"
+              name="Configuración ISR"
+              parent="menu_l10n_hn_isr_root"
+              action="action_l10n_hn_isr_config"
+              sequence="20"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin"/>
+
+    <menuitem id="menu_l10n_hn_isr_deduction_type_root"
+              name="Tipos de Deducción"
+              parent="menu_l10n_hn_isr_root"
+              action="action_l10n_hn_isr_deduction_type"
+              sequence="35"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin"/>
+
+    <menuitem id="menu_l10n_hn_isr_employee_deduction_root"
+              name="Deducciones ISR Empleados"
+              parent="menu_l10n_hn_isr_root"
+              action="action_l10n_hn_isr_employee_deduction"
+              sequence="40"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin"/>
+
+    <menuitem id="menu_l10n_hn_isr_audit_root"
+              name="Auditoría ISR"
+              parent="menu_l10n_hn_isr_root"
+              action="action_l10n_hn_isr_audit"
+              sequence="50"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user"/>
+
+    <menuitem id="menu_l10n_hn_isr_audit_reports_root"
+              name="Reportes ISR"
+              parent="menu_l10n_hn_isr_root"
+              action="action_l10n_hn_isr_audit_report"
+              sequence="60"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user"/>
+
+    <!-- ============================================ -->
+    <!-- Auditoría de Nómina -->
+    <!-- ============================================ -->
+    <menuitem id="menu_l10n_hn_payroll_audit_root"
+              name="Auditoría"
+              parent="menu_l10n_hn_payroll_config"
+              sequence="55"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user,l10n_hn_hr_payroll.group_hr_payroll_auditor"/>
+    <menuitem id="menu_l10n_hn_payroll_audit_run"
+              name="Procesos de auditoría"
+              parent="menu_l10n_hn_payroll_audit_root"
+              action="action_l10n_hn_payroll_audit_run"
+              sequence="10"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user,l10n_hn_hr_payroll.group_hr_payroll_auditor"/>
+
+    <!-- Alertas por correo: catálogo de eventos + destinatarios -->
+    <menuitem id="menu_hr_email_alerts_root"
+              name="Alertas por correo"
+              parent="menu_l10n_hn_management"
+              sequence="32"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user,l10n_hn_hr_payroll.group_hr_payroll_auditor"/>
+
+    <menuitem id="menu_l10n_hn_payroll_mail_event_catalog"
+              name="Eventos que envían correo"
+              parent="menu_hr_email_alerts_root"
+              action="action_l10n_hn_payroll_mail_event_catalog"
+              sequence="5"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user,l10n_hn_hr_payroll.group_hr_payroll_auditor"/>
+
+    <menuitem id="menu_hr_notification_recipient"
+              name="Destinatarios de notificaciones"
+              parent="menu_hr_email_alerts_root"
+              action="action_hr_notification_recipient"
+              sequence="10"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin"/>
+
+    <!-- ============================================ -->
+    <!-- RAP -->
+    <!-- ============================================ -->
+    <menuitem id="menu_l10n_hn_rap_root"
+              name="RAP"
+              parent="menu_l10n_hn_management"
+              sequence="61"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user"/>
+
+    <menuitem id="menu_hr_rap_setup"
+              name="Establecer RAP"
+              parent="menu_l10n_hn_rap_root"
+              action="action_hr_rap"
+              sequence="10"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user"/>
+
+    <menuitem id="menu_l10n_hn_rap_settings_root"
+              name="RAP Settings"
+              parent="menu_l10n_hn_rap_root"
+              action="action_l10n_hn_rap_settings"
+              sequence="20"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin"/>
+
+    <!-- ============================================ -->
+    <!-- IHSS -->
+    <!-- ============================================ -->
+    <menuitem id="menu_l10n_hn_ihss_settings" 
+              name="IHSS Settings" 
+              parent="menu_l10n_hn_management"
+              action="action_l10n_hn_ihss_settings"
+              sequence="62"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin"/>
+
+    <!-- ============================================ -->
+    <!-- Impuesto Vecinal -->
+    <!-- ============================================ -->
+    <menuitem id="menu_l10n_hn_vecinal" 
+              name="Impuesto Vecinal" 
+              parent="menu_l10n_hn_management"
+              sequence="63"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin"/>
+    
+    <menuitem id="menu_l10n_hn_vecinal_brackets" 
+              name="Tramos" 
+              parent="menu_l10n_hn_vecinal"
+              action="action_l10n_hn_vecinal_bracket"
+              sequence="10"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin"/>
+    
+    <menuitem id="menu_l10n_hn_vecinal_employee_income" 
+              name="Ingresos Año Base" 
+              parent="menu_l10n_hn_vecinal"
+              action="action_l10n_hn_vecinal_employee_income"
+              sequence="20"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin"/>
+    
+    <menuitem id="menu_l10n_hn_vecinal_settings" 
+              name="Configuración" 
+              parent="menu_l10n_hn_vecinal"
+              action="action_l10n_hn_vecinal_settings"
+              sequence="30"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin"/>
+    
+    <menuitem id="menu_l10n_hn_vecinal_reports" 
+              name="Reportes" 
+              parent="menu_l10n_hn_vecinal"
+              sequence="40"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user"/>
+    
+    <menuitem id="menu_l10n_hn_vecinal_retention_history" 
+              name="Historial de Retenciones" 
+              parent="menu_l10n_hn_vecinal_reports"
+              action="action_l10n_hn_vecinal_retention_history"
+              sequence="10"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user"/>
+    
+    <menuitem id="menu_l10n_hn_vecinal_summary" 
+              name="Resumen por Empleado" 
+              parent="menu_l10n_hn_vecinal_reports"
+              action="action_l10n_hn_vecinal_summary"
+              sequence="20"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user"/>
+
+    <!-- ============================================ -->
+    <!-- Benefits -->
+    <!-- ============================================ -->
+    <menuitem id="menu_l10n_hn_benefits" 
+              name="Benefits" 
+              parent="menu_l10n_hn_management"
+              sequence="64"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user,l10n_hn_hr_payroll.group_hr_payroll_auditor"/>
+    
+    <menuitem id="menu_l10n_hn_thirteenth_month" 
+              name="13th Month" 
+              parent="menu_l10n_hn_benefits"
+              action="action_l10n_hn_thirteenth_month"
+              sequence="10"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user,l10n_hn_hr_payroll.group_hr_payroll_auditor"/>
+    
+    <menuitem id="menu_l10n_hn_fourteenth_month" 
+              name="14th Month" 
+              parent="menu_l10n_hn_benefits"
+              action="action_l10n_hn_fourteenth_month"
+              sequence="20"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user,l10n_hn_hr_payroll.group_hr_payroll_auditor"/>
+
+    <menuitem id="menu_l10n_hn_recurring_concept_mass_assign"
+              name="Asignación masiva de conceptos"
+              parent="menu_l10n_hn_benefits"
+              action="gn_hr_payroll_employee_extras.action_hr_recurring_concept_assign_wizard"
+              sequence="25"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user"/>
+
+    <menuitem id="menu_l10n_hn_recurring_concept_mass_unassign"
+              name="Desasignación masiva de conceptos"
+              parent="menu_l10n_hn_benefits"
+              action="gn_hr_payroll_employee_extras.action_hr_recurring_concept_unassign_wizard"
+              sequence="26"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user"/>
+
+    <!-- ============================================ -->
+    <!-- Quincenas -->
+    <!-- ============================================ -->
+    <menuitem id="menu_l10n_hn_payroll_periods" 
+              name="Quincenas" 
+              parent="menu_l10n_hn_management"
+              action="action_l10n_hn_payroll_period"
+              sequence="33"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user"/>
+
+    <menuitem id="menu_l10n_hn_payroll_cutoff" 
+              name="Fechas de Corte" 
+              parent="menu_l10n_hn_management"
+              action="action_l10n_hn_payroll_cutoff"
+              sequence="34"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin"/>
+
+    <menuitem id="menu_l10n_hn_turn_extra_config" 
+              name="Factores Turnos Extra" 
+              parent="menu_l10n_hn_management"
+              action="action_l10n_hn_turn_extra_config"
+              sequence="35"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin"/>
+
+    <!-- ============================================ -->
+    <!-- Catálogos -->
+    <!-- ============================================ -->
+    <menuitem id="menu_hr_family_relation"
+              name="Relaciones familiares"
+              parent="menu_hr_employee_data_catalogs"
+              action="hr_family_relation_action"
+              sequence="20"
+              groups="hr.group_hr_manager"/>
+
+    <menuitem id="menu_hr_license_type"
+              name="Tipos de licencia"
+              parent="menu_hr_employee_data_catalogs"
+              action="gn_hr_payroll_licenses.hr_license_type_action"
+              sequence="21"
+              groups="hr.group_hr_manager"/>
+
+    <menuitem id="menu_hr_document_type"
+              name="Tipos de documento"
+              parent="menu_hr_employee_data_catalogs"
+              action="gn_hr_payroll_employee_extras.hr_document_type_action"
+              sequence="22"
+              groups="hr.group_hr_manager"/>
+
+    <menuitem id="menu_hr_disability_type"
+              name="Tipos de discapacidad"
+              parent="menu_hr_employee_data_catalogs"
+              action="hr_disability_type_action"
+              sequence="23"
+              groups="hr.group_hr_manager"/>
+
+    <menuitem id="menu_hr_documents_download" 
+              name="Documentos de Empleados" 
+              parent="hr.hr_menu_hr_reports"
+              action="gn_hr_payroll_employee_extras.action_hr_documents_download_wizard"
+              sequence="15"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user"/>
+
+    <menuitem id="menu_hr_project"
+              name="Proyectos"
+              parent="menu_hr_employee_data_catalogs"
+              action="action_hr_project"
+              sequence="40"
+              groups="hr.group_hr_manager"/>
+
+    <menuitem id="menu_hr_assignment"
+              name="Asignaciones"
+              parent="menu_hr_employee_data_catalogs"
+              action="action_hr_assignment"
+              sequence="41"
+              groups="hr.group_hr_manager"/>
+
+    <menuitem id="menu_l10n_hn_health_catalogs"
+              name="Catálogos de salud"
+              parent="hr.menu_human_resources_configuration"
+              sequence="13"
+              groups="hr.group_hr_manager"/>
+
+    <menuitem id="menu_hr_sport"
+              name="Deportes"
+              parent="menu_l10n_hn_health_catalogs"
+              action="hr_sport_action"
+              sequence="10"
+              groups="hr.group_hr_manager"/>
+
+    <menuitem id="menu_hr_hobby"
+              name="Pasatiempos"
+              parent="menu_l10n_hn_health_catalogs"
+              action="hr_hobby_action"
+              sequence="20"
+              groups="hr.group_hr_manager"/>
+
+    <menuitem id="menu_hr_allergy"
+              name="Alergias"
+              parent="menu_l10n_hn_health_catalogs"
+              action="hr_allergy_action"
+              sequence="35"
+              groups="hr.group_hr_manager"/>
+
+    <menuitem id="menu_hr_disease"
+              name="Enfermedades"
+              parent="menu_l10n_hn_health_catalogs"
+              action="hr_disease_action"
+              sequence="40"
+              groups="hr.group_hr_manager"/>
+
+    <menuitem id="menu_hr_medication"
+              name="Medicamentos"
+              parent="menu_l10n_hn_health_catalogs"
+              action="hr_medication_action"
+              sequence="50"
+              groups="hr.group_hr_manager"/>
+
+    <menuitem id="menu_hr_surgery"
+              name="Cirugías"
+              parent="menu_l10n_hn_health_catalogs"
+              action="hr_surgery_action"
+              sequence="60"
+              groups="hr.group_hr_manager"/>
+
+    <!-- Salary Management (hijo de Nómina HN) -->
+    <menuitem id="menu_l10n_hn_salary_management" 
+              name="Gestión Salarial" 
+              parent="menu_l10n_hn_management"
+              sequence="10"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user"/>
+    
+    <menuitem id="menu_hr_salary_increase" 
+              name="Aumentos Salariales" 
+              parent="menu_l10n_hn_salary_management"
+              action="gn_hr_payroll_salary_management.action_hr_salary_increase"
+              sequence="10"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user"/>
+    
+    <menuitem id="menu_hr_historical_salary_increase" 
+              name="Historial de Aumentos" 
+              parent="menu_l10n_hn_salary_management"
+              action="gn_hr_payroll_salary_management.action_hr_historical_salary_increase"
+              sequence="20"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user"/>
+
+    <menuitem id="menu_l10n_hn_monthly_salary_history"
+              name="Historial salarial mensual"
+              parent="menu_l10n_hn_salary_management"
+              action="action_l10n_hn_employee_monthly_salary_history"
+              sequence="25"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user"/>
+    <menuitem id="menu_l10n_hn_monthly_salary_history_import"
+              name="Importar historial salarial"
+              parent="menu_l10n_hn_salary_management"
+              action="action_l10n_hn_monthly_salary_history_import_wizard"
+              sequence="26"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user"/>
+    <menuitem id="menu_l10n_hn_monthly_salary_history_generate"
+              name="Generar historial desde nómina"
+              parent="menu_l10n_hn_salary_management"
+              action="action_l10n_hn_monthly_salary_history_generate_wizard"
+              sequence="27"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user"/>
+    
+    <menuitem id="menu_salary_advance" 
+              name="Anticipos Salariales" 
+              parent="menu_l10n_hn_salary_management"
+              action="gn_hr_payroll_salary_management.action_salary_advance"
+              sequence="30"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user"/>
+    
+    <!-- Planillas (HE/TE/BD) -->
+    <menuitem id="menu_l10n_hn_payroll_sheet_root"
+              name="Planillas"
+              parent="menu_l10n_hn_management"
+              sequence="5"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user"/>
+    <menuitem id="menu_l10n_hn_payroll_sheet_my"
+              name="Mis Planillas"
+              parent="menu_l10n_hn_payroll_sheet_root"
+              action="action_l10n_hn_payroll_sheet_my"
+              sequence="10"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user"/>
+    <menuitem id="menu_l10n_hn_payroll_sheet_all"
+              name="Todas las Planillas"
+              parent="menu_l10n_hn_payroll_sheet_root"
+              action="action_l10n_hn_payroll_sheet"
+              sequence="20"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_user_manager_payroll"/>
+    <menuitem id="menu_hr_he_te_import"
+              name="Importar HHEE y TE"
+              parent="menu_l10n_hn_payroll_sheet_root"
+              action="action_hr_he_te_import_wizard"
+              sequence="30"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user"/>
+
+    <!-- Labor Management -->
+    <menuitem id="menu_l10n_hn_labor_management" 
+              name="Gestión Laboral" 
+              parent="menu_l10n_hn_management"
+              sequence="20"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user"/>
+    
+    <menuitem id="menu_l10n_hn_liquidation" 
+              name="Liquidaciones Laborales" 
+              parent="menu_l10n_hn_labor_management"
+              action="action_l10n_hn_liquidation"
+              sequence="10"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user"/>
+    
+    <menuitem id="menu_hr_breastfeeding_hours" 
+              name="Horas de Lactancia" 
+              parent="menu_l10n_hn_labor_management"
+              action="action_hr_breastfeeding_hours"
+              sequence="20"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user"/>
+
+    <menuitem id="menu_l10n_hn_reports" 
+              name="Reportes" 
+              parent="menu_l10n_hn_management"
+              sequence="27"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user"/>
+
+    <menuitem id="menu_l10n_hn_informes"
+              name="Reportes empleados"
+              parent="hr.hr_menu_hr_reports"
+              action="gn_hr_dashboard.action_gn_hr_main_dashboard"
+              sequence="10"
+              active="0"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user"/>
+
+    <menuitem id="menu_l10n_hn_employee_import" 
+              name="Import Employees" 
+              parent="menu_l10n_hn_management"
+              action="action_hr_employee_import_wizard"
+              sequence="30"
+              groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user"/>
+
+    <!-- Refuerza el título si la BD conservó «Honduras Payroll Gestión» tras renombrar en XML -->
+    <record id="menu_l10n_hn_management" model="ir.ui.menu">
+        <field name="name">Nómina HN</field>
+    </record>
+
+    <!-- Tipos de documento: ya en Empleados > Configuración > Catálogos de datos del empleado (menu_hr_document_type) -->
+    <record id="gn_hr_payroll_employee_extras.menu_gn_hr_document_type" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+</odoo>

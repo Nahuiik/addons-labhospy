@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_report_remission_inter_store" model="ir.actions.report">
+            <field name="name">Guía de remisión (traslado entre tiendas)</field>
+            <field name="model">stock.inter.store.transfer</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">l10n_hn_stock.report_remission_inter_store_template</field>
+            <field name="report_file">l10n_hn_stock.report_remission_inter_store_template</field>
+            <field name="binding_model_id" ref="model_stock_inter_store_transfer"/>
+            <field name="binding_type">report</field>
+            <field name="print_report_name">'Remision-Traslado-%s' % (object.hn_remission_number or object.name)</field>
+        </record>
+    </data>
+</odoo>

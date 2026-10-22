@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="dynamic_report_pdf_document">
+        <t t-call="web.html_container">
+            <t t-call="web.internal_layout">
+                <div class="page">
+                    <h2><t t-esc="o.name"/></h2>
+                    <p>
+                        <strong>Company:</strong>
+                        <t t-esc="o.company_id.display_name"/>
+                        <br/>
+                        <strong>Period:</strong>
+                        <t t-esc="o.date_start"/>
+                        -
+                        <t t-esc="o.date_end"/>
+                    </p>
+                    <table class="table table-sm o_main_table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Fecha</th>
+                                <th>Número</th>
+                                <th>Producto</th>
+                                <th>Categoría</th>
+                                <th>Cliente</th>
+                                <th>Comercial</th>
+                                <th class="text-end">Cantidad</th>
+                                <th class="text-end">Precio Unitario</th>
+                                <th class="text-end">Gravado</th>
+                                <th class="text-end">Exento</th>
+                                <th class="text-end">Impuestos</th>
+                                <th class="text-end">Subtotal</th>
+                                <th class="text-end">Descuentos</th>
+                                <th class="text-end">Total</th>
+                                <th class="text-end">Costo Unitario</th>
+                                <th class="text-end">Costo Total</th>
+                                <th class="text-end">Utilidad Bruta</th>
+                                <th class="text-end">% Utilidad</th>
+                                <th>Estado Pago</th>
+                                <th>Estado Factura</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="o.line_ids" t-as="line">
+                                <tr>
+                                    <td class="text-end"><t t-esc="line.sequence"/></td>
+                                    <td><t t-esc="line.document_date"/></td>
+                                    <td><t t-esc="line.document_name"/></td>
+                                    <td><t t-esc="line.product_name"/></td>
+                                    <td><t t-esc="line.category_name"/></td>
+                                    <td><t t-esc="line.partner_name"/></td>
+                                    <td><t t-esc="line.salesperson_name"/></td>
+                                    <td class="text-end"><t t-esc="line.quantity"/></td>
+                                    <td class="text-end"><t t-esc="line.price_unit"/></td>
+                                    <td class="text-end"><t t-esc="line.taxable_amount"/></td>
+                                    <td class="text-end"><t t-esc="line.exempt_amount"/></td>
+                                    <td class="text-end"><t t-esc="line.tax_amount"/></td>
+                                    <td class="text-end"><t t-esc="line.subtotal"/></td>
+                                    <td class="text-end"><t t-esc="line.discount_amount"/></td>
+                                    <td class="text-end"><t t-esc="line.total"/></td>
+                                    <td class="text-end"><t t-esc="line.cost_unit"/></td>
+                                    <td class="text-end"><t t-esc="line.cost_total"/></td>
+                                    <td class="text-end"><t t-esc="line.margin_amount"/></td>
+                                    <td class="text-end"><t t-esc="line.margin_percent"/></td>
+                                    <td><t t-esc="line.status_label"/></td>
+                                    <td><t t-esc="line.invoice_state_label"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <div class="mt-3">
+                        <strong>Total net:</strong> <t t-esc="o.total_net"/>
+                        <br/>
+                        <strong>Total tax:</strong> <t t-esc="o.total_tax"/>
+                        <br/>
+                        <strong>Total amount:</strong> <t t-esc="o.total_amount"/>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <report
+        id="dynamic_report_pdf"
+        model="dynamic.report"
+        string="Dynamic Report"
+        report_type="qweb-pdf"
+        name="custom_dynamic_reports.dynamic_report_pdf_document"
+        file="custom_dynamic_reports.dynamic_report_pdf_document"
+    />
+
+    <report
+        id="dynamic_report_xlsx"
+        model="dynamic.report"
+        string="Dynamic Report Excel"
+        report_type="xlsx"
+        name="custom_dynamic_reports.dynamic_report_xlsx"
+        file="dynamic_report"
+    />
+</odoo>

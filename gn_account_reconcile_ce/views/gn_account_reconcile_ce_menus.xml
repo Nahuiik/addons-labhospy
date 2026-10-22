@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_gn_ce_reconcile_workspace_client" model="ir.actions.client">
+        <field name="name">Workspace conciliación CE (inteligente)</field>
+        <field name="tag">gn_ce_reconcile_workspace</field>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem id="menu_gn_ce_reconcile_workspace_root"
+              name="Conciliación CE"
+              parent="account.menu_finance"
+              sequence="38"/>
+
+    <menuitem id="menu_gn_ce_reconcile_workspace"
+              name="Workspace matching inteligente"
+              parent="menu_gn_ce_reconcile_workspace_root"
+              action="action_gn_ce_reconcile_workspace_client"
+              sequence="5"/>
+</odoo>

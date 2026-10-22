@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+		<record model="ir.ui.view" id="view_account_journal_form_inherit_is_retention">
+			<field name="name">account.journal.banks.sequence.form</field>
+			<field name="model">account.journal</field>
+			<field name="inherit_id" ref="account.view_account_journal_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//notebook/page[@name='bank_account']/group/group[1]" position="inside">
+					<field name="is_retention"/>
+					<field name="retention_seq"/>
+				</xpath>
+			</field>
+		</record>
+    </data>
+</odoo>

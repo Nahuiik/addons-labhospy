@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="product.stock.balance.locationsHierarchyWidgetContainer" owl="1">
+        <div id="psb_table" class="table-responsive">
+            <t t-if="!state.locationsElements">
+                <p>
+                    <i> ...locations for this product are not found</i>
+                </p>
+                <div class="d-flex" t-if="this.allowExport or this.showDates or this.showTotal">
+                    <div t-attf-class="col-lg-#{this.colNum} col-md-#{this.colNum} col-sm-12 d-flex" t-if="this.showDates">
+                        <div class="ml8 psb-datepicker">
+                            <div t-ref="rootStart">
+                                <input t-ref="start-date" type="text" class="o_input cursor-pointer" autocomplete="off" t-att-data-field="this.dateStartLocal" placeholder="start date"/>
+                            </div>
+                        </div>
+                        <div class="ml4 mr4">-</div>
+                        <div class="ml8 psb-datepicker">
+                            <div t-ref="rootEnd">
+                                <input t-ref="end-date" type="text" class="o_input cursor-pointer" autocomplete="off" t-att-data-field="this.dateEndLocal" placeholder="end date"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+            <t t-else="">
+                <div class="d-flex" t-if="this.allowExport or this.showDates or this.showTotal">
+                    <div t-attf-class="col-lg-#{this.colNum} col-md-#{this.colNum} col-sm-12 d-flex" t-if="this.showDates">
+                        <div class="ml8 psb-datepicker">
+                            <div t-ref="rootStart">
+                                <input t-ref="start-date" type="text" class="o_input cursor-pointer" autocomplete="off" t-att-data-field="this.dateStartLocal" placeholder="start date"/>
+                            </div>
+                        </div>
+                        <div class="ml4 mr4">-</div>
+                        <div class="ml8 psb-datepicker">
+                            <div t-ref="rootEnd">
+                                <input t-ref="end-date" type="text" class="o_input cursor-pointer" autocomplete="off" t-att-data-field="this.dateEndLocal" placeholder="end date"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div t-if="showTotal" t-attf-class="col-lg-#{this.colNum} col-md-#{this.colNum} #{this.showDates and 'psb-right' or ''} col-sm-12 d-flex">
+                        <div>
+                            On Hand: <span t-out="this.state.qty_available" title="Default warehouse"/> / <span t-out="this.state.qty_available_total" title="All available warehouses"/>
+                        </div>
+                    </div>
+                    <div t-if="this.allowExport" t-attf-class="col-lg-#{this.colNum} col-md-#{this.colNum} col-sm-12 d-flex psb-right">
+                        <button class="btn btn-secondary" t-on-click="() => this._onExport(this.props)">Export</button>
+                    </div>
+                </div>
+                <table class="table table-condensed">
+                    <thead>
+                        <tr class="active">
+                            <th name="th_location">
+                                <a>
+                                    <span class="fa fa-angle-double-down text-info psb_pointer o_expand_all" title="Expand all levels" t-on-click.stop.prevent="(ev) => this._onclickExpandAll(ev)"/>
+                                </a>
+                                Location
+                            </th>
+                            <th name="th_onhand">On hand</th>
+                            <th name="th_free_to_use">Free To Use</th>
+                            <th name="th_reserved">Reserved</th>
+                            <th name="th_forecast">Forecast</th>
+                            <th name="th_incom">Incoming</th>
+                            <th name="th_out">Outgoing</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="state.locationsElements" t-as="el" t-key="el.id">
+                            <tr class="o_data_row text-default tr_location_class" t-att-data-id="el.id" t-attf-level="#{el.level}" t-attf-location="#{el.location_id}">
+                                <td name="td_location" t-attf-style="padding-left:#{el.level * 15}px;" class="o_data_cell">
+                                    <span t-attf-class="fa fa-chevron-up text-info mr4 psb_pointer o_hide #{((el.no_children) ? 'psb_hidden' : '')}" t-attf-location="#{el.location_id}" t-attf-id="#{el.id}" t-on-click.stop.prevent="(ev) => this._onclickHide(ev)"/>
+                                    <span t-attf-class="fa fa-angle-right mr4 #{((!el.no_children) ? 'psb_hidden' : '')}"/>
+                                    <t t-out="el.name"/>
+                                </td>
+                                <td name="td_onhand">
+                                    <t t-out="qtyFormatFloat(el.qty_available)"/>
+                                </td>
+                                <td name="td_free_to_use">
+                                    <t t-out="qtyFormatFloat(el.free_qty)"/>
+                                </td>
+                                <td name="td_reserved">
+                                    <t t-out="qtyFormatFloat(el.reserved_qty)"/>
+                                </td>
+                                <td name="td_forecast">
+                                    <t t-out="qtyFormatFloat(el.virtual_available)"/>
+                                </td>
+                                <td name="td_incom">
+                                    <t t-out="qtyFormatFloat(el.incoming_qty)"/>
+                                </td>
+                                <td name="td_out">
+                                    <t t-out="qtyFormatFloat(el.outgoing_qty)"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </t>
+        </div>
+    </t>
+
+</templates>

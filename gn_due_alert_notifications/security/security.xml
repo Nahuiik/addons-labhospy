@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="module_category_due_alert_notif" model="ir.module.category">
+        <field name="name">Notificaciones de Vencimiento</field>
+        <field name="sequence">22</field>
+    </record>
+
+    <record id="privilege_due_alert_notif" model="res.groups.privilege">
+        <field name="name">Alertas visuales de vencimiento</field>
+        <field name="category_id" ref="module_category_due_alert_notif"/>
+    </record>
+
+    <record id="group_due_alert_notif_user" model="res.groups">
+        <field name="name">Usuario</field>
+        <field name="privilege_id" ref="privilege_due_alert_notif"/>
+        <field name="implied_ids" eval="[(4, ref('account.group_account_invoice'))]"/>
+    </record>
+
+    <record id="group_due_alert_notif_manager" model="res.groups">
+        <field name="name">Administrador</field>
+        <field name="privilege_id" ref="privilege_due_alert_notif"/>
+        <field name="implied_ids" eval="[(4, ref('group_due_alert_notif_user'))]"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_gn_crm_checklist_user,gn.crm.checklist.user,model_gn_crm_checklist,group_crm_checklist_user,1,0,0,0
+access_gn_crm_checklist_manager,gn.crm.checklist.manager,model_gn_crm_checklist,group_crm_checklist_manager,1,1,1,1
+access_gn_crm_checklist_item_user,gn.crm.checklist.item.user,model_gn_crm_checklist_item,group_crm_checklist_user,1,0,0,0
+access_gn_crm_checklist_item_manager,gn.crm.checklist.item.manager,model_gn_crm_checklist_item,group_crm_checklist_manager,1,1,1,1
+access_gn_crm_checklist_line_user,gn.crm.checklist.line.user,model_gn_crm_checklist_line,group_crm_checklist_user,1,1,0,0
+access_gn_crm_checklist_line_manager,gn.crm.checklist.line.manager,model_gn_crm_checklist_line,group_crm_checklist_manager,1,1,1,1
+access_gn_crm_checklist_wizard_user,gn.crm.checklist.wizard.user,model_gn_crm_checklist_wizard,group_crm_checklist_user,1,1,1,1
+access_crm_lead_checklist_user,crm.lead.checklist.user,model_crm_lead,group_crm_checklist_user,1,1,0,0
+
+

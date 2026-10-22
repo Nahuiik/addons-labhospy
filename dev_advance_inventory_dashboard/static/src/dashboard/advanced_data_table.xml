@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="dev_advance_inventory_dashboard.AdvancedDataTable">
+        <div class="inv-adv-table">
+            <div class="inv-adv-table__toolbar">
+                <input type="search" class="form-control form-control-sm inv-table-search"
+                       placeholder="Buscar…" t-att-value="state.search"
+                       t-on-input="onSearchInput"/>
+                <div class="inv-adv-table__toolbar-actions">
+                    <button type="button" class="inv-cc-btn" t-on-click="() => state.showColumnPicker = !state.showColumnPicker">
+                        Columnas
+                    </button>
+                    <button type="button" class="inv-cc-btn" t-on-click="exportCsv">CSV</button>
+                    <button type="button" class="inv-cc-btn" t-on-click="exportExcel">Excel</button>
+                </div>
+            </div>
+
+            <t t-if="state.showColumnPicker">
+                <div class="inv-adv-table__column-picker">
+                    <t t-foreach="state.columns" t-as="col" t-key="col.key">
+                        <label>
+                            <input type="checkbox" t-att-checked="state.visibleColumnKeys.includes(col.key)"
+                                   t-on-change="() => this.toggleColumn(col.key)"/>
+                            <t t-esc="col.label"/>
+                        </label>
+                    </t>
+                </div>
+            </t>
+
+            <t t-if="state.loading">
+                <div class="inv-skeleton inv-skeleton--card m-2"/>
+            </t>
+            <t t-elif="state.error">
+                <div class="alert alert-danger m-2" t-esc="state.error"/>
+            </t>
+            <t t-elif="!state.rows.length">
+                <div class="text-muted text-center p-3">Sin registros</div>
+            </t>
+            <t t-else="">
+                <div class="table-responsive inv-adv-table__scroll">
+                    <table class="table table-sm table-hover inv-table mb-0">
+                        <thead>
+                            <tr>
+                                <th style="width:32px">
+                                    <input type="checkbox" t-att-checked="allSelected"
+                                           t-on-change="toggleSelectAll"/>
+                                </th>
+                                <t t-foreach="visibleColumns" t-as="col" t-key="col.key">
+                                    <th>
+                                        <span t-att-class="col.sortable ? 'inv-adv-table__sortable' : ''"
+                                              t-on-click="() => this.toggleSort(col)">
+                                            <t t-esc="col.label"/>
+                                            <t t-if="state.sortField === col.key">
+                                                <i t-att-class="state.sortDir === 'asc' ? 'fa fa-sort-asc' : 'fa fa-sort-desc'"/>
+                                            </t>
+                                        </span>
+                                        <t t-if="col.filterable">
+                                            <input type="text" class="form-control form-control-sm mt-1"
+                                                   t-att-placeholder="col.label"
+                                                   t-att-value="state.columnFilters[col.key] or ''"
+                                                   t-on-input="(ev) => this.onColumnFilter(col, ev)"/>
+                                        </t>
+                                    </th>
+                                </t>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="state.rows" t-as="row" t-key="row.id">
+                                <tr t-on-click="() => this.onRowClick(row)">
+                                    <td t-on-click.stop="">
+                                        <input type="checkbox" t-att-checked="isSelected(row.id)"
+                                               t-on-change="() => this.toggleSelectRow(row.id)"/>
+                                    </td>
+                                    <t t-foreach="visibleColumns" t-as="col" t-key="col.key">
+                                        <td>
+                                            <t t-if="col.key === 'state'">
+                                                <span class="badge text-bg-secondary" t-esc="row.state"/>
+                                            </t>
+                                            <t t-else="" t-esc="cellValue(row, col)"/>
+                                        </td>
+                                    </t>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+
+            <div class="inv-table-toolbar">
+                <span class="small text-muted">
+                    <t t-esc="state.total"/> registros
+                    <t t-if="state.selectedIds.length"> · <t t-esc="state.selectedIds.length"/> seleccionados</t>
+                </span>
+                <div class="inv-table-pager">
+                    <button type="button" class="inv-cc-btn" t-on-click="() => this.changePage(-1)">‹</button>
+                    <span t-esc="state.page"/> / <span t-esc="state.pages"/>
+                    <button type="button" class="inv-cc-btn" t-on-click="() => this.changePage(1)">›</button>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

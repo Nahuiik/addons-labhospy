@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.actions.act_window" id="action_hr_isr">
+        <field name="name">Impuesto Sobre Renta (Legacy)</field>
+        <field name="res_model">hr.isr</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Crear Deducción de ISR</p>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_isr_form_view">
+        <field name="name">hr.isr.form.view</field>
+        <field name="model">hr.isr</field>
+        <field name="arch" type="xml">
+            <form string="Impuesto Sobre Renta">
+                <header>
+                    <button name="set_isr" type="object" string="Validar" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="set_to_draft" type="object" string="Volver a Borrador"
+                            invisible="state != 'validated'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,validated" nolabel="1"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="state != 'draft'"/>
+                            <field name="exempt_salary" readonly="state != 'draft'"/>
+                        </group>
+                        <group>
+                            <field name="medical_expense" readonly="state != 'draft'"/>
+                            <field name="medical_expense_te" readonly="state != 'draft'"/>
+                            <field name="medical_expense_t" readonly="state != 'draft'"/>
+                            <field name="amount_rap" readonly="state != 'draft'"/>
+                            <field name="amount_ivm" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Tabla Progresiva">
+                            <field name="isr_range_ids">
+                                <list editable="top">
+                                    <field name="amount_from"/>
+                                    <field name="amount_to"/>
+                                    <field name="rate"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_isr_tree_view">
+        <field name="name">hr.isr.tree.view</field>
+        <field name="model">hr.isr</field>
+        <field name="arch" type="xml">
+            <list string="Impuesto Sobre Renta">
+                <field name="name"/>
+                <field name="medical_expense"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+</odoo>

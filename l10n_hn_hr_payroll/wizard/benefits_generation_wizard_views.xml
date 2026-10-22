@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Wizard for 13th Month Generation -->
+    <record id="view_l10n_hn_thirteenth_month_generation_wizard" model="ir.ui.view">
+        <field name="name">l10n.hn.thirteenth.month.generation.wizard</field>
+        <field name="model">l10n.hn.benefits.generation.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Generar 13° Mes">
+                <group>
+                    <field name="benefit_type" invisible="1"/>
+                    <field name="year" required="1"/>
+                </group>
+                <footer>
+                    <button string="Generar" name="action_generate" type="object" class="btn-primary"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    
+    <record id="action_l10n_hn_thirteenth_month_generation_wizard" model="ir.actions.act_window">
+        <field name="name">Generar 13° Mes</field>
+        <field name="res_model">l10n.hn.benefits.generation.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_benefit_type': 'thirteenth'}</field>
+    </record>
+    
+    <!-- Wizard for 14th Month Generation -->
+    <record id="view_l10n_hn_fourteenth_month_generation_wizard" model="ir.ui.view">
+        <field name="name">l10n.hn.fourteenth.month.generation.wizard</field>
+        <field name="model">l10n.hn.benefits.generation.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Generar 14° Mes">
+                <group>
+                    <field name="benefit_type" invisible="1"/>
+                    <field name="year" required="1"/>
+                </group>
+                <footer>
+                    <button string="Generar" name="action_generate" type="object" class="btn-primary"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    
+    <record id="action_l10n_hn_fourteenth_month_generation_wizard" model="ir.actions.act_window">
+        <field name="name">Generar 14° Mes</field>
+        <field name="res_model">l10n.hn.benefits.generation.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_benefit_type': 'fourteenth'}</field>
+    </record>
+</odoo>

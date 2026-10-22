@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="labhospy_sobre_nosotros" model="ir.ui.view">
+        <field name="name">LABHOSPY: Sobre nosotros</field>
+        <field name="type">qweb</field>
+        <field name="mode">extension</field>
+        <field name="inherit_id" search="[('key', '=', 'website.sobre-nosotros')]" model="ir.ui.view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='wrap']" position="replace">
+                <div id="wrap" class="oe_structure labhospy-about">
+
+                    <!-- Banner -->
+                    <section class="labhospy-about-banner p-0">
+                        <img src="/website_labhospy/static/src/img/about/banner-sobre-nosotros.jpg"
+                             alt="LABHOSPY - Suministros de laboratorio"
+                             class="img-fluid w-100"/>
+                    </section>
+
+                    <!-- Intro -->
+                    <section class="pt48 pb32">
+                        <div class="container text-center labhospy-section-title">
+                            <h3>LABHOSPY</h3>
+                            <h4 class="labhospy-about-subtitle">LABORATORIES AND HOSPITAL SUPPLY</h4>
+                            <p class="lead text-start text-lg-center col-lg-10 mx-auto mt-4 mb-0">
+                                Somos una empresa que opera en Honduras como distribuidores de equipos para hospitales y laboratorios, accesorios y materiales de enseñanza, reactivos y sustancias químicas, adicionalmente contamos con profesionales con amplia experiencia y compromiso en proveer servicio técnico de calidad, instalación, capacitación, soporte, reparación y mantenimiento de todos los equipos que distribuimos.
+                            </p>
+                        </div>
+                    </section>
+
+                    <!-- Nuestra Historia -->
+                    <section class="labhospy-about-history py48">
+                        <div class="container">
+                            <div class="row align-items-center g-4">
+                                <div class="col-lg-6">
+                                    <h2 class="labhospy-about-heading">Nuestra Historia</h2>
+                                    <p>LABHOSPY fue fundada en 1955 por el Doctor Jorge Alberto Gómez Andino (Q.D.D.G) y se constituyó como sociedad en 1978, somos una empresa sólida, líder y con amplia experiencia, siendo importadores directos de los productos que distribuimos, representamos varias empresas de gran prestigio a nivel internacional. Contamos con tres oficinas dos en Tegucigalpa y una en San Pedro Sula, primera y segunda ciudades más importantes del país.</p>
+                                    <p class="mb-0">Somos una compañía que se ha venido adaptando a las innovaciones y cambios en los mercados globales a fin de atender a nuestra clientela con eficiencia calidad y compromiso.</p>
+                                </div>
+                                <div class="col-lg-6 text-center">
+                                    <img src="/website_labhospy/static/src/img/about/imagen-historia.jpg"
+                                         alt="Historia LABHOSPY"
+                                         class="img-fluid rounded shadow-sm labhospy-about-history-img"/>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Misión y Visión -->
+                    <section class="pb48">
+                        <div class="container">
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <div class="labhospy-about-mv-card h-100">
+                                        <h2>Misión</h2>
+                                        <p>Proveer a nuestros clientes productos y servicios de calidad óptima, sumada la asistencia técnica profesional oportuna y personalizada. Satisfaciendo a nuestros clientes a través del enfoque de una filosofía de respeto y honestidad, brindando soluciones innovadoras que contribuyan al desarrollo social sin perder de vista la rentabilidad y crecimiento institucional que requieren sus accionistas.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="labhospy-about-mv-card h-100">
+                                        <h2>Visión</h2>
+                                        <p>Ser la mejor opción en la distribución y venta de productos para laboratorio, salud y afines, buscando estar siempre a la vanguardia con los cambios globales, aceptando los retos que nos plantean las constantes innovaciones de un mundo en permanente cambio.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Sectores -->
+                    <section class="labhospy-about-sectors py48">
+                        <div class="container">
+                            <div class="row align-items-center g-4">
+                                <div class="col-lg-6">
+                                    <h2 class="labhospy-about-heading">Sectores que se atienden</h2>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <ul class="labhospy-about-list">
+                                                <li>Sector Agrícola</li>
+                                                <li>Sector Acuícola</li>
+                                                <li>Sector Educacional</li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <ul class="labhospy-about-list">
+                                                <li>Sector Industrial</li>
+                                                <li>Sector de Investigación</li>
+                                                <li>Sector Energético</li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <ul class="labhospy-about-list">
+                                                <li>Sector Forestal</li>
+                                                <li>Sector Minero</li>
+                                                <li>Sector Salud</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 text-center">
+                                    <img src="/website_labhospy/static/src/img/about/sectores.png"
+                                         alt="Sectores LABHOSPY"
+                                         class="img-fluid"/>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Valores -->
+                    <section class="pt48 pb64">
+                        <div class="container">
+                            <div class="text-center labhospy-section-title mb-5">
+                                <h2>Valores</h2>
+                            </div>
+                            <div class="row g-4 justify-content-center">
+                                <div class="col-6 col-md-4 col-lg">
+                                    <div class="labhospy-value-card">
+                                        <img src="/website_labhospy/static/src/img/about/icon-equipo.png" alt="Trabajo en Equipo" width="120" height="120"/>
+                                        <h4>Trabajo en Equipo</h4>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-4 col-lg">
+                                    <div class="labhospy-value-card">
+                                        <img src="/website_labhospy/static/src/img/about/icon-transparencia.png" alt="Transparencia y Honestidad" width="120" height="120"/>
+                                        <h4>Transparencia y Honestidad</h4>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-4 col-lg">
+                                    <div class="labhospy-value-card">
+                                        <img src="/website_labhospy/static/src/img/about/icon-etica.png" alt="Ética" width="120" height="120"/>
+                                        <h4>Ética</h4>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-4 col-lg">
+                                    <div class="labhospy-value-card">
+                                        <img src="/website_labhospy/static/src/img/about/icon-responsabilidad.png" alt="Responsabilidad" width="120" height="120"/>
+                                        <h4>Responsabilidad</h4>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-4 col-lg">
+                                    <div class="labhospy-value-card">
+                                        <img src="/website_labhospy/static/src/img/about/icon-respeto.png" alt="Respeto" width="120" height="120"/>
+                                        <h4>Respeto</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- CTA -->
+                    <section class="labhospy-about-cta py48">
+                        <div class="container text-center">
+                            <h2 class="mb-3">¿Necesita asesoría o cotización?</h2>
+                            <p class="lead mb-4">Contamos con personal calificado para orientarle en equipos e insumos de laboratorio.</p>
+                            <a href="/contactus" class="btn btn-primary btn-lg labhospy-btn-cta px-5 me-2 mb-2">Contáctanos</a>
+                            <a href="/contactus?subject=Solicitud%20de%20cotizaci%C3%B3n" class="btn btn-outline-primary btn-lg px-5 mb-2 labhospy-about-cta-outline">Solicitar cotización</a>
+                        </div>
+                    </section>
+
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <function model="website.page" name="write">
+        <value model="website.page" search="[('url', '=', '/about-us')]"/>
+        <value eval="{'website_meta_title': 'Sobre Nosotros | LABHOSPY', 'name': 'Sobre nosotros'}"/>
+    </function>
+</odoo>

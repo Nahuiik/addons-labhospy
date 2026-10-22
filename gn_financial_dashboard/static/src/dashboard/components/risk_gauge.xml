@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_financial_dashboard.RiskGauge">
+        <section class="gn-fd-panel gn-fd-gauge">
+            <header class="gn-fd-panel__head">
+                <span><i class="fa fa-dashboard me-2"/>Indicador de riesgo financiero</span>
+            </header>
+            <div class="gn-fd-gauge__chart">
+                <svg viewBox="0 0 200 130" preserveAspectRatio="xMidYMid meet">
+                    <!-- Bandas de color -->
+                    <t t-foreach="bands" t-as="b" t-key="b_index">
+                        <path t-att-d="arcPath(b.from, b.to)"
+                              fill="none"
+                              t-att-stroke="b.color"
+                              t-att-stroke-width="geometry.stroke"
+                              stroke-linecap="butt"/>
+                    </t>
+                    <!-- Aguja -->
+                    <line t-att-x1="geometry.cx" t-att-y1="geometry.cy"
+                          t-att-x2="needlePoint.x" t-att-y2="needlePoint.y"
+                          stroke="#111827" stroke-width="3" stroke-linecap="round"/>
+                    <circle t-att-cx="geometry.cx" t-att-cy="geometry.cy" r="6" fill="#111827"/>
+                    <!-- Valor central -->
+                    <text t-att-x="geometry.cx" t-att-y="125" text-anchor="middle"
+                          font-size="14" font-weight="700" fill="#111827">
+                        <t t-esc="Math.round(value)"/>/100
+                    </text>
+                </svg>
+            </div>
+            <div t-att-class="'gn-fd-gauge__label gn-fd-gauge__label--' + levelKey">
+                <i class="fa fa-circle me-2"/>Riesgo: <strong t-esc="levelLabel"/>
+            </div>
+        </section>
+    </t>
+
+</templates>

@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_d_product_brand_public,d_product_brand_public,model_d_product_brand,base.group_public,1,0,0,0
+access_d_product_brand_portal,d_product_brand_portal,model_d_product_brand,base.group_portal,1,0,0,0
+access_d_product_brand_user,d_product_brand_user,model_d_product_brand,base.group_user,1,0,0,0
+access_d_product_brand_salesman,d_product_brand_salesman,model_d_product_brand,sales_team.group_sale_salesman,1,0,0,0
+access_d_product_brand_manager,d_product_brand_manager,model_d_product_brand,sales_team.group_sale_manager,1,1,1,1

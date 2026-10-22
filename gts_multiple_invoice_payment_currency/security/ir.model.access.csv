@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_payment_invoice_line,access_payment_invoice_line,model_payment_invoice_line,base.group_user,1,1,1,1
+access_account_payment_writeoff_user,models.account.payment.writeoff,model_account_payment_writeoff,base.group_user,1,1,1,1
+access_payment_writeoff_user,models.payment.writeoff,model_payment_writeoff,base.group_user,1,1,1,1

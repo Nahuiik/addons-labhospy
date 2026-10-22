@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista de formulario del wizard de reporte -->
+    <record id="view_advance_report_wizard_form" model="ir.ui.view">
+        <field name="name">account.advance.report.wizard.form</field>
+        <field name="model">account.advance.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Reporte de Abonos/Anticipos">
+                <group>
+                    <group>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                        <field name="partner_type"/>
+                        <field name="partner_id"/>
+                    </group>
+                    <group>
+                        <field name="company_id"/>
+                        <field name="currency_id"/>
+                        <field name="state_filter"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_generate_report" string="Generar Reporte" type="object" class="oe_highlight"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vista de lista de resultados -->
+    <record id="view_advance_report_result_tree" model="ir.ui.view">
+        <field name="name">account.advance.report.result.tree</field>
+        <field name="model">account.advance.report.result</field>
+        <field name="arch" type="xml">
+            <list string="Resultados del Reporte" create="0" delete="0" edit="0">
+                <field name="payment_id" string="Abono/Anticipo"/>
+                <field name="partner_id" string="Cliente"/>
+                <field name="date"/>
+                <field name="amount" widget="monetary" options="{'currency_field': 'currency_id'}" sum="Total Recibido"/>
+                <field name="applied" widget="monetary" options="{'currency_field': 'currency_id'}" sum="Total Aplicado"/>
+                <field name="available" widget="monetary" options="{'currency_field': 'currency_id'}" sum="Total Disponible"/>
+                <field name="state"/>
+                <field name="currency_id" invisible="1"/>
+            </list>
+        </field>
+    </record>
+    
+    <!-- Vista de formulario de resultados (solo lectura) -->
+    <record id="view_advance_report_result_form" model="ir.ui.view">
+        <field name="name">account.advance.report.result.form</field>
+        <field name="model">account.advance.report.result</field>
+        <field name="arch" type="xml">
+            <form create="0" delete="0" edit="0">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="payment_id"/>
+                            <field name="partner_id"/>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                            <field name="amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="applied" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="available" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="state"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acción para el wizard de reporte -->
+    <record id="action_advance_report_wizard" model="ir.actions.act_window">
+        <field name="name">Reporte de Abonos/Anticipos</field>
+        <field name="res_model">account.advance.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{}</field>
+    </record>
+
+    <!-- Acción para reporte de anticipos de clientes -->
+    <record id="action_advance_report_wizard_customers" model="ir.actions.act_window">
+        <field name="name">Reporte de Abonos/Anticipos de Clientes</field>
+        <field name="res_model">account.advance.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_partner_type': 'customer'}</field>
+    </record>
+
+    <!-- Acción para reporte de anticipos de proveedores -->
+    <record id="action_advance_report_wizard_vendors" model="ir.actions.act_window">
+        <field name="name">Reporte de Abonos/Anticipos de Proveedores</field>
+        <field name="res_model">account.advance.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_partner_type': 'supplier'}</field>
+    </record>
+
+    <!-- Menú para reportes de anticipos de clientes -->
+    <menuitem id="menu_advance_report_customers"
+              name="Reporte de Abonos/Anticipos"
+              parent="account.menu_finance_receivables"
+              action="action_advance_report_wizard_customers"
+              sequence="20"/>
+
+    <!-- Menú para reportes de anticipos de proveedores -->
+    <menuitem id="menu_advance_report_vendors"
+              name="Reporte de Abonos/Anticipos"
+              parent="account.menu_finance_payables"
+              action="action_advance_report_wizard_vendors"
+              sequence="20"/>
+</odoo>

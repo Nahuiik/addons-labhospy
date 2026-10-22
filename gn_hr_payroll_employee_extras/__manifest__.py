@@ -1,0 +1,52 @@
+# -*- coding: utf-8 -*-
+# © 2026 Grupo Nahuiik
+# License: LGPL-3
+
+{
+    "name": "Payroll Employee Extras (shared)",
+    "summary": "Documentos de entrada y conceptos recurrentes reutilizables (HR/Payroll)",
+    "version": "19.0.1.0.89",
+    "category": "Human Resources/Payroll",
+    "author": "Grupo Nahuiik",
+    "license": "LGPL-3",
+    "depends": [
+        "mail",
+        "mass_mailing",
+        "auth_signup",
+        "l10n_hn_payroll_base",
+        "contacts",
+    ],
+    "data": [
+        "data/ir_config_parameter_data.xml",
+        "data/hr_payroll_hide_employee_menus.xml",
+        "security/gn_hr_payroll_groups.xml",
+        "security/ir.model.access.csv",
+        "security/ir_rules.xml",
+        "data/gn_hr_correos_menus.xml",
+        "data/gn_hr_ecosystem_mail_templates.xml",
+        "views/hr_document_views.xml",
+        "views/res_bank_views.xml",
+        "views/res_partner_bank_views.xml",
+        "views/hr_employee_views.xml",
+        "views/hr_employee_filter_views.xml",
+        "views/hr_version_views.xml",
+        "views/hr_employee_recurring_concept_views.xml",
+        "views/contacts_menu_views.xml",
+        "views/hr_payslip_input_views.xml",
+        "views/hr_payslip_run_views.xml",
+        "views/hr_payslip_views.xml",
+        "views/res_config_settings_views.xml",
+        "wizard/hr_documents_download_wizard_views.xml",
+        "wizard/hr_recurring_concept_assign_wizard_views.xml",
+        "wizard/hr_recurring_concept_report_views.xml",
+        "wizard/gn_mail_mail_preview_wizard_views.xml",
+        "data/gn_hr_payroll_mail_report_data.xml",
+        "views/gn_menus.xml",
+    ],
+    "external_dependencies": {
+        "python": ["openpyxl"],
+    },
+    "installable": True,
+    "application": False,
+    "auto_install": False,
+}

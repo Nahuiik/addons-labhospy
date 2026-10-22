@@ -1,0 +1,1672 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* gn_report_account
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-06 20:25+0000\n"
+"PO-Revision-Date: 2022-07-06 20:25+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "% Net"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "% UB"
+msgstr ""
+
+#. module: gn_report_account
+#: model:ir.model.fields.selection,name:gn_report_account.selection__retention_report_wizard__report_type__1_per
+msgid "1% Retention"
+msgstr "1% Retención"
+
+#. module: gn_report_account
+#: model:ir.model.fields.selection,name:gn_report_account.selection__retention_report_wizard__report_type__12_per
+msgid "12.5% Retention"
+msgstr "12.5% Retención"
+
+#. module: gn_report_account
+#: model:ir.model.fields.selection,name:gn_report_account.selection__retention_report_wizard__report_type__15_per
+msgid "15% Retención"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/advance_not_applied_xls.py:0
+#, python-format
+msgid "ADVANCE NOT APPLIED"
+msgstr "ANTICIPO NO APLICADO"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/cust_acc_statement_xls.py:0
+#, python-format
+msgid "Account Status"
+msgstr "Estado de la cuenta"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/advance_not_applied_xls.py:0
+#, python-format
+msgid "Accounting Accounts"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "Administrative"
+msgstr "Administrativo"
+
+#. module: gn_report_account
+#: model:ir.model.fields,field_description:gn_report_account.field_gn_report_account_commission_wizard__per_administrative
+msgid "Administrative (%)"
+msgstr "Administrativo (%)"
+
+#. module: gn_report_account
+#: model:ir.actions.report,name:gn_report_account.action_advance_not_applied_xls
+msgid "Advance not Applied XLS"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/advance_not_applied_xls.py:0
+#, python-format
+msgid "Amount Applied"
+msgstr "Monto Aplicado"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/cust_acc_statement_xls.py:0
+#, python-format
+msgid "Amount Invoice"
+msgstr "Monto de factura"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/cust_acc_statement_xls.py:0
+#, python-format
+msgid "Amount Payment"
+msgstr "Monto de pago"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/advance_not_applied_xls.py:0
+#: code:addons/gn_report_account/reports/supplier_account_state_xls.py:0
+#, python-format
+msgid "Balance"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/retention_report.py:0
+#, python-format
+msgid "Base"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#, python-format
+msgid "Bed"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/state_result_monthly_xls.py:0
+#, python-format
+msgid "Beneficio Neto"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/sale_payments_xls.py:0
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#: model:ir.model,name:gn_report_account.model_res_branch
+#: model:ir.model.fields,field_description:gn_report_account.field_gn_report_account_commission_wizard__branch_id
+#, python-format
+msgid "Branch"
+msgstr "Sucursal"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "COSTS"
+msgstr "COSTOS"
+
+#. module: gn_report_account
+#: model_terms:ir.ui.view,arch_db:gn_report_account.action_overdue_to_pay_report_wizard_form
+#: model_terms:ir.ui.view,arch_db:gn_report_account.commission_wizard_form
+#: model_terms:ir.ui.view,arch_db:gn_report_account.customer_account_statement_wizard_form
+#: model_terms:ir.ui.view,arch_db:gn_report_account.purchase_wizard_form
+#: model_terms:ir.ui.view,arch_db:gn_report_account.report_purcharse_analysis_wizard_form
+#: model_terms:ir.ui.view,arch_db:gn_report_account.report_state_result_monthly_wizard_form
+#: model_terms:ir.ui.view,arch_db:gn_report_account.report_supplier_account_state_wizard_form
+#: model_terms:ir.ui.view,arch_db:gn_report_account.retention_report_wizard_view
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_payments_xls.py:0
+#: code:addons/gn_report_account/reports/sale_payments_xls.py:0
+#, python-format
+msgid "Cancelled"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purcharse_analysis_xls.py:0
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "Category"
+msgstr "Categoría"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "Client"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#, python-format
+msgid "Comercials"
+msgstr "Comercial"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "Commercial"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#, python-format
+msgid "Consultation"
+msgstr ""
+
+#. module: gn_report_account
+#: model:ir.model.fields.selection,name:gn_report_account.selection__gn_report_account_purchase_wizard__type_product__consu
+msgid "Consumable"
+msgstr "Consumible"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#, python-format
+msgid "Cost Price In Product"
+msgstr "Precio costo en producto"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "Cost Prices"
+msgstr "Precio de costo"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purcharse_analysis_xls.py:0
+#, python-format
+msgid "Cost Product Order"
+msgstr "Costo producto orden"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purcharse_analysis_xls.py:0
+#, python-format
+msgid "Coste Price in product"
+msgstr "Precio de costo en producto"
+
+#. module: gn_report_account
+#: model:ir.model.fields,field_description:gn_report_account.field_advances_not_applied_wizard__create_uid
+#: model:ir.model.fields,field_description:gn_report_account.field_customer_account_statement_wizard__create_uid
+#: model:ir.model.fields,field_description:gn_report_account.field_gn_report_account_commission_wizard__create_uid
+#: model:ir.model.fields,field_description:gn_report_account.field_gn_report_account_purchase_wizard__create_uid
+#: model:ir.model.fields,field_description:gn_report_account.field_overdue_to_pay__create_uid
+#: model:ir.model.fields,field_description:gn_report_account.field_purcharse_analysis_report__create_uid
+#: model:ir.model.fields,field_description:gn_report_account.field_retention_report_wizard__create_uid
+#: model:ir.model.fields,field_description:gn_report_account.field_state_result_monthly__create_uid
+#: model:ir.model.fields,field_description:gn_report_account.field_supplier_account_state__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: gn_report_account
+#: model:ir.model.fields,field_description:gn_report_account.field_advances_not_applied_wizard__create_date
+#: model:ir.model.fields,field_description:gn_report_account.field_customer_account_statement_wizard__create_date
+#: model:ir.model.fields,field_description:gn_report_account.field_gn_report_account_commission_wizard__create_date
+#: model:ir.model.fields,field_description:gn_report_account.field_gn_report_account_purchase_wizard__create_date
+#: model:ir.model.fields,field_description:gn_report_account.field_overdue_to_pay__create_date
+#: model:ir.model.fields,field_description:gn_report_account.field_purcharse_analysis_report__create_date
+#: model:ir.model.fields,field_description:gn_report_account.field_retention_report_wizard__create_date
+#: model:ir.model.fields,field_description:gn_report_account.field_state_result_monthly__create_date
+#: model:ir.model.fields,field_description:gn_report_account.field_supplier_account_state__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/advance_not_applied_xls.py:0
+#, python-format
+msgid "Creation User"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/supplier_account_state_xls.py:0
+#, python-format
+msgid "Credits"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/state_result_monthly_xls.py:0
+#, python-format
+msgid "Cuenta"
+msgstr ""
+
+#. module: gn_report_account
+#: model:ir.actions.act_window,name:gn_report_account.action_customer_account_statement_report
+#: model:ir.ui.menu,name:gn_report_account.menuitem_customer_account_statement
+msgid "Customer Account Statement"
+msgstr "Estado Cuenta de Cliente"
+
+#. module: gn_report_account
+#: model_terms:ir.ui.view,arch_db:gn_report_account.customer_account_statement_wizard_form
+msgid "Customer Account Statement Report"
+msgstr "Informe Estado Cuenta de Cliente"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/cust_acc_statement_xls.py:0
+#, python-format
+msgid "Customer Account Status"
+msgstr "Estado cuenta clientes"
+
+#. module: gn_report_account
+#: model:ir.actions.report,name:gn_report_account.action_customer_account_statement_xls
+msgid "Customer Account Status XLS"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/cust_acc_statement_xls.py:0
+#, python-format
+msgid "Customer Name"
+msgstr "Cliente"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#: code:addons/gn_report_account/reports/supplier_account_state_xls.py:0
+#, python-format
+msgid "Date"
+msgstr ""
+
+#. module: gn_report_account
+#: model:ir.model.fields,field_description:gn_report_account.field_gn_report_account_commission_wizard__date_from
+#: model:ir.model.fields,field_description:gn_report_account.field_gn_report_account_purchase_wizard__date_from
+msgid "Date From"
+msgstr "Fecha Inicio"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/cust_acc_statement_xls.py:0
+#: code:addons/gn_report_account/reports/supplier_account_state_xls.py:0
+#, python-format
+msgid "Date Invoice"
+msgstr "Fecha Factura"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purcharse_analysis_xls.py:0
+#, python-format
+msgid "Date Order"
+msgstr "Fecha Orden"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/cust_acc_statement_xls.py:0
+#, python-format
+msgid "Date Payment"
+msgstr "Fecha de pago"
+
+#. module: gn_report_account
+#: model:ir.model.fields,field_description:gn_report_account.field_gn_report_account_commission_wizard__date_to
+#: model:ir.model.fields,field_description:gn_report_account.field_gn_report_account_purchase_wizard__date_to
+msgid "Date To"
+msgstr "Fecha Final"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/supplier_account_state_xls.py:0
+#, python-format
+msgid "Debits"
+msgstr "Debitos"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/advance_not_applied_xls.py:0
+#, python-format
+msgid "Deposit Date"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/advance_not_applied_xls.py:0
+#, python-format
+msgid "Depositor Name"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#, python-format
+msgid "Descripción"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/wizard/commission_wizard.py:0
+#: code:addons/gn_report_account/wizard/purchase_wizard.py:0
+#: model:ir.model.fields.selection,name:gn_report_account.selection__gn_report_account_commission_wizard__report_type__detailed
+#: model:ir.model.fields.selection,name:gn_report_account.selection__gn_report_account_purchase_wizard__report_type__detailed
+#, python-format
+msgid "Detailed"
+msgstr "Detallado"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/retention_report.py:0
+#: code:addons/gn_report_account/reports/sale_payments_xls.py:0
+#, python-format
+msgid "Diario"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "Discount"
+msgstr "Descuento"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "Discounts"
+msgstr ""
+
+#. module: gn_report_account
+#: model:ir.model.fields,field_description:gn_report_account.field_advances_not_applied_wizard__display_name
+#: model:ir.model.fields,field_description:gn_report_account.field_customer_account_statement_wizard__display_name
+#: model:ir.model.fields,field_description:gn_report_account.field_gn_report_account_commission_wizard__display_name
+#: model:ir.model.fields,field_description:gn_report_account.field_gn_report_account_purchase_wizard__display_name
+#: model:ir.model.fields,field_description:gn_report_account.field_overdue_to_pay__display_name
+#: model:ir.model.fields,field_description:gn_report_account.field_purcharse_analysis_report__display_name
+#: model:ir.model.fields,field_description:gn_report_account.field_report_a_f_r_report_overdue_to_pay_xlsx__display_name
+#: model:ir.model.fields,field_description:gn_report_account.field_report_gn_report_account_advance_not_applied_xls_xlsx__display_name
+#: model:ir.model.fields,field_description:gn_report_account.field_report_gn_report_account_commission_xls_xlsx__display_name
+#: model:ir.model.fields,field_description:gn_report_account.field_report_gn_report_account_cust_acc_statement_xls_xlsx__display_name
+#: model:ir.model.fields,field_description:gn_report_account.field_report_gn_report_account_purcharse_xls_xlsx__display_name
+#: model:ir.model.fields,field_description:gn_report_account.field_report_gn_report_account_purchase_payment_report_xls_xlsx__display_name
+#: model:ir.model.fields,field_description:gn_report_account.field_report_gn_report_account_purchase_report_xls_xlsx__display_name
+#: model:ir.model.fields,field_description:gn_report_account.field_report_gn_report_account_retention_report_xls_xlsx__display_name
+#: model:ir.model.fields,field_description:gn_report_account.field_report_gn_report_account_sale_payment_report_xls_xlsx__display_name
+#: model:ir.model.fields,field_description:gn_report_account.field_report_gn_report_account_state_result_monthly_report_xls_xlsx__display_name
+#: model:ir.model.fields,field_description:gn_report_account.field_report_gn_report_account_supplier_account_xls_xlsx__display_name
+#: model:ir.model.fields,field_description:gn_report_account.field_res_branch__display_name
+#: model:ir.model.fields,field_description:gn_report_account.field_retention_report_wizard__display_name
+#: model:ir.model.fields,field_description:gn_report_account.field_state_result_monthly__display_name
+#: model:ir.model.fields,field_description:gn_report_account.field_supplier_account_state__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#, python-format
+msgid "Disposable Material"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_payments_xls.py:0
+#: code:addons/gn_report_account/reports/sale_payments_xls.py:0
+#, python-format
+msgid "Draft"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/state_result_monthly_xls.py:0
+#, python-format
+msgid "ESTADO DE RESULTADO MENSUALIZADO DE %s"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "EXPENSES"
+msgstr "GASTOS"
+
+#. module: gn_report_account
+#: model:ir.model.fields,field_description:gn_report_account.field_advances_not_applied_wizard__end_date
+#: model:ir.model.fields,field_description:gn_report_account.field_customer_account_statement_wizard__end_date
+#: model:ir.model.fields,field_description:gn_report_account.field_overdue_to_pay__end_date
+#: model:ir.model.fields,field_description:gn_report_account.field_purcharse_analysis_report__end_date
+#: model:ir.model.fields,field_description:gn_report_account.field_retention_report_wizard__end_date
+#: model:ir.model.fields,field_description:gn_report_account.field_state_result_monthly__end_date
+#: model:ir.model.fields,field_description:gn_report_account.field_supplier_account_state__end_date
+msgid "End Date"
+msgstr "Fin fecha"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/cust_acc_statement_xls.py:0
+#: code:addons/gn_report_account/reports/overdue_to_pay_xlsx.py:0
+#: code:addons/gn_report_account/reports/purcharse_analysis_xls.py:0
+#: code:addons/gn_report_account/reports/state_result_monthly_xls.py:0
+#: code:addons/gn_report_account/reports/supplier_account_state_xls.py:0
+#, python-format
+msgid "End Date: %s"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "Estado"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/retention_report.py:0
+#, python-format
+msgid "Estado Factura"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "Exempt"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "Exonerate"
+msgstr "Exonerado"
+
+#. module: gn_report_account
+#: model_terms:ir.ui.view,arch_db:gn_report_account.commission_wizard_form
+#: model_terms:ir.ui.view,arch_db:gn_report_account.purchase_wizard_form
+msgid "Export"
+msgstr "Exportar"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/retention_report.py:0
+#, python-format
+msgid "Factura"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/retention_report.py:0
+#, python-format
+msgid "Fecha Factura"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/retention_report.py:0
+#, python-format
+msgid "Fecha Fin: "
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/retention_report.py:0
+#, python-format
+msgid "Fecha Inicial: "
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/retention_report.py:0
+#, python-format
+msgid "Fecha Pago."
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/retention_report.py:0
+#, python-format
+msgid "Fecha de impresión: "
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#, python-format
+msgid "Food and Drinks"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_payments_xls.py:0
+#: code:addons/gn_report_account/reports/sale_payments_xls.py:0
+#, python-format
+msgid "From : %s"
+msgstr "Desde: %s"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "GROSS MARGIN"
+msgstr "MARGEN BRUTO"
+
+#. module: gn_report_account
+#: model_terms:ir.ui.view,arch_db:gn_report_account.action_overdue_to_pay_report_wizard_form
+msgid "Generate"
+msgstr "Generar"
+
+#. module: gn_report_account
+#: model:ir.model.fields,field_description:gn_report_account.field_advances_not_applied_wizard__id
+#: model:ir.model.fields,field_description:gn_report_account.field_customer_account_statement_wizard__id
+#: model:ir.model.fields,field_description:gn_report_account.field_gn_report_account_commission_wizard__id
+#: model:ir.model.fields,field_description:gn_report_account.field_gn_report_account_purchase_wizard__id
+#: model:ir.model.fields,field_description:gn_report_account.field_overdue_to_pay__id
+#: model:ir.model.fields,field_description:gn_report_account.field_purcharse_analysis_report__id
+#: model:ir.model.fields,field_description:gn_report_account.field_report_a_f_r_report_overdue_to_pay_xlsx__id
+#: model:ir.model.fields,field_description:gn_report_account.field_report_gn_report_account_advance_not_applied_xls_xlsx__id
+#: model:ir.model.fields,field_description:gn_report_account.field_report_gn_report_account_commission_xls_xlsx__id
+#: model:ir.model.fields,field_description:gn_report_account.field_report_gn_report_account_cust_acc_statement_xls_xlsx__id
+#: model:ir.model.fields,field_description:gn_report_account.field_report_gn_report_account_purcharse_xls_xlsx__id
+#: model:ir.model.fields,field_description:gn_report_account.field_report_gn_report_account_purchase_payment_report_xls_xlsx__id
+#: model:ir.model.fields,field_description:gn_report_account.field_report_gn_report_account_purchase_report_xls_xlsx__id
+#: model:ir.model.fields,field_description:gn_report_account.field_report_gn_report_account_retention_report_xls_xlsx__id
+#: model:ir.model.fields,field_description:gn_report_account.field_report_gn_report_account_sale_payment_report_xls_xlsx__id
+#: model:ir.model.fields,field_description:gn_report_account.field_report_gn_report_account_state_result_monthly_report_xls_xlsx__id
+#: model:ir.model.fields,field_description:gn_report_account.field_report_gn_report_account_supplier_account_xls_xlsx__id
+#: model:ir.model.fields,field_description:gn_report_account.field_res_branch__id
+#: model:ir.model.fields,field_description:gn_report_account.field_retention_report_wizard__id
+#: model:ir.model.fields,field_description:gn_report_account.field_state_result_monthly__id
+#: model:ir.model.fields,field_description:gn_report_account.field_supplier_account_state__id
+msgid "ID"
+msgstr "Identificación"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "Impuestos"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#, python-format
+msgid "In Payment Process"
+msgstr "En Proceso de pago"
+
+#. module: gn_report_account
+#: model:ir.model.fields,field_description:gn_report_account.field_gn_report_account_commission_wizard__per_indirect_cost
+msgid "Indirect Cost (%)"
+msgstr "Costo indirecto (%)"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "Indirect Costs"
+msgstr "Costo directo"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#, python-format
+msgid "Insurance Plan"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/advance_not_applied_xls.py:0
+#: code:addons/gn_report_account/reports/cust_acc_statement_xls.py:0
+#: code:addons/gn_report_account/reports/overdue_to_pay_xlsx.py:0
+#, python-format
+msgid "Invoice"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/overdue_to_pay_xlsx.py:0
+#, python-format
+msgid "Invoice Date"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/overdue_to_pay_xlsx.py:0
+#, python-format
+msgid "Invoice Date Due"
+msgstr "Fecha Vencimiento"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "Invoice Number"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/supplier_account_state_xls.py:0
+#, python-format
+msgid "Invoice Supplier"
+msgstr "Factura Proveedor"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/sale_payments_xls.py:0
+#, python-format
+msgid "Invoices"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_payments_xls.py:0
+#: code:addons/gn_report_account/reports/sale_payments_xls.py:0
+#: code:addons/gn_report_account/reports/sale_payments_xls.py:0
+#, python-format
+msgid "Journal Pay"
+msgstr "Diario de pago"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#, python-format
+msgid "Laboratory Service"
+msgstr "Servicio de laboratorio"
+
+#. module: gn_report_account
+#: model:ir.model.fields,field_description:gn_report_account.field_advances_not_applied_wizard____last_update
+#: model:ir.model.fields,field_description:gn_report_account.field_customer_account_statement_wizard____last_update
+#: model:ir.model.fields,field_description:gn_report_account.field_gn_report_account_commission_wizard____last_update
+#: model:ir.model.fields,field_description:gn_report_account.field_gn_report_account_purchase_wizard____last_update
+#: model:ir.model.fields,field_description:gn_report_account.field_overdue_to_pay____last_update
+#: model:ir.model.fields,field_description:gn_report_account.field_purcharse_analysis_report____last_update
+#: model:ir.model.fields,field_description:gn_report_account.field_report_a_f_r_report_overdue_to_pay_xlsx____last_update
+#: model:ir.model.fields,field_description:gn_report_account.field_report_gn_report_account_advance_not_applied_xls_xlsx____last_update
+#: model:ir.model.fields,field_description:gn_report_account.field_report_gn_report_account_commission_xls_xlsx____last_update
+#: model:ir.model.fields,field_description:gn_report_account.field_report_gn_report_account_cust_acc_statement_xls_xlsx____last_update
+#: model:ir.model.fields,field_description:gn_report_account.field_report_gn_report_account_purcharse_xls_xlsx____last_update
+#: model:ir.model.fields,field_description:gn_report_account.field_report_gn_report_account_purchase_payment_report_xls_xlsx____last_update
+#: model:ir.model.fields,field_description:gn_report_account.field_report_gn_report_account_purchase_report_xls_xlsx____last_update
+#: model:ir.model.fields,field_description:gn_report_account.field_report_gn_report_account_retention_report_xls_xlsx____last_update
+#: model:ir.model.fields,field_description:gn_report_account.field_report_gn_report_account_sale_payment_report_xls_xlsx____last_update
+#: model:ir.model.fields,field_description:gn_report_account.field_report_gn_report_account_state_result_monthly_report_xls_xlsx____last_update
+#: model:ir.model.fields,field_description:gn_report_account.field_report_gn_report_account_supplier_account_xls_xlsx____last_update
+#: model:ir.model.fields,field_description:gn_report_account.field_res_branch____last_update
+#: model:ir.model.fields,field_description:gn_report_account.field_retention_report_wizard____last_update
+#: model:ir.model.fields,field_description:gn_report_account.field_state_result_monthly____last_update
+#: model:ir.model.fields,field_description:gn_report_account.field_supplier_account_state____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: gn_report_account
+#: model:ir.model.fields,field_description:gn_report_account.field_advances_not_applied_wizard__write_uid
+#: model:ir.model.fields,field_description:gn_report_account.field_customer_account_statement_wizard__write_uid
+#: model:ir.model.fields,field_description:gn_report_account.field_gn_report_account_commission_wizard__write_uid
+#: model:ir.model.fields,field_description:gn_report_account.field_gn_report_account_purchase_wizard__write_uid
+#: model:ir.model.fields,field_description:gn_report_account.field_overdue_to_pay__write_uid
+#: model:ir.model.fields,field_description:gn_report_account.field_purcharse_analysis_report__write_uid
+#: model:ir.model.fields,field_description:gn_report_account.field_retention_report_wizard__write_uid
+#: model:ir.model.fields,field_description:gn_report_account.field_state_result_monthly__write_uid
+#: model:ir.model.fields,field_description:gn_report_account.field_supplier_account_state__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: gn_report_account
+#: model:ir.model.fields,field_description:gn_report_account.field_advances_not_applied_wizard__write_date
+#: model:ir.model.fields,field_description:gn_report_account.field_customer_account_statement_wizard__write_date
+#: model:ir.model.fields,field_description:gn_report_account.field_gn_report_account_commission_wizard__write_date
+#: model:ir.model.fields,field_description:gn_report_account.field_gn_report_account_purchase_wizard__write_date
+#: model:ir.model.fields,field_description:gn_report_account.field_overdue_to_pay__write_date
+#: model:ir.model.fields,field_description:gn_report_account.field_purcharse_analysis_report__write_date
+#: model:ir.model.fields,field_description:gn_report_account.field_retention_report_wizard__write_date
+#: model:ir.model.fields,field_description:gn_report_account.field_state_result_monthly__write_date
+#: model:ir.model.fields,field_description:gn_report_account.field_supplier_account_state__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#: model:ir.model.fields.selection,name:gn_report_account.selection__gn_report_account_commission_wizard__values_in__local_currency
+#: model:ir.model.fields.selection,name:gn_report_account.selection__gn_report_account_purchase_wizard__values_in__local_currency
+#, python-format
+msgid "Local Currency"
+msgstr "Moneda local"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#, python-format
+msgid "Medical Service"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#, python-format
+msgid "Medicament"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/supplier_account_state_xls.py:0
+#, python-format
+msgid "Movement Invoice"
+msgstr "Movimento de factura"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purcharse_analysis_xls.py:0
+#, python-format
+msgid "Name Product"
+msgstr "Producto"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purcharse_analysis_xls.py:0
+#: code:addons/gn_report_account/reports/supplier_account_state_xls.py:0
+#, python-format
+msgid "Name Supplier"
+msgstr "Proveedor"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/advance_not_applied_xls.py:0
+#: code:addons/gn_report_account/reports/overdue_to_pay_xlsx.py:0
+#: code:addons/gn_report_account/reports/purcharse_analysis_xls.py:0
+#: code:addons/gn_report_account/reports/retention_report.py:0
+#: code:addons/gn_report_account/reports/supplier_account_state_xls.py:0
+#, python-format
+msgid "No."
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/state_result_monthly_xls.py:0
+#, python-format
+msgid "Nombre"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/retention_report.py:0
+#, python-format
+msgid "Nombre Proveedor"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/advance_not_applied_xls.py:0
+#, python-format
+msgid "Not Applied"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/overdue_to_pay_xlsx.py:0
+#, python-format
+msgid "Numero de Cuenta"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/retention_report.py:0
+#, python-format
+msgid "Numero de pago"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#, python-format
+msgid "Nutrition"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/wizard/commission_wizard.py:0
+#: model:ir.model.fields.selection,name:gn_report_account.selection__gn_report_account_commission_wizard__state__not_paid
+#: model:ir.model.fields.selection,name:gn_report_account.selection__gn_report_account_purchase_wizard__state__not_paid
+#, python-format
+msgid "Open"
+msgstr "Abiertas"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purcharse_analysis_xls.py:0
+#, python-format
+msgid "Order Purcharse"
+msgstr "Orden de compra"
+
+#. module: gn_report_account
+#: model:ir.model.fields.selection,name:gn_report_account.selection__gn_report_account_purchase_wizard__type_product__other
+msgid "Other Product"
+msgstr "Otros producto"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#, python-format
+msgid "Other Service"
+msgstr "Otros servicios"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#: code:addons/gn_report_account/wizard/commission_wizard.py:0
+#: model:ir.model.fields.selection,name:gn_report_account.selection__gn_report_account_commission_wizard__state__paid
+#: model:ir.model.fields.selection,name:gn_report_account.selection__gn_report_account_purchase_wizard__state__paid
+#, python-format
+msgid "Paid"
+msgstr "Pagado"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#, python-format
+msgid "Partially Paid"
+msgstr "Parcialmente Pagado"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#, python-format
+msgid "Pathology"
+msgstr "Patología"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/advance_not_applied_xls.py:0
+#, python-format
+msgid "Patient Name"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "Pay Amounts"
+msgstr "Monto de pago"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_payments_xls.py:0
+#: code:addons/gn_report_account/reports/sale_payments_xls.py:0
+#, python-format
+msgid "Pay Date"
+msgstr "Fecha Pago"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "Pay Journals"
+msgstr "Diario"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_payments_xls.py:0
+#: code:addons/gn_report_account/reports/sale_payments_xls.py:0
+#, python-format
+msgid "Pay Number"
+msgstr "Número pago"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "Pay Numbers"
+msgstr "Pagos"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/cust_acc_statement_xls.py:0
+#, python-format
+msgid "Payment"
+msgstr "Pago"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/overdue_to_pay_xlsx.py:0
+#, python-format
+msgid "Payment Supplier"
+msgstr "Pagos Proveedor"
+
+#. module: gn_report_account
+#: model:ir.actions.act_window,name:gn_report_account.action_overdue_to_pay_report_wizard
+#: model:ir.ui.menu,name:gn_report_account.report_overdue_to_pay
+msgid "Payment supplier reports"
+msgstr "Reporte Pagos a Proveedor"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_payments_xls.py:0
+#: code:addons/gn_report_account/reports/sale_payments_xls.py:0
+#, python-format
+msgid "Payments"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purcharse_analysis_xls.py:0
+#, python-format
+msgid "Price Purcharse Average"
+msgstr "Precio Promedio de Compra"
+
+#. module: gn_report_account
+#: model_terms:ir.ui.view,arch_db:gn_report_account.customer_account_statement_wizard_form
+#: model_terms:ir.ui.view,arch_db:gn_report_account.report_purcharse_analysis_wizard_form
+#: model_terms:ir.ui.view,arch_db:gn_report_account.report_state_result_monthly_wizard_form
+#: model_terms:ir.ui.view,arch_db:gn_report_account.report_supplier_account_state_wizard_form
+#: model_terms:ir.ui.view,arch_db:gn_report_account.retention_report_wizard_view
+msgid "Print"
+msgstr "Imprimir"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purcharse_analysis_xls.py:0
+#: code:addons/gn_report_account/reports/state_result_monthly_xls.py:0
+#: code:addons/gn_report_account/reports/supplier_account_state_xls.py:0
+#, python-format
+msgid "Print Date: %s"
+msgstr "Fecha Impresión: %s"
+
+#. module: gn_report_account
+#: model:ir.model.fields,field_description:gn_report_account.field_gn_report_account_commission_wizard__print_payments
+#: model:ir.model.fields,field_description:gn_report_account.field_gn_report_account_purchase_wizard__print_payments
+#: model_terms:ir.ui.view,arch_db:gn_report_account.commission_wizard_form
+#: model_terms:ir.ui.view,arch_db:gn_report_account.purchase_wizard_form
+msgid "Print Payments"
+msgstr "Imprimir Pagos"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/cust_acc_statement_xls.py:0
+#, python-format
+msgid "Printings Date: %s"
+msgstr "Fecha impresión: %s"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#, python-format
+msgid "Procedure"
+msgstr "procedimiento"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "Product"
+msgstr "Producto"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purcharse_analysis_xls.py:0
+#: model:ir.actions.act_window,name:gn_report_account.action_report_purcharse_analysis
+#: model:ir.model,name:gn_report_account.model_purcharse_analysis_report
+#: model:ir.ui.menu,name:gn_report_account.report_purcharse_analysis_menu
+#, python-format
+msgid "Purcharse Analysis"
+msgstr "Reporte Análisis de Compras"
+
+#. module: gn_report_account
+#: model_terms:ir.ui.view,arch_db:gn_report_account.report_purcharse_analysis_wizard_form
+msgid "Purcharse Analysis Wizard"
+msgstr "Reporte Análisis de Compras"
+
+#. module: gn_report_account
+#: model:ir.actions.report,name:gn_report_account.action_purcharse_analysis_xls
+msgid "Purcharse Analysis XLS"
+msgstr ""
+
+#. module: gn_report_account
+#: model:ir.actions.report,name:gn_report_account.action_purchase_payments_report
+msgid "Purchase Payment Report XLS"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_payments_xls.py:0
+#, python-format
+msgid "Purchase Payments Report"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#: model:ir.actions.act_window,name:gn_report_account.action_wizard_purchase
+#: model:ir.ui.menu,name:gn_report_account.purchase_report_menuitem
+#, python-format
+msgid "Purchase Report"
+msgstr "Reporte de Compras"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#, python-format
+msgid "Purchases"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purcharse_analysis_xls.py:0
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purcharse_analysis_xls.py:0
+#, python-format
+msgid "REPORT PURCHARSE ANALYSIS"
+msgstr "REPORTE ANÁLISIS COMPRA"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/supplier_account_state_xls.py:0
+#, python-format
+msgid "REPORT SUPPLIER ACCOUNT STATE"
+msgstr "REPORTE CUENTA ESTADO PROVEEDOR"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/retention_report.py:0
+#, python-format
+msgid "RTN"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#, python-format
+msgid "Radiology"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/advance_not_applied_xls.py:0
+#, python-format
+msgid "Receipt N°"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/advance_not_applied_xls.py:0
+#, python-format
+msgid "Receipt Total"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_payments_xls.py:0
+#: code:addons/gn_report_account/reports/sale_payments_xls.py:0
+#, python-format
+msgid "Reconciled"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_payments_xls.py:0
+#: code:addons/gn_report_account/reports/supplier_account_state_xls.py:0
+#, python-format
+msgid "Reference"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/cust_acc_statement_xls.py:0
+#, python-format
+msgid "Reference Payment"
+msgstr "Referencia de pago"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/retention_report.py:0
+#, python-format
+msgid "Referencia Factura"
+msgstr ""
+
+#. module: gn_report_account
+#: model_terms:ir.ui.view,arch_db:gn_report_account.action_overdue_to_pay_report_wizard_form
+msgid "Report Overdue To Pay"
+msgstr ""
+
+#. module: gn_report_account
+#: model:ir.model.fields,field_description:gn_report_account.field_gn_report_account_commission_wizard__report_type
+#: model:ir.model.fields,field_description:gn_report_account.field_gn_report_account_purchase_wizard__report_type
+#: model:ir.model.fields,field_description:gn_report_account.field_retention_report_wizard__report_type
+msgid "Report Type"
+msgstr "Tipo de Reporte"
+
+#. module: gn_report_account
+#: model:ir.actions.report,name:gn_report_account.action_report_overdue_to_pay_xlsx
+msgid "Reporte pagos a proveedor XLSX"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/overdue_to_pay_xlsx.py:0
+#, python-format
+msgid "Reports Payment Supplier"
+msgstr "Reporte Pagos a Proveedor"
+
+#. module: gn_report_account
+#: model:ir.ui.menu,name:gn_report_account.sale_report_menuitem
+msgid "Reports Sales"
+msgstr "Reporte de Ventas"
+
+#. module: gn_report_account
+#: model:ir.ui.menu,name:gn_report_account.nahuiik_accounting_menu
+msgid "Reports accounting"
+msgstr "Informes Contabilidad Nahuiik"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/cust_acc_statement_xls.py:0
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "Residual"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/overdue_to_pay_xlsx.py:0
+#: code:addons/gn_report_account/reports/retention_report.py:0
+#, python-format
+msgid "Retención 1%"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/overdue_to_pay_xlsx.py:0
+#: code:addons/gn_report_account/reports/retention_report.py:0
+#, python-format
+msgid "Retención 12.5%"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/retention_report.py:0
+#, python-format
+msgid "Retención 15%"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/retention_report.py:0
+#, python-format
+msgid "Retención del 1% "
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/retention_report.py:0
+#, python-format
+msgid "Retención del 12.5% "
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/retention_report.py:0
+#, python-format
+msgid "Retención del 15% "
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/retention_report.py:0
+#, python-format
+msgid "Retention"
+msgstr "Retención"
+
+#. module: gn_report_account
+#: model:ir.actions.act_window,name:gn_report_account.action_retention_report_wizard
+#: model:ir.ui.menu,name:gn_report_account.menu_retention_report
+msgid "Retention Report"
+msgstr "Reporte de Retención"
+
+#. module: gn_report_account
+#: model_terms:ir.ui.view,arch_db:gn_report_account.retention_report_wizard_view
+msgid "Retention Report Wizard"
+msgstr "Reporte de Retención"
+
+#. module: gn_report_account
+#: model:ir.actions.report,name:gn_report_account.action_retention_report
+msgid "Retention Report XLS"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "SALE PRICE"
+msgstr "PRECIO DE COMPRA"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/overdue_to_pay_xlsx.py:0
+#, python-format
+msgid "SUM 1-30 Días"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/overdue_to_pay_xlsx.py:0
+#, python-format
+msgid "SUM 31-60 Días"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/overdue_to_pay_xlsx.py:0
+#, python-format
+msgid "SUM 61-90 Días"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/overdue_to_pay_xlsx.py:0
+#, python-format
+msgid "SUM Más 90 Días"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/overdue_to_pay_xlsx.py:0
+#, python-format
+msgid "SUMA de Saldos"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/state_result_monthly_xls.py:0
+#, python-format
+msgid "Saldo"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/overdue_to_pay_xlsx.py:0
+#, python-format
+msgid "Saldos + Retenciones"
+msgstr ""
+
+#. module: gn_report_account
+#: model:ir.actions.report,name:gn_report_account.action_sale_payments_report
+msgid "Sale Payment Report XLS"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/sale_payments_xls.py:0
+#: code:addons/gn_report_account/reports/sale_payments_xls.py:0
+#, python-format
+msgid "Sale Payments Reports"
+msgstr "REPORTE PAGOS DE VENTAS"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#: model:ir.actions.act_window,name:gn_report_account.action_wizard_commission
+#, python-format
+msgid "Sale Report"
+msgstr "Reporte Venta"
+
+#. module: gn_report_account
+#: model:ir.actions.report,name:gn_report_account.action_purchase_report
+#: model:ir.actions.report,name:gn_report_account.commission_xls
+msgid "Sale Report XLS"
+msgstr ""
+
+#. module: gn_report_account
+#: model:ir.model.fields,field_description:gn_report_account.field_res_branch__sale_wizard_id
+msgid "Sale Wizard"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/retention_report.py:0
+#, python-format
+msgid "Secuencia"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "Seller"
+msgstr "Vendedor(a)"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "Sellers"
+msgstr ""
+
+#. module: gn_report_account
+#: model:ir.model.fields.selection,name:gn_report_account.selection__gn_report_account_purchase_wizard__type_product__service
+msgid "Service"
+msgstr ""
+
+#. module: gn_report_account
+#: model:ir.model.fields,field_description:gn_report_account.field_advances_not_applied_wizard__start_date
+#: model:ir.model.fields,field_description:gn_report_account.field_customer_account_statement_wizard__start_date
+#: model:ir.model.fields,field_description:gn_report_account.field_overdue_to_pay__start_date
+#: model:ir.model.fields,field_description:gn_report_account.field_purcharse_analysis_report__start_date
+#: model:ir.model.fields,field_description:gn_report_account.field_retention_report_wizard__start_date
+#: model:ir.model.fields,field_description:gn_report_account.field_state_result_monthly__start_date
+#: model:ir.model.fields,field_description:gn_report_account.field_supplier_account_state__start_date
+msgid "Start Date"
+msgstr "Inicio Fecha"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/cust_acc_statement_xls.py:0
+#: code:addons/gn_report_account/reports/overdue_to_pay_xlsx.py:0
+#: code:addons/gn_report_account/reports/purcharse_analysis_xls.py:0
+#: code:addons/gn_report_account/reports/state_result_monthly_xls.py:0
+#: code:addons/gn_report_account/reports/supplier_account_state_xls.py:0
+#, python-format
+msgid "Start Date: %s"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#: model:ir.model.fields,field_description:gn_report_account.field_gn_report_account_commission_wizard__state
+#: model:ir.model.fields,field_description:gn_report_account.field_gn_report_account_purchase_wizard__state
+#, python-format
+msgid "State"
+msgstr "Estado"
+
+#. module: gn_report_account
+#: model:ir.actions.act_window,name:gn_report_account.action_report_state_result_monthly
+#: model:ir.model,name:gn_report_account.model_state_result_monthly
+#: model:ir.ui.menu,name:gn_report_account.report_state_result_monthly_menu
+msgid "State Result Monthly"
+msgstr "Estado De Resultado Mensualizado"
+
+#. module: gn_report_account
+#: model:ir.actions.report,name:gn_report_account.action_state_result_monthly_xls
+msgid "State Result Monthly Report XLS"
+msgstr ""
+
+#. module: gn_report_account
+#: model_terms:ir.ui.view,arch_db:gn_report_account.report_state_result_monthly_wizard_form
+msgid "State Result Monthly Wizard"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#, python-format
+msgid "Stationery and Supplies"
+msgstr ""
+
+#. module: gn_report_account
+#: model:ir.model.fields.selection,name:gn_report_account.selection__gn_report_account_purchase_wizard__type_product__product
+msgid "Storable Product"
+msgstr "Producto almacenable"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "Subtotal"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "Sum-Subtotal"
+msgstr "Suma Subtotal"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/overdue_to_pay_xlsx.py:0
+#, python-format
+msgid "Suma de Días Mora"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/wizard/commission_wizard.py:0
+#: code:addons/gn_report_account/wizard/purchase_wizard.py:0
+#: model:ir.model.fields.selection,name:gn_report_account.selection__gn_report_account_commission_wizard__report_type__summary
+#: model:ir.model.fields.selection,name:gn_report_account.selection__gn_report_account_purchase_wizard__report_type__summary
+#, python-format
+msgid "Summary"
+msgstr "Resumido"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/state_result_monthly_xls.py:0
+#: code:addons/gn_report_account/reports/supplier_account_state_xls.py:0
+#: model:ir.actions.act_window,name:gn_report_account.action_report_supplier_account_state
+#: model:ir.model,name:gn_report_account.model_supplier_account_state
+#: model:ir.ui.menu,name:gn_report_account.report_supplier_account_state_menu
+#, python-format
+msgid "Supplier Account State"
+msgstr "Estado de Cuenta Proveedor"
+
+#. module: gn_report_account
+#: model_terms:ir.ui.view,arch_db:gn_report_account.report_supplier_account_state_wizard_form
+msgid "Supplier Account State Wizard"
+msgstr "Estado de Cuenta Proveedor"
+
+#. module: gn_report_account
+#: model:ir.actions.report,name:gn_report_account.action_supplier_account_state_xls
+msgid "Supplier Account State XLS"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#, python-format
+msgid "Surgery"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "Taxed"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#, python-format
+msgid "Taxes"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/wizard/advances_not_applied.py:0
+#: code:addons/gn_report_account/wizard/commission_wizard.py:0
+#: code:addons/gn_report_account/wizard/cust_acc_statement_wizard.py:0
+#: code:addons/gn_report_account/wizard/overdue_to_pay_wizard.py:0
+#: code:addons/gn_report_account/wizard/purchase_wizard.py:0
+#, python-format
+msgid "The initial date can not be greater than the final."
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/retention_report.py:0
+#, python-format
+msgid "Tipo de pago"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_payments_xls.py:0
+#: code:addons/gn_report_account/reports/sale_payments_xls.py:0
+#, python-format
+msgid "To : %s"
+msgstr "Hasta : %s"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#, python-format
+msgid "Toilet Supplies"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/overdue_to_pay_xlsx.py:0
+#: code:addons/gn_report_account/reports/purchase_payments_xls.py:0
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#: code:addons/gn_report_account/reports/sale_payments_xls.py:0
+#: code:addons/gn_report_account/reports/sale_payments_xls.py:0
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "Total"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "Total Cost"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#, python-format
+msgid "Total Cost Price"
+msgstr "Total precio de osto"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/retention_report.py:0
+#, python-format
+msgid "Total General"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/retention_report.py:0
+#, python-format
+msgid "Total Retención"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "Total Spends"
+msgstr "Gastos totales"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/sale_payments_xls.py:0
+#, python-format
+msgid "Totals"
+msgstr ""
+
+#. module: gn_report_account
+#: model:ir.model.fields,field_description:gn_report_account.field_gn_report_account_purchase_wizard__type_product
+msgid "Type Product"
+msgstr "Tipo de producto"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purcharse_analysis_xls.py:0
+#, python-format
+msgid "Type Product Hospitable"
+msgstr "Tipo de producto"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#: model:ir.model.fields.selection,name:gn_report_account.selection__gn_report_account_commission_wizard__values_in__usd
+#: model:ir.model.fields.selection,name:gn_report_account.selection__gn_report_account_purchase_wizard__values_in__usd
+#, python-format
+msgid "USD"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "UTILITY"
+msgstr "UTILIDAD"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "Unit Cost"
+msgstr "Costo Unitario"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "Unit Price"
+msgstr "Precio Unitario"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#, python-format
+msgid "Unpaid"
+msgstr "No pagado"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "Utilidad Bruta"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "Utility"
+msgstr "Utilidad"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#, python-format
+msgid "Utility Purchase"
+msgstr "Utilidad compra"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#, python-format
+msgid "Vaccine"
+msgstr "Vacuna"
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_payments_xls.py:0
+#: code:addons/gn_report_account/reports/sale_payments_xls.py:0
+#, python-format
+msgid "Validated"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#: code:addons/gn_report_account/reports/purchase_report_xls.py:0
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#: model:ir.model.fields,field_description:gn_report_account.field_gn_report_account_commission_wizard__values_in
+#: model:ir.model.fields,field_description:gn_report_account.field_gn_report_account_purchase_wizard__values_in
+#, python-format
+msgid "Values in"
+msgstr "Valores en"
+
+#. module: gn_report_account
+#: model_terms:ir.ui.view,arch_db:gn_report_account.commission_wizard_form
+#: model_terms:ir.ui.view,arch_db:gn_report_account.purchase_wizard_form
+msgid "Wizard"
+msgstr ""
+
+#. module: gn_report_account
+#: model:ir.model,name:gn_report_account.model_advances_not_applied_wizard
+msgid "advances.not.applied.wizard"
+msgstr ""
+
+#. module: gn_report_account
+#: model:ir.model,name:gn_report_account.model_customer_account_statement_wizard
+msgid "customer.account.statement.wizard"
+msgstr ""
+
+#. module: gn_report_account
+#: model:ir.model,name:gn_report_account.model_gn_report_account_commission_wizard
+msgid "gn_report_account.commission_wizard"
+msgstr ""
+
+#. module: gn_report_account
+#: model:ir.model,name:gn_report_account.model_gn_report_account_purchase_wizard
+msgid "gn_report_account.purchase_wizard"
+msgstr ""
+
+#. module: gn_report_account
+#: model:ir.model,name:gn_report_account.model_overdue_to_pay
+msgid "overdue.to.pay"
+msgstr ""
+
+#. module: gn_report_account
+#: model:ir.model,name:gn_report_account.model_report_a_f_r_report_overdue_to_pay_xlsx
+msgid "report.a_f_r.report_overdue_to_pay_xlsx"
+msgstr ""
+
+#. module: gn_report_account
+#: model:ir.model,name:gn_report_account.model_report_gn_report_account_advance_not_applied_xls_xlsx
+msgid "report.gn_report_account.advance_not_applied_xls.xlsx"
+msgstr ""
+
+#. module: gn_report_account
+#: model:ir.model,name:gn_report_account.model_report_gn_report_account_commission_xls_xlsx
+msgid "report.gn_report_account.commission_xls.xlsx"
+msgstr ""
+
+#. module: gn_report_account
+#: model:ir.model,name:gn_report_account.model_report_gn_report_account_cust_acc_statement_xls_xlsx
+msgid "report.gn_report_account.cust_acc_statement_xls.xlsx"
+msgstr ""
+
+#. module: gn_report_account
+#: model:ir.model,name:gn_report_account.model_report_gn_report_account_purcharse_xls_xlsx
+msgid "report.gn_report_account.purcharse_xls.xlsx"
+msgstr ""
+
+#. module: gn_report_account
+#: model:ir.model,name:gn_report_account.model_report_gn_report_account_purchase_payment_report_xls_xlsx
+msgid "report.gn_report_account.purchase_payment_report_xls.xlsx"
+msgstr ""
+
+#. module: gn_report_account
+#: model:ir.model,name:gn_report_account.model_report_gn_report_account_purchase_report_xls_xlsx
+msgid "report.gn_report_account.purchase_report_xls.xlsx"
+msgstr ""
+
+#. module: gn_report_account
+#: model:ir.model,name:gn_report_account.model_report_gn_report_account_retention_report_xls_xlsx
+msgid "report.gn_report_account.retention_report_xls.xlsx"
+msgstr ""
+
+#. module: gn_report_account
+#: model:ir.model,name:gn_report_account.model_report_gn_report_account_sale_payment_report_xls_xlsx
+msgid "report.gn_report_account.sale_payment_report_xls.xlsx"
+msgstr ""
+
+#. module: gn_report_account
+#: model:ir.model,name:gn_report_account.model_report_gn_report_account_state_result_monthly_report_xls_xlsx
+msgid "report.gn_report_account.state_result_monthly_report_xls.xlsx"
+msgstr ""
+
+#. module: gn_report_account
+#: model:ir.model,name:gn_report_account.model_report_gn_report_account_supplier_account_xls_xlsx
+msgid "report.gn_report_account.supplier_account_xls.xlsx"
+msgstr ""
+
+#. module: gn_report_account
+#: model:ir.model,name:gn_report_account.model_retention_report_wizard
+msgid "retention.report.wizard"
+msgstr ""
+
+#. module: gn_report_account
+#: code:addons/gn_report_account/reports/sale_report_xls.py:0
+#, python-format
+msgid "ventas"
+msgstr ""

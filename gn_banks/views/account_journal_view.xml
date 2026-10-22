@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+    <record id="view_account_journal_form_inherit_sequence" model="ir.ui.view">
+      <field name="name">account.journal.banks.sequence.form</field>
+      <field name="model">account.journal</field>
+      <field name="inherit_id" ref="account.view_account_journal_form"/>
+      <field name="arch" type="xml">
+
+        <xpath expr="//field[@name='code']" position="after">
+          <field name="bank_multi_sequence"
+                 string="Allow Multi Sequence"
+                 invisible="type != 'bank'"/>
+        </xpath>
+
+        <xpath expr="//page[last()]" position="after">
+          <page string="Bank Sequences"
+                invisible="type != 'bank' or not bank_multi_sequence">
+
+            <field name="sequence_ids">
+              <list editable="bottom">
+                <field name="name" string="Nombre" optional="show"/>
+                <field name="prefix" string="Prefijo" optional="show"/>
+                <field name="number_next_actual" string="Número siguiente real" optional="show"/>
+                <field name="move_type" string="Tipo de transacción" optional="show"/>
+              </list>
+
+              <form string="Bank Sequence">
+                <sheet>
+                  <group>
+                    <group>
+                      <field name="name"/>
+                      <field name="journal_id" readonly="1"/>
+                      <field name="move_type"/>
+                    </group>
+                    <group>
+                      <field name="prefix"/>
+                      <field name="suffix"/>
+                      <field name="padding"/>
+                      <field name="number_next_actual" string="Número siguiente real"/>
+                    </group>
+                  </group>
+                </sheet>
+              </form>
+            </field>
+
+          </page>
+        </xpath>
+
+      </field>
+    </record>
+
+  </data>
+</odoo>

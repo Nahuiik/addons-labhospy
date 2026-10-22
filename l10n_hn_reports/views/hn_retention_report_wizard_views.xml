@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hn_retention_report_wizard_form" model="ir.ui.view">
+        <field name="name">hn.retention.report.wizard.form</field>
+        <field name="model">hn.retention.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Reporte de retenciones">
+                <group col="4">
+                    <field name="year"/>
+                    <field name="month"/>
+                    <field name="report_type"/>
+                </group>
+                <footer>
+                    <button name="action_get_report" string="Imprimir" type="object" class="btn-primary"/>
+                    <button special="cancel" string="Cancelar" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hn_retention_report_wizard" model="ir.actions.act_window">
+        <field name="name">Reporte de retenciones</field>
+        <field name="res_model">hn.retention.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="action_hn_retention_report_xlsx" model="ir.actions.report">
+        <field name="name">Reporte de retenciones XLSX</field>
+        <field name="model">hn.retention.report.wizard</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">l10n_hn_reports.hn_retention_report_xlsx</field>
+        <field name="report_file">Reporte de retenciones</field>
+    </record>
+
+    <menuitem id="menu_hn_retention_report"
+              name="Reporte de retenciones"
+              parent="menu_hn_reports_root"
+              action="action_hn_retention_report_wizard"
+              sequence="30"/>
+</odoo>

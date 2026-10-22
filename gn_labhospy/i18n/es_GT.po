@@ -1,0 +1,698 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* gn_labhospy
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-13 03:06+0000\n"
+"PO-Revision-Date: 2026-05-13 03:06+0000\n"
+"Last-Translator: \n"
+"Language-Team: es_GT\n"
+"Language: es_GT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: gn_labhospy
+#. odoo-python
+#: code:addons/gn_labhospy/models/account_move.py:0
+msgid " y %(count)s más…"
+msgstr " y %(count)s más…"
+
+#. module: gn_labhospy
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.report_controlled_substances_document
+msgid ""
+"<br/>\n"
+"                                    <strong>Dirección principal:</strong>"
+msgstr ""
+"<br/>\n"
+"                                    <strong>Dirección principal:</strong>"
+
+#. module: gn_labhospy
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.report_controlled_substances_document
+msgid ""
+"<br/>\n"
+"                                    <strong>No. licencia sanitaria:</strong>"
+msgstr ""
+"<br/>\n"
+"                                    <strong>No. licencia sanitaria:</strong>"
+
+#. module: gn_labhospy
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.report_controlled_substances_document
+msgid ""
+"<br/>\n"
+"                                    <strong>Teléfono:</strong>"
+msgstr ""
+"<br/>\n"
+"                                    <strong>Teléfono:</strong>"
+
+#. module: gn_labhospy
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.report_controlled_substances_document
+msgid "<strong>Firma y sello</strong>"
+msgstr "<strong>Firma y sello</strong>"
+
+#. module: gn_labhospy
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.report_controlled_substances_document
+msgid "<strong>Nombre del establecimiento:</strong>"
+msgstr "<strong>Nombre del establecimiento:</strong>"
+
+#. module: gn_labhospy
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.report_controlled_substances_document
+msgid "<strong>Período consultado:</strong>"
+msgstr "<strong>Período consultado:</strong>"
+
+#. module: gn_labhospy
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.report_controlled_substances_document
+msgid "<strong>Sucursales:</strong>"
+msgstr "<strong>Sucursales:</strong>"
+
+#. module: gn_labhospy
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.view_product_template_form_labhospy
+msgid "<strong>¡Este es un producto controlado!</strong>"
+msgstr "<strong>¡Este es un producto controlado!</strong>"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,field_description:gn_labhospy.field_gn_labhospy_supplier__active
+msgid "Active"
+msgstr "Activo"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,help:gn_labhospy.field_account_move_line__gn_labhospy_product_is_controlled
+#: model:ir.model.fields,help:gn_labhospy.field_product_product__gn_labhospy_is_controlled
+#: model:ir.model.fields,help:gn_labhospy.field_product_template__gn_labhospy_is_controlled
+#: model:ir.model.fields,help:gn_labhospy.field_sale_order_line__gn_labhospy_is_controlled
+#: model:ir.model.fields,help:gn_labhospy.field_stock_move__gn_labhospy_template_is_controlled
+#: model:ir.model.fields,help:gn_labhospy.field_stock_move_line__gn_labhospy_product_is_controlled
+msgid "Actívelo si el producto requiere controles adicionales."
+msgstr "Actívelo si el producto requiere controles adicionales."
+
+#. module: gn_labhospy
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.report_controlled_substances_document
+msgid "Aplicación / uso"
+msgstr "Aplicación / uso"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,field_description:gn_labhospy.field_account_move_line__gn_labhospy_application_use
+#: model:ir.model.fields,field_description:gn_labhospy.field_sale_order_line__gn_labhospy_application_use
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.view_order_form_labhospy
+msgid "Aplicación de uso (SC)"
+msgstr "Aplicación de uso (SC)"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,help:gn_labhospy.field_res_company__gn_labhospy_sanitary_license_document
+msgid "Archivo de la licencia (actualizable cuando cambie la normativa)."
+msgstr "Archivo de la licencia (actualizable cuando cambie la normativa)."
+
+#. module: gn_labhospy
+#: model:ir.model,name:gn_labhospy.model_gn_labhospy_controlled_substances_report_wizard
+msgid "Asistente informe sustancias controladas"
+msgstr "Asistente informe sustancias controladas"
+
+#. module: gn_labhospy
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.view_controlled_substances_report_wizard_form
+msgid "Cancelar"
+msgstr "Cancelar"
+
+#. module: gn_labhospy
+#. odoo-python
+#: code:addons/gn_labhospy/models/controlled_substances_report_wizard.py:0
+msgid "Catálogo"
+msgstr "Catálogo"
+
+#. module: gn_labhospy
+#: model_terms:ir.actions.act_window,help:gn_labhospy.action_gn_labhospy_suppliers
+msgid "Catálogo maestro de proveedores para productos controlados."
+msgstr "Catálogo maestro de proveedores para productos controlados."
+
+#. module: gn_labhospy
+#: model:ir.model,name:gn_labhospy.model_res_company
+msgid "Companies"
+msgstr "Empresas"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,field_description:gn_labhospy.field_gn_labhospy_controlled_substances_report_wizard__company_id
+msgid "Compañía"
+msgstr "Compañía"
+
+#. module: gn_labhospy
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.report_controlled_substances_document
+msgid "Contacto"
+msgstr "Contacto"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,field_description:gn_labhospy.field_account_bank_statement_line__gn_labhospy_sc_contact_id
+#: model:ir.model.fields,field_description:gn_labhospy.field_account_move__gn_labhospy_sc_contact_id
+msgid "Contacto (sustancias controladas)"
+msgstr "Contacto (sustancias controladas)"
+
+#. module: gn_labhospy
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.view_product_template_form_labhospy
+msgid "Control LabHosPy"
+msgstr "Control LabHosPy"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,field_description:gn_labhospy.field_gn_labhospy_controlled_substances_report_wizard__create_uid
+#: model:ir.model.fields,field_description:gn_labhospy.field_gn_labhospy_supplier__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,field_description:gn_labhospy.field_gn_labhospy_controlled_substances_report_wizard__create_date
+#: model:ir.model.fields,field_description:gn_labhospy.field_gn_labhospy_supplier__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,field_description:gn_labhospy.field_product_product__gn_labhospy_catalog_code
+#: model:ir.model.fields,field_description:gn_labhospy.field_product_template__gn_labhospy_catalog_code
+#: model:ir.model.fields,field_description:gn_labhospy.field_sale_order_line__gn_labhospy_catalog_code
+#: model:ir.model.fields,field_description:gn_labhospy.field_stock_move__gn_labhospy_catalog_code
+#: model:ir.model.fields,field_description:gn_labhospy.field_stock_move_line__gn_labhospy_catalog_code
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.view_product_template_search_labhospy
+msgid "Código de Catálogo"
+msgstr "Código de Catálogo"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,field_description:gn_labhospy.field_gn_labhospy_controlled_substances_report_wizard__date_from
+msgid "Date From"
+msgstr "Desde"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,field_description:gn_labhospy.field_gn_labhospy_controlled_substances_report_wizard__date_to
+msgid "Date To"
+msgstr "Hasta"
+
+#. module: gn_labhospy
+#. odoo-python
+#: code:addons/gn_labhospy/models/account_move.py:0
+msgid "Debe indicar el cliente (empresa a quien se factura)."
+msgstr "Debe indicar el cliente (empresa a quien se factura)."
+
+#. module: gn_labhospy
+#. odoo-python
+#: code:addons/gn_labhospy/models/account_move.py:0
+msgid "Debe indicar el contacto de sustancias controladas."
+msgstr "Debe indicar el contacto de sustancias controladas."
+
+#. module: gn_labhospy
+#. odoo-python
+#: code:addons/gn_labhospy/models/account_move.py:0
+msgid ""
+"Debe indicar la aplicación de uso en cada línea de sustancia controlada: "
+"%s%s"
+msgstr ""
+"Debe indicar la aplicación de uso en cada línea de sustancia controlada: "
+"%s%s"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,help:gn_labhospy.field_gn_labhospy_controlled_substances_report_wizard__branch_ids
+msgid "Dejar vacío para incluir todas las sucursales de la compañía."
+msgstr "Dejar vacío para incluir todas las sucursales de la compañía."
+
+#. module: gn_labhospy
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.report_controlled_substances_document
+msgid "Dirección"
+msgstr "Dirección"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,field_description:gn_labhospy.field_account_move__display_name
+#: model:ir.model.fields,field_description:gn_labhospy.field_account_move_line__display_name
+#: model:ir.model.fields,field_description:gn_labhospy.field_gn_labhospy_controlled_substances_report_wizard__display_name
+#: model:ir.model.fields,field_description:gn_labhospy.field_gn_labhospy_supplier__display_name
+#: model:ir.model.fields,field_description:gn_labhospy.field_product_product__display_name
+#: model:ir.model.fields,field_description:gn_labhospy.field_product_template__display_name
+#: model:ir.model.fields,field_description:gn_labhospy.field_report_gn_labhospy_report_controlled_substances_document__display_name
+#: model:ir.model.fields,field_description:gn_labhospy.field_res_company__display_name
+#: model:ir.model.fields,field_description:gn_labhospy.field_sale_order_line__display_name
+#: model:ir.model.fields,field_description:gn_labhospy.field_stock_move__display_name
+#: model:ir.model.fields,field_description:gn_labhospy.field_stock_move_line__display_name
+#: model:ir.model.fields,field_description:gn_labhospy.field_stock_picking__display_name
+#: model:ir.model.fields,field_description:gn_labhospy.field_stock_picking_type__display_name
+msgid "Display Name"
+msgstr "Nombre en pantalla"
+
+#. module: gn_labhospy
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.report_controlled_substances_document
+msgid "Documento"
+msgstr "Documento"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,field_description:gn_labhospy.field_res_company__gn_labhospy_sanitary_license_document
+msgid "Documento de licencia (SC)"
+msgstr "Documento de licencia (SC)"
+
+#. module: gn_labhospy
+#. odoo-python
+#: code:addons/gn_labhospy/models/account_move.py:0
+msgid ""
+"El contacto SC debe ser el cliente persona físico o un contacto hijo del "
+"cliente."
+msgstr ""
+"El contacto SC debe ser el cliente persona físico o un contacto hijo del "
+"cliente."
+
+#. module: gn_labhospy
+#. odoo-python
+#: code:addons/gn_labhospy/models/account_move.py:0
+msgid ""
+"El nombre del cliente comercial es obligatorio para sustancias controladas."
+msgstr ""
+"El nombre del cliente comercial es obligatorio para sustancias controladas."
+
+#. module: gn_labhospy
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.report_controlled_substances_document
+msgid "Empresa"
+msgstr "Empresa"
+
+#. module: gn_labhospy
+#. odoo-python
+#: code:addons/gn_labhospy/models/controlled_substances_report_wizard.py:0
+msgid "Entrega a Clientes"
+msgstr "Entrega a Clientes"
+
+#. module: gn_labhospy
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.report_controlled_substances_document
+msgid "Fecha"
+msgstr "Fecha"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,field_description:gn_labhospy.field_account_bank_statement_line__gn_labhospy_has_sc_lines
+#: model:ir.model.fields,field_description:gn_labhospy.field_account_move__gn_labhospy_has_sc_lines
+msgid "Gn Labhospy Has Sc Lines"
+msgstr "Tiene líneas SC (LabHosPy)"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,field_description:gn_labhospy.field_account_move__id
+#: model:ir.model.fields,field_description:gn_labhospy.field_account_move_line__id
+#: model:ir.model.fields,field_description:gn_labhospy.field_gn_labhospy_controlled_substances_report_wizard__id
+#: model:ir.model.fields,field_description:gn_labhospy.field_gn_labhospy_supplier__id
+#: model:ir.model.fields,field_description:gn_labhospy.field_product_product__id
+#: model:ir.model.fields,field_description:gn_labhospy.field_product_template__id
+#: model:ir.model.fields,field_description:gn_labhospy.field_report_gn_labhospy_report_controlled_substances_document__id
+#: model:ir.model.fields,field_description:gn_labhospy.field_res_company__id
+#: model:ir.model.fields,field_description:gn_labhospy.field_sale_order_line__id
+#: model:ir.model.fields,field_description:gn_labhospy.field_stock_move__id
+#: model:ir.model.fields,field_description:gn_labhospy.field_stock_move_line__id
+#: model:ir.model.fields,field_description:gn_labhospy.field_stock_picking__id
+#: model:ir.model.fields,field_description:gn_labhospy.field_stock_picking_type__id
+msgid "ID"
+msgstr "ID"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,help:gn_labhospy.field_product_product__gn_labhospy_catalog_code
+#: model:ir.model.fields,help:gn_labhospy.field_product_template__gn_labhospy_catalog_code
+#: model:ir.model.fields,help:gn_labhospy.field_sale_order_line__gn_labhospy_catalog_code
+msgid "Identificador de catálogo proporcionado por el proveedor."
+msgstr "Identificador de catálogo proporcionado por el proveedor."
+
+#. module: gn_labhospy
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.view_controlled_substances_report_wizard_form
+msgid "Imprimir PDF"
+msgstr "Imprimir PDF"
+
+#. module: gn_labhospy
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.view_controlled_substances_report_wizard_form
+msgid "Informe sustancias controladas"
+msgstr "Informe sustancias controladas"
+
+#. module: gn_labhospy
+#. odoo-python
+#: code:addons/gn_labhospy/models/controlled_substances_report_wizard.py:0
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.report_controlled_substances_document
+msgid "Ingreso"
+msgstr "Ingreso"
+
+#. module: gn_labhospy
+#: model:ir.model,name:gn_labhospy.model_account_move
+msgid "Journal Entry"
+msgstr "Asiento contable"
+
+#. module: gn_labhospy
+#: model:ir.model,name:gn_labhospy.model_account_move_line
+msgid "Journal Item"
+msgstr "Apunte contable"
+
+#. module: gn_labhospy
+#. odoo-python
+#: code:addons/gn_labhospy/models/account_move.py:0
+msgid ""
+"La dirección del cliente es obligatoria (calle, ciudad y país) para "
+"sustancias controladas. Revise la dirección de entrega o la del cliente."
+msgstr ""
+"La dirección del cliente es obligatoria (calle, ciudad y país) para "
+"sustancias controladas. Revise la dirección de entrega o la del cliente."
+
+#. module: gn_labhospy
+#. odoo-python
+#: code:addons/gn_labhospy/models/stock_picking.py:0
+msgid ""
+"La resolución es obligatoria para recepciones con sustancias controladas "
+"(campo en la cabecera del albarán)."
+msgstr ""
+"La resolución es obligatoria para recepciones con sustancias controladas "
+"(campo en la cabecera del albarán)."
+
+#. module: gn_labhospy
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.view_picking_form_labhospy
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.view_product_template_form_labhospy
+msgid "LabHosPy"
+msgstr "LabHosPy"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,field_description:gn_labhospy.field_gn_labhospy_controlled_substances_report_wizard__write_uid
+#: model:ir.model.fields,field_description:gn_labhospy.field_gn_labhospy_supplier__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,field_description:gn_labhospy.field_gn_labhospy_controlled_substances_report_wizard__write_date
+#: model:ir.model.fields,field_description:gn_labhospy.field_gn_labhospy_supplier__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: gn_labhospy
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.view_company_form_gn_labhospy_sc
+msgid "Licencia sanitaria (informe SC)"
+msgstr "Licencia sanitaria (informe SC)"
+
+#. module: gn_labhospy
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.report_controlled_substances_document
+msgid "Lote"
+msgstr "Lote"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,field_description:gn_labhospy.field_product_product__gn_labhospy_model
+#: model:ir.model.fields,field_description:gn_labhospy.field_product_template__gn_labhospy_model
+#: model:ir.model.fields,field_description:gn_labhospy.field_sale_order_line__gn_labhospy_model
+#: model:ir.model.fields,field_description:gn_labhospy.field_stock_move__gn_labhospy_model
+#: model:ir.model.fields,field_description:gn_labhospy.field_stock_move_line__gn_labhospy_model
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.view_product_template_search_labhospy
+msgid "Modelo"
+msgstr "Modelo"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,help:gn_labhospy.field_product_product__gn_labhospy_model
+#: model:ir.model.fields,help:gn_labhospy.field_product_template__gn_labhospy_model
+#: model:ir.model.fields,help:gn_labhospy.field_sale_order_line__gn_labhospy_model
+msgid "Modelo del producto según el proveedor."
+msgstr "Modelo del producto según el proveedor."
+
+#. module: gn_labhospy
+#. odoo-python
+#: code:addons/gn_labhospy/models/controlled_substances_report_wizard.py:0
+msgid "Movimiento"
+msgstr "Movimiento"
+
+#. module: gn_labhospy
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.report_controlled_substances_document
+msgid ""
+"No hay movimientos de sustancias controladas en el período seleccionado."
+msgstr ""
+"No hay movimientos de sustancias controladas en el período seleccionado."
+
+#. module: gn_labhospy
+#: model:ir.model.fields,field_description:gn_labhospy.field_stock_move_line__gn_labhospy_arsa_resolution_no
+msgid "No. de resolución de ARSA"
+msgstr "No. de resolución de ARSA"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,field_description:gn_labhospy.field_res_company__gn_labhospy_sanitary_license_no
+msgid "No. licencia sanitaria (SC)"
+msgstr "No. licencia sanitaria (SC)"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,field_description:gn_labhospy.field_res_company__gn_labhospy_sanitary_license_document_filename
+msgid "Nombre archivo licencia"
+msgstr "Nombre archivo licencia"
+
+#. module: gn_labhospy
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.view_stock_move_line_detailed_operation_tree_labhospy_arsa
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.view_stock_move_line_operation_tree_labhospy_arsa
+msgid "Nº resolución ARSA"
+msgstr "Nº resolución ARSA"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,help:gn_labhospy.field_res_company__gn_labhospy_sanitary_license_no
+msgid ""
+"Número de licencia sanitaria para el informe de sustancias controladas."
+msgstr ""
+"Número de licencia sanitaria para el informe de sustancias controladas."
+
+#. module: gn_labhospy
+#: model:ir.model.fields,help:gn_labhospy.field_stock_picking__gn_labhospy_resolution_ref
+msgid "Obligatoria en ingreso por compras de sustancias controladas."
+msgstr "Obligatoria en ingreso por compras de sustancias controladas."
+
+#. module: gn_labhospy
+#: model:ir.model.fields,help:gn_labhospy.field_account_move_line__gn_labhospy_application_use
+msgid ""
+"Obligatorio en facturas de cliente que incluyan sustancias controladas."
+msgstr ""
+"Obligatorio en facturas de cliente que incluyan sustancias controladas."
+
+#. module: gn_labhospy
+#: model:ir.model.fields,help:gn_labhospy.field_sale_order_line__gn_labhospy_application_use
+msgid "Obligatorio para facturar si la línea es sustancia controlada."
+msgstr "Obligatorio para facturar si la línea es sustancia controlada."
+
+#. module: gn_labhospy
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.view_picking_form_labhospy
+msgid "Operaciones LabHosPy"
+msgstr "Operaciones LabHosPy"
+
+#. module: gn_labhospy
+#: model:ir.model,name:gn_labhospy.model_report_gn_labhospy_report_controlled_substances_document
+msgid "PDF sustancias controladas"
+msgstr "PDF sustancias controladas"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,help:gn_labhospy.field_account_bank_statement_line__gn_labhospy_sc_contact_id
+#: model:ir.model.fields,help:gn_labhospy.field_account_move__gn_labhospy_sc_contact_id
+msgid ""
+"Persona de contacto obligatoria para facturar líneas de sustancias "
+"controladas."
+msgstr ""
+"Persona de contacto obligatoria para facturar líneas de sustancias "
+"controladas."
+
+#. module: gn_labhospy
+#: model:ir.model,name:gn_labhospy.model_stock_picking_type
+msgid "Picking Type"
+msgstr "Tipo de recolección"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,field_description:gn_labhospy.field_product_product__gn_labhospy_sc_presentation
+#: model:ir.model.fields,field_description:gn_labhospy.field_product_template__gn_labhospy_sc_presentation
+msgid "Presentación (informe SC)"
+msgstr "Presentación (informe SC)"
+
+#. module: gn_labhospy
+#: model:ir.model,name:gn_labhospy.model_product_template
+msgid "Product"
+msgstr "Producto"
+
+#. module: gn_labhospy
+#: model:ir.model,name:gn_labhospy.model_stock_move_line
+msgid "Product Moves (Stock Move Line)"
+msgstr "Movimientos de producto (línea de movimiento de stock)"
+
+#. module: gn_labhospy
+#: model:ir.model,name:gn_labhospy.model_product_product
+msgid "Product Variant"
+msgstr "Variante del producto"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,field_description:gn_labhospy.field_product_product__gn_labhospy_is_controlled
+#: model:ir.model.fields,field_description:gn_labhospy.field_product_template__gn_labhospy_is_controlled
+#: model:ir.model.fields,field_description:gn_labhospy.field_sale_order_line__gn_labhospy_is_controlled
+#: model:ir.model.fields,field_description:gn_labhospy.field_stock_move__gn_labhospy_is_controlled
+#: model:ir.model.fields,field_description:gn_labhospy.field_stock_move_line__gn_labhospy_is_controlled
+msgid "Producto Controlado"
+msgstr "Producto Controlado"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,field_description:gn_labhospy.field_account_move_line__gn_labhospy_product_is_controlled
+msgid "Producto SC"
+msgstr "Producto SC"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,field_description:gn_labhospy.field_stock_move__gn_labhospy_template_is_controlled
+#: model:ir.model.fields,field_description:gn_labhospy.field_stock_move_line__gn_labhospy_product_is_controlled
+msgid "Producto controlado (plantilla)"
+msgstr "Producto controlado (plantilla)"
+
+#. module: gn_labhospy
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.view_product_template_search_labhospy
+msgid "Productos controlados"
+msgstr "Productos controlados"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,field_description:gn_labhospy.field_stock_picking_type__use_in_consume_product
+msgid "Productos de consumo"
+msgstr "Productos de consumo"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,field_description:gn_labhospy.field_gn_labhospy_supplier__name
+msgid "Proveedor"
+msgstr "Proveedor"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,field_description:gn_labhospy.field_product_product__gn_labhospy_supplier_id
+#: model:ir.model.fields,field_description:gn_labhospy.field_product_template__gn_labhospy_supplier_id
+#: model:ir.model.fields,field_description:gn_labhospy.field_sale_order_line__gn_labhospy_supplier_id
+#: model:ir.model.fields,field_description:gn_labhospy.field_stock_move__gn_labhospy_supplier_id
+#: model:ir.model.fields,field_description:gn_labhospy.field_stock_move_line__gn_labhospy_supplier_id
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.view_product_template_search_labhospy
+msgid "Proveedor (LabHosPy)"
+msgstr "Proveedor (LabHosPy)"
+
+#. module: gn_labhospy
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.view_gn_labhospy_supplier_form
+msgid "Proveedor de Catálogo"
+msgstr "Proveedor de Catálogo"
+
+#. module: gn_labhospy
+#: model:ir.model,name:gn_labhospy.model_gn_labhospy_supplier
+msgid "Proveedor de catálogo (LabHosPy)"
+msgstr "Proveedor de catálogo (LabHosPy)"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,help:gn_labhospy.field_product_product__gn_labhospy_supplier_id
+#: model:ir.model.fields,help:gn_labhospy.field_product_template__gn_labhospy_supplier_id
+#: model:ir.model.fields,help:gn_labhospy.field_sale_order_line__gn_labhospy_supplier_id
+msgid "Proveedor del catálogo definido en la configuración."
+msgstr "Proveedor del catálogo definido en la configuración."
+
+#. module: gn_labhospy
+#: model:ir.actions.act_window,name:gn_labhospy.action_gn_labhospy_suppliers
+#: model:ir.ui.menu,name:gn_labhospy.menu_gn_labhospy_suppliers
+msgid "Proveedores de Catálogo"
+msgstr "Proveedores de Catálogo"
+
+#. module: gn_labhospy
+#. odoo-python
+#: code:addons/gn_labhospy/models/controlled_substances_report_wizard.py:0
+msgid "Recepción"
+msgstr "Recepción"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,field_description:gn_labhospy.field_gn_labhospy_supplier__reference
+msgid "Referencia"
+msgstr "Referencia"
+
+#. module: gn_labhospy
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.report_controlled_substances_document
+msgid "Resolución"
+msgstr "Resolución"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,field_description:gn_labhospy.field_stock_picking__gn_labhospy_resolution_ref
+msgid "Resolución (SC)"
+msgstr "Resolución (SC)"
+
+#. module: gn_labhospy
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.report_controlled_substances_document
+msgid "Saldo"
+msgstr "Saldo"
+
+#. module: gn_labhospy
+#. odoo-python
+#: code:addons/gn_labhospy/models/controlled_substances_report_wizard.py:0
+msgid "Saldo inicial"
+msgstr "Saldo inicial"
+
+#. module: gn_labhospy
+#: model:ir.model,name:gn_labhospy.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Línea de la orden de venta"
+
+#. module: gn_labhospy
+#. odoo-python
+#: code:addons/gn_labhospy/models/controlled_substances_report_wizard.py:0
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.report_controlled_substances_document
+msgid "Salida"
+msgstr "Salida"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,help:gn_labhospy.field_stock_picking_type__use_in_consume_product
+msgid ""
+"Si está marcado, este tipo de operación podrá elegirse en el formulario "
+"Inventario → Productos de consumo (solo traslados internos)."
+msgstr ""
+"Si está marcado, este tipo de operación podrá elegirse en el formulario "
+"Inventario → Productos de consumo (solo traslados internos)."
+
+#. module: gn_labhospy
+#. odoo-python
+#: code:addons/gn_labhospy/models/controlled_substances_report_wizard.py:0
+msgid "Sin lote"
+msgstr "Sin lote"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,help:gn_labhospy.field_stock_move_line__gn_labhospy_arsa_resolution_no
+msgid ""
+"Solo aplica a productos marcados como controlados en la ficha del producto."
+msgstr ""
+"Solo aplica a productos marcados como controlados en la ficha del producto."
+
+#. module: gn_labhospy
+#: model:ir.model,name:gn_labhospy.model_stock_move
+msgid "Stock Move"
+msgstr "Movimiento de stock"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,field_description:gn_labhospy.field_gn_labhospy_controlled_substances_report_wizard__branch_ids
+msgid "Sucursales"
+msgstr "Sucursales"
+
+#. module: gn_labhospy
+#: model:ir.ui.menu,name:gn_labhospy.menu_controlled_substances_report
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.view_company_form_gn_labhospy_sc
+msgid "Sustancias controladas"
+msgstr "Sustancias controladas"
+
+#. module: gn_labhospy
+#: model:ir.model.fields,help:gn_labhospy.field_product_product__gn_labhospy_sc_presentation
+#: model:ir.model.fields,help:gn_labhospy.field_product_template__gn_labhospy_sc_presentation
+msgid ""
+"Texto de presentación para el informe regulatorio (si está vacío se usa el "
+"nombre del producto)."
+msgstr ""
+"Texto de presentación para el informe regulatorio (si está vacío se usa el "
+"nombre del producto)."
+
+#. module: gn_labhospy
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.report_controlled_substances_document
+msgid "Transacción"
+msgstr "Transacción"
+
+#. module: gn_labhospy
+#: model:ir.model,name:gn_labhospy.model_stock_picking
+msgid "Transfer"
+msgstr "Trasladar"
+
+#. module: gn_labhospy
+#. odoo-python
+#: code:addons/gn_labhospy/models/controlled_substances_report_wizard.py:0
+msgid "Traslados"
+msgstr "Traslados"
+
+#. module: gn_labhospy
+#: model_terms:ir.ui.view,arch_db:gn_labhospy.view_move_form_gn_labhospy_sc
+msgid "Uso de la sustancia controlada"
+msgstr "Uso de la sustancia controlada"
+
+#. module: gn_labhospy
+#. odoo-python
+#: code:addons/gn_labhospy/models/controlled_substances_report_wizard.py:0
+msgid "Venta de Sustancias Químicas Controladas"
+msgstr "Venta de Sustancias Químicas Controladas"
+
+#. module: gn_labhospy
+#: model:ir.actions.act_window,name:gn_labhospy.action_controlled_substances_report_wizard
+#: model:ir.actions.report,name:gn_labhospy.action_report_controlled_substances
+msgid "Venta de sustancias químicas controladas"
+msgstr "Venta de sustancias químicas controladas"

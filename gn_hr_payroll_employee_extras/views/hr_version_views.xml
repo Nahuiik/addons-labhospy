@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Listado global: Nómina → Configuración → Contratos empleados (HN / SV) -->
+    <record id="view_hr_version_employee_contract_list" model="ir.ui.view">
+        <field name="name">hr.version.employee.contract.list</field>
+        <field name="model">hr.version</field>
+        <field name="arch" type="xml">
+            <list string="Contratos empleados"
+                  create="0"
+                  default_order="date_version desc, id desc"
+                  action="action_open_version"
+                  type="object">
+                <field name="currency_id" column_invisible="1"/>
+                <field name="company_id" string="Compañía" optional="show"/>
+                <field name="company_country_id" string="País" optional="show"/>
+                <field name="structure_type_country_id" string="País nómina" optional="hide"/>
+                <field name="employee_id" string="Empleado"/>
+                <field name="contract_type_id" string="Tipo de contrato" optional="show"/>
+                <field name="structure_type_id" string="Categoría de pago" optional="show"/>
+                <field name="payroll_structure_id" string="Estructura salarial" optional="show"/>
+                <field name="job_id" string="Puesto" optional="show"/>
+                <field name="department_id" string="Departamento" optional="show"/>
+                <field name="wage" string="Salario" widget="monetary" optional="show"/>
+                <field name="contract_date_start" string="Fecha de inicio"/>
+                <field name="contract_date_end" string="Fecha de fin"/>
+                <field name="date_version" string="Fecha efectiva" optional="hide"/>
+                <field name="active" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_hr_version_search_employee_contract_list" model="ir.ui.view">
+        <field name="name">hr.version.search.employee.contract.list</field>
+        <field name="model">hr.version</field>
+        <field name="inherit_id" ref="hr.hr_version_search_view"/>
+        <field name="arch" type="xml">
+            <field name="employee_id" position="after">
+                <field name="company_id"/>
+                <field name="contract_type_id"/>
+                <field name="structure_type_id"/>
+                <field name="payroll_structure_id"/>
+            </field>
+            <filter name="group_by_structure_type_id" position="after">
+                <filter string="Compañía" name="group_by_company" domain="[]" context="{'group_by': 'company_id'}"/>
+                <filter string="Tipo de contrato" name="group_by_contract_type" domain="[]" context="{'group_by': 'contract_type_id'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="action_hr_version_employee_contract_list" model="ir.actions.act_window">
+        <field name="name">Contratos empleados</field>
+        <field name="res_model">hr.version</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'list', 'view_id': ref('gn_hr_payroll_employee_extras.view_hr_version_employee_contract_list')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('hr.hr_contract_template_form_view')}),
+        ]"/>
+        <field name="domain">[('employee_id', '!=', False)]</field>
+        <field name="search_view_id" ref="hr.hr_version_search_view"/>
+        <field name="context">{'search_default_running_contract': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay contratos de empleados registrados.
+            </p>
+            <p>
+                Los contratos se crean y actualizan desde la ficha de cada empleado.
+                Use este listado para revisar compañía, país, tipo de contrato, categoría de pago,
+                estructura salarial, puesto, departamento y salario.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_hr_version_employee_contract_list"
+              name="Contratos empleados"
+              parent="l10n_hn_payroll_base.menu_hr_payroll_configuration"
+              action="action_hr_version_employee_contract_list"
+              sequence="42"
+              groups="l10n_hn_payroll_base.group_hn_payroll_user"/>
+</odoo>

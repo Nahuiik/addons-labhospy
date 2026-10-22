@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_banks_ui" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.banks.ui</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="gn_banks.res_config_settings_view_form_banks"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@name='pos_accounts_setting']" position="after">
+                <block title="Flujo de tesorería" name="banks_ui_workflow_setting">
+                    <setting string="Aprobación de tesorería" help="Requiere aprobación antes de validar operaciones bancarias.">
+                        <field name="banks_require_approval"/>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>

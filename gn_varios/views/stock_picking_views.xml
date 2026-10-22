@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_picking_tree_gn_varios_sale_invoice" model="ir.ui.view">
+        <field name="name">stock.picking.list.gn.varios.sale.invoice</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="gn_sale_user_id" string="Vendedor" optional="show" widget="many2one_avatar_user"/>
+                <field name="gn_invoice_display" string="Factura" optional="show"/>
+            </field>
+        </field>
+    </record>
+</odoo>

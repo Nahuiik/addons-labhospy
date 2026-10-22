@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_due_alert_notifications.DueAlertCard">
+        <div t-attf-class="o_gn_due_alert_card {{ levelClass }}">
+            <div class="o_gn_due_alert_card_header">
+                <span class="o_gn_due_alert_kind" t-esc="props.card.kind_label"/>
+                <button type="button" class="btn-close btn-close-white o_gn_due_alert_close_btn"
+                        t-on-click="onClose" aria-label="Cerrar"/>
+            </div>
+            <div class="o_gn_due_alert_card_body">
+                <h4 class="o_gn_due_alert_title" t-esc="props.card.title"/>
+                <div class="o_gn_due_alert_row">
+                    <strong t-esc="props.card.move_name"/>
+                </div>
+                <div class="o_gn_due_alert_row" t-esc="props.card.partner_name"/>
+                <div class="o_gn_due_alert_meta">
+                    <span><t t-esc="props.card.invoice_date"/></span>
+                    <span class="mx-1">→</span>
+                    <span><t t-esc="props.card.date_due"/></span>
+                </div>
+                <div class="o_gn_due_alert_days" t-esc="daysLabel"/>
+                <div class="o_gn_due_alert_amounts">
+                    <div><t t-esc="props.card.amount_total_str"/> <small t-esc="props.card.currency"/></div>
+                    <div class="o_gn_due_alert_residual">
+                        <t t-esc="props.card.amount_residual_str"/>
+                        <small> pendiente</small>
+                    </div>
+                </div>
+                <t t-if="props.card.responsible">
+                    <div class="o_gn_due_alert_responsible">
+                        <i class="fa fa-user-o me-1"/>
+                        <t t-esc="props.card.responsible"/>
+                    </div>
+                </t>
+                <p class="o_gn_due_alert_message" t-esc="props.card.message"/>
+            </div>
+            <div class="o_gn_due_alert_actions">
+                <button class="btn btn-sm btn-primary" t-on-click="onOpenInvoice">
+                    ABRIR FACTURA
+                </button>
+                <button class="btn btn-sm btn-secondary"
+                        t-if="props.card.can_register_payment"
+                        t-on-click="onRegisterPayment">
+                    REGISTRAR PAGO
+                </button>
+                <button class="btn btn-sm btn-light" t-on-click="onSnooze">
+                    POSPONER
+                </button>
+                <button class="btn btn-sm btn-light" t-on-click="onReview">
+                    REVISADA
+                </button>
+            </div>
+        </div>
+    </t>
+
+</templates>

@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="summary_invoice_report" name="Summary Invoice">
+            <t t-call="web.html_container">
+                <t t-set="cont" t-value="1"/>
+                <t t-set="style" t-value="vals.get('style')"></t>
+                <!-- <t t-foreach="cont" t-as="i"> -->
+
+                <t t-foreach="cont" t-as="i">
+                    <!-- Página -->
+                    <div class="article page" t-attf-style="color:{{style.text_color}} !important;font-size:{{style.body_font}}px !important;font-family:{{style.font_family}} !important;">
+                        <div class="col-xs-12"
+                            t-attf-style="white-space:pre-line;color:#{style.wm_color};left:#{style.leftpadding}mm; top:#{style.toppadding}mm;font-size:#{style.fontsize}px; opacity:#{style.opacity};z-index:-99; -webkit-transform:rotate(-#{style.rotate}deg);position:fixed;">
+                            <t t-esc="style.wm_eval(o, time, user, res_company)"/>
+                        </div>
+
+                        <div class="col-xs-12" t-attf-style="margin-top:0px;padding-top:1px;padding-left:0px;padding-right:0px;color:{{style.theme_txt_color}} !important;">
+                            <div class="col-xs-12">
+                        <!-- Contenido de la página -->
+                        <!-- Puedes agregar aquí el contenido específico de la página -->
+                                <h3 style="margin-top:10px;">
+                                    <span>Invoice#</span>
+                                    <span t-esc="vals.get('number')"/>
+                                </h3>  
+                                <t t-set="div_style" t-value="'width:auto;max-width:100%;float:left;margin-right:25px;'"/>
+
+                                <div t-if="vals.get('inv').invoice_date">  <!--  t-attf-style="{{div_style}}" -->
+                                    <strong style="white-space:nowrap;">Invoice Date:</strong>
+                                    <p t-field="vals.get('inv').invoice_date"/>
+                                </div>
+                                <div t-if="vals.get('date_due')" t-attf-style="{{div_style}}">
+                                        <strong style="white-space:nowrap;">Due Date:</strong>
+                                    <p t-esc="vals.get('date_due')"/>
+                                </div>
+                                <!--div t-if="vals.get('origin')" t-attf-style="{{div_style}}">
+                                    <strong style="white-space:nowrap;">Source Document:</strong>
+                                    <p t-esc="vals.get('origin')"/>
+                                </div-->
+                                <div t-if="vals.get('inv').ref" > <!--  t-attf-style="{{div_style}}" -->
+                                    <strong style="white-space:nowrap;">Referent:</strong>
+                                    <p t-esc="vals.get('inv').ref"/>
+                                </div>
+                                <div t-if="vals.get('invoice_payment_term_id')" > <!--  t-attf-style="{{div_style}}" -->
+                                    <strong style="white-space:nowrap;">Metodo de pago:</strong>
+                                    <p t-esc="vals.get('invoice_payment_term_id')"/>
+                                </div>
+                            </div>
+
+
+                            <div class="col-xs-12" style="padding-left:0px; padding-right:0px;"><!--start of wrapper -->
+                                <div class="col-xs-7 pull-left mt8">
+                                    <div t-attf-style="display:inline;width:auto;padding:4px; color:#707070;">
+                                        <span t-attf-style=" font-weight:bold;"
+                                            class="fa fa-user ">Cliente:
+                                        </span>
+                                    </div>
+                                    <div t-if="vals.get('inv').partner_id" t-attf-style="margin-top:5px; margin-bottom:5px; margin-left:0px;">
+                                        <span t-esc="vals.get('client_details').get('name')"/>
+                                    </div>
+                                    <address style="margin-bottom:0px;"
+                                     t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;phone&quot;,  &quot;email&quot;, &quot;website&quot;], &quot;no_marker&quot;: false}"/>
+                                    RTN:
+                                    <span t-esc="vals.get('client_details').get('rtn')"/>
+                                    <address style="margin-bottom:0px;"
+                                        t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;phone&quot;,  &quot;email&quot;, &quot;website&quot;], &quot;no_marker&quot;: false}"/>
+                                    <div t-if="vals.get('client_details').get('phone')">
+                                        Teléfono:
+                                        <span t-esc="vals.get('client_details').get('phone')"/>
+                                    </div>
+                                </div><!--End-->
+
+                                 <!--<t t-if="not vals.get('inv').patient_id.rtn">
+                                    <div t-if="vals.get('inv').patient_id" class="col-xs-5 mt8 mb8 pull-right">
+                                        <table style="width:100%">
+                                            <tbody>
+                                                <tr>
+                                                    <td t-attf-style="display:inline;width:auto;padding:4px; color:#707070;font-size:{{style.body_font+2}}px;">
+                                                        <span class="fa fa-user"
+                                                            t-attf-style="font-size:{{style.body_font+6}}px; font-weight:bold;">
+                                                            Paciente:
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td t-attf-style="display:inline;width:auto;padding:4px; color:#707070;font-size:{{style.body_font+2}}px;">
+                                                        <span t-attf-style="color:{{style.cust_color}}; margin-top:5px; margin-bottom:5px; margin-left:0px;font-size:{{style.body_font+6}}px;"
+                                                            t-esc="vals.get('inv').patient_id.name"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td t-attf-style="display:inline;width:auto;padding:4px; color:#707070;font-size:{{style.body_font+2}}px;">
+                                                        Identidad:
+                                                        <span t-esc="vals.get('inv').patient_id.identity"/>
+                                                    </td>
+                                                </tr>
+                                                <tr t-if= "vals.get('client_details').get('age')">
+                                                    <td t-attf-style="display:inline;width:auto;padding:4px; color:#707070;font-size:{{style.body_font+2}}px;">
+                                                        Edad:
+                                                        <span t-esc="vals.get('client_details').get('age')"/>
+                                                    </td>
+                                                </tr> 
+                                                <tr>
+                                                    <td t-attf-style="display:inline;width:auto;padding:4px; color:#707070;font-size:{{style.body_font+2}}px;">
+                                                        <address t-field="vals.get('inv').patient_id.partner_id"
+                                                                style="margin-bottom:0px;"
+                                                                t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;phone&quot;,  &quot;email&quot;, &quot;website&quot;], &quot;no_marker&quot;: false}"/>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </t>-->
+
+                                <table class="table  table-condensed" t-attf-style="color:{{style.text_color}};">
+                                    <thead t-attf-style="color:{{style.theme_txt_color if not style.transparent else style.text_color}};">
+                           <!-- <thead>-->
+                                        <t t-set="th_style" t-value="'border-bottom: 1px solid #ddd !important;white-space:nowrap;'"/> 
+                                        <tr>
+                                            <th >
+                                                <i class="fa fa-list-ol"/>
+                                                Item
+                                            </th>
+                                            <th >
+                                                <i class="fa fa-th-large"/>
+                                                ID ARTICLE
+                                            </th>
+                                            <th class="text-right" >
+                                                <i class="fa fa-sort-amount-asc"/>
+                                                Quantity
+                                            </th>
+                                            <th t-if="display_taxes" class="text-center" >
+                                                <i class="fa fa-pencil-square"/>
+                                                Taxes
+                                            </th>
+                                            <th class="text-right" >
+                                                <i class="fa fa-money"/>
+                                                Amount
+                                            </th>
+                                        </tr>
+                                    </thead> 
+
+                                    <tbody>
+                                        <t t-foreach="docs" t-as="l">
+                                            <!-- <t t-set="total_items" t-value="total_items + l.get('quantity_products')"/> -->
+                                            <tr t-attf-style="background-color:{{style.odd if (l_parity in 'odd' and not style.transparent) else (not style.transparent and style.even)  or 'transparent'}};page-break-inside: avoid"> 
+                                            <!-- <tr> -->
+                                                <td>
+                                                    <span t-esc="l_index + 1"/>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="l.get('category')"/>
+                                                </td>
+                                                <td class="text-right"><span t-esc="l.get('quantity_products')"/></td>
+                                                <td t-if="display_taxes" class="text-center">
+                                                    E
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-esc="'{0:,.2f}'.format(l.get('amount'))"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+
+                                <div class="col-xs-5 pull-right" style="padding-left:0px; padding-right:0px; page-break-inside: avoid;">
+                                    <table class="table table-condensed" t-attf-style="color:{{style.text_color}};">
+                                        <tbody>
+                                            <tr t-attf-style="border-top: 1px solid {{style.text_color}};">
+                                                <td t-attf-style="border-top: 1px solid {{style.text_color}} !important;">
+                                                    <strong>Subtotal</strong>
+                                                </td>
+                                                <td class="text-right"
+                                                    t-attf-style="border-top: 1px solid {{style.text_color}} !important;">
+                                                    <span t-esc="round(vals.get('inv').amount_untaxed, 2)"  t-options="{'widget': 'monetary', 'display_currency': vals.get('inv').currency_id}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Importe Exonerado</td>
+                                                <td class="text-right">
+                                                    <span t-esc="vals.get('inv').exonerate_amount"
+                                                    t-options="{'widget': 'monetary', 'display_currency': vals.get('inv').currency_id}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Importe Exento</td>
+                                                <td class="text-right">
+                                                    <span t-esc="vals.get('inv').exempt_sale_amount"
+                                                        t-options="{'widget': 'monetary', 'display_currency': vals.get('inv').currency_id}"/>
+
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Importe Gravado 15%</td>
+                                                <td class="text-right">
+                                                    <span t-esc="vals.get('inv').amount_tax_15_per"
+                                                        t-options="{'widget': 'monetary', 'display_currency': vals.get('inv').currency_id}"/>
+
+                                                </td>
+                                            </tr>
+                                            <!--<tr>
+                                                <td>Importe Gravado 18%</td>
+                                                <td class="text-right">
+                                                    <span t-field="vals.get('inv').amount_tax_18_per" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+
+                                                </td>
+                                            </tr-->
+                                            <tr>
+                                                <td>ISV 15%</td>
+                                                <td class="text-right">
+                                                    <span t-esc="vals.get('inv').tax_15_per"
+                                                        t-options="{'widget': 'monetary', 'display_currency': vals.get('inv').currency_id}"/>
+
+                                                </td>
+                                            </tr>
+                                            <!--tr t-if="tax_18_per">
+                                                <td>ISV 18%</td>
+                                                <td class="text-right">
+                                                    <span t-field="o.tax_18_per" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+
+                                                </td>
+                                            </tr-->
+                                            <tr t-if="vals.get('inv').discount_amt">
+                                                <td>Discount</td>
+                                                <td class="text-right">
+                                                    <span t-esc="vals.get('inv').discount_amt"
+                                                        t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.currency_id&quot;}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <strong>Taxes</strong>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-esc="vals.get('inv').amount_tax"
+                                                        t-options="{'widget': 'monetary', 'display_currency': vals.get('inv').currency_id}"/>
+                                                </td>
+                                            </tr>
+                                            <tr t-attf-style="border-bottom: 1px solid {{style.text_color}};">
+                                                <td t-attf-style="border-top: 1px solid {{style.text_color}} !important;">
+                                                    <strong>Total</strong>
+                                                </td>
+                                                <td class="text-right"
+                                                    t-attf-style="border-top: 1px solid {{style.text_color}} !important;">
+                                                    <strong>
+                                                        <span style="font-weight:bold; text-decoration:underline;"
+                                                            t-esc="vals.get('inv').amount_total"
+                                                            t-options="{'widget': 'monetary', 'display_currency': vals.get('inv').currency_id}"/>
+
+                                                    </strong>
+                                                </td>
+                                            </tr>
+
+
+
+                                            <!-- <tr>
+                                                <t t-set="stl" t-value="'padding-top:3px;'"/>
+                                                <td t-attf-style="border-top: 1px solid {{style.text_color}} !important;"><strong>Status</strong></td>
+                                                <td class="text-right" t-attf-style="border-top: 1px solid {{style.text_color}} !important;white-space:nowrap;" t-if="o.type in ['out_invoice', 'in_invoice']">
+                                                    <span t-attf-style="{{stl}}" t-if="o.state in ['proforma', 'proforma2']" class="label label-warning orders_label_text_align"><i class="fa fa-fw fa-asterisk"/> Pro-Forma</span>
+                                                    <span t-attf-style="{{stl}}" t-if="o.state == 'paid' and o.amount_total != 0.0" class="label label-success orders_label_text_align"><i class="fa fa-fw fa-check"/> Fully Paid</span>
+                                                    <span t-attf-style="{{stl}}" t-if="o.state in ['paid','open'] and o.amount_total == 0.0" class="label label-success orders_label_text_align"><i class="fa fa-fw fa-check"/> No Charge</span>
+                                                    <span t-attf-style="{{stl}}" t-if="o.state == 'open' and o.residual == o.amount_total and o.amount_total != 0.0" class="label label-info orders_label_text_align">
+                                                    <i class="fa fa-fw fa-times"/> Unpaid</span>
+                                                    <span t-attf-style="{{stl}}" t-if="o.state == 'open' and o.residual &lt; o.amount_total" class="label label-info orders_label_text_align">
+                                                    <i class="fa fa-fw fa-times-circle-o"/> Partially Paid</span>
+                                                    <span t-attf-style="{{stl}}" t-if="o.state == 'draft'" class="label label-warning orders_label_text_align"><i class="fa fa-fw fa-asterisk"/> Not Issued</span>
+                                                    <span t-attf-style="{{stl}}" t-if="o.state == 'cancel'" class="label label-danger orders_label_text_align"><i class="fa fa-fw fa-ban"/> Cancelled</span>
+                                                    <span t-attf-style="{{stl}}" t-if="o.state == 'open' and datetime.datetime.strptime((o.date_due or '{:%Y-%m-%d}'.format(datetime.datetime.now() + datetime.timedelta(days=1))), '%Y-%m-%d') &lt; datetime.datetime.now() and o.amount_total != 0.0" class="label label-warning orders_label_text_align"> <i class="fa fa-fw fa-clock-o"/>Overdue</span>
+
+                                                </td>
+                                                <td class="text-right" t-attf-style="border-top: 1px solid {{style.text_color}} !important;white-space:nowrap;" t-if="o.type in ['out_refund', 'in_refund']">
+                                                    <span t-attf-style="{{stl}}" t-if="o.state == 'paid' and o.amount_total != 0.0" class="label label-success orders_label_text_align"><i class="fa fa-fw fa-check"/> Fully Refunded</span>
+                                                    <span t-attf-style="{{stl}}" t-if="o.state in ['paid','open'] and o.amount_total == 0.0" class="label label-success orders_label_text_align"><i class="fa fa-fw fa-check"/> No Charge</span>
+                                                    <span t-attf-style="{{stl}}" t-if="o.state == 'open' and o.residual == o.amount_total and o.amount_total != 0.0" class="label label-info orders_label_text_align">
+                                                        <i class="fa fa-fw fa-times"/> Not Refunded</span>
+                                                    <span t-attf-style="{{stl}}" t-if="o.state == 'open' and o.residual &lt; o.amount_total" class="label label-info orders_label_text_align">
+                                                        <i class="fa fa-fw fa-times-circle-o"/> Partially Refunded</span>
+                                                    <span t-attf-style="{{stl}}" t-if="o.state == 'draft'" class="label label-warning orders_label_text_align"><i class="fa fa-fw fa-asterisk"/> Not Issued</span>
+                                                    <span t-attf-style="{{stl}}" t-if="o.state == 'cancel'" class="label label-danger orders_label_text_align"><i class="fa fa-fw fa-ban"/> Cancelled</span>
+                                                    <span t-attf-style="{{stl}}" t-if="o.state == 'open' and datetime.datetime.strptime((o.date_due or '{:%Y-%m-%d}'.format(datetime.datetime.now()+ datetime.timedelta(days=1))), '%Y-%m-%d') &lt; datetime.datetime.now() and o.amount_total != 0.0" class="label label-warning orders_label_text_align"> <i class="fa fa-fw fa-clock-o"/>Overdue</span>
+
+                                            </tr> -->
+    
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div t-if="style.aiw_report" class="col-xs-6 pull-left"
+                                    style="padding-left:0px; padding-right:0px; page-break-inside: avoid;">
+                                    <p>
+                                        <strong>Amount in Words:</strong>
+                                        <span style="text-decoration:underline;" t-esc="vals.get('inv').amount_words"/>
+                                    </p>
+                                    <table style="width:100%" t-attf-style="color:{{style.text_color}};">
+                                        <tr>
+                                            <td>
+                                                <strong>Exempt purchase order No.:</strong>
+                                                <span style="text-decoration:underline;"
+                                                    t-esc="vals.get('inv').exempt_purchase_no"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong>Registration number of exempted persons:</strong>
+                                                <span style="text-decoration:underline;"
+                                                    t-esc="vals.get('inv').constancy_exonerated_record"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong>Identification number of the SAG registry:</strong>
+                                                <span style="text-decoration:underline;" t-esc="vals.get('inv').reg_of_sag"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <!-- <div t-if="vals.get('inv').is_insured" class="col-xs-6 pull-left"
+                                    style="padding-top:10px; padding-left:0px; padding-right:0px; page-break-inside: avoid;">
+                                    <table class="table-condensed" style="width:100%;margin-top:1%"
+                                        t-attf-style="color:{{style.text_color}};">
+                                        <tr>
+                                            <td style="width:25%">
+                                                <strong>Deductible:</strong>
+                                            </td>
+                                            <td style="width:25%">
+                                                <span t-esc="'{0:,.2f}'.format(vals.get('inv').deductible)"/>
+                                            </td>
+                                            <td style="width:25%">
+                                                <strong>Total Insured:</strong>
+                                            </td>
+                                            <td style="width:25%">
+                                                <span t-esc="'{0:,.2f}'.format(vals.get('inv').total_insured)"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td t-if="not vals.get('inv').is_insurers_coa">
+                                                <strong>COA Sure:</strong>
+                                            </td>
+                                            <td t-if="not vals.get('inv').is_insurers_coa">
+                                                <span t-esc="'{0:,.2f}'.format(vals.get('inv').coa_sure)"/>
+                                            </td>
+                                            <td>
+                                                <strong>Total Insurence:</strong>
+                                            </td>
+                                            <td>
+                                                <span t-esc="'{0:,.2f}'.format(vals.get('inv').total_insurence)"/>
+                                            </td>
+                                        </tr>
+                                        <tr t-if="vals.get('inv').is_insurers_coa" >
+                                            <td colspan="4" style="border:1px solid black;border-bottom:0px">
+                                                <strong>COA Insurance:</strong> <span t-esc="vals.get('inv').insurance_coa_company_id.name"/>
+                                            </td>
+                                        </tr>
+                                        <tr t-if="vals.get('inv').is_insurers_coa">
+                                            <td colspan="4" style="border:1px solid black;;border-top:0px">
+                                                <strong>RTN:</strong> <span t-esc="vals.get('inv').insurance_coa_company_id.partner_id.rtn"/>
+                                            </td>
+                                        </tr>
+                                        <tr t-if="vals.get('inv').is_insurers_coa">
+                                            <td>
+                                                <strong>Deductible COA:</strong>
+                                            </td>
+                                            <td>
+                                                <span t-esc="'{0:,.2f}'.format(vals.get('inv').deductible_coa)"/>
+                                            </td>
+                                            <td>
+                                                <strong>Total Insurence COA:</strong>
+                                            </td>
+                                            <td>
+                                                <span t-esc="'{0:,.2f}'.format(vals.get('inv').total_insurence_coa)"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div> -->
+
+                                <div class="col-xs-12" style="padding-left:0px; padding-right:0px; page-break-inside: avoid;">
+                                    <!-- <p t-if="vals.get('inv').incoterms_id">
+                                        <strong>Shipping Terms:</strong>
+                                        <span t-esc="vals.get('inv').incoterms_id"/>
+                                    </p> -->
+                                    <p t-if="vals.get('inv').fiscal_position_id.note">
+                                        <strong>Fiscal Position Remark:</strong>
+                                        <span t-esc="vals.get('inv').fiscal_position_id.note"/>
+                                    </p>
+                                    <!-- <p t-if="vals.get('inv').comment">
+                                        <strong>Note:</strong>
+                                        <span t-esc="vals.get('inv').comment"/>
+                                    </p> -->
+                                </div>
+
+                                <div class="footer"
+                                    t-attf-style="background-color:transparent !important;font-size:{{style.footer_font}}px !important;font-family:{{style.font_family}} !important;">
+                                    <table class="table table-borderless table-condensed" style="width:100%; border-collapse: collapse; border: none;">
+                                        <tr>
+                                            <td style="width:50%">
+                                                <table style="width:100%">
+                                                    <!--tr>
+                                                        <td>Original:Cliente - Copia:Emisor</td>
+                                                    </tr-->
+                                                    <tr>
+                                                        <td>La factura es un beneficio de todos y todas, exijala.</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>
+                                                            <strong>Gracias por su compra</strong>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2" t-if="i==0" style="text-align:left;">
+                                                            <strong>ORIGINAL:CLIENTE</strong>
+                                                        </td>
+                                                        <td colspan="2" t-if="i==1" style="text-align:left;">
+                                                            <strong>COPIA 1:OBLIGADO TRIBUTARIO EMISOR(CONTABILIDAD)</strong>
+                                                        </td>
+                                                        <td colspan="2" t-if="i==2" style="text-align:left;">
+                                                            <strong>COPIA 2:ARCHIVO</strong>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <td style="width:50%">
+                                                <table style="width:100%">
+                                                    <tr>
+                                                        <td class="text-right">
+                                                            <strong>CAI:</strong>
+                                                            <span t-esc="vals.get('cai_shot')"/>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td class="text-right">
+                                                            <strong>Rango Autorizado:</strong>
+                                                            <span t-esc="vals.get('min_number_shot')"/>
+                                                            al
+                                                            <span t-esc="vals.get('max_number_shot')"></span>
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-right">
+                                                            <strong>Fecha limite de emisión:</strong>
+                                                            <span t-esc="vals.get('cai_expires_shot')"/>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                    <div class="col-xs-12 text-center">
+                                        <table style="width:100%">
+                                            <tr>
+                                                <!-- <td t-if="vals.get('inv').patient_id" style="width:35%">Patient: <span t-esc="vals.get('inv').patient_id.name"/></td> -->
+                                                <td t-if="vals.get('inv').partner_id" style="width:35%">Patient: <span t-esc="vals.get('inv').partner_id.name"/></td>
+                                                <td style="width:30%;text-align:center">Página: <span class="page"/>/<span class="topage"/></td>
+                                                <!-- <td style="width:35%;text-align:right">Number: <span t-esc="vals.get('inv').move_name"/></td> -->
+                                            </tr>
+                                        </table>
+                                        <!-- <ul class="list-inline">
+                                            <li>Página:</li>
+                                            <li>
+                                                <span class="page"/>
+                                            </li>
+                                            <li>/</li>
+                                            <li>
+                                                <span class="topage"/>
+                                            </li>
+                                        </ul> -->
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
+
+

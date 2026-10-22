@@ -1,0 +1,29 @@
+// Modo oscuro Odoo (cookie color_scheme=dark → web.assets_web_dark)
+// Noche: acentos más claros y línea / pendientes visibles sobre fondo oscuro.
+
+.o_kanban_view.o_hr_payrun_kanban {
+    --payrun-row-draft: #93c5fd;
+    --payrun-row-done: #4ade80;
+    --payrun-row-paid: #d8b4fe;
+}
+
+.o_payrun_progress_field {
+    --payrun-draft: #93c5fd;
+    --payrun-done: #4ade80;
+    --payrun-paid: #d8b4fe;
+    --payrun-node-pending-bg: #57534e;
+    --payrun-node-pending-ring: #94a3b8;
+
+    &.o_palette_draft {
+        --payrun-line-color: rgba(203, 213, 225, 0.55);
+    }
+}
+
+.o_payrun_node_label {
+    color: var(--bs-secondary-color, #cbd5e1);
+}
+
+// Subtítulo período | N empleados (misma lectura visual que Pay runs en tema oscuro)
+.o_kanban_view.o_hr_payrun_kanban .o_hr_payrun_kanban_sub {
+    color: #93c5fd !important;
+}

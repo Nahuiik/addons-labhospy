@@ -1,0 +1,12 @@
+<odoo>
+    <record id="product_product_inherit_lock_price_form_view" model="ir.ui.view">
+        <field name="name">product.product.inherit.lock.price.form.view</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='lst_price']" position="attributes">
+                <attribute name="readonly">readonly_price</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

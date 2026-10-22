@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_l10n_hn_payroll_cutoff_tree" model="ir.ui.view">
+        <field name="name">l10n.hn.payroll.cutoff.tree</field>
+        <field name="model">l10n.hn.payroll.cutoff.config</field>
+        <field name="arch" type="xml">
+            <list string="Fechas de Corte">
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="year"/>
+                <field name="period_number"/>
+                <field name="cutoff_start_day"/>
+                <field name="cutoff_end_day"/>
+                <field name="cutoff_from_previous_month"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_l10n_hn_payroll_cutoff_form" model="ir.ui.view">
+        <field name="name">l10n.hn.payroll.cutoff.form</field>
+        <field name="model">l10n.hn.payroll.cutoff.config</field>
+        <field name="arch" type="xml">
+            <form string="Fechas de Corte">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="year"/>
+                            <field name="period_number"/>
+                        </group>
+                        <group>
+                            <field name="cutoff_start_day"/>
+                            <field name="cutoff_end_day"/>
+                            <field name="cutoff_from_previous_month"/>
+                        </group>
+                    </group>
+                    <div class="alert alert-info" role="alert">
+                        <p><strong>Ejemplo 2da quincena:</strong> Día inicio=21, Día fin=20, Inicio en mes anterior=True → HE del 21 del mes anterior al 20 del mes actual se pagan en esta quincena.</p>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_l10n_hn_payroll_cutoff" model="ir.actions.act_window">
+        <field name="name">Fechas de Corte</field>
+        <field name="res_model">l10n.hn.payroll.cutoff.config</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p>Configure las fechas de corte para determinar qué período de Horas Extra corresponde a cada quincena.</p>
+        </field>
+    </record>
+</odoo>

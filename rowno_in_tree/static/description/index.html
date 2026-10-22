@@ -1,0 +1,373 @@
+<html>
+<head>
+
+    <link href="custom.css" rel="stylesheet"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8"/>
+    <meta name="google-site-verification" content="NGpd7kJ1PumTrCwdhQdBLlYQDa7HzofXBtuQ4cJCtHw"/>
+    <title>Odoo Row Number Column in Tree/List Views</title>
+    <meta name="description"
+          content="Add row numbers (# column) automatically in Odoo tree/list views. Works across Sales, Stock, Accounting, Project, Website, and more. Dynamic counter with header & footer alignment."/>
+    <meta name="keywords" content="
+        Odoo row number,
+        Odoo list row number,
+        Odoo tree view row number,
+        Odoo list numbering,
+        Odoo tree numbering,
+        Odoo row counter,
+        Odoo dynamic row number,
+        Odoo dynamic counter,
+        Odoo row index,
+        Odoo add row number,
+        Odoo list view row number,
+        Odoo tree view row number,
+        Odoo list view numbering,
+        Odoo tree view numbering,
+        Odoo list renderer row number,
+        Odoo sequence in list view,
+        Odoo sequence column,
+        Odoo numbering column,
+        Odoo auto number rows,
+        Odoo add numbering in list,
+        Odoo line numbering,
+        Odoo line counter,
+        Odoo numbered list Odoo,
+        Odoo record numbering,
+        Odoo record counter,
+        Odoo list order number,
+        Odoo UI row number,
+        Odoo UI numbering,
+        Odoo module row number,
+        Odoo feature row number,
+        Odoo sales order row number,
+        Odoo stock move row number,
+        Odoo invoice row number,
+        Odoo project task row number,
+        Odoo document row number,
+        Odoo accounting row number,
+        Odoo purchase row number,
+        Odoo website page row number,
+        Odoo HR row number,
+        Odoo employee row number,
+        Odoo work order row number,
+        Odoo manufacturing row number
+        "/>
+    <meta name="robots" content="index, follow"/>
+    <link type="text/css" rel="stylesheet" href="/assets/assets.css"/>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <link type="text/css" rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link href="https://fonts.googleapis.com/css2?family=Laila:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+
+</head>
+<body>
+<div id="top"></div>
+<section class="oe_container bg-transparent fixed-top position-relative">
+    <div class="o_equal_col_sm">
+        <div class="shadow bg-white pb32 pt32 px-2" style="border-radius: 15px">
+            <h3 class="oe_slogan"
+                style="color: #051f5a; font-family: Raleway; font-weight: 700; text-align: center; opacity: 1; font-size: 35px; margin-bottom: 25px; margin-top: 45px;">
+                Row Number Column In Tree/List Views</h3>
+            <img src="rowno_in_tree_dashboard.png" style="width: 100%;">
+        </div>
+    </div>
+</section>
+<!--HIGHLIGHTS--->
+<section class="oe_container pb-5">
+    <div>
+        <h2 style="color:#091E42; font-family:'Raleway'; text-align:center; margin:25px auto; text-transform:uppercase"
+            class="oe_slogan">
+            <b>Features</b>
+        </h2>
+        <div class="row">
+            <div class="col-md-6 col-sm-12 mt32">
+                <div class="container shadow" style="border-radius:10px; padding:10px 0px">
+                    <div class="col-md-3 shadow" style="float:left;margin: -10px 0px;">
+                        <img class="img img-responsive"
+                             style="width: 100%;height: auto;" src="images/Row_Number_Column.png">
+                    </div>
+                    <div class="col-md-9" style="padding-left:0; float:left; width:70%; margin-left: 20px;">
+                        <h3 class="mt16 mb0" style="font-family:Roboto; font-weight:500; font-size:22px">Row Number Column</h3>
+                        <p class=" mt8" style="font-family:Roboto;">Automatically adds a row number at the beginning of tree/list views</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 mt32">
+                <div class="container shadow" style="border-radius:10px; padding:10px 0px">
+                    <div class="col-md-3 shadow" style="float:left;margin: -10px 0px;"><img class="img img-responsive"
+                                                                                            style="width: 100%;height: auto;"
+                                                                                            src="images/Universal_Support.png">
+                    </div>
+                    <div class="col-md-9" style="padding-left:0; float:left; width:70%;margin-left: 20px;">
+                        <h3 class="mt16 mb0" style="font-family:Roboto; font-weight:500; font-size:22px">Universal Support</h3>
+                        <p class=" mt8" style="font-family:Roboto;"> Works across multiple odoo apps</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 mt32">
+                <div class="container shadow" style="border-radius:10px; padding:10px 0px">
+                    <div class="col-md-3 shadow" style="float:left;margin: -10px 0px;"><img class="img img-responsive"
+                                                                                            style="width: 100%;height: auto;"
+                                                                                            src="images/Dynamic Counter.png">
+                    </div>
+                    <div class="col-md-9" style="padding-left:0; float:left; width:70%;margin-left: 20px;">
+                        <h3 class="mt16 mb0" style="font-family:Roboto; font-weight:500; font-size:22px">Dynamic Counter</h3>
+                        <p class=" mt8" style="font-family:Roboto;">Row numbers update dynamically as you scroll or paginate</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 mt32">
+                <div class="container shadow" style="border-radius:10px; padding:10px 0px">
+                    <div class="col-md-3 shadow" style="float:left;margin: -10px 0px;">
+                        <img class="img img-responsive"
+                             style="width: 100%;height: auto;"
+                             src="images/Header_&_Footer_Alignment.png">
+                    </div>
+                    <div class="col-md-9" style="padding-left:0; float:left; width:70%;margin-left: 20px;">
+                        <h3 class="mt16 mb0" style="font-family:Roboto; font-weight:500; font-size:22px">Header & Footer Alignment </h3>
+                        <p class=" mt8" style="font-family:Roboto;">Adds a header cell # and a footer placeholder to keep table alignment intact</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 mt32">
+                <div class="container shadow" style="border-radius:10px; padding:10px 0px">
+                    <div class="col-md-3 shadow" style="float:left;margin: -10px 0px;">
+                        <img class="img img-responsive"
+                             style="width: 100%;height: auto;"
+                             src="images/Sequence_Aware.png">
+                    </div>
+                    <div class="col-md-9" style="padding-left:0; float:left; width:70%;margin-left: 20px;">
+                        <h3 class="mt16 mb0" style="font-family:Roboto; font-weight:500; font-size:22px">Sequence Aware</h3>
+                        <p class=" mt8" style="font-family:Roboto;">Detects existing "sequence" columns and adjusts width to prevent layout issues</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 mt32">
+                <div class="container shadow" style="border-radius:10px; padding:10px 0px">
+                    <div class="col-md-3 shadow" style="float:left;margin: -10px 0px;">
+                        <img class="img img-responsive"
+                             style="width: 100%;height: auto;"
+                             src="images/Multi_Recordset_Compatible .png">
+                    </div>
+                    <div class="col-md-9" style="padding-left:0; float:left; width:70%;margin-left: 20px;">
+                        <h3 class="mt16 mb0" style="font-family:Roboto; font-weight:500; font-size:22px">Multi-Recordset Compatible</h3>
+                        <p class=" mt8" style="font-family:Roboto;">Supports grouped lists, filtered records, and multi-page datasets</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container">
+    <div class="oe_row oe_spaced mt16 mb8" style="width: auto;">
+        <h3 class="oe_slogan">Experience Seamless Row Numbering Across All Odoo List Views</h3>
+        <div class="mt16 mb16" style="margin-left: 10px">
+            <img src="001.png"
+                 style="width: 100%; margin-top: 10px; border-radius: 5px; border: solid #E3E4E4; border-radius: 10px; border-width: 30px 7px 7px 7px;">
+        </div>
+
+    </div>
+</section>
+
+
+<section class="container">
+    <div class="oe_row oe_spaced mt16 mb8" style="width: auto;">
+        <div class="mt16 mb16" style="margin-left: 10px">
+            <img src="002.png"
+                 style="width: 100%; margin-top: 10px; border-radius: 5px; border: solid #E3E4E4; border-radius: 10px; border-width: 30px 7px 7px 7px;">
+        </div>
+
+    </div>
+</section>
+
+<section class="container">
+    <div class="oe_row oe_spaced mt16 mb8" style="width: auto;">
+        <div class="mt16 mb16" style="margin-left: 10px">
+            <img src="003.png"
+                 style="width: 100%; margin-top: 10px; border-radius: 5px; border: solid #E3E4E4; border-radius: 10px; border-width: 30px 7px 7px 7px;">
+        </div>
+
+    </div>
+</section>
+<section class="container">
+    <div class="oe_row oe_spaced mt16 mb8" style="width: auto;">
+        <div class="mt16 mb16" style="margin-left: 10px">
+            <img src="004.png"
+                 style="width: 100%; margin-top: 10px; border-radius: 5px; border: solid #E3E4E4; border-radius: 10px; border-width: 30px 7px 7px 7px;">
+        </div>
+
+    </div>
+</section>
+
+<section class="container">
+    <div class="oe_row oe_spaced mt16 mb8" style="width: auto;">
+        <div class="mt16 mb16" style="margin-left: 10px">
+            <img src="005.png"
+                 style="width: 100%; margin-top: 10px; border-radius: 5px; border: solid #E3E4E4; border-radius: 10px; border-width: 30px 7px 7px 7px;">
+        </div>
+    </div>
+</section>
+
+<section class="container">
+    <div class="oe_row oe_spaced mt16 mb8" style="width: auto;">
+        <div class="mt16 mb16" style="margin-left: 10px">
+            <img src="006.png"
+                 style="width: 100%; margin-top: 10px; border-radius: 5px; border: solid #E3E4E4; border-radius: 10px; border-width: 30px 7px 7px 7px;">
+        </div>
+    </div>
+</section>
+
+
+<section class="container">
+    <div class="oe_row oe_spaced mt8 mb8" style="width: auto;">
+        <div class="mt16 mb16" style="margin-left: 10px">
+            <img src="synodica_services.png" style="width: 100%; height: 100%;">
+        </div>
+    </div>
+</section>
+
+<!-- Carousel -->
+<div class="row" style="padding: 0px 60px;">
+    <section class="container">
+        <h2 style="color:#00008b; text-align:center; margin:25px auto; text-transform:uppercase;font-size: 50px;font-weight: 600;"
+            class="oe_slogan">
+            Suggested Products
+        </h2>
+        <div id="suggested_products" class="row carousel slide mt64 mb32" data-bs-ride="carousel">
+            <!-- The slideshow -->
+            <div class="carousel-inner">
+                <div class="carousel-item active" style="min-height: 292.4px;">
+                    <div class="col-xs-12 col-sm-4 col-md-4 mb16 mt16" style="float:left">
+                        <a href="https://apps.odoo.com/apps/modules/18.0/delivery_dpd_germany">
+                            <div style="border-radius:10px" class="shadow-sm">
+                                <img class="img img-responsive center-block"
+                                     style="border-top-left-radius:10px; border-top-right-radius:10px;height: 200px;width:100%;"
+                                     src="DPD_Germany_Banner.gif">
+                                <h4 class="mt0 text-truncate"
+                                    style="padding:6% 4%; text-align:center; width:100%">
+                                    DPD Germany Shipping
+                                </h4>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-4 mb16 mt16" style="float:left;padding-left: 20px;">
+                        <a href="https://apps.odoo.com/apps/modules/18.0/delivery_newzealand_post">
+                            <div style="border-radius:10px" class="shadow-sm">
+                                <img class="img img-responsive center-block"
+                                     style="border-top-left-radius:10px; border-top-right-radius:10px;height: 200px;width:100%;"
+                                     src="NZPost_Banner_Gif.gif">
+                                <h4 class="mt0 text-truncate"
+                                    style="padding:6% 4%; text-align:center; width:100%;">
+                                    Delivery NewZealand Post Shipping
+                                </h4>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-4 mb16 mt16" style="float:left;padding-left: 20px;">
+                        <a href="https://apps.odoo.com/apps/modules/18.0/delivery_dpd_lithuania">
+                            <div style="border-radius:10px" class="shadow-sm">
+                                <img class="img img-responsive center-block"
+                                     style="border-top-left-radius:10px; border-top-right-radius:10px;height: 200px;width:100%;"
+                                     src="DPD_lithuania_banner.gif">
+                                <h4 class="mt0 text-truncate"
+                                    style="padding:6% 4%; text-align:center; width:100%">
+                                    Delivery DPD Lithuania Shipping
+                                </h4>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="carousel-item" style="min-height: 292.4px;">
+                    <div class="col-xs-12 col-sm-4 col-md-4 mb16 mt16" style="float:left">
+                        <a href="https://apps.odoo.com/apps/modules/18.0/delivery_quiqup">
+                            <div style="border-radius:10px" class="shadow-sm">
+                                <img class="img img-responsive center-block"
+                                     style="border-top-left-radius:10px; border-top-right-radius:10px;height: 200px;width:100%;"
+                                     src="QuiqUp_Banner_Gif_.gif">
+                                <h4 class="mt0 text-truncate"
+                                    style="padding:6% 4%; text-align:center; width:100%">
+                                    Delivery QuiqUp Shipping
+                                </h4>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-4 mb16 mt16" style="float:left;padding-left: 20px;">
+                        <a href="https://apps.odoo.com/apps/modules/18.0/delivery_colissimo">
+                            <div style="border-radius:10px" class="shadow-sm">
+                                <img class="img img-responsive center-block"
+                                     style="border-top-left-radius:10px; border-top-right-radius:10px;height: 200px;width:100%;"
+                                     src="Colissimo.gif">
+                                <h4 class="mt0 text-truncate"
+                                    style="padding:6% 4%; text-align:center; width:100%">
+                                    Colissimo Shipping
+                                </h4>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-4 mb16 mt16" style="float:left;padding-left: 20px;">
+                        <a href="https://apps.odoo.com/apps/modules/18.0/delivery_shiphawk">
+                            <div style="border-radius:10px" class="shadow-sm">
+                                <img class="img img-responsive center-block"
+                                     style="border-top-left-radius:10px; border-top-right-radius:10px;height: 200px;width:100%;"
+                                     src="Shiphawk_Banner.gif">
+                                <h4 class="mt0 text-truncate"
+                                    style="padding:6% 4%; text-align:center; width:100%">
+                                    Delivery ShipHawk Shipping
+                                </h4>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Left and right controls -->
+            <a class="carousel-control-prev" href="#suggested_products" data-bs-slide="prev"
+               style="width:35px; color:#000; margin-left:-30px">
+                        <span class="carousel-control-prev-icon"><i class="fa fa-chevron-left"
+                                                                    style="font-size:24px"></i></span>
+            </a>
+            <a class="carousel-control-next" href="#suggested_products" data-bs-slide="next"
+               style="width:35px; color:#000; margin-right:-30px">
+                        <span class="carousel-control-next-icon"><i class="fa fa-chevron-right"
+                                                                    style="font-size:24px"></i></span>
+            </a>
+        </div>
+    </section>
+</div>
+<!-- End Carousel -->
+
+
+<!-- End Carousel -->
+<div class="container">
+    <section class="container">
+        <h4 style="color:#00008b; text-align:center; margin:25px auto; text-transform:uppercase;font-weight: 600;"
+            class="oe_slogan">
+            Contact Us
+        </h4>
+        <div style="text-align:center">
+            <span>Suggestions &amp; Feedback to:</span> <a href="mailto:support@synodica.com">support@synodica.com </a>
+        </div>
+    </section>
+</div>
+<div class="container" align="center">
+    <section class="container">
+        <a href="#top">
+            <img src="up_arrow.png" alt="up-arrow" style="height: 125px;">
+        </a>
+    </section>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_gn_due_alert_notification_list" model="ir.ui.view">
+        <field name="name">gn.due.alert.notification.list</field>
+        <field name="model">gn.due.alert.notification</field>
+        <field name="arch" type="xml">
+            <list string="Alertas de vencimiento"
+                  create="false"
+                  default_order="priority desc, date_due asc"
+                  decoration-danger="alert_level in ('overdue', 'critical')"
+                  decoration-warning="alert_level == 'today'"
+                  decoration-info="alert_level == 'soon'">
+                <field name="source_type"/>
+                <field name="alert_kind"/>
+                <field name="alert_level"/>
+                <field name="state" widget="badge"/>
+                <field name="move_id"/>
+                <field name="move_line_id" optional="hide"/>
+                <field name="partner_id"/>
+                <field name="date_due"/>
+                <field name="days_delta"/>
+                <field name="amount_residual" sum="Saldo"/>
+                <field name="user_id"/>
+                <field name="responsible_id" optional="show"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="last_notified_at" optional="hide"/>
+                <field name="notify_count" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_gn_due_alert_notification_form" model="ir.ui.view">
+        <field name="name">gn.due.alert.notification.form</field>
+        <field name="model">gn.due.alert.notification</field>
+        <field name="arch" type="xml">
+            <form string="Alerta de vencimiento" create="false">
+                <header>
+                    <button name="action_open_invoice" type="object"
+                            string="Abrir factura" class="btn-primary"/>
+                    <button name="action_register_payment" type="object"
+                            string="Registrar pago"/>
+                    <button name="action_snooze" type="object"
+                            string="Posponer"/>
+                    <button name="action_mark_reviewed" type="object"
+                            string="Marcar revisada"/>
+                    <button name="action_close" type="object"
+                            string="Cerrar"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="pending,sent,reviewed,snoozed,closed,resolved"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="alert_kind"/>
+                            <field name="alert_level"/>
+                            <field name="move_id"/>
+                            <field name="partner_id"/>
+                            <field name="user_id"/>
+                            <field name="responsible_id"/>
+                        </group>
+                        <group>
+                            <field name="invoice_date"/>
+                            <field name="date_due"/>
+                            <field name="days_delta"/>
+                            <field name="amount_total"/>
+                            <field name="amount_residual"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="message" nolabel="1" colspan="2"/>
+                    </group>
+                    <notebook>
+                        <page string="Historial">
+                            <field name="log_ids" readonly="1">
+                                <list create="false" delete="false" edit="false">
+                                    <field name="create_date"/>
+                                    <field name="user_id"/>
+                                    <field name="action"/>
+                                    <field name="note"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_gn_due_alert_notification_search" model="ir.ui.view">
+        <field name="name">gn.due.alert.notification.search</field>
+        <field name="model">gn.due.alert.notification</field>
+        <field name="arch" type="xml">
+            <search string="Alertas de vencimiento">
+                <field name="partner_id" string="Contacto"/>
+                <field name="move_id" string="Factura"/>
+                <field name="user_id" string="Destinatario"/>
+                <field name="responsible_id" string="Responsable"/>
+                <filter name="pending" string="Pendientes"
+                        domain="[('state','in',('pending','sent'))]"/>
+                <filter name="receivable_lines" string="Saldos CxC (apuntes)"
+                        domain="[('source_type','=','receivable_line')]"/>
+                <filter name="invoices_only" string="Facturas"
+                        domain="[('source_type','=','invoice')]"/>
+                <filter name="payable" string="Cuentas por pagar"
+                        domain="[('alert_kind','=','payable')]"/>
+                <filter name="receivable" string="Cuentas por cobrar"
+                        domain="[('alert_kind','=','receivable')]"/>
+                <filter name="soon" string="Proxima a vencer"
+                        domain="[('alert_level','=','soon')]"/>
+                <filter name="today" string="Vence hoy"
+                        domain="[('alert_level','=','today')]"/>
+                <filter name="overdue" string="Vencida"
+                        domain="[('alert_level','=','overdue')]"/>
+                <filter name="critical" string="Critica"
+                        domain="[('alert_level','=','critical')]"/>
+                <separator/>
+                <group>
+                    <filter name="group_level" string="Nivel"
+                            context="{'group_by': 'alert_level'}"/>
+                    <filter name="group_partner" string="Contacto"
+                            context="{'group_by': 'partner_id'}"/>
+                    <filter name="group_kind" string="Tipo"
+                            context="{'group_by': 'alert_kind'}"/>
+                    <filter name="group_state" string="Estado"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="group_user" string="Destinatario"
+                            context="{'group_by': 'user_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_gn_due_alert_notification" model="ir.actions.act_window">
+        <field name="name">Centro de alertas</field>
+        <field name="res_model">gn.due.alert.notification</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_gn_due_alert_notification_search"/>
+        <field name="context">{'search_default_pending': 1, 'search_default_group_level': 1}</field>
+    </record>
+
+</odoo>

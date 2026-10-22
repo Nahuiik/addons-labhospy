@@ -1,0 +1,33 @@
+.u_sw_inline_edit:not(.active, :hover, [disabled]) {
+    background-color: $o-gray-100;
+    border-color: $o-gray-100;
+}
+
+.o_list_view.u_edit_inlist {
+    .o_data_cell.o_readonly_modifier {
+        background-color: rgba($o-warning, .06);
+    }
+}
+
+/* Force alignment of manage columns button */
+.o_list_renderer, .o_list_view {
+    .o_optional_columns_dropdown {
+        display: inline-flex !important;
+        vertical-align: top;
+        height: 100%;
+    }
+    
+    /* Wrapper for our button */
+    .o_udoo_manage_cols_wrapper {
+        display: inline-flex !important;
+        vertical-align: top;
+        height: 100%;
+        margin-right: 4px;
+    }
+    
+    .o_udoo_manage_cols {
+        height: 100% !important;
+        display: inline-flex !important;
+        align-items: center;
+    }
+}

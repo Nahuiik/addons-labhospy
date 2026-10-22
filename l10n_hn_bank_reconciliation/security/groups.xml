@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+	<record id="reconciliation_bank_privilege" model="res.groups.privilege">
+            <field name="name">Conciliación Bancaria</field>
+            <field name="description">Conciliación Bancaria</field>
+            <field name="sequence">4</field>
+	</record>
+	
+    <record id="reconciliation_bank_manager" model="res.groups">
+		<field name="privilege_id" ref="reconciliation_bank_privilege"/>
+        <field name="name">Manager Conciliación Bancaria </field>
+    </record>
+
+    <record id="reconciliation_bank_user" model="res.groups">
+		<field name="privilege_id" ref="reconciliation_bank_privilege"/>
+        <field name="name">Conciliación Bancaria lectura</field>
+    </record>
+
+</data>
+</odoo>

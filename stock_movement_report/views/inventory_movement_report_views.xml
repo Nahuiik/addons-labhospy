@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="internal_layout_inherit" inherit_id="web.internal_layout">
+        <xpath expr="//div[hasclass('col-2', 'offset-2', 'text-center')]/span" position="attributes">
+            <attribute name="class">d-none</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('col-3')]/span" position="attributes">
+            <attribute name="class">d-none</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('col-2', 'offset-3', 'text-end')]/ul" position="attributes">
+            <attribute name="class">d-none</attribute>
+        </xpath>
+    </template>
+
+
+    <record id="inventory_movement_report_action_client" model="ir.actions.client">
+        <field name="name">Inventory Movement</field>
+        <field name="tag">inventory_movement_report</field>
+        <field name="context">{'current_user_id': uid}</field>
+    </record>
+
+    <menuitem
+        id="menu_inventory_movement_report"
+        name="Inventory Movement"
+        action="inventory_movement_report_action_client"
+        groups="stock.group_stock_manager"
+        sequence="120"
+        parent="stock.menu_warehouse_report"/>
+</odoo>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_conciliation_report_xls" model="ir.actions.report">
+        <field name="name">Conciliation XLS</field>
+        <field name="model">bank.reconciliation</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">l10n_hn_bank_reconciliation.consoliation_xls</field>
+        <field name="report_file">Conciliation</field>
+        <field name="attachment_use" eval="False"/>
+    </record>
+</odoo>

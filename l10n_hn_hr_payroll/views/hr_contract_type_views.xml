@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Extend list view to show is_permanent -->
+    <record id="hr_contract_type_view_tree_inherit_l10n_hn" model="ir.ui.view">
+        <field name="name">hr.contract.type.list.inherit.l10n.hn</field>
+        <field name="model">hr.contract.type</field>
+        <field name="inherit_id" ref="hr.hr_contract_type_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="is_permanent"/>
+            </xpath>
+        </field>
+    </record>
+    <!-- Extend form view -->
+    <record id="hr_contract_type_view_form_inherit_l10n_hn" model="ir.ui.view">
+        <field name="name">hr.contract.type.form.inherit.l10n.hn</field>
+        <field name="model">hr.contract.type</field>
+        <field name="inherit_id" ref="hr.hr_contract_type_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='country_id']" position="after">
+                <field name="is_permanent"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

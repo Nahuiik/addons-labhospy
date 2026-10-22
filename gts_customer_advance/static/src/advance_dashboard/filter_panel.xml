@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gts_customer_advance.FilterPanel">
+        <div class="gts-advance-filters">
+            <div class="gts-advance-filters__section">
+                <label class="gts-advance-filters__label">Período</label>
+                <select class="form-select form-select-sm" t-on-change="onPeriodChange" t-att-value="props.filters.period">
+                    <t t-foreach="periods" t-as="p" t-key="p.id">
+                        <option t-att-value="p.id" t-att-selected="p.id === props.filters.period">
+                            <t t-esc="p.name"/>
+                        </option>
+                    </t>
+                </select>
+            </div>
+
+            <t t-if="props.filters.period === 'custom'">
+                <div class="gts-advance-filters__section">
+                    <label class="gts-advance-filters__label">Desde</label>
+                    <input type="date" class="form-control form-control-sm"
+                           t-att-value="props.filters.date_from"
+                           t-on-change="onDateFromChange"/>
+                </div>
+                <div class="gts-advance-filters__section">
+                    <label class="gts-advance-filters__label">Hasta</label>
+                    <input type="date" class="form-control form-control-sm"
+                           t-att-value="props.filters.date_to"
+                           t-on-change="onDateToChange"/>
+                </div>
+            </t>
+
+            <div class="gts-advance-filters__section">
+                <label class="gts-advance-filters__label">Creador</label>
+                <select class="form-select form-select-sm" t-on-change="onCreatorChange"
+                        t-att-value="props.filters.creator_id ? props.filters.creator_id : 'all'">
+                    <t t-foreach="creators" t-as="c" t-key="c.id">
+                        <option t-att-value="c.id"
+                                t-att-selected="(c.id === 'all' and !props.filters.creator_id) or c.id === props.filters.creator_id">
+                            <t t-esc="c.name"/>
+                        </option>
+                    </t>
+                </select>
+            </div>
+        </div>
+    </t>
+
+</templates>

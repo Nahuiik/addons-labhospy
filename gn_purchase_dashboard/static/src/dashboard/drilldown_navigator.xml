@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_purchase_dashboard.DrilldownNavigator">
+        <section class="gn-pd-drill-nav">
+            <nav class="gn-pd-drill-nav__crumbs" aria-label="Drill-down">
+                <button t-foreach="props.breadcrumb" t-as="crumb" t-key="crumb.level"
+                        type="button" class="gn-pd-drill-nav__crumb"
+                        t-att-class="props.level === crumb.level ? ' active' : ''"
+                        t-on-click="() => this.onCrumbClick(crumb)">
+                    <t t-esc="crumb.label"/>
+                </button>
+            </nav>
+            <div t-if="props.loading" class="gn-pd-skeleton gn-pd-skeleton--table"/>
+            <div t-else="" class="gn-pd-drill-nav__table-wrap">
+                <table class="table table-sm gn-pd-drill-nav__table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th class="text-end">Monto</th>
+                            <th class="text-end">Detalle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="props.rows" t-as="row" t-key="row.id or row.name"
+                            class="gn-pd-drill-nav__row" t-on-click="() => this.onRowSelect(row)">
+                            <td t-esc="row.name"/>
+                            <td class="text-end" t-esc="props.fmtMoney(row.amount or row.purchases or 0)"/>
+                            <td class="text-end">
+                                <button type="button" class="btn btn-link btn-sm"
+                                        t-if="row.partner_id or row.product_id"
+                                        t-on-click="(ev) => this.onPanelOpen(row, ev)">
+                                    Panel
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </t>
+</templates>

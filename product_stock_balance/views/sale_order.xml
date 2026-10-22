@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+    <record id="sale_order_view_form_by_locations" model="ir.ui.view">
+        <field name="name">sale.order.form.by.locations</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_stock.view_order_form_inherit_sale_stock"/>
+        <field name="arch" type="xml">
+            <xpath expr="//list//widget[@name='qty_at_date_widget']" position="after">
+                <field name="show_psb" column_invisible="True"/>
+                <widget name="SaleLocationsLink" width="20px"/>
+            </xpath>
+            <xpath expr="//form//widget[@name='qty_at_date_widget']" position="after">
+                <field name="show_psb" column_invisible="True"/>
+                <widget name="SaleLocationsLink" width="0.1"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

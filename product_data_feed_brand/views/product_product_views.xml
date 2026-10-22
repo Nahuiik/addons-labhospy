@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="product_product_form_view" model="ir.ui.view">
+        <field name="name">product.product.form.inherit.product.data.feed.brand</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='barcode']" position="after">
+                <field name="descripcion"/>
+                <field name="cc_proveedor"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_product_search_view" model="ir.ui.view">
+        <field name="name">product.product.search.inherit.product.data.feed.brand</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_search_form_view"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="descripcion"/>
+                <field name="cc_proveedor"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
+
+

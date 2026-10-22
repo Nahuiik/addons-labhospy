@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_open_dashboard_inventory" model="ir.actions.client">
+        <field name="name">Inventory Command Center</field>
+        <field name="tag">open_inventory_dashboard</field>
+    </record>
+    <menuitem id="inventory_menu_open_Dashboard"
+              name="Command Center"
+              action="action_open_dashboard_inventory"
+              parent="stock.menu_stock_root"
+              groups="dev_advance_inventory_dashboard.group_allow_access_inventory"
+              sequence="-1"/>
+</odoo>

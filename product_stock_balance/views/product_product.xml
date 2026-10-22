@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+    <record id="product_product_view_form_by_locations" model="ir.ui.view">
+        <field name="name">product.product.form.by.locations</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="stock.product_form_view_procurement_button"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='inventory']" position="before">
+                <group string="Inventory levels" invisible="type == 'service'" groups="base.group_user">
+                    <div class="o_row mb-2" groups="product_stock_balance.group_stocks_no_aggregation">
+                        <span class="fw-bold me-2">Totals</span>
+                        <span class="me-1">On Hand:</span>
+                        <field name="qty_available_total" readonly="1" nolabel="1" class="me-3"/>
+                        <span class="me-1">Forecasted:</span>
+                        <field name="virtual_available_total" readonly="1" nolabel="1"/>
+                    </div>
+                    <div colspan="2">
+                        <field name="location_ids" widget="locationsHierarchyWidget" groups="!product_stock_balance.group_stocks_show_only_by_button"/>
+                        <button name="action_show_table_sbl"
+                                type="object"
+                                string="Show Stocks by Locations"
+                                class="btn btn-primary"
+                                groups="product_stock_balance.group_stocks_show_only_by_button"
+                        />
+                        <button name="action_prepare_xlsx_balance_product"
+                                type="object"
+                                string="Export to XLSX"
+                                context="{'product_id': id}"
+                                class="btn btn-secondary"
+                                groups="product_stock_balance.group_stocks_show_only_by_button"
+                        />
+                    </div>
+                </group>
+            </xpath>
+        </field>
+    </record>
+    <record id="product_product_view_tree_by_locations" model="ir.ui.view">
+        <field name="name">product.product.by.locations</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="stock.view_stock_product_tree"/>
+        <field name="arch" type="xml">
+            <field name="qty_available" position="after">
+                <field name="qty_available_total" invisible="type != 'product'" optional="show"/>
+            </field>
+        </field>
+    </record>
+    <record id="product_product_form_only_locations" model="ir.ui.view">
+        <field name="name">product.product.form.view.only.locations</field>
+        <field name="model">product.product</field>
+        <field name="priority" eval="10000"/>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div colspan="2">
+                        <field name="id" invisible="1"/>
+                        <field name="location_ids" widget="locationsHierarchyWidget" class="w-100"/>
+                    </div>
+                    <footer>
+                        <button name="cancel" string="Close" special="cancel" class="oe_link"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="product_product_sbl_button_only_action" model="ir.actions.act_window">
+        <field name="name">Inventory levels</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.product</field>
+        <field name="view_mode">form</field>  
+        <field name="target">new</field>
+        <field name="context">{"form_view_ref": "product_stock_balance.product_product_form_only_locations",}</field>
+    </record>
+    <record model="ir.actions.act_window" id="stock.action_product_stock_view">
+        <field name="context">{"default_detailed_type": "product", "total_warehouse": 1}</field>
+    </record>
+
+</odoo>

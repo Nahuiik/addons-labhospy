@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Vista de lista para cuentas bancarias de empleados -->
+        <record id="view_employee_bank_account_list" model="ir.ui.view">
+            <field name="name">res.partner.bank.employee.list</field>
+            <field name="model">res.partner.bank</field>
+            <field name="arch" type="xml">
+                <list string="Cuentas Bancarias" default_order="partner_id, sequence">
+                    <field name="employee_id" string="Empleado"/>
+                    <field name="acc_number" string="Número de Cuenta"/>
+                    <field name="bank_id" string="Banco"/>
+                    <field name="acc_type" string="Tipo"/>
+                    <field name="currency_id"/>
+                    <field name="employee_salary_amount" string="Asignación Salarial" groups="hr.group_hr_manager"/>
+                    <field name="allow_out_payment" string="Permitir Pago Externo"/>
+                    <field name="partner_id" string="Contacto" optional="hide"/>
+                    <field name="sequence" optional="hide"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Vista de búsqueda para cuentas bancarias de empleados -->
+        <record id="view_employee_bank_account_search" model="ir.ui.view">
+            <field name="name">res.partner.bank.employee.search</field>
+            <field name="model">res.partner.bank</field>
+            <field name="arch" type="xml">
+                <search string="Cuentas Bancarias">
+                    <field name="employee_id" string="Empleado"/>
+                    <field name="acc_number" string="Número de Cuenta"/>
+                    <field name="bank_id"/>
+                    <field name="partner_id"/>
+                    <separator/>
+                    <filter string="Permitir Pago Externo" name="allow_out_payment" 
+                            domain="[('allow_out_payment', '=', True)]"/>
+                    <separator/>
+                    <filter string="Agrupado por Empleado" name="group_by_employee" 
+                            domain="[]" context="{'group_by': 'employee_id'}"/>
+                    <filter string="Agrupado por Banco" name="group_by_bank" 
+                            domain="[]" context="{'group_by': 'bank_id'}"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Acción para cuentas bancarias de empleados -->
+        <record id="action_employee_bank_accounts" model="ir.actions.act_window">
+            <field name="name">Cuentas Bancarias</field>
+            <field name="res_model">res.partner.bank</field>
+            <field name="view_mode">list,form</field>
+            <field name="domain">[('employee_id', '!=', False)]</field>
+            <field name="context">{'default_employee_id': active_id if active_model == 'hr.employee' else False}</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'list', 'view_id': ref('view_employee_bank_account_list')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('base.view_partner_bank_form')})
+            ]"/>
+            <field name="search_view_id" ref="view_employee_bank_account_search"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No hay cuentas bancarias aún
+                </p>
+                <p>
+                    Crea una nueva cuenta bancaria para un empleado. Las cuentas bancarias se pueden usar para el pago de nóminas.
+                </p>
+            </field>
+        </record>
+
+        <!-- Menú de Cuentas Bancarias en el menú principal de Empleados -->
+        <menuitem
+            id="menu_hr_bank_accounts"
+            name="Cuentas Bancarias"
+            action="action_employee_bank_accounts"
+            parent="hr.menu_hr_root"
+            sequence="5"
+            groups="hr.group_hr_user"/>
+    </data>
+</odoo>
+

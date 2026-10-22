@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Actualiza planes existentes para habilitar acumulación mensual proporcional -->
+    <data noupdate="0">
+        <record id="hn_vacation_plan_temporal" model="gn.hn.vacation.plan">
+            <field name="allow_monthly_proportional" eval="True"/>
+        </record>
+    </data>
+</odoo>

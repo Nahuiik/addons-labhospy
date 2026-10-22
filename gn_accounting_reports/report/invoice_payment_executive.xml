@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_payment_executive">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <div class="page" style="font-family: Helvetica, Arial, sans-serif; color: #1e293b;">
+                    <!-- Portada -->
+                    <div style="padding: 48px 32px; border-bottom: 4px solid #0d9488; margin-bottom: 32px;">
+                        <div style="font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 2px;">
+                            Informe ejecutivo
+                        </div>
+                        <h1 style="font-size: 28px; margin: 12px 0 8px; color: #0f172a;">
+                            <t t-out="report_title"/>
+                        </h1>
+                        <p style="font-size: 14px; color: #64748b; margin: 0;">
+                            <t t-out="company.name"/>
+                            · Período: <t t-out="header.get('period_label', '')"/>
+                        </p>
+                        <p style="font-size: 12px; color: #94a3b8; margin-top: 8px;">
+                            Generado: <t t-out="print_date"/> <t t-out="print_time"/>
+                        </p>
+                    </div>
+
+                    <!-- KPIs principales -->
+                    <h2 style="font-size: 16px; color: #0d9488; margin-bottom: 16px;">Indicadores clave</h2>
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 32px;">
+                        <tr>
+                            <t t-set="main_kpis" t-value="[k for k in kpis.get('cards', []) if k.get('key') in ('total_invoiced','total_paid','total_pending','recovery_pct')]"/>
+                            <t t-foreach="main_kpis" t-as="kpi">
+                                <td style="width: 25%; padding: 12px; border: 1px solid #e2e8f0; vertical-align: top;">
+                                    <div style="font-size: 11px; color: #64748b;" t-out="kpi.get('label')"/>
+                                    <div style="font-size: 20px; font-weight: bold; margin-top: 4px;">
+                                        <t t-if="kpi.get('is_pct')">
+                                            <t t-out="fmt_pct(kpi.get('value', 0))"/>%
+                                        </t>
+                                        <t t-else="" t-out="'%s%s' % (currency_symbol, fmt_money(kpi.get('value', 0)))"/>
+                                    </div>
+                                </td>
+                            </t>
+                        </tr>
+                    </table>
+
+                    <!-- Índices -->
+                    <table style="width: 100%; margin-bottom: 32px;">
+                        <tr>
+                            <td style="width: 50%; padding: 16px; background: #f0fdfa; border-radius: 8px;">
+                                <strong>Índice de recuperación</strong>
+                                <div style="font-size: 24px; color: #0d9488;">
+                                    <t t-out="fmt_pct(kpis.get('recovery_index', 0))"/>%
+                                </div>
+                            </td>
+                            <td style="width: 50%; padding: 16px; background: #f0fdf4; border-radius: 8px;">
+                                <strong>Pagos dentro del plazo</strong>
+                                <div style="font-size: 24px; color: #16a34a;">
+                                    <t t-out="fmt_pct(kpis.get('punctuality_index', 0))"/>%
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <!-- Hallazgos -->
+                    <h2 style="font-size: 16px; color: #0d9488; margin-bottom: 12px;">Hallazgos del período</h2>
+                    <ul style="margin-bottom: 32px; padding-left: 20px;">
+                        <t t-foreach="insights" t-as="ins">
+                            <li style="margin-bottom: 8px; font-size: 13px;" t-out="ins.get('text')"/>
+                        </t>
+                        <t t-if="not insights">
+                            <li style="color: #94a3b8;">Sin observaciones destacadas.</li>
+                        </t>
+                    </ul>
+
+                    <!-- Aging -->
+                    <h2 style="font-size: 16px; color: #0d9488; margin-bottom: 12px;">Resumen de vencimientos</h2>
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 32px; font-size: 12px;">
+                        <thead>
+                            <tr style="background: #f1f5f9;">
+                                <th style="padding: 8px; text-align: left;">Rango</th>
+                                <th style="padding: 8px; text-align: right;">Monto</th>
+                                <th style="padding: 8px; text-align: right;">Facturas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="aging.get('buckets', {}).values()" t-as="bucket">
+                                <tr>
+                                    <td style="padding: 8px; border-bottom: 1px solid #e2e8f0;" t-out="bucket.get('label')"/>
+                                    <td style="padding: 8px; border-bottom: 1px solid #e2e8f0; text-align: right;"
+                                        t-out="'%s%s' % (currency_symbol, fmt_money(bucket.get('amount', 0)))"/>
+                                    <td style="padding: 8px; border-bottom: 1px solid #e2e8f0; text-align: right;"
+                                        t-out="bucket.get('count', 0)"/>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <!-- Top asesores -->
+                    <h2 style="font-size: 16px; color: #0d9488; margin-bottom: 12px;">Cobros por asesor (Top 10)</h2>
+                    <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+                        <thead>
+                            <tr style="background: #f1f5f9;">
+                                <th style="padding: 8px; text-align: left;">Asesor</th>
+                                <th style="padding: 8px; text-align: right;">Cobrado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="adv" t-value="charts.get('advisor_ranking', {})"/>
+                            <t t-foreach="adv.get('labels', [])" t-as="adv_label" t-key="adv_label_index">
+                                <tr>
+                                    <td style="padding: 6px; border-bottom: 1px solid #e2e8f0;" t-out="adv_label"/>
+                                    <td style="padding: 6px; border-bottom: 1px solid #e2e8f0; text-align: right;"
+                                        t-out="'%s%s' % (currency_symbol, fmt_money(adv.get('paid', [])[adv_label_index] if adv_label_index &lt; len(adv.get('paid', [])) else 0))"/>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <div style="margin-top: 40px; font-size: 10px; color: #94a3b8; text-align: center;">
+                        Filtros: estado=<t t-out="filters.get('payment_state', 'all')"/>
+                        · vista=<t t-out="filters.get('view_mode', '')"/>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <record id="paperformat_gn_invoice_payment_executive" model="report.paperformat">
+        <field name="name">Informe ejecutivo facturas pagos</field>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">12</field>
+        <field name="margin_bottom">12</field>
+        <field name="margin_left">12</field>
+        <field name="margin_right">12</field>
+    </record>
+
+    <record id="action_report_gn_invoice_payment_executive" model="ir.actions.report">
+        <field name="name">Informe ejecutivo facturas y pagos</field>
+        <field name="model">gn.accounting.invoice.payment.executive.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">gn_accounting_reports.report_invoice_payment_executive</field>
+        <field name="report_file">gn_accounting_reports.report_invoice_payment_executive</field>
+        <field name="paperformat_id" ref="paperformat_gn_invoice_payment_executive"/>
+    </record>
+</odoo>

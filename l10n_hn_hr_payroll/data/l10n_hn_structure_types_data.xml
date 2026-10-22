@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- ============================================ -->
+        <!-- TIPOS DE ESTRUCTURA SALARIAL -->
+        <!-- ============================================ -->
+        
+        <!-- Tipo de Estructura: Pago Quincenal -->
+        <record id="structure_type_biweekly" model="hr.payroll.structure.type">
+            <field name="name">Nómina Quincenal</field>
+            <field name="default_schedule_pay">bi-weekly</field>
+            <field name="default_resource_calendar_id" ref="resource.resource_calendar_std"/>
+        </record>
+        
+        <!-- Tipo de Estructura: Pago Mensual -->
+        <record id="structure_type_monthly" model="hr.payroll.structure.type">
+            <field name="name">Nómina Mensual</field>
+            <field name="default_schedule_pay">monthly</field>
+            <field name="default_resource_calendar_id" ref="resource.resource_calendar_std"/>
+        </record>
+        
+        <!-- ============================================ -->
+        <!-- ESTRUCTURAS SALARIALES (sin reglas inicialmente) -->
+        <!-- ============================================ -->
+        
+        <!-- Estructura Salarial Quincenal (por defecto) -->
+        <record id="structure_biweekly" model="hr.payroll.structure">
+            <field name="name">Estructura Quincenal Honduras</field>
+            <field name="country_id" ref="base.hn"/>
+            <field name="type_id" ref="l10n_hn_hr_payroll.structure_type_biweekly"/>
+            <field name="code">HN_BIWEEKLY</field>
+            <field name="periodicity">biweekly</field>
+            <field name="use_worked_day_lines" eval="True"/>
+            <field name="is_default" eval="True"/>
+            <field name="unpaid_work_entry_type_ids" eval="[(4, ref('hr_work_entry.work_entry_type_unpaid_leave'))]"/>
+        </record>
+        
+        <!-- Estructura Salarial Mensual -->
+        <record id="structure_monthly" model="hr.payroll.structure">
+            <field name="name">Estructura Mensual Honduras</field>
+            <field name="country_id" ref="base.hn"/>
+            <field name="type_id" ref="l10n_hn_hr_payroll.structure_type_monthly"/>
+            <field name="code">HN_MONTHLY</field>
+            <field name="periodicity">monthly</field>
+            <field name="use_worked_day_lines" eval="True"/>
+            <field name="unpaid_work_entry_type_ids" eval="[(4, ref('hr_work_entry.work_entry_type_unpaid_leave'))]"/>
+        </record>
+    </data>
+</odoo>

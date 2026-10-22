@@ -1,0 +1,26 @@
+<odoo>
+
+    <record id="view_partner_form_warn" model="ir.ui.view">
+            <field name="name">res.partner.view.warn.inh</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+
+            <field name="arch" type="xml">
+                <div role="alert" position="after">
+                    <div
+                        class="alert alert-warning"
+                        role="alert"
+                        invisible="not (overdue_invoice_count &gt; 0 and overdue_invoice_amount &gt; 0)"
+                    >
+                        This customer has <field name="overdue_invoice_count" /><button
+                            string="overdue invoice(s)"
+                            type="object"
+                            name="jump_to_overdue_invoices"
+                            class="oe_link"
+                        />for a total residual of <field name="overdue_invoice_amount" />
+                    </div>
+                </div>
+            </field>
+    </record>
+
+</odoo>

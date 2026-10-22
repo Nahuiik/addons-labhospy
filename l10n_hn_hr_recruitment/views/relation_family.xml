@@ -1,0 +1,222 @@
+<odoo>
+    <record model="ir.ui.view" id="relation_famiy_form_view">
+        <field name="name">relation.family.form</field>
+        <field name="model">l10n_hn_hr_recruitment.family_relation</field>
+        <!--field name="priority" eval="16"/-->
+        <field name="arch" type="xml">
+            <form string="Configure Relation">
+                <group col="4">
+                    <field name="name"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_contrat_form_inherit" model="ir.ui.view">
+        <field name="name">hr.version.form.inherit.documents</field>
+        <field name="model">hr.version</field>
+        <field name="inherit_id" ref="hr.hr_contract_template_form_view"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Documentos">
+                    <field name="doc_ids">
+                        <list string="" create="true" delete="true" editable="bottom">
+                            <field name="name"/>
+                            <field name="store_fname" invisible="1"/>
+                            <field name="document" filename="store_fname" widget="binary" required="1"/>
+                        </list>
+                        <form>
+                            <group col="4">
+                                <field name="name"/>
+                                <field name="document" filename="store_fname" widget="binary" invisible="1"/>
+                                <field name="store_fname" invisible="1"/>                            
+                            </group>
+                            <field name="document" filename="store_fname" widget="pdf_viewer" nolabel="1" />
+                        </form>
+                    </field>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="relations_family_tree">
+	    <field name="name">relation.family.tree</field>
+	    <field name="model">l10n_hn_hr_recruitment.family_relation</field>
+	    <field name="arch" type="xml">
+		    <list string="Configure Relations" editable="bottom">
+                <field name="name"/>
+		    </list>
+		</field>
+	</record>
+
+<!--////////////////////////ACTIONS///////////////////////////////////-->
+
+    <record model="ir.actions.act_window" id="action_relation_family">
+        <field name="name">Relation Family</field>
+        <field name="res_model">l10n_hn_hr_recruitment.family_relation</field>
+        <!-- <field name="view_type">form</field> -->
+        <field name="view_mode">list,form</field>
+    </record>
+
+<!--////////////////////////MENUS, MENUITEMS///////////////////////////////////-->
+
+    <menuitem id="relation_family_menuitem"
+              name="Relaciones familiares (reclutamiento)"
+              parent="l10n_hn_hr_payroll.menu_hr_employee_data_catalogs"
+              action="action_relation_family"
+              sequence="25"/>
+
+
+    <record model="ir.ui.view" id="grade_certificate_form_view">
+        <field name="name">grade.certificate.form</field>
+        <field name="model">l10n_hn_hr_recruitment.grade_certificate</field>
+        <!--field name="priority" eval="16"/-->
+        <field name="arch" type="xml">
+            <form string="Nivel de Certificado">
+                <group col="4">
+                    <field name="name"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="grade_certificate_tree">
+	    <field name="name">grade.certificate.tree</field>
+	    <field name="model">l10n_hn_hr_recruitment.grade_certificate</field>
+	    <field name="arch" type="xml">
+		    <list string="Nivel de Certificado" editable="bottom">
+                <field name="name"/>
+		    </list>
+		</field>
+	</record>
+<!--////////////////////////ACTIONS///////////////////////////////////-->
+
+    <record model="ir.actions.act_window" id="action_grade_certificate">
+        <field name="name">Nivel de Certificado</field>
+        <field name="res_model">l10n_hn_hr_recruitment.grade_certificate</field>
+        <!-- <field name="view_type">form</field> -->
+        <field name="view_mode">list,form</field>
+    </record>
+
+<!--////////////////////////MENUS, MENUITEMS///////////////////////////////////-->
+
+    <!-- Medication/Disease/Surgery catalogs provided by l10n_hn_hr_payroll -->
+
+    <record model="ir.ui.view" id="areas_form_view">
+        <field name="name">areas.form</field>
+        <field name="model">l10n_hn_hr_recruitment.areas</field>
+        <!--field name="priority" eval="16"/-->
+        <field name="arch" type="xml">
+            <form string="Enfermedades">
+                <group col="4">
+                    <field name="name"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="area_tree">
+	    <field name="name">areas.tree</field>
+	    <field name="model">l10n_hn_hr_recruitment.areas</field>
+	    <field name="arch" type="xml">
+		    <list string="Area" editable="bottom">
+                <field name="name"/>
+		    </list>
+		</field>
+	</record>
+
+    <record model="ir.actions.act_window" id="action_area">
+        <field name="name">Area</field>
+        <field name="res_model">l10n_hn_hr_recruitment.areas</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="area_menuitem"
+              name="Área"
+              parent="l10n_hn_hr_payroll.menu_hr_employee_data_catalogs"
+              action="action_area"
+              sequence="30"/>
+
+    <!-- Surgery catalog provided by l10n_hn_hr_payroll -->
+
+    <record id="view_company_form_num_inherit" model="ir.ui.view">
+            <field name="name">res.company.form</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <field name="website" position="after">
+                    <field name="numero"/>
+                </field>
+                            
+                            
+                
+            </field>
+        </record>
+
+    <!-- ||||||||||||||||||||||||||||||-->
+
+    <record model="ir.ui.view" id="stage_checklist_form_view">
+        <field name="name">hr.recruitment.stage.checklist.form</field>
+        <field name="model">hr.recruitment.stage.checklist</field>
+        <field name="arch" type="xml">
+            <form string="Lista de Verificación">
+                <sheet>
+                    <h1><field name="name" readonly="1" force_save="1"/></h1>
+                    <group col="4">
+                        <field name="stage_id" required="1" options="{'no_create': True, 'no_open': True}"/>
+                        <field name="sequence" invisible="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Lista de Verificación">
+                            <field name="line_ids">
+                                <list editable="bottom">
+                                    <field name="name" required="1"/>
+                                    <field name="is_required" widget="boolean"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="stage_checklist_tree">
+	    <field name="name">hr.recruitment.stage.checklist.tree</field>
+	    <field name="model">hr.recruitment.stage.checklist</field>
+	    <field name="arch" type="xml">
+		    <list string="Lista de Verificación">
+                <field name="name" required="1"/>
+                <field name="stage_id" required="1"/>
+                <field name="sequence" invisible="1"/>
+		    </list>
+		</field>
+	</record>
+<!--////////////////////////ACTIONS///////////////////////////////////-->
+
+    <record model="ir.actions.act_window" id="action_stage_checklist">
+        <field name="name">Lista de Verificación</field>
+        <field name="res_model">hr.recruitment.stage.checklist</field>
+        <!-- <field name="view_type">form</field> -->
+        <field name="view_mode">list,form</field>
+    </record>
+
+<!--////////////////////////MENUS, MENUITEMS///////////////////////////////////-->
+
+    <menuitem id="menu_recruitment_stage_checklist_config"
+              name="Lista de Verificación"
+              parent="hr_recruitment.menu_hr_recruitment_configuration"
+              action="action_stage_checklist"
+              sequence="5"/>
+
+    <!-- Planes de actividad: acceso directo desde Configuración -->
+    <menuitem
+        id="menu_planes_actividad_reclutamiento"
+        name="Planes de actividad"
+        parent="hr_recruitment.menu_hr_recruitment_configuration"
+        action="hr_recruitment.mail_activity_plan_action_config_hr_applicant"
+        groups="hr_recruitment.group_hr_recruitment_manager"
+        sequence="35"
+    />
+
+</odoo>

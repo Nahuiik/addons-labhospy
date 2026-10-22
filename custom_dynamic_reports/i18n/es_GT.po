@@ -1,0 +1,218 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: custom_dynamic_reports 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-03 19:27:00\n"
+"PO-Revision-Date: 2025-10-03 19:27:00\n"
+"Last-Translator: Codex Assistant\n"
+"Language-Team: Spanish\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: custom_dynamic_reports
+#: model:ir.ui.menu,name:custom_dynamic_reports.menu_dynamic_report_root
+msgid "Dynamic Reports"
+msgstr "Reportes Dinámicos"
+
+#. module: custom_dynamic_reports
+#: model:ir.ui.menu,name:custom_dynamic_reports.menu_dynamic_report_sales
+msgid "Reports"
+msgstr "Reportes"
+
+#. module: custom_dynamic_reports
+#: model:ir.actions.act_window,name:custom_dynamic_reports.action_dynamic_report
+msgid "Dynamic Reports"
+msgstr "Reportes Dinámicos"
+
+#. module: custom_dynamic_reports
+#: model:ir.actions.act_window,name:custom_dynamic_reports.action_dynamic_report_lines
+msgid "Report Lines"
+msgstr "Líneas del Reporte"
+
+#. module: custom_dynamic_reports
+#: model:ir.model.fields,field_description:custom_dynamic_reports.field_dynamic_report__state
+msgid "State"
+msgstr "Estado"
+
+#. module: custom_dynamic_reports
+#: model_terms:ir.ui.view,arch_db:custom_dynamic_reports.view_dynamic_report_form
+msgid "States"
+msgstr "Estados"
+
+#. module: custom_dynamic_reports
+#: model_terms:ir.ui.view,arch_db:custom_dynamic_reports.view_dynamic_report_form
+msgid "Totals"
+msgstr "Totales"
+
+#. module: custom_dynamic_reports
+#: model_terms:ir.ui.view,arch_db:custom_dynamic_reports.view_dynamic_report_form
+msgid "Subtotal"
+msgstr "Subtotal"
+
+#. module: custom_dynamic_reports
+#: model_terms:ir.ui.view,arch_db:custom_dynamic_reports.view_dynamic_report_form
+msgid "Total Invoice"
+msgstr "Total Factura"
+
+#. module: custom_dynamic_reports
+#: model_terms:ir.ui.view,arch_db:custom_dynamic_reports.view_dynamic_report_form
+msgid "Total Tax"
+msgstr "Total Impuestos"
+
+#. module: custom_dynamic_reports
+#: model_terms:ir.ui.view,arch_db:custom_dynamic_reports.view_dynamic_report_form
+msgid "Include Invoice States"
+msgstr "Estados de Factura"
+
+#. module: custom_dynamic_reports
+#: model_terms:ir.ui.view,arch_db:custom_dynamic_reports.view_dynamic_report_form
+msgid "Generated At"
+msgstr "Generado El"
+
+#. module: custom_dynamic_reports
+#: model:ir.model.fields,field_description:custom_dynamic_reports.field_dynamic_report__parameter_summary
+msgid "Parameter Summary"
+msgstr "Resumen de Parámetros"
+
+#. module: custom_dynamic_reports
+#: model:ir.model.fields,field_description:custom_dynamic_reports.field_dynamic_report__generated_at
+msgid "Generated At"
+msgstr "Generado El"
+
+#. module: custom_dynamic_reports
+#: model:ir.model.fields,field_description:custom_dynamic_reports.field_dynamic_report__total_net
+msgid "Total Net"
+msgstr "Total Neto"
+
+#. module: custom_dynamic_reports
+#: model:ir.model.fields,field_description:custom_dynamic_reports.field_dynamic_report__total_tax
+msgid "Total Tax"
+msgstr "Total Impuestos"
+
+#. module: custom_dynamic_reports
+#: model:ir.model.fields,field_description:custom_dynamic_reports.field_dynamic_report__total_amount
+msgid "Total Amount"
+msgstr "Monto Total"
+
+#. module: custom_dynamic_reports
+#: model:ir.model.fields,field_description:custom_dynamic_reports.field_dynamic_report__state_filter
+msgid "States"
+msgstr "Estados"
+
+#. module: custom_dynamic_reports
+#: model:ir.model.fields,field_description:custom_dynamic_reports.field_dynamic_report_line__status_label
+msgid "Status"
+msgstr "Estado Pago"
+
+#. module: custom_dynamic_reports
+#: model:ir.model.fields,field_description:custom_dynamic_reports.field_dynamic_report_line__invoice_state_label
+msgid "Invoice State"
+msgstr "Estado Factura"
+
+#. module: custom_dynamic_reports
+#: model_terms:ir.ui.view,arch_db:custom_dynamic_reports.view_dynamic_report_form
+msgid "Generate"
+msgstr "Generar"
+
+#. module: custom_dynamic_reports
+#: model_terms:ir.ui.view,arch_db:custom_dynamic_reports.view_dynamic_report_form
+msgid "Export"
+msgstr "Exportar"
+
+#. module: custom_dynamic_reports
+#: model_terms:ir.ui.view,arch_db:custom_dynamic_reports.view_dynamic_report_form
+msgid "View Lines"
+msgstr "Ver líneas"
+
+#. module: custom_dynamic_reports
+#: model:ir.model.fields,field_description:custom_dynamic_reports.field_dynamic_report__report_type
+msgid "Report Type"
+msgstr "Tipo de reporte"
+
+#. module: custom_dynamic_reports
+#: model:ir.model.fields,field_description:custom_dynamic_reports.field_dynamic_report__company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: custom_dynamic_reports
+#: model:ir.model.fields.selection,name:custom_dynamic_reports.selection__dynamic_report__state__draft
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: custom_dynamic_reports
+#: model:ir.model.fields.selection,name:custom_dynamic_reports.selection__dynamic_report__state__generating
+msgid "Generating"
+msgstr "Generando"
+
+#. module: custom_dynamic_reports
+#: model:ir.model.fields.selection,name:custom_dynamic_reports.selection__dynamic_report__state__ready
+msgid "Ready"
+msgstr "Listo"
+
+#. module: custom_dynamic_reports
+#: model:ir.model.fields.selection,name:custom_dynamic_reports.selection__dynamic_report__state__failed
+msgid "Failed"
+msgstr "Falló"
+
+#. module: custom_dynamic_reports
+#: model:ir.model.fields,field_description:custom_dynamic_reports.field_dynamic_report_line__quantity
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: custom_dynamic_reports
+#: model:ir.model.fields,field_description:custom_dynamic_reports.field_dynamic_report_line__price_unit
+msgid "Price Unit"
+msgstr "Precio Unitario"
+
+#. module: custom_dynamic_reports
+#: model:ir.model.fields,field_description:custom_dynamic_reports.field_dynamic_report_line__category_name
+msgid "Category"
+msgstr "Categoría"
+
+#. module: custom_dynamic_reports
+#: model:ir.model.fields,field_description:custom_dynamic_reports.field_dynamic_report_line__salesperson_name
+msgid "Commercial"
+msgstr "Comercial"
+
+#. module: custom_dynamic_reports
+#: model:ir.model.fields,field_description:custom_dynamic_reports.field_dynamic_report_line__taxable_amount
+msgid "Taxable Amount"
+msgstr "Gravado"
+
+#. module: custom_dynamic_reports
+#: model:ir.model.fields,field_description:custom_dynamic_reports.field_dynamic_report_line__exempt_amount
+msgid "Exempt Amount"
+msgstr "Exento"
+
+#. module: custom_dynamic_reports
+#: model:ir.model.fields,field_description:custom_dynamic_reports.field_dynamic_report_line__discount_amount
+msgid "Discount Amount"
+msgstr "Descuentos"
+
+#. module: custom_dynamic_reports
+#: model_terms:ir.ui.view,arch_db:custom_dynamic_reports.view_dynamic_report_form
+msgid "Generated At"
+msgstr "Generado El"
+
+#. module: custom_dynamic_reports
+#: model:ir.model.fields,field_description:custom_dynamic_reports.field_dynamic_report__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: custom_dynamic_reports
+#: model:ir.model.fields,field_description:custom_dynamic_reports.field_dynamic_report_line__sequence
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: custom_dynamic_reports
+#: model:ir.model.fields,field_description:custom_dynamic_reports.field_dynamic_report__date_start
+msgid "Date Start"
+msgstr "Fecha Inicio"
+
+#. module: custom_dynamic_reports
+#: model:ir.model.fields,field_description:custom_dynamic_reports.field_dynamic_report__date_end
+msgid "Date End"
+msgstr "Fecha Fin"

@@ -1,0 +1,303 @@
+/* Modo oscuro — cargado vía web.assets_web_dark (cookie color_scheme=dark) */
+
+.gn-traceability-root.o_content {
+    background: #0b1120;
+}
+
+.gn_traceability_scroll {
+    scrollbar-color: rgba(148, 163, 184, 0.35) transparent;
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(148, 163, 184, 0.3);
+        background-clip: padding-box;
+
+        &:hover {
+            background: rgba(148, 163, 184, 0.5);
+            background-clip: padding-box;
+        }
+    }
+}
+
+.gn_traceability_dashboard {
+    background: #0b1120;
+    color: #e2e8f0;
+
+    .gn_traceability_eyebrow {
+        color: #94a3b8;
+    }
+
+    .gn_traceability_title {
+        color: #f1f5f9;
+    }
+
+    .gn_traceability_meta {
+        color: #94a3b8;
+    }
+
+    .gn_traceability_lot_banner {
+        color: #cbd5e1;
+    }
+
+    .gn_traceability_header {
+        background: #151d2e;
+        border-color: rgba(148, 163, 184, 0.12);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+
+        &__img {
+            background: #1e293b;
+            border-color: rgba(148, 163, 184, 0.15);
+        }
+    }
+
+    .gn_traceability_summary_item {
+        .label {
+            color: #94a3b8;
+        }
+
+        .value {
+            color: #f1f5f9;
+        }
+    }
+
+    .gn_traceability_filters {
+        background: #151d2e;
+        border-color: rgba(148, 163, 184, 0.12);
+
+        .form-label {
+            color: #94a3b8;
+        }
+
+        .form-control,
+        .form-select {
+            background-color: #1e293b;
+            border-color: rgba(148, 163, 184, 0.2);
+            color: #e2e8f0;
+
+            &:focus {
+                background-color: #1e293b;
+                border-color: #6366f1;
+                color: #f1f5f9;
+            }
+        }
+
+        .form-check-label {
+            color: #cbd5e1;
+        }
+    }
+
+    .gn_traceability_kpi {
+        background: #151d2e;
+        border-color: rgba(148, 163, 184, 0.12);
+
+        &__label {
+            color: #94a3b8;
+        }
+
+        &__value {
+            color: #f1f5f9;
+        }
+
+        &__helper {
+            color: #64748b;
+        }
+    }
+
+    .gn_traceability_section {
+        background: #151d2e;
+        border-color: rgba(148, 163, 184, 0.12);
+
+        &__title {
+            color: #f1f5f9;
+            border-left-color: #6366f1;
+        }
+    }
+
+    .gn_traceability_location {
+        background: rgba(30, 41, 59, 0.6) !important;
+        border-color: rgba(148, 163, 184, 0.1);
+        color: #e2e8f0;
+    }
+
+    .gn_traceability_timeline {
+        .gn_traceability_event {
+            &::before {
+                background: rgba(148, 163, 184, 0.25);
+            }
+
+            &__marker {
+                background: #334155;
+                color: #e2e8f0;
+            }
+
+            &__body {
+                background: #1e293b;
+                border-color: rgba(148, 163, 184, 0.12);
+            }
+
+            &__type {
+                color: #f1f5f9;
+            }
+
+            &__date {
+                color: #94a3b8;
+            }
+
+            &--success .gn_traceability_event__marker {
+                background: rgba(34, 197, 94, 0.2);
+                color: #86efac;
+            }
+
+            &--danger .gn_traceability_event__marker {
+                background: rgba(239, 68, 68, 0.2);
+                color: #fca5a5;
+            }
+
+            &--info .gn_traceability_event__marker {
+                background: rgba(59, 130, 246, 0.2);
+                color: #93c5fd;
+            }
+
+            &--warning .gn_traceability_event__marker {
+                background: rgba(245, 158, 11, 0.2);
+                color: #fcd34d;
+            }
+
+            &--purple .gn_traceability_event__marker {
+                background: rgba(139, 92, 246, 0.2);
+                color: #c4b5fd;
+            }
+
+            &--highlight .gn_traceability_event__body {
+                box-shadow: 0 0 0 2px #ca8a04;
+            }
+        }
+    }
+
+    .gn_traceability_highlight {
+        background: rgba(250, 204, 21, 0.25);
+        color: #fef08a;
+    }
+
+    .gn_traceability_highlight-cell {
+        background: rgba(250, 204, 21, 0.15);
+    }
+
+    .gn_traceability_cost {
+        color: #94a3b8;
+    }
+
+    .gn_traceability_event__cost {
+        color: #94a3b8;
+    }
+
+    .gn_traceability_summary_item--cost {
+        .label {
+            color: #a5b4fc;
+        }
+    }
+
+    .gn_traceability_flowmap {
+        background: #0f172a;
+        border-color: rgba(148, 163, 184, 0.12);
+
+        &__node {
+            background: #1e293b;
+            border-color: rgba(148, 163, 184, 0.25);
+            color: #e2e8f0;
+
+            &:hover {
+                box-shadow: 0 2px 8px rgba(99, 102, 241, 0.25);
+            }
+        }
+
+        &__node-sub {
+            color: #94a3b8;
+        }
+
+        &__edge {
+            stroke: rgba(148, 163, 184, 0.4);
+
+            &--dashed {
+                stroke: rgba(148, 163, 184, 0.25);
+            }
+        }
+
+        &__edge-label {
+            fill: #94a3b8;
+        }
+
+        &__legend {
+            color: #94a3b8;
+        }
+    }
+
+    .gn_traceability_flow {
+        &__node {
+            background: #1e293b;
+            border-color: rgba(148, 163, 184, 0.12);
+            color: #e2e8f0;
+        }
+
+        &__connector {
+            color: #64748b;
+        }
+    }
+
+    .gn_traceability_empty {
+        color: #94a3b8;
+        background: #151d2e;
+        border-color: rgba(148, 163, 184, 0.2);
+    }
+
+    .gn_traceability_selector {
+        color: #e2e8f0;
+    }
+
+    .gn_traceability_table {
+        thead th {
+            background: #1e293b;
+            color: #94a3b8;
+            border-color: rgba(148, 163, 184, 0.12);
+        }
+
+        .table {
+            color: #e2e8f0;
+            --bs-table-bg: transparent;
+            --bs-table-striped-bg: rgba(30, 41, 59, 0.45);
+            --bs-table-hover-bg: rgba(99, 102, 241, 0.08);
+            --bs-table-border-color: rgba(148, 163, 184, 0.1);
+        }
+
+        .table-warning {
+            --bs-table-bg: rgba(245, 158, 11, 0.12);
+            --bs-table-color: #fde68a;
+        }
+    }
+
+    .list-group-item {
+        background: #1e293b;
+        border-color: rgba(148, 163, 184, 0.12);
+        color: #e2e8f0;
+    }
+
+    .gn_traceability_skeleton {
+        &__header,
+        &__kpi {
+            background: linear-gradient(
+                90deg,
+                #1e293b 25%,
+                #334155 50%,
+                #1e293b 75%
+            );
+            background-size: 200% 100%;
+        }
+    }
+
+    a:not(.btn) {
+        color: #93c5fd;
+
+        &:hover {
+            color: #bfdbfe;
+        }
+    }
+}

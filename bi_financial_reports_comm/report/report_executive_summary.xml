@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Atributo report= retirado: no válido en el esquema import_xml.rng de Odoo 19; el enlace es ir.actions.report abajo. -->
+    <template id="executive_summary_pdf_report">
+        <t t-call="web.html_container">
+            <t t-call="web.internal_layout">
+                <div class="page">
+                    <center>
+                        <h2 style="margin-bottom: 5px;">Resumen ejecutivo</h2>
+                        <div style="margin-bottom: 20px;">
+                            <t t-if="doc.get('period_label')">
+                                <h4><t t-esc="doc.get('period_label')"/></h4>
+                            </t>
+                            <br/>
+                        </div>
+                    </center>
+                    <table class="table" style="width: 100%; border: none; border-collapse: separate;">
+                        <thead>
+                            <tr style="background-color: #f5f5f5;">
+                                <th style="width: 70%; text-align: left; font-weight: bold; padding: 8px;"></th>
+                                <th style="width: 30%; text-align: right; font-weight: bold; padding: 8px;">Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="currency" t-value="doc.get('currency_data', {})"/>
+                            <t t-set="section_labels" t-value="{'cash': 'Efectivo', 'profitability': 'Rentabilidad', 'balancesheet': 'Balance general', 'performance': 'Rendimiento'}"/>
+                            <t t-set="row_labels" t-value="{'cash_received': 'Efectivo recibido', 'cash_spent': 'Efectivo gastado', 'cash_surplus': 'Superávit de efectivo', 'closing_bank': 'Balance bancario de cierre', 'income': 'Ingreso', 'cost_revenue': 'Costo de ingresos', 'gross_profit': 'Ganancia bruta', 'expenses': 'Gastos', 'net_profit': 'Ganancias netas', 'receivables': 'Por cobrar', 'payables': 'Por pagar', 'net_assets': 'Activos netos', 'gross_margin': 'Margen de ganancia bruta', 'net_margin': 'Margen neto de ganancias', 'roi': 'Retorno de la inversión'}"/>
+                            <t t-set="last_section" t-value="None"/>
+                            <t t-foreach="doc.get('rows', [])" t-as="row">
+                                <t t-if="row.get('section') and row.get('section') != last_section">
+                                    <t t-set="last_section" t-value="row.get('section')"/>
+                                    <tr style="background-color: #e9ecef;">
+                                        <td colspan="2" style="font-weight: bold; padding: 8px; text-transform: uppercase;">
+                                            <t t-esc="section_labels.get(row.get('section'), row.get('section'))"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <t t-if="row.get('label')">
+                                    <tr style="border-bottom: 1px solid #eee;">
+                                        <td style="padding: 6px 8px;"><t t-esc="row_labels.get(row.get('label'), row.get('label'))"/></td>
+                                        <td t-attf-style="text-align: right; padding: 6px 8px; {{ 'color: #dc3545;' if row.get('negative_red') and (row.get('value') or 0) &lt; 0 else '' }}">
+                                            <t t-esc="row.get('formatted', '0.00')"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_executive_summary_pdf_report" model="ir.actions.report">
+        <field name="name">Resumen ejecutivo</field>
+        <field name="model">executive.summary.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">bi_financial_reports_comm.executive_summary_pdf_report</field>
+        <field name="report_file">bi_financial_reports_comm.executive_summary_pdf_report</field>
+        <field name="print_report_name">'Resumen ejecutivo'</field>
+    </record>
+</odoo>

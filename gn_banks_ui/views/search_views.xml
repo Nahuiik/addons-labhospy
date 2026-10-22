@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_banks_debit_search_ui" model="ir.ui.view">
+        <field name="name">debit.credit.search.ui</field>
+        <field name="model">debit.credit</field>
+        <field name="inherit_id" ref="gn_banks.view_banks_debit_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <separator/>
+                <filter string="Hoy" name="filter_today" domain="[('date', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter string="Esta semana" name="filter_week"
+                        domain="[('date', '&gt;=', (context_today() - datetime.timedelta(days=7)).strftime('%Y-%m-%d'))]"/>
+                <filter string="Este mes" name="filter_month"
+                        domain="[('date', '&gt;=', context_today().strftime('%Y-%m-01'))]"/>
+                <separator/>
+                <filter string="Borrador" name="filter_draft" domain="[('workflow_state', '=', 'draft')]"/>
+                <filter string="Pendiente aprobación" name="filter_pending" domain="[('workflow_state', '=', 'pending_approval')]"/>
+                <filter string="Validado" name="filter_validated" domain="[('workflow_state', 'in', ('validated', 'posted', 'reconciled'))]"/>
+                <filter string="Pendiente conciliación" name="filter_recon"
+                        domain="[('state', '=', 'validated'), ('reconciliation_status', 'in', ('none', 'partial'))]"/>
+                <separator/>
+                <filter string="Débito" name="filter_debit" domain="[('move_type', '=', 'debit')]"/>
+                <filter string="Crédito" name="filter_credit" domain="[('move_type', '=', 'credit')]"/>
+                <filter string="Depósito" name="filter_deposit" domain="[('move_type', '=', 'deposit')]"/>
+                <filter string="Liquidación POS" name="filter_pos" domain="[('move_type', '=', 'credit_card')]"/>
+                <group>
+                    <filter string="Banco" name="group_journal" context="{'group_by': 'journal_id'}"/>
+                    <filter string="Tipo" name="group_type" context="{'group_by': 'move_type'}"/>
+                    <filter string="Estado" name="group_workflow" context="{'group_by': 'workflow_state'}"/>
+                    <filter string="Contacto" name="group_partner" context="{'group_by': 'ui_partner_id'}"/>
+                    <filter string="Moneda" name="group_currency" context="{'group_by': 'currency_id'}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_banks_transfer_search_ui" model="ir.ui.view">
+        <field name="name">bank.transfer.search.ui</field>
+        <field name="model">bank.transfer</field>
+        <field name="inherit_id" ref="gn_banks.view_banks_transfer_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <separator/>
+                <filter string="Borrador" name="filter_draft" domain="[('workflow_state', '=', 'draft')]"/>
+                <filter string="Validado" name="filter_validated" domain="[('workflow_state', 'in', ('validated', 'posted', 'reconciled'))]"/>
+                <filter string="Pendiente conciliación" name="filter_recon"
+                        domain="[('reconciliation_status', 'in', ('none', 'partial'))]"/>
+                <group>
+                    <filter string="Estado" name="group_workflow" context="{'group_by': 'workflow_state'}"/>
+                    <filter string="Banco origen" name="group_journal" context="{'group_by': 'journal_id'}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_check_search_ui" model="ir.ui.view">
+        <field name="name">bank.check.search.ui</field>
+        <field name="model">bank.check</field>
+        <field name="inherit_id" ref="gn_banks.view_check_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <separator/>
+                <filter string="Borrador" name="filter_draft" domain="[('workflow_state', '=', 'draft')]"/>
+                <filter string="Validado" name="filter_validated" domain="[('workflow_state', 'in', ('validated', 'posted', 'reconciled'))]"/>
+                <filter string="Cheque" name="filter_check" domain="[('move_type', '=', 'check')]"/>
+                <filter string="Transferencia" name="filter_wire" domain="[('move_type', '=', 'transference')]"/>
+                <group>
+                    <filter string="Estado" name="group_workflow" context="{'group_by': 'workflow_state'}"/>
+                    <filter string="Contacto" name="group_partner" context="{'group_by': 'partner_id'}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

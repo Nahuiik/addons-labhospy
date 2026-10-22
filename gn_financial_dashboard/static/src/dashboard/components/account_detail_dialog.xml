@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_financial_dashboard.AccountDetailDialog">
+        <Dialog title="props.title" size="'lg'">
+            <div t-if="!props.detail.rows.length" class="text-muted text-center p-4">
+                Sin cuentas con saldo para este indicador.
+            </div>
+            <t t-elif="useGrouped">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <small class="text-muted">
+                        <i class="fa fa-sitemap me-1"/>Árbol financiero · agrupado por tipo de cuenta
+                    </small>
+                    <div>
+                        <button class="btn btn-sm btn-link" t-on-click="() => this.expandAll()">Expandir</button>
+                        <button class="btn btn-sm btn-link" t-on-click="() => this.collapseAll()">Colapsar</button>
+                    </div>
+                </div>
+                <table class="table table-sm gn-fd-detail gn-fd-detail--tree">
+                    <thead>
+                        <tr>
+                            <th colspan="3">Cuenta</th>
+                            <th class="text-end">Saldo período</th>
+                            <th t-if="props.detail.has_compare" class="text-end">Período anterior</th>
+                            <th t-if="props.detail.has_compare" class="text-end">Var.</th>
+                            <th t-if="props.detail.has_compare" class="text-end">Var. %</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="groups" t-as="g" t-key="g.key">
+                            <tr class="gn-fd-detail__group" t-on-click="() => this.toggleGroup(g.key)">
+                                <td colspan="3">
+                                    <i t-att-class="'fa me-2 ' + (isCollapsed(g.key) ? 'fa-caret-right' : 'fa-caret-down')"/>
+                                    <strong t-esc="g.label"/>
+                                    <span class="text-muted ms-2">· <t t-esc="g.rows.length"/> cuentas</span>
+                                </td>
+                                <td class="text-end fw-bold" t-esc="fmt(g.total)"/>
+                                <td t-if="props.detail.has_compare" class="text-end text-muted" t-esc="fmt(g.prev_total)"/>
+                                <td t-if="props.detail.has_compare"/>
+                                <td t-if="props.detail.has_compare"/>
+                            </tr>
+                            <t t-if="!isCollapsed(g.key)">
+                                <tr t-foreach="g.rows" t-as="row" t-key="row.account_id"
+                                    t-att-class="'gn-fd-detail__child ' + (props.onOpenLines ? 'gn-fd-detail__row--click' : '')"
+                                    t-on-click="() => this.onRowClick(row)">
+                                    <td class="text-muted ps-4" t-esc="row.code"/>
+                                    <td colspan="2" t-esc="row.name"/>
+                                    <td class="text-end" t-esc="fmt(row.balance)"/>
+                                    <td t-if="props.detail.has_compare" class="text-end text-muted" t-esc="fmt(row.prev_balance)"/>
+                                    <td t-if="props.detail.has_compare" class="text-end" t-esc="fmt(row.delta)"/>
+                                    <td t-if="props.detail.has_compare" t-att-class="'text-end ' + deltaCls(row.delta_pct)">
+                                        <t t-if="row.delta_pct !== null"><t t-esc="(row.delta_pct >= 0 ? '+' : '') + row.delta_pct.toFixed(1)"/>%</t>
+                                        <t t-else="">—</t>
+                                    </td>
+                                </tr>
+                            </t>
+                        </t>
+                    </tbody>
+                </table>
+            </t>
+            <table t-else="" class="table table-sm gn-fd-detail">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Cuenta</th>
+                        <th>Tipo</th>
+                        <th class="text-end">Saldo período</th>
+                        <th t-if="props.detail.has_compare" class="text-end">Período anterior</th>
+                        <th t-if="props.detail.has_compare" class="text-end">Var.</th>
+                        <th t-if="props.detail.has_compare" class="text-end">Var. %</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="props.detail.rows" t-as="row" t-key="row.account_id"
+                        t-att-class="props.onOpenLines ? 'gn-fd-detail__row--click' : ''"
+                        t-on-click="() => this.onRowClick(row)">
+                        <td class="text-muted" t-esc="row.code"/>
+                        <td t-esc="row.name"/>
+                        <td class="text-muted small" t-esc="row.account_type"/>
+                        <td class="text-end fw-semibold" t-esc="fmt(row.balance)"/>
+                        <td t-if="props.detail.has_compare" class="text-end text-muted" t-esc="fmt(row.prev_balance)"/>
+                        <td t-if="props.detail.has_compare" class="text-end" t-esc="fmt(row.delta)"/>
+                        <td t-if="props.detail.has_compare" t-att-class="'text-end ' + deltaCls(row.delta_pct)">
+                            <t t-if="row.delta_pct !== null"><t t-esc="(row.delta_pct >= 0 ? '+' : '') + row.delta_pct.toFixed(1)"/>%</t>
+                            <t t-else="">—</t>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <t t-set-slot="footer">
+                <button class="btn btn-secondary" t-on-click="() => props.close()">Cerrar</button>
+            </t>
+        </Dialog>
+    </t>
+
+</templates>

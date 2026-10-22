@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="survey_url_wizard_view_form" model="ir.ui.view">
+        <field name="name">hr.applicant.survey.url.wizard.form</field>
+        <field name="model">hr.applicant.survey.url.wizard</field>
+        <field name="arch" type="xml">
+            <form string="URL de la entrevista">
+                <group>
+                    <field name="applicant_id" invisible="1"/>
+                    <field name="survey_url" string="URL" widget="CopyClipboardChar" nolabel="1"/>
+                </group>
+                <footer>
+                    <button string="Cerrar" class="btn-primary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

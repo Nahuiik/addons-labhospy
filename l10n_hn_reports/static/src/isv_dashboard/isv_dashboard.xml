@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="l10n_hn_reports.IsvReportDashboard">
+        <Layout display="display">
+            <t t-set-slot="control-panel-always-buttons">
+                <button type="button" class="btn btn-primary btn-sm me-1" t-on-click="refresh" t-att-disabled="state.loading">
+                    <i class="fa fa-refresh me-1"/> Actualizar
+                </button>
+                <button type="button" class="btn btn-outline-secondary btn-sm me-1" t-on-click="openClassicWizard">
+                    <i class="fa fa-external-link me-1"/> Asistente
+                </button>
+                <span class="fw-bold ms-2">Reporte ISV</span>
+            </t>
+            <div class="o_hn_isv_dash container-fluid py-2">
+                <div class="o_hn_isv_dash_params card mb-3">
+                    <div class="card-body row g-2 align-items-end">
+                        <div class="col-md-3" t-if="multiCompany">
+                            <label class="form-label small mb-0">Compañía</label>
+                            <select class="form-select form-select-sm" t-model.number="state.companyId" t-on-change="onParamChange">
+                                <t t-foreach="companies" t-as="co" t-key="co.id">
+                                    <option t-att-value="co.id" t-esc="co.name"/>
+                                </t>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label small mb-0">Año</label>
+                            <input type="number" class="form-control form-control-sm" t-model.number="state.year" step="1" t-on-change="onParamChange"/>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label small mb-0">Mes</label>
+                            <select class="form-select form-select-sm" t-model.number="state.month" t-on-change="onParamChange">
+                                <t t-foreach="monthChoices" t-as="mo" t-key="mo[0]">
+                                    <option t-att-value="mo[0]" t-esc="mo[1]"/>
+                                </t>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label small mb-0">Crédito fiscal ant.</label>
+                            <input type="number" class="form-control form-control-sm" t-model.number="state.creditoAnt" step="0.01" t-on-change="onParamChange"/>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label small mb-0">ISV retenido POS</label>
+                            <input type="number" class="form-control form-control-sm" t-model.number="state.retPos" step="0.01" t-on-change="onParamChange"/>
+                        </div>
+                    </div>
+                    <div class="card-footer py-2 bg-transparent border-top-0">
+                        <button type="button" class="btn btn-sm btn-dark me-1" t-on-click="openPdf" t-att-disabled="state.loading">
+                            <i class="fa fa-file-pdf-o me-1"/> PDF
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-dark me-1" t-on-click="openHtml" t-att-disabled="state.loading">
+                            HTML
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-dark" t-on-click="exportXlsx" t-att-disabled="state.loading">
+                            XLSX
+                        </button>
+                    </div>
+                </div>
+
+                <t t-if="state.loading">
+                    <div class="text-muted py-5 text-center">
+                        <i class="fa fa-spinner fa-spin fa-2x"/> Cargando…
+                    </div>
+                </t>
+                <t t-elif="state.error">
+                    <div class="alert alert-danger" role="alert" t-esc="state.error"/>
+                </t>
+                <t t-elif="state.payload">
+                    <div class="o_hn_isv_dash_header text-center mb-3" t-att-style="state.payload.report_branding_style">
+                        <img t-if="state.payload.report_logo_src or state.payload.report_logo_http_src or state.payload.nh_report_logo_src"
+                             t-att-src="state.payload.nh_report_logo_src or state.payload.report_logo_src or state.payload.report_logo_http_src"
+                             alt="" class="nh-logo mb-2"
+                             style="max-height:48px;max-width:220px;object-fit:contain;"/>
+                        <h1 class="h4 fw-bold text-uppercase mb-1" t-esc="state.payload.title"/>
+                        <div class="fw-semibold" t-esc="state.payload.company_name"/>
+                        <div class="text-muted small" t-esc="state.payload.period_line"/>
+                    </div>
+
+                    <div class="row g-3">
+                        <t t-foreach="state.payload.sections" t-as="sec" t-key="sec_index">
+                            <div class="col-lg-4">
+                                <div class="o_hn_isv_dash_box h-100">
+                                    <div class="o_hn_isv_dash_box_title" t-esc="sec.title"/>
+                                    <t t-foreach="sec.rows" t-as="row" t-key="row_index">
+                                        <t t-if="row.spacer">
+                                            <div class="o_hn_isv_dash_spacer"/>
+                                        </t>
+                                        <t t-else="">
+                                            <div class="o_hn_isv_dash_row" t-att-class="{ 'fw-bold': row.emphasis }">
+                                                <span class="o_hn_isv_dash_label text-muted" t-esc="row.label"/>
+                                                <span class="o_hn_isv_dash_val" t-esc="row.value"/>
+                                            </div>
+                                        </t>
+                                    </t>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+
+                    <div class="o_hn_isv_dash_footer mt-4">
+                        <t t-foreach="state.payload.footer" t-as="frow" t-key="frow_index">
+                            <div class="o_hn_isv_dash_row o_hn_isv_dash_footer_row" t-att-class="{ 'fw-bold border-top pt-2 mt-2': frow.emphasis }">
+                                <span class="o_hn_isv_dash_label" t-esc="frow.label"/>
+                                <span class="o_hn_isv_dash_val" t-esc="frow.value"/>
+                            </div>
+                        </t>
+                    </div>
+
+                    <p class="small text-muted mt-3 mb-0" t-esc="state.payload.note"/>
+                </t>
+            </div>
+        </Layout>
+    </t>
+
+</templates>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Breastfeeding Hours List View -->
+    <record id="view_hr_breastfeeding_hours_list" model="ir.ui.view">
+        <field name="name">hr.breastfeeding_hours.list</field>
+        <field name="model">hr.breastfeeding_hours</field>
+        <field name="arch" type="xml">
+            <list string="Horas de Lactancia">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="total_hours"/>
+                <field name="state" widget="badge" decoration-success="state == 'validated'" decoration-info="state == 'draft'"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+    
+    <!-- Breastfeeding Hours Form View -->
+    <record id="view_hr_breastfeeding_hours_form" model="ir.ui.view">
+        <field name="name">hr.breastfeeding_hours.form</field>
+        <field name="model">hr.breastfeeding_hours</field>
+        <field name="arch" type="xml">
+            <form string="Horas de Lactancia">
+                <header>
+                    <button name="action_get_employees" string="Obtener Empleadas" type="object" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_open_breastfeeding_leave_wizard" string="Convertir a días (permiso pagado)"
+                            type="object" class="btn-secondary"
+                            invisible="state != 'draft'"
+                            help="Crea solicitudes de tiempo personal en días con goce de sueldo a partir de las horas por ley del registro. No utilice «Validar» (conceptos recurrentes) si aplica esta modalidad."/>
+                    <button name="action_validate" string="Validar" type="object" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,validated"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="date"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="total_hours"/>
+                            <field name="hours_after_postnatal"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Líneas de Empleadas">
+                            <field name="line_ids" nolabel="1"
+                                   context="{'default_breastfeeding_id': id}">
+                                <list editable="bottom" create="1" delete="1" multi_edit="1">
+                                    <field name="company_id" column_invisible="1"/>
+                                    <field name="employee_id" options="{'no_create': True}"/>
+                                    <field name="current_wage" sum="Total" readonly="1"/>
+                                    <field name="hourly_rate" sum="Total" readonly="1"/>
+                                    <field name="total_hours"/>
+                                    <field name="total_amount" sum="Total" readonly="1"/>
+                                    <field name="amount_per_installment" sum="Total" readonly="1"/>
+                                    <field name="start_date"/>
+                                    <field name="end_date" readonly="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notas">
+                            <field name="notes" placeholder="Notas adicionales..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <!-- Breastfeeding Hours Search View -->
+    <record id="view_hr_breastfeeding_hours_search" model="ir.ui.view">
+        <field name="name">hr.breastfeeding_hours.search</field>
+        <field name="model">hr.breastfeeding_hours</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Horas de Lactancia">
+                <field name="name"/>
+                <filter string="Borrador" name="draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Validado" name="validated" domain="[('state', '=', 'validated')]"/>
+                <separator/>
+                <filter string="Estado" name="group_by_state" context="{'group_by': 'state'}"/>
+                <filter string="Empresa" name="group_by_company" context="{'group_by': 'company_id'}"/>
+            </search>
+        </field>
+    </record>
+    
+    <!-- Breastfeeding Hours Action -->
+    <record id="action_hr_breastfeeding_hours" model="ir.actions.act_window">
+        <field name="name">Horas de Lactancia</field>
+        <field name="res_model">hr.breastfeeding_hours</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crear un nuevo registro de horas de lactancia
+            </p>
+            <p>
+                Las horas de lactancia se asignan automáticamente a todas las empleadas activas.
+            </p>
+        </field>
+    </record>
+</odoo>

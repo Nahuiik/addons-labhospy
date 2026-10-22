@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Acciones que abren el wizard con cada reporte preseleccionado (usadas desde gn_hr_dashboard). -->
+    <record id="action_hr_employee_report_tallas" model="ir.actions.act_window">
+        <field name="name">Reporte: Tallas</field>
+        <field name="res_model">hr.employee.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_report_tallas': True}</field>
+    </record>
+    <record id="action_hr_employee_report_emergency" model="ir.actions.act_window">
+        <field name="name">Reporte: Contactos Emergencia</field>
+        <field name="res_model">hr.employee.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_report_emergency_contacts': True}</field>
+    </record>
+    <record id="action_hr_employee_report_licenses" model="ir.actions.act_window">
+        <field name="name">Reporte: Licencias</field>
+        <field name="res_model">hr.employee.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_report_licenses': True}</field>
+    </record>
+    <record id="action_hr_employee_report_birthdays" model="ir.actions.act_window">
+        <field name="name">Reporte: Cumpleaños</field>
+        <field name="res_model">hr.employee.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_report_birthdays': True}</field>
+    </record>
+    <record id="action_hr_employee_report_family" model="ir.actions.act_window">
+        <field name="name">Reporte: Datos Familiares</field>
+        <field name="res_model">hr.employee.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_report_family': True}</field>
+    </record>
+    <record id="action_hr_employee_report_beneficiaries" model="ir.actions.act_window">
+        <field name="name">Reporte: Beneficiarios</field>
+        <field name="res_model">hr.employee.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_report_beneficiaries': True}</field>
+    </record>
+    <record id="action_hr_employee_report_documents" model="ir.actions.act_window">
+        <field name="name">Reporte: Documentos</field>
+        <field name="res_model">hr.employee.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_report_documents': True}</field>
+    </record>
+    <record id="action_hr_employee_report_loans" model="ir.actions.act_window">
+        <field name="name">Reporte: Préstamos</field>
+        <field name="res_model">hr.employee.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_report_loans': True}</field>
+    </record>
+    <record id="action_hr_employee_report_contracts" model="ir.actions.act_window">
+        <field name="name">Reporte: Registro Contratos</field>
+        <field name="res_model">hr.employee.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_report_contracts': True}</field>
+    </record>
+    <record id="action_hr_employee_report_salary_increases" model="ir.actions.act_window">
+        <field name="name">Reporte: Historial Aumentos</field>
+        <field name="res_model">hr.employee.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_report_salary_increases': True}</field>
+    </record>
+    <record id="action_hr_employee_report_seniority" model="ir.actions.act_window">
+        <field name="name">Reporte: Antigüedad</field>
+        <field name="res_model">hr.employee.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_report_seniority': True}</field>
+    </record>
+    <record id="action_hr_employee_report_headcount" model="ir.actions.act_window">
+        <field name="name">Reporte: Headcount</field>
+        <field name="res_model">hr.employee.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_report_headcount': True}</field>
+    </record>
+
+    <record id="action_hr_employee_report_references" model="ir.actions.act_window">
+        <field name="name">Reporte: Referencias</field>
+        <field name="res_model">hr.employee.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_report_references': True}</field>
+    </record>
+    <record id="action_hr_employee_report_health_status" model="ir.actions.act_window">
+        <field name="name">Reporte: Estado de Salud</field>
+        <field name="res_model">hr.employee.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_report_health_status': True}</field>
+    </record>
+
+    <record id="action_hr_employee_report_warnings" model="ir.actions.act_window">
+        <field name="name">Reporte: Alertas Activas</field>
+        <field name="res_model">hr.employee.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_report_warnings': True}</field>
+    </record>
+
+    <record id="action_hr_employee_report_trial_period" model="ir.actions.act_window">
+        <field name="name">Reporte: Período de Prueba</field>
+        <field name="res_model">hr.employee.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_report_trial_period': True}</field>
+    </record>
+
+    <record id="action_hr_employee_report_hires_departures" model="ir.actions.act_window">
+        <field name="name">Reporte: Altas y Bajas</field>
+        <field name="res_model">hr.employee.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_report_hires_departures': True}</field>
+    </record>
+
+    <record id="action_hr_parent_children_report" model="ir.actions.act_window">
+        <field name="name">Reporte: Padres, Madres e Hijos</field>
+        <field name="res_model">hr.parent.children.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Educación y formación -->
+    <record id="action_hr_employee_report_skills" model="ir.actions.act_window">
+        <field name="name">Inventario de habilidades</field>
+        <field name="res_model">hr.employee.skill.report</field>
+        <field name="view_mode">list,pivot,graph</field>
+    </record>
+
+    <record id="action_hr_employee_report_certifications" model="ir.actions.act_window">
+        <field name="name">Certificaciones</field>
+        <field name="res_model">hr.employee.certification.report</field>
+        <field name="view_mode">list,pivot,graph</field>
+    </record>
+
+    <!-- Vistas de Currículum (hr.resume.line) -->
+    <record id="hr_resume_line_view_list_report" model="ir.ui.view">
+        <field name="name">hr.resume.line.list.report</field>
+        <field name="model">hr.resume.line</field>
+        <field name="arch" type="xml">
+            <list create="0" edit="0" export_xlsx="1">
+                <field name="employee_id"/>
+                <field name="line_type_id"/>
+                <field name="name"/>
+                <field name="description" optional="hidden"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="duration"/>
+            </list>
+        </field>
+    </record>
+    <record id="hr_resume_line_view_search_report" model="ir.ui.view">
+        <field name="name">hr.resume.line.search.report</field>
+        <field name="model">hr.resume.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="employee_id"/>
+                <field name="name"/>
+                <field name="line_type_id"/>
+                <separator/>
+                <filter name="group_employee" string="Empleado" context="{'group_by': 'employee_id'}"/>
+                <filter name="group_type" string="Tipo" context="{'group_by': 'line_type_id'}"/>
+            </search>
+        </field>
+    </record>
+    <record id="action_hr_employee_report_resume" model="ir.actions.act_window">
+        <field name="name">Currículum</field>
+        <field name="res_model">hr.resume.line</field>
+        <field name="view_mode">list</field>
+        <field name="search_view_id" ref="hr_resume_line_view_search_report"/>
+        <field name="context">{'search_default_group_employee': 1}</field>
+    </record>
+
+</odoo>

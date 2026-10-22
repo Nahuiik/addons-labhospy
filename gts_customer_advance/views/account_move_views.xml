@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista de formulario de factura - Agregar banner y botón de anticipo -->
+    <record id="view_account_move_form_advance" model="ir.ui.view">
+        <field name="name">account.move.form.advance</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <!-- Agregar campos invisibles para condiciones -->
+            <xpath expr="//header" position="inside">
+                <field name="has_available_advances" invisible="1"/>
+                <field name="available_advances_amount" invisible="1"/>
+                <field name="available_advances_count" invisible="1"/>
+                <field name="dte_accepted_for_advances" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//sheet" position="inside">
+                <field name="advance_applied_amount" invisible="1"/>
+            </xpath>
+
+            <!-- Banner informativo sobre anticipos disponibles - Mejorado con estilo más prominente -->
+            <xpath expr="//sheet" position="before">
+                <field name="dte_accepted_for_advances" invisible="1"/>
+                <!-- Banner para facturas de cliente -->
+                <div class="alert alert-success mb-3"
+                     role="alert"
+                     groups="gts_customer_advance.group_advance_customers_manager"
+                     invisible="move_type != 'out_invoice' or not has_available_advances or state != 'posted'"
+                     style="border-left: 4px solid #28a745; background-color: #d4edda;">
+                    <i class="fa fa-check-circle me-2" style="color: #28a745; font-size: 1.2em;" title="Anticipos Disponibles"/>
+                    <strong style="color: #155724;">¡Anticipos Disponibles!</strong>
+                    <br/>
+                    Este cliente tiene 
+                    <strong style="color: #155724; font-size: 1.1em;">
+                        <field name="available_advances_count" readonly="1"/>
+                    </strong>
+                    anticipo(s) disponible(s) por un total de
+                    <strong style="color: #155724; font-size: 1.1em;">
+                        <field name="available_advances_amount"
+                               widget="monetary"
+                               readonly="1"
+                               options="{'currency_field': 'currency_id'}"/>
+                    </strong>
+                    que puede aplicar a esta factura.
+                    <button name="action_open_apply_advance_wizard"
+                            type="object"
+                            string="Aplicar ahora"
+                            class="btn btn-success btn-sm ms-2"
+                            icon="fa-check"/>
+                </div>
+                <!-- Banner para facturas de proveedor -->
+                <div class="alert alert-success mb-3"
+                     role="alert"
+                     groups="gts_customer_advance.group_advance_suppliers_manager"
+                     invisible="move_type != 'in_invoice' or not has_available_advances or state != 'posted'"
+                     style="border-left: 4px solid #28a745; background-color: #d4edda;">
+                    <i class="fa fa-check-circle me-2" style="color: #28a745; font-size: 1.2em;" title="Anticipos Disponibles"/>
+                    <strong style="color: #155724;">¡Anticipos Disponibles!</strong>
+                    <br/>
+                    Este proveedor tiene 
+                    <strong style="color: #155724; font-size: 1.1em;">
+                        <field name="available_advances_count" readonly="1"/>
+                    </strong>
+                    anticipo(s) disponible(s) por un total de
+                    <strong style="color: #155724; font-size: 1.1em;">
+                        <field name="available_advances_amount"
+                               widget="monetary"
+                               readonly="1"
+                               options="{'currency_field': 'currency_id'}"/>
+                    </strong>
+                    que puede aplicar a esta factura.
+                    <button name="action_open_apply_advance_wizard"
+                            type="object"
+                            string="Aplicar ahora"
+                            class="btn btn-success btn-sm ms-2"
+                            icon="fa-check"/>
+                </div>
+            </xpath>
+            
+                <!-- Agregar pestaña de anticipos aplicados -->
+                <xpath expr="//notebook" position="inside">
+                <!-- Pestaña de anticipos aplicados para clientes -->
+                <page string="Anticipos Aplicados" 
+                      name="advance_applied_customer"
+                      invisible="not advance_link_ids or move_type != 'out_invoice'">
+                    <group>
+                        <group>
+                            <field name="advance_applied_amount" 
+                                   widget="monetary"
+                                   readonly="1"
+                                   options="{'currency_field': 'currency_id'}"/>
+                        </group>
+                        <group>
+                            <button name="action_view_advance_links"
+                                    type="object"
+                                    string="Ver detalles"
+                                    class="btn-link"
+                                    invisible="not advance_link_ids"/>
+                        </group>
+                    </group>
+                    <field name="advance_link_ids"
+                           readonly="1"
+                           nolabel="1"
+                           options="{'no_create': True, 'no_create_edit': True}">
+                        <list create="0" delete="0">
+                            <field name="payment_id" string="Anticipo"/>
+                            <field name="payment_date" string="Fecha Anticipo"/>
+                            <field name="reclass_move_id" string="Asiento Reclasif."/>
+                            <field name="amount" widget="monetary" 
+                                   options="{'currency_field': 'currency_id'}"
+                                   sum="Total"/>
+                            <field name="state" widget="badge"
+                                   decoration-success="state == 'applied'"
+                                   decoration-danger="state == 'reversed'"/>
+                            <field name="applied_user_id" string="Aplicado por"/>
+                            <field name="applied_date"/>
+                            <button name="action_view_payment" type="object" 
+                                    string="Ver anticipo" icon="fa-external-link"/>
+                        </list>
+                    </field>
+                </page>
+                
+                <!-- Pestaña de anticipos aplicados para proveedores -->
+                <page string="Anticipos Aplicados" 
+                      name="advance_applied_supplier"
+                      invisible="not advance_link_ids or move_type != 'in_invoice'">
+                    <group>
+                        <group>
+                            <field name="advance_applied_amount" 
+                                   widget="monetary"
+                                   readonly="1"
+                                   options="{'currency_field': 'currency_id'}"/>
+                        </group>
+                        <group>
+                            <button name="action_view_advance_links"
+                                    type="object"
+                                    string="Ver detalles"
+                                    class="btn-link"
+                                    invisible="not advance_link_ids"/>
+                        </group>
+                    </group>
+                    <field name="advance_link_ids"
+                           readonly="1"
+                           nolabel="1"
+                           options="{'no_create': True, 'no_create_edit': True}">
+                        <list create="0" delete="0">
+                            <field name="payment_id" string="Anticipo"/>
+                            <field name="payment_date" string="Fecha Anticipo"/>
+                            <field name="reclass_move_id" string="Asiento Reclasif."/>
+                            <field name="amount" widget="monetary" 
+                                   options="{'currency_field': 'currency_id'}"
+                                   sum="Total"/>
+                            <field name="state" widget="badge"
+                                   decoration-success="state == 'applied'"
+                                   decoration-danger="state == 'reversed'"/>
+                            <field name="applied_user_id" string="Aplicado por"/>
+                            <field name="applied_date"/>
+                            <button name="action_view_payment" type="object" 
+                                    string="Ver anticipo" icon="fa-external-link"/>
+                        </list>
+                    </field>
+                </page>
+                
+                <!-- Pestaña de anticipos disponibles para clientes -->
+                <page string="Anticipos Disponibles" 
+                      name="available_advances_customer"
+                      groups="gts_customer_advance.group_advance_customers_manager"
+                      invisible="move_type != 'out_invoice' or not has_available_advances or state != 'posted'">
+                    <group>
+                        <group>
+                            <div class="alert alert-info" role="alert">
+                                <p><strong>Anticipos disponibles para este cliente:</strong></p>
+                                <ul>
+                                    <li>Cantidad de anticipos: <field name="available_advances_count" readonly="1"/></li>
+                                    <li>Monto total disponible: 
+                                        <field name="available_advances_amount"
+                                               widget="monetary"
+                                               readonly="1"
+                                               options="{'currency_field': 'currency_id'}"/>
+                                    </li>
+                                </ul>
+                            </div>
+                        </group>
+                        <group>
+                            <button name="action_open_apply_advance_wizard"
+                                    type="object"
+                                    string="Aplicar Anticipos"
+                                    class="oe_highlight"
+                                    icon="fa-money-check-alt"/>
+                        </group>
+                    </group>
+                </page>
+                
+                <!-- Pestaña de anticipos disponibles para proveedores (sin validación de DTE) -->
+                <page string="Anticipos Disponibles" 
+                      name="available_advances_supplier"
+                      groups="gts_customer_advance.group_advance_suppliers_manager"
+                      invisible="move_type != 'in_invoice' or not has_available_advances or state != 'posted'">
+                    <group>
+                        <group>
+                            <div class="alert alert-info" role="alert">
+                                <p><strong>Anticipos disponibles para este proveedor:</strong></p>
+                                <ul>
+                                    <li>Cantidad de anticipos: <field name="available_advances_count" readonly="1"/></li>
+                                    <li>Monto total disponible: 
+                                        <field name="available_advances_amount"
+                                               widget="monetary"
+                                               readonly="1"
+                                               options="{'currency_field': 'currency_id'}"/>
+                                    </li>
+                                </ul>
+                            </div>
+                        </group>
+                        <group>
+                            <button name="action_open_apply_advance_wizard"
+                                    type="object"
+                                    string="Aplicar Anticipos"
+                                    class="oe_highlight"
+                                    icon="fa-money-check-alt"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Vista de búsqueda de facturas - Agregar filtro de anticipos -->
+    <record id="view_account_move_search_advance" model="ir.ui.view">
+        <field name="name">account.move.search.advance</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_move_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='posted']" position="after">
+                <filter string="Con anticipos aplicados" name="filter_with_advances"
+                        domain="[('advance_applied_amount', '>', 0)]"/>
+                <filter string="Con anticipos disponibles" name="filter_with_available_advances"
+                        domain="[('available_advances_amount', '>', 0)]"/>
+            </xpath>
+            
+            <!-- Agregar columna en vista de lista -->
+            <xpath expr="//field[@name='amount_total']" position="after">
+                <field name="has_available_advances" 
+                       widget="boolean_toggle"
+                       optional="show"
+                       string="Tiene Anticipos"
+                       column_invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

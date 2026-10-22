@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_banks_ui.BankSidePanel">
+        <div class="gn-bk-side-panel">
+            <div class="gn-bk-side-panel__title">Resumen financiero</div>
+            <div class="gn-bk-side-panel__row" t-if="data.template_id">
+                <span class="gn-bk-side-panel__label">Plantilla</span>
+                <span class="gn-bk-side-panel__value" t-esc="m2o('template_id')"/>
+            </div>
+            <div class="gn-bk-side-panel__row" t-if="data.bank_invoice_id">
+                <span class="gn-bk-side-panel__label">Factura</span>
+                <span class="gn-bk-side-panel__value" t-esc="m2o('bank_invoice_id')"/>
+            </div>
+            <div class="gn-bk-side-panel__row" t-if="data.journal_id">
+                <span class="gn-bk-side-panel__label">Cuenta bancaria</span>
+                <span class="gn-bk-side-panel__value" t-esc="m2o('journal_id')"/>
+            </div>
+            <div class="gn-bk-side-panel__row">
+                <span class="gn-bk-side-panel__label">Creado por</span>
+                <span class="gn-bk-side-panel__value" t-esc="creatorLabel"/>
+            </div>
+            <div class="gn-bk-side-panel__row" t-if="data.state == 'validated' or data.validated_by">
+                <span class="gn-bk-side-panel__label">Validado por</span>
+                <span class="gn-bk-side-panel__value" t-esc="validatorLabel"/>
+            </div>
+            <div class="gn-bk-side-panel__row" t-if="data.validated_date">
+                <span class="gn-bk-side-panel__label">Fecha validación</span>
+                <span class="gn-bk-side-panel__value" t-esc="validatedDateLabel"/>
+            </div>
+            <div class="gn-bk-side-panel__row" t-if="data.approved_by">
+                <span class="gn-bk-side-panel__label">Aprobado por</span>
+                <span class="gn-bk-side-panel__value" t-esc="m2o('approved_by')"/>
+            </div>
+            <div class="gn-bk-side-panel__row">
+                <span class="gn-bk-side-panel__label">Adjuntos</span>
+                <span class="gn-bk-side-panel__value" t-esc="data.attachment_count || 0"/>
+            </div>
+            <div class="gn-bk-side-panel__row" t-if="data.document_count">
+                <span class="gn-bk-side-panel__label">Documentos</span>
+                <span class="gn-bk-side-panel__value" t-esc="data.document_count"/>
+            </div>
+            <div class="gn-bk-side-panel__row" t-if="data.amount_in_words">
+                <span class="gn-bk-side-panel__label">En letras</span>
+                <span class="gn-bk-side-panel__value" t-esc="data.amount_in_words"/>
+            </div>
+            <div t-if="showDifference" t-att-class="'gn-bk-difference ' + differenceClass">
+                <span class="gn-bk-difference__label">Diferencia</span>
+                <span class="gn-bk-difference__value" t-esc="differenceLabel"/>
+            </div>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_banks_balance.BanksWeeklyBalanceTable">
+        <div class="gn-wb-table-section">
+            <div class="gn-wb-table-section__head">
+                <h5 class="gn-wb-table-section__title">Detalle semanal</h5>
+                <span class="gn-wb-table-section__hint text-muted small">
+                    <i class="fa fa-info-circle me-1"/>Clic en celda → apuntes · Clic derecho → extracto
+                </span>
+            </div>
+            <div class="table-responsive gn-wb-table-wrap">
+                <table class="table table-sm table-bordered align-middle mb-0 gn-wb-table">
+                    <thead>
+                        <tr>
+                            <th class="gn-wb-table__corner text-start">Período</th>
+                            <th class="gn-wb-table__corner-concept text-start">Concepto</th>
+                            <t t-foreach="props.data.journal_columns" t-as="col" t-key="col_index">
+                                <th t-attf-class="text-end text-nowrap gn-wb-table__bank gn-wb-table__bank--{{ col.color_index or (col_index % 8) }}">
+                                    <t t-esc="col.label"/>
+                                </th>
+                            </t>
+                            <th class="text-end gn-wb-table__total-hdr">Total</th>
+                            <th class="text-end gn-wb-table__delta-hdr">DIF vs ant.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="props.data.week_blocks" t-as="week" t-key="week.period_label">
+                            <tr t-foreach="week.rows" t-as="row" t-key="row.concept"
+                                t-att-class="rowClass(row)">
+                                <td t-if="row_index === 0"
+                                    t-att-rowspan="week.rows.length"
+                                    class="gn-wb-table__week text-nowrap align-middle">
+                                    <t t-esc="week.period_label"/>
+                                </td>
+                                <td class="gn-wb-table__concept fw-medium">
+                                    <t t-esc="row.concept"/>
+                                </td>
+                                <t t-foreach="row.amounts" t-as="cell" t-key="cell_index">
+                                    <td t-attf-class="gn-wb-table__num text-end {{ cellClass(row) }} {{ canDrill(row) ? 'gn-wb-table__clickable' : '' }}"
+                                        t-att-title="canDrill(row) ? tooltipDrill() : ''"
+                                        t-on-click="() => this.onCellClick(week, props.data.journal_columns[cell_index], row)"
+                                        t-on-contextmenu="(ev) => this.onCellContextMenu(ev, week, props.data.journal_columns[cell_index], row)">
+                                        <t t-esc="fmt(cell)"/>
+                                    </td>
+                                </t>
+                                <td class="gn-wb-table__num gn-wb-table__total text-end fw-bold">
+                                    <t t-esc="fmt(row.total)"/>
+                                </td>
+                                <td class="gn-wb-table__num text-end"
+                                    t-att-class="row.show_delta ? deltaClass(row.delta) : ''">
+                                    <t t-if="row.show_delta">
+                                        <i t-if="row.delta > 0" class="fa fa-caret-up me-1"/>
+                                        <i t-if="row.delta &lt; 0" class="fa fa-caret-down me-1"/>
+                                        <t t-esc="fmt(row.delta)"/>
+                                    </t>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                    <tfoot t-if="props.data.summary_lines.length">
+                        <tr class="gn-wb-table__foot-label">
+                            <td t-att-colspan="2 + props.data.journal_columns.length + 2"
+                                class="fw-bold text-uppercase">
+                                Resumen del mes
+                            </td>
+                        </tr>
+                        <tr t-foreach="props.data.summary_lines" t-as="suml" t-key="suml.label"
+                            class="gn-wb-table__foot-row">
+                            <td t-att-colspan="2" class="fw-semibold">
+                                <t t-esc="suml.label"/>
+                            </td>
+                            <t t-foreach="suml.amounts" t-as="sam" t-key="sam_index">
+                                <td class="gn-wb-table__num text-end"><t t-esc="fmt(sam)"/></td>
+                            </t>
+                            <td class="gn-wb-table__num gn-wb-table__total text-end fw-bold">
+                                <t t-esc="fmt(suml.total)"/>
+                            </td>
+                            <td/>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </t>
+
+</templates>

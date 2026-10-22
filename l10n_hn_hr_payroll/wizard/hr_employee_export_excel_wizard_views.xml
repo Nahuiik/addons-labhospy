@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_employee_export_excel_wizard_form" model="ir.ui.view">
+        <field name="name">hr.employee.export.excel.wizard.form</field>
+        <field name="model">hr.employee.export.excel.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Exportar a Excel">
+                <sheet>
+                    <group>
+                        <group string="Filtro">
+                            <field name="filter_type"/>
+                            <field name="department_id" invisible="filter_type != 'department'"/>
+                            <field name="manager_id" invisible="filter_type != 'manager'"/>
+                            <field name="expiring_this_month"/>
+                        </group>
+                        <group string="Exportación">
+                            <field name="export_type"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_export" string="Exportar" type="object" class="btn-primary" icon="fa-file-excel-o"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hr_employee_export_excel_wizard" model="ir.actions.act_window">
+        <field name="name">Exportar a Excel</field>
+        <field name="res_model">hr.employee.export.excel.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="hr.model_hr_employee"/>
+        <field name="binding_view_types">list</field>
+    </record>
+</odoo>

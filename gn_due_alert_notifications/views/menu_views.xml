@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_gn_due_alert_notification_center"
+              name="Centro de alertas"
+              parent="gn_invoice_due_alerts.menu_invoice_due_root"
+              action="action_gn_due_alert_notification"
+              sequence="12"
+              groups="gn_due_alert_notifications.group_due_alert_notif_user"/>
+
+    <menuitem id="menu_gn_due_alert_notification_center_customer"
+              name="Centro de alertas"
+              parent="gn_customer_due_alerts.menu_customer_due_root"
+              action="action_gn_due_alert_notification"
+              sequence="12"
+              groups="gn_due_alert_notifications.group_due_alert_notif_user"/>
+
+</odoo>

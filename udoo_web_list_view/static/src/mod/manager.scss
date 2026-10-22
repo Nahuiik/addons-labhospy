@@ -1,0 +1,30 @@
+.u_column_manager .modal-body {
+    display: flex;
+    padding-right: 0;
+
+    .o_left_field_panel,
+    .o_right_field_panel {
+        user-select: none;
+
+        .o_cman_tree_item {
+            &:hover {
+                background: rgba($o-brand-odoo, .2);
+            }
+        }
+
+        .o_cman_field_sortable>*:not(.o_remove_field) {
+            @include o-grab-cursor;
+        }
+    }
+}
+
+.u_column_attrs {
+    .o_multi_record_selector {
+        max-width: 500px;
+    }
+
+    .o_select_menu_toggler {
+        padding-block: 4px;
+        padding-right: 0;
+    }
+}

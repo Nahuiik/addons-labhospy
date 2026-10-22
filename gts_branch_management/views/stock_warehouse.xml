@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_warehouse_tree_extended" model="ir.ui.view">
+        <field name="name">view.warehouse.tree.extended</field>
+        <field name="model">stock.warehouse</field>
+        <field name="inherit_id" ref="stock.view_warehouse_tree"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="gts_no_exigir_sucursal" column_invisible="1"/>
+                <field name="branch_id" string="Sucursal"
+                       options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'
+                       required="not gts_no_exigir_sucursal"/>
+            </field>
+        </field>
+    </record>
+    <record id="view_warehouse_branch_inherited" model="ir.ui.view">
+        <field name="name">Stock Warehouse Inherited</field>
+        <field name="model">stock.warehouse</field>
+        <field name="inherit_id" ref="stock.view_warehouse"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="before">
+                <field name="gts_no_exigir_sucursal" widget="boolean_toggle"/>
+                <field name="branch_id" string="Sucursal"
+                       options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'
+                       required="not gts_no_exigir_sucursal"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

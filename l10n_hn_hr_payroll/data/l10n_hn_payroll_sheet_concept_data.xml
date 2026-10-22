@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Conceptos compartidos para usar en Planilla BD (for_payroll=True) -->
+        <record id="concept_prestamo" model="hr.employee.recurring.concept">
+            <field name="company_id" ref="base.main_company"/>
+            <field name="is_template" eval="True"/>
+            <field name="name">Préstamo Personal</field>
+            <field name="code">PREST_PERS</field>
+            <field name="concept_type">deduction</field>
+            <field name="amount_type">fixed</field>
+            <field name="amount">0</field>
+            <field name="for_payroll" eval="True"/>
+            <field name="applies_to_all" eval="True"/>
+        </record>
+        <record id="concept_bono_prod" model="hr.employee.recurring.concept">
+            <field name="company_id" ref="base.main_company"/>
+            <field name="is_template" eval="True"/>
+            <field name="name">Bono de Productividad</field>
+            <field name="code">BONO_PROD</field>
+            <field name="concept_type">income</field>
+            <field name="amount_type">fixed</field>
+            <field name="amount">0</field>
+            <field name="for_payroll" eval="True"/>
+            <field name="applies_to_all" eval="True"/>
+        </record>
+        <record id="concept_bono_trans" model="hr.employee.recurring.concept">
+            <field name="company_id" ref="base.main_company"/>
+            <field name="is_template" eval="True"/>
+            <field name="name">Bono de Transporte</field>
+            <field name="code">BONO_TRANS</field>
+            <field name="concept_type">income</field>
+            <field name="amount_type">fixed</field>
+            <field name="amount">0</field>
+            <field name="for_payroll" eval="True"/>
+            <field name="applies_to_all" eval="True"/>
+        </record>
+        <record id="concept_bono_alim" model="hr.employee.recurring.concept">
+            <field name="company_id" ref="base.main_company"/>
+            <field name="is_template" eval="True"/>
+            <field name="name">Bono de Alimentación</field>
+            <field name="code">BONO_ALIM</field>
+            <field name="concept_type">income</field>
+            <field name="amount_type">fixed</field>
+            <field name="amount">0</field>
+            <field name="for_payroll" eval="True"/>
+            <field name="applies_to_all" eval="True"/>
+        </record>
+        <record id="concept_cuota_sindical" model="hr.employee.recurring.concept">
+            <field name="company_id" ref="base.main_company"/>
+            <field name="is_template" eval="True"/>
+            <field name="name">Cuota Sindical</field>
+            <field name="code">CUOTA_SIND</field>
+            <field name="concept_type">deduction</field>
+            <field name="amount_type">fixed</field>
+            <field name="amount">0</field>
+            <field name="for_payroll" eval="True"/>
+            <field name="applies_to_all" eval="True"/>
+        </record>
+        <record id="concept_otros" model="hr.employee.recurring.concept">
+            <field name="company_id" ref="base.main_company"/>
+            <field name="is_template" eval="True"/>
+            <field name="name">Otros (Planilla)</field>
+            <field name="code">OTROS_PLANILLA</field>
+            <field name="concept_type">income</field>
+            <field name="amount_type">fixed</field>
+            <field name="amount">0</field>
+            <field name="for_payroll" eval="True"/>
+            <field name="applies_to_all" eval="True"/>
+        </record>
+        <record id="concept_incapacidades_ihss" model="hr.employee.recurring.concept">
+            <field name="company_id" ref="base.main_company"/>
+            <field name="is_template" eval="True"/>
+            <field name="name">Incapacidades IHSS</field>
+            <field name="code">IIHSS</field>
+            <field name="concept_type">deduction</field>
+            <field name="amount_type">fixed</field>
+            <field name="amount">0</field>
+            <field name="for_payroll" eval="True"/>
+            <field name="applies_to_all" eval="True"/>
+        </record>
+    </data>
+</odoo>

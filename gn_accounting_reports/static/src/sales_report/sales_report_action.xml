@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_accounting_reports.SalesReport">
+        <div class="o_gn_sales_report d-flex flex-column h-100 p-3 bg-view">
+            <div class="card shadow-sm mb-3">
+                <div class="card-body d-flex flex-wrap gap-3 align-items-end">
+                    <div>
+                        <label class="form-label small mb-0 text-muted">Desde</label>
+                        <input type="date" class="form-control form-control-sm"
+                               t-att-value="state.dateFrom"
+                               t-on-change="onDateFrom"/>
+                    </div>
+                    <div>
+                        <label class="form-label small mb-0 text-muted">Hasta</label>
+                        <input type="date" class="form-control form-control-sm"
+                               t-att-value="state.dateTo"
+                               t-on-change="onDateTo"/>
+                    </div>
+                    <div>
+                        <label class="form-label small mb-0 text-muted">Compañía</label>
+                        <select class="form-select form-select-sm" t-on-change="onCompanyChange">
+                            <t t-foreach="allowedCompanies" t-as="company" t-key="company.id">
+                                <option t-att-value="company.id"
+                                        t-att-selected="company.id === state.companyId ? 'selected' : undefined"
+                                        t-out="company.name"/>
+                            </t>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="form-label small mb-0 text-muted">Agrupar por</label>
+                        <select class="form-select form-select-sm" t-on-change="onGroupByChange">
+                            <option value="month" t-att-selected="state.groupBy === 'month' ? 'selected' : undefined">Mensual</option>
+                            <option value="quarter" t-att-selected="state.groupBy === 'quarter' ? 'selected' : undefined">Trimestral</option>
+                            <option value="year" t-att-selected="state.groupBy === 'year' ? 'selected' : undefined">Anual</option>
+                        </select>
+                    </div>
+                    <div class="form-check mb-1">
+                        <input type="checkbox" class="form-check-input" id="gn_sales_untaxed"
+                               t-att-checked="state.includeUntaxed ? 'checked' : undefined"
+                               t-on-change="onIncludeUntaxed"/>
+                        <label class="form-check-label small" for="gn_sales_untaxed">Valor sin impuestos</label>
+                    </div>
+                    <div class="flex-grow-1 d-flex flex-column" style="min-width:220px;">
+                        <label class="form-label small mb-0 text-muted">Sucursales</label>
+                        <MultiRecordSelector t-props="branchSelectorProps" t-key="state.companyId"/>
+                    </div>
+                    <div class="flex-grow-1 d-flex flex-column" style="min-width:220px;">
+                        <label class="form-label small mb-0 text-muted">Vendedores</label>
+                        <MultiRecordSelector t-props="userSelectorProps" t-key="state.companyId"/>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-sm" t-on-click="refreshReport">
+                        Actualizar vista
+                    </button>
+                    <button type="button" class="btn btn-secondary btn-sm" t-on-click="exportPdf">
+                        PDF
+                    </button>
+                    <button type="button" class="btn btn-secondary btn-sm" t-on-click="exportHtml">
+                        HTML
+                    </button>
+                </div>
+            </div>
+
+            <div t-if="state.wizardId" class="flex-grow-1 overflow-hidden d-flex flex-column">
+                <iframe t-att-key="state.wizardId"
+                        t-att-src="iframeSrc"
+                        class="flex-grow-1 w-100 rounded border bg-white"
+                        style="min-height:420px;"
+                        title="Vista previa reporte de ventas"/>
+            </div>
+            <div t-else="" class="text-muted fst-italic py-4">
+                Configure filtros y pulse «Actualizar vista» para generar el reporte QWeb HTML.
+            </div>
+        </div>
+    </t>
+
+    <t t-name="gn_accounting_reports.InvoicePaymentReport">
+        <div class="o_gn_invoice_payment_report d-flex flex-column h-100 p-3 bg-view">
+            <div class="card shadow-sm mb-3 border-0">
+                <div class="card-header bg-primary text-white py-2">
+                    <strong>Reporte premium — Facturas y pagos</strong>
+                </div>
+                <div class="card-body d-flex flex-wrap gap-3 align-items-end">
+                    <div>
+                        <label class="form-label small mb-0 text-muted">Pago desde</label>
+                        <input type="date" class="form-control form-control-sm"
+                               t-att-value="state.dateFrom"
+                               t-on-change="onDateFrom"/>
+                    </div>
+                    <div>
+                        <label class="form-label small mb-0 text-muted">Pago hasta</label>
+                        <input type="date" class="form-control form-control-sm"
+                               t-att-value="state.dateTo"
+                               t-on-change="onDateTo"/>
+                    </div>
+                    <div>
+                        <label class="form-label small mb-0 text-muted">Factura desde</label>
+                        <input type="date" class="form-control form-control-sm"
+                               t-att-value="state.invoiceDateFrom"
+                               t-on-change="onInvoiceDateFrom"/>
+                    </div>
+                    <div>
+                        <label class="form-label small mb-0 text-muted">Factura hasta</label>
+                        <input type="date" class="form-control form-control-sm"
+                               t-att-value="state.invoiceDateTo"
+                               t-on-change="onInvoiceDateTo"/>
+                    </div>
+                    <div>
+                        <label class="form-label small mb-0 text-muted">Compañía</label>
+                        <select class="form-select form-select-sm" t-on-change="onCompanyChange">
+                            <t t-foreach="allowedCompanies" t-as="company" t-key="company.id">
+                                <option t-att-value="company.id"
+                                        t-att-selected="company.id === state.companyId ? 'selected' : undefined"
+                                        t-out="company.name"/>
+                            </t>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="form-label small mb-0 text-muted">Estado factura</label>
+                        <select class="form-select form-select-sm" t-on-change="onPaymentState">
+                            <option value="all" t-att-selected="state.paymentState === 'all' ? 'selected' : undefined">Todos</option>
+                            <option value="paid" t-att-selected="state.paymentState === 'paid' ? 'selected' : undefined">Pagadas</option>
+                            <option value="partial" t-att-selected="state.paymentState === 'partial' ? 'selected' : undefined">Parciales</option>
+                            <option value="not_paid" t-att-selected="state.paymentState === 'not_paid' ? 'selected' : undefined">Pendientes</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="form-label small mb-0 text-muted">Plazo crédito</label>
+                        <select class="form-select form-select-sm" t-on-change="onCreditTermFilter">
+                            <option value="all" t-att-selected="state.creditTermFilter === 'all' ? 'selected' : undefined">Todos</option>
+                            <option value="within" t-att-selected="state.creditTermFilter === 'within' ? 'selected' : undefined">Dentro del plazo</option>
+                            <option value="outside" t-att-selected="state.creditTermFilter === 'outside' ? 'selected' : undefined">Fuera del plazo</option>
+                            <option value="no_payment" t-att-selected="state.creditTermFilter === 'no_payment' ? 'selected' : undefined">Sin pago</option>
+                        </select>
+                    </div>
+                    <div class="form-check mb-1">
+                        <input type="checkbox" class="form-check-input" id="gn_inv_pay_pending"
+                               t-att-checked="state.showPendingInvoices ? 'checked' : undefined"
+                               t-on-change="onShowPending"/>
+                        <label class="form-check-label small" for="gn_inv_pay_pending">Incluir pendientes</label>
+                    </div>
+                    <div class="flex-grow-1 d-flex flex-column" style="min-width:200px;">
+                        <label class="form-label small mb-0 text-muted">Sucursales</label>
+                        <MultiRecordSelector t-props="branchSelectorProps" t-key="state.companyId"/>
+                    </div>
+                    <div class="flex-grow-1 d-flex flex-column" style="min-width:200px;">
+                        <label class="form-label small mb-0 text-muted">Asesores</label>
+                        <MultiRecordSelector t-props="userSelectorProps" t-key="state.companyId"/>
+                    </div>
+                    <div class="flex-grow-1 d-flex flex-column" style="min-width:200px;">
+                        <label class="form-label small mb-0 text-muted">Clientes</label>
+                        <MultiRecordSelector t-props="partnerSelectorProps"/>
+                    </div>
+                    <div class="flex-grow-1 d-flex flex-column" style="min-width:200px;">
+                        <label class="form-label small mb-0 text-muted">Bancos</label>
+                        <MultiRecordSelector t-props="journalSelectorProps" t-key="state.companyId"/>
+                    </div>
+                    <div class="flex-grow-1 d-flex flex-column" style="min-width:200px;">
+                        <label class="form-label small mb-0 text-muted">Categorías</label>
+                        <MultiRecordSelector t-props="categSelectorProps"/>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-sm" t-on-click="refreshReport">
+                        Actualizar vista
+                    </button>
+                    <button type="button" class="btn btn-secondary btn-sm" t-on-click="exportPdf">
+                        PDF
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary btn-sm" t-on-click="exportHtml">
+                        HTML
+                    </button>
+                </div>
+            </div>
+
+            <div t-if="state.loading" class="flex-grow-1 d-flex align-items-center justify-content-center py-5">
+                <div class="text-center text-muted">
+                    <span class="spinner-border spinner-border-sm me-2" role="status"/>
+                    Generando reporte…
+                </div>
+            </div>
+            <div t-elif="state.wizardId" class="flex-grow-1 overflow-hidden d-flex flex-column">
+                <iframe t-att-key="state.wizardId"
+                        t-att-src="iframeSrc"
+                        class="flex-grow-1 w-100 rounded border bg-white shadow-sm"
+                        style="min-height:480px;"
+                        title="Reporte premium facturas y pagos"/>
+            </div>
+            <div t-else="" class="text-muted fst-italic py-4 text-center">
+                Configure los filtros; el reporte se actualiza automáticamente.
+            </div>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_financial_dashboard.ChatPanel">
+        <div class="gn-fd-chat">
+            <div class="gn-fd-chat-body" t-ref="body">
+                <div t-if="!props.history.length" class="gn-fd-chat-welcome">
+                    <i class="fa fa-comments-o gn-fd-chat-icon"/>
+                    <h5>Asistente financiero</h5>
+                    <p class="text-muted">Pregunta en lenguaje natural sobre tu negocio. Ejemplos:</p>
+                </div>
+
+                <div t-foreach="props.history" t-as="m" t-key="m_index"
+                     class="gn-fd-chat-msg" t-att-class="'gn-fd-chat-msg--' + m.role">
+                    <div class="gn-fd-chat-avatar">
+                        <i t-if="m.role == 'user'" class="fa fa-user"/>
+                        <i t-else="" class="fa fa-robot"/>
+                    </div>
+                    <div class="gn-fd-chat-bubble">
+                        <div t-if="m.role == 'assistant' and m.intent" class="gn-fd-chat-intent"
+                             t-esc="intentLabel(m.intent)"/>
+                        <div class="gn-fd-chat-text" t-esc="m.text"/>
+                    </div>
+                </div>
+
+                <div t-if="props.loading" class="gn-fd-chat-msg gn-fd-chat-msg--assistant">
+                    <div class="gn-fd-chat-avatar"><i class="fa fa-robot"/></div>
+                    <div class="gn-fd-chat-bubble gn-fd-chat-bubble--loading">
+                        <span class="gn-fd-chat-dot"/>
+                        <span class="gn-fd-chat-dot"/>
+                        <span class="gn-fd-chat-dot"/>
+                    </div>
+                </div>
+            </div>
+
+            <div t-if="props.suggestions.length" class="gn-fd-chat-suggestions">
+                <span class="text-muted me-2">Sugerencias:</span>
+                <button t-foreach="props.suggestions" t-as="s" t-key="s_index"
+                        class="btn btn-sm btn-outline-secondary gn-fd-chat-chip"
+                        t-on-click="() => this.onSuggestionClick(s)"
+                        t-att-disabled="props.loading">
+                    <t t-esc="s"/>
+                </button>
+            </div>
+
+            <form class="gn-fd-chat-form" t-on-submit="onSubmit">
+                <input type="text" class="form-control gn-fd-chat-input"
+                       t-ref="input"
+                       placeholder="Pregúntale al asistente financiero..."
+                       t-att-value="state.draft"
+                       t-on-input="onChangeDraft"
+                       t-att-disabled="props.loading"/>
+                <button type="submit" class="btn btn-primary"
+                        t-att-disabled="props.loading or !state.draft.trim()">
+                    <i class="fa fa-paper-plane"/>
+                </button>
+            </form>
+        </div>
+    </t>
+
+</templates>

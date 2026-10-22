@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Employee Recurring Concept List View -->
+    <record id="view_hr_employee_recurring_concept_list" model="ir.ui.view">
+        <field name="name">hr.employee.recurring.concept.list</field>
+        <field name="model">hr.employee.recurring.concept</field>
+        <field name="arch" type="xml">
+            <list string="Conceptos Recurrentes">
+                <field name="is_shared" widget="boolean_toggle" string="Compartido"/>
+                <field name="employee_id"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="concept_type" widget="badge" decoration-success="concept_type == 'income'" decoration-danger="concept_type == 'deduction'"/>
+                <field name="for_payroll" widget="boolean_toggle" string="Para Planilla" optional="show"/>
+                <field name="amount_type"/>
+                <field name="amount" sum="Total"/>
+                <field name="applies_to_all" widget="boolean_toggle" invisible="employee_id" string="Aplica a Todos"/>
+                <field name="is_loan" widget="boolean_toggle"/>
+                <field name="remaining_amount" sum="Total" invisible="not is_loan"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="apply_biweek" widget="badge" decoration-info="apply_biweek == 'both'" decoration-success="apply_biweek == 'first'" decoration-warning="apply_biweek == 'second'"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+    
+    <!-- Employee Recurring Concept Form View -->
+    <record id="view_hr_employee_recurring_concept_form" model="ir.ui.view">
+        <field name="name">hr.employee.recurring.concept.form</field>
+        <field name="model">hr.employee.recurring.concept</field>
+        <field name="arch" type="xml">
+            <form string="Concepto Recurrente">
+                <header>
+                    <button name="action_mark_paid" string="Marcar Cuota Pagada" type="object"
+                            invisible="not is_loan or paid_installments >= installments"/>
+                    <button name="action_assign_to_employees" string="Asignar a Empleados" type="object"
+                            class="btn-primary"
+                            invisible="employee_id or not is_shared"
+                            help="Asignar este concepto compartido a múltiples empleados"/>
+                </header>
+                <sheet>
+                    <div class="alert alert-info" role="alert" invisible="employee_id">
+                        <i class="fa fa-info-circle me-2"/>Este es un concepto compartido. Puede asignarse a múltiples empleados usando el botón "Asignar a Empleados".
+                    </div>
+                    <group>
+                        <group>
+                            <field name="is_shared" readonly="1" invisible="employee_id"/>
+                            <field name="employee_id" options="{'no_create': True}"
+                                   placeholder="Dejar vacío para crear un concepto compartido"/>
+                            <field name="name_from_concept_id" 
+                                   options="{'no_create': True, 'no_open': True}"
+                                   placeholder="Seleccione un concepto recurrente existente del mismo empleado o compartido..."/>
+                            <field name="name" 
+                                   placeholder="O escriba un nombre nuevo aquí (se llenará automáticamente si selecciona arriba)"/>
+                            <field name="code" 
+                                   placeholder="Código para reglas salariales (requerido para conceptos compartidos)"/>
+                            <field name="concept_type"/>
+                        </group>
+                        <group>
+                            <field name="amount_type"/>
+                            <field name="amount"/>
+                            <field name="for_payroll" string="Para Planilla"
+                                   help="Incluir en el selector de conceptos de Beneficios/Deducciones en la Planilla"/>
+                            <field name="is_loan"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <group string="Préstamo" invisible="not is_loan">
+                        <group>
+                            <field name="installments"/>
+                            <field name="apply_biweek"
+                                   placeholder="Determina cuántas cuotas se aplican por mes"/>
+                            <field name="initial_paid_installments"
+                                   help="Cuotas pagadas antes de incluir al empleado en nómina"/>
+                            <field name="paid_installments"/>
+                        </group>
+                        <group>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="total_amount"
+                                   placeholder="Se calcula como monto × cuotas"/>
+                            <field name="remaining_amount" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Criterios de Aplicabilidad" invisible="employee_id">
+                        <group>
+                            <field name="applies_to_all"/>
+                            <field name="department_ids" widget="many2many_tags" invisible="applies_to_all"/>
+                            <field name="job_ids" widget="many2many_tags" invisible="applies_to_all"/>
+                        </group>
+                        <group>
+                            <field name="structure_type_ids" widget="many2many_tags"/>
+                            <field name="description" placeholder="Descripción del concepto..."/>
+                        </group>
+                    </group>
+                    <group invisible="is_loan">
+                        <group>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="apply_biweek"
+                                   placeholder="Solo relevante para estructuras quincenales"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="notes" placeholder="Notas adicionales..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <!-- Employee Recurring Concept Search View -->
+    <record id="view_hr_employee_recurring_concept_search" model="ir.ui.view">
+        <field name="name">hr.employee.recurring.concept.search</field>
+        <field name="model">hr.employee.recurring.concept</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Conceptos Recurrentes">
+                <field name="employee_id"/>
+                <field name="name"/>
+                <field name="code"/>
+                <filter string="Compartidos" name="shared" domain="[('employee_id', '=', False)]"/>
+                <filter string="Por Empleado" name="employee_specific" domain="[('employee_id', '!=', False)]"/>
+                <filter string="Ingresos" name="income" domain="[('concept_type', '=', 'income')]"/>
+                <filter string="Deducciones" name="deduction" domain="[('concept_type', '=', 'deduction')]"/>
+                <filter string="Préstamos" name="loan" domain="[('is_loan', '=', True)]"/>
+                <filter string="Activos" name="active" domain="[('active', '=', True)]"/>
+                <separator/>
+                <filter string="Empleado" name="group_by_employee" context="{'group_by': 'employee_id'}"/>
+                <filter string="Tipo" name="group_by_type" context="{'group_by': 'concept_type'}"/>
+                <filter string="Compartido" name="group_by_shared" context="{'group_by': 'is_shared'}"/>
+            </search>
+        </field>
+    </record>
+    
+    <!-- Employee Recurring Concept Action -->
+    <record id="action_hr_employee_recurring_concept" model="ir.actions.act_window">
+        <field name="name">Conceptos Recurrentes</field>
+        <field name="res_model">hr.employee.recurring.concept</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crear un nuevo concepto recurrente
+            </p>
+            <p>
+                Los conceptos recurrentes pueden ser:
+                <ul>
+                    <li><strong>Compartidos:</strong> Dejar el campo "Empleado" vacío. Pueden asignarse a múltiples empleados usando criterios de aplicabilidad o selección manual.</li>
+                    <li><strong>Por Empleado:</strong> Asignar un empleado específico. Se aplican automáticamente en las nóminas del empleado.</li>
+                </ul>
+            </p>
+        </field>
+    </record>
+    
+</odoo>

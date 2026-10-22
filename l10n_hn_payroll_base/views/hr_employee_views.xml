@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Enterprise-like employee contract UX: salary tab + payslip smart buttons -->
+    <record id="view_employee_form_payroll_hn" model="ir.ui.view">
+        <field name="name">hr.employee.form.payroll.hn</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_open_versions']" position="before">
+                <button name="action_open_hn_payslips"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-dollar"
+                        groups="l10n_hn_payroll_base.group_hn_payroll_user"
+                        invisible="payslip_count == 0">
+                    <field name="payslip_count" widget="statinfo" string="Payslips"/>
+                </button>
+                <button name="%(l10n_hn_payroll_base.action_hr_payslip_new)d"
+                        type="action"
+                        class="oe_stat_button"
+                        icon="fa-dollar"
+                        groups="l10n_hn_payroll_base.group_hn_payroll_user"
+                        context="{'default_employee_id': id, 'default_contract_id': version_id}"
+                        invisible="payslip_count or not contract_date_start">
+                    <div class="o_stat_info">
+                        <span class="o_stat_text">Payslips</span>
+                        <span class="o_stat_value">New</span>
+                    </div>
+                </button>
+            </xpath>
+
+            <xpath expr="//page[@name='payroll_information']" position="attributes">
+                <attribute name="groups">hr.group_hr_manager,l10n_hn_payroll_base.group_hn_payroll_user</attribute>
+                <attribute name="string">Salary Information</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='structure_type_id']" position="attributes">
+                <attribute name="string">Salary Structure Type</attribute>
+            </xpath>
+
+            <xpath expr="//div[@name='wage']" position="inside">
+                <span class="mx-2">/</span>
+                <field name="schedule_pay" class="o_hr_narrow_field" nolabel="1" groups="hr.group_hr_user"/>
+            </xpath>
+
+            <xpath expr="//field[@name='structure_type_id']" position="after">
+                <field name="struct_id"
+                       string="Salary Structure"
+                       groups="hr.group_hr_user"
+                       options="{'no_create_edit': True}"/>
+                <field name="journal_id"
+                       string="Salary Journal"
+                       groups="hr.group_hr_user"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

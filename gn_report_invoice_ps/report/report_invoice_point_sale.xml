@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_invoice_point_sale">
+            <t t-call="web.html_container">
+                <style>
+                h4{
+                    margin-top:0px;
+                    margin-bottom:0px;
+                    padding-top:0px;
+                    padding-bottom:0px;
+                }
+                .margin-top-60{
+                    margin-top:60px;
+                }
+                .margin-top-30{
+                    margin-top:30px;
+                }
+                .table-border{
+                    border-left: 0px;
+                    border-style: dashed;
+                    border-right: 0px;
+                }
+                .text-right{
+                    text-align: end;
+                }
+                .text-center{
+                    text-align: center;
+                }
+                .text-justify{
+                    text-align: justify;
+                }
+                h6{
+                    font-size: 15px;
+                    margin-top:0px;
+                    margin-bottom:0px;
+                    padding-top:0px;
+                    padding-bottom:0px
+                }
+                p_t_product{
+                    font-size: 15px;
+                    margin-top:10px;
+                    margin-bottom:0px;
+                }
+                h5{
+                    font-size: 16px;
+                    font-weight: 800;
+                    margin-top:0px;
+                    margin-bottom:0px;
+                    padding-top:0px;
+                    padding-bottom:0px
+                }
+                span{
+                    font-weight: 400;
+                }
+                
+                @media print {
+                .table-breaked {
+                    page-break-before: auto;
+                }
+                .no-border{
+                    border: none !important;
+                }
+                .footer-repeat {
+                    display: table-footer-group;
+                    }
+                }
+                </style>
+                <meta charset="UTF-8"/>
+                <t t-foreach="docs" t-as="o">
+                    <div class="page" style="margin-bottom: 0px !important">
+                    <t t-set="_" t-value="o.change_size_page(o.invoice_line_ids)"/>
+                    <t t-set="company" t-value="o.company_id"/>
+                    <div class="col-12" align="center">
+                            <img t-if="o.company_id.logo" border="0" t-att-src="image_data_uri(o.company_id.logo)" style="height:auto;max-width:100%;" />
+                        <t t-if="o.company_id">
+                            <h4 t-field="o.company_id.name"/>
+                            <h4 t-field="o.company_id.street"/>
+                            <h4>RTN: <span t-field="o.company_id.company_registry"/></h4>
+                            <h4>TELEFONO: <span t-field="o.company_id.phone"/></h4>
+                            <h4>CORREO: <span t-field="o.company_id.email"/></h4>
+                        </t>
+                        <t t-set="branch_field" t-value="o._fields.get('branch_id')"/>
+                        <t t-if="branch_field">
+                            <t t-set="branch" t-value="o.branch_id"/>
+                            <t t-if="branch">
+                                <h4>SUCURSAL: <span t-field="branch.name"/></h4>
+                                <t t-if="branch.address">
+                                <h4>DIRECCION SUCURSAL: <span t-field="branch.address"/></h4>
+                                </t>
+                                <t t-if="branch.telephone_no">
+                                    <h4>TELEFONO SUCURSAL: <span t-field="branch.telephone_no"/></h4>
+                                </t>
+                            </t>
+                        </t>
+                    </div>
+                    <br/>
+                    <div class="col-12 margin-top-20">
+                        <h4>FACTURA: <span t-field="o.name"/></h4>
+                        <h4>FECHA: <span t-field="o.invoice_date"/></h4>
+                    </div>
+                    <div class="col-12 margin-top-20">
+                        <t t-if="o.partner_id">
+                            <p style="margin:0px;"><strong>CLIENTE: </strong><span t-field="o.partner_id.name"></span></p>
+                            <t t-if="o.partner_id.rtn">
+                                <p style="margin:0px;"><strong>RTN: </strong><span t-field="o.partner_id.rtn"></span></p>
+                            </t>
+                            <t t-if="o.partner_id.phone">
+                                <p style="margin:0px;"><strong>TELEFONO: </strong><span t-field="o.partner_id.phone"></span></p>
+                            </t>
+                            <t t-if="o.partner_id.email">
+                                <p style="margin:0px;"><strong>CORREO: </strong><span t-field="o.partner_id.email"></span></p>
+                            </t>
+                        </t>
+                        <hr/>
+                        <h5>VENDEDOR: <span t-field="o.invoice_user_id.name"/></h5>
+                    </div>
+                    <div class="col-12 margin-top-30">
+                        <h4 t-esc="o.datatime_report_ps()"/>
+                        <h4>
+                            <t t-set="account_ids" t-value="o.account_tax_report_ps()"/>
+                            <t t-foreach="account_ids" t-as="account_id">
+                                <t t-if="account_id.is_exonerate==true">
+                                    <span t-esc="account_id.name"/>:Exonerado
+                                </t>
+                                <t t-if="account_id.is_exempt==true">
+                                    <span t-esc="account_id.name"/>:Exento
+                                </t>
+                                <t t-if="account_id.is_exonerate==false and account_id.is_exempt==false">
+                                    <span t-esc="account_id.name"/>:Gravado
+                                </t>
+                            </t>
+                            <!-- NGV:Exento G:Gravado -->
+                        </h4>
+                    </div>
+                    <t t-set="t_product" t-value="0"/>
+                    <br/>
+                    <br/>
+                    <div class="col-12">
+                        <!-- Aqui hay que llamar las lineas -->
+                        <table class="table table-condensed table-border">
+                            <thead>
+                                <tr width="100%">
+                                    <th width="10%" style="padding-right: 2px !important"> CANT.</th>
+                                    <th width="55%" style="padding-right: 10px !important"> DESCRIPCION.</th>
+                                    <th width="15%" style="padding-left: 40px !important"> ISV </th>
+                                    <th width="20%" style="padding-left: 5px !important; text-align:right !important"> TOTAL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br/>
+                        <div class="table-breaked">
+                            <table class="table-breaked">
+                                <tbody>
+                                    <t t-set="discount" t-value="0" />
+                                    <t t-set="discount_total" t-value="0" />
+                                    <t t-foreach="o.invoice_line_ids" t-as="line">
+                                        <t t-set="t_product" t-value="t_product+1" />
+                                        <tr width="100%">
+                                            <td width="10%" style="padding-left: 2px !important"><span t-field="line.quantity"/></td>
+                                            <td width="55%" style="padding-left: 10px !important"><span t-field="line.product_id.name"/></td>
+                                            <td width="15%" style="padding-left: 40px !important" t-foreach="line.tax_ids" t-as="tax">
+                                                <span t-field="tax.name"/>
+                                            </td>
+                                            <td width="20%" style="padding-left: 5px !important; text-align:right !important"><span t-field="line.price_total"/>
+                                                <t t-set="discount" t-value="line.quantity * line.price_unit * line.discount/100" />
+                                                <t t-set="discount_total" t-value="discount_total + discount" />
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <p class="p_t_product"><strong>Numero de Productos: </strong><t t-esc="len(o.invoice_line_ids)"/></p>
+                    <div class="col-12 margin-top-20" style="border-top: 1px; border-bottom: 1px;border-top-style: dashed;border-color: #bababa;">
+                        <br/>
+                        <table class="table" width="100%">
+                            <tbody>
+                                <tr>
+                                    <td><strong>Sub Total: </strong></td>
+                                    <td style="color:transparent">.....</td>
+                                    <td style="color:transparent">.....</td>
+                                    <td class="text-end">L <span class="text-end" t-esc="'{0:,.2f}'.format(o.amount_untaxed)"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Importe Exonerado: </strong></td>
+                                    <td style="color:transparent">.....</td>
+                                    <td style="color:transparent">.....</td>
+                                    <td class="text-end">L <span class="text-end" t-esc="'{0:,.2f}'.format(o.exonerate_amount)"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Importe Exento: </strong></td>
+                                    <td style="color:transparent">.....</td>
+                                    <td style="color:transparent">.....</td>
+                                    <td class="text-end">L <span class="text-end" t-esc="'{0:,.2f}'.format(o.exempt_sale_amount)"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Importe G. 15%: </strong></td>
+                                    <td style="color:transparent">.....</td>
+                                    <td style="color:transparent">.....</td>
+                                    <td class="text-end">L <span class="text-end" t-esc="'{0:,.2f}'.format(o.amount_tax_15_per)"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Importe G. 18%: </strong></td>
+                                    <td style="color:transparent">.....</td>
+                                    <td style="color:transparent">.....</td>
+                                    <td class="text-end">L <span class="text-end" t-esc="'{0:,.2f}'.format(o.amount_tax_18_per)"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Impuesto: </strong></td>
+                                    <td style="color:transparent">.....</td>
+                                    <td style="color:transparent">.....</td>
+                                    <td class="text-end">L <span class="text-end" t-esc="'{0:,.2f}'.format(o.amount_tax)"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Descuentos: </strong></td>
+                                    <td style="color:transparent">.....</td>
+                                    <td style="color:transparent">.....</td>
+                                    <td class="text-end">L <span class="text-end" t-esc="'{0:,.2f}'.format(discount_total)"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Total: </strong></td>
+                                    <td style="color:transparent">.....</td>
+                                    <td style="color:transparent">.....</td>
+                                    <td class="text-end">L <span class="text-end" t-esc="'{0:,.2f}'.format(o.amount_total)"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-12 margin-top-30 text-left">
+                        <h5>Son: <span t-field="o.amount_in_words" /></h5>
+                    </div>
+                    <div class="col-12 margin-top-30 text-center">
+                        <div style="border-top: 1px; border-bottom: 1px;border-top-style: dashed;border-color: #bababa; padding-top:10px !important">
+                            <h5>CAI: <span t-field="o.cai_invoice"/></h5>
+                            <h5>RANGO AUTORIZADO: <span t-field="o.min_number_shot"/> a <span t-field="o.max_number_shot"/></h5>
+                            <h5>FECHA LIMITE DE EMISION: <span t-field="o.cai_expires_shot"/></h5>
+                        </div>
+                        <br/>
+                    </div>
+                    <div class="col-12 text-center">
+                        <div style="border-top: 1px; border-bottom: 1px;border-top-style: dashed;border-color: #bababa;  padding-top:10px !important">
+                            <h6> LA FACTURA ES BENEFICIO DE TODOS, EXIJALA</h6>
+                            <h6> Original: Cliente</h6>
+                            <h6> Copia:Obligado Tributario Emisor</h6>
+                        </div>
+                    </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+
+        <template id="report_invoice_lines_pos">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="_" t-value="o.change_size_page(o.invoice_line_ids)"/>
+
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,21 @@
+<odoo>
+    <record id="sales_order_add_multi_currency" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="name">sale.order.form.currency</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <field name="tax_totals" position="after">
+                <field name="company_currency_id" invisible="1"/>
+                <field name="exch_rate" invisible="is_same_currency == True"/>
+                <field name="amount_local" widget="monetary" options="{'currency_field': 'company_currency_id'}"
+                      invisible="is_same_currency == True"/>
+            </field>
+
+            <field name="currency_id" position="after">
+                <field name="is_same_currency" invisible="1"/>
+                <field name="currency_rate" invisible="is_same_currency == True" readonly="1"/>
+            </field>
+           
+        </field>
+    </record>
+</odoo>

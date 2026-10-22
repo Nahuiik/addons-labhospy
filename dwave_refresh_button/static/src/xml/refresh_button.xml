@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <!-- Owl template for the systray icon -->
+    <t t-name="refresh_button.RefreshSystray" owl="1">
+        <div class="o_systray_icon o_navbar_refresh" title="Refresh" t-on-click="onClick">
+            <i class="fa fa-refresh fa-fw"/>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Token de seguridad para endpoints (generar uno único por instancia) -->
+        <record id="param_monitor_instance_token" model="ir.config_parameter">
+            <field name="key">monitor.instance_token</field>
+            <field name="value"></field>
+        </record>
+
+        <!-- Ventana de tiempo para usuarios activos (minutos) -->
+        <record id="param_monitor_window_minutes" model="ir.config_parameter">
+            <field name="key">monitor.window_minutes</field>
+            <field name="value">60</field>
+        </record>
+
+        <!-- Intervalo de heartbeat (segundos) -->
+        <record id="param_monitor_heartbeat_interval" model="ir.config_parameter">
+            <field name="key">monitor.heartbeat_interval</field>
+            <field name="value">60</field>
+        </record>
+
+        <!-- Días para limpiar registros antiguos -->
+        <record id="param_monitor_cleanup_days" model="ir.config_parameter">
+            <field name="key">monitor.cleanup_days</field>
+            <field name="value">7</field>
+        </record>
+
+        <!-- Estrategia de monitoreo -->
+        <record id="param_monitor_strategy" model="ir.config_parameter">
+            <field name="key">monitor.strategy</field>
+            <field name="value">heartbeat</field>
+        </record>
+    </data>
+</odoo>
+

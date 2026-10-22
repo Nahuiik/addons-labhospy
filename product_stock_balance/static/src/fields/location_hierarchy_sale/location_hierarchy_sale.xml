@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <div t-name="product_stock_balance.saleLineByLocations" owl="1">
+        <div t-att-class="!props.record.data.show_psb ? 'invisible' : ''">
+            <a tabindex="0" class="fa fa-cubes text-primary" t-on-click.stop.prevent="(ev) => this._onShowStocksByLocations(ev)"/>
+        </div>
+    </div>
+
+</templates>

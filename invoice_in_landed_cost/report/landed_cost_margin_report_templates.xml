@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Raíz del PDF: Odoo 19 exige web.html_container para insertar &lt;main&gt; (_prepare_html). -->
+    <template id="report_landed_cost_margin">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="lang" t-value="o.landed_cost_id.company_id.partner_id.lang or o.env.lang or 'en_US'"/>
+                <t t-call="invoice_in_landed_cost.report_landed_cost_margin_document" t-lang="lang"/>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_landed_cost_margin_document">
+        <t t-call="web.external_layout">
+            <t t-set="o" t-value="o.with_context(lang=lang)"/>
+            <t t-set="currency" t-value="o.currency_id"/>
+            <div class="page">
+                <h2>Resumen margen de venta — <span t-field="o.landed_cost_id.name"/></h2>
+                <p t-if="o.landed_cost_id.date">
+                    <strong>Fecha costeo:</strong>
+                    <span t-field="o.landed_cost_id.date" t-options="{'widget': 'date'}"/>
+                </p>
+                <table class="table table-sm table-bordered mt-3">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th class="text-end">Cantidad</th>
+                            <th class="text-end">Costo unit.</th>
+                            <th class="text-end">% Margen</th>
+                            <th class="text-end">PVP anterior</th>
+                            <th class="text-end">PVP objetivo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="o.line_ids" t-as="line">
+                            <tr>
+                                <td><span t-field="line.product_id.display_name"/></td>
+                                <td class="text-end"><span t-field="line.quantity"/></td>
+                                <td class="text-end">
+                                    <span t-field="line.unit_cost" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                </td>
+                                <td class="text-end"><span t-field="line.margin_percent"/> %</td>
+                                <td class="text-end">
+                                    <span t-field="line.price_before_apply" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                </td>
+                                <td class="text-end">
+                                    <span t-field="line.price_after_apply" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+                <p class="text-muted small mt-3">
+                    El PVP objetivo se calcula como costo unitario × (1 + % margen / 100).
+                    Tras aplicar, los precios de venta en productos quedan alineados a este objetivo (según variante y price_extra).
+                </p>
+            </div>
+        </t>
+    </template>
+</odoo>

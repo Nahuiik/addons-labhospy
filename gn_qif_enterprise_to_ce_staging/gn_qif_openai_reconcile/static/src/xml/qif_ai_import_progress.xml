@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+<t t-name="gn_qif_openai_reconcile.QifAiImportProgress">
+    <div class="o_action o_qif_ai_import_progress p-4">
+
+        <div class="d-flex align-items-center mb-4">
+            <h2 class="mb-0 me-3">
+                <i class="fa fa-line-chart me-2"/>Análisis IA — Estado de cuenta
+            </h2>
+        </div>
+
+        <div class="card mb-4" t-if="state.phase === 'processing' || state.phase === 'done'">
+            <div class="card-body">
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="fw-bold" t-esc="phaseLabel"/>
+                    <span>
+                        <t t-esc="state.processed"/> / <t t-esc="state.total"/>
+                        (<t t-esc="progressPercent"/>%)
+                    </span>
+                </div>
+                <div class="progress mb-3" style="height: 24px;">
+                    <div class="progress-bar progress-bar-striped bg-primary"
+                         t-att-class="state.phase === 'processing' ? ' progress-bar-animated' : ''"
+                         role="progressbar"
+                         t-att-style="'width: ' + progressPercent + '%'"
+                         t-att-aria-valuenow="progressPercent"
+                         aria-valuemin="0" aria-valuemax="100">
+                        <t t-esc="progressPercent"/>%
+                    </div>
+                </div>
+                <div class="mt-2 text-muted" t-if="state.phase === 'processing' and state.lastResult and state.lastResult.message">
+                    <i class="fa fa-cog fa-spin me-1"/>
+                    <span t-esc="state.lastResult.message"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="alert alert-danger" t-if="state.phase === 'error'">
+            <i class="fa fa-exclamation-triangle me-1"/>
+            <span t-esc="state.errorDetail"/>
+        </div>
+
+        <div t-if="state.phase === 'processing' and state.processedResults.length > 0" class="mb-4">
+            <h5>Pasos</h5>
+            <ul class="list-group list-group-flush">
+                <t t-foreach="state.processedResults" t-as="row" t-key="row_index">
+                    <li class="list-group-item small">
+                        <i class="fa fa-check text-success me-1"/>
+                        <t t-esc="row.message"/>
+                    </li>
+                </t>
+            </ul>
+        </div>
+
+        <div class="text-muted small" t-if="state.phase === 'done'">
+            <i class="fa fa-check-circle text-success me-1"/>El asistente se ha abierto con los resultados.
+        </div>
+
+    </div>
+</t>
+
+</templates>

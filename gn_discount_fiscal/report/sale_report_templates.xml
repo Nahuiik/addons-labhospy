@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_saleorder_document_gn_fiscal" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//div[@id='informations']" position="after">
+            <div t-if="doc.gn_fiscal_matrix_notice" class="alert alert-warning mb-3">
+                <span t-out="doc.gn_fiscal_matrix_notice"/>
+            </div>
+        </xpath>
+    </template>
+</odoo>

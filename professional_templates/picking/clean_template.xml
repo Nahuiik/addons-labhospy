@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="PICK_11_document" name="Clean Template">
+        <t t-if="o and 'company_id' in o">
+            <t t-set="company" t-value="o.company_id"></t>
+        </t>
+        <t t-if="not o or not 'company_id' in o">
+            <t t-set="company" t-value="res_company"></t>
+        </t>
+        <div class="header" t-attf-style="color:{{style.text_color}} !important;font-size:{{int(style.header_font)}}px !important;font-family:{{style.font_family}} !important;"> 
+            <div t-if="style.header" class="row mb-2" t-attf-style="border:2px solid {{style.theme_color}};">
+                <div class="col-auto mt-2 text-wrap">
+                    <t t-set="div_style" t-value="'background-color:{}; color: {};padding:8px;width:auto;display:inline-block;margin:8px;'.format(style.theme_color,style.theme_txt_color)"/>
+                    <div  name="div_sched_date" t-if="o.scheduled_date" t-attf-style="{{div_style}}">
+                        <strong>Fecha Programada: </strong>
+                        <span t-field="o.scheduled_date"/>
+                    </div>
+                    <div  name="div_origin" t-if="o.origin" t-attf-style="{{div_style}}">
+                        <strong>Orden: </strong>
+                        <span t-field="o.origin"/>
+                    </div>
+                    <div  name="div_state" t-if="o.state" t-attf-style="{{div_style}}">
+                        <strong>Estado: </strong>
+                        <span t-field="o.state"/>
+                    </div>
+                </div>
+                <div class="col-auto mb-2 text-end">
+                    <div t-if="style.logo">
+                        <img t-if="style.logo" t-att-src="image_data_uri(style.logo)" alt="Logo"/>
+                    </div>
+                    <div t-if="not style.logo">
+                        <img  t-att-src="image_data_uri(company.logo)" alt="Logo"/>
+                    </div>
+                    <div class="d-inline-block mx-1" t-if="company.twitter or company.facebook or company.facebook" t-attf-style="background-color:{{style.theme_color}}; color:{{style.theme_txt_color}};">
+                        <span t-if="company.twitter" style="padding-left:0px;" class="fa fa-twitter-square "/>&#160;<span t-field="company.twitter"/>
+                        <span t-if="company.facebook" style="padding-left:13px;" class="fa fa-facebook-square "/>&#160;<span t-field="company.facebook"/>
+                        <span t-if="company.youtube" style="padding-left:13px;" class="fa fa-youtube-square "/>&#160;<span t-field="company.youtube" />
+                    </div>
+                </div>
+            </div>
+        </div> 
+        <div class="article page" t-attf-data-oe-model="stock.picking" t-attf-data-oe-id="{{o.id}}" t-attf-style="color:{{style.text_color}} !important;font-size:{{int(style.body_font)}}px !important;font-family:{{style.font_family}} !important;">
+            <div class="col-12" t-attf-style="white-space:pre-line;color:#{style.wm_color};left:#{style.leftpadding}mm; top:#{style.toppadding}mm;font-size:#{style.fontsize}px; 
+                opacity:#{style.opacity};z-index:-99; -webkit-transform:rotate(-#{style.rotate}deg);position:fixed;">
+            <t t-esc="style.wm_eval(o, time, user, res_company)"/>
+        </div>
+        <div class="row mb-2">
+            <div class="col-auto">
+                <h3 class="text-center" t-field="o.name"></h3>
+            </div>
+            <div class="col-auto text-end mb-2">
+                <div t-field="o.name" t-options="{'widget': 'barcode', 'width': 600, 'height': 100, 'img_style': 'width:300px;height:50px;'}"/>
+            </div>
+        </div>
+        <div class="row row-cols-3 mb-2">
+            <div class="col">
+                <div name="outgoing_delivery_address"
+                    t-if="o.should_print_delivery_address()">
+                <span><strong>Direccion de Entrega:</strong></span>
+                <div t-field="o.move_ids[0].partner_id"
+                    t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+            </div>
+            <div name="outgoing_warehouse_address"
+                t-elif="o.picking_type_id.code != 'internal' and o.picking_type_id.warehouse_id.partner_id">
+            <span><strong>Direccion de Almacen:</strong></span>
+            <div t-field="o.picking_type_id.warehouse_id.partner_id"
+                t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+        </div>
+    </div>
+    <div class="col">
+        <div name="vendor_address" t-if="o.picking_type_id.code=='incoming' and o.partner_id">
+            <span><strong>Direccion del Proveedor:</strong></span>
+        </div>
+        <div name="warehouse_address" t-if="o.picking_type_id.code=='internal' and o.partner_id">
+            <span><strong>Direccion de Almacen:</strong></span>
+        </div>
+        <div name="customer_address" t-if="o.picking_type_id.code=='outgoing' and o.partner_id">
+            <span><strong>Direccion del Cliente:</strong></span>
+        </div>
+        <div t-if="o.partner_id" name="partner_header">
+            <div t-field="o.partner_id"
+                t-options='{"widget": "contact", "fields": ["address", "name", "phone", "vat"], "no_marker": True, "phone_icons": True}'/>
+        </div>
+    </div>
+    <div class="col d-flex justify-content-end">
+        <div style="width:auto;padding-left:15px;">
+            <div t-field="company.name" t-attf-style="color:{{style.name_color}};white-space:nowrap;font-size:{{int(style.header_font)+6}}px;font-weight:500;"/>
+            <address t-field="company.partner_id"  t-options='{"widget": "contact", "fields": ["address", "phone",  "email", "website","vat"], "no_marker": true}'/>
+        </div> 
+    </div>
+</div>
+<t t-call="professional_templates.picking_lines"/>
+    </div>
+    <div class="footer" t-attf-style="font-size:{{style.footer_font}}px !important;font-family:{{style.font_family}} !important;">
+        <t t-call="professional_templates.company_footer"/>
+    </div>
+</template>
+</odoo>

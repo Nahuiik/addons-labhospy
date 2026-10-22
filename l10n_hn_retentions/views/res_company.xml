@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <record id="view_company_form_retentions" model="ir.ui.view">
+            <field name="name">res.company.form.retentions</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="account.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='currency_id'][@id='company_currency']" position="after">
+                    <field name="is_exclude_receipt"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

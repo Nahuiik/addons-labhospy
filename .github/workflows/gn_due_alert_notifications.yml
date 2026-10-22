@@ -1,0 +1,77 @@
+name: Odoo - gn_due_alert_notifications
+
+on:
+  push:
+    paths:
+      - 'gn_due_alert_notifications/**'
+      - 'gn_invoice_due_alerts/**'
+      - 'gn_customer_due_alerts/**'
+      - '.github/workflows/gn_due_alert_notifications.yml'
+  pull_request:
+    paths:
+      - 'gn_due_alert_notifications/**'
+      - 'gn_invoice_due_alerts/**'
+      - 'gn_customer_due_alerts/**'
+
+jobs:
+  test-due-alert-notifications:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: odoo
+          POSTGRES_PASSWORD: odoo
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      ODOO_PATH: ${{ github.workspace }}/odoo
+      ADDONS_PATH: ${{ github.workspace }}/odoo/addons,${{ github.workspace }}/labhospy
+      PGHOST: localhost
+      PGUSER: odoo
+      PGPASSWORD: odoo
+
+    steps:
+      - name: Checkout labhospy addons
+        uses: actions/checkout@v4
+        with:
+          path: labhospy
+
+      - name: Checkout Odoo 19
+        uses: actions/checkout@v4
+        with:
+          repository: odoo/odoo
+          ref: '19.0'
+          path: odoo
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: |
+          pip install -r odoo/requirements.txt
+          pip install psycopg2-binary
+
+      - name: Install base modules and run tests
+        working-directory: labhospy
+        run: |
+          python3 ../odoo/odoo-bin \
+            --addons-path="${{ env.ADDONS_PATH }}" \
+            --data-dir=/tmp/odoo-ci-data \
+            -d odoo_test_due_alerts \
+            -i gn_due_alert_notifications \
+            --test-enable \
+            --test-tags=/gn_due_alert_notifications \
+            --stop-after-init \
+            --without-demo=all

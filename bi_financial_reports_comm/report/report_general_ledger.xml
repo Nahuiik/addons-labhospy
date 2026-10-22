@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="general_ledger_pdf_report">
+        <t t-call="web.html_container">
+            <t t-set="data_report_margin_top" t-value="12"/>
+            <t t-set="data_report_header_spacing" t-value="9"/>
+            <t t-set="data_report_dpi" t-value="110"/>
+            <t t-set="company" t-value="env.company"/>
+            <t t-call="web.internal_layout">
+                <div class="page">
+                    <center>
+                    <br/>
+                        <h2 style="margin-bottom: 5px;">General Ledger</h2>
+                        <div style="margin-bottom: 20px;">
+                            <br/>
+                            <br/>
+                        </div>
+                    </center>
+
+                    <table class="table" style="width: 100%; border: none; border-collapse: separate; border-spacing: 0 8px;">
+                        <thead>
+                            <tr>
+                                <th style="width: 15%; text-align: center; padding: 8px 5px; font-weight: bold; background-color: #f5f5f5;">Account</th>
+                                <th style="width: 10%; text-align: center; padding: 8px 5px; font-weight: bold; background-color: #f5f5f5;">Date</th>
+                                <th style="width: 25%; text-align: center; padding: 8px 5px; font-weight: bold; background-color: #f5f5f5;">Communication</th>
+                                <th style="width: 15%; text-align: center; padding: 8px 5px; font-weight: bold; background-color: #f5f5f5;">Partner</th>
+                                <th style="width: 10%; text-align: center; padding: 8px 5px; font-weight: bold; background-color: #f5f5f5;">Currency</th>
+                                <th style="width: 10%; text-align: center; padding: 8px 5px; font-weight: bold; background-color: #f5f5f5;">Debit</th>
+                                <th style="width: 10%; text-align: center; padding: 8px 5px; font-weight: bold; background-color: #f5f5f5;">Credit</th>
+                                <th style="width: 10%; text-align: center; padding: 8px 5px; font-weight: bold; background-color: #f5f5f5;">Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="accounts" t-as="account" t-key="account.id">
+                                <!-- Account Summary Row -->
+                                <tr style="background-color: #f9f9f9; margin-top: 10px;">
+                                    <td style="padding: 10px 5px; font-weight: bold;">
+                                        <t t-esc="account.get('code', '')"/> <t t-esc="account.get('name', '')"/>
+                                    </td>
+                                    <td style="padding: 10px 5px;"></td>
+                                    <td style="padding: 10px 5px;"></td>
+                                    <td style="padding: 10px 5px;"></td>
+                                    <td style="padding: 10px 5px;text-align: center;"></td>
+                                    <td style="padding: 10px 5px; text-align: center;" t-esc="account.get('debit', 0.00)"/>
+                                    <td style="padding: 10px 5px; text-align: center;" t-esc="account.get('credit', 0.00)"/>
+                                    <td style="padding: 10px 5px; text-align: center;" t-esc="account.get('balance', 0.00)"/>
+                                </tr>
+                                
+                                <t t-if="account.get('name', '') in expanded_accounts">
+                                    <t t-foreach="account.get('journal_items', [])" t-as="item" t-key="item.id">
+                                        <tr style="margin-top: 5px;">
+                                            <td style="padding: 8px 5px 8px 15px;">
+                                                <t t-if="item.get('move_name')" t-esc="item.get('move_name')"/>
+                                            </td>
+                                            <td style="padding: 8px 5px;text-align: center;">
+                                                <t t-if="item.get('date')" t-esc="item.get('date')"/>
+                                            </td>
+                                            <td style="padding: 8px 5px;text-align: center; white-space: normal; word-wrap: break-word;">
+                                                <t t-if="item.get('name')" t-esc="item.get('name')"/>
+                                            </td>
+                                            <td style="padding: 8px 5px;text-align: center;">
+                                                <t t-esc="item['partner_id']"/>
+                                            </td>
+                                            <td style="padding: 8px 5px;text-align: center;">
+                                                <t t-esc="item['currency_id']"/>
+                                            </td>
+                                            <td style="padding: 8px 5px 8px 15px;">
+                                                <t t-if="item.get('debit')" t-esc="item.get('debit')"/>
+                                            </td>
+                                            <td style="padding: 8px 5px 8px 15px;">
+                                                <t t-if="item.get('credit')" t-esc="item.get('credit')"/>
+                                            </td>
+                                            <td style="padding: 8px 5px 8px 15px;">
+                                                <t t-if="item.get('balance')" t-esc="item.get('balance')"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </t>
+                            <tr>
+                                <td style="text-align:left;font-weight:bold;">Total</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td style="text-align:center;font-weight:bold;"><t t-esc="total_debit"/></td>
+                                <td style="text-align:center;font-weight:bold;"><t t-esc="total_credit"/></td>
+                                <td style="text-align:center;font-weight:bold;"><t t-esc="total_balance"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <record id="paper_format_generalledger" model="report.paperformat">
+        <field name="name">General Ledger Paper Format</field>
+        <field name="default" eval="True" />
+        <field name="format">custom</field>
+        <field name="page_height">297</field>
+        <field name="page_width">210</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">10.00</field>
+        <field name="header_spacing">35</field>
+        <field name="dpi">125</field>
+    </record>
+
+    <!-- Report Action -->
+    <record id="action_general_ledger_pdf_report" model="ir.actions.report">
+        <field name="name">General Ledger</field>
+        <field name="model">general.ledger.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">bi_financial_reports_comm.general_ledger_pdf_report</field>
+        <field name="report_file">bi_financial_reports_comm.general_ledger_pdf_report</field>
+        <field name="print_report_name">'General Ledger - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_general_ledger_report"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="bi_financial_reports_comm.paper_format_generalledger"/>
+    </record>
+
+</odoo>

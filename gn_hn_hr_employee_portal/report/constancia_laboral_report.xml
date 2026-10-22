@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="report_constancia_laboral" model="ir.actions.report">
+        <field name="name">Constancia laboral (portal)</field>
+        <field name="model">gn.hr.work.certificate.request</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">gn_hn_hr_employee_portal.report_constancia_laboral_document</field>
+        <field name="report_file">gn_hn_hr_employee_portal.report_constancia_laboral_document</field>
+        <field name="print_report_name">'Constancia - %s' % object.employee_id.name</field>
+    </record>
+
+    <template id="report_constancia_laboral_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="company" t-value="doc.employee_id.company_id"/>
+                <div class="page">
+                    <div class="row">
+                        <div class="col-12 text-center mb-4">
+                            <h3 t-esc="company.name"/>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <p class="text-justify">
+                                Por medio del presente documento se hace constar que
+                                <strong t-esc="doc.employee_id.name"/>
+                                labora en esta empresa en el puesto de
+                                <t t-if="doc.employee_id.job_id">
+                                    <strong t-esc="doc.employee_id.job_id.name"/>
+                                </t>
+                                <t t-else="">su puesto actual</t>.
+                            </p>
+                            <p class="text-justify mt-3">
+                                Se extiende la presente a solicitud del interesado para los fines que estime convenientes.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row mt-5">
+                        <div class="col-12 text-end">
+                            <p>_________________________</p>
+                            <p>Firma autorizada</p>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

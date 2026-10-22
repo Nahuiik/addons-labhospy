@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_inherit_wc_purchase_advance_payment" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="purchase.res_config_settings_view_form_purchase"/>
+        <field name="arch" type="xml">
+            <xpath expr="//app[@name='purchase']" position="inside">
+				<h2 invisible="not is_installed_sale">Enable Advance Payment</h2>
+				<div class="row mt16 o_settings_container" name="enable_advance_payment">
+					<div class="col-12 col-lg-6 o_setting_box">
+						<div class="o_setting_left_pane">
+							<field name="enable_advance_payment_purchase"/>
+						</div>
+						<div class="o_setting_right_pane">
+							<label for="enable_advance_payment_purchase"/>
+							<div class="text-muted">
+								Enable Advance Payment For Purchase Order
+							</div>
+						</div>
+					</div>
+				</div>
+			</xpath>
+        </field>
+    </record>
+</odoo>

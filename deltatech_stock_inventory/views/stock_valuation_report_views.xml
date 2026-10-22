@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Stock Valuation Report Form View -->
+    <record id="view_stock_valuation_report_form" model="ir.ui.view">
+        <field name="name">stock.valuation.report.form</field>
+        <field name="model">stock.valuation.report</field>
+        <field name="arch" type="xml">
+            <form string="Inventory Valuation">
+                <header>
+                    <button name="action_generate_entry" string="Generate Entry" type="object" 
+                            class="btn-primary" icon="fa-file-text-o"
+                            invisible="stock_variation == 0"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="company_id" options="{'no_create': True, 'no_create_edit': True}"/>
+                            <field name="date" required="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <div class="o_stat_info">
+                                <span class="o_stat_text" style="color: #7c7bad;"><field name="initial_balance" invisible="1"/>Saldo Inicial</span>
+                                <span class="o_stat_value">
+                                    <field name="initial_balance" widget="monetary" 
+                                           options="{'currency_field': 'company_currency_id'}" 
+                                           class="text-muted"/>
+                                </span>
+                            </div>
+                        </group>
+                        <group>
+                            <div class="o_stat_info">
+                                <span class="o_stat_text" style="font-weight: bold;"><field name="stock_variation" invisible="1"/>Variación de Stock</span>
+                                <span class="o_stat_value">
+                                    <field name="stock_variation" widget="monetary" 
+                                           options="{'currency_field': 'company_currency_id'}"/>
+                                </span>
+                            </div>
+                            <field name="valuation_line_ids" invisible="1"/>
+                        </group>
+                        <group>
+                            <div class="o_stat_info">
+                                <span class="o_stat_text" style="color: #7c7bad;"><field name="ending_stock" invisible="1"/>Stock Final</span>
+                                <span class="o_stat_value">
+                                    <field name="ending_stock" widget="monetary" 
+                                           options="{'currency_field': 'company_currency_id'}"/>
+                                </span>
+                            </div>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Detalles de Cuenta">
+                            <field name="valuation_line_ids" nolabel="1">
+                                <list>
+                                    <field name="account_id"/>
+                                    <field name="debit" sum="Total"/>
+                                    <field name="credit" sum="Total"/>
+                                    <field name="value" sum="Total"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Stock Valuation Report Action -->
+    <record id="action_stock_valuation_report" model="ir.actions.act_window">
+        <field name="name">Inventory Valuation</field>
+        <field name="res_model">stock.valuation.report</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+        <field name="context">{
+            'default_company_id': context.get('allowed_company_ids', [False])[0] if context.get('allowed_company_ids') else False,
+            'default_date': context.get('default_date', False),
+        }</field>
+    </record>
+
+    <!-- Menu Item -->
+    <menuitem id="menu_stock_valuation_report"
+              name="Inventory Valuation"
+              parent="stock.menu_warehouse_report"
+              action="action_stock_valuation_report"
+              sequence="20"/>
+</odoo>
+

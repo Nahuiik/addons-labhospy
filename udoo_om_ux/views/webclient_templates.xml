@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="webclient_login" inherit_id="web.login_layout">
+        <xpath expr="//t[@t-call='web.frontend_layout']/t[last()]" position="after">
+            <t t-set="body_classname" t-value="'light-dm o_home_menu_background'"/>
+        </xpath>
+    </template>
+
+    <template id="signup" inherit_id="auth_signup.signup">
+        <xpath expr="//a[hasclass('btn-sm')]" position="attributes">
+            <attribute name="class" remove="btn btn-link btn-sm" add="small mt-2" separator=" "/>
+        </xpath>
+        <xpath expr="//div[hasclass('oe_login_buttons')]" position="attributes">
+            <attribute name="class" remove="pt-3" add="pt-4" separator=" "/>
+        </xpath>
+        <xpath expr="//div[hasclass('field-login')]" position="attributes">
+            <attribute name="class" remove="mb-3" add="pt-2" separator=" "/>
+        </xpath>
+        <xpath expr="//div[hasclass('field-name')]" position="attributes">
+            <attribute name="class" remove="mb-3" add="pt-2" separator=" "/>
+        </xpath>
+    </template>
+    <template id="auth_signup_fields" inherit_id="auth_signup.fields">
+        <xpath expr="//div[hasclass('field-password')]" position="attributes">
+            <attribute name="class" remove="mb-3" add="pt-2" separator=" "/>
+        </xpath>
+        <xpath expr="//div[hasclass('field-confirm_password')]" position="attributes">
+            <attribute name="class" remove="mb-3" add="pt-2" separator=" "/>
+        </xpath>
+    </template>
+
+    <template id="webclient_bootstrap" inherit_id="web.webclient_bootstrap">
+        <xpath expr="//meta[@name='viewport']" position="replace">
+            <meta name="viewport" content="width=device-width, initial-scale=0.92, user-scalable=no"/>
+        </xpath>
+        <xpath expr="//meta[@name='theme-color']" position="replace">
+            <meta name="theme-color" t-att-content="'#242733' if color_scheme == 'dark' else '#714B67'"/>
+        </xpath>
+    </template>
+</odoo>

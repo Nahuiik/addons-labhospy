@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Create menu to open wizard for report-->
+    <menuitem
+        id="menu_customer_invoice_outstanding_report"
+        name="Arqueo de Caja PDF"
+        parent="account.menu_finance_receivables"
+        sequence="56"
+        groups="gn_cash_register.group_cash_register"
+        action="gn_cash_register.open_outstanding_invoice_action"
+    />
+</odoo>

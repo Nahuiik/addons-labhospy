@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_module_update_wizard_form" model="ir.ui.view">
+        <field name="name">svn.module_update.wizard.form</field>
+        <field name="model">svn.module_update.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Available Module Updates">
+                <sheet class="p-0">
+                    <field name="update_line_ids" readonly="1" nolabel="1">
+                        <list no_open="1">
+                            <field name="name" string="Module"/>
+                            <field name="current_version" string="Current"/>
+                            <field name="new_version" string="New"/>
+                            <field name="to_action" widget="selection_badge"/>
+                            <button name="action_open_app_store" type="object" icon="fa-external-link" title="View on App Store"/>
+                        </list>
+                    </field>
+                </sheet>
+                <footer>
+                    <button string="Close" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_module_update_wizard" model="ir.actions.server">
+        <field name="name">Check for Updates</field>
+        <field name="model_id" ref="base.model_ir_module_module"/>
+        <field name="state">code</field>
+        <field name="code">action = env['svn.module_update.wizard'].action_check_updates()</field>
+    </record>
+
+    <menuitem name="Check for Updates" action="action_module_update_wizard" id="menu_check_for_updates" parent="base.menu_management" groups="base.group_system" sequence="41"/>
+</odoo>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form_qif_openai" model="ir.ui.view">
+        <field name="name">res.config.settings.form.qif.openai</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//app[@name='account']" position="inside">
+                <block title="QIF OpenAI" name="qif_openai_settings">
+                    <setting string="API Key de OpenAI"
+                             help="Clave secreta para las consultas de análisis QIF con inteligencia artificial.">
+                        <field name="qif_openai_api_key" password="True"/>
+                    </setting>
+                    <setting string="Modelo de IA"
+                             help="Nombre del modelo a utilizar (ej: gpt-4.1-mini, gpt-4o, gpt-4.1).">
+                        <field name="qif_openai_model"/>
+                    </setting>
+                    <div class="text-muted col-12 mb-3">
+                        Privacidad: cada análisis puede enviar a OpenAI el extracto QIF (o un extracto),
+                        movimientos, notas de conocimiento por diario, resumen de modelos de conciliación
+                        existentes y catálogo de cuentas. Revise las políticas de su organización y la de OpenAI.
+                    </div>
+                </block>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

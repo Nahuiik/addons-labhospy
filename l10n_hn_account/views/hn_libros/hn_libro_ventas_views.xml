@@ -1,0 +1,222 @@
+<odoo>
+
+    <record model="ir.ui.view" id="libro_ventas_invoice_tree_view1">
+        <field name="name">libro.ventas.invoice.invoice.tree</field>
+        <field name="model">libro.ventas.invoice</field>
+        <field name="arch" type="xml">
+            <list string="Invoices" editable="bottom">
+                <field name="invoice_date" readonly="1"/>
+                <field name="factura_id" invisible="1"/>
+                <field name="partner_id" readonly="1"/>
+                <field name="numero_factura" readonly="1"/>
+                <!--<field name="date_due" />-->
+                <field name="subtotal" readonly="1" sum="Total"/>
+                <field name="amount_tax_15_per" string="Gravado" sum="Gravado"/>
+                <field name="exempt_sale_amount" string="Exento" sum="Exento"/>
+                <field name="exonerate_amount" string="Exonerado" sum="Exonerado"/>
+                <field name="isv" readonly="1" sum="Total"/>
+                <field name="total_amount" readonly="1" sum="Total"/>
+                <field name="state" readonly="1"/>
+                <field name="tipo_factura" readonly="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="libro_ventas_invoice_graph">
+        <field name="name">libro.ventas.invoice.graph</field>
+        <field name="model">libro.ventas.invoice</field>
+        <field name="arch" type="xml">
+            <graph string="Resumen" type="bar">
+                <field name="partner_id" type="row"/>
+                <field name="total_amount" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+
+    <record id="action_libro_ventas_invoices" model="ir.actions.act_window">
+        <field name="name">Detalle de Facturas</field>
+        <field name="res_model">libro.ventas.invoice</field>
+        <field name="view_mode">list,form,graph</field>
+        <field name="domain">[('treasury_id','=',active_id)]</field>
+        <field name="help">Libro de Ventas</field>
+    </record>
+
+    <record model="ir.ui.view" id="libro_ventas_forecast_search_view">
+        <field name="name">libro.ventas.forecast.search.view</field>
+        <field name="model">libro.ventas.forecast</field>
+        <field name="arch" type="xml">
+            <search string="Treasury Forecast">
+                <field name="name"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+            </search>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="libro_ventas_forecast_tree_view">
+        <field name="name">libro.ventas.forecast.tree</field>
+        <field name="model">libro.ventas.forecast</field>
+        <field name="arch" type="xml">
+            <list string="Treasury Forecast">
+                <field name="name"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="currency_id"/>
+                <field name="total_incoming"/>
+                <field name="total_impuesto"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- <record id="view_graph_sales_book" model="ir.ui.view">
+        <field name="name">view.graph.sales.book</field>
+        <field name="model">libro.ventas.forecast</field>
+        <field name="arch" type="xml">
+            <graph orientation="vertical" type="line" string="Prueba">
+                <field name="start_date" type="row" />
+                <field name="total_incoming" type="measure" />
+            </graph>
+        </field>
+    </record> -->
+
+    <record model="ir.ui.view" id="libro_ventas_forecast_form_view">
+        <field name="name">libro.ventas.forecast.form</field>
+        <field name="model">libro.ventas.forecast</field>
+        <field name="arch" type="xml">
+            <form string="Flujo de Efectivo">
+                <header>
+                    <button name="action_draft" type="object" string="Borrador"
+                            class="oe_highlight"
+                            invisible="state != 'progress'"/>
+                    <button name="action_done" type="object" string="Finalizado"
+                            invisible="state != 'progress'"
+                            class="oe_highlight"/>
+                    <button name="button_calculate" type="object" invisible="state != 'draft'"
+                            string="Obtener datos" class="oe_highlight"/>
+                    <field name="state" widget="statusbar" nolabel="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box">
+                        <button class="oe_stat_button"
+                                icon="fa-strikethrough"
+                                type="action"
+                                name="%(action_libro_ventas_invoices)d"
+                                string="Facturas">
+                        </button>
+                    </div>
+                    <h1><field name="name" readonly="state != 'draft'"/></h1>
+                    <separator string="Rango de Fechas"/>
+                    <group colspan="4" col="4">
+                        <group colspan="4">
+                            <group cols="2">
+                                <field name="year_selection"/>
+                                <field name="start_date" readonly="state != 'draft'" />
+                                <field name="currency_id" readonly="state != 'draft'" />
+                            </group>
+                            <group cols="2">
+                                <field name="month_selection"/>
+                                <field name="end_date" readonly="state != 'draft'" />
+                                <field name="regimen" colspan="2"/>
+                                <field name="all_invoice"/>
+                            </group>
+                        </group>
+                        <separator string="Libro de Ventas"/>
+                        <group colspan="4" col="2">
+                            <group>
+                                
+                                <field name="total_incoming"
+                                       class="oe_subtotal_footer_separator"
+                                       widget='monetary'
+                                       options="{'currency_field': 'currency_id'}"/>
+                                <field name="month" invisible="0" readonly="1"/>
+                                <field name="year" invisible="0" readonly="1"/>
+                            </group>
+                            <group>
+                            	<field name="total_gravado" 
+                                       class="oe_subtotal_footer_separator"
+                                       widget='monetary'
+                                       options="{'currency_field': 'currency_id'}"/>
+                                
+                                <field name="sub_total" 
+                                       class="oe_subtotal_footer_separator"
+                                       widget='monetary'
+                                       options="{'currency_field': 'currency_id'}"/>
+                                
+                                <field name="total_exento"
+                                       class="oe_subtotal_footer_separator"
+                                       widget='monetary'
+                                       readonly="1"
+                                       options="{'currency_field': 'currency_id'}"/>
+                                <field name="total_exonerate"
+                                       class="oe_subtotal_footer_separator"
+                                       widget='monetary'
+                                       readonly="1"
+                                       options="{'currency_field': 'currency_id'}"/>
+                                
+                                <field name="total_impuesto"
+                                       class="oe_subtotal_footer_separator"
+                                       widget='monetary'
+                                       options="{'currency_field': 'currency_id'}"/>
+                            </group>
+                            
+                        </group>
+                        <notebook colspan="4">
+                            <page string="Facturas de Ventas" sequence="10">
+                                <group colspan="4">
+                                    <group cols="2">
+                                        <field name="total_numero_facturas" readonly="1"/>
+                                    </group>
+                                    <group cols="2">
+                                        <field name="facturas_gravadas" readonly="1"/>
+                                        <field name="facturas_exentas" readonly="1"/>
+                                        <field name="facturas_exonerate" readonly="1"/>
+                                        <field name="cancel_count" readonly="1"/>
+                                    </group>
+                                </group>
+
+
+                                <field name="out_invoice_ids" nolabel="1"
+                                       readonly="1"/>
+                            </page>
+
+                        </notebook>
+                        <p class="oe_grey" colspan="4">
+                            Los filtros a continuación, se utilizan para obtener
+                            el estado y el monto de los documentos:
+                        </p>
+                        <group colspan="4">
+                            <separator string="Filters" colspan="4"/>
+                            <group cols="2">
+                                <field name="check_draft" colspan="2" readonly="state != 'draft'"/>
+                                
+                                <field name="check_open" colspan="2" readonly="state != 'draft'" />
+                         
+                                <field name="check_cancel" colspan="2" readonly="state != 'draft'"  />
+                                
+                                <button name="button_calculate"
+                                        class="oe_highlight"
+                                        readonly="state != 'draft'"
+                                        string="Obtener datos" type="object"
+                                        colspan="4"/>
+                            </group>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_libro_ventas_forecast_form"
+            model="ir.actions.act_window">
+        <field name="name">Libro de Ventas</field>
+        <field name="res_model">libro.ventas.forecast</field>
+        <field name="view_mode">list,form,graph</field>
+        <field name="help">Libro de Ventas</field>
+    </record>
+    <menuitem action="action_libro_ventas_forecast_form"
+              id="menu_hn_libro_ventas"
+              name="Libro de Ventas" parent="l10n_hn_account.menu_hn_libros_root"
+              sequence="1"/>
+</odoo>

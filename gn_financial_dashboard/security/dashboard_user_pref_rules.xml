@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <!-- Cada usuario solo puede ver/editar sus propias preferencias. -->
+        <record id="rule_gn_fd_user_pref_own" model="ir.rule">
+            <field name="name">Tablero Financiero: solo mis preferencias</field>
+            <field name="model_id" ref="model_gn_financial_dashboard_user_pref"/>
+            <field name="domain_force">[('user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+        <!-- Workspaces: cada usuario gestiona los suyos; los compartidos son
+             visibles para toda la compañía pero solo el propietario los edita. -->
+        <record id="rule_gn_fd_workspace_own" model="ir.rule">
+            <field name="name">Tablero Financiero: mis workspaces (lectura/escritura)</field>
+            <field name="model_id" ref="model_gn_financial_dashboard_workspace"/>
+            <field name="domain_force">[('user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+        <record id="rule_gn_fd_workspace_shared_read" model="ir.rule">
+            <field name="name">Tablero Financiero: workspaces compartidos (solo lectura)</field>
+            <field name="model_id" ref="model_gn_financial_dashboard_workspace"/>
+            <field name="domain_force">[('shared', '=', True), ('company_id', 'in', company_ids)]</field>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+        <!-- KPIs personalizados: filtrar por compañías permitidas. -->
+        <record id="rule_gn_fd_kpi_company" model="ir.rule">
+            <field name="name">Tablero Financiero: KPIs por compañía</field>
+            <field name="model_id" ref="model_gn_financial_dashboard_kpi"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <!-- Objetivos estratégicos: filtrar por compañías permitidas. -->
+        <record id="rule_gn_fd_goal_company" model="ir.rule">
+            <field name="name">Tablero Financiero: objetivos por compañía</field>
+            <field name="model_id" ref="model_gn_financial_dashboard_goal"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <!-- Benchmarks sectoriales: filtrar por compañías permitidas. -->
+        <record id="rule_gn_fd_benchmark_company" model="ir.rule">
+            <field name="name">Tablero Financiero: benchmarks por compañía</field>
+            <field name="model_id" ref="model_gn_financial_dashboard_benchmark"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <!-- Alertas: reglas y eventos por compañía. -->
+        <record id="rule_gn_fd_alert_rule_company" model="ir.rule">
+            <field name="name">Tablero Financiero: reglas de alerta por compañía</field>
+            <field name="model_id" ref="model_gn_financial_dashboard_alert_rule"/>
+            <field name="domain_force">[('company_id', 'in', [False] + company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+        <record id="rule_gn_fd_alert_event_company" model="ir.rule">
+            <field name="name">Tablero Financiero: eventos de alerta por compañía</field>
+            <field name="model_id" ref="model_gn_financial_dashboard_alert_event"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+    </data>
+</odoo>

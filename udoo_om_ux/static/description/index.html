@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Omux Odoo Backend Theme</title>
+    <meta name="description" content="Omux Backend — A faster, clearer, fully customizable Odoo backend theme for Community &amp; Enterprise, with dual navigation, smart search, mobile responsiveness, and the Shopwave storefront bundle.">
+    <meta property="og:title" content="Omux Backend for Odoo 19 — Community &amp; Enterprise">
+    <meta property="og:description" content="A faster, clearer, fully customizable Odoo backend for professionals. Pairs with the Shopwave eCommerce theme.">
+    <meta property="og:type" content="website">
+</head>
+
+<body>
+
+    <!-- INTRO -->
+    <!-- ============================================================================================================= -->
+    <main style="color: var(--gray-800); font-size: 1.25rem; font-weight: 400;">
+
+        <div class="text-start overflow-hidden" style="background: #101010; border: 1px solid rgba(255,255,255,.15);">
+            <a target="_blank" href="https://o19-omux.sveltware.com/shop">
+                <img class="img-fluid d-block w-100" src="shopwave.webp" alt="Omux Backend + Shopwave Storefront bundle offer"/>
+            </a>
+        </div>
+
+        <section class="pb-4 text-center border border-top-0" style="background-color: #F7F6F9;">
+            <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between p-3" style="gap: .75rem; border-top: 1px solid rgba(255,255,255,.1);">
+                <p class="mb-0 fw-bold small" style="color: #714b67;">Bundle orders get dedicated handling · reply within 4h.</p>
+                <a target="_blank" href="mailto:odoo@sveltware.com?subject=Commerce%20Stack" class="d-inline-flex align-items-center fw-semibold flex-shrink-0 small" style="gap: .5rem; color: #714b67; text-decoration: none;">
+                    Contact us: odoo@sveltware.com
+                </a>
+            </div>
+            <div class="alert alert-light text-start mb-6 rounded-0 border-bottom border-top" style="border-radius:.9rem;font-size:12pt;">
+                <p class="fs-5 mb-2"><span class="fa fa-eercast me-2"></span>Deployment Notice</p>
+                <ul>
+                    <li><a href="https://apps.odoo.com/apps/modules/19.0/udoo_web_split_view" target="_blank" class="alert-link text-primary">Adaptive Split View</a> is included as a complimentary add-on for enterprise customers.</li>
+                    <li>A <strong>list view enhanced-only edition</strong> for vanilla deployments, <a href="https://apps.odoo.com/apps/modules/19.0/udoo_web_list_view" target="_blank" class="alert-link text-primary">Adaptive List View</a>.</li>
+                    <li>Scales as the long-term system foundation of the <a href="https://apps.odoo.com/apps/modules/browse?author=Sveltware%20Solutions" target="_blank" class="alert-link text-primary">Sveltware application ecosystem</a>.</li>
+                    <li>Original pricing baselines are honored for the feature set captured at purchase.</li>
+                </ul>
+                <p class="fs-5 mb-2"><span class="fa fa-eercast pe-2"></span>Latest Update</p>
+                <ul class="mb-0">
+                    <li>
+                        <strong>Version 19.0.2.2.2</strong>
+                        <time datetime="2026-07-11T09:09:07Z">Updated: 11 Jul 2026, 09:09 UTC</time>
+                    </li>
+                </ul>
+                <p class="fs-5 mb-2 mt-3"><span class="fa fa-eercast pe-2"></span>Claim Your Free Gift</p>
+                <ul class="mb-0">
+                    <li><strong>Step 1</strong>: Complete your Omux Backend purchase here on the Odoo Apps store, your download is available immediately.</li>
+                    <li><strong>Step 2</strong>: Send your invoice to <a href="mailto:odoo@sveltware.com?subject=Split%20View%20Gift" class="alert-link text-primary">odoo@sveltware.com</a>, and we deliver <a href="https://apps.odoo.com/apps/modules/19.0/udoo_web_split_view" target="_blank" class="alert-link text-primary">Adaptive Split View</a> to your inbox, free of charge.</li>
+                </ul>
+                <p class="mt-3">Thank you for <strong>trusting and choosing</strong> our solution! Any issue can be resolved. <strong>Just ping us</strong>.</p>
+            </div>
+
+            <div class="container px-4 px-lg-0">
+                <div class="mb-6 text-center">
+                    <div class="fs-1 fw-semibold lh-1 mb-2">
+                        <div style="color: #485164;">The <u style="color: #714b67;">Mechanics</u></div>
+                        <div style="color: #485164;">of Odoo Backend</div>
+                    </div>
+                    <p class="fs-4 mb-2">Fast to implement. Fast to value.</p>
+                </div>
+                <div class="row justify-content-center mb-4">
+                    <div class="col-lg-10 col-xl-10">
+                        <div class="row g-4">
+                            <div class="col-md-4">
+                                <div class="fs-3 fw-bold alert alert-light border-2 p-1 w-75 mx-auto" style="border-color: #41516547;">400+</div>
+                                <p class="lead">Hours saved per employee, per year</p>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="fs-3 fw-bold alert alert-light border-2 p-1 w-75 mx-auto" style="border-color: #41516547;">40%</div>
+                                <p class="lead">Enhanced workplace efficiency</p>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="fs-3 fw-bold alert alert-light border-2 p-1 w-75 mx-auto" style="border-color: #41516547;">60%</div>
+                                <p class="lead">Reduced redundant operations</p>
+                            </div>
+                        </div>
+                        <div class="row g-5 text-center align-items-start py-4">
+                            <div class="col-md-4">
+                                <p>Features You Will Actually Use.</p>
+                                <p class="fw-light small">
+                                    Most themes add surface noise. Omux removes it.
+                                    Signal over decoration. Workflow-first structure.
+                                </p>
+                            </div>
+                            <div class="col-md-4">
+                                <p>Familiar Core. Sharper Flow.</p>
+                                <p class="fw-light small">
+                                    Built on native Odoo behavior and logic.
+                                    Lower interaction cost. Faster operational flow.
+                                </p>
+                            </div>
+                            <div class="col-md-4">
+                                <p>Zero Bloat. Full Control.</p>
+                                <p class="fw-light small">
+                                    Scoped configuration for modular deployments.
+                                    Context-aware assets optimize runtime performance.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="alert alert-primary fs-6 mb-4">
+                            <p class="fs-5 text-primary fw-bold mb-2">—— THE FOUNDER’S PLEDGE ——</p>
+                            <p class="mb-3">
+                                We don't just follow the Odoo Refund Policy; we <strong>standardize excellence</strong>.
+                                If our module fails on your system and remains unresolved within <strong>48 hours</strong> of your report,
+                                a full refund is issued immediately—<strong>absolute accountability, zero friction.</strong>
+                            </p>
+                            <hr class="my-2" />
+                            <p class="mb-2"><strong>Ecosystem Harmony & Compatibility</strong></p>
+                            <p class="mb-3">
+                                Many founders hesitate to switch backends due to integration risks. We solve this by ensuring <strong>non-intrusive architecture</strong>.
+                                Omux Backend is continuously battle-tested against the industry's most complex third-party modules to ensure a seamless transition.
+                            </p>
+                            <p class="mb-1">
+                            <div class="mx-auto" style="max-width: 738px;">
+                                <p class="mb-2 fw-bold">Verified Compatibility Includes:</p>
+                                <ul class="list-unstyled text-start d-inline-block">
+                                    <li>▸ Major connectors: Shopify, Amazon, WooCommerce, Magento, PrestaShop, Power BI</li>
+                                    <li>▸ Popular eCommerce themes:
+                                        <a href="https://apps.odoo.com/apps/themes/19.0/theme_prime" target="_blank" class="alert-link text-danger opacity-75">Theme Prime</a>,
+                                        <a href="https://apps.odoo.com/apps/themes/19.0/theme_clarico_vega" target="_blank" class="alert-link text-danger opacity-75">Theme Clarico Vega</a>,
+                                        <a href="https://apps.odoo.com/apps/themes/19.0/theme_scita" target="_blank" class="alert-link text-danger opacity-75">Theme Scita</a>,
+                                        <a href="https://apps.odoo.com/apps/themes/19.0/theme_alan" target="_blank" class="alert-link text-danger opacity-75">Theme Alan</a>
+                                    </li>
+                                    <li>▸ Trusted vendors:
+                                        <a href="https://apps.odoo.com/apps/modules?author=Odoo%20IN%20Pvt%20Ltd" target="_blank" class="alert-link text-danger opacity-75">Odoo India</a>,
+                                        <a href="https://apps.odoo.com/apps/themes?author=Droggol+Infotech" target="_blank" class="alert-link text-danger opacity-75">Droggol</a>,
+                                        <a href="https://apps.odoo.com/apps/modules?author=TechKhedut+Inc" target="_blank" class="alert-link text-danger opacity-75">TechKhedut</a>,
+                                        <a href="https://apps.odoo.com/apps/modules?author=faOtools" target="_blank" class="alert-link text-danger opacity-75">faOtools</a>,
+                                        <a href="https://apps.odoo.com/apps/modules?author=VentorTech" target="_blank" class="alert-link text-danger opacity-75">VentorTech</a>,
+                                        <a href="https://apps.odoo.com/apps/modules?author=Nova+Code" target="_blank" class="alert-link text-danger opacity-75">Nova Code</a>,
+                                        <a href="https://apps.odoo.com/apps/modules?author=OCA" target="_blank" class="alert-link text-danger opacity-75">OCA</a>
+                                    </li>
+                                    </li>
+                                </ul>
+                            </div>
+                            </p>
+                            <p class="mb-4" style="font-style: italic;">
+                                Some integrations are lab-tested; others are <strong>production-proven</strong> by our global partners.
+                                We have addressed every edge case reported, and our compatibility index grows with every release.
+                                <strong>Unsure about your stack?</strong> Contact us for a pre-purchase compatibility audit.
+                            </p>
+                            <div class="mt-3 mb-0 rounded alert alert-primary" style="background-color: #ffffffa3;">
+                                <div class="fs-5 fw-bold mb-3">Live Preview</div>
+                                <span class="m-4 p-2 fw-bold text-primary border border-primary rounded" style="font-size: clamp(.5em, 2.5vw, 1rem);">https://o19-omux.sveltware.com</span>
+                                <p class="small text-muted mt-3 mb-0">Experience the interface in a live, high-traffic environment.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="media_iframe_video col-lg-10 rounded" data-oe-expression="//www.youtube.com/embed/DXHsx2hFk8Y?autoplay=1&amp;rel=0">
+                    <div class="css_editable_mode_display" />
+                    <div class="media_iframe_video_size" contenteditable="false" />
+                    <iframe src="//www.youtube.com/embed/DXHsx2hFk8Y?autoplay=1&amp;rel=0" frameborder="0" contenteditable="false"></iframe>
+                </div>
+            </div>
+            <div class="container px-4 px-lg-0 mt-5">
+                <div class="row justify-content-center">
+                    <p class="display-4 text-lg-center mb-4" style="color:#65435c">Start Where You Belong.<br />Omux Home Menu.</p>
+                    <div class="col-lg-10 pb-4 text-lg-center">
+                        <div class="mx-auto" style="max-width: 41em;">
+                            <p class="small">
+                                The Start Menu displays all available apps in a full-screen layout by default.
+                                Once a user pins any app, the view updates automatically: <strong>pinned apps are prioritised</strong>, and <strong>the sidebar reflects the same order</strong>.
+                                <br />
+                                Administrators can optionally <em>predefine a default pinned list</em> per company.
+                                This behaviour ensures <strong>a consistent user experience</strong> while allowing individual preferences to form naturally.
+                            </p>
+                        </div>
+                        <div class="mt-4 mx-auto" style="max-width: 720px;">
+                            <h6 class="text-uppercase text-muted mb-3" style="letter-spacing: .05em;">Highlights</h6>
+                            <ul class="list-unstyled text-start d-inline-block text-start small">
+                                <li class="mb-2">▸ <strong>Two-List Start Menu</strong>. Displays all apps and your favourites.</li>
+                                <li class="mb-2">▸ <strong>Auto Switch to Favourites</strong>. Triggered when apps are pinned.</li>
+                                <li class="mb-2">▸ <strong>Workspace Palette</strong>. Organises views, shortcuts, and history.</li>
+                                <li class="mb-2">▸ <strong>Drawer Layout Toggle</strong>. Choose between fullscreen or standard mode.</li>
+                                <li class="mb-2">▸ <strong>Dynamic Sidebar Entries</strong>. Auto-update with your pinned favourites.</li>
+                                <li class="mb-2">▸ <strong>Per-Company Background</strong>. Includes blur and logo styling options.</li>
+                                <li class="mb-2">▸ <strong>Symbolic Icon Support</strong>. Keeps navigation clean and consistent.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-10 position-relative">
+                        <div id="begini" class="carousel slide position-sticky img-thumbnail mb-3 overflow-hidden" data-bs-ride="carousel" data-bs-interval="4000" style="border-radius:17px">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active" style="min-height: 0px;">
+                                    <img src="scr/be_4.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Light Start Menu with Custom Background</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/be_5.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-100 mb-0">Dark Start Menu with Custom Background</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/be_1.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Enhanced Login Screen</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/be_2.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">A Lighter, Fullscreen Start Menu</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/be_3.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-100 mb-0">A Darker, Fullscreen Start Menu</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/be_6.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-100 mb-0">Pinned Apps in Standard Start Menu + Dark Mode</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/be_7.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Pinned Apps in Standard Start Menu + Light Mode</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/be_8.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-100 mb-0">Workspace Tab + Dark Mode</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/be_9.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Workspace Tab in Standard Start Menu + Light Mode</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/be_10.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Search + Workspace in Start Menu</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="carousel-control-prev" href="#begini" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" style="background-color:black; border-radius:5px; padding:15px"></span>
+                            </a>
+                            <a class="carousel-control-next" href="#begini" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" style="background-color:black; border-radius:5px; padding:15px"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container px-4 px-lg-0 mt-5">
+                <div class="row justify-content-center">
+                    <p class="display-4 text-lg-center mb-4" style="color:#65435c">Move Fluidly.<br />Omux Sidebar Navigation.</p>
+                    <div class="col-lg-10 pb-4 text-lg-center">
+                        <div class="mx-auto" style="max-width: 41em;">
+                            <p class="small">
+                                Omux offers a <strong>responsive two-tier sidebar</strong> that adapts to your workflow.
+                                It supports <strong>vertical and horizontal layouts</strong>, <em>auto-expands submenus</em> on hover,
+                                and <strong>switches to mini mode</strong> when space is tight.
+                                <br />
+                                <em>Users and companies</em> can configure layout preferences, backgrounds, and navigation styles.
+                                A built-in <strong><em>App & Menu Finder</em></strong> delivers fast access to any app or menu — without shortcuts.
+                            </p>
+                        </div>
+                        <div class="mt-4 mx-auto" style="max-width: 720px;">
+                            <h6 class="text-uppercase text-muted mb-3" style="letter-spacing: .05em;">Highlights</h6>
+                            <ul class="list-unstyled text-start d-inline-block text-start small">
+                                <li class="mb-2">▸ <strong>Custom Menu Builder</strong>. Dedicated multi-level menu manager.</li>
+                                <li class="mb-2">▸ <strong>App & Menu Finder</strong>. Search instantly without keyboard shortcuts.</li>
+                                <li class="mb-2">▸ <strong>Dual Sidebar Design</strong>. Includes a tabbed submenu panel.</li>
+                                <li class="mb-2">▸ <strong>Hover-Activated Submenu</strong>. Reveals only on interaction.</li>
+                                <li class="mb-2">▸ <strong>Auto-Scroll & Highlight</strong>. Keeps active app visible in long lists.</li>
+                                <li class="mb-2">▸ <strong>User & Company Layout Settings</strong>. Configure background and layout.</li>
+                                <li class="mb-2">▸ <strong>Symbolic Icon Support</strong>. Keeps navigation clean and consistent.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-10 position-relative">
+                        <div id="navigati" class="carousel slide position-sticky img-thumbnail mb-3 overflow-hidden" data-bs-ride="carousel" data-bs-interval="4000" style="border-radius:17px">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active" style="min-height: 0px;">
+                                    <img src="scr/nav_1.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Fullscreen Workspace with Custom Background + Light Mode
+                                        </h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/nav_2.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-100 mb-0">Fullscreen Workspace with Custom Background + Dark Mode
+                                        </h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/nav_3.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Dual-tier Sidebar Navigation</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/nav_4.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Mini Sidenav with Submenus</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/nav_5.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-100 mb-0">Global Menu Search</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/nav_6.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Standard Sidenav + Standard Workspace</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/nav_7.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Mini Recent Records Panel</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/nav_8.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">List All Apps + Hidden Sidenav</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/nav_9.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Enhanced Back Button</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="carousel-control-prev" href="#navigati" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" style="background-color:black; border-radius:5px; padding:15px"></span>
+                            </a>
+                            <a class="carousel-control-next" href="#navigati" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" style="background-color:black; border-radius:5px; padding:15px"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container px-4 px-lg-0 mt-5">
+                <div class="row justify-content-center">
+                    <p class="display-4 text-lg-center mb-4" style="color:#65435c">Work Faster.<br />Kanban & List Supercharged.</p>
+                    <div class="col-lg-10 pb-4 text-lg-center">
+                        <div class="mx-auto" style="max-width: 41em;">
+                            <p class="small">
+                                Omux enhances Odoo's list and kanban views with practical speed tools.
+                                <strong>Ctrl+Click multitasking</strong>, <strong>Shift+Click quick previews</strong>, and
+                                <strong>toggleable group headers</strong> help you browse and act faster.
+                                <br />
+                                Custom list density and a built-in <strong>smart refresher</strong> keep things smooth —
+                                no more reload disruptions.
+                            </p>
+                        </div>
+                        <div class="mt-4 mx-auto" style="max-width: 720px;">
+                            <h6 class="text-uppercase text-muted mb-3" style="letter-spacing: .05em;">Highlights</h6>
+                            <ul class="list-unstyled text-start d-inline-block text-start small">
+                                <li class="mb-2">▸ <strong>Ctrl+Click Multitasking</strong>. Open records in new tabs.</li>
+                                <li class="mb-2">▸ <strong>Kanban Flyout View</strong>. Use Shift+Click for quick previews.</li>
+                                <li class="mb-2">▸ <strong>Toggleable Group Headers</strong>. Collapse and expand grouped rows.</li>
+                                <li class="mb-2">▸ <strong>Custom List Density</strong>. Choose between Default, Cozy, or Roomy.</li>
+                                <li class="mb-2">▸ <strong>Refined Visual Layout</strong>. Clear icons and precise alignment.</li>
+                                <li class="mb-2">▸ <strong>Smart Refresher</strong>. Reloads views without breaking flow.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-10 position-relative">
+                        <div id="browsi" class="carousel slide position-sticky img-thumbnail mb-3 overflow-hidden" data-bs-ride="carousel" data-bs-interval="4000" style="border-radius:17px">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active" style="min-height: 0px;">
+                                    <img src="scr/dir_1.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Kanban View</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/dir_2.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Quick View in Kanban via Flyout</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/dir_7.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Kanban View + Search Panel + Smart Actions</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/dir_3.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Calendar View</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/dir_4.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Pivot View</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/dir_5.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Graph View</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/dir_6.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Activity View</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/dir_8.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Gantt View</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/dir_9.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Cohort View</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/dir_10.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">List View</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="carousel-control-prev" href="#browsi" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" style="background-color:black; border-radius:5px; padding:15px"></span>
+                            </a>
+                            <a class="carousel-control-next" href="#browsi" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" style="background-color:black; border-radius:5px; padding:15px"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container px-4 px-lg-0 mt-5">
+                <div class="row justify-content-center">
+                    <p class="display-4 text-lg-center mb-4" style="color:#65435c">Stay in Flow.<br />Clean Form View Experience.</p>
+                    <div class="col-lg-10 pb-4 text-lg-center">
+                        <div class="mx-auto" style="max-width: 41em;">
+                            <p class="small">
+                                Omux keeps form views focused and frictionless.
+                                <strong>Resizable chatter</strong>, <strong>fullscreen toggle</strong>, and
+                                <strong>centered form layout</strong> reduce clutter and boost readability.
+                                <br />
+                                Context-aware layouts and <em>batch creation</em> options help you handle data faster — with fewer clicks.
+                            </p>
+                        </div>
+                        <div class="mt-4 mx-auto" style="max-width: 720px;">
+                            <h6 class="text-uppercase text-muted mb-3" style="letter-spacing: .05em;">Highlights</h6>
+                            <ul class="list-unstyled text-start d-inline-block text-start small">
+                                <li class="mb-2">▸ <strong>Resizable Chatter Panel</strong>. Browser-based, memorized per user/browser.</li>
+                                <li class="mb-2">▸ <strong>Switchable Chatter Position</strong>. Applies globally across all forms.</li>
+                                <li class="mb-2">▸ <strong>Custom Form Density</strong>. Choose between compact or spacious form layout.</li>
+                                <li class="mb-2">▸ <strong>Context-Aware View Sizing</strong>. Auto-scales and repositions based on context.</li>
+                                <li class="mb-2">▸ <strong>Fullscreen Form View</strong>. Expands layout to reduce distraction.</li>
+                                <li class="mb-2">▸ <strong>Visual Input Styling</strong>. Consistent and clean field display.</li>
+                                <li class="mb-2">▸ <strong>Batch Record Creation</strong>. Faster input for repeated entries.</li>
+                                <li class="mb-2">▸ <strong>Feed by Linked Records</strong>. Read and reply to messages on any linked document.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-10 position-relative">
+                        <div id="focusi" class="carousel slide position-sticky img-thumbnail mb-3 overflow-hidden" data-bs-ride="carousel" data-bs-interval="4000" style="border-radius:17px">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active" style="min-height: 0px;">
+                                    <img src="scr/fos_1.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Form View with Side Chatter</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/fos_2.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Form View with Bottom Chatter</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/fos_3.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Form View with Sidenav & Side Chatter</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/fos_4.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Full-Width Form Without Sidenav & Chatter</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/fos_5.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Form View with Smart Actions</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/fos_6.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Form View with Resizable Side Chatter</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/fos_7.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Required Fields, Clearly Marked</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="carousel-control-prev" href="#focusi" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" style="background-color:black; border-radius:5px; padding:15px"></span>
+                            </a>
+                            <a class="carousel-control-next" href="#focusi" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" style="background-color:black; border-radius:5px; padding:15px"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container px-4 px-lg-0 mt-5">
+                <div class="row justify-content-center">
+                    <p class="display-4 text-lg-center mb-4" style="color:#65435c">Powerful Customization.<br />Zero Overhead.</p>
+                    <div class="col-lg-10 pb-4 text-lg-center">
+                        <div class="mx-auto" style="max-width: 41em;">
+                            <p class="small">
+                                Omux empowers you to personalize your Odoo workspace — deeply and beautifully — without compromising speed.
+                                <strong>Font sizes</strong>, <strong>Google Fonts</strong>, <strong>border radius</strong>, and <strong>list density</strong> are all just a few clicks away.
+                                <br />
+                                Thanks to our <em>lazy-loaded configuration engine</em>, every setting is applied on demand — zero asset bloat.
+                            </p>
+                        </div>
+                        <div class="mt-4 mx-auto" style="max-width: 720px;">
+                            <h6 class="text-uppercase text-muted mb-3" style="letter-spacing: .05em;">Highlights</h6>
+                            <ul class="list-unstyled text-start d-inline-block text-start small">
+                                <li class="mb-2">▸ <strong>Adjust Font Size & Family</strong>. Includes 50+ Google Fonts with live preview.</li>
+                                <li class="mb-2">▸ <strong>Customize List Density</strong>. Compact or relaxed layouts at your fingertips.</li>
+                                <li class="mb-2">▸ <strong>Theme Editor</strong>. Tweak border radius, input style, form spacing, and more.</li>
+                                <li class="mb-2">▸ <strong>Session-Based Preferences</strong>. Light user config without database clutter.</li>
+                                <li class="mb-2">▸ <strong>Zero Asset Bloat</strong>. All settings are lazy-loaded, keeping your backend lean and fast.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-10 position-relative">
+                        <div id="confi" class="carousel slide position-sticky img-thumbnail mb-3 overflow-hidden" data-bs-ride="carousel" data-bs-interval="4000" style="border-radius:17px">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active" style="min-height: 0px;">
+                                    <img src="scr/cof_1.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-100 mb-0">User Appearance</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/cof_3.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-100 mb-0">System Appearance</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/cof_4.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Font Family</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/cof_5.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Color Picker</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/cof_6.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Your Company. Your Identity.</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/cof_7.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-100 mb-0">Advanced Settings Hub (no Add-ons Installed)</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/cof_8.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-100 mb-0">Advanced Settings Hub (with Add-ons Installed)</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="carousel-control-prev" href="#confi" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" style="background-color:black; border-radius:5px; padding:15px"></span>
+                            </a>
+                            <a class="carousel-control-next" href="#confi" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" style="background-color:black; border-radius:5px; padding:15px"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container px-4 px-lg-0 mt-5">
+                <div class="row justify-content-center">
+                    <p class="display-4 text-lg-center mb-2" style="color:#65435c">Responsive by Design.<br />Mobile, Tablet, Desktop, RTL.</p>
+                    <div class="col-lg-10 text-lg-center pb-4">
+                        <p>
+                            Omux Backend is made to look and feel native on every screen size. From RTL support to dynamic resizing, it adapts like no other.
+                        </p>
+                    </div>
+                    <div class="col-lg-10 position-relative">
+                        <div id="responsi" class="carousel slide position-sticky img-thumbnail mb-3 overflow-hidden" data-bs-ride="carousel" data-bs-interval="4000" style="border-radius:17px">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active" style="min-height: 0px;">
+                                    <img src="scr/res_1.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Home Menu on iPhone 14</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/res_2.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Workspace on iPhone 14</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/res_3.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Kanban View on iPhone 14</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/res_4.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Kanban View + Search on iPhone 14</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/res_5.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Graph View on iPhone 14</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/res_6.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Form View on Galaxy S20</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/res_7.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Kanban View on Galaxy S20</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/res_8.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Burger Menu on Galaxy S20</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/res_9.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Graph View on Galaxy S20</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/res_10.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">List View on iPad Mini</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/res_11.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Kanban View on iPad Mini</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/res_12.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Calendar View on iPad Mini</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/res_13.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Home Menu on iPad Mini</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/res_14.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Workspace on iPad Mini</h4>
+                                    </div>
+                                </div>
+                                <div class="carousel-item" style="min-height: 0px;">
+                                    <img src="scr/res_15.png" class="d-block w-100" style="border-radius:10px">
+                                    <div class="carousel-caption d-none d-md-flex justify-content-center">
+                                        <h4 class="bg-800 mb-0">Cohort View on iPad Mini</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="carousel-control-prev" href="#responsi" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" style="background-color:black; border-radius:5px; padding:15px"></span>
+                            </a>
+                            <a class="carousel-control-next" href="#responsi" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" style="background-color:black; border-radius:5px; padding:15px"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-5 mb-4 border  border-top-0" style="background-color: #F1F6F0;border-radius: .9rem;">
+            <div class="container px-4 px-lg-0 mb-5">
+                <div class="row justify-content-center">
+                    <div class="display-4 text-lg-center mb-4" style="color:#05984f">Selecting Your Operational Foundation
+                        <div class="text-muted lead mt-2">A side-by-side breakdown of our architectural standards</div>
+                    </div>
+                    <div class="col-lg-10 position-relative">
+                        <div class="mb-5">
+                            <p class="fw-bold mb-1" style="color:#05984f">Shared Foundation</p>
+                            <p class="small text-muted mb-4">Capabilities present in both Omux and Lavend. A solid baseline either way.</p>
+
+                            <div class="mb-3">
+                                <p class="small text-uppercase text-muted mb-2" style="letter-spacing:.06em;">Navigation &amp; Access</p>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">Drag-and-Drop App Drawer</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">Home Menu Auto Launch</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">Adaptive Drawer Layout</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">Global App &amp; Menu Search</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">Favorite Apps Area</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">Dark / Light Mode</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">Language Switcher</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">Per-Company Interface Style</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">Menu Icon Support</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">App Menu Management</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">Dual Mode Navigation Bar</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">Dual-Tier Sidebar</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">Mini Sidebar Mode</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">Recent Records Drawer</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">Improved Back Navigation</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">Multi-Tab Navigation</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">Auto-Reveal Current App</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">Hover Navigation</span>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <p class="small text-uppercase text-muted mb-2" style="letter-spacing:.06em;">Workspace Interaction</p>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">Enhanced List Layout</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">List Density Control</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">Grouped List Toggle</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">Quick Popup View</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">Enhanced Kanban Layout</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">Form Density Control</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">Refined Dialog Control</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">Responsive Form Layout</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">Flexible Chatter Layout</span>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <p class="small text-uppercase text-muted mb-2" style="letter-spacing:.06em;">Preferences &amp; Appearance</p>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">Workspace Preferences</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">User Preferences</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">Advanced Addon Settings</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">Reset Personal Data</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">Appearance Configuration</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">Color Scheme Editor</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">System Color Tokens</span>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <p class="small text-uppercase text-muted mb-2" style="letter-spacing:.06em;">Workflow &amp; Platform</p>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">Quick Duplicate</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">Quick Refresh</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">Quick Create Tools</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">Fullscreen Toggle</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">Multilingual</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">RTL</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">Progressive Web App</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">Optimized Asset Loading</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#0000330f;">WCAG 2.2 Compliance</span>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <p class="small text-uppercase text-muted mb-2" style="letter-spacing:.06em;">Under Signed SLA <span class="text-muted" style="text-transform:none;">(both tiers)</span></p>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#ffeacc;">Lifetime Deployment Support¹</span>
+                                    <span class="rounded-1 px-2 py-1 border small" style="background-color:#ffeacc;">Lifetime Updates &amp; Patches¹</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="fw-bold mb-2" style="color:#05984f">Where Lavend Goes Further</p>
+                        <p class="small text-muted mb-3">Capabilities exclusive to Lavend. The reason this page exists.</p>
+                        <table class="table table-bordered table-hover table-light border-success table-sm fs-6">
+                            <thead class="text-center">
+                                <tr>
+                                    <th scope="col" style="width:28%">Category</th>
+                                    <th scope="col" style="width:52%">Capability</th>
+                                    <th scope="col" style="width:20%">Lavend Backend</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td rowspan="5">Navigation &amp; Access</td>
+                                    <td>App Grouping System</td>
+                                    <td class="text-center">🟢 Yes</td>
+                                </tr>
+                                <tr>
+                                    <td>Activity Management</td>
+                                    <td class="text-center">🟠 Yes¹</td>
+                                </tr>
+                                <tr>
+                                    <td>Inline Data Explorer (Ctrl+K)</td>
+                                    <td class="text-center">🟠 Yes¹</td>
+                                </tr>
+                                <tr>
+                                    <td>Advanced Access Control</td>
+                                    <td class="text-center">🟢 Yes</td>
+                                </tr>
+                                <tr>
+                                    <td>Refined Views Switcher</td>
+                                    <td class="text-center">🟢 Yes</td>
+                                </tr>
+
+                                <tr>
+                                    <td rowspan="6">Advanced Column Control</td>
+                                    <td>Column Management</td>
+                                    <td class="text-center">🟢 Yes</td>
+                                </tr>
+                                <tr>
+                                    <td>Column Access Control</td>
+                                    <td class="text-center">🟢 Yes</td>
+                                </tr>
+                                <tr>
+                                    <td>Multi Column Freeze</td>
+                                    <td class="text-center">🟢 Yes</td>
+                                </tr>
+                                <tr>
+                                    <td>Remember Column Layout</td>
+                                    <td class="text-center">🟢 Yes</td>
+                                </tr>
+                                <tr>
+                                    <td>Toggle Row Sequence Column</td>
+                                    <td class="text-center">🟠 Yes¹</td>
+                                </tr>
+                                <tr>
+                                    <td>One-Click Autofit All Columns</td>
+                                    <td class="text-center">🟠 Yes¹</td>
+                                </tr>
+
+                                <tr>
+                                    <td rowspan="3">Data Filtering</td>
+                                    <td>Advanced Filtering</td>
+                                    <td class="text-center">🟢 Yes</td>
+                                </tr>
+                                <tr>
+                                    <td>Filter Panel Builder</td>
+                                    <td class="text-center">🟢 Yes</td>
+                                </tr>
+                                <tr>
+                                    <td>Quick Filter Navigation</td>
+                                    <td class="text-center">🟢 Yes</td>
+                                </tr>
+
+                                <tr>
+                                    <td rowspan="3">Chatter Panel</td>
+                                    <td>Smart Chatter Filtering</td>
+                                    <td class="text-center">🟢 Yes</td>
+                                </tr>
+                                <tr>
+                                    <td>Smart Chatter Sorting</td>
+                                    <td class="text-center">🟠 Yes¹</td>
+                                </tr>
+                                <tr>
+                                    <td>Feed by Linked Records</td>
+                                    <td class="text-center">🟠 Yes¹</td>
+                                </tr>
+
+                                <tr>
+                                    <td rowspan="2">Interface Appearance</td>
+                                    <td>Extended Theme Presets</td>
+                                    <td class="text-center">🟢 Yes</td>
+                                </tr>
+                                <tr>
+                                    <td>Business-Focused Visual Tuning</td>
+                                    <td class="text-center">🟢 Yes</td>
+                                </tr>
+
+                                <tr>
+                                    <td rowspan="3">Workflow Accelerators</td>
+                                    <td>Smart Print Preview</td>
+                                    <td class="text-center">🟢 Yes</td>
+                                </tr>
+                                <tr>
+                                    <td>Browser Direct Print</td>
+                                    <td class="text-center">🟢 Yes</td>
+                                </tr>
+                                <tr>
+                                    <td>Smart Print Routing</td>
+                                    <td class="text-center">🟠 Yes¹</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="fw-bold text-info">¹ Feature available exclusively through the <strong>Sveltware Priority Program</strong>. Eligibility is restricted to registered business entities under a signed Software License Agreement (SLA).</p>
+                    </div>
+                    <div class="col-lg-10 mt-4">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="card h-100 border">
+                                    <div class="card-body text-center">
+                                        <h4 class="card-title">Omux Backend</h4>
+                                        <p class="card-text small">Standard UI enhancements with core functionality.</p>
+                                        <a href="https://apps.odoo.com/apps/themes/browse?search=Omux+Backend" class="btn btn-sm btn-primary">Get Started</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="card h-100 border">
+                                    <div class="card-body text-center">
+                                        <h4 class="card-title">Lavend Backend</h4>
+                                        <p class="card-text small">Advanced styling and enhanced productivity features.</p>
+                                        <a href="https://apps.odoo.com/apps/themes/browse?search=Lavend+Backend" class="btn btn-sm btn-primary">Get Started</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-10 mx-auto">
+                <div class="s_faq_collapse container">
+                    <div class="row justify-content-center">
+                        <p class="display-3 text-lg-center mb-2">
+                            <span style="color: #415165;">Frequently</span>
+                            <span style="color: #415165;">Asked</span>
+                            <span style="color: #415165;">Questions</span>
+                        </p>
+                        <p class="small text-lg-center mb-4">If the answer to your question is not on this page, please contact our
+                            <a target="_blank" href="mailto:odoo@sveltware.com">Support Team</a>
+                        </p>
+                        <div class="accordion small" id="feature_faq" role="tablist">
+
+                            <div class="card bg-white mb-2" data-name="Item">
+                                <a href="#" role="tab" data-bs-target="#faq_purchase" data-bs-toggle="collapse" style="color: unset;" class="card-header" aria-expanded="true">
+                                    How does the deployment process work?
+                                </a>
+                                <div id="faq_purchase" class="collapse show" role="tabpanel" data-bs-parent="#feature_faq">
+                                    <div class="card-body py-4 small">
+                                        <ul class="list-unstyled">
+                                            <li class="mb-3"><b>↳ How to purchase?</b> Add the module to your cart, proceed with payment, and wait for Odoo to validate the transaction. You can then download the ZIP file directly from your invoice.</li>
+                                            <li class="mb-3"><b>↳ How to install?</b> Deploy the module directly into your server's addons path following standard Odoo procedures. Do not use the "Upload Module" feature within the Odoo Apps UI, as it lacks the stability required
+                                                for enterprise environments.</li>
+                                            <li class="mb-3"><b>↳ How to upgrade?</b> Always delete the existing module folder completely before extracting the new version. Overwriting files can leave legacy code behind, which often leads to unpredictable "ghost" errors.</li>
+                                            <li class="mb-3"><b>↳ How to migrate?</b> Migration refers to moving between Odoo core versions. If you need to migrate specific user workspace settings, please contact us for dedicated support. Otherwise, perform a standard
+                                                installation on your new Odoo instance.</li>
+                                            <li class="mb-0"><b>↳ Can I return after purchase?</b> Please review all requirements carefully before buying. Our product quality is solid and we fully support verified technical issues. For more details, see our <a
+                                                    href="https://apps.odoo.com/apps/sales-conditions" target="_blank" class="alert-link text-primary">Sales Conditions</a>.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card bg-white mb-2" data-name="Item">
+                                <a href="#" role="tab" data-bs-target="#faq_mod" data-bs-toggle="collapse" style="color: unset;" class="card-header collapsed" aria-expanded="false">
+                                    Can I modify the source code for my specific needs?
+                                </a>
+                                <div id="faq_mod" class="collapse" role="tabpanel" data-bs-parent="#feature_faq">
+                                    <div class="card-body py-4 small">
+                                        <p class="card-text">↳ You are free to extend the logic for your licensed environment. However, any direct modification to our core files immediately <b>voids the 48-hour SLA</b>. We guarantee the stability of our original architecture.
+                                            Once you change the "engine," you become the architect of that change. We support our craftsmanship, not external experiments.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card bg-white mb-2" data-name="Item">
+                                <a href="#" role="tab" data-bs-target="#faq_conflict" data-bs-toggle="collapse" style="color: unset;" class="card-header collapsed" aria-expanded="false">
+                                    What if a third-party module breaks the layout?
+                                </a>
+                                <div id="faq_conflict" class="collapse" role="tabpanel" data-bs-parent="#feature_faq">
+                                    <div class="card-body py-4 small">
+                                        <p class="card-text">↳ We follow Odoo's official standards to ensure maximum compatibility. However, we cannot be held responsible for third-party modules that violate Odoo's framework logic.</p>
+                                        <p class="card-text">↳ If a conflict occurs, we will help identify the root cause. <b>If the fix is minor and straightforward, we'll patch it for you immediately.</b> For more complex issues originating from external code, we will provide
+                                            clear guidance on the next steps or how to approach the respective vendor. We protect our architecture, but we never leave our partners stranded.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card bg-white mb-2" data-name="Item">
+                                <a href="#" role="tab" data-bs-target="#faq_dev_staging" data-bs-toggle="collapse" style="color: unset;" class="card-header collapsed" aria-expanded="false">
+                                    Can I use the same license for my staging servers?
+                                </a>
+                                <div id="faq_dev_staging" class="collapse" role="tabpanel" data-bs-parent="#feature_faq">
+                                    <div class="card-body py-4 small">
+                                        <p class="card-text">↳ Yes. We respect the professional development lifecycle. A single license covers one <b>Production Identity</b>, but we fully permit additional non-production databases (Dev, Staging, Testing) dedicated to that
+                                            specific project. We don't charge you for your safety nets; we charge for the value you deliver in production. One Production Environment, One License.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card bg-white mb-2" data-name="Item">
+                                <a href="#" role="tab" data-bs-target="#faq_sla" data-bs-toggle="collapse" style="color: unset;" class="card-header collapsed" aria-expanded="false">
+                                    What defines a "Response" and "Resolution" under your 48-hour SLA?
+                                </a>
+                                <div id="faq_sla" class="collapse" role="tabpanel" data-bs-parent="#feature_faq">
+                                    <div class="card-body py-4 small">
+                                        <p class="card-text">↳ Our 48-hour SLA is a commitment to high-performance support, and it relies on a data-driven process. To ensure a swift and accurate resolution, we require <b>Technical Evidence</b> (Server logs and reproduction steps)
+                                            to officially trigger the support window.</p>
+                                        <p class="card-text">↳ This requirement eliminates guesswork and allows our team to focus directly on the solution from the very first minute. The 48-hour clock begins once the necessary facts are provided. We prioritize efficiency and
+                                            system integrity; by providing clear documentation, you help us deliver the excellence your business deserves.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card bg-white mb-2" data-name="Item">
+                                <a href="#" role="tab" data-bs-target="#faq_lifecycle" data-bs-toggle="collapse" style="color: unset;" class="card-header collapsed" aria-expanded="false">
+                                    I purchased the module months ago but only just installed it, and it's failing. What now?
+                                </a>
+                                <div id="faq_lifecycle" class="collapse" role="tabpanel" data-bs-parent="#feature_faq">
+                                    <div class="card-body py-4 small">
+                                        <p class="card-text">↳ A long gap between purchase and installation often leads to an <b>Environment Mismatch</b> due to infrastructure or Odoo updates in the meantime.</p>
+                                        <p class="card-text">↳ To maintain the 48-hour SLA, we perform a <b>License Integrity Check</b> to confirm the module is deployed in the environment intended for this license. If there is a fingerprint mismatch, we re-verify project details
+                                            before proceeding.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card bg-white mb-2" data-name="Item">
+                                <a href="#" role="tab" data-bs-target="#faq_ip_integrity" data-bs-toggle="collapse" style="color: unset;" class="card-header collapsed" aria-expanded="false">
+                                    Can I use a single license for multiple client deployments?
+                                </a>
+                                <div id="faq_ip_integrity" class="collapse" role="tabpanel" data-bs-parent="#feature_faq">
+                                    <div class="card-body py-4 small">
+                                        <p class="card-text">↳ Standard licenses are strictly <b>1:1 per production environment</b>. This ensures dedicated support and update integrity for every instance.</p>
+                                        <p class="card-text">↳ However, for agencies looking to scale across multiple deployments, we offer a <b>Dedicated Partnership Agreement</b>. This provides a more scalable framework with better margins for your business. For a custom
+                                            arrangement that fits your volume, let's talk.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ACCESSORIES -->
+        <!-- ============================================================================================================= -->
+
+        <section class="py-5">
+            <div class="display-3 text-lg-center mb-5" style="color:#65435c">Expand Your Experience
+                <div class="text-muted lead mt-2">These add-ons work perfectly with the Omux Backend.
+                </div>
+            </div>
+            <div class="row g-4 justify-content-center">
+                <!-- Add-on Card -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm border-0">
+                        <a href="https://apps.odoo.com/apps/modules/19.0/udoo_web_split_view/" target="_blank">
+                            <img class="card-img-top" src="//apps.odoocdn.com/apps/assets/19.0/udoo_web_split_view/banner.png" alt="Adaptive Split View">
+                        </a>
+                        <div class="card-body text-center d-flex flex-column justify-content-between">
+                            <h6 class="fw-bold">Adaptive Split View <span class="badge text-bg-success align-middle">&#8364;98 &middot; Free with Omux</span></h6>
+                            <p class="text-muted small">Open multiple documents in parallel split-screen layout.</p>
+                            <a class="btn btn-sm btn-primary mx-auto mt-auto w-50" target="_blank" href="https://apps.odoo.com/apps/modules/19.0/udoo_web_split_view/">View Module</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add-on Card -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm border-0">
+                        <a href="https://apps.odoo.com/apps/modules/19.0/svn_list_prime/" target="_blank">
+                            <img class="card-img-top" src="//apps.odoocdn.com/apps/assets/19.0/svn_list_prime/banner.png" alt="Adaptive List Prime">
+                        </a>
+                        <div class="card-body text-center d-flex flex-column justify-content-between">
+                            <h6 class="fw-bold">Adaptive List Prime</h6>
+                            <p class="text-muted small">Column control, spacing presets, and advanced filters.
+                            </p>
+                            <a class="btn btn-sm btn-primary mx-auto mt-auto w-50" target="_blank" href="https://apps.odoo.com/apps/modules/19.0/svn_list_prime/">View Module</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add-on Card -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm border-0">
+                        <a href="https://apps.odoo.com/apps/modules/19.0/omux_edit_mode/" target="_blank">
+                            <img class="card-img-top" src="//apps.odoocdn.com/apps/assets/19.0/omux_edit_mode/banner.png" alt="Adaptive Edit Mode">
+                        </a>
+                        <div class="card-body text-center d-flex flex-column justify-content-between">
+                            <h6 class="fw-bold">Adaptive Edit Control</h6>
+                            <p class="text-muted small">Control default edit state, lock fields, and streamline editing.
+                            </p>
+                            <a class="btn btn-sm btn-primary mx-auto mt-auto w-50" target="_blank" href="https://apps.odoo.com/apps/modules/19.0/omux_edit_mode/">View Module</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SUPPORTS -->
+        <!-- ============================================================================================================= -->
+
+        <div class="overflow-hidden mb-5 px-4 py-2 shadow-sm bg-white">
+            <div class="row align-items-center">
+                <div class="col-md-8 text-center text-md-left my-3">
+                    <p class="display-4 mb-2">Technical Help, Queries &amp; Support</p>
+                    <p class="m-0" style="color:#5a5d6b">Please feel free to contact for any suggestion, issue &amp; queries</p>
+                </div>
+                <div class="col-md-4 text-center text-md-right my-3">
+                    <a class="small px-3 py-2 my-1 btn btn-info" target="_blank" href="mailto:odoo@sveltware.com" style="width:146px;">
+                        <i class="fa fa-envelope me-2"></i> Support</a>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</body>
+
+</html>

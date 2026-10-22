@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="analytic_report_pdf_report">
+        <t t-call="web.html_container">
+            <t t-set="company" t-value="env.company"/>
+            <t t-call="web.internal_layout">
+                <div class="page">
+                    <center>
+                    <br/>
+                        <h2 style="margin-bottom: 5px;">Analytic Report</h2>
+                        <br/>
+                        <div style="margin-bottom: 20px;">
+                            <div style="font-weight: bold;">
+                                <t t-if="date_from">
+                                    Date From: <t t-esc="date_from"/> 
+                                </t>
+                                <t t-if="date_to">
+                                    Date To: <t t-esc="date_to"/>
+                                </t>
+                            </div>
+                            <br/>
+                            <br/>
+                        </div>
+                    </center>
+
+                    <table class="table" style="width: 100%; border: none; border-collapse: separate; border-spacing: 0 8px;">
+                        <thead>
+                            <tr>
+                                <th style="width: 10%; text-align: center; font-weight: bold; background-color: #f5f5f5;">Date</th>
+                                <th style="width: 15%; text-align: center; font-weight: bold; background-color: #f5f5f5;">Partner</th>
+                                <th style="width: 15%; text-align: center; font-weight: bold; background-color: #f5f5f5;">Journal</th>
+                                <th style="width: 10%; text-align: center; font-weight: bold; background-color: #f5f5f5;">Account</th>
+                                <th style="width: 10%; text-align: center; font-weight: bold; background-color: #f5f5f5;">Plan</th>
+                                <th style="width: 20%; text-align: center; font-weight: bold; background-color: #f5f5f5;">Product</th>
+                                <th style="width: 10%; text-align: center; font-weight: bold; background-color: #f5f5f5;">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="accounts" t-as="account" t-key="account.id">
+                                <!-- account Summary Row -->
+                                <tr style="background-color: #f9f9f9; margin-top: 10px;">
+                                    <td style="padding: 10px 5px; font-weight: bold;white-space:nowrap">
+                                        <t t-esc="account.get('name', '')"/>
+                                    </td>
+                                    <td style="padding: 10px 5px;"></td>
+                                    <td style="padding: 10px 5px;"></td>
+                                    <td style="padding: 10px 5px;"></td>
+                                    <td style="padding: 10px 5px;text-align: center;"></td>
+                                    <td style="padding: 10px 5px; text-align: center;"/>
+                                    <td style="padding: 10px 5px; text-align: center;" t-esc="account.get('amount')"/>
+                                </tr>
+                                
+                                <t t-if="account.get('name', '') in expanded_accounts">
+                                    <t t-if="account.get('analytic_items')">
+                                        <t t-foreach="account.get('analytic_items')" t-as="item" t-key="item.id">
+                                            <tr style="margin-top: 5px;">
+                                                <td style="padding: 8px 5px;text-align: center;">
+                                                    <t t-if="item['date']" t-esc="item['date']"/>
+                                                </td>
+                                                <td style="padding: 8px 5px;text-align: center;">
+                                                    <t t-if="isinstance(item['partner_id'], (list, tuple))" t-esc="item['partner_id'][1]"/>
+                                                </td>
+                                                <td style="padding: 8px 5px;text-align: center; white-space: normal; word-wrap: break-word;">
+                                                    <t t-if="isinstance(item['journal_id'], (list, tuple))" t-esc="item['journal_id'][1]"/>
+                                                </td>
+                                                <td style="padding: 8px 5px;text-align: center;">
+                                                    <t t-if="item['account']" t-esc="item['account']"/>
+                                                </td>
+                                                <td style="padding: 8px 5px;text-align: center;">
+                                                    <t t-if="item['plan']" t-esc="item['plan']"/>
+                                                </td>
+                                                <td style="padding: 8px 5px;text-align: center;">
+                                                    <t t-if="isinstance(item['product'], (list, tuple))" t-esc="item['product'][1]"/>
+                                                </td>
+                                                <td style="padding: 8px 5px;text-align: center;">
+                                                    <t t-if="item['amount']" t-esc="item['amount']"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                </t>
+                            </t>
+                            <tr>
+                                <td style="text-align:left;font-weight:bold;">Total</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td style="text-align:center;font-weight:bold;"><t t-esc="total_amount"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <!-- Report Action -->
+    <record id="action_analytic_report_pdf_report" model="ir.actions.report">
+        <field name="name">Analytic Report</field>
+        <field name="model">analytic.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">bi_financial_reports_comm.analytic_report_pdf_report</field>
+        <field name="report_file">bi_financial_reports_comm.analytic_report_pdf_report</field>
+        <field name="print_report_name">'Analytic Report'</field>
+        <field name="binding_model_id" ref="model_analytic_report"/>
+        <field name="binding_type">report</field>
+    </record>
+
+
+</odoo>

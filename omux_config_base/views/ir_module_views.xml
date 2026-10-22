@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ir_asset_setting_kanban" model="ir.ui.view">
+        <field name="name">omux.config.kanban</field>
+        <field name="model">ir.asset</field>
+        <field name="priority">999</field>
+        <field name="arch" type="xml">
+            <kanban create="false" can_open="0" class="o_kanban_mobile">
+                <field name="name"/>
+                <templates>
+                    <t t-name="card" class="flex-row justify-content-between w-100">
+                        <t t-set="a_name" t-value="record.name.raw_value.split(':')"/>
+                        <t t-set="a_cate" t-value="a_name[0].replace('[OMUX] ', '')"/>
+                        <field name="active" class="ms-2" widget="boolean_toggle"/>
+                        <div class="d-flex align-items-center w-100">
+                            <span class="flex-grow-1 text-truncate w-0" t-att-title="a_name[1]" t-out="a_name[1]"/>
+                            <span class="badge rounded-pill text-bg-primary ms-2 lh-1 flex-shrink-0" t-out="a_cate"/>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+</odoo>

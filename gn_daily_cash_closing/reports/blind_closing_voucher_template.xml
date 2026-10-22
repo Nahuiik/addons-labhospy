@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="blind_closing_voucher">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <style>
+                    body { font-family: Arial, sans-serif; font-size: 11px; }
+                    .voucher-title { text-align: center; font-size: 16px; font-weight: bold; margin-bottom: 12px; text-decoration: underline; }
+                    .voucher-info { margin-bottom: 10px; }
+                    .voucher-info td { padding: 2px 8px; }
+                    table.voucher-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+                    table.voucher-table th, table.voucher-table td { border: 1px solid #333; padding: 4px 8px; }
+                    table.voucher-table th { background: #eee; font-weight: bold; text-align: left; }
+                    table.voucher-table td.num { text-align: right; font-family: 'Courier New', monospace; }
+                    .diff-negative { color: red; font-weight: bold; }
+                </style>
+                <div class="voucher-title">Voucher - Cierre Inicial a Ciegas</div>
+                <table class="voucher-info">
+                    <tr><td><strong>Usuario:</strong></td><td t-esc="user_name"/></tr>
+                    <tr><td><strong>Fecha:</strong></td><td t-esc="date"/></tr>
+                    <tr><td><strong>Sucursal:</strong></td><td t-esc="branch_name"/></tr>
+                </table>
+                <table class="voucher-table">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th class="num">Digitado</th>
+                            <th class="num">Calculado</th>
+                            <th class="num">Diferencia</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Efectivo</td>
+                            <td class="num" t-esc="efectivo_digitado_fmt"/>
+                            <td class="num" t-esc="efectivo_calculado_fmt"/>
+                            <td class="num" t-att-class="'diff-negative' if efectivo_diferencia &lt; 0 else ''" t-esc="efectivo_diferencia_fmt"/>
+                        </tr>
+                        <tr>
+                            <td>Liquidación Tarjeta</td>
+                            <td class="num" t-esc="tarjetas_digitado_fmt"/>
+                            <td class="num" t-esc="tarjetas_calculado_fmt"/>
+                            <td class="num" t-att-class="'diff-negative' if tarjetas_diferencia &lt; 0 else ''" t-esc="tarjetas_diferencia_fmt"/>
+                        </tr>
+                        <tr>
+                            <td>Transferencias</td>
+                            <td class="num" t-esc="transferencias_digitado_fmt"/>
+                            <td class="num" t-esc="transferencias_calculado_fmt"/>
+                            <td class="num" t-att-class="'diff-negative' if transferencias_diferencia &lt; 0 else ''" t-esc="transferencias_diferencia_fmt"/>
+                        </tr>
+                    </tbody>
+                </table>
+            </t>
+        </t>
+    </template>
+</odoo>

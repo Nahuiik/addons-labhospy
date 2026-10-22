@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vacaciones → Configuración: entradas que delegan en acciones de l10n_hn_hr_payroll. Requiere gn_hr_vacation (campos base en tipos de ausencia). -->
+    <menuitem id="menu_gn_vacation_config_delegations"
+        name="Delegaciones de aprobación"
+        parent="hr_holidays.menu_hr_holidays_configuration"
+        action="l10n_hn_hr_payroll.action_hn_approval_delegations_tree"
+        sequence="20"
+        groups="hr_holidays.group_hr_holidays_user"/>
+    <menuitem id="menu_gn_vacation_config_document_types"
+        name="Plantillas de documentos"
+        parent="hr_holidays.menu_hr_holidays_configuration"
+        action="l10n_hn_hr_payroll.action_hn_vacation_document_type"
+        sequence="22"
+        groups="hr_holidays.group_hr_holidays_manager"/>
+    <menuitem id="menu_gn_vacation_config_initial_balance"
+        name="Cargar saldos iniciales"
+        parent="hr_holidays.menu_hr_holidays_configuration"
+        action="l10n_hn_hr_payroll.action_hn_initial_balance_wizard_menu"
+        sequence="23"
+        groups="hr_holidays.group_hr_holidays_manager"/>
+</odoo>

@@ -1,0 +1,1615 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo de Localización Laboral Honduras - Manual de Usuario</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin: -20px -20px 30px -20px;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .author-info {
+            background: #e8f4f8;
+            padding: 15px;
+            border-left: 4px solid #2a5298;
+            margin-bottom: 30px;
+        }
+        
+        .author-info p {
+            margin: 5px 0;
+        }
+        
+        h2 {
+            color: #1e3c72;
+            font-size: 2em;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #2a5298;
+        }
+        
+        h3 {
+            color: #2a5298;
+            font-size: 1.5em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        
+        h4 {
+            color: #4a6fa5;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .menu-path {
+            background: #f0f0f0;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            display: inline-block;
+            margin: 5px 0;
+        }
+        
+        .feature-box {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .feature-box h4 {
+            color: #2a5298;
+            margin-top: 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+        }
+        
+        table th {
+            background: #2a5298;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+        
+        table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        table tr:hover {
+            background: #f5f5f5;
+        }
+        
+        .step {
+            background: #e8f4f8;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #2a5298;
+            border-radius: 4px;
+        }
+        
+        .step-number {
+            display: inline-block;
+            background: #2a5298;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .info {
+            background: #d1ecf1;
+            border: 1px solid #0c5460;
+            border-left: 4px solid #0c5460;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .success {
+            background: #d4edda;
+            border: 1px solid #28a745;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        ul, ol {
+            margin-left: 30px;
+            margin-top: 10px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+        }
+        
+        .toc {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+        
+        .toc h3 {
+            margin-top: 0;
+        }
+        
+        .toc ul {
+            list-style: none;
+            margin-left: 0;
+        }
+        
+        .toc li {
+            margin: 8px 0;
+        }
+        
+        .toc a {
+            color: #2a5298;
+            text-decoration: none;
+        }
+        
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        
+        footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 2px solid #ddd;
+            text-align: center;
+            color: #666;
+        }
+        
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Módulo de Localización Laboral Honduras</h1>
+            <p>Manual de Usuario - Odoo 19</p>
+        </header>
+        
+        <div class="author-info">
+            <p><strong>Autor:</strong> Grupo Nahuiik</p>
+            <p><strong>Sitio Web:</strong> <a href="https://www.gruponahuiik.com" style="color: #2a5298;">www.gruponahuiik.com</a></p>
+            <p><strong>Email:</strong> info@gruponahuiik.com</p>
+            <p><strong>Versión:</strong> 19.0.1.0.0</p>
+        </div>
+        
+        <div class="toc">
+            <h3>Tabla de Contenidos</h3>
+            <ul>
+                <li><a href="#introduccion">1. Introducción</a></li>
+                <li><a href="#configuracion">2. Configuración Inicial</a>
+                    <ul>
+                        <li><a href="#ihss">2.1. Configuración IHSS</a></li>
+                        <li><a href="#rap">2.2. Configuración RAP</a></li>
+                        <li><a href="#isr">2.3. Configuración ISR</a></li>
+                        <li><a href="#reglas">2.4. Configuración de Reglas Salariales</a></li>
+                    </ul>
+                </li>
+                <li><a href="#empleados">3. Gestión de Empleados</a>
+                    <ul>
+                        <li><a href="#importacion">3.1. Importación Masiva desde Excel</a></li>
+                        <li><a href="#config-empleado">3.2. Configuración de Empleados</a></li>
+                        <li><a href="#contratos">3.3. Gestión de Contratos</a></li>
+                        <li><a href="#conceptos">3.4. Conceptos Recurrentes</a></li>
+                    </ul>
+                </li>
+                <li><a href="#beneficios">4. Beneficios Legales</a>
+                    <ul>
+                        <li><a href="#13mes">4.1. Décimo Tercer Mes</a></li>
+                        <li><a href="#14mes">4.2. Décimo Cuarto Mes</a></li>
+                    </ul>
+                </li>
+                <li><a href="#nomina">5. Procesamiento de Nómina</a>
+                    <ul>
+                        <li><a href="#config-inicial">5.1. Configuración Inicial</a></li>
+                        <li><a href="#config-empleados-nomina">5.2. Configuración de Empleados</a></li>
+                        <li><a href="#generacion-nomina">5.3. Generación de Nómina</a></li>
+                        <li><a href="#proceso-mensual">5.4. Proceso Mensual Recurrente</a></li>
+                    </ul>
+                </li>
+                <li><a href="#contabilidad">6. Contabilidad</a></li>
+                <li><a href="#seguridad">7. Seguridad y Auditoría</a></li>
+                <li><a href="#flujo">8. Flujo de Trabajo Recomendado</a></li>
+            </ul>
+        </div>
+        
+        <section id="introduccion" class="section">
+            <h2>1. Introducción</h2>
+            <p>El módulo de <strong>Localización Laboral Honduras</strong> para Odoo 19 proporciona una solución completa para la gestión de nómina según la legislación laboral hondureña. Este módulo automatiza los cálculos de deducciones legales y beneficios, facilitando el cumplimiento normativo.</p>
+            
+            <div class="feature-box">
+                <h4>Características Principales</h4>
+                <ul>
+                    <li><strong>IHSS (Instituto Hondureño de Seguridad Social):</strong> Cálculo automático de aportes IVM y EM con techos configurables</li>
+                    <li><strong>RAP (Régimen de Aportaciones Privadas):</strong> Gestión de FOVIIF y FRL</li>
+                    <li><strong>ISR (Impuesto sobre la Renta):</strong> Cálculo de retenciones con tablas progresivas</li>
+                    <li><strong>13° y 14° Mes:</strong> Cálculo automático de beneficios anuales</li>
+                    <li><strong>Gestión de Contratos:</strong> Historial completo de versiones de contratos (adaptado a Odoo 19)</li>
+                    <li><strong>Importación Masiva:</strong> Wizard para importar empleados desde Excel</li>
+                    <li><strong>Conceptos Recurrentes:</strong> Gestión de ingresos y deducciones recurrentes</li>
+                </ul>
+            </div>
+            
+            <div class="info">
+                <strong>Nota Importante:</strong> En Odoo 19, los contratos de empleados se gestionan a través del historial de contratos (<code>hr.employee.contract.history</code>) en lugar del modelo separado <code>hr.contract</code>. Este módulo está adaptado para trabajar con esta nueva estructura.
+            </div>
+        </section>
+        
+        <section id="configuracion" class="section">
+            <h2>2. Configuración Inicial</h2>
+            <p>Antes de comenzar a procesar nóminas, es necesario configurar los parámetros legales para el año en curso. Esta configuración debe realizarse una vez por año o cuando cambien los parámetros oficiales.</p>
+            
+            <h3 id="ihss">2.1. Configuración IHSS</h3>
+            <p class="menu-path">Menú: Honduras Payroll → Configuration → IHSS Settings</p>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Crear nueva configuración:</strong> Haga clic en "Crear" y complete los siguientes campos:
+            </div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Campo</th>
+                        <th>Descripción</th>
+                        <th>Ejemplo (2025)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Año</strong></td>
+                        <td>Año fiscal para el cual aplica esta configuración</td>
+                        <td>2025</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Compañía</strong></td>
+                        <td>Compañía para la cual aplica esta configuración</td>
+                        <td>Mi Empresa S.A.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>IVM Techo Mensual</strong></td>
+                        <td>Techo mensual para cálculo de IVM</td>
+                        <td>11,903.13</td>
+                    </tr>
+                    <tr>
+                        <td><strong>IVM Tasa Empleador</strong></td>
+                        <td>Porcentaje que paga el empleador</td>
+                        <td>3.5%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>IVM Tasa Empleado</strong></td>
+                        <td>Porcentaje que se descuenta al empleado</td>
+                        <td>2.5%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>EM Techo Mensual</strong></td>
+                        <td>Techo mensual para cálculo de EM</td>
+                        <td>11,903.13</td>
+                    </tr>
+                    <tr>
+                        <td><strong>EM Tasa Empleador</strong></td>
+                        <td>Porcentaje que paga el empleador</td>
+                        <td>1.0%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>EM Tasa Empleado</strong></td>
+                        <td>Porcentaje que se descuenta al empleado</td>
+                        <td>1.0%</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Configurar reglas de aplicación:</strong> En la pestaña "Application Rules", seleccione en qué quincenas se aplicará la deducción:
+                <ul>
+                    <li><strong>Aplicar en Primera Quincena:</strong> Si se marca, la deducción se aplica en la primera quincena del mes</li>
+                    <li><strong>Aplicar en Segunda Quincena:</strong> Si se marca, la deducción se aplica en la segunda quincena</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>Configurar cuentas contables:</strong> En la pestaña "Accounting", asigne las cuentas contables para:
+                <ul>
+                    <li>IVM Empleado (deducción)</li>
+                    <li>IVM Empleador (aporte patronal)</li>
+                    <li>EM Empleado (deducción)</li>
+                    <li>EM Empleador (aporte patronal)</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">4</span>
+                <strong>Validar configuración:</strong> Haga clic en el botón "Validate" para activar la configuración. Solo puede haber una configuración validada por año y compañía.
+            </div>
+            
+            <div class="info">
+                <strong>Información:</strong> El sistema calcula automáticamente el techo del período usando la regla estándar 30/360. Por ejemplo, para una quincena (15 días): TechoQuincena = TechoMensual × (15/30).
+            </div>
+            
+            <h3 id="rap">2.2. Configuración RAP</h3>
+            <p class="menu-path">Menú: Honduras Payroll → Configuration → RAP Settings</p>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Crear nueva configuración:</strong> Complete los campos básicos (Año, Compañía).
+            </div>
+            
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Configurar FOVIIF:</strong> En la pestaña "FOVIIF Parameters":
+                <ul>
+                    <li><strong>Piso Mensual:</strong> Monto sobre el cual se calcula FOVIIF (excede el techo IVM)</li>
+                    <li><strong>Tasa Empleado:</strong> 1.5%</li>
+                    <li><strong>Tasa Empleador:</strong> 1.5%</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>Configurar FRL:</strong> En la pestaña "FRL Parameters":
+                <ul>
+                    <li><strong>Salario Mínimo Escala Alta:</strong> Salario mínimo en su escala más alta</li>
+                    <li><strong>Techo FRL Mensual:</strong> Se calcula automáticamente (3× salario mínimo)</li>
+                    <li><strong>Tasa Empleador:</strong> 4.0%</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">4</span>
+                <strong>Validar:</strong> Haga clic en "Validate" para activar.
+            </div>
+            
+            <h3 id="isr">2.3. Configuración ISR</h3>
+            <p class="menu-path">Menú: Honduras Payroll → Configuration → ISR Tables</p>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Crear nueva tabla:</strong> Complete Año, Periodicidad (semanal/quincenal/mensual/anual) y Compañía.
+            </div>
+            
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Configurar monto exento:</strong> Ingrese el monto anual exento (ej: 228,324.32 para 2026).
+            </div>
+            
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>Agregar tramos de impuestos:</strong> En la sección "Tax Brackets", agregue cada tramo:
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tramo</th>
+                            <th>Monto Mínimo</th>
+                            <th>Monto Máximo</th>
+                            <th>Tasa</th>
+                            <th>Impuesto Base</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>0.00</td>
+                            <td>228,324.32</td>
+                            <td>0%</td>
+                            <td>0.00</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>228,324.33</td>
+                            <td>348,154.10</td>
+                            <td>15%</td>
+                            <td>0.00</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>348,154.11</td>
+                            <td>809,660.75</td>
+                            <td>20%</td>
+                            <td>17,974.47</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>809,660.76</td>
+                            <td>0.00 (ilimitado)</td>
+                            <td>25%</td>
+                            <td>110,275.80</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">4</span>
+                <strong>Configurar deducción servicios médicos:</strong> Ingrese el monto anual (ej: 40,000.00 para 2026).
+            </div>
+            
+            <div class="step">
+                <span class="step-number">5</span>
+                <strong>Validar:</strong> Haga clic en "Validate" para activar la tabla.
+            </div>
+            
+            <h3 id="reglas">2.4. Configuración de Reglas Salariales</h3>
+            <p class="menu-path">Menú: Nómina → Configuración → Reglas Salariales</p>
+            
+            <p>Para cada regla salarial, en la pestaña <strong>"Honduras Configuration"</strong>, marque las casillas correspondientes:</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Campo</th>
+                        <th>Descripción</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>IHSS Base</strong></td>
+                        <td>Incluir esta regla en la base de cálculo de IHSS</td>
+                        <td>Salario base, horas extra</td>
+                    </tr>
+                    <tr>
+                        <td><strong>RAP Base</strong></td>
+                        <td>Incluir esta regla en la base de cálculo de RAP</td>
+                        <td>Salario base</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ISR Base</strong></td>
+                        <td>Incluir esta regla en la base gravable de ISR</td>
+                        <td>Salario base, horas extra, comisiones, bonos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Computable for Benefits</strong></td>
+                        <td>Incluir esta regla en el cálculo de 13° y 14° mes</td>
+                        <td>Salario base, horas ordinarias</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Periodicity</strong></td>
+                        <td>Periodicidad para la cual aplica esta regla</td>
+                        <td>Semanal, Quincenal, Mensual, Todas</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Year</strong></td>
+                        <td>Año específico (0 para todos los años)</td>
+                        <td>2025 o 0</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="warning">
+                <strong>Importante:</strong> Los conceptos no salariales (viáticos, reembolsos comprobados) NO deben marcarse como bases de cálculo.
+            </div>
+        </section>
+        
+        <section id="empleados" class="section">
+            <h2>3. Gestión de Empleados</h2>
+            
+            <h3 id="importacion">3.1. Importación Masiva desde Excel</h3>
+            <p class="menu-path">Menú: Honduras Payroll → Import Employees</p>
+            
+            <div class="success">
+                <strong>📥 Archivo de Ejemplo Disponible:</strong> Puede descargar un archivo Excel de ejemplo con el formato correcto desde: <code>static/description/ejemplo_importacion_empleados.xlsx</code> en el módulo. Este archivo incluye 5 registros de ejemplo y una hoja de instrucciones detalladas.
+            </div>
+            
+            <div class="feature-box">
+                <h4>Preparación del Archivo Excel</h4>
+                <p>El archivo Excel debe tener una hoja llamada <code>"datos"</code> con las siguientes columnas (en este orden):</p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Columna</th>
+                            <th>Campo Destino</th>
+                            <th>Formato/Validación</th>
+                            <th>Requerido</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Nombre completo del empleado</td>
+                            <td>hr.employee.name</td>
+                            <td>Mayúsculas, sin espacios sobrantes</td>
+                            <td>✓</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Municipio</td>
+                            <td>Dirección privada: city</td>
+                            <td>Texto</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Colonia</td>
+                            <td>Dirección privada: street2</td>
+                            <td>Texto</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Punto de referencia</td>
+                            <td>Dirección privada: street</td>
+                            <td>Texto</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Identidad</td>
+                            <td>hr.employee.identification_id</td>
+                            <td>13 dígitos, sin guiones</td>
+                            <td>✓</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>Fecha de nacimiento</td>
+                            <td>hr.employee.birthday</td>
+                            <td>YYYY-MM-DD</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>Teléfono privado</td>
+                            <td>hr.employee.private_phone</td>
+                            <td>Solo dígitos, sin guiones</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>Correo electronico privado</td>
+                            <td>hr.employee.private_email</td>
+                            <td>Minúscula, formato email válido</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>Departamento</td>
+                            <td>hr.department.name</td>
+                            <td>Texto (se crea si no existe)</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>Puesto de trabajo</td>
+                            <td>hr.job.name</td>
+                            <td>Texto (se crea si no existe)</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>11</td>
+                            <td>Jefe inmediato</td>
+                            <td>hr.employee.parent_id</td>
+                            <td>Coincidencia por Identidad o nombre</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>12</td>
+                            <td>Teléfono celular laboral</td>
+                            <td>hr.employee.mobile_phone</td>
+                            <td>Solo dígitos, sin guiones</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>13</td>
+                            <td>Fecha de Ingreso</td>
+                            <td>hr.contract.date_start</td>
+                            <td>YYYY-MM-DD</td>
+                            <td>✓*</td>
+                        </tr>
+                        <tr>
+                            <td>14</td>
+                            <td>Salario Mensual</td>
+                            <td>hr.contract.wage</td>
+                            <td>Numérico > 0</td>
+                            <td>✓*</td>
+                        </tr>
+                        <tr>
+                            <td>15</td>
+                            <td>Nombre Contacto de Emergencia</td>
+                            <td>hr.employee.emergency_contact</td>
+                            <td>Texto</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>16</td>
+                            <td>Relación con Contacto Emergencia</td>
+                            <td>hr.employee.emergency_relation</td>
+                            <td>Texto</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>17</td>
+                            <td>Teléfono Contacto Emergencia</td>
+                            <td>hr.employee.emergency_phone</td>
+                            <td>Solo dígitos, sin guiones</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>18</td>
+                            <td>Cuenta bancaria</td>
+                            <td>res.partner.bank.acc_number</td>
+                            <td>Sin espacios</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>19</td>
+                            <td>Banco</td>
+                            <td>res.bank.name</td>
+                            <td>Texto (se crea si no existe)</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>20</td>
+                            <td>Genero</td>
+                            <td>hr.employee.gender</td>
+                            <td>MASCULINO/FEMENINO/OTRO</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><small>* Requerido solo si se activa "Create Contracts"</small></p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Seleccionar archivo:</strong> Haga clic en "Seleccionar archivo" y elija su archivo Excel (.xlsx o .xlsm).
+                <div class="info" style="margin-top: 10px;">
+                    <strong>Nota:</strong> El sistema buscará automáticamente una hoja llamada "datos" (sin importar mayúsculas/minúsculas). Si no la encuentra, mostrará un error indicando las hojas disponibles en el archivo.
+                </div>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Configurar modo de importación:</strong>
+                <ul>
+                    <li><strong>Create Only:</strong> Solo crea nuevos empleados (rechaza duplicados)</li>
+                    <li><strong>Update Only:</strong> Solo actualiza empleados existentes</li>
+                    <li><strong>Mixed:</strong> Crea nuevos y actualiza existentes (recomendado)</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>Activar opciones:</strong>
+                <ul>
+                    <li><strong>Create Departments:</strong> Crear departamentos si no existen</li>
+                    <li><strong>Create Jobs:</strong> Crear puestos si no existen</li>
+                    <li><strong>Create Banks:</strong> Crear bancos si no existen</li>
+                    <li><strong>Create Contracts:</strong> Crear contratos iniciales con salario y fecha de ingreso</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">4</span>
+                <strong>Ejecutar importación:</strong> Haga clic en "Import" y espere a que termine el proceso.
+            </div>
+            
+            <div class="step">
+                <span class="step-number">5</span>
+                <strong>Revisar resultados:</strong> El sistema mostrará:
+                <ul>
+                    <li><strong>Import Log:</strong> Resumen de registros creados y actualizados</li>
+                    <li><strong>Error Log:</strong> Lista detallada de errores por fila con sugerencias de corrección</li>
+                </ul>
+            </div>
+            
+            <div class="warning">
+                <strong>Validaciones importantes:</strong>
+                <ul>
+                    <li>La identidad debe ser exactamente 13 dígitos (sin guiones)</li>
+                    <li>Las fechas deben estar en formato YYYY-MM-DD</li>
+                    <li>Los teléfonos solo pueden contener dígitos</li>
+                    <li>Los correos deben tener formato válido</li>
+                    <li>El salario debe ser un número mayor a cero</li>
+                </ul>
+            </div>
+            
+            <h3 id="config-empleado">3.2. Configuración de Empleados</h3>
+            <p>En la ficha del empleado, pestaña <strong>"Honduras Payroll"</strong>:</p>
+            
+            <div class="feature-box">
+                <h4>Deducciones</h4>
+                <ul>
+                    <li><strong>Exclude from IHSS:</strong> Marcar si el empleado está excluido de deducciones IHSS</li>
+                    <li><strong>IHSS Settings:</strong> Muestra la configuración activa (solo lectura)</li>
+                    <li><strong>Exclude from RAP:</strong> Marcar si el empleado está excluido de deducciones RAP</li>
+                    <li><strong>RAP Settings:</strong> Muestra la configuración activa (solo lectura)</li>
+                    <li><strong>Exclude from ISR:</strong> Marcar si el empleado está excluido de retenciones ISR</li>
+                </ul>
+            </div>
+            
+            <div class="feature-box">
+                <h4>Contrato Actual</h4>
+                <p>Muestra automáticamente el contrato activo según la fecha actual, incluyendo:</p>
+                <ul>
+                    <li>Salario actual</li>
+                    <li>Periodicidad de pago</li>
+                    <li>Puesto de trabajo</li>
+                    <li>Departamento</li>
+                </ul>
+            </div>
+            
+            <h3 id="contratos">3.3. Gestión de Contratos</h3>
+            <p>En Odoo 19, los contratos se gestionan a través del historial de contratos del empleado.</p>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Ver historial:</strong> En la pestaña "Honduras Payroll" → "Contract History", verá todas las versiones de contratos del empleado.
+            </div>
+            
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Crear nueva versión:</strong> Para crear un nuevo contrato o modificar el existente:
+                <ul>
+                    <li>Haga clic en "Crear" en la sección "Contract History"</li>
+                    <li>Complete los campos:
+                        <ul>
+                            <li><strong>Start Date:</strong> Fecha de inicio del contrato</li>
+                            <li><strong>End Date:</strong> Fecha de fin (dejar vacío para indefinido)</li>
+                            <li><strong>Wage:</strong> Salario</li>
+                            <li><strong>Periodicity:</strong> Semanal, Quincenal o Mensual</li>
+                            <li><strong>Job Position:</strong> Puesto de trabajo</li>
+                            <li><strong>Department:</strong> Departamento</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="info">
+                <strong>Nota:</strong> El sistema automáticamente determina cuál es el contrato activo comparando la fecha actual con las fechas de inicio y fin de cada versión.
+            </div>
+            
+            <h3 id="conceptos">3.4. Conceptos Recurrentes</h3>
+            <p>Los conceptos recurrentes permiten gestionar ingresos y deducciones que se aplican automáticamente en cada nómina.</p>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Crear concepto:</strong> En la sección "Recurring Concepts" del empleado, haga clic en "Crear".
+            </div>
+            
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Configurar concepto:</strong>
+                <ul>
+                    <li><strong>Name:</strong> Nombre del concepto</li>
+                    <li><strong>Type:</strong> Income (ingreso) o Deduction (deducción)</li>
+                    <li><strong>Amount Type:</strong>
+                        <ul>
+                            <li><strong>Fixed:</strong> Monto fijo</li>
+                            <li><strong>Percentage:</strong> Porcentaje de una regla base</li>
+                        </ul>
+                    </li>
+                    <li><strong>Amount:</strong> Monto fijo o valor del porcentaje</li>
+                    <li><strong>Base Rule:</strong> Regla salarial base (si es porcentaje)</li>
+                    <li><strong>Start Date / End Date:</strong> Período de vigencia</li>
+                </ul>
+            </div>
+            
+            <div class="feature-box">
+                <h4>Préstamos y Anticipos</h4>
+                <p>Para gestionar préstamos o anticipos:</p>
+                <ol>
+                    <li>Marque la casilla <strong>"Is Loan/Advance"</strong></li>
+                    <li>Ingrese el <strong>Total Amount</strong> del préstamo</li>
+                    <li>Ingrese el número de <strong>Installments</strong> (cuotas)</li>
+                    <li>El sistema calculará automáticamente:
+                        <ul>
+                            <li>Monto por cuota = Total Amount / Installments</li>
+                            <li>Saldo pendiente</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+        </section>
+        
+        <section id="beneficios" class="section">
+            <h2>4. Beneficios Legales</h2>
+            
+            <h3 id="13mes">4.1. Décimo Tercer Mes (Aguinaldo)</h3>
+            <p class="menu-path">Menú: Honduras Payroll → Benefits → 13th Month</p>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Crear registro:</strong> Haga clic en "Crear" y seleccione el empleado y año.
+            </div>
+            
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Seleccionar método de cálculo:</strong>
+                <ul>
+                    <li><strong>Proportional:</strong> Proporcional a días trabajados
+                        <ul>
+                            <li>Requiere: Period Start, Period End, Base Salary, Total Days</li>
+                            <li>Fórmula: (Base Salary / Total Days) × Worked Days</li>
+                        </ul>
+                    </li>
+                    <li><strong>Fixed:</strong> Salario fijo
+                        <ul>
+                            <li>Requiere: Base Salary</li>
+                            <li>Fórmula: Base Salary</li>
+                        </ul>
+                    </li>
+                    <li><strong>Variable:</strong> Promedio de salarios variables
+                        <ul>
+                            <li>Requiere: Average Salary</li>
+                            <li>Fórmula: Average Salary</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>Configurar período:</strong> Ingrese las fechas de inicio y fin del período trabajado. El sistema calculará automáticamente los días trabajados.
+            </div>
+            
+            <div class="step">
+                <span class="step-number">4</span>
+                <strong>Configurar exención ISR:</strong> Ingrese el monto exento (hasta 10 salarios mínimos). El excedente será gravable para ISR.
+            </div>
+            
+            <div class="step">
+                <span class="step-number">5</span>
+                <strong>Seleccionar mes de pago:</strong> Por defecto es diciembre (12), pero puede cambiarse.
+            </div>
+            
+            <div class="step">
+                <span class="step-number">6</span>
+                <strong>Marcar como pagado:</strong> Una vez procesado el pago en nómina, marque "Paid" y vincule el payslip correspondiente.
+            </div>
+            
+            <h3 id="14mes">4.2. Décimo Cuarto Mes</h3>
+            <p class="menu-path">Menú: Honduras Payroll → Benefits → 14th Month</p>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Crear registro:</strong> Similar al 13° mes, seleccione empleado y año.
+            </div>
+            
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Seleccionar método de cálculo:</strong>
+                <ul>
+                    <li><strong>Average:</strong> Promedio de salarios ordinarios del período de cálculo</li>
+                    <li><strong>Fixed:</strong> Salario fijo</li>
+                    <li><strong>Sum:</strong> Suma de salarios ordinarios del período</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>Configurar período de cálculo:</strong> Típicamente el primer semestre del año (enero a junio).
+            </div>
+            
+            <div class="step">
+                <span class="step-number">4</span>
+                <strong>Mes de pago:</strong> Por defecto es junio (6).
+            </div>
+            
+            <div class="info">
+                <strong>Nota:</strong> El sistema calculará automáticamente el promedio o suma desde los payslips del empleado en el período de cálculo especificado.
+            </div>
+        </section>
+        
+        <section id="nomina" class="section">
+            <h2>5. Procesamiento de Nómina - Proceso Completo</h2>
+            
+            <p>Este módulo incluye <strong>reglas salariales preconfiguradas</strong> que se crean automáticamente al instalar el módulo. A continuación se detalla el proceso completo desde la configuración inicial hasta la generación de la nómina.</p>
+            
+            <h3 id="config-inicial">5.1. Configuración Inicial (Primera Vez)</h3>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Configurar IHSS Settings:</strong>
+                <p class="menu-path">Menú: Honduras Payroll → Configuration → IHSS Settings</p>
+                <ol>
+                    <li>Crear nueva configuración para el año actual</li>
+                    <li>Completar todos los campos requeridos (año, compañía, techos, tasas)</li>
+                    <li>Configurar cuentas contables en la pestaña "Accounting"</li>
+                    <li>Validar la configuración haciendo clic en "Validate"</li>
+                </ol>
+                <div class="warning">
+                    <strong>Importante:</strong> Solo puede haber una configuración validada por año y compañía. Al validar una nueva, la anterior se desactiva automáticamente.
+                </div>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Configurar RAP Settings:</strong>
+                <p class="menu-path">Menú: Honduras Payroll → Configuration → RAP Settings</p>
+                <ol>
+                    <li>Crear nueva configuración para el año actual</li>
+                    <li>Completar parámetros FOVIIF (piso mensual, tasas empleado/empleador)</li>
+                    <li>Completar parámetros FRL (salario mínimo escala alta, tasa empleador)</li>
+                    <li>Configurar cuentas contables en la pestaña "Accounting"</li>
+                    <li>Validar la configuración</li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>Configurar Tablas ISR:</strong>
+                <p class="menu-path">Menú: Honduras Payroll → Configuration → ISR Tables</p>
+                <ol>
+                    <li>Crear tabla para cada periodicidad que use (semanal, quincenal, mensual)</li>
+                    <li>Completar año, periodicidad y compañía</li>
+                    <li>Configurar monto exento anual</li>
+                    <li>Agregar todos los tramos de impuestos en la sección "Tax Brackets"</li>
+                    <li>Configurar deducción de servicios médicos</li>
+                    <li>Validar cada tabla</li>
+                </ol>
+                <div class="info">
+                    <strong>Nota:</strong> Si procesa nóminas semanales, quincenales y mensuales, necesitará crear y validar una tabla para cada periodicidad.
+                </div>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">4</span>
+                <strong>Verificar Reglas Salariales Preconfiguradas:</strong>
+                <p class="menu-path">Menú: Nómina → Configuración → Reglas Salariales</p>
+                <p>El módulo crea automáticamente las siguientes reglas salariales:</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Nombre</th>
+                            <th>Tipo</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>BASE_IHSS</code></td>
+                            <td>Base para Cálculo IHSS</td>
+                            <td>Base</td>
+                            <td>Suma todas las reglas marcadas como base IHSS</td>
+                        </tr>
+                        <tr>
+                            <td><code>BASE_RAP</code></td>
+                            <td>Base para Cálculo RAP</td>
+                            <td>Base</td>
+                            <td>Suma todas las reglas marcadas como base RAP</td>
+                        </tr>
+                        <tr>
+                            <td><code>BASE_ISR</code></td>
+                            <td>Base Imponible ISR</td>
+                            <td>Base</td>
+                            <td>Suma todas las reglas marcadas como base ISR</td>
+                        </tr>
+                        <tr>
+                            <td><code>IHSS_IVM_EMP</code></td>
+                            <td>IHSS IVM Empleado</td>
+                            <td>Deducción</td>
+                            <td>Calcula IVM del empleado</td>
+                        </tr>
+                        <tr>
+                            <td><code>IHSS_IVM_EMPLEADOR</code></td>
+                            <td>IHSS IVM Empleador</td>
+                            <td>Aporte Patronal</td>
+                            <td>Calcula IVM del empleador</td>
+                        </tr>
+                        <tr>
+                            <td><code>IHSS_EM_EMP</code></td>
+                            <td>IHSS EM Empleado</td>
+                            <td>Deducción</td>
+                            <td>Calcula EM del empleado</td>
+                        </tr>
+                        <tr>
+                            <td><code>IHSS_EM_EMPLEADOR</code></td>
+                            <td>IHSS EM Empleador</td>
+                            <td>Aporte Patronal</td>
+                            <td>Calcula EM del empleador</td>
+                        </tr>
+                        <tr>
+                            <td><code>RAP_FOVIIF_EMP</code></td>
+                            <td>RAP FOVIIF Empleado</td>
+                            <td>Deducción</td>
+                            <td>Calcula FOVIIF del empleado</td>
+                        </tr>
+                        <tr>
+                            <td><code>RAP_FOVIIF_EMPLEADOR</code></td>
+                            <td>RAP FOVIIF Empleador</td>
+                            <td>Aporte Patronal</td>
+                            <td>Calcula FOVIIF del empleador</td>
+                        </tr>
+                        <tr>
+                            <td><code>RAP_FRL_EMPLEADOR</code></td>
+                            <td>RAP FRL Empleador</td>
+                            <td>Aporte Patronal</td>
+                            <td>Calcula FRL del empleador</td>
+                        </tr>
+                        <tr>
+                            <td><code>ISR_DEDUCCIONES</code></td>
+                            <td>Deducciones ISR</td>
+                            <td>Deducción</td>
+                            <td>Calcula deducciones exentas y servicios médicos</td>
+                        </tr>
+                        <tr>
+                            <td><code>ISR_RETENCION</code></td>
+                            <td>ISR Retención</td>
+                            <td>Deducción</td>
+                            <td>Calcula retención de ISR según tabla</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="success">
+                    <strong>✓ Las reglas ya están creadas y configuradas.</strong> Solo necesita asegurarse de que estén incluidas en su estructura salarial.
+                </div>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">5</span>
+                <strong>Configurar Estructura Salarial:</strong>
+                <p class="menu-path">Menú: Nómina → Configuración → Estructuras Salariales</p>
+                <ol>
+                    <li>Crear o editar su estructura salarial</li>
+                    <li>En la sección "Reglas Salariales", agregar las reglas preconfiguradas:
+                        <ul>
+                            <li>Reglas base: <code>BASE_IHSS</code>, <code>BASE_RAP</code>, <code>BASE_ISR</code></li>
+                            <li>Reglas IHSS: <code>IHSS_IVM_EMP</code>, <code>IHSS_IVM_EMPLEADOR</code>, <code>IHSS_EM_EMP</code>, <code>IHSS_EM_EMPLEADOR</code></li>
+                            <li>Reglas RAP: <code>RAP_FOVIIF_EMP</code>, <code>RAP_FOVIIF_EMPLEADOR</code>, <code>RAP_FRL_EMPLEADOR</code></li>
+                            <li>Reglas ISR: <code>ISR_DEDUCCIONES</code>, <code>ISR_RETENCION</code></li>
+                        </ul>
+                    </li>
+                    <li>Asegurarse de que las reglas estén en el orden correcto:
+                        <ol>
+                            <li>Primero las reglas base (BASE_IHSS, BASE_RAP, BASE_ISR)</li>
+                            <li>Luego las deducciones IHSS y RAP</li>
+                            <li>Después las deducciones ISR</li>
+                            <li>Finalmente la regla NET (si existe)</li>
+                        </ol>
+                    </li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">6</span>
+                <strong>Configurar Reglas Salariales de Ingresos:</strong>
+                <p>Para cada regla salarial que represente un ingreso (salario base, horas extra, bonos, etc.):</p>
+                <ol>
+                    <li>Ir a la regla salarial</li>
+                    <li>En la pestaña <strong>"Honduras Configuration"</strong>, marcar las casillas correspondientes:
+                        <ul>
+                            <li><strong>IHSS Base:</strong> Si el ingreso debe incluirse en la base de cálculo de IHSS</li>
+                            <li><strong>RAP Base:</strong> Si el ingreso debe incluirse en la base de cálculo de RAP</li>
+                            <li><strong>ISR Base:</strong> Si el ingreso es gravable para ISR</li>
+                            <li><strong>Computable for Benefits:</strong> Si debe incluirse en el cálculo de 13° y 14° mes</li>
+                        </ul>
+                    </li>
+                    <li>Seleccionar la periodicidad aplicable</li>
+                </ol>
+                <div class="warning">
+                    <strong>Ejemplo:</strong> Para "Salario Base":
+                    <ul>
+                        <li>✓ Marcar IHSS Base</li>
+                        <li>✓ Marcar RAP Base</li>
+                        <li>✓ Marcar ISR Base</li>
+                        <li>✓ Marcar Computable for Benefits</li>
+                    </ul>
+                    Para "Horas Extra":
+                    <ul>
+                        <li>✓ Marcar IHSS Base</li>
+                        <li>✗ NO marcar RAP Base</li>
+                        <li>✓ Marcar ISR Base</li>
+                        <li>✗ NO marcar Computable for Benefits</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3 id="config-empleados-nomina">5.2. Configuración de Empleados</h3>
+            
+            <div class="step">
+                <span class="step-number">7</span>
+                <strong>Importar o Crear Empleados:</strong>
+                <p class="menu-path">Menú: Honduras Payroll → Import Employees</p>
+                <p>Use el wizard de importación masiva o cree empleados manualmente.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">8</span>
+                <strong>Configurar Contrato del Empleado:</strong>
+                <p class="menu-path">Menú: Empleados → Seleccionar Empleado → Pestaña "Honduras Payroll"</p>
+                <ol>
+                    <li>Verificar que el empleado tenga un contrato activo en "Contract History"</li>
+                    <li>Si no existe, crear nueva entrada en "Contract History" con:
+                        <ul>
+                            <li>Fecha de inicio</li>
+                            <li>Salario (wage)</li>
+                            <li>Periodicidad (semanal/quincenal/mensual)</li>
+                            <li>Puesto de trabajo</li>
+                            <li>Departamento</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">9</span>
+                <strong>Configurar Exclusiones (si aplica):</strong>
+                <p>En la pestaña "Honduras Payroll" del empleado:</p>
+                <ul>
+                    <li>Marcar <strong>"Exclude from IHSS"</strong> si el empleado está excluido de deducciones IHSS</li>
+                    <li>Marcar <strong>"Exclude from RAP"</strong> si el empleado está excluido de deducciones RAP</li>
+                    <li>Marcar <strong>"Exclude from ISR"</strong> si el empleado está excluido de retenciones ISR</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">10</span>
+                <strong>Configurar Conceptos Recurrentes (si aplica):</strong>
+                <p>En la sección "Recurring Concepts" del empleado:</p>
+                <ul>
+                    <li>Agregar préstamos, anticipos, comisiones recurrentes, etc.</li>
+                    <li>Configurar fechas de vigencia</li>
+                    <li>Para préstamos, configurar monto total y número de cuotas</li>
+                </ul>
+            </div>
+            
+            <h3 id="generacion-nomina">5.3. Generación de Nómina</h3>
+            
+            <div class="step">
+                <span class="step-number">11</span>
+                <strong>Crear Batch de Nómina:</strong>
+                <p class="menu-path">Menú: Nómina → Payslips → Crear</p>
+                <ol>
+                    <li>Seleccionar la estructura salarial configurada</li>
+                    <li>Seleccionar el período de nómina (fecha desde/hasta)</li>
+                    <li>Seleccionar los empleados a incluir</li>
+                    <li>Crear los payslips</li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">12</span>
+                <strong>Calcular Nómina:</strong>
+                <p>Para cada payslip o en lote:</p>
+                <ol>
+                    <li>Abrir el payslip</li>
+                    <li>Hacer clic en <strong>"Compute Sheet"</strong></li>
+                    <li>El sistema calculará automáticamente:
+                        <ul>
+                            <li><strong>Bases de cálculo:</strong> Sumará todas las reglas marcadas como base (IHSS, RAP, ISR)</li>
+                            <li><strong>IHSS:</strong> Calculará IVM y EM según la configuración activa del empleado, respetando techos y exclusiones</li>
+                            <li><strong>RAP:</strong> Calculará FOVIIF y FRL según la configuración activa, respetando pisos, techos y exclusiones</li>
+                            <li><strong>ISR:</strong> Calculará deducciones y retención según la tabla ISR correspondiente a la periodicidad del empleado</li>
+                            <li><strong>Conceptos recurrentes:</strong> Aplicará automáticamente los conceptos recurrentes activos</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">13</span>
+                <strong>Revisar Cálculos:</strong>
+                <p>En el payslip, revisar la pestaña <strong>"Computation"</strong>:</p>
+                <ul>
+                    <li>Verificar que las bases de cálculo sean correctas</li>
+                    <li>Verificar que las deducciones IHSS, RAP e ISR sean correctas</li>
+                    <li>Verificar que los techos y pisos se respeten</li>
+                    <li>Verificar que el salario neto sea correcto</li>
+                </ul>
+                <p>En la pestaña <strong>"Honduras Payroll Info"</strong> (si está disponible), revisar:</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Campo</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>IHSS Base</td>
+                            <td>Base utilizada para cálculo IHSS</td>
+                        </tr>
+                        <tr>
+                            <td>IHSS IVM Employee</td>
+                            <td>Aporte IVM del empleado</td>
+                        </tr>
+                        <tr>
+                            <td>IHSS IVM Employer</td>
+                            <td>Aporte IVM del empleador</td>
+                        </tr>
+                        <tr>
+                            <td>IHSS EM Employee</td>
+                            <td>Aporte EM del empleado</td>
+                        </tr>
+                        <tr>
+                            <td>IHSS EM Employer</td>
+                            <td>Aporte EM del empleador</td>
+                        </tr>
+                        <tr>
+                            <td>RAP Base</td>
+                            <td>Base utilizada para cálculo RAP</td>
+                        </tr>
+                        <tr>
+                            <td>RAP FOVIIF Employee</td>
+                            <td>Aporte FOVIIF del empleado</td>
+                        </tr>
+                        <tr>
+                            <td>RAP FOVIIF Employer</td>
+                            <td>Aporte FOVIIF del empleador</td>
+                        </tr>
+                        <tr>
+                            <td>RAP FRL Employer</td>
+                            <td>Aporte FRL del empleador</td>
+                        </tr>
+                        <tr>
+                            <td>ISR Taxable Base</td>
+                            <td>Base gravable para ISR (después de deducciones)</td>
+                        </tr>
+                        <tr>
+                            <td>ISR Amount</td>
+                            <td>Monto de ISR retenido en este período</td>
+                        </tr>
+                        <tr>
+                            <td>ISR YTD</td>
+                            <td>ISR acumulado año a fecha</td>
+                        </tr>
+                        <tr>
+                            <td>Period Days</td>
+                            <td>Días del período de nómina</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">14</span>
+                <strong>Confirmar Nómina:</strong>
+                <ol>
+                    <li>Una vez revisados todos los cálculos, hacer clic en <strong>"Confirm"</strong></li>
+                    <li>El sistema generará automáticamente:
+                        <ul>
+                            <li>Asientos contables (si está configurado el módulo de contabilidad)</li>
+                            <li>Registro en el historial de ISR (si aplica)</li>
+                            <li>Actualización de saldos de préstamos/anticipos</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">15</span>
+                <strong>Pagar Nómina:</strong>
+                <p>Una vez confirmada, puede proceder con el pago según el proceso estándar de Odoo.</p>
+            </div>
+            
+            <div class="info">
+                <strong>Información importante sobre los cálculos automáticos:</strong>
+                <ul>
+                    <li><strong>Techos IHSS:</strong> Se prorratean automáticamente según la periodicidad. Ejemplo: Techo mensual 11,903.13 → Techo quincenal = 11,903.13 × (15/30) = 5,951.57</li>
+                    <li><strong>Control de acumulados:</strong> Si hay múltiples nóminas en el mismo mes, el sistema controla los acumulados para respetar los techos mensuales</li>
+                    <li><strong>ISR acumulado:</strong> El sistema mantiene el historial de ISR y calcula la retención considerando lo ya retenido en el año</li>
+                    <li><strong>Exclusiones:</strong> Si un empleado está excluido de alguna deducción, las reglas correspondientes no se aplican</li>
+                    <li><strong>Configuración activa:</strong> El sistema usa automáticamente la configuración validada para el año y compañía del empleado</li>
+                </ul>
+            </div>
+            
+            <h3 id="proceso-mensual">5.4. Proceso Mensual Recurrente</h3>
+            
+            <p>Una vez configurado todo, el proceso mensual es simple:</p>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Crear batch de nómina</strong> para el período correspondiente
+            </div>
+            
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Calcular todos los payslips</strong> (el sistema aplicará automáticamente todas las deducciones)
+            </div>
+            
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>Revisar cálculos</strong> (especialmente para empleados nuevos o con cambios)
+            </div>
+            
+            <div class="step">
+                <span class="step-number">4</span>
+                <strong>Confirmar y pagar</strong>
+            </div>
+        </section>
+        
+        <section id="contabilidad" class="section">
+            <h2>6. Contabilidad</h2>
+            
+            <h3>6.1. Configuración de Cuentas</h3>
+            <p>En cada configuración (IHSS, RAP), en la pestaña "Accounting", asigne las cuentas contables correspondientes:</p>
+            
+            <div class="feature-box">
+                <h4>Cuentas IHSS</h4>
+                <ul>
+                    <li><strong>IVM Employee Account:</strong> Cuenta de pasivo para retenciones IVM de empleados</li>
+                    <li><strong>IVM Employer Account:</strong> Cuenta de gasto para aportes IVM del empleador</li>
+                    <li><strong>EM Employee Account:</strong> Cuenta de pasivo para retenciones EM de empleados</li>
+                    <li><strong>EM Employer Account:</strong> Cuenta de gasto para aportes EM del empleador</li>
+                </ul>
+            </div>
+            
+            <div class="feature-box">
+                <h4>Cuentas RAP</h4>
+                <ul>
+                    <li><strong>FOVIIF Employee Account:</strong> Cuenta de pasivo para retenciones FOVIIF de empleados</li>
+                    <li><strong>FOVIIF Employer Account:</strong> Cuenta de gasto para aportes FOVIIF del empleador</li>
+                    <li><strong>FRL Employer Account:</strong> Cuenta de gasto para aportes FRL del empleador</li>
+                </ul>
+            </div>
+            
+            <h3>6.2. Asientos Automáticos</h3>
+            <p>Al confirmar la nómina, el sistema genera automáticamente asientos contables con las siguientes características:</p>
+            
+            <ul>
+                <li><strong>Separación por componente:</strong> Líneas separadas para IVM, EM, FOVIIF y FRL</li>
+                <li><strong>Separación empleado/empleador:</strong> Líneas distintas para deducciones del trabajador y aportes patronales</li>
+                <li><strong>Cuentas configuradas:</strong> Usa las cuentas asignadas en las configuraciones</li>
+                <li><strong>Soporte analítica:</strong> Si se usa analítica/centros de costo, se respetan en los asientos</li>
+            </ul>
+        </section>
+        
+        <section id="seguridad" class="section">
+            <h2>7. Seguridad y Auditoría</h2>
+            
+            <h3>7.1. Grupos de Usuarios</h3>
+            <p>El módulo define tres grupos de seguridad:</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Grupo</th>
+                        <th>Permisos</th>
+                        <th>Uso</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Payroll Administrator</strong></td>
+                        <td>Acceso completo a configuración y datos sensibles</td>
+                        <td>Administradores de nómina</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Payroll User</strong></td>
+                        <td>Operaciones de nómina, lectura de configuraciones</td>
+                        <td>Personal de nómina operativo</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Payroll Auditor</strong></td>
+                        <td>Solo lectura para auditoría</td>
+                        <td>Auditores internos/externos</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>7.2. Historiales y Trazabilidad</h3>
+            
+            <div class="feature-box">
+                <h4>ISR History</h4>
+                <p>Registra todos los cálculos de ISR por empleado, incluyendo:</p>
+                <ul>
+                    <li>Año y período</li>
+                    <li>Base gravable</li>
+                    <li>Deducciones aplicadas</li>
+                    <li>Monto de ISR</li>
+                    <li>ISR acumulado año a fecha</li>
+                    <li>Tabla utilizada</li>
+                    <li>Payslip vinculado</li>
+                </ul>
+            </div>
+            
+            <div class="feature-box">
+                <h4>Contract History</h4>
+                <p>Mantiene un registro completo de todas las versiones de contratos:</p>
+                <ul>
+                    <li>Fechas de inicio y fin</li>
+                    <li>Salarios históricos</li>
+                    <li>Cambios de puesto y departamento</li>
+                    <li>Periodicidad de pago</li>
+                </ul>
+            </div>
+            
+            <div class="feature-box">
+                <h4>Trazabilidad de Configuraciones</h4>
+                <p>Todas las configuraciones (IHSS, RAP, ISR) mantienen:</p>
+                <ul>
+                    <li>Estado (Draft/Validated)</li>
+                    <li>Fecha de creación y modificación</li>
+                    <li>Usuario que creó/modificó</li>
+                    <li>Historial de cambios</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section id="flujo" class="section">
+            <h2>8. Flujo de Trabajo Recomendado</h2>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Configuración Anual:</strong> Al inicio de cada año (o cuando cambien los parámetros oficiales):
+                <ul>
+                    <li>Crear y validar configuración IHSS para el año</li>
+                    <li>Crear y validar configuración RAP para el año</li>
+                    <li>Crear y validar tablas ISR para el año (por periodicidad)</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Configuración de Reglas:</strong> Revisar y actualizar reglas salariales marcando las bases correspondientes (IHSS, RAP, ISR, Computable).
+            </div>
+            
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>Carga Inicial:</strong> Si es la primera vez:
+                <ul>
+                    <li>Preparar archivo Excel con datos de empleados</li>
+                    <li>Usar el wizard de importación</li>
+                    <li>Revisar y corregir errores si los hay</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">4</span>
+                <strong>Revisión de Contratos:</strong> Verificar que los contratos estén correctamente configurados con salarios y fechas de vigencia.
+            </div>
+            
+            <div class="step">
+                <span class="step-number">5</span>
+                <strong>Conceptos Recurrentes:</strong> Configurar conceptos recurrentes (préstamos, anticipos, comisiones, etc.) para cada empleado que los tenga.
+            </div>
+            
+            <div class="step">
+                <span class="step-number">6</span>
+                <strong>Procesamiento Normal:</strong> Procesar nóminas normalmente. El sistema calculará automáticamente todas las deducciones legales.
+            </div>
+            
+            <div class="step">
+                <span class="step-number">7</span>
+                <strong>Revisión y Confirmación:</strong> Revisar los payslips generados, verificar cálculos y confirmar.
+            </div>
+            
+            <div class="step">
+                <span class="step-number">8</span>
+                <strong>Décimo Tercer Mes:</strong> Al final del año (diciembre):
+                <ul>
+                    <li>Crear registros de 13° mes para cada empleado</li>
+                    <li>Calcular montos según método seleccionado</li>
+                    <li>Incluir en nómina de diciembre</li>
+                    <li>Marcar como pagado</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">9</span>
+                <strong>Décimo Cuarto Mes:</strong> A mitad de año (junio):
+                <ul>
+                    <li>Crear registros de 14° mes para cada empleado</li>
+                    <li>El sistema calculará promedio/suma del primer semestre</li>
+                    <li>Incluir en nómina de junio</li>
+                    <li>Marcar como pagado</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">10</span>
+                <strong>Auditoría:</strong> Usar los historiales (ISR History, Contract History) para auditorías y reportes.
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2>9. Preguntas Frecuentes</h2>
+            
+            <div class="feature-box">
+                <h4>¿Cómo se calcula el techo de IHSS para una quincena?</h4>
+                <p>El sistema usa la regla estándar 30/360: <code>TechoQuincena = TechoMensual × (15/30) = TechoMensual × 0.5</code></p>
+            </div>
+            
+            <div class="feature-box">
+                <h4>¿Qué pasa si hay múltiples nóminas en el mismo mes?</h4>
+                <p>El sistema controla los acumulados del mes por empleado para asegurar que no se excedan los techos mensuales, evitando sobre-retención.</p>
+            </div>
+            
+            <div class="feature-box">
+                <h4>¿Puedo excluir a un empleado de alguna deducción?</h4>
+                <p>Sí, en la ficha del empleado, pestaña "Honduras Payroll", puede marcar las exclusiones correspondientes (IHSS, RAP, ISR).</p>
+            </div>
+            
+            <div class="feature-box">
+                <h4>¿Cómo se calcula el 13° mes para empleados con salario variable?</h4>
+                <p>Use el método "Variable" y el sistema calculará el promedio de los salarios del período trabajado basándose en los payslips generados.</p>
+            </div>
+            
+            <div class="feature-box">
+                <h4>¿Qué pasa si cambio el salario de un empleado a mitad de año?</h4>
+                <p>Simplemente cree una nueva versión del contrato con la nueva fecha de inicio y salario. El sistema mantendrá el historial completo.</p>
+            </div>
+        </section>
+        
+        <footer>
+            <p><strong>Módulo de Localización Laboral Honduras para Odoo 19</strong></p>
+            <p>Desarrollado por Grupo Nahuiik | Versión 19.0.1.0.0</p>
+            <p>Para soporte técnico, contacte: info@gruponahuiik.com</p>
+            <p>Documentación actualizada: Enero 2025</p>
+        </footer>
+    </div>
+</body>
+</html>

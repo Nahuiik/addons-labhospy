@@ -1,0 +1,718 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Asistente de baja desde la ficha de empleado (mismo flujo que archivado HR) -->
+    <record id="action_hr_employee_departure_wizard" model="ir.actions.act_window">
+        <field name="name">Dar de baja</field>
+        <field name="res_model">hr.departure.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="hr.hr_departure_wizard_view_form"/>
+    </record>
+
+    <!-- Acción para listado de empleados con exportación Excel -->
+    <record id="action_hr_employee_list_l10n_hn" model="ir.actions.act_window">
+        <field name="name">Listado de Empleados</field>
+        <field name="res_model">hr.employee</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_ids" eval="[
+            (5, 0, 0),
+            (0, 0, {'view_mode': 'list', 'view_id': ref('hr.view_employee_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('hr.view_employee_form')}),
+        ]"/>
+        <field name="search_view_id" ref="hr.view_employee_filter"/>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crear el primer empleado
+            </p>
+            <p>
+                Utilice "Exportar a Excel" para generar el Registro de contratos o el listado de empleados,
+                filtrando por todos, por departamento o por jefe inmediato.
+            </p>
+        </field>
+    </record>
+
+    <!-- Vista tree de empleados con campos completos para Honduras -->
+    <record id="view_hr_employee_tree_l10n_hn_payroll" model="ir.ui.view">
+        <field name="name">hr.employee.tree.l10n.hn.payroll</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_tree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="identification_id" string="DNI" optional="show"/>
+                <field name="biometric_code" string="Código Biométrico" optional="show"/>
+                <field name="sex" string="Sexo" optional="show"/>
+                <field name="private_city" string="Lugar de Residencia" optional="show"/>
+                <field name="marital" string="Estado Civil" optional="show"/>
+                <field name="job_title" string="Profesión u oficio" optional="show"/>
+                <field name="work_phone" string="Número de Teléfono" class="o_force_ltr" optional="show"/>
+                <field name="work_email" string="Correo Electrónico" optional="show"/>
+                <field name="wage" string="Salario" widget="monetary" optional="show"/>
+                <field name="contract_date_start" string="Fecha de Inicio" optional="show"/>
+                <field name="contract_date_end" string="Fecha de terminación" optional="show"/>
+                <field name="current_date_version" string="Fecha de firma contrato" optional="show"/>
+                <field name="contract_type_id" string="Tipo de contrato" optional="show"/>
+                <field name="days_to_contract_expiration" string="Días para vencer" optional="show"/>
+            </field>
+            <!-- Unificar etiquetas y evitar duplicados: Cargo, Área, Nombre Completo del Jefe Inmediato -->
+            <field name="department_id" position="attributes">
+                <attribute name="string">Área</attribute>
+                <attribute name="optional">show</attribute>
+            </field>
+            <field name="job_id" position="attributes">
+                <attribute name="string">Cargo</attribute>
+                <attribute name="optional">show</attribute>
+            </field>
+            <field name="parent_id" position="attributes">
+                <attribute name="string">Nombre Completo del Jefe Inmediato</attribute>
+                <attribute name="optional">show</attribute>
+            </field>
+            <header position="inside">
+                <button name="%(l10n_hn_hr_payroll.action_hr_employee_export_excel_wizard)d" string="Exportar a Excel" type="action"
+                        class="btn-primary" icon="fa-file-excel-o"
+                        groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user"/>
+            </header>
+        </field>
+    </record>
+
+    <!-- Filtros: contratos que vencen y alertas -->
+    <record id="view_hr_employee_filter_l10n_hn" model="ir.ui.view">
+        <field name="name">hr.employee.filter.l10n.hn</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='out_of_contract']" position="after">
+                <filter string="Contratos que vencen este mes" name="contract_expires_this_month"
+                    domain="[('contract_expires_this_month', '=', True)]"/>
+                <separator/>
+                <filter string="Con alertas activas" name="has_warnings"
+                    domain="[('active_warnings_display', '!=', False)]"
+                    icon="fa-exclamation-triangle"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Herencia kanban empleados: iconos de alertas -->
+    <record id="view_hr_employee_kanban_inherit_l10n_hn" model="ir.ui.view">
+        <field name="name">hr.employee.kanban.inherit.l10n.hn</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.hr_kanban_view_employees"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="contract_expiring_soon"/>
+                <field name="has_missing_documents"/>
+                <field name="has_expiring_licenses"/>
+                <field name="has_loan_missing_dates_warning"/>
+                <field name="has_parent_type_warning"/>
+                <field name="has_trial_period_warning"/>
+            </field>
+            <xpath expr="//div[hasclass('float-end')]" position="before">
+                <div class="float-end me-2 d-flex gap-1">
+                    <span t-if="record.has_trial_period_warning.raw_value" title="Período de prueba">
+                        <i class="fa fa-hourglass-half text-info"/>
+                    </span>
+                    <span t-if="record.contract_expiring_soon.raw_value" title="Contrato por vencer">
+                        <i class="fa fa-calendar-times-o text-warning"/>
+                    </span>
+                    <span t-if="record.has_missing_documents.raw_value" title="Documentos faltantes">
+                        <i class="fa fa-file-o text-warning"/>
+                    </span>
+                    <span t-if="record.has_expiring_licenses.raw_value" title="Licencias por vencer">
+                        <i class="fa fa-id-card text-danger"/>
+                    </span>
+                    <span t-if="record.has_loan_missing_dates_warning.raw_value" title="Préstamos sin fechas">
+                        <i class="fa fa-money text-warning"/>
+                    </span>
+                    <span t-if="record.has_parent_type_warning.raw_value" title="Padre/Madre inconsistente">
+                        <i class="fa fa-exclamation-triangle text-warning"/>
+                    </span>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_hr_employee_form_inherit_l10n_hn" model="ir.ui.view">
+        <field name="name">hr.employee.form.inherit.l10n.hn</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header[@groups='hr.group_hr_user']/field[@name='version_id']" position="before">
+                <button name="%(l10n_hn_hr_payroll.action_hr_employee_departure_wizard)d" type="action"
+                        string="Dar de baja" class="btn btn-danger"
+                        invisible="not active or not id"
+                        groups="hr.group_hr_user"
+                        context="{'active_ids': [id], 'employee_termination': True}"/>
+                <button name="action_open_rehire_wizard" type="object"
+                        string="Recontratar" class="btn btn-success"
+                        invisible="active or not id"
+                        groups="hr.group_hr_user"/>
+            </xpath>
+            <div name="button_box" position="inside">
+                <button name="action_open_missing_entry_documents" type="object"
+                        class="oe_stat_button" icon="fa-file-o"
+                        invisible="document_missing_required_count == 0 or hn_company_country_code != 'HN'"
+                        groups="hr.group_hr_user">
+                    <field name="document_missing_required_count" widget="statinfo" string="Docs. faltantes"/>
+                </button>
+                <button name="action_open_salary_advances" type="object"
+                        class="oe_stat_button" icon="fa-money"
+                        invisible="hn_company_country_code != 'HN'"
+                        groups="l10n_hn_hr_payroll.group_hr_payroll_user">
+                    <field name="salary_advance_count" widget="statinfo" string="Anticipos"/>
+                </button>
+                <button name="action_open_l10n_hn_monthly_salary_history" type="object"
+                        class="oe_stat_button" icon="fa-line-chart"
+                        invisible="hn_company_country_code != 'HN'"
+                        groups="l10n_hn_hr_payroll.group_hr_payroll_user">
+                    <field name="l10n_hn_monthly_salary_history_count" widget="statinfo" string="Hist. salarial"/>
+                </button>
+            </div>
+            <xpath expr="//div[@name='button_box']" position="before">
+                <field name="hn_company_country_code" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//group[@name='citizenship']/field[@name='identification_id']" position="attributes">
+                <attribute name="invisible">hn_company_country_code != 'HN'</attribute>
+            </xpath>
+            <xpath expr="//group[@name='citizenship']/field[@name='ssnid']" position="attributes">
+                <attribute name="invisible">hn_company_country_code != 'HN'</attribute>
+            </xpath>
+            <field name="l10n_hn_monthly_salary_history_count" invisible="1"/>
+            <field name="document_missing_required_count" invisible="1"/>
+            <field name="salary_advance_count" invisible="1"/>
+
+            <xpath expr="//field[@name='job_title']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//group[@name='departure']/field[@name='departure_reason_id']" position="after">
+                <field name="departure_specific_reason_id"
+                       options="{'no_create': True, 'no_open': True, 'no_edit': True}"
+                       groups="hr.group_hr_user"/>
+            </xpath>
+            <!-- Ocultar sección Documentos del tab Personal (ya se gestiona en Documentos de Entrada) -->
+            <xpath expr="//group[@name='hr_document_group']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Antigüedad debajo del nombre del empleado -->
+            <xpath expr="//div[hasclass('oe_title')]//h1" position="after">
+                <h6 class="d-flex align-items-baseline mb-0 text-muted" invisible="not seniority_display">
+                    <i class="fa fa-clock-o fa-fw me-1" title="Antigüedad"/>
+                    <field name="seniority_display" nolabel="1"/>
+                </h6>
+            </xpath>
+
+            <!-- Fix Personal Information section layout -->
+            <xpath expr="//group[@name='hr_birth_group']" position="replace">
+                <group string="Información Personal" name="hr_birth_group">
+                    <field name="legal_name"/>
+                    <field name="birthday"/>
+                    <field name="birthday_public_display" invisible="not birthday" 
+                           string="Mostrar a todos los empleados" 
+                           widget="boolean_toggle"/>
+                    <field name="place_of_birth" placeholder="Ciudad"/>
+                    <field name="country_of_birth" placeholder="País"/>
+                    <field name="sex" string="Género"/>
+                    <field name="disabled" widget="boolean_toggle" string="Discapacidad"
+                           groups="l10n_hn_hr_payroll.group_hr_payroll_user"/>
+                    <field name="disability_line_ids" nolabel="1" colspan="2"
+                           invisible="not disabled"
+                           groups="l10n_hn_hr_payroll.group_hr_payroll_user"
+                           context="{'default_employee_id': id}">
+                        <list editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="disability_type_id" string="Tipo de discapacidad"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="disability_date" string="Fecha"/>
+                            <field name="document" string="Documento" filename="document_filename"/>
+                            <field name="document_filename" column_invisible="True"/>
+                        </list>
+                    </field>
+                    <field name="parent_type" string="Padre/Madre"/>
+                </group>
+            </xpath>
+
+            <xpath expr="//group[@name='hr_family_group']/field[@name='children']" position="after">
+                <field name="relatives_in_company" string="¿Tiene parientes trabajando en esta empresa?"/>
+                <field name="in_company_relative_ids" nolabel="1" colspan="2"
+                       invisible="relatives_in_company != 'yes'"
+                       context="{'default_employee_id': id}">
+                    <list editable="bottom">
+                        <field name="colleague_id"
+                               domain="[('id', '!=', parent.id), ('company_id', '=', parent.company_id)]"
+                               options="{'no_create': True}"/>
+                        <field name="relation_id" string="Parentesco" options="{'no_create': True}"/>
+                    </list>
+                </field>
+            </xpath>
+            
+            <!-- Fix bank account field to prevent overlap with right column -->
+            <xpath expr="//field[@name='bank_account_ids' and @widget='many2many_tags_salary_bank']" position="attributes">
+                <attribute name="class">w-100</attribute>
+            </xpath>
+            
+            <!-- Add Employee Code and Biometric Code fields in Work tab -->
+            <xpath expr="//field[@name='job_id']" position="before">
+                <field name="employee_code"/>
+                <field name="biometric_code"/>
+            </xpath>
+            <xpath expr="//field[@name='job_id']" position="after">
+                <field name="project_id"/>
+                <field name="assignment_id"/>
+            </xpath>
+            
+            <!-- Add RTN field after identification_id in Citizenship section -->
+            <xpath expr="//field[@name='identification_id']" position="after">
+                <field name="rtn" string="RTN" invisible="hn_company_country_code != 'HN'"/>
+            </xpath>
+            
+            <!-- Fix Emergency Contact section - Multiple contacts as table -->
+            <xpath expr="//group[field[@name='emergency_contact']]" position="replace">
+                <group string="Contactos de Emergencia" name="emergency_contact_group">
+                    <field name="emergency_contact_ids" nolabel="1" colspan="2" 
+                           context="{'default_employee_id': id}">
+                        <list editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="name" string="Nombre"/>
+                            <field name="relation_id" string="Parentesco"/>
+                            <field name="phone" string="Teléfono" class="o_force_ltr"/>
+                            <field name="phone_secondary" string="Tel. Secundario" class="o_force_ltr" optional="hide"/>
+                            <field name="notes" string="Notas" optional="hide"/>
+                        </list>
+                    </field>
+                </group>
+                <group string="Licencia de Conducir" name="driver_license_group">
+                    <field name="has_license"/>
+                    <field name="available_to_travel" widget="boolean_toggle"/>
+                    <field name="license_ids" nolabel="1" colspan="2" 
+                           invisible="has_license != 'yes'"
+                           context="{'default_employee_id': id}">
+                        <list editable="bottom">
+                            <field name="license_type_id" string="Tipo"/>
+                            <field name="license_number" string="Número"/>
+                            <field name="expiration_date" string="Vencimiento"/>
+                            <field name="time_to_expire" string="Tiempo para Vencer"/>
+                            <field name="is_expired" column_invisible="True"/>
+                        </list>
+                    </field>
+                </group>
+            </xpath>
+            <!-- Alertas: un solo panel (orden peligro > avisos > info); contenido en _compute_employee_form_alerts_panel -->
+            <xpath expr="//div[hasclass('oe_title')]" position="after">
+                <field name="employee_form_alerts_panel_visible" invisible="1"/>
+                <field name="employee_form_alerts_panel_html" nolabel="1" colspan="2"
+                       readonly="1" invisible="not employee_form_alerts_panel_visible"/>
+            </xpath>
+            
+            <!-- Add clothing sizes in Personal tab -->
+            <xpath expr="//group[@name='hr_birth_group']" position="after">
+                <group string="Tallas de Ropa" name="clothing_sizes_group">
+                    <field name="shirt_size" string="Talla de Camisa"/>
+                    <field name="pants_size" string="Talla de Pantalón"/>
+                    <field name="shoe_size" string="Talla de Calzado"/>
+                </group>
+            </xpath>
+            <!-- Add Datos Familiares table to Personal tab -->
+            <xpath expr="//page[@name='personal_information']" position="inside">
+                <group string="Datos Familiares" name="family_data_group">
+                    <field name="family_ids" nolabel="1" colspan="2" context="{'default_employee_id': id}">
+                        <list editable="bottom">
+                            <field name="name" string="Nombre"/>
+                            <field name="relation_id" string="Parentesco"/>
+                            <field name="birthdate" string="Fecha de Nacimiento"/>
+                            <field name="age" string="Edad"/>
+                            <field name="address" string="Domicilio" optional="show"/>
+                            <field name="occupation" string="Ocupación" optional="show"/>
+                            <field name="is_dependent" string="Dependiente" widget="boolean_toggle"/>
+                            <field name="lives_with_employee" string="Vive con usted" widget="boolean_toggle"/>
+                            <field name="works" string="Trabaja" widget="boolean_toggle"/>
+                        </list>
+                    </field>
+                </group>
+                <group string="Beneficiarios" name="employee_beneficiaries_group">
+                    <field name="beneficiary_ids" nolabel="1" colspan="2" context="{'default_employee_id': id}">
+                        <list editable="bottom">
+                            <field name="name" string="Nombre"/>
+                            <field name="relation_id" string="Parentesco"/>
+                            <field name="percentage" string="Porcentaje"/>
+                        </list>
+                    </field>
+                </group>
+            </xpath>
+
+            <!-- Campos de nómina HN antes en pestaña Estado de Salud (incl. datos físicos si no hay otro bloque) -->
+            <xpath expr="//page[@name='personal_information']" position="inside">
+                <separator string="Salud y bienestar (nómina)" groups="hr.group_hr_user"/>
+                <group groups="hr.group_hr_user">
+                    <group string="Datos físicos">
+                        <field name="height" string="Altura (cm)"/>
+                        <field name="weight" string="Peso (kg)"/>
+                        <field name="blood_type_id"/>
+                        <field name="health_status"/>
+                        <field name="has_allergies" string="¿Tiene alergias?" widget="boolean_toggle"/>
+                        <field name="allergy_ids" widget="many2many_tags" string="Indique alergias"
+                               options="{'no_create_edit': True}"
+                               invisible="not has_allergies"/>
+                    </group>
+                    <group string="Actividades">
+                        <field name="practice_sports" widget="boolean_toggle"/>
+                        <field name="sport_ids" widget="many2many_tags"
+                               invisible="not practice_sports"/>
+                        <field name="visit_social_club" widget="boolean_toggle"/>
+                        <field name="hobby_ids" widget="many2many_tags" string="Pasatiempos favoritos"/>
+                    </group>
+                </group>
+                <group groups="hr.group_hr_user">
+                    <group string="Condiciones médicas">
+                        <field name="has_chronic_disease" widget="boolean_toggle"/>
+                        <field name="chronic_disease_line_ids" nolabel="1" colspan="2"
+                               invisible="not has_chronic_disease"
+                               context="{'default_employee_id': id}">
+                            <list editable="bottom">
+                                <field name="disease_id" string="Enfermedad" options="{'no_create_edit': True}"/>
+                                <field name="disease_date" string="Fecha"/>
+                                <field name="under_treatment" string="Tratamiento" widget="boolean_toggle"/>
+                                <field name="treatment_place" string="Lugar de tratamiento" optional="show"/>
+                            </list>
+                        </field>
+                    </group>
+                    <group string="Medicamentos y cirugías">
+                        <field name="continuous_medication" widget="boolean_toggle"/>
+                        <field name="medication_ids" widget="many2many_tags"
+                               invisible="not continuous_medication"/>
+                        <field name="surgery_ids" widget="many2many_tags" string="Cirugías"/>
+                    </group>
+                </group>
+            </xpath>
+            
+            <xpath expr="//notebook" position="inside">
+                <page string="Historial de Beneficios y Deducciones" name="benefits_deductions_history"
+                      invisible="hn_company_country_code != 'HN'">
+                    <!-- Ajustes salariales (hr_payroll): antes en pestaña propia, ahora en este historial -->
+                    <group string="Ajustes salariales (nómina estándar)" groups="l10n_hn_hr_payroll.group_hr_payroll_user" colspan="2">
+                        <field name="salary_attachment_ids" nolabel="1" colspan="2"
+                               widget="salary_attachment_2many"
+                               context="{'default_employee_ids': [id], 'form_view_ref': 'l10n_hn_payroll_base.hr_salary_attachment_employee_view_form', 'list_view_ref': 'l10n_hn_payroll_base.hr_salary_attachment_employee_view_list'}"/>
+                    </group>
+                    <group string="Historial de aumentos (incrementos salariales)" colspan="2"
+                           groups="l10n_hn_hr_payroll.group_hr_payroll_user">
+                        <field name="historical_salary_increase_ids" nolabel="1" colspan="2"
+                               context="{'default_employee_id': id}">
+                            <list create="0" delete="0">
+                                <field name="date"/>
+                                <field name="previous_wage"/>
+                                <field name="new_wage"/>
+                                <field name="increase_amount"/>
+                                <field name="increase_percentage"/>
+                                <field name="previous_job_id" optional="show"/>
+                                <field name="new_job_id" optional="show"/>
+                                <field name="previous_department_id" optional="hide"/>
+                                <field name="new_department_id" optional="hide"/>
+                            </list>
+                        </field>
+                    </group>
+                    <group string="13vo Mes (Aguinaldo)" colspan="2">
+                        <field name="thirteenth_month_ids" nolabel="1" colspan="2" context="{'default_employee_id': id}">
+                            <list create="0" delete="0" editable="bottom">
+                                <field name="year"/>
+                                <field name="period_start"/>
+                                <field name="period_end"/>
+                                <field name="worked_days"/>
+                                <field name="calculated_amount" widget="monetary"/>
+                                <field name="paid" widget="boolean_toggle"/>
+                                <field name="payslip_id" optional="hide"/>
+                            </list>
+                        </field>
+                    </group>
+                    <group string="14vo Mes" colspan="2">
+                        <field name="fourteenth_month_ids" nolabel="1" colspan="2" context="{'default_employee_id': id}">
+                            <list create="0" delete="0" editable="bottom">
+                                <field name="year"/>
+                                <field name="calculation_period_start"/>
+                                <field name="calculation_period_end"/>
+                                <field name="calculated_amount" widget="monetary"/>
+                                <field name="paid" widget="boolean_toggle"/>
+                                <field name="payslip_id" optional="hide"/>
+                            </list>
+                        </field>
+                    </group>
+                    <group string="Conceptos recurrentes (solo lectura)" colspan="2">
+                        <div class="alert alert-light border mb-2" role="alert" colspan="2">
+                            <i class="fa fa-info-circle me-1"/>
+                            Para <strong>agregar o modificar</strong> beneficios y deducciones use la pestaña
+                            <strong>Nómina Honduras</strong>.
+                        </div>
+                        <field name="recurring_concept_ids" nolabel="1" colspan="2" context="{'default_employee_id': id, 'default_company_id': company_id}">
+                            <list create="0" delete="0">
+                                <field name="name"/>
+                                <field name="concept_type"/>
+                                <field name="amount_type"/>
+                                <field name="amount" widget="monetary"/>
+                                <field name="total_amount" widget="monetary" optional="show"/>
+                                <field name="installments" optional="show"/>
+                                <field name="paid_installments" optional="show"/>
+                                <field name="date_start"/>
+                                <field name="date_end"/>
+                                <field name="active" widget="boolean_toggle"/>
+                            </list>
+                        </field>
+                    </group>
+                    <group string="Deducciones ISR" colspan="2" groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user">
+                        <field name="isr_excluded" invisible="1"/>
+                        <field name="isr_employee_deduction_ids" nolabel="1" colspan="2" groups="l10n_hn_hr_payroll.group_hr_payroll_admin">
+                            <list string="Deducciones ISR" editable="bottom">
+                                <field name="name"/>
+                                <field name="year"/>
+                                <field name="version_id" optional="hide"/>
+                                <field name="deduction_type_id" options="{'no_create': True}"/>
+                                <field name="amount"/>
+                                <field name="periodicity"/>
+                                <field name="date_start"/>
+                                <field name="date_end"/>
+                                <field name="active" widget="boolean_toggle"/>
+                            </list>
+                        </field>
+                    </group>
+                </page>
+                <page string="Documentos de Entrada" name="entry_documents"
+                      invisible="hn_company_country_code != 'HN'">
+                    <!-- Info banner -->
+                    <div class="alert alert-info mb-3" role="alert">
+                        <i class="fa fa-info-circle me-2" title="Información"/>
+                        <strong>Formatos permitidos:</strong> PDF, JPG, PNG, Word (doc, docx)
+                        <span class="ms-3">|</span>
+                        <span class="ms-3"><i class="fa fa-eye me-1" title="Vista previa"/>Los archivos PDF, JPG y PNG se pueden previsualizar</span>
+                    </div>
+                    <div class="mb-3">
+                        <button name="action_generate_required_documents" type="object" 
+                                string="Generar Documentos Requeridos" class="btn-secondary"
+                                help="Crea líneas para todos los tipos de documentos marcados como obligatorios"/>
+                        <button name="action_download_all_documents" type="object" 
+                                string="Descargar todos los documentos" class="btn-primary" icon="fa-download"
+                                invisible="not document_ids"
+                                help="Descarga todos los documentos del empleado en un archivo ZIP"/>
+                    </div>
+                    <field name="document_ids" nolabel="1" context="{'default_employee_id': id}">
+                        <list editable="bottom">
+                            <field name="document_type_id" string="Tipo de Documento"/>
+                            <field name="document" filename="document_filename" string="Documento"/>
+                            <field name="document_filename" column_invisible="True"/>
+                            <field name="is_required" string="Obligatorio" readonly="1"/>
+                            <field name="is_missing" string="Faltante" 
+                                   decoration-danger="is_missing and is_required"
+                                   decoration-warning="is_missing and not is_required"/>
+                            <field name="can_preview" column_invisible="True"/>
+                            <button name="action_preview_document" 
+                                    type="object" icon="fa-eye" string="Ver"
+                                    invisible="not can_preview or not document"/>
+                        </list>
+                    </field>
+                </page>
+                <page string="Nómina Honduras" name="l10n_hn_payroll"
+                      invisible="hn_company_country_code != 'HN'">
+                    <group string="Historial salarial mensual" groups="l10n_hn_hr_payroll.group_hr_payroll_user">
+                        <group>
+                            <field name="l10n_hn_receives_commission" widget="boolean_toggle"/>
+                            <field name="l10n_hn_add_commission_to_monthly_display" widget="boolean_toggle"/>
+                        </group>
+                    </group>
+                    <!-- Primer div hijo de la pestaña: gn_hr_documents inserta el grupo "Documentos" antes de este nodo (xpath //page[@name='l10n_hn_payroll']/div). -->
+                    <field name="l10n_hn_show_edit_initial_contract_wizard" invisible="1"/>
+                    <div class="mb-3" invisible="not l10n_hn_show_edit_initial_contract_wizard" groups="gn_hr_payroll_employee_extras.group_gn_edit_initial_contract">
+                        <button name="l10n_hn_action_open_edit_initial_contract_wizard" string="Editar contrato inicial" type="object"
+                                class="btn-secondary" icon="fa-edit"/>
+                    </div>
+
+                    <separator string="Contrato vigente"/>
+                    <group string="Datos del contrato actual" col="4">
+                        <field name="current_version_id" readonly="1" string="Versión actual"/>
+                        <field name="current_periodicity" readonly="1" string="Periodicidad de pago"/>
+                        <field name="current_date_version" string="Fecha de firma de contrato"/>
+                        <field name="current_contract_date_end" string="Fecha de vencimiento"/>
+                    </group>
+
+                    <separator string="Deducciones legales (IHSS, RAP, ISR)"/>
+                    <group>
+                        <group string="Configuración de deducciones">
+                            <field name="ihss_excluded" widget="boolean_toggle"/>
+                            <field name="ihss_settings_id" readonly="1"/>
+                            <field name="rap_excluded" widget="boolean_toggle"/>
+                            <field name="rap_settings_id" readonly="1"/>
+                            <field name="isr_excluded" widget="boolean_toggle"/>
+                        </group>
+                    </group>
+                    <group string="Valores de deducciones">
+                        <group string="IHSS">
+                            <field name="ihss_amount_monthly" widget="monetary" readonly="1"
+                                   invisible="ihss_excluded"/>
+                            <field name="ihss_amount_biweekly" widget="monetary" readonly="1"
+                                   invisible="ihss_excluded"/>
+                            <field name="ihss_ivm_amount" widget="monetary" readonly="1"
+                                   invisible="ihss_excluded"/>
+                            <field name="ihss_em_amount" widget="monetary" readonly="1"
+                                   invisible="ihss_excluded"/>
+                            <field name="ihss_manual" widget="boolean_toggle" invisible="ihss_excluded or not current_version_id"/>
+                            <field name="amount_ihss_manual" widget="monetary" invisible="ihss_excluded or not ihss_manual or not current_version_id"/>
+                            <div class="alert alert-info" role="alert" invisible="not ihss_excluded">
+                                <i class="fa fa-info-circle me-2"/>El empleado está excluido de IHSS
+                            </div>
+                        </group>
+                        <group string="RAP">
+                            <field name="rap_foviif_amount_monthly" widget="monetary" readonly="1"
+                                   invisible="rap_excluded"/>
+                            <field name="rap_foviif_amount_biweekly" widget="monetary" readonly="1"
+                                   invisible="rap_excluded"/>
+                            <field name="rap_manual" widget="boolean_toggle" invisible="rap_excluded or not current_version_id"/>
+                            <field name="amount_rap_manual" widget="monetary" invisible="rap_excluded or not rap_manual or not current_version_id"/>
+                            <div class="alert alert-info" role="alert" invisible="not rap_excluded">
+                                <i class="fa fa-info-circle me-2"/>El empleado está excluido de RAP
+                            </div>
+                        </group>
+                        <group string="ISR">
+                            <field name="isr_amount_monthly" widget="monetary" readonly="1"
+                                   invisible="isr_excluded"/>
+                            <field name="isr_amount_biweekly" widget="monetary" readonly="1"
+                                   invisible="isr_excluded"/>
+                            <field name="isr_ytd" widget="monetary" readonly="1"
+                                   invisible="isr_excluded"/>
+                            <field name="amount_isr_calculated" widget="monetary" readonly="1"
+                                   invisible="isr_excluded or not current_version_id"/>
+                            <separator string="Sobreescritura manual" invisible="isr_excluded or not current_version_id"/>
+                            <field name="isr_manual" widget="boolean_toggle" invisible="isr_excluded or not current_version_id"/>
+                            <field name="amount_isr_manual" widget="monetary"
+                                   invisible="isr_excluded or not isr_manual or not current_version_id"/>
+                            <div class="alert alert-info" role="alert" invisible="not isr_excluded">
+                                <i class="fa fa-info-circle me-2"/>El empleado está excluido de ISR
+                            </div>
+                        </group>
+                    </group>
+
+                    <separator string="Historial de contratos"/>
+                    <field name="version_ids" nolabel="1" string="Versiones de contrato" context="{'default_employee_id': id}">
+                        <list action="action_open_version" type="object" default_order="date_version desc">
+                            <field name="date_version" string="Fecha efectiva"/>
+                            <field name="contract_date_start" string="Inicio"/>
+                            <field name="contract_date_end" string="Fin"/>
+                            <field name="wage" widget="monetary"/>
+                            <field name="periodicity" string="Periodicidad"/>
+                            <field name="job_id"/>
+                            <field name="department_id"/>
+                        </list>
+                    </field>
+                    <group string="Historial de contrato (obsoleto)" invisible="1">
+                        <field name="current_contract_id" readonly="1" invisible="1"/>
+                        <field name="contract_history_ids" nolabel="1" invisible="1" context="{'default_employee_id': id}">
+                            <list>
+                                <field name="date_start"/>
+                                <field name="date_end"/>
+                                <field name="wage"/>
+                                <field name="periodicity"/>
+                                <field name="job_id"/>
+                                <field name="department_id"/>
+                            </list>
+                        </field>
+                    </group>
+
+                    <group string="Historial salarial mensual" groups="l10n_hn_hr_payroll.group_hr_payroll_user">
+                        <separator string="Consolidado mensual (neto, comisiones, salario mostrado)"/>
+                        <div class="alert alert-info mb-2" role="alert" colspan="2">
+                            <i class="fa fa-info-circle me-2"/>Generación e importación desde el menú <strong>Nómina Honduras</strong>.
+                        </div>
+                        <field name="l10n_hn_monthly_salary_history_ids" nolabel="1" colspan="2"
+                               context="{'default_employee_id': id}">
+                            <list string="Historial salarial" create="0" delete="0">
+                                <field name="year" string="Año"/>
+                                <field name="month" string="Mes"/>
+                                <field name="amount_net" widget="monetary" sum="Total neto"/>
+                                <field name="amount_commission" widget="monetary" optional="show" sum="Total com."/>
+                                <field name="amount_monthly_display" widget="monetary" string="Salario mensual" sum="Total"/>
+                                <field name="department_id" optional="show"/>
+                                <field name="job_id" optional="show"/>
+                                <field name="periodicity_snapshot" string="Periodicidad" optional="hide"/>
+                                <field name="historical_increase_count" string="# Aumentos"/>
+                                <field name="delta_vs_previous" widget="monetary" optional="hide"/>
+                                <field name="data_source" string="Origen" optional="show"/>
+                                <field name="currency_id" column_invisible="True"/>
+                            </list>
+                        </field>
+                    </group>
+
+                    <separator string="Beneficios y deducciones (conceptos recurrentes)"/>
+                    <div class="alert alert-light border mb-2" role="alert">
+                        <i class="fa fa-info-circle me-1"/>
+                        Edición: haga <strong>doble clic</strong> o un clic en la fila para abrir el formulario.
+                        La vista de solo lectura está en
+                        <strong>Historial de Beneficios y Deducciones</strong>.                         Asignación masiva:
+                        <strong>Nómina HN → Beneficios → Asignación masiva de conceptos</strong>.
+                    </div>
+                    <field name="recurring_concept_ids" nolabel="1" context="{'default_employee_id': id, 'default_company_id': company_id}"
+                           groups="l10n_hn_hr_payroll.group_hr_payroll_user">
+                        <list create="1" delete="1">
+                            <field name="name_from_concept_id" string="Plantilla del Concepto"
+                                   domain="[('is_template', '=', True), ('company_id', '=', parent.company_id)]"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="name" string="Nombre (texto)" optional="show"/>
+                            <field name="code" optional="show" readonly="name_from_concept_id"/>
+                            <field name="concept_type" readonly="name_from_concept_id"/>
+                            <field name="amount_type" readonly="name_from_concept_id"/>
+                            <field name="for_payroll" widget="boolean_toggle" optional="hide" readonly="name_from_concept_id"/>
+                            <field name="is_loan" widget="boolean_toggle" optional="show"
+                                   help="Préstamo en esta línea: editable aunque elija plantilla (evita que al guardar se pierda si la columna estaba oculta o el campo era solo lectura)."/>
+                            <field name="loan_split_quota_across_biweeks" widget="boolean_toggle" optional="hide"/>
+                            <field name="loan_first_biweek_amount" optional="hide"/>
+                            <field name="is_template" widget="boolean_toggle" optional="hide" readonly="employee_id"/>
+                            <field name="apply_biweek" string="Aplicar en Quincena"
+                                   widget="badge"
+                                   decoration-info="apply_biweek == 'both'"
+                                   decoration-success="apply_biweek == 'first'"
+                                   decoration-warning="apply_biweek == 'second'"/>
+                            <field name="amount" widget="monetary"/>
+                            <field name="total_amount" widget="monetary" optional="show"/>
+                            <field name="installments" optional="show"/>
+                            <field name="initial_paid_installments" optional="hide"/>
+                            <field name="paid_installments" optional="show"/>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="active" widget="boolean_toggle"/>
+                        </list>
+                    </field>
+
+                    <separator string="Historial de planillas (HE, TE, BD)"/>
+                    <div class="alert alert-info mb-2" role="alert">
+                        <i class="fa fa-info-circle me-2"/>Horas extra (HHEE), turnos extra (TE) y beneficios/deducciones (BD) de planillas confirmadas.
+                    </div>
+                    <field name="payroll_line_he_ids" nolabel="1"
+                           domain="[('parent_id.state', '=', 'done')]">
+                        <list string="Horas Extra" create="0" delete="0">
+                            <field name="parent_id" string="Planilla"/>
+                            <field name="he_25" string="HE 25%"/>
+                            <field name="he_50" string="HE 50%"/>
+                            <field name="he_75" string="HE 75%"/>
+                            <field name="he_100" string="HE 100%"/>
+                            <field name="amount_total" string="Total" widget="monetary"/>
+                        </list>
+                    </field>
+                    <field name="payroll_line_te_ids" nolabel="1"
+                           domain="[('parent_id.state', '=', 'done')]">
+                        <list string="Turnos Extra" create="0" delete="0">
+                            <field name="parent_id" string="Planilla"/>
+                            <field name="turn_a" string="Turno A"/>
+                            <field name="turn_b" string="Turno B"/>
+                            <field name="turn_c" string="Turno C"/>
+                            <field name="amount_other_income" string="Monto" widget="monetary"/>
+                        </list>
+                    </field>
+                    <field name="payroll_line_bd_ids" nolabel="1"
+                           domain="[('parent_id.state', '=', 'done')]">
+                        <list string="Beneficios y Deducciones" create="0" delete="0">
+                            <field name="parent_id" string="Planilla"/>
+                            <field name="concept_id" string="Concepto"/>
+                            <field name="amount" widget="monetary"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

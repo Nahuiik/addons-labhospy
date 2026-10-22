@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="sale_receipt_report_document">
+        <t t-call="web.external_layout">
+            <t t-set="o" t-value="o.with_context(lang=lang)"/>
+            <div class="page">
+                <h3><strong><span>Recibo de Venta</span>: <span t-field="o.name">REC0001</span></strong></h3>
+
+                <div class="mb-4 mt-3">
+                    <div name="date" class="row">
+                        <div class="col-6" t-if="o.date">
+                            Fecha: <span t-field="o.date">2023-01-01</span>
+                        </div>
+                        <div class="col-6" t-if="o.journal_receipt_id">
+                            Diario: <span t-field="o.journal_receipt_id.name">Diario</span>
+                        </div>
+                    </div>
+                    <div class="oe_structure"></div>
+                    <div class="row">
+                        <div class="col-6" t-if="o.partner_id">
+                            Cliente: <span t-field="o.partner_id" data-oe-demo="Marc Demo"/>
+                        </div>
+                        <div name="payment_method"
+                             t-if="o.payment_method_journal_id"
+                             class="col-6">
+                            Método de Pago: <span t-field="o.payment_method_journal_id.name">Banco</span>
+                        </div>
+                    </div>
+                    <div class="oe_structure"></div>
+                    <div class="row">
+                        <div class="col-6" t-if="o.user_cashier_id">
+                            Cajero: <span t-field="o.user_cashier_id.name">Usuario</span>
+                        </div>
+                        <div class="col-6" t-if="o.payment_ref">
+                            Notas: <span t-field="o.payment_ref">Notas</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="oe_structure"></div>
+                <table name="receipt_lines"
+                       class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th><span>Descripción</span></th>
+                            <th class="text-end"><span>Cantidad</span></th>
+                            <th class="text-end"><span>Precio Unitario</span></th>
+                            <th class="text-end"><span>Impuestos</span></th>
+                            <th class="text-end"><span>Subtotal</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="o.line_ids" t-as="line">
+                            <tr>
+                                <td><span t-field="line.name">Producto/Servicio</span></td>
+                                <td class="text-end"><span t-field="line.quantity">1.0</span></td>
+                                <td class="text-end"><span t-field="line.price_unit" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}">10.00</span></td>
+                                <td class="text-end"><span t-field="line.price_tax" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}">1.50</span></td>
+                                <td class="text-end"><span t-field="line.price_subtotal" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}">10.00</span></td>
+                            </tr>
+                        </t>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4" class="text-end"><strong>Subtotal:</strong></td>
+                            <td class="text-end"><strong><span t-field="o.amount_untaxed" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}">100.00</span></strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="text-end"><strong>Impuestos:</strong></td>
+                            <td class="text-end"><strong><span t-field="o.amount_tax" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}">15.00</span></strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="text-end"><strong>Total:</strong></td>
+                            <td class="text-end"><strong><span t-field="o.amount_total" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}">115.00</span></strong></td>
+                        </tr>
+                        <tr t-if="o.amount_to_text">
+                            <td colspan="5"><strong>Cantidad en letras:</strong> <span t-field="o.amount_to_text">Ciento quince</span></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="oe_structure"></div>
+        </t>
+    </template>
+
+    <template id="report_sale_receipt">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="lang" t-value="o.partner_id.lang or o.company_id.partner_id.lang"/>
+                <t t-call="gn_sale_receipt.sale_receipt_report_document" t-lang="lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

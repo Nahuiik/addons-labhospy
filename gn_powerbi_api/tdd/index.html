@@ -1,0 +1,2123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Documento de Diseño Integral - Power BI Connector para Odoo 19</title>
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+
+  <h1>Documento de Diseño Integral</h1>
+  <p class="subtitle">
+    Módulo Power BI Connector para Odoo 19<br />
+    Versión 1.0 – Elaborado por Grupo Nahuiik
+  </p>
+
+  <hr />
+
+  <section class="toc">
+    <h2>Índice</h2>
+    <ul>
+      <li><a href="#sec1">1. Requerimiento Técnico</a></li>
+      <li><a href="#sec2">2. Software Requirements Specification (SRS)</a></li>
+      <li><a href="#sec3">3. Historias de Usuario</a></li>
+      <li><a href="#sec4">4. Diagramas UML (PlantUML)</a></li>
+      <li><a href="#sec5">5. Technical Design Document (TDD)</a></li>
+      <li><a href="#sec6">6. Extensión del Diseño Técnico</a></li>
+      <li><a href="#sec7">7. Artefactos para Desarrollo</a></li>
+    </ul>
+  </section>
+
+  <hr />
+
+  <!-- ========================================================= -->
+  <!-- 1. REQUERIMIENTO TÉCNICO -->
+  <!-- ========================================================= -->
+  <section id="sec1">
+    <h2>1. Requerimiento Técnico</h2>
+
+    <h3>1.1. Alcance y objetivos</h3>
+
+    <h4>1.1.1. Objetivo general</h4>
+    <p>
+      Desarrollar un módulo para <strong>Odoo 19</strong> que permita integrar Odoo con 
+      <strong>Microsoft Power BI</strong>, replicando y mejorando las funcionalidades de un 
+      conector previo (ej. Odoo 14) y adaptando la implementación a la arquitectura y API de Odoo 19.
+    </p>
+
+    <h4>1.1.2. Objetivos específicos</h4>
+    <ul>
+      <li>Configurar y probar una <strong>conexión segura</strong> con Power BI (Azure AD / OAuth2).</li>
+      <li>Administrar <strong>Workspaces, Datasets, Tablas y Columnas</strong> de Power BI desde Odoo.</li>
+      <li>Exportar datos de <strong>cualquier modelo de Odoo</strong> hacia tablas de Power BI.</li>
+      <li>Soportar <strong>exportación manual</strong> y <strong>automática (via cron)</strong>.</li>
+      <li>Implementar <strong>sincronización incremental</strong> basada en <code>create_date</code> y <code>write_date</code>.</li>
+      <li>Gestionar <strong>plantillas de tablas</strong> y clonado de configuraciones.</li>
+      <li>Implementar <strong>métricas de monitoreo, logs y alertas</strong>.</li>
+      <li>Garantizar <strong>seguridad, trazabilidad y auditoría</strong> de las operaciones.</li>
+    </ul>
+
+    <h3>1.2. Compatibilidad, dependencias y lineamientos</h3>
+
+    <h4>1.2.1. Versiones soportadas</h4>
+    <ul>
+      <li>Versión mínima: <strong>Odoo 19.0</strong>.</li>
+      <li>Ediciones: Community y/o Enterprise (a definir en implementación).</li>
+    </ul>
+
+    <h4>1.2.2. Dependencias Odoo</h4>
+    <ul>
+      <li><code>base</code></li>
+      <li><code>web</code></li>
+      <li><code>mail</code> (para chatter y notificaciones)</li>
+      <li><code>queue_job</code> o equivalente (opcional/recomendado para grandes volúmenes)</li>
+    </ul>
+
+    <h4>1.2.3. Dependencias externas</h4>
+    <ul>
+      <li>Conectividad HTTPS hacia <strong>Power BI REST API</strong> (<code>https://api.powerbi.com/v1.0/myorg</code>).</li>
+      <li>Autenticación vía <strong>Azure AD OAuth2</strong>:
+        <ul>
+          <li>Client ID</li>
+          <li>Client Secret</li>
+          <li>Tenant ID</li>
+          <li>Redirect URI</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h4>1.2.4. Estándares de código</h4>
+    <ul>
+      <li>Seguir guías oficiales de desarrollo de módulos para Odoo 19.</li>
+      <li>Utilizar la nueva API de modelos y vistas (OWL/QWeb donde aplique).</li>
+      <li>Incluir docstrings y comentarios en lógica de sincronización y llamadas a APIs.</li>
+      <li>Manejo robusto de excepciones en todas las interacciones con Power BI.</li>
+    </ul>
+
+    <h3>1.3. Arquitectura funcional y modelos de datos</h3>
+
+    <h4>1.3.1. Modelo de conexión Power BI (<code>powerbi.connection</code>)</h4>
+    <p>Campos principales:</p>
+    <ul>
+      <li><code>name</code> (Char): Nombre de la conexión.</li>
+      <li><code>api_url</code> (Char): URL de API Power BI (por defecto <code>https://api.powerbi.com/v1.0/myorg</code>).</li>
+      <li><code>auth_url</code> (Char): URL de autorización Azure (<code>https://login.microsoftonline.com</code>).</li>
+      <li><code>username</code>, <code>password</code> (opcional, si se usa modo MasterUser).</li>
+      <li><code>client_id</code>, <code>client_secret</code>, <code>tenant_id</code>, <code>redirect_uri</code>.</li>
+      <li><code>access_token</code>, <code>refresh_token</code>, <code>token_expiration</code>.</li>
+      <li><code>state</code> (draft/connected/failed), <code>active</code> (solo una activa).</li>
+    </ul>
+    <p>Comportamiento:</p>
+    <ul>
+      <li>Solo una conexión activa a la vez.</li>
+      <li>Botón “Probar Conexión”:
+        <ul>
+          <li>Solicita token a Azure.</li>
+          <li>Realiza llamada de prueba a Power BI (ej. listar workspaces).</li>
+          <li>Actualiza estado y mensajes de resultado.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h4>1.3.2. Parámetros globales (<code>res.config.settings</code>)</h4>
+    <p>Definidos como parámetros en <code>ir.config_parameter</code> (ejemplos):</p>
+    <ul>
+      <li><code>powerbi_default_batch_size</code> (ej. 10,000).</li>
+      <li><code>powerbi_default_cron_mode</code> (incremental/full).</li>
+      <li><code>powerbi_use_write_date_default</code> (boolean).</li>
+      <li><code>powerbi_slow_export_threshold</code> (segundos, ej. 120).</li>
+      <li><code>powerbi_low_record_threshold</code> (ej. 10).</li>
+      <li><code>powerbi_preview_limit</code> (ej. 100 filas).</li>
+      <li><code>powerbi_token_expiration_buffer</code> (ej. 300 segundos).</li>
+      <li><code>powerbi_alert_window_hours</code> (ej. 24 horas).</li>
+      <li><code>powerbi_enable_auto_alerts</code>, <code>powerbi_show_advanced_alerts</code>.</li>
+    </ul>
+
+    <h4>1.3.3. Workspaces (<code>powerbi.workspace</code>)</h4>
+    <ul>
+      <li><code>name</code>, <code>is_default</code>, <code>user_id</code>, contadores de datasets/reports/dashboards.</li>
+      <li>Sincronización desde Power BI por medio de la conexión activa.</li>
+    </ul>
+
+    <h4>1.3.4. Datasets (<code>powerbi.dataset</code>)</h4>
+    <ul>
+      <li><code>name</code>, <code>type</code> (permanent/temporary), <code>workspace_id</code>.</li>
+      <li><code>pbi_dataset_id</code>, <code>state</code> (draft/published).</li>
+      <li>Lista de tablas relacionadas (<code>table_ids</code>).</li>
+      <li>Acción “Publicar” que crea el dataset en Power BI.</li>
+    </ul>
+
+    <h4>1.3.5. Tablas (<code>powerbi.table</code>)</h4>
+    <ul>
+      <li><code>name</code>, <code>dataset_id</code>, <code>model_id</code> (<code>ir.model</code>), <code>domain</code>.</li>
+      <li><code>use_cron</code>, <code>cron_mode</code> (incremental/full), <code>batch_size</code>.</li>
+      <li><code>last_sync_datetime</code>, <code>last_cron_run</code>, <code>last_sync_state</code>.</li>
+      <li><code>force_full_export_next_run</code>.</li>
+      <li>Relación de campos (<code>field_ids</code> – modelo <code>powerbi.table.field</code>).</li>
+    </ul>
+    <p>Lógica principal:</p>
+    <ul>
+      <li>Exportación incremental: filtra por <code>create_date</code> / <code>write_date</code> &gt; <code>last_sync_datetime</code>.</li>
+      <li>Exportación full: ignora <code>last_sync_datetime</code> y exporta todo el dominio.</li>
+      <li>Procesamiento en lotes según <code>batch_size</code>.</li>
+      <li>Actualiza <code>last_sync_datetime</code> solo si la exportación completa es exitosa.</li>
+    </ul>
+
+    <h4>1.3.6. Columnas (<code>powerbi.table.field</code>)</h4>
+    <ul>
+      <li><code>table_id</code> (tabla), <code>field_id</code> (<code>ir.model.fields</code>).</li>
+      <li><code>name</code> (nombre en Power BI), <code>ttype</code> (tipo técnico), <code>export</code> (boolean).</li>
+      <li><code>relation_child_field_id</code>: campo hijo para relacionales.</li>
+      <li>Conversiones de tipo:
+        <ul>
+          <li>Numéricos → número real.</li>
+          <li>Relacionales → valor de <code>relation_child_field_id</code> (ej. <code>name</code>).</li>
+          <li>Fechas → ISO 8601.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h4>1.3.7. Plantillas de tablas (<code>powerbi.table.template</code>)</h4>
+    <ul>
+      <li>Permiten guardar la configuración completa de una tabla (modelo, campos, dominio, batch, etc.).</li>
+      <li>Botón “Guardar como plantilla” en la tabla.</li>
+      <li>Wizard “Crear desde plantilla” para generar nuevas tablas basadas en plantillas.</li>
+    </ul>
+
+    <h4>1.3.8. Métricas (<code>powerbi.metric</code>)</h4>
+    <ul>
+      <li>Registro por exportación: nombre, tipo de métrica, fecha, tabla, valor, estado, detalles.</li>
+      <li>Utilizado para monitoreo y generación de alertas.</li>
+    </ul>
+
+    <h4>1.3.9. Alertas (<code>powerbi.alert</code>)</h4>
+    <ul>
+      <li>Alertas automáticas basadas en umbrales globales.</li>
+      <li>Alertas personalizadas (si está habilitado el menú avanzado).</li>
+      <li>Tipos: exportación lenta, bajo número de registros, error de exportación, error de conexión.</li>
+      <li>Métodos: evaluación y notificación (chatter, email, notificación interna).</li>
+    </ul>
+
+    <h4>1.3.10. Logs de sincronización (<code>powerbi.sync.log</code>)</h4>
+    <ul>
+      <li>Registro por operación: tabla, modelo, <code>res_id</code>, operación, fecha, estado, mensaje.</li>
+      <li>Permite auditoría y trazabilidad fina de exportaciones.</li>
+    </ul>
+
+    <h3>1.4. Procesos clave</h3>
+
+    <h4>1.4.1. Exportación manual</h4>
+    <ol>
+      <li>Desde el formulario de una tabla, el usuario hace clic en “Exportar datos”.</li>
+      <li>El sistema valida conexión, dataset publicado y configuración de campos.</li>
+      <li>Determina modo incremental/full según <code>last_sync_datetime</code> y configuración.</li>
+      <li>Obtiene el conjunto de registros, los procesa en lotes, envía a Power BI.</li>
+      <li>Registra métricas y logs.</li>
+      <li>Actualiza <code>last_sync_datetime</code> y estado de sincronización.</li>
+    </ol>
+
+    <h4>1.4.2. Exportación automática (cron)</h4>
+    <ul>
+      <li>Se define un <code>ir.cron</code> para ejecutar una función global de sincronización.</li>
+      <li>Esa función localiza tablas con <code>use_cron = True</code> y llama al proceso de exportación.</li>
+      <li>Respeta el <code>cron_mode</code> por tabla.</li>
+      <li>Registra métricas, logs y alertas correspondientes.</li>
+    </ul>
+
+    <h4>1.4.3. Server Actions</h4>
+    <ul>
+      <li>Botón “Add Server Action” en una tabla:
+        <ul>
+          <li>Crea una acción de servidor ligada al modelo origen (ej. <code>res.partner</code>).</li>
+          <li>Agrega opción “Export To Power BI” en el menú de acciones de la vista del modelo.</li>
+        </ul>
+      </li>
+      <li>Botón “Delete Server Action” elimina la acción asociada.</li>
+    </ul>
+
+    <h3>1.5. Seguridad y permisos</h3>
+
+    <h4>1.5.1. Grupos de usuarios</h4>
+    <ul>
+      <li><strong>Power BI User</strong>: Lectura de objetos asignados.</li>
+      <li><strong>Power BI Officer</strong>: Crear/editar datasets, tablas, plantillas; lanzar exportaciones manuales.</li>
+      <li><strong>Power BI Manager</strong>: Configurar conexión, parámetros globales, cron, alertas, acceso total.</li>
+    </ul>
+
+    <h4>1.5.2. Record rules</h4>
+    <ul>
+      <li>Los usuarios no administradores solo ven registros donde sean responsables o participantes.</li>
+      <li>Los managers ven todos los registros sin restricción.</li>
+    </ul>
+
+    <h3>1.6. Rendimiento y robustez</h3>
+    <ul>
+      <li>Uso de procesamiento por lotes configurables.</li>
+      <li>Soporte opcional para colas de trabajo (<code>queue_job</code>). </li>
+      <li>Manejo de reintentos ante errores de red (política a definir).</li>
+      <li>Logs y métricas detalladas para diagnóstico.</li>
+    </ul>
+
+    <h3>1.7. Migración y compatibilidad</h3>
+    <ul>
+      <li>Si hay datos de un módulo previo (ej. Odoo 14), se recomienda un script de migración.</li>
+      <li>Mapeo de tablas, datasets, plantillas y fechas de sincronización cuando aplique.</li>
+    </ul>
+
+    <h3>1.8. Pruebas y validación</h3>
+    <ul>
+      <li>Pruebas unitarias de lógica de selección incremental, dominios, batching.</li>
+      <li>Pruebas de integración: flujo completo conexión → workspace → dataset → tabla → exportación.</li>
+      <li>Pruebas de seguridad: control de acceso, protección de credenciales y tokens.</li>
+      <li>Pruebas de rendimiento y regresión con grandes volúmenes de datos.</li>
+    </ul>
+  </section>
+
+  <hr />
+
+  <!-- ========================================================= -->
+  <!-- 2. SRS -->
+  <!-- ========================================================= -->
+  <section id="sec2">
+    <h2>2. Software Requirements Specification (SRS)</h2>
+
+    <h3>2.1. Introducción</h3>
+
+    <h4>2.1.1. Propósito del documento</h4>
+    <p>
+      Este SRS define de forma estructurada los requisitos del módulo Power BI Connector para Odoo 19. 
+      Servirá como referencia para el equipo de desarrollo, QA y stakeholders durante todo el ciclo de vida del proyecto.
+    </p>
+
+    <h4>2.1.2. Alcance del sistema</h4>
+    <p>
+      El sistema será un módulo de Odoo que permita la integración con Microsoft Power BI, 
+      incluyendo configuración, administración de entidades Power BI (workspaces, datasets, tablas), 
+      exportación de datos, monitoreo y mecanismos de seguridad.
+    </p>
+
+    <h4>2.1.3. Definiciones y acrónimos</h4>
+    <ul>
+      <li><strong>PBI</strong>: Power BI.</li>
+      <li><strong>API REST</strong>: Interfaz HTTP de Power BI.</li>
+      <li><strong>Workspace</strong>: Espacio de trabajo en Power BI.</li>
+      <li><strong>Dataset</strong>: Conjunto de tablas en Power BI.</li>
+      <li><strong>Tabla PBI</strong>: Tabla dentro de un dataset.</li>
+      <li><strong>Sincronización incremental</strong>: Exportación basada en fechas de creación/modificación.</li>
+      <li><strong>Cron</strong>: Tareas programadas en Odoo.</li>
+    </ul>
+
+    <h3>2.2. Descripción general</h3>
+
+    <h4>2.2.1. Perspectiva del producto</h4>
+    <p>
+      El módulo se integra como un componente adicional de Odoo 19, usando modelos, vistas, acciones de servidor, 
+      parámetros de sistema y tareas programadas. La interacción con Power BI será vía API REST y Azure AD OAuth2.
+    </p>
+
+    <h4>2.2.2. Funciones del sistema</h4>
+    <ul>
+      <li>Configurar y probar la conexión a Power BI.</li>
+      <li>Importar y administrar workspaces.</li>
+      <li>Crear, publicar y administrar datasets.</li>
+      <li>Definir tablas de exportación asociadas a modelos de Odoo.</li>
+      <li>Exportar datos de forma manual y automática (cron).</li>
+      <li>Soportar exportación incremental y full.</li>
+      <li>Gestionar plantillas de tablas y clonado.</li>
+      <li>Registrar métricas, logs y alertas.</li>
+      <li>Mostrar un monitor de salud en tiempo real del conector (estado de conexión, cron, métricas recientes).</li>
+      <li>Mantener un historial versionado de datasets/tablas para comparar y restaurar configuraciones.</li>
+    </ul>
+
+    <h4>2.2.3. Usuarios del sistema</h4>
+    <ul>
+      <li><strong>Power BI Manager</strong>: administra conexión, parámetros, cron y alertas.</li>
+      <li><strong>Power BI Officer</strong>: diseña datasets/tablas, lanza exportaciones manuales.</li>
+      <li><strong>Power BI User</strong>: consulta los datos exportados.</li>
+    </ul>
+
+    <h3>2.3. Requisitos funcionales</h3>
+
+    <h4>RF-01: Configuración de conexión Power BI</h4>
+    <ul>
+      <li>El sistema debe permitir registrar credenciales Azure AD.</li>
+      <li>Debe incluir botón para probar conexión.</li>
+      <li>Debe validar y refrescar tokens de acceso.</li>
+      <li>Solo una conexión puede estar activa.</li>
+    </ul>
+
+    <h4>RF-02: Administración de Workspaces</h4>
+    <ul>
+      <li>Debe poder importarlos desde Power BI.</li>
+      <li>Debe mostrar metadatos básicos (nombre, tipo, contadores).</li>
+      <li>Debe permitir asignar un responsable Odoo a cada workspace.</li>
+    </ul>
+
+    <h4>RF-03: Administración de Datasets</h4>
+    <ul>
+      <li>Crear datasets desde Odoo, vinculándolos a un workspace.</li>
+      <li>Clasificarlos en permanente/temporal.</li>
+      <li>Publicarlos/crearlos en Power BI.</li>
+      <li>Actualizar su esquema cuando cambien las tablas relacionadas.</li>
+    </ul>
+
+    <h4>RF-04: Administración de Tablas</h4>
+    <ul>
+      <li>Definir tabla asociada a un modelo de Odoo y a un dataset.</li>
+      <li>Configurar dominio de filtro.</li>
+      <li>Elegir modo de exportación (full/incremental).</li>
+      <li>Configuración de batch size por tabla.</li>
+      <li>Definir columnas y tipos de datos exportados.</li>
+    </ul>
+
+    <h4>RF-05: Exportación de datos</h4>
+    <ul>
+      <li>Permitir exportación manual desde el formulario de tabla.</li>
+      <li>Permitir exportación automática mediante cron.</li>
+      <li>Procesar datos en lotes.</li>
+      <li>Generar métricas y logs.</li>
+      <li>Actualizar estado de sincronización y fecha de última exportación.</li>
+    </ul>
+
+    <h4>RF-06: Sincronización incremental</h4>
+    <ul>
+      <li>Filtrar registros nuevos y modificados con base en <code>create_date</code> y <code>write_date</code>.</li>
+      <li>Configurar opcionalmente si se usará <code>write_date</code>.</li>
+      <li>No reexportar registros sin cambios en modo incremental.</li>
+    </ul>
+
+    <h4>RF-07: Server Actions</h4>
+    <ul>
+      <li>Crear acciones de servidor asociadas a modelos de Odoo para exportar registros seleccionados a Power BI.</li>
+      <li>Permitir eliminar esas acciones desde la tabla.</li>
+    </ul>
+
+    <h4>RF-08: Plantillas</h4>
+    <ul>
+      <li>Guardar la configuración de una tabla como plantilla.</li>
+      <li>Crear tablas desde una plantilla mediante wizard.</li>
+      <li>Clonar tablas existentes.</li>
+    </ul>
+
+    <h4>RF-09: Monitoreo, métricas y alertas</h4>
+    <ul>
+      <li>Registrar métricas de cada exportación (duración, número de registros, estado).</li>
+      <li>Generar alertas automáticas basadas en umbrales definidos.</li>
+      <li>Soportar alertas personalizadas, opcionalmente, por tabla/dataset.</li>
+    </ul>
+
+    <h4>RF-10: Logs de sincronización</h4>
+    <ul>
+      <li>Registrar cada operación de sincronización con detalles por registro o lote.</li>
+      <li>Permitir su consulta y filtrado por modelo, tabla, fecha, estado.</li>
+    </ul>
+
+    <h4>RF-11: Monitor de salud en tiempo real</h4>
+    <ul>
+      <li>Proveer un tablero con indicadores de conexión, ejecución de cron, últimas exportaciones y errores.</li>
+      <li>Actualizar la información sin recargar totalmente la vista (polling ligero u OWL component).</li>
+      <li>Permitir filtrar por compañía, workspace o dataset para aislar incidentes.</li>
+    </ul>
+
+    <h4>RF-12: Gestión de versionado de datasets/tablas</h4>
+    <ul>
+      <li>Guardar snapshots del esquema de datasets y tablas (campos, tipos, dominios) cada vez que se publica un cambio.</li>
+      <li>Comparar versiones para identificar campos agregados/eliminados.</li>
+      <li>Restaurar una versión previa bajo confirmación del usuario.</li>
+    </ul>
+
+    <h3>2.4. Requisitos no funcionales</h3>
+
+    <h4>RNF-01: Rendimiento</h4>
+    <ul>
+      <li>Soportar al menos 50k registros por tabla por proceso de exportación.</li>
+      <li>Uso de procesamiento por lotes configurables.</li>
+      <li>Posibilidad de integración con colas de trabajo para paralelismo.</li>
+    </ul>
+
+    <h4>RNF-02: Seguridad</h4>
+    <ul>
+      <li>Almacenar credenciales de forma segura (cifrado / campos protegidos).</li>
+      <li>No registrar tokens en texto plano en logs.</li>
+      <li>Cumplir políticas de Azure OAuth2 para gestión de tokens.</li>
+    </ul>
+
+    <h4>RNF-03: Usabilidad</h4>
+    <ul>
+      <li>Vistas organizadas por menús lógicos: Conexión, Espacios de trabajo, Datasets, Tablas, Plantillas, Monitoreo, Reportes.</li>
+      <li>Mensajes de error y éxito claros y orientados al usuario funcional.</li>
+    </ul>
+
+    <h4>RNF-04: Disponibilidad</h4>
+    <ul>
+      <li>Exportaciones automáticas vía cron no deben requerir interacción del usuario.</li>
+      <li>En caso de fallos de red, el sistema debe registrar el error y permitir reintentos.</li>
+    </ul>
+
+    <h3>2.5. Restricciones</h3>
+    <ul>
+      <li>Diseñado específicamente para Odoo 19.</li>
+      <li>No se permite modificar el código core de Odoo.</li>
+      <li>Requiere que la instancia de Odoo tenga acceso HTTPS hacia Internet (Power BI).</li>
+    </ul>
+
+    <h3>2.6. Criterios de aceptación</h3>
+    <ul>
+      <li>Se puede conectar a Azure AD y listar workspaces correctamente.</li>
+      <li>Se puede crear un dataset desde Odoo y visualizarlo en Power BI.</li>
+      <li>Se puede crear una tabla, añadir campos y exportar datos exitosamente.</li>
+      <li>La sincronización incremental respeta <code>last_sync_datetime</code> y solo envía registros nuevos/modificados.</li>
+      <li>El cron actualiza datasets y reportes sin intervención manual.</li>
+      <li>Las alertas se generan y notifican correctamente a los usuarios configurados.</li>
+      <li>Es posible usar plantillas de tablas para configurar nuevas exportaciones más rápido.</li>
+    </ul>
+  </section>
+
+  <hr />
+
+  <!-- ========================================================= -->
+  <!-- 3. HISTORIAS DE USUARIO -->
+  <!-- ========================================================= -->
+  <section id="sec3">
+    <h2>3. Historias de Usuario</h2>
+
+    <h3>Épica 1: Configuración de conexión</h3>
+
+    <h4>US-01 – Registrar conexión Power BI</h4>
+    <p>
+      <strong>Como</strong> Administrador Power BI<br />
+      <strong>Quiero</strong> configurar las credenciales de Azure AD y Power BI en Odoo<br />
+      <strong>Para</strong> poder conectar la instancia de Odoo con Power BI de forma segura.
+    </p>
+    <p><strong>Criterios de aceptación:</strong></p>
+    <ul>
+      <li>Solo un usuario con rol Manager puede acceder a la pantalla de conexión.</li>
+      <li>La pantalla permite definir Client ID, Client Secret, Tenant ID, Redirect URI y URLs base.</li>
+      <li>Al pulsar “Probar Conexión”:
+        <ul>
+          <li>Si la conexión es válida, se muestra mensaje de éxito y estado “connected”.</li>
+          <li>Si falla, se muestra mensaje de error claro y el estado queda en “failed”.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h4>US-02 – Una sola conexión activa</h4>
+    <p>
+      <strong>Como</strong> Administrador<br />
+      <strong>Quiero</strong> que solo exista una conexión activa a Power BI<br />
+      <strong>Para</strong> evitar inconsistencias entre múltiples configuraciones.
+    </p>
+    <ul>
+      <li>Al activar una conexión, las demás conexiones se desactivan automáticamente.</li>
+      <li>Si no hay ninguna conexión activa, el sistema debe bloquear exportaciones y mostrar aviso.</li>
+    </ul>
+
+    <h3>Épica 2: Workspaces y Datasets</h3>
+
+    <h4>US-03 – Importar Workspaces</h4>
+    <p>
+      <strong>Como</strong> Analista<br />
+      <strong>Quiero</strong> importar los Workspaces de Power BI a Odoo<br />
+      <strong>Para</strong> administrarlos desde Odoo y vincular datasets/tablas.
+    </p>
+    <ul>
+      <li>Botón “Importar Workspaces” disponible cuando la conexión está activa.</li>
+      <li>La importación crea o actualiza registros de workspaces en Odoo.</li>
+      <li>Se muestra mensaje con el número de workspaces importados.</li>
+    </ul>
+
+    <h4>US-04 – Crear Dataset desde Odoo</h4>
+    <p>
+      <strong>Como</strong> Analista<br />
+      <strong>Quiero</strong> crear datasets (permanentes o temporales) desde Odoo<br />
+      <strong>Para</strong> organizar mis fuentes de datos en Power BI.
+    </p>
+    <ul>
+      <li>En la vista de Datasets se puede crear un nuevo dataset con nombre, tipo y workspace.</li>
+      <li>Botón “Publicar” lo crea en Power BI y guarda el <code>pbi_dataset_id</code>.</li>
+      <li>El tipo de dataset se muestra en la lista y kanban de Datasets.</li>
+    </ul>
+
+    <h3>Épica 3: Tablas y Columnas</h3>
+
+    <h4>US-05 – Configurar tabla de exportación</h4>
+    <p>
+      <strong>Como</strong> Analista<br />
+      <strong>Quiero</strong> definir una tabla asociada a un modelo de Odoo y seleccionar campos<br />
+      <strong>Para</strong> exportar datos de ese modelo a Power BI.
+    </p>
+    <ul>
+      <li>Se puede seleccionar el dataset, el modelo Odoo, el dominio y el batch size.</li>
+      <li>Se pueden añadir columnas seleccionando campos de <code>ir.model.fields</code>.</li>
+      <li>El nombre de columna en Power BI se puede editar (por defecto la descripción del campo).</li>
+    </ul>
+
+    <h4>US-06 – Configurar campos relacionales</h4>
+    <p>
+      <strong>Como</strong> Analista<br />
+      <strong>Quiero</strong> configurar qué valor enviar para campos relacionales<br />
+      <strong>Para</strong> tener datos legibles en Power BI.
+    </p>
+    <ul>
+      <li>Para <code>many2one</code> se puede elegir el campo hijo (ej. <code>name</code>) para exportar.</li>
+      <li>Para <code>one2many</code> y <code>many2many</code> se usa un formato estandarizado (ej. lista separada por comas o JSON).</li>
+      <li>Si no se configura el campo hijo, se tomará <code>name</code> por defecto (cuando exista).</li>
+    </ul>
+
+    <h3>Épica 4: Exportación y sincronización</h3>
+
+    <h4>US-07 – Exportar datos manualmente</h4>
+    <p>
+      <strong>Como</strong> Analista<br />
+      <strong>Quiero</strong> ejecutar una exportación manual de una tabla<br />
+      <strong>Para</strong> probar la configuración y desencadenar actualizaciones puntuales.
+    </p>
+    <ul>
+      <li>El botón “Exportar datos” valida la conexión, dataset y columnas configuradas.</li>
+      <li>Si no hay registros que cumplan el dominio, se muestra mensaje y estado “no_data”.</li>
+      <li>Si la exportación es exitosa, se actualiza <code>last_sync_datetime</code> y se genera una métrica.</li>
+    </ul>
+
+    <h4>US-08 – Sincronización incremental</h4>
+    <p>
+      <strong>Como</strong> Administrador<br />
+      <strong>Quiero</strong> que las exportaciones automáticas sean incrementales<br />
+      <strong>Para</strong> reducir el tiempo de ejecución y uso de ancho de banda.
+    </p>
+    <ul>
+      <li>El modo incremental exporta solo registros con <code>create_date</code> o <code>write_date</code> posteriores a <code>last_sync_datetime</code>.</li>
+      <li>El uso de <code>write_date</code> es configurable globalmente.</li>
+      <li>Los registros no modificados no se vuelven a exportar.</li>
+    </ul>
+
+    <h4>US-09 – Exportación automática vía cron</h4>
+    <p>
+      <strong>Como</strong> Administrador<br />
+      <strong>Quiero</strong> programar exportaciones automáticas<br />
+      <strong>Para</strong> mantener los datasets de Power BI actualizados sin intervención manual.
+    </p>
+    <ul>
+      <li>Cada tabla tiene bandera “Exportar usando cron” y un modo <code>cron_mode</code>.</li>
+      <li>El cron global recorre solo tablas con <code>use_cron = True</code>.</li>
+      <li>Se registran métricas y logs en cada ejecución.</li>
+    </ul>
+
+    <h3>Épica 5: Plantillas y clonado</h3>
+
+    <h4>US-10 – Guardar tabla como plantilla</h4>
+    <p>
+      <strong>Como</strong> Analista<br />
+      <strong>Quiero</strong> guardar una tabla como plantilla<br />
+      <strong>Para</strong> reutilizar la configuración en futuros proyectos.
+    </p>
+    <ul>
+      <li>Un botón “Guardar como plantilla” guarda modelo, campos, dominio, batch size y modo de exportación.</li>
+      <li>La plantilla registra cuántas veces se ha utilizado.</li>
+    </ul>
+
+    <h4>US-11 – Crear tabla desde plantilla</h4>
+    <p>
+      <strong>Como</strong> Analista<br />
+      <strong>Quiero</strong> crear tablas a partir de plantillas<br />
+      <strong>Para</strong> acelerar la configuración de nuevas conexiones de datos.
+    </p>
+    <ul>
+      <li>Wizard “Crear desde plantilla” permite elegir la plantilla y el dataset destino.</li>
+      <li>El usuario puede ajustar el nombre de la tabla antes de guardarla.</li>
+    </ul>
+
+    <h3>Épica 6: Monitoreo, alertas y trazabilidad</h3>
+
+    <h4>US-12 – Ver métricas de exportación</h4>
+    <p>
+      <strong>Como</strong> Administrador<br />
+      <strong>Quiero</strong> ver métricas de cada exportación<br />
+      <strong>Para</strong> evaluar rendimiento, tiempos de ejecución y volumen de datos.
+    </p>
+    <ul>
+      <li>La vista de métricas muestra tabla, fecha, duración, registros exportados y estado.</li>
+      <li>Se pueden filtrar métricas por tabla, estado y rango de fechas.</li>
+    </ul>
+
+    <h4>US-13 – Alertas automáticas</h4>
+    <p>
+      <strong>Como</strong> Administrador<br />
+      <strong>Quiero</strong> recibir alertas cuando haya problemas en exportaciones<br />
+      <strong>Para</strong> reaccionar rápidamente ante errores o anomalías.
+    </p>
+    <ul>
+      <li>Si una exportación falla, se genera una alerta crítica.</li>
+      <li>Si una exportación tarda más que el umbral configurado, se genera alerta de exportación lenta.</li>
+      <li>Las alertas se notifican por chatter y/o correo según configuración.</li>
+    </ul>
+
+    <h4>US-14 – Ver trazabilidad de sincronizaciones</h4>
+    <p>
+      <strong>Como</strong> Analista<br />
+      <strong>Quiero</strong> ver el historial de exportaciones por registro/tablas<br />
+      <strong>Para</strong> auditar qué datos se enviaron y cuándo.
+    </p>
+    <ul>
+      <li>Vista de logs muestra modelo, registro, fecha, operación y mensaje.</li>
+      <li>Permite filtrar por tabla, modelo, ID de registro y fechas.</li>
+    </ul>
+
+    <h3>Épica 7: Monitor de salud en tiempo real</h3>
+
+    <h4>US-15 – Consultar el estado del conector en vivo</h4>
+    <p>
+      <strong>Como</strong> Administrador Power BI<br />
+      <strong>Quiero</strong> visualizar un panel con el estado actual del conector<br />
+      <strong>Para</strong> detectar incidentes sin revisar cada tabla manualmente.
+    </p>
+    <ul>
+      <li>El panel muestra indicadores de conexión, último cron, tablas con errores y métricas recientes.</li>
+      <li>La información se actualiza automáticamente cada cierto intervalo.</li>
+      <li>Se pueden aplicar filtros por compañía, workspace o dataset.</li>
+    </ul>
+
+    <h3>Épica 8: Versionado de datasets y tablas</h3>
+
+    <h4>US-16 – Restaurar versión previa de un dataset/tabla</h4>
+    <p>
+      <strong>Como</strong> Power BI Officer<br />
+      <strong>Quiero</strong> revisar las versiones anteriores de un dataset/tabla y restaurar una si es necesario<br />
+      <strong>Para</strong> revertir cambios que hayan roto exportaciones o dashboards.</p>
+    <ul>
+      <li>Cada publicación de esquema genera una versión con fecha, usuario y resumen de cambios.</li>
+      <li>La interfaz permite comparar dos versiones y ver campos agregados/eliminados.</li>
+      <li>Restaurar requiere confirmación y registra una nota en el chatter de la tabla/dataset.</li>
+    </ul>
+
+  </section>
+
+  <hr />
+
+  <!-- ========================================================= -->
+  <!-- 4. UML (PlantUML) -->
+  <!-- ========================================================= -->
+  <section id="sec4">
+    <h2>4. Diagramas UML (PlantUML)</h2>
+
+    <h3>4.1. Diagrama de clases</h3>
+    <figure>
+      <img src="images/uml_diagrama_clases.png" alt="Diagrama de clases del conector Power BI para Odoo 19" style="max-width:100%;height:auto;" />
+      <figcaption>Vista generada a partir del código PlantUML correspondiente.</figcaption>
+    </figure>
+    <pre><code class="language-plantuml">@startuml
+' ====== CORE ENTITIES ======
+class PowerBiConnection {
+  +id
+  +name
+  +api_url
+  +auth_url
+  +username
+  +password
+  +client_id
+  +client_secret
+  +tenant_id
+  +redirect_uri
+  +access_token
+  +refresh_token
+  +token_expiration
+  +state
+  +active
+  +test_connection()
+  +get_access_token()
+}
+
+class PowerBiWorkspace {
+  +id
+  +name
+  +is_default
+  +user_id
+  +dataset_count
+  +report_count
+  +dashboard_count
+  +sync_from_remote()
+}
+
+class PowerBiDataset {
+  +id
+  +name
+  +type  ' permanent / temporary
+  +workspace_id
+  +pbi_dataset_id
+  +state  ' draft / published
+  +publish()
+  +sync_schema()
+}
+
+class PowerBiTable {
+  +id
+  +name
+  +dataset_id
+  +model_id
+  +domain
+  +use_cron
+  +cron_mode       ' incremental / full
+  +batch_size
+  +last_sync_datetime
+  +last_cron_run
+  +last_sync_state ' never_run / success / failed / no_data / skipped
+  +force_full_export_next_run
+  +pbi_table_name
+  +export_data_manual()
+  +export_data_cron()
+  +compute_domain_recordset()
+}
+
+class PowerBiTableField {
+  +id
+  +table_id
+  +field_id
+  +name
+  +ttype
+  +relation_child_field_id
+  +export
+  +convert_value(odoo_value)
+}
+
+class PowerBiTableTemplate {
+  +id
+  +name
+  +model_id
+  +is_public
+  +created_by
+  +times_used
+  +template_definition
+  +create_from_table(table)
+  +instantiate(dataset, name)
+}
+
+class PowerBiMetric {
+  +id
+  +name
+  +metric_type
+  +date
+  +table_id
+  +value
+  +state
+  +details
+}
+
+class PowerBiAlert {
+  +id
+  +name
+  +alert_type
+  +condition
+  +threshold
+  +table_id
+  +dataset_id
+  +notification_method
+  +user_ids
+  +active
+  +evaluate(metric)
+  +notify()
+}
+
+class PowerBiSyncLog {
+  +id
+  +table_id
+  +model_id
+  +res_id
+  +operation
+  +sync_datetime
+  +state
+  +message
+}
+
+' ====== SERVICE LAYER ======
+class PowerBiApiService {
+  +get_token(connection)
+  +refresh_token(connection)
+  +list_workspaces(connection)
+  +create_dataset(connection, dataset)
+  +create_or_update_table(connection, dataset, table, fields)
+  +insert_rows(connection, dataset, table, rows)
+  +delete_rows(connection, dataset, table)
+}
+
+class PowerBiExportService {
+  +export_table(table, mode)
+  +build_payload(table, records)
+  +handle_batch_export(table, records)
+  +record_metrics(table, metrics)
+  +record_logs(table, logs)
+}
+
+' ====== RELATIONSHIPS ======
+PowerBiConnection "1" o-- "many" PowerBiWorkspace
+PowerBiWorkspace "1" o-- "many" PowerBiDataset
+PowerBiDataset "1" o-- "many" PowerBiTable
+PowerBiTable "1" o-- "many" PowerBiTableField
+PowerBiTable "1" o-- "many" PowerBiMetric
+PowerBiTable "1" o-- "many" PowerBiSyncLog
+PowerBiDataset "0..1" o-- "many" PowerBiAlert
+PowerBiTable "0..1" o-- "many" PowerBiAlert
+
+PowerBiTableTemplate "1" o-- "many" PowerBiTableField : template_fields
+
+PowerBiTable --> PowerBiExportService : uses
+PowerBiExportService --> PowerBiApiService : calls
+PowerBiConnection --> PowerBiApiService : uses
+
+@enduml
+</code></pre>
+
+    <h3>4.2. Diagrama de secuencia – Exportación manual de tabla</h3>
+    <figure>
+      <img src="images/uml_secuencia_export_manual.png" alt="Secuencia de exportación manual a Power BI" style="max-width:100%;height:auto;" />
+      <figcaption>Imagen exportada desde el script PlantUML de la exportación manual.</figcaption>
+    </figure>
+    <pre><code class="language-plantuml">@startuml
+actor User as U
+participant "Odoo UI\n(powerbi.table form)" as UI
+participant "PowerBiTable\n(model)" as T
+participant "PowerBiExportService" as ES
+participant "PowerBiApiService" as API
+participant "PowerBiConnection" as C
+participant "Power BI Cloud" as PBI
+
+U -> UI: Click "Exportar datos"
+UI -> T: export_data_manual()
+T -> ES: export_table(self, mode="auto")
+
+ES -> T: compute_domain_recordset()
+T --> ES: recordset (batchable)
+
+ES -> C: get_active_connection()
+ES -> API: get_token(connection)
+API -> C: set access_token
+API --> ES: token
+
+loop for each batch
+  ES -> ES: build_payload(table, records_batch)
+  ES -> API: insert_rows(connection, dataset, table, payload)
+  API -> PBI: POST /rows
+  PBI --> API: 200 OK / error
+  API --> ES: result
+  ES -> ES: update metrics, logs for batch
+end
+
+ES -> T: update last_sync_datetime, last_sync_state
+T -> PowerBiMetric: create metric records
+T -> PowerBiSyncLog: create sync log records
+
+T --> UI: result (success/failure)
+UI --> U: Mostrar mensaje de resultado
+@enduml
+</code></pre>
+
+    <h3>4.3. Diagrama de secuencia – Exportación automática por CRON</h3>
+    <figure>
+      <img src="images/uml_secuencia_export_cron.png" alt="Secuencia de exportación automática mediante cron" style="max-width:100%;height:auto;" />
+      <figcaption>Representación visual generada desde la definición PlantUML del proceso automático.</figcaption>
+    </figure>
+    <pre><code class="language-plantuml">@startuml
+participant "ir.cron" as CRON
+participant "PowerBiTable\n(model)" as T
+participant "PowerBiExportService" as ES
+participant "PowerBiApiService" as API
+participant "PowerBiAlert" as ALERT
+
+CRON -> T: _cron_export_tables()
+T -> T: search([('use_cron','=',True)])
+T --> ES: export_table(table, mode=table.cron_mode)
+
+loop for each table
+  ES -> API: get_token(connection)
+  ES -> API: insert_rows(...)
+  alt success
+    ES -> ALERT: evaluate(metrics for table)
+  else failure
+    ES -> ALERT: create failure alert
+  end
+end
+
+ALERT -> ALERT: notify() via chatter/email
+@enduml
+</code></pre>
+
+  </section>
+
+  <hr />
+
+  <!-- ========================================================= -->
+  <!-- 5. TDD -->
+  <!-- ========================================================= -->
+  <section id="sec5">
+    <h2>5. Technical Design Document (TDD)</h2>
+
+    <h3>5.1. Arquitectura general</h3>
+    <ul>
+      <li><strong>Backend:</strong> Módulo Odoo 19, p.ej. <code>powerbi_connector_19</code>.</li>
+      <li><strong>Frontend:</strong> Vistas Odoo (form, tree, kanban, search), wizards en QWeb/OWL.</li>
+      <li><strong>Integración externa:</strong> Clase de servicio <code>PowerBiApiService</code> para llamadas REST a Power BI.</li>
+    </ul>
+    <p>Capas:</p>
+    <ol>
+      <li><strong>Capa de modelos (Odoo ORM)</strong>:
+        <ul>
+          <li><code>powerbi.connection</code>, <code>powerbi.workspace</code>, <code>powerbi.dataset</code>, <code>powerbi.table</code>, <code>powerbi.table.field</code>, <code>powerbi.table.template</code>, <code>powerbi.metric</code>, <code>powerbi.alert</code>, <code>powerbi.sync.log</code>, <code>res.config.settings</code>.</li>
+        </ul>
+      </li>
+      <li><strong>Capa de servicios</strong>:
+        <ul>
+          <li><code>powerbi_api.py</code>: llamadas REST a Power BI, gestión de tokens.</li>
+          <li><code>powerbi_export.py</code>: lógica de exportación, batching, incremental, métricas y logs.</li>
+        </ul>
+      </li>
+      <li><strong>Capa de presentación</strong>:
+        <ul>
+          <li>Vistas XML, menús, acciones, wizards.</li>
+        </ul>
+      </li>
+      <li><strong>Capa de automatización</strong>:
+        <ul>
+          <li><code>ir.cron</code> para sincronizaciones periódicas.</li>
+          <li>Server Actions para exportaciones rápidas desde modelos de negocio.</li>
+        </ul>
+      </li>
+    </ol>
+
+    <h3>5.2. Estructura del módulo</h3>
+    <pre><code>powerbi_connector_19/
+  __init__.py
+  __manifest__.py
+  models/
+    __init__.py
+    powerbi_connection.py
+    powerbi_workspace.py
+    powerbi_dataset.py
+    powerbi_table.py
+    powerbi_table_field.py
+    powerbi_table_template.py
+    powerbi_metric.py
+    powerbi_alert.py
+    powerbi_sync_log.py
+    res_config_settings.py
+  services/
+    __init__.py
+    powerbi_api.py
+    powerbi_export.py
+  data/
+    ir_cron.xml
+    security_groups.xml
+    ir_model_access.xml
+    server_actions.xml
+  views/
+    menus.xml
+    powerbi_connection_views.xml
+    powerbi_workspace_views.xml
+    powerbi_dataset_views.xml
+    powerbi_table_views.xml
+    powerbi_template_views.xml
+    powerbi_metric_views.xml
+    powerbi_alert_views.xml
+    powerbi_sync_log_views.xml
+  security/
+    ir.model.access.csv
+  static/
+    description/
+    img/
+</code></pre>
+
+    <h3>5.3. Diseño de modelos clave</h3>
+
+    <h4>5.3.1. <code>powerbi.connection</code></h4>
+    <ul>
+      <li>Hereda <code>mail.thread</code> para registrar cambios relevantes (estado, conexión, errores).</li>
+      <li>Métodos:
+        <ul>
+          <li><code>action_test_connection()</code>: obtiene token y realiza llamada de prueba.</li>
+          <li><code>_get_access_token(force_refresh=False)</code>: maneja obtención/renovación de tokens.</li>
+        </ul>
+      </li>
+      <li>Relación con <code>res.config.settings</code> para establecer conexión por defecto.</li>
+    </ul>
+
+    <h4>5.3.2. <code>powerbi.table</code></h4>
+    <ul>
+      <li>Contiene campos de sincronización:
+        <ul>
+          <li><code>last_sync_datetime</code>, <code>last_sync_state</code>, <code>last_cron_run</code>, <code>force_full_export_next_run</code>.</li>
+        </ul>
+      </li>
+      <li>Métodos clave:
+        <ul>
+          <li><code>action_export_manual()</code>: llamado desde botón; invoca servicio de exportación.</li>
+          <li><code>_export(mode='auto')</code>: lógica principal que decide incremental/full.</li>
+          <li><code>_prepare_domain()</code>: parsea dominio en texto a lista Python.</li>
+          <li><code>_get_records_to_export(mode)</code>: obtiene registros a exportar.</li>
+          <li><code>_update_sync_status(success, msg, has_data)</code>: actualiza estado y fecha.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h4>5.3.3. Servicios – <code>powerbi_api.py</code></h4>
+    <ul>
+      <li>Clase <code>PowerBiApiService</code>:
+        <ul>
+          <li><code>get_token(connection)</code> y <code>refresh_token(connection)</code>.</li>
+          <li><code>list_workspaces(connection)</code>.</li>
+          <li><code>create_dataset(connection, dataset)</code>.</li>
+          <li><code>create_or_update_table(connection, dataset, table, fields)</code>.</li>
+          <li><code>insert_rows(connection, dataset, table, rows)</code>.</li>
+          <li><code>delete_rows(connection, dataset, table)</code> (para operaciones full truncate si aplica).</li>
+        </ul>
+      </li>
+      <li>Manejo centralizado de errores HTTP: códigos 401, 403, 500, timeouts.</li>
+      <li>Devuelve estructuras <code>dict</code> y lanza excepciones controladas hacia la capa de negocio.</li>
+    </ul>
+
+    <h4>5.3.4. Servicios – <code>powerbi_export.py</code></h4>
+    <ul>
+      <li>Clase <code>PowerBiExportService</code>:
+        <ul>
+          <li><code>export_table(table, mode)</code>: orquesta la exportación.</li>
+          <li><code>_iterate_batches(recordset, batch_size)</code>: genera lotes.</li>
+          <li><code>_convert_record_to_row(table, record)</code>: mapeo Odoo → formato Power BI.</li>
+          <li><code>_record_metrics(table, duration, count, state)</code>.</li>
+          <li><code>_record_sync_logs(table, records, operation, state, message)</code>.</li>
+        </ul>
+      </li>
+      <li>Implementa conversión de tipos:
+        <ul>
+          <li>Numéricos: enviados como números.</li>
+          <li>Fechas: ISO 8601.</li>
+          <li>Booleanos: true/false.</li>
+          <li>Relacionales: según <code>relation_child_field_id</code> o <code>name</code> por defecto.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h3>5.4. Seguridad y permisos</h3>
+    <ul>
+      <li><strong>Grupos:</strong>
+        <ul>
+          <li><code>group_powerbi_user</code>: lectura y visualización.</li>
+          <li><code>group_powerbi_officer</code>: configuración media y ejecución de exportaciones.</li>
+          <li><code>group_powerbi_manager</code>: acceso completo, incl. conexión, parámetros y seguridad.</li>
+        </ul>
+      </li>
+      <li><strong>Reglas de acceso:</strong>
+        <ul>
+          <li><code>ir.model.access.csv</code> define permisos de lectura/escritura/borrado por modelo y grupo.</li>
+          <li>Record rules filtran elementos por usuario responsable cuando aplique.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h3>5.5. Cron y Server Actions</h3>
+
+    <h4>5.5.1. Cron global</h4>
+    <ul>
+      <li>Definido en <code>ir_cron.xml</code>.</li>
+      <li>Modelo: <code>powerbi.table</code>, método: <code>_cron_export_tables</code>.</li>
+      <li>Frecuencia configurable (ej. cada 15 minutos o según necesidad).</li>
+      <li>Método <code>_cron_export_tables</code>:
+        <ul>
+          <li>Busca tablas con <code>use_cron = True</code>.</li>
+          <li>Llama a <code>export_table()</code> para cada una, respetando su <code>cron_mode</code>.</li>
+          <li>Maneja excepciones para que el fallo de una tabla no detenga las demás.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h4>5.5.2. Server Actions</h4>
+    <ul>
+      <li>Se crean dinámicamente desde botón en <code>powerbi.table</code>.</li>
+      <li>Se añaden al menú “Acción” de la vista tree/form del modelo origen (ej. <code>res.partner</code>).</li>
+      <li>La acción ejecuta exportación para los registros seleccionados en esa vista.</li>
+    </ul>
+
+    <h3>5.6. Logs, métricas y alertas</h3>
+    <ul>
+      <li><strong>PowerBiMetric:</strong> registra métricas de alto nivel por exportación (duración, tamaño, estado).</li>
+      <li><strong>PowerBiSyncLog:</strong> guarda trazabilidad detallada por lote o por registro.</li>
+      <li><strong>PowerBiAlert:</strong> se evalúa posterior a cada exportación para decidir si crear alertas.</li>
+      <li>Las alertas se plasman en:
+        <ul>
+          <li>Chatter de la tabla/dataset.</li>
+          <li>Notificaciones internas.</li>
+          <li>Correo electrónico a los usuarios configurados, si procede.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h3>5.7. Estrategia de pruebas</h3>
+
+    <h4>5.7.1. Pruebas unitarias</h4>
+    <ul>
+      <li>Test de obtención/renovación de tokens (con mocks de respuestas de Azure).</li>
+      <li>Test de selección incremental de registros según <code>create_date</code>/<code>write_date</code>.</li>
+      <li>Test de construcción de payload para diferentes tipos de campos.</li>
+      <li>Test de actualización de métricas y logs.</li>
+    </ul>
+
+    <h4>5.7.2. Pruebas de integración</h4>
+    <ul>
+      <li>Caso completo: conexión → importación de workspaces → creación/publicación de dataset → creación de tabla → exportación → ver datos en Power BI.</li>
+      <li>Caso de exportación incremental posterior con registros nuevos y modificados.</li>
+    </ul>
+
+    <h4>5.7.3. Pruebas de seguridad</h4>
+    <ul>
+      <li>Verificar que solo usuarios autorizados pueden alterar conexión y parámetros.</li>
+      <li>Asegurar que los tokens no se exponen en registros ni errores visibles.</li>
+    </ul>
+
+    <h4>5.7.4. Pruebas de rendimiento</h4>
+    <ul>
+      <li>Exportar grandes volúmenes (50k+ registros) para medir tiempos y estabilidad.</li>
+      <li>Ajustar batch size y, opcionalmente, cola de trabajos para optimizar.</li>
+    </ul>
+
+    <h3>5.8. Monitor de salud en tiempo real</h3>
+    <ul>
+      <li><strong>Vista OWL</strong> dedicada que consulta un endpoint JSON (controlador) cada 30-60 segundos.</li>
+      <li><strong>Datos mostrados:</strong> estado de la conexión activa, último resultado del cron, tablas con errores recientes,
+        métricas agregadas (éxitos/fallos en última hora) y colas pendientes.</li>
+      <li><strong>Backend:</strong> método en <code>powerbi.table</code> y <code>powerbi.metric</code> que arma el payload,
+        aplicando filtros por compañía/workspace recibidos desde la UI.</li>
+      <li><strong>Alertas rápidas:</strong> si se detecta error crítico, el panel muestra badge rojo y enlace directo a la tabla.</li>
+    </ul>
+
+    <h3>5.9. Gestión de versionado de datasets/tablas</h3>
+    <ul>
+      <li>Nuevo modelo <code>powerbi.schema.version</code> con campos:
+        <ul>
+          <li><code>resource_type</code> (dataset/table), <code>resource_id</code>.</li>
+          <li><code>version_number</code>, <code>summary</code>, <code>diff_json</code>, <code>snapshot_payload</code>.</li>
+          <li><code>changed_by</code>, <code>changed_on</code>.</li>
+        </ul>
+      </li>
+      <li>Triggers en <code>write()</code> de <code>powerbi.dataset</code> y <code>powerbi.table</code> para generar la versión
+        cuando cambien campos de esquema (columnas, dominios, estrategia de sync).</li>
+      <li>Wizard “Comparar versiones” que muestra diferencias resaltadas y permite restaurar, creando un registro de auditoría.</li>
+      <li>Las restauraciones bloquean la exportación hasta que se verifique la consistencia y se vuelve a publicar el dataset.</li>
+    </ul>
+  </section>
+
+  <hr />
+
+  <!-- ========================================================= -->
+  <!-- 6. EXTENSIÓN DEL DISEÑO -->
+  <!-- ========================================================= -->
+  <section id="sec6">
+    <h2>6. Extensión del Diseño Técnico</h2>
+
+    <h2>A. Priorización, Definition of Ready y Riesgos Técnicos</h2>
+
+    <h3>A.1. Épicas y priorización (MoSCoW)</h3>
+
+    <h4>Épica 1 — Conexión y autenticación (OAuth2 / MSAL)</h4>
+    <ul>
+      <li><strong>Must have</strong>
+        <ul>
+          <li>Probar conexión y refrescar tokens de acceso.</li>
+          <li>Almacenar credenciales en campos seguros (no visibles en texto plano).</li>
+        </ul>
+      </li>
+      <li><strong>Should have</strong>
+        <ul>
+          <li>Log detallado de errores de autenticación y expiración.</li>
+        </ul>
+      </li>
+      <li><strong>Could have</strong>
+        <ul>
+          <li>Integración con almacenes de secretos (Key Vault, etc.).</li>
+        </ul>
+      </li>
+      <li><strong>Won’t have (por ahora)</strong>
+        <ul>
+          <li>Rotación automática de secretos gestionada desde Azure.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h4>Épica 2 — Datasets y tablas Power BI</h4>
+    <ul>
+      <li><strong>Must</strong>
+        <ul>
+          <li>Crear datasets de tipo Push y registrar <code>dataset_id</code>.</li>
+          <li>Crear y actualizar esquemas de tablas (nombre, columnas, tipos).</li>
+          <li>Mantener versiones históricas de cada dataset/tabla con posibilidad de restaurar.</li>
+        </ul>
+      </li>
+      <li><strong>Should</strong>
+        <ul>
+          <li>Validar compatibilidad entre tipos de campos Odoo y Power BI antes de publicar.</li>
+        </ul>
+      </li>
+      <li><strong>Could</strong>
+        <ul>
+          <li>Clonar esquemas de datasets/tablas entre entornos (dev, test, prod).</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h4>Épica 3 — Exportación manual / incremental / cron</h4>
+    <ul>
+      <li><strong>Must</strong>
+        <ul>
+          <li>Exportación incremental basada en <code>create_date</code> y <code>write_date</code>.</li>
+          <li>Exportación completa (snapshot).</li>
+          <li>Procesamiento por lotes configurables.</li>
+        </ul>
+      </li>
+      <li><strong>Should</strong>
+        <ul>
+          <li>Métricas por ejecución: duración, filas, estado.</li>
+        </ul>
+      </li>
+      <li><strong>Could</strong>
+        <ul>
+          <li>Ajuste dinámico del tamaño de lote según rendimiento observado.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h4>Épica 4 — Plantillas, clonado y reutilización</h4>
+    <ul>
+      <li><strong>Must</strong>
+        <ul>
+          <li>Guardar configuración de tabla como plantilla reutilizable.</li>
+        </ul>
+      </li>
+      <li><strong>Should</strong>
+        <ul>
+          <li>Validar que el modelo Odoo de destino sea compatible al clonar plantilla.</li>
+        </ul>
+      </li>
+      <li><strong>Could</strong>
+        <ul>
+          <li>Biblioteca de plantillas compartidas entre bases de datos o proyectos.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h4>Épica 5 — Monitoreo, alertas y auditoría</h4>
+    <ul>
+      <li><strong>Must</strong>
+        <ul>
+          <li>Logs y métricas de cada exportación.</li>
+          <li>Monitor de salud en tiempo real con indicadores de conexión, cron y errores.</li>
+        </ul>
+      </li>
+      <li><strong>Should</strong>
+        <ul>
+          <li>Alertas automáticas configurables por umbrales globales.</li>
+        </ul>
+      </li>
+      <li><strong>Could</strong>
+        <ul>
+          <li>Dashboard interno de estado del conector con KPIs.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h3>A.2. Definition of Ready (DoR)</h3>
+    <p>Una historia de usuario se considera <strong>lista</strong> para desarrollo cuando:</p>
+    <ul>
+      <li>Tiene <strong>criterios de aceptación claros, medibles y entendibles</strong> por QA.</li>
+      <li>Cuenta con un <strong>modelo de datos definido</strong>:
+        <ul>
+          <li>Campos Odoo origen.</li>
+          <li>Campos Power BI destino.</li>
+          <li>Reglas de transformación (tipos, formatos, nulls).</li>
+        </ul>
+      </li>
+      <li>Están identificados los responsables:
+        <ul>
+          <li><strong>Responsable funcional:</strong> valida que la lógica de negocio es correcta.</li>
+          <li><strong>Responsable técnico:</strong> diseña e implementa la solución.</li>
+          <li><strong>Responsable de datos:</strong> revisa que los datos exportados tengan sentido (contabilidad, BI, etc.).</li>
+        </ul>
+      </li>
+      <li>Las dependencias críticas están resueltas:
+        <ul>
+          <li>Credenciales de Azure creadas y probadas.</li>
+          <li>Workspace de Power BI disponible y accesible.</li>
+          <li>Dataset base creado (si se usa Import/DirectQuery).</li>
+        </ul>
+      </li>
+      <li>Los endpoints REST necesarios están identificados y documentados.</li>
+      <li>Los <strong>riesgos técnicos</strong> de la historia están identificados y tienen una estrategia de mitigación.</li>
+      <li>Se han definido datos de prueba básicos para validar funcionalidad.</li>
+    </ul>
+
+    <h3>A.3. Riesgos técnicos por historia</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Historia / Épica</th>
+          <th>Riesgo técnico</th>
+          <th>Impacto</th>
+          <th>Mitigación</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Conexión OAuth2</td>
+          <td>Expiración de tokens, errores 401/403</td>
+          <td>Alto</td>
+          <td>Refresco automático de token + buffer antes de expiración + logs de detalle</td>
+        </tr>
+        <tr>
+          <td>Creación de datasets</td>
+          <td>Esquemas incompatibles (tipos o nombres)</td>
+          <td>Medio</td>
+          <td>Validaciones previas de tipos y nombres, rollback en caso de error</td>
+        </tr>
+        <tr>
+          <td>Exportación incremental</td>
+          <td>Registros no exportados por errores con <code>write_date</code></td>
+          <td>Alto</td>
+          <td>Uso combinado de <code>create_date</code> + <code>write_date</code> y ventanas de tiempo solapadas</td>
+        </tr>
+        <tr>
+          <td>Exportación por lotes</td>
+          <td>Lotes demasiado grandes, timeout o throttling</td>
+          <td>Medio</td>
+          <td>Configurar <code>batch_size</code> y permitir ajuste dinámico según métricas</td>
+        </tr>
+        <tr>
+          <td>Alertas</td>
+          <td>Falsos positivos o exceso de notificaciones</td>
+          <td>Bajo</td>
+          <td>Umbrales configurables y desactivación granular por tabla/dataset</td>
+        </tr>
+        <tr>
+          <td>Embedding Power BI</td>
+          <td>Tokens de embed vencidos, errores de permisos</td>
+          <td>Alto</td>
+          <td>Regeneración periódica y manejo de errores con mensajes claros al usuario</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>B. Casos de uso técnicos del API de Power BI</h2>
+
+    <h3>B.1. Endpoints concretos</h3>
+
+    <h4>1. Obtener token OAuth2 (Client Credentials)</h4>
+    <pre><code>POST https://login.microsoftonline.com/{tenant_id}/oauth2/v2.0/token
+
+Headers:
+  Content-Type: application/x-www-form-urlencoded
+
+Body (x-www-form-urlencoded):
+  client_id={CLIENT_ID}
+  client_secret={CLIENT_SECRET}
+  scope=https://analysis.windows.net/powerbi/api/.default
+  grant_type=client_credentials</code></pre>
+
+    <h4>2. Listar Workspaces</h4>
+    <pre><code>GET https://api.powerbi.com/v1.0/myorg/groups
+
+Headers:
+  Authorization: Bearer {access_token}</code></pre>
+
+    <h4>3. Crear Dataset (Push)</h4>
+    <pre><code>POST https://api.powerbi.com/v1.0/myorg/groups/{groupId}/datasets
+
+Headers:
+  Authorization: Bearer {access_token}
+  Content-Type: application/json
+
+Body:
+{
+  "name": "Odoo_PowerBI_Dataset",
+  "defaultMode": "Push",
+  "tables": [
+    {
+      "name": "Facturas",
+      "columns": [
+        { "name": "id",           "dataType": "Int64"  },
+        { "name": "numero",       "dataType": "string" },
+        { "name": "state",        "dataType": "string" },
+        { "name": "amount_total", "dataType": "double" },
+        { "name": "partner_name", "dataType": "string" },
+        { "name": "invoice_date", "dataType": "DateTime" }
+      ]
+    }
+  ]
+}</code></pre>
+
+    <h4>4. Insertar filas (Push Rows)</h4>
+    <pre><code>POST https://api.powerbi.com/v1.0/myorg/groups/{groupId}/datasets/{datasetId}/tables/{tableName}/rows
+
+Headers:
+  Authorization: Bearer {access_token}
+  Content-Type: application/json
+
+Body:
+{
+  "rows": [
+    {
+      "id": 1,
+      "numero": "F001",
+      "state": "draft",
+      "amount_total": 1000.00,
+      "partner_name": "Cliente Demo",
+      "invoice_date": "2025-11-21T10:00:00Z"
+    },
+    {
+      "id": 2,
+      "numero": "F002",
+      "state": "posted",
+      "amount_total": 1500.25,
+      "partner_name": "Cliente XYZ",
+      "invoice_date": "2025-11-21T12:30:00Z"
+    }
+  ]
+}</code></pre>
+
+    <h4>5. Borrar todas las filas de una tabla</h4>
+    <pre><code>DELETE https://api.powerbi.com/v1.0/myorg/groups/{groupId}/datasets/{datasetId}/tables/{tableName}/rows
+
+Headers:
+  Authorization: Bearer {access_token}</code></pre>
+
+    <h4>6. Refrescar dataset (modo Import)</h4>
+    <pre><code>POST https://api.powerbi.com/v1.0/myorg/groups/{groupId}/datasets/{datasetId}/refreshes
+
+Headers:
+  Authorization: Bearer {access_token}</code></pre>
+
+    <h3>B.2. Pseudo-código detallado</h3>
+
+    <h4>Método <code>export_table(table, mode)</code></h4>
+    <pre><code>def export_table(table, mode):
+    """
+    Exporta los registros de una tabla Odoo hacia Power BI, respetando
+    la estrategia de sincronización y el modo (incremental o full).
+    """
+
+    conn = get_active_powerbi_connection()
+    dataset_id = table.dataset_id.pbi_dataset_id
+    table_name = table.pbi_table_name
+    fields = table.field_ids
+
+    # 1) Determinar registros a exportar
+    if mode == 'incremental':
+        records = fetch_records_incremental(table)
+    elif mode == 'full':
+        records = fetch_records_full(table)
+    else:
+        # modo auto: decidir según configuración / last_sync
+        records = fetch_records_auto(table)
+
+    if not records:
+        log_no_data(table)
+        update_sync_metadata(table, state="no_data")
+        return
+
+    # 2) Procesar por lotes
+    batch_size = table.batch_size or get_default_batch_size()
+    record_batches = split_into_batches(records, batch_size)
+
+    total_exported = 0
+    started_at = now()
+
+    # Si es estrategia snapshot_full, borramos filas primero
+    if table.sync_strategy == 'snapshot_full':
+        api_delete_rows(conn, dataset_id, table_name)
+
+    for batch in record_batches:
+        payload_rows = []
+        for rec in batch:
+            row = convert_record_to_pbi_row(rec, fields)
+            payload_rows.append(row)
+
+        payload = {"rows": payload_rows}
+
+        # 3) Llamada al API
+        api_post_rows(conn, dataset_id, table_name, payload)
+
+        # 4) Métricas por lote
+        total_exported += len(batch)
+        metric_batch_success(table, len(batch))
+
+    duration = (now() - started_at).total_seconds()
+
+    # 5) Actualizar metadatos de sincronización
+    update_sync_metadata(
+        table,
+        state="success",
+        last_sync_datetime=now(),
+        duration=duration,
+        record_count=total_exported
+    )</code></pre>
+
+    <h4>Método <code>_cron_export_tables()</code></h4>
+    <pre><code>def _cron_export_tables():
+    """
+    Tarea programada que exporta todas las tablas marcadas para cron.
+    Maneja errores por tabla sin detener todo el proceso.
+    """
+
+    tables = env['powerbi.table'].search([('use_cron', '=', True)])
+
+    for table in tables:
+        try:
+            mode = table.cron_mode or 'incremental'
+            export_table(table, mode)
+        except Exception as e:
+            # Registrar error y generar alerta
+            log_export_error(table, e)
+            create_powerbi_alert(
+                table=table,
+                alert_type="export_failed",
+                message=str(e)
+            )
+            # Continuar con la siguiente tabla
+            continue</code></pre>
+
+    <h2>C. Plan de datos (Modelo ER / Mapeo Odoo → Power BI)</h2>
+
+    <h3>C.1. Mapeo Odoo → Power BI (ejemplo facturas)</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Modelo Odoo</th>
+          <th>Campo Odoo</th>
+          <th>Tipo Odoo</th>
+          <th>Campo PBI</th>
+          <th>Tipo PBI</th>
+          <th>Regla de transformación</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>account.move</td>
+          <td>id</td>
+          <td>Integer</td>
+          <td>id</td>
+          <td>Int64</td>
+          <td>Directo</td>
+        </tr>
+        <tr>
+          <td>account.move</td>
+          <td>name</td>
+          <td>Char</td>
+          <td>numero</td>
+          <td>string</td>
+          <td>Directo</td>
+        </tr>
+        <tr>
+          <td>account.move</td>
+          <td>state</td>
+          <td>Selection</td>
+          <td>state</td>
+          <td>string</td>
+          <td>Directo (mismo valor técnico)</td>
+        </tr>
+        <tr>
+          <td>account.move</td>
+          <td>amount_total</td>
+          <td>Monetary</td>
+          <td>amount_total</td>
+          <td>double</td>
+          <td>Convertir a float; manejar null como 0.0 o null</td>
+        </tr>
+        <tr>
+          <td>account.move</td>
+          <td>partner_id</td>
+          <td>Many2one</td>
+          <td>partner_name</td>
+          <td>string</td>
+          <td><code>partner_id.name</code>; si no hay partner → “Sin cliente”</td>
+        </tr>
+        <tr>
+          <td>account.move</td>
+          <td>invoice_date</td>
+          <td>Date</td>
+          <td>invoice_date</td>
+          <td>DateTime</td>
+          <td>Transformar a ISO 8601 (fecha en UTC a medianoche)</td>
+        </tr>
+        <tr>
+          <td>account.move</td>
+          <td>write_date</td>
+          <td>Datetime</td>
+          <td>last_update</td>
+          <td>DateTime</td>
+          <td>ISO 8601; usado para incremental</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>C.2. Reglas de transformación generales</h3>
+    <ul>
+      <li><strong>Fechas:</strong> convertir a formato ISO <code>YYYY-MM-DDTHH:MM:SSZ</code>.</li>
+      <li><strong>Monetary / Float / Integer:</strong> enviar como numérico real, nunca como string.</li>
+      <li><strong>Boolean:</strong> mapear a <code>true</code> / <code>false</code>.</li>
+      <li><strong>Many2one:</strong> usar <code>relation_child_field_id</code> (típicamente <code>name</code>).</li>
+      <li><strong>Many2many / One2many:</strong> decidir formato:
+        <ul>
+          <li>Lista separada por comas (texto).</li>
+          <li>JSON (texto) si se necesita estructura.</li>
+        </ul>
+      </li>
+      <li><strong>Nulls:</strong> respetar null en Power BI siempre que el tipo lo permita.</li>
+    </ul>
+
+    <h3>C.3. Estrategia de migración desde versiones anteriores</h3>
+    <ol>
+      <li>Exportar registros de modelos antiguos (<code>powerbi.table</code>, <code>powerbi.dataset</code>) en Odoo 14/15.</li>
+      <li>Normalizar y limpiar:
+        <ul>
+          <li>Dominios de búsqueda en texto.</li>
+          <li>Campos renombrados entre versiones de Odoo.</li>
+        </ul>
+      </li>
+      <li>Importar en Odoo 19:
+        <ul>
+          <li>Crear nuevas tablas con esquema actualizado.</li>
+          <li>Mapear IDs de datasets y workspaces si se reutilizan.</li>
+        </ul>
+      </li>
+      <li>Regenerar server actions y revisar cron jobs.</li>
+    </ol>
+
+    <h2>D. Matriz de permisos y multi-compañía</h2>
+
+    <h3>D.1. Roles y capacidades</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Rol</th>
+          <th>Descripción</th>
+          <th>Capacidades principales</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Power BI User</td>
+          <td>Usuario de negocio que consulta reportes y métricas.</td>
+          <td>Ver dashboards embebidos, consultar métricas básicas, ver logs (solo lectura) de su compañía.</td>
+        </tr>
+        <tr>
+          <td>Power BI Officer</td>
+          <td>Analista responsable de diseñar datasets y tablas.</td>
+          <td>Crear/editar tablas, datasets, plantillas; ejecutar exportaciones manuales; consultar métricas y logs completos (limitados por compañía).</td>
+        </tr>
+        <tr>
+          <td>Power BI Manager</td>
+          <td>Administrador del conector.</td>
+          <td>Configurar conexión, parámetros globales, cron, alertas; acceso completo a todos los registros, multi-compañía; gestionar permisos y revisar auditoría.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>D.2. Record rules y restricciones multi-compañía</h3>
+
+    <h4>Regla 1 — Tablas visibles solo por compañía</h4>
+    <pre><code># powerbi.table
+[('company_id', 'in', [user.company_id.id, False])]</code></pre>
+
+    <h4>Regla 2 — Logs restringidos por compañía</h4>
+    <pre><code># powerbi.sync.log
+[('table_id.company_id', 'in', [user.company_id.id, False])]</code></pre>
+
+    <h4>Regla 3 — Métricas por responsable</h4>
+    <pre><code># powerbi.metric
+['|',
+ ('responsible_id', '=', user.id),
+ ('responsible_id', '=', False)
+]</code></pre>
+
+    <h2>E. Plan de pruebas formal</h2>
+
+    <h3>E.1. Pruebas unitarias (ejemplos)</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID Caso</th>
+          <th>Objetivo</th>
+          <th>Entrada</th>
+          <th>Resultado esperado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>UT-01</td>
+          <td>Validar selección incremental de registros</td>
+          <td>Tabla con <code>last_sync_datetime</code> y registros con <code>write_date</code> reciente</td>
+          <td>Solo se seleccionan registros cuya <code>write_date</code> &gt; <code>last_sync_datetime</code></td>
+        </tr>
+        <tr>
+          <td>UT-02</td>
+          <td>Conversión de Many2one</td>
+          <td>Factura con <code>partner_id</code> definido</td>
+          <td>Se envía <code>partner_name = partner_id.name</code> en la fila Power BI</td>
+        </tr>
+        <tr>
+          <td>UT-03</td>
+          <td>Borrado de tabla en snapshot</td>
+          <td>Tabla en modo <code>snapshot_full</code></td>
+          <td>Se ejecuta <code>DELETE rows</code> antes del primer <code>POST rows</code> de la ejecución</td>
+        </tr>
+        <tr>
+          <td>UT-04</td>
+          <td>Manejo de error de API</td>
+          <td>Respuesta 401/403/500 en <code>post_rows</code></td>
+          <td>Se lanza excepción controlada, se registra log y no se actualiza <code>last_sync_datetime</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>E.2. Pruebas de integración</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID Caso</th>
+          <th>Flujo</th>
+          <th>Validación</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>IT-01</td>
+          <td>Conexión Odoo ↔ Power BI</td>
+          <td>Conexión “Probar” devuelve éxito, se puede listar Workspaces</td>
+        </tr>
+        <tr>
+          <td>IT-02</td>
+          <td>Creación de dataset y tabla</td>
+          <td>Dataset aparece en Power BI con tabla “Facturas” y columnas correctas</td>
+        </tr>
+        <tr>
+          <td>IT-03</td>
+          <td>Exportación batch</td>
+          <td>Filas visibles en Power BI; métricas registradas en Odoo</td>
+        </tr>
+        <tr>
+          <td>IT-04</td>
+          <td>Cambio de estado de factura (draft → paid)</td>
+          <td>En snapshot_full se reconstruye tabla y factura aparece como paid; en log_append se agrega evento con nuevo estado</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>E.3. Datos de prueba sugeridos</h3>
+    <ul>
+      <li>10 facturas en estado <code>draft</code>, 10 en <code>posted</code>, 5 en <code>cancel</code>.</li>
+      <li>Varios clientes con nombres similares (mismo prefijo) para probar filtros.</li>
+      <li>Fechas de factura en distintos meses y años para probar rangos.</li>
+      <li>Cambios de estado escalonados en el tiempo (timeline realista).</li>
+    </ul>
+
+    <h2>F. UI / UX – Wireframes y lineamientos</h2>
+
+    <h3>F.1. Wireframes (descripción textual)</h3>
+
+    <h4>Pantalla: Configuración de conexión Power BI</h4>
+    <ul>
+      <li>Sección “Credenciales Azure”:
+        <ul>
+          <li>Tenant ID, Client ID, Client Secret (campo protegido), Redirect URI.</li>
+        </ul>
+      </li>
+      <li>Sección “Prueba de conexión”:
+        <ul>
+          <li>Botón “Probar conexión”.</li>
+          <li>Zona de mensajes con éxito/error.</li>
+        </ul>
+      </li>
+      <li>Sección “Parámetros globales”:
+        <ul>
+          <li>Batch size por defecto, estrategia incremental, umbrales de alertas.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h4>Pantalla: Lista de Datasets</h4>
+    <ul>
+      <li>Columnas: Nombre, Workspace, Modo (Push/Import/DirectQuery), último refresh/exportación, estado.</li>
+      <li>Acciones: “Crear dataset”, “Publicar en Power BI”, “Refrescar ahora”.</li>
+    </ul>
+
+    <h4>Pantalla: Tabla Power BI (form)</h4>
+    <ul>
+      <li>Encabezado con nombre y dataset asociado.</li>
+      <li>Sección “Origen de datos”: modelo, dominio, compañía.</li>
+      <li>Sección “Sincronización”: modo, estrategia, cron, batch size.</li>
+      <li>Sección “Columnas”: listado de campos Odoo/PBI, tipo, child field, checkbox “Exportar”.</li>
+      <li>Botones: “Exportar datos ahora”, “Guardar como plantilla”, “Crear Server Action”.</li>
+    </ul>
+
+    <h3>F.2. Lineamientos UI/UX</h3>
+    <ul>
+      <li>Mensajes de error en texto claro, evitando tecnicismos.</li>
+      <li>Estados vacíos:
+        <ul>
+          <li>Sin métricas: “Aún no se han ejecutado exportaciones para esta tabla”.</li>
+          <li>Sin datos: “No se encontraron registros para el dominio configurado”.</li>
+        </ul>
+      </li>
+      <li>Validaciones en frontend:
+        <ul>
+          <li>No exportar si no hay conexión activa.</li>
+          <li>No exportar si la tabla no tiene campos marcados como “exportar”.</li>
+        </ul>
+      </li>
+      <li>Consistencia visual:
+        <ul>
+          <li>Colores estándar para estados (verde = éxito, amarillo = warning, rojo = error).</li>
+          <li>Mismas etiquetas para botones clave en todas las vistas.</li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <hr />
+
+  <!-- ========================================================= -->
+  <!-- 7. ARTEFACTOS PARA DESARROLLO -->
+  <!-- ========================================================= -->
+  <section id="sec7">
+    <h2>7. Artefactos para habilitar desarrollo</h2>
+
+    <h3>7.1. Backlog técnico (iteración inicial)</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Tarea</th>
+          <th>Descripción</th>
+          <th>Dependencias</th>
+          <th>Responsable sugerido</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>T-01</td>
+          <td>Esqueleto del módulo</td>
+          <td>Crear módulo Odoo, estructuras básicas (manifiesto, init, modelos vacíos)</td>
+          <td>–</td>
+          <td>Backend</td>
+        </tr>
+        <tr>
+          <td>T-02</td>
+          <td>Modelo powerbi.connection</td>
+          <td>Campos, vistas, lógica OAuth2 y pruebas de conexión</td>
+          <td>T-01</td>
+          <td>Backend</td>
+        </tr>
+        <tr>
+          <td>T-03</td>
+          <td>Servicios API Power BI</td>
+          <td>Módulo python con llamadas autenticadas y manejo de errores</td>
+          <td>T-02</td>
+          <td>Backend</td>
+        </tr>
+        <tr>
+          <td>T-04</td>
+          <td>Monitor de salud OWL</td>
+          <td>Endpoint JSON + componente OWL con polling, filtros y badges</td>
+          <td>T-03, T-07</td>
+          <td>Frontend/Backend</td>
+        </tr>
+        <tr>
+          <td>T-05</td>
+          <td>Versionado de datasets/tablas</td>
+          <td>Modelo <code>powerbi.schema.version</code>, triggers <code>write</code>, wizard de comparación/restauración</td>
+          <td>T-01, T-06</td>
+          <td>Backend</td>
+        </tr>
+        <tr>
+          <td>T-06</td>
+          <td>Modelos core (dataset, table, field, metric, alert, log)</td>
+          <td>Campos, vistas y acciones base de exportación</td>
+          <td>T-01</td>
+          <td>Backend</td>
+        </tr>
+        <tr>
+          <td>T-07</td>
+          <td>Servicios de exportación</td>
+          <td>Implementar <code>export_table</code>, cron, métricas y logs</td>
+          <td>T-03, T-06</td>
+          <td>Backend</td>
+        </tr>
+        <tr>
+          <td>T-08</td>
+          <td>Plan de pruebas automatizadas</td>
+          <td>Crear tests unitarios (services) e integración (cron, exportaciones)</td>
+          <td>T-07</td>
+          <td>QA/Backend</td>
+        </tr>
+        <tr>
+          <td>T-09</td>
+          <td>Documentación y demo</td>
+          <td>README, manual funcional, scripts de datos demo</td>
+          <td>T-02–T-08</td>
+          <td>PM/Backend</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>7.2. Especificación de endpoints / contratos</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Endpoint</th>
+          <th>Método</th>
+          <th>Entrada</th>
+          <th>Salida</th>
+          <th>Notas</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>/powerbi/monitor/status</td>
+          <td>GET</td>
+          <td>Query params: <code>company_id</code>, <code>workspace_id</code>, <code>dataset_id</code> (opcionales)</td>
+          <td>JSON:<br />{connection: {state, message}, cron: {last_run, status}, tables: [...], metrics: {...}}</td>
+          <td>Cache corta (30s). Requiere grupo Manager/Officer.</td>
+        </tr>
+        <tr>
+          <td>/powerbi/schema/version/compare</td>
+          <td>POST</td>
+          <td>Body JSON: {resource_type, resource_id, version_a, version_b}</td>
+          <td>JSON con diff estructurado (fields_added, removed, changed)</td>
+          <td>Usado por wizard, valida acceso ACL.</td>
+        </tr>
+        <tr>
+          <td>/powerbi/schema/version/restore</td>
+          <td>POST</td>
+          <td>{resource_type, resource_id, target_version}</td>
+          <td>JSON {status, message}</td>
+          <td>Bloquea exportaciones hasta publicar nuevamente.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>7.3. Definición detallada de modelos y vistas nuevas</h3>
+    <ul>
+      <li><strong>powerbi.schema.version</strong>
+        <ul>
+          <li>Campos: <code>name</code>, <code>resource_type</code> (selection dataset/table), <code>resource_ref</code> (Reference), <code>version_number</code>, <code>summary</code>, <code>diff_json</code> (Json), <code>snapshot_payload</code> (Binary o Json), <code>changed_by</code> (Many2one res.users), <code>changed_on</code> (Datetime).</li>
+          <li>Vistas: tree con versión y resumen; form con tabs “Diff” y “Snapshot”.</li>
+          <li>Seguridad: lectura officers, escritura managers.</li>
+        </ul>
+      </li>
+      <li><strong>powerbi.monitor.dashboard</strong> (vista OWL/QWeb)
+        <ul>
+          <li>Filtros: company, workspace, dataset.</li>
+          <li>Cards: Estado conexión (verde/rojo), Último cron, Exportaciones exitosas/fallidas (last hour/day), Alertas pendientes.</li>
+          <li>Tabla inferior: listas de tablas con estado actual y acción “Ir a registro”.</li>
+        </ul>
+      </li>
+      <li><strong>Wizard</strong> “Comparar versiones”
+        <ul>
+          <li>Modelo transitorio con campos <code>version_id_a</code>, <code>version_id_b</code>, <code>diff_html</code>.</li>
+          <li>Botón “Restaurar versión B” que llama al endpoint/servicio backend.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h3>7.4. Wireframes / especificación UI</h3>
+    <ul>
+      <li><strong>Monitor en tiempo real:</strong>
+        <ul>
+          <li>Layout de 2 columnas: tarjetas superiores (estado general) y tabla inferior.</li>
+          <li>Tarjetas: Conexión (icon + texto), Cron (fecha/estado), Exportaciones (success/fail), Alertas (count).</li>
+          <li>Tabla: columnas Tabla, Dataset, Última exportación, Estado, Acciones (ver, reintentar).</li>
+          <li>Actualización automática: spinner discreto cuando llega nueva data.</li>
+        </ul>
+      </li>
+      <li><strong>Historial de versiones:</strong>
+        <ul>
+          <li>Subpestaña en dataset/tabla con listado de versiones.</li>
+          <li>Acciones: “Comparar”, “Restaurar”, “Descargar snapshot”.</li>
+          <li>Vista comparación: diff visual resaltando campos agregados (verde), eliminados (rojo) y modificados (amarillo).</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h3>7.5. Plan de pruebas detallado</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Tipo</th>
+          <th>Descripción</th>
+          <th>Datos necesarios</th>
+          <th>Resultado esperado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>UT-MON-01</td>
+          <td>Unit</td>
+          <td>Servicio monitor devuelve payload consistente</td>
+          <td>Tablas con distintos estados, métricas recientes</td>
+          <td>JSON con totales correctos y tablas ordenadas por severidad</td>
+        </tr>
+        <tr>
+          <td>UT-VSN-01</td>
+          <td>Unit</td>
+          <td>Trigger de versionado genera snapshot sólo si cambian campos relevantes</td>
+          <td>Tabla con cambio en nombre de columna</td>
+          <td>Se crea registro en <code>powerbi.schema.version</code> con diff JSON</td>
+        </tr>
+        <tr>
+          <td>IT-MON-01</td>
+          <td>Integración</td>
+          <td>Monitor OWL muestra estado correcto al simular fallo de conexión</td>
+          <td>Conexión sin token válido</td>
+          <td>Tarjeta conexión en rojo, alerta creada</td>
+        </tr>
+        <tr>
+          <td>IT-VSN-02</td>
+          <td>Integración</td>
+          <td>Restaurar versión previa de tabla y publicar de nuevo</td>
+          <td>Tabla con al menos 2 versiones</td>
+          <td>Campos se sincronizan con snapshot y exportación vuelve a estado success</td>
+        </tr>
+        <tr>
+          <td>E2E-01</td>
+          <td>End-to-end</td>
+          <td>Flujo completo con monitor: creación tabla → exportación → monitor refleja métricas</td>
+          <td>Dataset demo, registros sample</td>
+          <td>Monitor muestra exportación exitosa y sin alertas</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>7.6. Convenciones y estructura del repositorio</h3>
+    <ul>
+      <li>Nombre del módulo: <code>gn_powerbi_connector_19</code>.</li>
+      <li>Estructura estándar Odoo:
+        <ul>
+          <li><code>__manifest__.py</code>, <code>__init__.py</code></li>
+          <li>Carpetas: <code>models/</code>, <code>services/</code>, <code>controllers/</code>, <code>views/</code>, <code>security/</code>, <code>data/</code>, <code>static/src/js</code> (monitor OWL).</li>
+        </ul>
+      </li>
+      <li>Convenciones de código:
+        <ul>
+          <li>PEP8 + pylint-odoo; usar docstrings en services.</li>
+          <li>Tests en <code>tests/test_*.py</code> con <code>TransactionCase</code>.</li>
+          <li>Traducciones en <code>i18n/es.po</code>.</li>
+        </ul>
+      </li>
+      <li>Pipeline sugerido:
+        <ul>
+          <li>CI ejecuta <code>odoo-bin --test-enable</code> con modulo específico.</li>
+          <li>Chequeos estáticos: <code>pylint --load-plugins=pylint_odoo</code>.</li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+</body>
+</html>

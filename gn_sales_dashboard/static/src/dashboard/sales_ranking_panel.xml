@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_sales_dashboard.SalesRankingPanel">
+        <section class="gn-sd-panel">
+            <h3 class="gn-sd-panel__title" t-esc="props.title"/>
+            <div t-if="props.loading" class="gn-sd-skeleton gn-sd-skeleton--panel"/>
+            <div t-elif="!(props.rows and props.rows.length)" class="gn-sd-empty gn-sd-empty--sm">
+                <p>Sin datos</p>
+            </div>
+            <div t-else="" class="gn-sd-ranking">
+                <div t-foreach="props.rows" t-as="row" t-key="row.user_id or row.team_id or row.rank"
+                     class="gn-sd-ranking__row"
+                     t-on-click="() => this.onClick(row)">
+                    <span class="gn-sd-ranking__rank">
+                        <t t-if="props.type === 'sellers'" t-esc="medalIcon(row.rank)"/>
+                        <t t-else="" t-esc="row.rank or ''"/>
+                    </span>
+                    <div class="gn-sd-ranking__info">
+                        <strong t-esc="row.name"/>
+                        <small t-if="props.type === 'teams' and row.leader" t-esc="row.leader"/>
+                        <small t-elif="props.type === 'sellers'" t-esc="row.invoices + ' facturas · ' + row.orders + ' pedidos'"/>
+                    </div>
+                    <div class="gn-sd-ranking__metrics">
+                        <span class="gn-sd-ranking__sales" t-esc="fmtMoney(row.sales)"/>
+                        <span class="gn-sd-ranking__sub" t-esc="'Margen ' + fmtMoney(row.margin)"/>
+                        <span t-if="row.target" class="gn-sd-ranking__sub" t-esc="'Meta ' + fmtPct(row.achievement)"/>
+                    </div>
+                    <div t-if="row.target" class="gn-sd-ranking__bar">
+                        <div class="progress" style="height:4px">
+                            <div class="progress-bar" t-att-style="'width:' + Math.min(row.achievement, 100) + '%'"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </t>
+</templates>

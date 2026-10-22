@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_banks_dashboard.GnBanksTreasuryDashboard">
+        <div class="o_gn_banks_dashboard h-100 overflow-auto">
+            <div class="gn-bd-root">
+                <!-- Sticky executive shell: title + compact filters -->
+                <header class="gn-bd-shell-header">
+                    <div class="gn-bd-toolbar">
+                        <div class="gn-bd-toolbar__brand">
+                            <h1 class="gn-bd-toolbar__title" t-esc="labels.title"/>
+                            <p class="gn-bd-toolbar__meta">
+                                <span t-esc="labels.subtitle"/>
+                                <t t-if="periodLabel">
+                                    <span class="gn-bd-toolbar__dot">·</span>
+                                    <span class="gn-bd-toolbar__period" t-esc="periodLabel"/>
+                                </t>
+                            </p>
+                        </div>
+                        <div class="gn-bd-toolbar__actions">
+                            <button type="button" class="gn-bd-btn gn-bd-btn--ghost"
+                                    t-on-click="toggleAllKpis">
+                                <t t-if="state.showAllKpis" t-esc="labels.lessMetrics"/>
+                                <t t-else="" t-esc="labels.moreMetrics"/>
+                            </button>
+                            <button type="button" class="gn-bd-btn gn-bd-btn--ghost"
+                                    t-on-click="loadData" t-att-disabled="state.loading">
+                                <i class="fa fa-refresh" t-att-class="state.loading ? 'fa-spin' : ''"/>
+                                <t t-esc="labels.refresh"/>
+                            </button>
+                        </div>
+                    </div>
+                    <GnBanksDashboardFilterBar
+                        draftFilters="state.draftFilters"
+                        filterOptions="state.filterOptions"
+                        loading="state.loading"
+                        onDraftChanged.bind="onDraftFiltersChanged"
+                        onApply.bind="applyFilters"
+                        onReset.bind="resetFilters"/>
+                </header>
+
+                <div class="gn-bd-stage">
+                    <t t-if="state.loadError">
+                        <div class="gn-bd-banner gn-bd-banner--danger gn-fade-in">
+                            <i class="fa fa-exclamation-triangle me-2"/>
+                            <span t-esc="state.loadError"/>
+                        </div>
+                    </t>
+
+                    <t t-if="filterValidationError">
+                        <div class="gn-bd-banner gn-bd-banner--warning gn-fade-in">
+                            <i class="fa fa-info-circle me-2"/>
+                            <span t-esc="filterValidationError"/>
+                        </div>
+                    </t>
+
+                    <t t-if="state.loading">
+                        <GnLoadingSkeleton variant="'kpi'" rows="4"/>
+                        <div class="gn-bd-main-grid gn-bd-main-grid--loading">
+                            <GnLoadingSkeleton variant="'chart'"/>
+                            <GnLoadingSkeleton variant="'card'" rows="3"/>
+                        </div>
+                        <GnLoadingSkeleton variant="'gauges'" rows="8"/>
+                    </t>
+
+                    <t t-if="!state.loading">
+                        <!-- 1. KPIs críticos -->
+                        <section class="gn-bd-kpi-strip gn-fade-in">
+                            <t t-foreach="heroKpis" t-as="kpi" t-key="kpi.key">
+                                <article t-att-class="'gn-bd-kpi gn-bd-kpi--hero gn-bd-kpi--' + (kpi.tone || 'neutral')"
+                                         t-on-click="() => this.onKpiClick(kpi)"
+                                         t-att-title="labels.viewDetail">
+                                    <div class="gn-bd-kpi__head">
+                                        <i t-if="kpi.icon" t-att-class="'gn-bd-kpi__icon fa ' + kpi.icon"/>
+                                        <span class="gn-bd-kpi__label" t-esc="kpi.label"/>
+                                    </div>
+                                    <span class="gn-bd-kpi__value" t-esc="this.kpiDisplay(kpi)"/>
+                                    <div class="gn-bd-kpi__foot">
+                                        <span t-if="kpi.variation_pct !== undefined"
+                                              t-att-class="'gn-bd-kpi__delta gn-bd-kpi__delta--' + (kpi.trend || 'flat')"
+                                              t-att-title="labels.variationVsPrevious">
+                                            <i t-att-class="'fa ' + (kpi.trend === 'up' ? 'fa-arrow-up' : kpi.trend === 'down' ? 'fa-arrow-down' : 'fa-minus')"/>
+                                            <t t-esc="formatVariationPct(kpi.variation_pct)"/>
+                                        </span>
+                                        <KpiSparkline series="kpiSparkline(kpi)"
+                                                      color="kpiSparkColor(kpi)"
+                                                      height="22"
+                                                      filled="true"/>
+                                    </div>
+                                </article>
+                            </t>
+                        </section>
+
+                        <section t-if="state.showAllKpis and secondaryKpis.length"
+                                 class="gn-bd-kpi-strip gn-bd-kpi-strip--secondary gn-fade-in">
+                            <t t-foreach="secondaryKpis" t-as="kpi" t-key="kpi.key">
+                                <article t-att-class="'gn-bd-kpi gn-bd-kpi--compact gn-bd-kpi--' + (kpi.tone || 'neutral')"
+                                         t-on-click="() => this.onKpiClick(kpi)">
+                                    <span class="gn-bd-kpi__label" t-esc="kpi.label"/>
+                                    <span class="gn-bd-kpi__value gn-bd-kpi__value--sm" t-esc="this.kpiDisplay(kpi)"/>
+                                </article>
+                            </t>
+                        </section>
+
+                        <!-- 2. Flujo de caja + sidebar ejecutiva -->
+                        <div class="gn-bd-main-grid gn-fade-in">
+                            <div class="gn-bd-main-grid__primary">
+                                <section class="gn-bd-panel gn-bd-panel--primary">
+                                    <div class="gn-bd-panel__head gn-bd-panel__head--split">
+                                        <div>
+                                            <h2 class="gn-bd-panel__title" t-esc="labels.dailyCashflow"/>
+                                            <p t-if="cashflowSummary" class="gn-bd-panel__subtitle" t-esc="cashflowSummary"/>
+                                        </div>
+                                        <span class="gn-bd-source-badge" t-esc="flowSourceLabel"/>
+                                    </div>
+                                    <div class="gn-bd-panel__body gn-bd-panel__body--chart-xl position-relative">
+                                        <canvas t-ref="cashflow" t-att-class="hasCashflowData ? '' : 'd-none'"/>
+                                        <t t-if="!hasCashflowData">
+                                            <GnChartEmpty
+                                                icon="'fa-area-chart'"
+                                                title="cashflowEmptyTitle"
+                                                description="cashflowEmptyDescription"/>
+                                        </t>
+                                    </div>
+                                </section>
+
+                                <!-- Indicadores operativos (bajo flujo de caja) -->
+                                <TreasuryIndicatorGaugesPanel
+                                    indicatorData="state.data.indicator_gauges"
+                                    loading="state.loading"
+                                    onApplyDefaults="() => this.resetFilters()"/>
+                            </div>
+
+                            <aside class="gn-bd-rail">
+                                <section class="gn-bd-rail-card" t-if="state.data.insights.length">
+                                    <div class="gn-bd-rail-card__head">
+                                        <i class="fa fa-lightbulb-o gn-bd-rail-card__icon"/>
+                                        <h3 class="gn-bd-rail-card__title" t-esc="labels.intelligence"/>
+                                    </div>
+                                    <div class="gn-bd-rail-card__body">
+                                        <t t-foreach="state.data.insights" t-as="ins" t-key="ins_index">
+                                            <p class="gn-bd-insight" t-esc="ins"/>
+                                        </t>
+                                    </div>
+                                </section>
+
+                                <section class="gn-bd-rail-card gn-bd-rail-card--alerts">
+                                    <div class="gn-bd-rail-card__head">
+                                        <i class="fa fa-bell gn-bd-rail-card__icon"/>
+                                        <h3 class="gn-bd-rail-card__title" t-esc="labels.operationalAlerts"/>
+                                        <span t-if="sortedAlerts.length" class="gn-bd-badge" t-esc="sortedAlerts.length"/>
+                                    </div>
+                                    <div class="gn-bd-rail-card__body">
+                                        <t t-if="!sortedAlerts.length">
+                                            <GnEmptyState
+                                                icon="'fa-bell-slash-o'"
+                                                tone="'success'"
+                                                compact="true"
+                                                title="labels.noAlerts"
+                                                description="labels.noAlertsHint"/>
+                                        </t>
+                                        <t t-foreach="sortedAlerts" t-as="alert" t-key="alert_index">
+                                            <button type="button"
+                                                    t-att-class="'gn-bd-alert-row gn-bd-alert-row--' + (alert.level || 'info')"
+                                                    t-on-click="() => this.onAlertClick(alert)">
+                                                <span class="gn-bd-alert-row__dot"/>
+                                                <span class="gn-bd-alert-row__text" t-esc="alert.title"/>
+                                                <span class="gn-bd-alert-row__count" t-esc="alert.count"/>
+                                            </button>
+                                        </t>
+                                    </div>
+                                </section>
+
+                                <section t-if="state.data.risk.length" class="gn-bd-rail-card">
+                                    <div class="gn-bd-rail-card__head">
+                                        <i class="fa fa-shield gn-bd-rail-card__icon"/>
+                                        <h3 class="gn-bd-rail-card__title" t-esc="labels.operationalRisk"/>
+                                    </div>
+                                    <div class="gn-bd-rail-card__body gn-bd-risk-chips">
+                                        <t t-foreach="state.data.risk" t-as="r" t-key="r_index">
+                                            <button type="button" class="gn-bd-chip"
+                                                    t-on-click="() => this.onRiskClick(r)">
+                                                <span class="gn-bd-chip__label" t-esc="r.label"/>
+                                                <span class="gn-bd-chip__value" t-esc="r.count"/>
+                                            </button>
+                                        </t>
+                                    </div>
+                                </section>
+                            </aside>
+                        </div>
+
+                        <!-- 3. Desglose analítico -->
+                        <section class="gn-bd-panel gn-bd-panel--analysis gn-fade-in">
+                            <div class="gn-bd-panel__head gn-bd-panel__head--split">
+                                <h2 class="gn-bd-panel__title" t-esc="labels.breakdowns"/>
+                                <span class="gn-bd-hint" t-esc="labels.clickChartHint"/>
+                            </div>
+                            <nav class="gn-bd-tabs" role="tablist">
+                                <t t-foreach="chartTabs" t-as="tab" t-key="tab.id">
+                                    <button type="button" role="tab"
+                                            t-att-class="'gn-bd-tab' + (state.activeChartTab === tab.id ? ' gn-bd-tab--active' : '')"
+                                            t-on-click="() => this.setChartTab(tab.id)"
+                                            t-esc="tab.label"/>
+                                </t>
+                            </nav>
+                            <div class="gn-bd-panel__body gn-bd-panel__body--chart-md position-relative">
+                                <canvas t-ref="analysisChart" t-att-class="hasActiveChartData ? '' : 'd-none'"/>
+                                <t t-if="!hasActiveChartData">
+                                    <GnChartEmpty
+                                        icon="'fa-bar-chart'"
+                                        title="labels.noChartData"
+                                        description="labels.noChartDataHint"/>
+                                </t>
+                            </div>
+                        </section>
+
+                        <!-- 4. Detalle ejecutivo -->
+                        <section t-if="summaryTabs.length" class="gn-bd-panel gn-bd-panel--details gn-fade-in">
+                            <div class="gn-bd-panel__head gn-bd-panel__head--split">
+                                <h2 class="gn-bd-panel__title" t-esc="labels.details"/>
+                                <span class="gn-bd-hint" t-esc="labels.topRows"/>
+                            </div>
+                            <nav class="gn-bd-tabs gn-bd-tabs--subtle">
+                                <t t-foreach="summaryTabs" t-as="stab" t-key="stab.id">
+                                    <button type="button"
+                                            t-att-class="'gn-bd-tab gn-bd-tab--sm' + (state.activeSummaryTab === stab.id ? ' gn-bd-tab--active' : '')"
+                                            t-on-click="() => this.setSummaryTab(stab.id)"
+                                            t-esc="stab.title"/>
+                                </t>
+                            </nav>
+                            <div class="gn-bd-detail-list">
+                                <t t-if="!activeSummaryRows.length">
+                                    <GnEmptyState
+                                        icon="'fa-table'"
+                                        tone="'info'"
+                                        compact="true"
+                                        title="labels.noTableData"
+                                        description="labels.noTableDataHint"/>
+                                </t>
+                                <t t-foreach="activeSummaryRows" t-as="row" t-key="row_index">
+                                    <button type="button" class="gn-bd-detail-row gn-fade-in"
+                                            t-on-click="() => this.onSummaryRowClick(row)">
+                                        <div class="gn-bd-detail-row__main">
+                                            <div class="gn-bd-detail-row__title-row">
+                                                <span class="gn-bd-detail-row__label" t-esc="row.label"/>
+                                                <span class="gn-bd-detail-row__pct-badge" t-esc="row.pct + '%'"/>
+                                            </div>
+                                            <span class="gn-bd-detail-row__metrics">
+                                                <span class="gn-bd-detail-row__metric">
+                                                    <t t-esc="row.count"/> <t t-esc="labels.tableDocs"/>
+                                                </span>
+                                                <span class="gn-bd-detail-row__metric">
+                                                    <t t-esc="labels.tableNet"/>: <t t-esc="formatMoney(row.net)"/>
+                                                </span>
+                                            </span>
+                                        </div>
+                                        <div class="gn-bd-detail-row__bar">
+                                            <span class="gn-bd-detail-row__fill"
+                                                  t-attf-style="width: {{ summaryBarPct(row) }}%;"/>
+                                        </div>
+                                        <i class="fa fa-angle-right gn-bd-detail-row__chevron"/>
+                                    </button>
+                                </t>
+                            </div>
+                        </section>
+                    </t>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

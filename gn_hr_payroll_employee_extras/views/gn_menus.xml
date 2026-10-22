@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_gn_hr_payroll_employee_extras_root"
+              name="Conceptos y documentos"
+              parent="l10n_hn_payroll_base.menu_hr_payroll_configuration"
+              sequence="76"/>
+
+    <menuitem id="menu_gn_hr_recurring_concept_templates"
+              name="Plantillas de conceptos recurrentes"
+              parent="menu_gn_hr_payroll_employee_extras_root"
+              action="action_hr_employee_recurring_concept_template"
+              sequence="10"
+              groups="l10n_hn_payroll_base.group_hn_payroll_user"/>
+
+    <menuitem id="menu_gn_hr_recurring_concept_by_employee"
+              name="Conceptos recurrentes por empleado"
+              parent="menu_gn_hr_payroll_employee_extras_root"
+              action="action_hr_employee_recurring_concept_employee"
+              sequence="11"
+              groups="l10n_hn_payroll_base.group_hn_payroll_user"/>
+
+    <menuitem id="menu_gn_hr_recurring_concept_loans"
+              name="Cartera de préstamos"
+              parent="menu_gn_hr_payroll_employee_extras_root"
+              action="action_hr_employee_recurring_concept_loans"
+              sequence="12"
+              groups="l10n_hn_payroll_base.group_hn_payroll_user"/>
+
+    <menuitem id="menu_gn_hr_recurring_concept_report"
+              name="Reporte conceptos recurrentes"
+              parent="menu_gn_hr_payroll_employee_extras_root"
+              action="action_hr_recurring_concept_report"
+              sequence="13"
+              groups="l10n_hn_payroll_base.group_hn_payroll_user"/>
+
+    <menuitem id="menu_gn_hr_recurring_concept_mass_assign"
+              name="Asignación masiva de conceptos"
+              parent="menu_gn_hr_payroll_employee_extras_root"
+              action="action_hr_recurring_concept_assign_wizard"
+              sequence="15"
+              groups="l10n_hn_payroll_base.group_hn_payroll_user"/>
+
+    <menuitem id="menu_gn_hr_recurring_concept_mass_unassign"
+              name="Desasignación masiva de conceptos"
+              parent="menu_gn_hr_payroll_employee_extras_root"
+              action="action_hr_recurring_concept_unassign_wizard"
+              sequence="16"
+              groups="l10n_hn_payroll_base.group_hn_payroll_user"/>
+
+    <menuitem id="menu_gn_hr_document_type"
+              name="Tipos de documento"
+              parent="menu_gn_hr_payroll_employee_extras_root"
+              action="hr_document_type_action"
+              sequence="30"
+              groups="l10n_hn_payroll_base.group_hn_payroll_user"/>
+
+    <menuitem id="menu_gn_hr_documents_download"
+              name="Descarga documentos de empleados"
+              parent="hr.hr_menu_hr_reports"
+              action="action_hr_documents_download_wizard"
+              sequence="36"
+              groups="l10n_hn_payroll_base.group_hn_payroll_user"/>
+</odoo>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Plan de Reclutamiento y Selección - Actividades por fase -->
+        <record id="plan_reclutamiento_seleccion" model="mail.activity.plan">
+            <field name="name">Plan de Reclutamiento y Selección</field>
+            <field name="res_model">hr.applicant</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <!-- Fase 1: Recepción (Día 0) -->
+        <record id="template_recepcion_cv" model="mail.activity.plan.template">
+            <field name="plan_id" ref="plan_reclutamiento_seleccion"/>
+            <field name="sequence">10</field>
+            <field name="activity_type_id" ref="mail.mail_activity_data_todo"/>
+            <field name="summary">Verificar CV completo y datos de contacto</field>
+            <field name="delay_count">0</field>
+            <field name="delay_unit">days</field>
+            <field name="delay_from">after_plan_date</field>
+            <field name="responsible_type">on_demand</field>
+        </record>
+
+        <!-- Fase 2: Calificación (Día 2) -->
+        <record id="template_calificacion" model="mail.activity.plan.template">
+            <field name="plan_id" ref="plan_reclutamiento_seleccion"/>
+            <field name="sequence">20</field>
+            <field name="activity_type_id" ref="mail.mail_activity_data_todo"/>
+            <field name="summary">Revisar calificación: experiencia, formación y disponibilidad</field>
+            <field name="delay_count">2</field>
+            <field name="delay_unit">days</field>
+            <field name="delay_from">after_plan_date</field>
+            <field name="responsible_type">on_demand</field>
+        </record>
+
+        <!-- Fase 3: Primera entrevista (Día 5) -->
+        <record id="template_primera_entrevista" model="mail.activity.plan.template">
+            <field name="plan_id" ref="plan_reclutamiento_seleccion"/>
+            <field name="sequence">30</field>
+            <field name="activity_type_id" ref="mail.mail_activity_data_meeting"/>
+            <field name="summary">Agendar y realizar primera entrevista</field>
+            <field name="delay_count">5</field>
+            <field name="delay_unit">days</field>
+            <field name="delay_from">after_plan_date</field>
+            <field name="responsible_type">on_demand</field>
+        </record>
+
+        <record id="template_verificar_identidad" model="mail.activity.plan.template">
+            <field name="plan_id" ref="plan_reclutamiento_seleccion"/>
+            <field name="sequence">35</field>
+            <field name="activity_type_id" ref="mail.mail_activity_data_todo"/>
+            <field name="summary">Verificar identificación del candidato (INE/RTN)</field>
+            <field name="delay_count">5</field>
+            <field name="delay_unit">days</field>
+            <field name="delay_from">after_plan_date</field>
+            <field name="responsible_type">on_demand</field>
+        </record>
+
+        <!-- Fase 4: Segunda entrevista (Día 10) -->
+        <record id="template_validar_referencias" model="mail.activity.plan.template">
+            <field name="plan_id" ref="plan_reclutamiento_seleccion"/>
+            <field name="sequence">40</field>
+            <field name="activity_type_id" ref="mail.mail_activity_data_call"/>
+            <field name="summary">Validar referencias laborales</field>
+            <field name="delay_count">10</field>
+            <field name="delay_unit">days</field>
+            <field name="delay_from">after_plan_date</field>
+            <field name="responsible_type">on_demand</field>
+        </record>
+
+        <record id="template_segunda_entrevista" model="mail.activity.plan.template">
+            <field name="plan_id" ref="plan_reclutamiento_seleccion"/>
+            <field name="sequence">50</field>
+            <field name="activity_type_id" ref="mail.mail_activity_data_meeting"/>
+            <field name="summary">Segunda entrevista con jefe directo</field>
+            <field name="delay_count">10</field>
+            <field name="delay_unit">days</field>
+            <field name="delay_from">after_plan_date</field>
+            <field name="responsible_type">on_demand</field>
+        </record>
+
+        <!-- Fase 5: Propuesta (Día 15) -->
+        <record id="template_preparar_oferta" model="mail.activity.plan.template">
+            <field name="plan_id" ref="plan_reclutamiento_seleccion"/>
+            <field name="sequence">60</field>
+            <field name="activity_type_id" ref="mail.mail_activity_data_todo"/>
+            <field name="summary">Preparar oferta de contrato y obtener aprobación</field>
+            <field name="delay_count">15</field>
+            <field name="delay_unit">days</field>
+            <field name="delay_from">after_plan_date</field>
+            <field name="responsible_type">on_demand</field>
+        </record>
+
+        <record id="template_enviar_propuesta" model="mail.activity.plan.template">
+            <field name="plan_id" ref="plan_reclutamiento_seleccion"/>
+            <field name="sequence">70</field>
+            <field name="activity_type_id" ref="mail.mail_activity_data_email"/>
+            <field name="summary">Enviar propuesta al candidato y confirmar aceptación</field>
+            <field name="delay_count">17</field>
+            <field name="delay_unit">days</field>
+            <field name="delay_from">after_plan_date</field>
+            <field name="responsible_type">on_demand</field>
+        </record>
+
+        <!-- Fase 6: Contrato firmado (Día 20) -->
+        <record id="template_recibir_contrato" model="mail.activity.plan.template">
+            <field name="plan_id" ref="plan_reclutamiento_seleccion"/>
+            <field name="sequence">80</field>
+            <field name="activity_type_id" ref="mail.mail_activity_data_upload_document"/>
+            <field name="summary">Recibir contrato firmado y documentación completa</field>
+            <field name="delay_count">20</field>
+            <field name="delay_unit">days</field>
+            <field name="delay_from">after_plan_date</field>
+            <field name="responsible_type">on_demand</field>
+        </record>
+
+        <record id="template_onboarding" model="mail.activity.plan.template">
+            <field name="plan_id" ref="plan_reclutamiento_seleccion"/>
+            <field name="sequence">90</field>
+            <field name="activity_type_id" ref="mail.mail_activity_data_todo"/>
+            <field name="summary">Programar onboarding y dar de alta en sistemas</field>
+            <field name="delay_count">22</field>
+            <field name="delay_unit">days</field>
+            <field name="delay_from">after_plan_date</field>
+            <field name="responsible_type">on_demand</field>
+        </record>
+
+    </data>
+</odoo>

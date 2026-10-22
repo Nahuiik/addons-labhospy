@@ -1,0 +1,197 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_valuation_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-26 00:00+0000\n"
+"PO-Revision-Date: 2026-01-26 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Spanish (Guatemala)\n"
+"Language: es_GT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: stock_valuation_report
+#: model:ir.model.fields,field_description:stock_valuation_report.field_stock_valuation_wizard__company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: stock_valuation_report
+#: model:ir.model.fields,field_description:stock_valuation_report.field_stock_valuation_wizard__warehouse_ids
+msgid "Warehouses"
+msgstr "Almacenes"
+
+#. module: stock_valuation_report
+#: model:ir.model.fields,field_description:stock_valuation_report.field_stock_valuation_wizard__location_id
+msgid "Location"
+msgstr "Ubicación"
+
+#. module: stock_valuation_report
+#: model:ir.model.fields,field_description:stock_valuation_report.field_stock_valuation_wizard__start_date
+msgid "From Date"
+msgstr "Fecha Desde"
+
+#. module: stock_valuation_report
+#: model:ir.model.fields,field_description:stock_valuation_report.field_stock_valuation_wizard__end_date
+msgid "To Date"
+msgstr "Fecha Hasta"
+
+#. module: stock_valuation_report
+#: model:ir.model.fields,field_description:stock_valuation_report.field_stock_valuation_wizard__filter_product_categ_ids
+msgid "Categories"
+msgstr "Categorías"
+
+#. module: stock_valuation_report
+#: model:ir.model.fields,field_description:stock_valuation_report.field_stock_valuation_wizard__only_summary
+msgid "Only Summary"
+msgstr "Solo Resumen"
+
+#. module: stock_valuation_report
+#: model:ir.actions.act_window,name:stock_valuation_report.action_stock_valuation_wizard
+msgid "Stock Valuation"
+msgstr "Valoración de Inventario"
+
+#. module: stock_valuation_report
+#: model:ir.ui.menu,name:stock_valuation_report.menu_stock_valuation_main
+msgid "Valuation Report"
+msgstr "Reporte de Valoración"
+
+#. module: stock_valuation_report
+#: model:res.groups,name:stock_valuation_report.group_stock_valuation_user
+msgid "Stock Valuation / User"
+msgstr "Valoración de Inventario / Usuario"
+
+#. module: stock_valuation_report
+#: model_terms:ir.ui.view,arch_db:stock_valuation_report.view_stock_valuation_wizard_form
+msgid "Print PDF"
+msgstr "Imprimir PDF"
+
+#. module: stock_valuation_report
+#: model_terms:ir.ui.view,arch_db:stock_valuation_report.view_stock_valuation_wizard_form
+msgid "Export Excel"
+msgstr "Exportar Excel"
+
+#. module: stock_valuation_report
+#: model_terms:ir.ui.view,arch_db:stock_valuation_report.view_stock_valuation_wizard_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: stock_valuation_report
+#: model_terms:ir.ui.view,arch_db:stock_valuation_report.stock_valuation_report_template
+msgid "Inventory Valuation Report"
+msgstr "Reporte de Valoración de Inventario"
+
+#. module: stock_valuation_report
+#: model_terms:ir.ui.view,arch_db:stock_valuation_report.stock_valuation_report_template
+msgid "Beginning"
+msgstr "Inicial"
+
+#. module: stock_valuation_report
+#: model_terms:ir.ui.view,arch_db:stock_valuation_report.stock_valuation_report_template
+msgid "Received"
+msgstr "Entradas"
+
+#. module: stock_valuation_report
+#: model_terms:ir.ui.view,arch_db:stock_valuation_report.stock_valuation_report_template
+msgid "Sales"
+msgstr "Salidas"
+
+#. module: stock_valuation_report
+#: model_terms:ir.ui.view,arch_db:stock_valuation_report.stock_valuation_report_template
+msgid "Adjustments"
+msgstr "Ajustes"
+
+#. module: stock_valuation_report
+#: model_terms:ir.ui.view,arch_db:stock_valuation_report.stock_valuation_report_template
+msgid "Ending"
+msgstr "Final"
+
+#. module: stock_valuation_report
+#: model_terms:ir.ui.view,arch_db:stock_valuation_report.stock_valuation_report_template
+msgid "Cost"
+msgstr "Costo"
+
+#. module: stock_valuation_report
+#: model_terms:ir.ui.view,arch_db:stock_valuation_report.stock_valuation_report_template
+msgid "Total Value"
+msgstr "Valor Total"
+
+#. module: stock_valuation_report
+#: model_terms:ir.ui.view,arch_db:stock_valuation_report.stock_valuation_report_template
+msgid "Total Inventory"
+msgstr "Total Inventario"
+
+#. module: stock_valuation_report
+#: code:addons/stock_valuation_report/wizard/stock_valuation_wizard.py:0
+#, python-format
+msgid "The start date cannot be greater than the end date."
+msgstr "La fecha desde no puede ser mayor que la fecha hasta."
+
+#. module: stock_valuation_report
+#: code:addons/stock_valuation_report/wizard/stock_valuation_wizard.py:0
+#, python-format
+msgid "No warehouses configured for the selected companies."
+msgstr "No hay almacenes configurados para las compañías seleccionadas."
+
+#. module: stock_valuation_report
+#: code:addons/stock_valuation_report/report/stock_valuation_report.py:0
+#, python-format
+msgid "Form content is missing, this report cannot be printed."
+msgstr "Falta el contenido del formulario, este reporte no puede ser impreso."
+
+#. module: stock_valuation_report
+#: code:addons/stock_valuation_report/report/stock_valuation_report.py:0
+#, python-format
+msgid "ALL"
+msgstr "TODOS"
+
+#. module: stock_valuation_report
+#: code:addons/stock_valuation_report/report/stock_valuation_report.py:0
+#, python-format
+msgid "No Category"
+msgstr "Sin Categoría"
+
+#. module: stock_valuation_report
+#: model_terms:ir.ui.view,arch_db:stock_valuation_report.view_stock_valuation_wizard_form
+msgid "Period"
+msgstr "Período"
+
+#. module: stock_valuation_report
+#: model_terms:ir.ui.view,arch_db:stock_valuation_report.view_stock_valuation_wizard_form
+msgid "Filter by Categories"
+msgstr "Filtrar por Categorías"
+
+#. module: stock_valuation_report
+#: model_terms:ir.ui.view,arch_db:stock_valuation_report.view_stock_valuation_wizard_form
+msgid "All companies"
+msgstr "Todas las compañías"
+
+#. module: stock_valuation_report
+#: model_terms:ir.ui.view,arch_db:stock_valuation_report.view_stock_valuation_wizard_form
+msgid "All warehouses"
+msgstr "Todos los almacenes"
+
+#. module: stock_valuation_report
+#: model_terms:ir.ui.view,arch_db:stock_valuation_report.view_stock_valuation_wizard_form
+msgid "All locations"
+msgstr "Todas las ubicaciones"
+
+#. module: stock_valuation_report
+#: model_terms:ir.ui.view,arch_db:stock_valuation_report.view_stock_valuation_wizard_form
+msgid "All categories"
+msgstr "Todas las categorías"
+
+#. module: stock_valuation_report
+#: model:ir.model,name:stock_valuation_report.model_stock_valuation_wizard
+msgid "Stock Valuation Wizard"
+msgstr "Asistente de Valoración de Inventario"
+
+#. module: stock_valuation_report
+#: model:ir.actions.report,name:stock_valuation_report.action_stock_valuation_report
+msgid "Stock Valuation Report"
+msgstr "Reporte de Valoración de Inventario"

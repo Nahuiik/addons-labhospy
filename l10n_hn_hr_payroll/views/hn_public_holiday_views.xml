@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hn_public_holiday_tree" model="ir.ui.view">
+        <field name="name">hn.public.holiday.list</field>
+        <field name="model">hn.public.holiday</field>
+        <field name="arch" type="xml">
+            <list string="Días festivos Honduras" create="1" delete="1" edit="1">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="company_id" optional="show"/>
+                <field name="calendar_leave_ids" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_hn_public_holiday_form" model="ir.ui.view">
+        <field name="name">hn.public.holiday.form</field>
+        <field name="model">hn.public.holiday</field>
+        <field name="arch" type="xml">
+            <form string="Día festivo">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="date"/>
+                            <field name="company_id"/>
+                        </group>
+                        <group>
+                            <field name="calendar_leave_ids" readonly="1" nolabel="1" colspan="2">
+                                <list create="0" delete="0" edit="0">
+                                    <field name="name"/>
+                                    <field name="date_from"/>
+                                    <field name="date_to"/>
+                                    <field name="company_id"/>
+                                </list>
+                            </field>
+                        </group>
+                    </group>
+                    <div class="alert alert-info" role="alert">
+                        <strong>Tabla maestra HN:</strong> Lo que edite aquí se refleja en los registros de <strong>Vacaciones → Configuración → Días festivos</strong> y en los horarios laborales de las compañías de Honduras.
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_hn_public_holiday_search" model="ir.ui.view">
+        <field name="name">hn.public.holiday.search</field>
+        <field name="model">hn.public.holiday</field>
+        <field name="arch" type="xml">
+            <search string="Buscar festivos">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="company_id"/>
+                <filter string="Próximos" name="upcoming" domain="[('date', '&gt;=', context_today().strftime('%Y-%m-%d'))]"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Heredar vista de resource.calendar.leaves para mostrar origen -->
+    <record id="resource_calendar_leave_form_inherit_hn_holiday" model="ir.ui.view">
+        <field name="name">resource.calendar.leaves.form.inherit.hn.holiday</field>
+        <field name="model">resource.calendar.leaves</field>
+        <field name="inherit_id" ref="resource.resource_calendar_leave_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="hn_public_holiday_id" readonly="1" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

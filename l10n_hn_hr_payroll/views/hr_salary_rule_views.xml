@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_salary_rule_form_inherit_l10n_hn" model="ir.ui.view">
+        <field name="name">hr.salary.rule.form.inherit.l10n.hn</field>
+        <field name="model">hr.salary.rule</field>
+        <field name="inherit_id" ref="l10n_hn_payroll_base.hr_salary_rule_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Honduras Configuration" name="l10n_hn_config">
+                    <group>
+                        <group string="Base Calculation">
+                            <field name="is_ihss_base"/>
+                            <field name="is_rap_base"/>
+                            <field name="is_isr_base"/>
+                            <field name="is_computable"/>
+                            <field name="l10n_hn_counts_as_commission"/>
+                        </group>
+                        <group string="Periodicity">
+                            <field name="periodicity"/>
+                            <field name="year"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

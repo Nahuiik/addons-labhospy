@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_purchase_dashboard.PurchaseInsightsPanel">
+        <section class="gn-pd-panel gn-pd-insights">
+            <header class="gn-pd-panel__head">
+                <div>
+                    <h3 class="gn-pd-panel__title">Insights ejecutivos</h3>
+                    <p class="gn-pd-section__desc">Recomendaciones automáticas priorizadas por impacto</p>
+                </div>
+            </header>
+            <div t-if="props.loading" class="gn-pd-skeleton gn-pd-skeleton--insights"/>
+            <PurchaseEmptyState t-elif="!(props.insights and props.insights.length)"
+                icon="'fa-lightbulb-o'" title="'Sin insights'"
+                description="'No se detectaron patrones relevantes.'" compact="true"/>
+            <div t-else="" class="gn-pd-insights__list">
+                <article t-foreach="props.insights" t-as="ins" t-key="ins.title + (ins.metric or '')"
+                         class="gn-pd-insights__item" t-att-class="'gn-pd-insights__item--' + (ins.severity or 'info')"
+                         t-on-click="(ev) => this.onClick(ins, ev)">
+                    <div class="gn-pd-insights__icon-wrap">
+                        <i t-att-class="'fa ' + severityIcon(ins.severity)" aria-hidden="true"/>
+                    </div>
+                    <div class="gn-pd-insights__body">
+                        <span class="gn-pd-insights__impact" t-esc="impactLabel(ins.severity)"/>
+                        <strong t-esc="ins.title"/>
+                        <p t-esc="ins.explanation"/>
+                    </div>
+                    <span class="gn-pd-insights__action" t-esc="ins.action_label or 'Ver detalle →'"/>
+                </article>
+            </div>
+        </section>
+    </t>
+</templates>

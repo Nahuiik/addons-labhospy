@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- AI Quote Wizard Form View -->
+    <record id="view_ai_quote_wizard_form" model="ir.ui.view">
+        <field name="name">ai.quote.wizard.form</field>
+        <field name="model">ai.quote.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Review AI Quotation">
+                <header>
+                    <button name="action_create_quotation" type="object" string="Create Quotation" 
+                            class="btn-primary" icon="fa-check"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="lead_id" readonly="1"/>
+                            <field name="partner_id" required="1"/>
+                            <field name="template_id"/>
+                            <field name="pricelist_id" required="1"/>
+                            <field name="validity_days"/>
+                            <field name="send_portal_link"/>
+                        </group>
+                        <group>
+                            <field name="note" widget="text" placeholder="Terms and conditions..."/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Quotation Lines">
+                            <field name="line_ids" nolabel="1">
+                                <list editable="bottom">
+                                    <field name="product_id" required="1"/>
+                                    <field name="name" required="1"/>
+                                    <field name="product_uom_qty" required="1"/>
+                                    <field name="product_uom_id" required="1"/>
+                                    <field name="price_unit" required="1"/>
+                                    <field name="discount"/>
+                                    <field name="note"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
+

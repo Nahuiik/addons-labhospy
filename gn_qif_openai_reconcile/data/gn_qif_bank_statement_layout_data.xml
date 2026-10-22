@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="gn_qif_layout_xlsx_atlantida" model="gn.qif.bank.statement.layout">
+        <field name="code">atl_xlsx_std</field>
+        <field name="name">Banco Atlántida — Excel estado de cuenta</field>
+        <field name="file_format_key">xlsx_atlantida</field>
+        <field name="sequence">10</field>
+        <field name="specification" type="html">
+            <p>
+                Estado de cuenta en .xlsx. Fila de encabezado con columnas típicas:
+                <strong>No.</strong>, <strong>Fecha</strong> (dd/mm/yyyy), <strong>Tipo</strong>,
+                <strong>Descripción</strong>, <strong>Referencia</strong>, <strong>Agencia</strong>,
+                <strong>Débitos</strong>, <strong>Créditos</strong>, <strong>Saldo</strong>.
+            </p>
+            <p><strong>Importe Odoo:</strong> créditos − débitos.</p>
+        </field>
+        <field name="ai_context">Extracto Banco Atlántida Honduras (Excel). Movimientos con columnas Débitos/Créditos; pueden aparecer comisiones ACH, depósitos, referencias numéricas largas en descripción/referencia. Separe tasas/comisiones de transferencias ACH según nomenclatura del banco.</field>
+    </record>
+
+    <record id="gn_qif_layout_xlsx_banpais" model="gn.qif.bank.statement.layout">
+        <field name="code">banpais_xlsx_std</field>
+        <field name="name">Banpaís — Excel cuenta corriente</field>
+        <field name="file_format_key">xlsx_banpais</field>
+        <field name="sequence">20</field>
+        <field name="specification" type="html">
+            <p>Metadatos en filas 1–5 (cuenta, saldos). Encabezado de tabla cerca de fila 7:
+                FECHA, TRX, REF, DESCRIPCIÓN, DÉBITO, CRÉDITO, SALDO.</p>
+            <p>Fechas con guiones <strong>DD-MM-YYYY</strong>.</p>
+            <p><strong>Importe Odoo:</strong> crédito − débito.</p>
+        </field>
+        <field name="ai_context">Extracto Banpaís Honduras (Excel). La columna TRX indica el tipo corto del movimiento (DEP, TACH, TRBR…). ACH y depósitos en cuenta suelen tener patrones repetitivos para modelos de conciliación.</field>
+    </record>
+
+    <record id="gn_qif_layout_xlsx_occidente_hn" model="gn.qif.bank.statement.layout">
+        <field name="code">occ_hn_xlsx_std</field>
+        <field name="name">Banco de Occidente HN — Excel</field>
+        <field name="file_format_key">xlsx_occidente_hn</field>
+        <field name="sequence">30</field>
+        <field name="specification" type="html">
+            <p>Plantilla dispersa por columnas. Encabezado de tabla con etiquetas en columnas dispersas:
+                Fecha en <strong>B</strong>, Debito/Credito/Saldo en zonas típicamente <strong>P, R, T</strong>; descripción y referencias en intermedias.</p>
+            <p><strong>Importe Odoo:</strong> Credito − Debito.</p>
+        </field>
+        <field name="ai_context">Extracto Occidente Honduras desde Excel (no PDF). Incluye códigos Cajero/Agen/Hora junto al movimiento. Comisiones ACH y “N/D TASA…” son comunes.</field>
+    </record>
+
+    <record id="gn_qif_layout_xls_ficohsa" model="gn.qif.bank.statement.layout">
+        <field name="code">ficohsa_xls_std</field>
+        <field name="name">FICOHSA — XLS típico</field>
+        <field name="file_format_key">xls_ficohsa</field>
+        <field name="sequence">40</field>
+        <field name="specification" type="html">
+            <p>Libro xlrd tipo AccountStatement*. Encabezado de movimientos con Fecha columna B.</p>
+        </field>
+        <field name="ai_context">Estado FICOHSA Honduras en XLS estándar. Validar ACH, cheques y comisiones.</field>
+    </record>
+
+    <record id="gn_qif_layout_xls_davivienda_hn" model="gn.qif.bank.statement.layout">
+        <field name="code">dav_hn_xls_std</field>
+        <field name="name">Davivienda Honduras — XLS</field>
+        <field name="file_format_key">xls_davivienda_hn</field>
+        <field name="sequence">50</field>
+        <field name="specification" type="html">
+            <p>Tabla texto con Fecha, Descripción, débitos, créditos, saldo, referencias en columnas finales.</p>
+        </field>
+        <field name="ai_context">Davivienda HN export en XLS. No confundir con FICOHSA: usar detección de encabezado Fecha + saldo.</field>
+    </record>
+
+</odoo>

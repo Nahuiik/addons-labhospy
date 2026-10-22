@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Horario 1: Lunes a jueves 8am-6pm, viernes 8am-5pm (44 horas semanales) -->
+        <record id="resource_calendar_hn_44h_lunes_jueves" model="resource.calendar">
+            <field name="name">Jornada 44h - Lunes a Jueves 8am-6pm, Viernes 8am-5pm</field>
+            <field name="company_id" eval="False"/>
+            <field name="hours_per_day">8.8</field>
+            <field name="attendance_ids"
+                eval="[(5, 0, 0),
+                    (0, 0, {'name': 'Lunes Mañana', 'dayofweek': '0', 'hour_from': 8.0, 'hour_to': 12.0, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Lunes Tarde', 'dayofweek': '0', 'hour_from': 13.0, 'hour_to': 18.0, 'day_period': 'afternoon'}),
+                    (0, 0, {'name': 'Martes Mañana', 'dayofweek': '1', 'hour_from': 8.0, 'hour_to': 12.0, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Martes Tarde', 'dayofweek': '1', 'hour_from': 13.0, 'hour_to': 18.0, 'day_period': 'afternoon'}),
+                    (0, 0, {'name': 'Miércoles Mañana', 'dayofweek': '2', 'hour_from': 8.0, 'hour_to': 12.0, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Miércoles Tarde', 'dayofweek': '2', 'hour_from': 13.0, 'hour_to': 18.0, 'day_period': 'afternoon'}),
+                    (0, 0, {'name': 'Jueves Mañana', 'dayofweek': '3', 'hour_from': 8.0, 'hour_to': 12.0, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Jueves Tarde', 'dayofweek': '3', 'hour_from': 13.0, 'hour_to': 18.0, 'day_period': 'afternoon'}),
+                    (0, 0, {'name': 'Viernes Mañana', 'dayofweek': '4', 'hour_from': 8.0, 'hour_to': 12.0, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Viernes Tarde', 'dayofweek': '4', 'hour_from': 13.0, 'hour_to': 17.0, 'day_period': 'afternoon'}),
+                ]"
+            />
+        </record>
+
+        <!-- Horario 2: Lunes a viernes 8am-5pm, sábados 8am-12m (44 horas semanales) -->
+        <record id="resource_calendar_hn_44h_lunes_sabado" model="resource.calendar">
+            <field name="name">Jornada 44h - Lunes a Viernes 8am-5pm, Sábados 8am-12m</field>
+            <field name="company_id" eval="False"/>
+            <field name="hours_per_day">8.8</field>
+            <field name="attendance_ids"
+                eval="[(5, 0, 0),
+                    (0, 0, {'name': 'Lunes Mañana', 'dayofweek': '0', 'hour_from': 8.0, 'hour_to': 12.0, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Lunes Tarde', 'dayofweek': '0', 'hour_from': 13.0, 'hour_to': 17.0, 'day_period': 'afternoon'}),
+                    (0, 0, {'name': 'Martes Mañana', 'dayofweek': '1', 'hour_from': 8.0, 'hour_to': 12.0, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Martes Tarde', 'dayofweek': '1', 'hour_from': 13.0, 'hour_to': 17.0, 'day_period': 'afternoon'}),
+                    (0, 0, {'name': 'Miércoles Mañana', 'dayofweek': '2', 'hour_from': 8.0, 'hour_to': 12.0, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Miércoles Tarde', 'dayofweek': '2', 'hour_from': 13.0, 'hour_to': 17.0, 'day_period': 'afternoon'}),
+                    (0, 0, {'name': 'Jueves Mañana', 'dayofweek': '3', 'hour_from': 8.0, 'hour_to': 12.0, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Jueves Tarde', 'dayofweek': '3', 'hour_from': 13.0, 'hour_to': 17.0, 'day_period': 'afternoon'}),
+                    (0, 0, {'name': 'Viernes Mañana', 'dayofweek': '4', 'hour_from': 8.0, 'hour_to': 12.0, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Viernes Tarde', 'dayofweek': '4', 'hour_from': 13.0, 'hour_to': 17.0, 'day_period': 'afternoon'}),
+                    (0, 0, {'name': 'Sábado Mañana', 'dayofweek': '5', 'hour_from': 8.0, 'hour_to': 12.0, 'day_period': 'morning'}),
+                ]"
+            />
+        </record>
+    </data>
+</odoo>

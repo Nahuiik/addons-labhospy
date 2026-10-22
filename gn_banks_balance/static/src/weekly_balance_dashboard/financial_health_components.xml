@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_banks_balance.FinancialHealthUnavailable">
+        <div t-att-class="'gn-wb-fh-unavail' + (props.compact ? ' gn-wb-fh-unavail--compact' : '')">
+            <i class="fa fa-info-circle"/>
+            <span t-esc="props.message or 'No hay datos suficientes.'"/>
+        </div>
+    </t>
+
+    <t t-name="gn_banks_balance.FinancialHealthHeader">
+        <div class="gn-wb-fh-header card">
+            <div class="card-body">
+                <div class="row g-2 align-items-start">
+                    <div class="col-lg-3 col-md-4">
+                        <LiquidityScoreGauge scoreData="props.scoreData"/>
+                    </div>
+                    <div class="col-lg-6 col-md-5">
+                        <div t-att-class="'gn-wb-fh-header__badge badge bg-' + severityClass">
+                            <t t-esc="props.summary?.title"/>
+                        </div>
+                        <h5 class="gn-wb-fh-header__title mb-1" t-esc="props.summary?.message"/>
+                        <p class="gn-wb-fh-header__risk mb-1 small">
+                            <strong>Riesgo principal:</strong>
+                            <t t-esc="props.summary?.main_risk"/>
+                        </p>
+                        <p class="gn-wb-fh-header__action mb-0 small text-muted">
+                            <i class="fa fa-lightbulb-o me-1"/>
+                            <t t-esc="props.summary?.recommended_action"/>
+                        </p>
+                    </div>
+                    <div class="col-lg-3 col-md-3">
+                        <LiquidityRiskCard riskData="props.riskData"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="gn_banks_balance.LiquidityScoreGauge">
+        <div class="gn-wb-fh-gauge-compact" t-att-class="bandClass">
+            <div class="gn-wb-fh-gauge-compact__ring">
+                <svg viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="42" class="gn-wb-fh-gauge-compact__track"/>
+                    <circle cx="50" cy="50" r="42" class="gn-wb-fh-gauge-compact__seg gn-wb-fh-gauge-compact__seg--danger"/>
+                    <circle cx="50" cy="50" r="42" class="gn-wb-fh-gauge-compact__seg gn-wb-fh-gauge-compact__seg--warn"/>
+                    <circle cx="50" cy="50" r="42" class="gn-wb-fh-gauge-compact__seg gn-wb-fh-gauge-compact__seg--ok"/>
+                    <circle cx="50" cy="50" r="42" class="gn-wb-fh-gauge-compact__value"
+                            t-att-style="'stroke-dasharray:' + strokeDash"/>
+                </svg>
+                <div class="gn-wb-fh-gauge-compact__center">
+                    <div class="gn-wb-fh-gauge-compact__score" t-esc="score"/>
+                    <small>/100</small>
+                    <div class="gn-wb-fh-gauge-compact__label" t-esc="levelLabel"/>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="gn_banks_balance.LiquidityScoreBreakdown">
+        <div class="gn-wb-fh-breakdown" t-if="components.length">
+            <div class="gn-wb-fh-breakdown__item" t-foreach="components" t-as="comp" t-key="comp_index">
+                <div class="gn-wb-fh-breakdown__head">
+                    <span t-esc="comp.name"/>
+                    <strong t-esc="comp.score"/>
+                </div>
+                <div class="gn-wb-fh-breakdown__bar">
+                    <div t-att-style="'width:' + comp.score + '%'"/>
+                </div>
+                <small class="text-muted" t-esc="comp.message"/>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="gn_banks_balance.LiquidityRiskCard">
+        <div class="gn-wb-fh-risk-compact" t-att-class="levelClass">
+            <div class="gn-wb-fh-risk-compact__badge">
+                <span class="gn-wb-fh-risk-compact__dot"/>
+                <strong t-esc="props.riskData?.label"/>
+            </div>
+            <p class="small mb-2" t-esc="props.riskData?.message"/>
+            <div t-if="props.riskData?.negative_drivers?.length">
+                <small class="text-danger fw-semibold d-block">Factores de riesgo</small>
+                <ul class="gn-wb-fh-risk-compact__list mb-2">
+                    <li t-foreach="props.riskData.negative_drivers" t-as="d" t-key="d_index" t-esc="d"/>
+                </ul>
+            </div>
+            <div t-if="props.riskData?.positive_drivers?.length">
+                <small class="text-success fw-semibold d-block">Factores favorables</small>
+                <ul class="gn-wb-fh-risk-compact__list mb-0">
+                    <li t-foreach="props.riskData.positive_drivers" t-as="p" t-key="p_index" t-esc="p"/>
+                </ul>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="gn_banks_balance.CashRunwayCard">
+        <div class="gn-wb-fh-mini-card">
+            <div class="gn-wb-fh-mini-card__label">Días de cobertura</div>
+            <t t-if="isEmpty">
+                <FinancialHealthUnavailable message="props.runwayData?.message" compact="true"/>
+            </t>
+            <t t-else="">
+                <div class="gn-wb-fh-mini-card__value">
+                    <t t-if="props.runwayData?.coverage_days !== null and props.runwayData?.coverage_days !== undefined"
+                       t-esc="props.runwayData.coverage_days"/>
+                    <t t-else="">—</t>
+                    <small t-if="props.runwayData?.coverage_days !== null">días</small>
+                </div>
+                <small class="gn-wb-fh-mini-card__hint" t-esc="props.runwayData?.message"/>
+            </t>
+        </div>
+    </t>
+
+    <t t-name="gn_banks_balance.CashForecastPanel">
+        <div class="gn-wb-fh-mini-card">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+                <div class="gn-wb-fh-mini-card__label mb-0">Proyección de caja</div>
+                <span t-att-class="'badge bg-' + trendClass" t-esc="props.forecastData?.trend"/>
+            </div>
+            <div class="gn-wb-fh-forecast-row">
+                <div><small>7d</small><strong t-att-class="props.forecastData?.projected_7_days &lt; 0 ? 'text-danger' : ''" t-esc="fmt(props.forecastData?.projected_7_days)"/></div>
+                <div><small>15d</small><strong t-att-class="props.forecastData?.projected_15_days &lt; 0 ? 'text-danger' : ''" t-esc="fmt(props.forecastData?.projected_15_days)"/></div>
+                <div><small>30d</small><strong t-att-class="props.forecastData?.projected_30_days &lt; 0 ? 'text-danger' : ''" t-esc="fmt(props.forecastData?.projected_30_days)"/></div>
+            </div>
+            <div class="alert alert-danger py-1 px-2 mb-1 small" t-if="allNegative">
+                Proyección negativa sostenida en 30 días.
+            </div>
+            <small class="gn-wb-fh-mini-card__hint" t-esc="props.forecastData?.message"/>
+            <small class="d-block text-muted" t-if="props.forecastData?.risk_date">
+                Riesgo estimado: <t t-esc="props.forecastData.risk_date"/>
+            </small>
+        </div>
+    </t>
+
+    <t t-name="gn_banks_balance.ProjectedTrajectoryChart">
+        <t t-if="hasData">
+            <div class="gn-wb-fh-chart-compact"><canvas t-ref="canvas" height="140"/></div>
+        </t>
+        <t t-else="">
+            <FinancialHealthUnavailable message="'No hay movimientos suficientes para proyectar trayectoria.'" compact="true"/>
+        </t>
+    </t>
+
+    <t t-name="gn_banks_balance.FinancialRatioTooltip">
+        <div class="gn-wb-fh-ratio-help" t-on-mouseleave="closeHelp">
+            <button type="button" class="gn-wb-fh-ratio-help__btn" t-on-click="toggleHelp" title="Ayuda">
+                <i class="fa fa-question-circle"/>
+            </button>
+            <div class="gn-wb-fh-ratio-help__popup" t-if="state.open">
+                <div t-foreach="helpLines" t-as="line" t-key="line_index" class="mb-1">
+                    <small class="fw-semibold d-block" t-esc="line.label"/>
+                    <small class="text-muted" t-esc="line.text"/>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="gn_banks_balance.MiniFinancialGauge">
+        <div class="gn-wb-fh-mini-gauge" t-att-class="toneClass" t-if="props.available">
+            <svg viewBox="0 0 64 40" class="gn-wb-fh-mini-gauge__svg">
+                <path class="gn-wb-fh-mini-gauge__track"
+                      d="M 6 34 A 26 26 0 0 1 58 34" fill="none"/>
+                <path class="gn-wb-fh-mini-gauge__value"
+                      d="M 6 34 A 26 26 0 0 1 58 34" fill="none"
+                      t-att-style="'stroke-dasharray:' + fillDash"/>
+            </svg>
+        </div>
+    </t>
+
+    <t t-name="gn_banks_balance.FinancialRatioCard">
+        <div t-att-class="'gn-wb-fh-ratio-card gn-wb-fh-ratio-card--gauge' + (disabled ? ' gn-wb-fh-ratio-card--disabled' : '')">
+            <div class="gn-wb-fh-ratio-card__head">
+                <div class="d-flex align-items-center gap-1">
+                    <span class="gn-wb-fh-ratio-card__title" t-esc="props.ratioData?.title"/>
+                    <FinancialRatioTooltip ratioData="props.ratioData"/>
+                </div>
+                <span t-att-class="'badge bg-' + statusTone" t-if="!disabled" t-esc="props.ratioData?.status_label"/>
+                <span class="badge bg-secondary" t-else="">N/D</span>
+            </div>
+            <div class="gn-wb-fh-ratio-card__body">
+                <div class="gn-wb-fh-ratio-card__main">
+                    <div class="gn-wb-fh-ratio-card__value" t-esc="fmtValue()"/>
+                    <small class="gn-wb-fh-ratio-card__hint" t-esc="props.ratioData?.message"/>
+                    <small class="text-muted" t-if="props.ratioData?.healthy_range">
+                        Saludable: <t t-esc="props.ratioData.healthy_range"/>
+                    </small>
+                </div>
+                <MiniFinancialGauge
+                    t-if="withGauge"
+                    value="props.ratioData?.value"
+                    status="props.ratioData?.status"
+                    ratioId="props.ratioData?.id"
+                    thresholds="props.ratioData?.thresholds"
+                    available="props.ratioData?.available"
+                />
+            </div>
+        </div>
+    </t>
+
+    <t t-name="gn_banks_balance.WorkingCapitalCard">
+        <div t-att-class="'gn-wb-fh-wc-card ' + borderClass + (disabled ? ' gn-wb-fh-ratio-card--disabled' : '')">
+            <div class="gn-wb-fh-ratio-card__head">
+                <div class="d-flex align-items-center gap-1">
+                    <span class="gn-wb-fh-ratio-card__title" t-esc="props.ratioData?.title"/>
+                    <FinancialRatioTooltip ratioData="props.ratioData"/>
+                </div>
+                <span t-att-class="'badge bg-' + statusTone" t-if="!disabled" t-esc="props.ratioData?.status_label"/>
+                <span class="badge bg-secondary" t-else="">N/D</span>
+            </div>
+            <div class="gn-wb-fh-wc-card__value" t-esc="fmtValue()"/>
+            <small class="gn-wb-fh-ratio-card__hint" t-esc="props.ratioData?.message"/>
+            <div class="gn-wb-fh-wc-card__details" t-if="!disabled">
+                <small>
+                    Activos circulantes:
+                    <strong t-esc="fmt(props.ratioData?.numerator)"/>
+                </small>
+                <small>
+                    Pasivos circulantes:
+                    <strong t-esc="fmt(props.ratioData?.denominator)"/>
+                </small>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="gn_banks_balance.FinancialRatiosGrid">
+        <t t-if="allUnavailable">
+            <FinancialHealthUnavailable message="'No se pudieron calcular ratios. Verifique clasificación contable.'" compact="true"/>
+        </t>
+        <div class="gn-wb-fh-ratios-grid" t-else="">
+            <FinancialRatioCard
+                t-foreach="gaugeRow1"
+                t-as="ratio"
+                t-key="ratio.id"
+                ratioData="ratio"
+                currencyId="props.currencyId"
+                showGauge="true"
+            />
+            <FinancialRatioCard
+                t-if="cashFlowRatio"
+                ratioData="cashFlowRatio"
+                currencyId="props.currencyId"
+                showGauge="true"
+            />
+            <WorkingCapitalCard
+                t-if="workingCapital"
+                ratioData="workingCapital"
+                currencyId="props.currencyId"
+            />
+        </div>
+    </t>
+
+    <t t-name="gn_banks_balance.LiquidityTrendCard">
+        <div class="gn-wb-fh-mini-card">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="gn-wb-fh-mini-card__label mb-0">Tendencia</div>
+                <span t-att-class="'badge bg-' + statusTone" t-esc="props.trendData?.status"/>
+            </div>
+            <t t-if="isEmpty">
+                <FinancialHealthUnavailable message="props.trendData?.message" compact="true"/>
+            </t>
+            <t t-else="">
+                <div class="gn-wb-fh-spark-compact"><canvas t-ref="spark" height="48"/></div>
+                <small class="gn-wb-fh-mini-card__hint" t-esc="props.trendData?.message"/>
+                <small class="text-muted" t-if="props.trendData?.percentage_change !== undefined">
+                    Δ <t t-esc="props.trendData.percentage_change"/>%
+                </small>
+            </t>
+        </div>
+    </t>
+
+    <t t-name="gn_banks_balance.BankConcentrationPanel">
+        <div class="gn-wb-fh-block">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <h6 class="gn-wb-fh-block__title mb-0">Concentración bancaria</h6>
+                <span t-att-class="'badge bg-' + riskTone" t-if="!isEmpty">
+                    Riesgo <t t-esc="props.concentrationData?.risk_level"/>
+                </span>
+            </div>
+            <t t-if="isEmpty">
+                <FinancialHealthUnavailable message="'No hay bancos seleccionados para analizar concentración.'" compact="true"/>
+            </t>
+            <t t-else="">
+                <p class="small mb-2">
+                    Dominante: <strong t-esc="props.concentrationData?.dominant_bank?.bank_name"/>
+                    (<t t-esc="props.concentrationData?.dominant_bank?.balance_percentage"/>%)
+                </p>
+                <p class="small text-muted mb-2" t-esc="props.concentrationData?.recommendation"/>
+                <div class="row g-2">
+                    <div class="col-md-5">
+                        <div class="gn-wb-fh-chart-compact"><canvas t-ref="canvas" height="160"/></div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="table-responsive">
+                            <table class="table table-sm gn-wb-fh-table mb-0">
+                                <thead><tr><th>Banco</th><th class="text-end">Saldo</th><th class="text-end">% Saldo</th><th class="text-end">% Mov.</th></tr></thead>
+                                <tbody>
+                                    <tr t-foreach="tableRows" t-as="bank" t-key="bank.journal_id">
+                                        <td t-esc="bank.bank_name"/>
+                                        <td class="text-end" t-esc="fmt(bank.amount)"/>
+                                        <td class="text-end" t-esc="bank.percentage"/>%
+                                        <td class="text-end" t-esc="bank.movement_percentage"/>%
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </div>
+    </t>
+
+    <t t-name="gn_banks_balance.HistoricalComparisonPanel">
+        <div class="gn-wb-fh-block">
+            <h6 class="gn-wb-fh-block__title">Comparativo histórico</h6>
+            <t t-if="!props.comparisonData?.available">
+                <FinancialHealthUnavailable message="'No hay datos históricos suficientes para comparar.'" compact="true"/>
+            </t>
+            <t t-else="">
+                <div class="table-responsive">
+                    <table class="table table-sm gn-wb-fh-table mb-0">
+                        <thead>
+                            <tr>
+                                <th>Indicador</th>
+                                <th class="text-end">Actual</th>
+                                <th class="text-end">Per. anterior</th>
+                                <th class="text-end">Δ%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="rows" t-as="row" t-key="row.key">
+                                <td t-esc="row.label"/>
+                                <td class="text-end" t-esc="fmt(row.data?.value, row.key)"/>
+                                <td class="text-end" t-esc="fmt(row.data?.base, row.key)"/>
+                                <td t-att-class="'text-end ' + (row.data?.delta_pct &lt; 0 ? 'text-danger' : 'text-success')"
+                                    t-esc="fmtPct(row.data?.delta_pct)"/>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div t-if="props.comparisonData?.insights?.length" class="mt-2">
+                    <small t-foreach="props.comparisonData.insights" t-as="ins" t-key="ins_index" class="d-block text-muted" t-esc="ins.message"/>
+                </div>
+            </t>
+        </div>
+    </t>
+
+    <t t-name="gn_banks_balance.SmartAlertsPanel">
+        <div class="gn-wb-fh-block" t-if="props.alerts?.length">
+            <h6 class="gn-wb-fh-block__title">Alertas</h6>
+            <div t-foreach="props.alerts" t-as="alert" t-key="alert_index"
+                 t-att-class="'gn-wb-fh-alert gn-wb-fh-alert--' + alert.severity">
+                <strong t-esc="alert.title"/>
+                <p class="mb-0 small" t-esc="alert.message"/>
+                <small class="text-muted" t-if="alert.value !== null and alert.value !== undefined" t-esc="fmt(alert.value)"/>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="gn_banks_balance.RecommendationsPanel">
+        <div class="gn-wb-fh-block" t-if="props.recommendations?.length">
+            <h6 class="gn-wb-fh-block__title">Recomendaciones</h6>
+            <div t-foreach="props.recommendations" t-as="rec" t-key="rec_index"
+                 t-att-class="'gn-wb-fh-rec gn-wb-fh-rec--' + rec.severity">
+                <strong t-esc="rec.title"/>
+                <p class="mb-0 small" t-esc="rec.message"/>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="gn_banks_balance.FinancialTimeline">
+        <div class="gn-wb-fh-block">
+            <h6 class="gn-wb-fh-block__title">Eventos financieros</h6>
+            <t t-if="!props.events?.length">
+                <FinancialHealthUnavailable message="'No se detectaron eventos relevantes en el período.'" compact="true"/>
+            </t>
+            <div class="gn-wb-fh-timeline-v" t-else="">
+                <div t-foreach="props.events" t-as="event" t-key="event_index"
+                     t-att-class="'gn-wb-fh-timeline-v__item gn-wb-fh-timeline-v__item--' + (event.severity || 'info')">
+                    <div class="gn-wb-fh-timeline-v__dot">
+                        <i t-att-class="'fa ' + (event.icon || iconFor(event.type))"/>
+                    </div>
+                    <div class="gn-wb-fh-timeline-v__body">
+                        <div class="d-flex justify-content-between gap-2">
+                            <strong t-esc="event.title"/>
+                            <small class="text-muted" t-esc="event.date"/>
+                        </div>
+                        <p class="mb-0 small" t-esc="event.description"/>
+                        <small class="text-muted">
+                            <t t-if="event.amount !== null and event.amount !== undefined" t-esc="fmt(event.amount)"/>
+                            <t t-if="event.bank_name" t-esc="' · ' + event.bank_name"/>
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="gn_banks_balance.FinancialHealthSkeleton">
+        <div class="gn-wb-fh-skeleton">
+            <div class="gn-wb-skeleton-block mb-2" style="height:100px"/>
+            <div class="row g-2 mb-2">
+                <div class="col-4"><div class="gn-wb-skeleton-block" style="height:80px"/></div>
+                <div class="col-4"><div class="gn-wb-skeleton-block" style="height:80px"/></div>
+                <div class="col-4"><div class="gn-wb-skeleton-block" style="height:80px"/></div>
+            </div>
+            <div class="gn-wb-skeleton-block" style="height:120px"/>
+        </div>
+    </t>
+
+    <t t-name="gn_banks_balance.FinancialHealthEmptyState">
+        <div class="gn-wb-fh-empty"><i class="fa fa-heartbeat"/><p t-esc="props.message"/></div>
+    </t>
+
+    <t t-name="gn_banks_balance.FinancialHealthErrorState">
+        <div class="gn-wb-fh-error">
+            <i class="fa fa-exclamation-circle text-danger"/>
+            <p t-esc="props.message"/>
+            <button class="btn btn-sm btn-primary" t-on-click="props.onRetry">Reintentar</button>
+        </div>
+    </t>
+
+</templates>

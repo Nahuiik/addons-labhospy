@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_l10n_hn_monthly_salary_history_import_wizard" model="ir.ui.view">
+        <field name="name">l10n.hn.monthly.salary.history.import.wizard.form</field>
+        <field name="model">l10n.hn.monthly.salary.history.import.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Importar historial salarial mensual">
+                <field name="state" invisible="1"/>
+                <group invisible="state != 'draft'">
+                    <field name="company_id"/>
+                    <field name="overwrite_existing"/>
+                    <field name="file_data" filename="file_name"
+                           placeholder="Obligatorio solo al pulsar Importar"/>
+                    <field name="file_name" invisible="1"/>
+                </group>
+                <div invisible="state == 'draft'" class="oe_read_only">
+                    <field name="result_message" nolabel="1"/>
+                </div>
+                <footer>
+                    <button string="Descargar plantilla" name="action_download_template" type="object"
+                            class="btn-secondary" icon="fa-download" invisible="state != 'draft'"/>
+                    <button string="Importar" name="action_import" type="object" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button string="Cerrar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_l10n_hn_monthly_salary_history_generate_wizard" model="ir.ui.view">
+        <field name="name">l10n.hn.monthly.salary.history.generate.wizard.form</field>
+        <field name="model">l10n.hn.monthly.salary.history.generate.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Generar historial desde nómina">
+                <field name="state" invisible="1"/>
+                <group invisible="state != 'draft'">
+                    <group>
+                        <field name="company_id"/>
+                        <field name="year_from"/>
+                        <field name="month_from"/>
+                        <field name="year_to"/>
+                        <field name="month_to"/>
+                    </group>
+                    <group>
+                        <field name="payslip_states"/>
+                        <field name="overwrite_import"/>
+                        <field name="employee_ids" widget="many2many_tags"/>
+                    </group>
+                </group>
+                <group invisible="state == 'draft'">
+                    <field name="result_message" nolabel="1" readonly="1"/>
+                </group>
+                <footer>
+                    <button string="Generar" name="action_generate" type="object" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button string="Cerrar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

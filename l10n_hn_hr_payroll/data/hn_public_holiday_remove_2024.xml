@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Quita festivos HN del año 2024 (p. ej. cargas antiguas); no afecta 2025 en adelante. -->
+        <delete model="hn.public.holiday" search="[('date', '&gt;=', '2024-01-01'), ('date', '&lt;=', '2024-12-31')]"/>
+    </data>
+</odoo>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Datos de contacto LABHOSPY -->
+    <record id="base.main_company" model="res.company">
+        <field name="phone">(504) 2237-5567 – 2237-3997</field>
+        <field name="email">info@labhospy.hn</field>
+    </record>
+
+    <!-- Header tipo e-commerce: barra superior + logo + búsqueda + menú -->
+    <record id="website.template_header_default" model="ir.ui.view">
+        <field name="active" eval="False"/>
+    </record>
+    <record id="website.template_header_sales_two" model="ir.ui.view">
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- Desactivar plantillas de footer/header que no usa labhospy.hn -->
+    <record id="website.template_footer_headline" model="ir.ui.view">
+        <field name="active" eval="False"/>
+    </record>
+    <function model="ir.ui.view" name="write">
+        <value model="ir.ui.view" search="[('key', '=', 'website.template_footer_headline'), ('website_id', '!=', False)]"/>
+        <value eval="{'active': False}"/>
+    </function>
+
+    <!-- Ocultar elementos que no usa labhospy.hn en la barra superior -->
+    <record id="website.header_language_selector" model="ir.ui.view">
+        <field name="active" eval="False"/>
+    </record>
+    <record id="website.header_social_links" model="ir.ui.view">
+        <field name="active" eval="False"/>
+    </record>
+</odoo>

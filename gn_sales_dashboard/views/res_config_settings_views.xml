@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_sales_dashboard" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.sales.dashboard</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//app[@name='sale_management']" position="inside">
+                <block title="Dashboard de Ventas Premium" name="sales_dashboard_setting">
+                    <setting string="Período predeterminado" help="Período inicial al abrir el dashboard">
+                        <field name="sales_default_period"/>
+                    </setting>
+                    <setting string="Método de pronóstico">
+                        <field name="sales_forecast_method"/>
+                    </setting>
+                    <setting string="Umbrales comerciales">
+                        <div class="content-group">
+                            <div class="row mt16">
+                                <label for="sales_margin_min_pct" class="col-lg-4"/>
+                                <field name="sales_margin_min_pct" class="col-lg-8"/>
+                            </div>
+                            <div class="row">
+                                <label for="sales_concentration_max_pct" class="col-lg-4"/>
+                                <field name="sales_concentration_max_pct" class="col-lg-8"/>
+                            </div>
+                            <div class="row">
+                                <label for="sales_inactive_customer_days" class="col-lg-4"/>
+                                <field name="sales_inactive_customer_days" class="col-lg-8"/>
+                            </div>
+                        </div>
+                    </setting>
+                    <setting string="Metas y configuración avanzada">
+                        <button name="%(action_sales_dashboard_target)d" type="action"
+                                string="Metas comerciales" class="btn-link" icon="fa-bullseye"/>
+                        <button name="%(action_sales_dashboard_config)d" type="action"
+                                string="Configuración completa" class="btn-link" icon="fa-cog"/>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>

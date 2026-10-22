@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_hr_dashboard.EmployeeReportDashboard">
+        <Layout display="display">
+            <t t-set-slot="control-panel-always-buttons">
+                <input type="search"
+                       class="form-control form-control-sm d-inline-block align-middle"
+                       style="max-width: 220px;"
+                       t-att-placeholder="uiStr('search_ph')"
+                       t-model="state.searchTerm"/>
+                <button class="btn btn-primary ms-2" t-on-click="openFullWizard" t-att-title="uiStr('wizard_title')">
+                    <i class="fa fa-file-excel-o me-1"/> <t t-esc="uiStr('wizard_full')"/>
+                </button>
+            </t>
+            <div class="oe-report-dashboard-wrap">
+                <div class="oe-report-dashboard">
+                    <div class="oe-report-dashboard__intro">
+                        <p class="oe-report-dashboard__intro-text" t-esc="uiStr('intro')"/>
+                    </div>
+                    <div class="oe-report-dashboard__grid" t-if="filteredReportCategories.length">
+                        <t t-foreach="filteredReportCategories" t-as="category" t-key="category.id">
+                            <div class="oe-report-card oe-report-card--category">
+                                <div class="oe-report-card__header" t-att-style="'--category-color: ' + category.color">
+                                    <i t-att-class="'fa ' + category.icon + ' oe-report-card__category-icon'"/>
+                                    <span class="oe-report-card__category-label" t-esc="category.label"/>
+                                </div>
+                                <div class="oe-report-card__body">
+                                    <t t-foreach="category.reports" t-as="report" t-key="report.action">
+                                        <button type="button"
+                                                class="oe-report-item"
+                                                t-att-data-action="report.action"
+                                                t-on-click="(ev) => this.openReport(ev.currentTarget.dataset.action)"
+                                                t-att-title="report.label">
+                                            <i t-att-class="'fa ' + report.icon + ' oe-report-item__icon'"/>
+                                            <span class="oe-report-item__label" t-esc="report.label"/>
+                                            <i class="fa fa-chevron-right oe-report-item__arrow"/>
+                                        </button>
+                                    </t>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                    <div class="alert alert-secondary m-3" t-else="">
+                        <t t-esc="uiStr('empty')"/>
+                    </div>
+                </div>
+            </div>
+        </Layout>
+    </t>
+</templates>

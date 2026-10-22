@@ -1,0 +1,59 @@
+<odoo>
+    <record id="view_order_form_l10n_hn_stock" model="ir.ui.view">
+        <field name="name">sale.order.form.l10n.hn.stock</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header/button[@name='action_confirm']" position="attributes">
+                <attribute name="groups">l10n_hn_stock.group_allow_confirm_sale_view_docs</attribute>
+            </xpath>
+            <xpath expr="//div[hasclass('oe_button_box')]/button[@name='action_view_delivery']" position="attributes">
+                <attribute name="groups">l10n_hn_stock.group_allow_confirm_sale_view_docs</attribute>
+            </xpath>
+            <xpath expr="//div[hasclass('oe_button_box')]/button[@name='action_view_invoice']" position="attributes">
+                <attribute name="groups">l10n_hn_stock.group_allow_confirm_sale_view_docs</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_order_form_l10n_hn_stock_restrict_price" model="ir.ui.view">
+        <field name="name">sale.order.form.l10n.hn.stock.restrict.price</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']/form" position="inside">
+                <field name="hn_readonly_price" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/list" position="inside">
+                <field name="hn_readonly_price" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']//field[@name='price_unit']" position="attributes">
+                <attribute name="attrs">{'readonly': [('hn_readonly_price', '=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/list/field[@name='price_unit']" position="attributes">
+                <attribute name="readonly">hn_readonly_price or qty_invoiced &gt; 0</attribute>
+                <attribute name="attrs">{'readonly': [('hn_readonly_price', '=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']//list//field[@name='purchase_price']" position="attributes">
+                <attribute name="groups">l10n_hn_stock.group_view_costs_margins</attribute>
+                <attribute name="readonly">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']//form//field[@name='purchase_price']" position="attributes">
+                <attribute name="groups">l10n_hn_stock.group_view_costs_margins</attribute>
+                <attribute name="readonly">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']//list//field[@name='margin']" position="attributes">
+                <attribute name="groups">l10n_hn_stock.group_view_costs_margins</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']//list//field[@name='margin_percent']" position="attributes">
+                <attribute name="groups">l10n_hn_stock.group_view_costs_margins</attribute>
+            </xpath>
+            <xpath expr="//field[@name='tax_totals']/following-sibling::div[label[@for='margin']]" position="attributes">
+                <attribute name="groups">l10n_hn_stock.group_view_costs_margins</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+
+
+

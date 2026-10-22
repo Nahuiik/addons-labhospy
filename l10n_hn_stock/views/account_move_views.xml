@@ -1,0 +1,17 @@
+<odoo>
+    <record id="view_move_form_l10n_hn_stock_restrict_price" model="ir.ui.view">
+        <field name="name">account.move.form.l10n.hn.stock.restrict.price</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_line_ids']/list" position="inside">
+                <field name="hn_readonly_price" invisible="1" column_invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']//field[@name='price_unit']" position="attributes">
+                <attribute name="attrs">{'readonly': [('hn_readonly_price', '=', True)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+
+

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Extend hr.payslip.run form to add payroll period field -->
+    <record id="view_hr_payslip_run_form_inherit_l10n_hn" model="ir.ui.view">
+        <field name="name">hr.payslip.run.form.inherit.l10n.hn</field>
+        <field name="model">hr.payslip.run</field>
+        <field name="inherit_id" ref="l10n_hn_payroll_base.hr_payslip_run_form"/>
+        <field name="arch" type="xml">
+            <!-- Filter structure_id to show only active structures -->
+            <xpath expr="//field[@name='structure_id']" position="attributes">
+                <attribute name="domain">[('country_id', 'in', [country_id, False]), ('active', '=', True)]</attribute>
+            </xpath>
+            <!-- Add payroll period field when bi-weekly is selected -->
+            <field name="schedule_pay" position="after">
+                <field name="structure_country_code" invisible="1"/>
+                <field name="payroll_period_id" 
+                       domain="[('company_id', 'in', allowed_company_ids)]"
+                       invisible="schedule_pay != 'bi-weekly' or (structure_country_code and structure_country_code != 'HN') or (not structure_country_code and country_code != 'HN')"
+                       string="Quincena"
+                       options="{'no_create': False, 'no_open': True}"
+                       context="{'default_company_id': allowed_company_ids[0]}"
+                       placeholder="Seleccionar quincena..."/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Extend kanban to add Export Excel button and payroll_period_id -->
+    <record id="view_hr_payslip_run_kanban_inherit_l10n_hn" model="ir.ui.view">
+        <field name="name">hr.payslip.run.kanban.inherit.l10n.hn</field>
+        <field name="model">hr.payslip.run</field>
+        <field name="inherit_id" ref="l10n_hn_payroll_base.hr_payslip_run_view_kanban"/>
+        <field name="arch" type="xml">
+            <!-- Add payroll_period_id field to kanban (required for display) -->
+            <xpath expr="//kanban" position="inside">
+                <field name="payroll_period_id"/>
+            </xpath>
+            <!-- Slot o_payrun_info en CE: badge quincena + export (no existe action_payment_report en kanban base) -->
+            <xpath expr="//div[hasclass('o_payrun_info')]" position="inside">
+                <div class="d-flex flex-wrap align-items-center gap-2 mt-1">
+                    <span class="badge rounded-pill bg-info" invisible="not payroll_period_id">
+                        <field name="payroll_period_id"/>
+                    </span>
+                    <button name="action_export_payroll_xlsx" type="object" class="btn btn-sm btn-secondary"
+                            string="Exportar Excel" invisible="payslip_count == 0 or state == '04_cancel'"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

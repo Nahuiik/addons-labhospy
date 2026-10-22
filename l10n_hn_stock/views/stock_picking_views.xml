@@ -1,0 +1,34 @@
+<odoo>
+    <record id="view_picking_form_l10n_hn_stock" model="ir.ui.view">
+        <field name="name">stock.picking.form.l10n.hn.stock</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_generate_remission_sequence"
+                        type="object"
+                        string="Generar guía de remisión"
+                        class="btn-secondary"
+                        invisible="state not in ['assigned', 'done', 'waiting', 'confirmed'] or hn_remission_number or not hn_remission_enabled"/>
+                <button name="action_print_remission_guide"
+                        type="object"
+                        string="Print Remission Guide"
+                        class="btn-primary"
+                        invisible="state == 'draft' or not hn_remission_number or not hn_remission_enabled"/>
+            </xpath>
+            <xpath expr="//sheet/notebook" position="inside">
+                <page string="Remission">
+                    <group>
+                        <field name="hn_remission_enabled"/>
+                        <field name="hn_remission_number" readonly="True"/>
+                        <field name="salesperson_id" readonly="True"/>
+                        <field name="invoice_name" readonly="True"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+
+
+

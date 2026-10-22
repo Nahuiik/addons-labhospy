@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="l10n_hn_stock_valuation.ForecastedButtonsInherit"
+       t-inherit="stock.ForecastedButtons"
+       t-inherit-mode="extension">
+        <xpath expr="//button[contains(@class, 'o_forecasted_update_qty_btn')]" position="replace">
+            <t t-if="
+                props.canUpdateQty
+                or (
+                    env.services.user
+                    and env.services.user.hasGroup('l10n_hn_stock_valuation.group_view_inventory_button')
+                )
+            ">
+                <button title="Update Quantity" t-on-click="_onClickUpdateQuantity"
+                        class="o_forecasted_update_qty_btn btn btn-secondary">
+                    Update Quantity
+                </button>
+            </t>
+        </xpath>
+    </t>
+    <t t-inherit="stock.Forecasted" t-inherit-mode="extension">
+        <xpath expr="//ForecastedButtons" position="attributes">
+            <attribute name="canUpdateQty">canUpdateQty</attribute>
+        </xpath>
+    </t>
+</templates>
+

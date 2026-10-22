@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Groups are created without noupdate to ensure they are created on module install/update -->
+    <data noupdate="0">
+        <!-- Create a separate privilege for Honduras Payroll to keep it separate from standard payroll -->
+        <record model="res.groups.privilege" id="res_groups_privilege_honduras_payroll">
+            <field name="name">Honduras Payroll</field>
+            <field name="sequence">17</field>
+            <field name="category_id" ref="base.module_category_human_resources"/>
+        </record>
+        
+        <!-- Payroll Administrator Group -->
+        <record id="group_hr_payroll_admin" model="res.groups">
+            <field name="name">Payroll Administrator</field>
+            <field name="sequence">10</field>
+            <field name="privilege_id" ref="res_groups_privilege_honduras_payroll"/>
+            <field name="comment">Full access to payroll configuration and sensitive data</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+        
+        <!-- Payroll User Group -->
+        <record id="group_hr_payroll_user" model="res.groups">
+            <field name="name">Payroll User</field>
+            <field name="sequence">20</field>
+            <field name="privilege_id" ref="res_groups_privilege_honduras_payroll"/>
+            <field name="comment">Access to payroll operations</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+        
+        <!-- Payroll Auditor Group -->
+        <record id="group_hr_payroll_auditor" model="res.groups">
+            <field name="name">Payroll Auditor</field>
+            <field name="sequence">30</field>
+            <field name="privilege_id" ref="res_groups_privilege_honduras_payroll"/>
+            <field name="comment">Read-only access to payroll data for auditing</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <!-- User Manager Payroll: jefes ven planillas de sus subordinados -->
+        <record id="group_user_manager_payroll" model="res.groups">
+            <field name="name">Manager Payroll</field>
+            <field name="sequence">25</field>
+            <field name="privilege_id" ref="res_groups_privilege_honduras_payroll"/>
+            <field name="comment">Ver planillas de empleados subordinados (parent_id)</field>
+            <field name="implied_ids" eval="[(4, ref('group_hr_payroll_user'))]"/>
+        </record>
+
+        <!-- User Only Own: solo ve sus propias planillas -->
+        <record id="group_user_only_own_payroll" model="res.groups">
+            <field name="name">Only Own Payroll</field>
+            <field name="sequence">26</field>
+            <field name="privilege_id" ref="res_groups_privilege_honduras_payroll"/>
+            <field name="comment">Solo ver planillas propias (creadas por el usuario)</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="group_hn_liquidation_adjust_confirmed" model="res.groups">
+            <field name="name">Ajuste liquidaciones confirmadas (HN)</field>
+            <field name="sequence">27</field>
+            <field name="privilege_id" ref="res_groups_privilege_honduras_payroll"/>
+            <field name="comment">Editar líneas de liquidación ya aprobadas o liquidadas</field>
+            <field name="implied_ids" eval="[(4, ref('group_hr_payroll_admin'))]"/>
+        </record>
+    </data>
+    
+    <!-- Security Rules -->
+    <data noupdate="1">
+        <!-- Estructuras salariales: multicompañía (company_id vacío = todas las compañías) -->
+        <record id="ir_rule_hr_payroll_structure_company" model="ir.rule">
+            <field name="name">Estructura salarial: multicompañía</field>
+            <field name="model_id" ref="l10n_hn_payroll_base.model_hr_payroll_structure"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="l10n_hn_payroll_period_company_rule" model="ir.rule">
+            <field name="name">Payroll Period: multi-company</field>
+            <field name="model_id" ref="model_l10n_hn_payroll_period"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <!-- Planilla: multi-company -->
+        <record id="l10n_hn_payroll_sheet_company_rule" model="ir.rule">
+            <field name="name">Payroll Sheet: multi-company</field>
+            <field name="model_id" ref="model_l10n_hn_payroll_sheet"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <!-- Planilla: user_only_own ve solo sus planillas -->
+        <record id="l10n_hn_payroll_sheet_user_only_own_rule" model="ir.rule">
+            <field name="name">Payroll Sheet: Solo propias</field>
+            <field name="model_id" ref="model_l10n_hn_payroll_sheet"/>
+            <field name="domain_force">[('user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_user_only_own_payroll'))]"/>
+        </record>
+
+        <!-- Planilla: managers ven propias + de subordinados (line_employee_ids.parent_id.user_id) -->
+        <record id="l10n_hn_payroll_sheet_manager_rule" model="ir.rule">
+            <field name="name">Payroll Sheet: Propias y subordinados</field>
+            <field name="model_id" ref="model_l10n_hn_payroll_sheet"/>
+            <field name="domain_force">['|', ('user_id', '=', user.id), ('line_employee_ids.parent_id.user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_user_manager_payroll'))]"/>
+        </record>
+
+        <record id="l10n_hn_liquidation_company_rule" model="ir.rule">
+            <field name="name">Liquidación laboral: multicompañía</field>
+            <field name="model_id" ref="model_l10n_hn_liquidation"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="hr_project_company_rule" model="ir.rule">
+            <field name="name">Proyecto (empleado): multicompañía</field>
+            <field name="model_id" ref="model_hr_project"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="hr_assignment_company_rule" model="ir.rule">
+            <field name="name">Asignación (empleado): multicompañía</field>
+            <field name="model_id" ref="model_hr_assignment"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="hr_employee_in_company_relative_company_rule" model="ir.rule">
+            <field name="name">Pariente en empresa: multicompañía</field>
+            <field name="model_id" ref="model_hr_employee_in_company_relative"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="res_bank_company_rule" model="ir.rule">
+            <field name="name">Bancos (contactos): multicompañía</field>
+            <field name="model_id" ref="base.model_res_bank"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="hr_employee_disability_line_company_rule" model="ir.rule">
+            <field name="name">Líneas discapacidad: por compañía del empleado</field>
+            <field name="model_id" ref="model_hr_employee_disability_line"/>
+            <field name="domain_force">['|', ('employee_id.company_id', '=', False), ('employee_id.company_id', 'in', company_ids)]</field>
+        </record>
+
+    </data>
+</odoo>

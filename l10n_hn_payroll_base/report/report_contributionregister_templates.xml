@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_contributionregister">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2 t-field="o.name"/>
+                        <table class="table table-sm mt16">
+                            <thead>
+                                <tr><th>Payslip line</th><th class="text-end">Total</th></tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="lines" t-value="lines_data.get(o.id)"/>
+                                <tr t-foreach="lines or []" t-as="line">
+                                    <td><span t-field="line.name"/> (<span t-field="line.code"/>)</td>
+                                    <td class="text-end"><span t-field="line.total"/></td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr><td><strong>Total</strong></td><td class="text-end"><t t-out="lines_total.get(o.id, 0.0)"/></td></tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

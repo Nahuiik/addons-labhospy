@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="sequence_view_banks_seq_purchase">
+			<field name="name">ir.sequence.banks</field>
+			<field name="model">ir.sequence</field>
+			<field name="inherit_id" ref="gn_banks.sequence_view_banks_seq" />
+			<field name="arch" type="xml">
+				<field name="move_type" position="after">
+					<field name="is_purchase_ticket" readonly="1" force_save="1" invisible="0"/>
+					<!-- <field name="is_purchase_ticket" readonly="1" force_save="1" /> -->
+				</field>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="purchase_seq_tab">
+			<field name="name">account.journal.inh.seq</field>
+			<field name="model">account.journal</field>
+			<field name="inherit_id" ref="account.view_account_journal_form"/>
+			<field name="arch" type="xml">
+				<field name="sequence_number_next" position="after">
+					<field name="purchase_sequence_id" invisible="type != 'purchase'"></field>
+				</field>
+
+			</field>
+		</record>
+	</data>
+	<data noupdate="1">
+	
+		<record id="seq_purchase_ticket" model="ir.sequence">
+			<field name="name">Boletas de Compra</field>
+			<field name="code">purchase.seq.ticket</field>
+			<field name="active">True</field>
+			<field name="is_purchase_ticket" eval="True"/>
+			<field name="move_type">purchase_ticket</field>
+			<field name="company_id" eval="False"/>
+			<field name="prefix">000-001-11-00</field>
+			<field name="number_increment">1</field>
+			<field name="number_next">1</field>
+			<field name="padding">6</field>
+			<field name="implementation">standard</field>
+		</record>
+	
+	</data>
+	
+		
+
+	
+</odoo>

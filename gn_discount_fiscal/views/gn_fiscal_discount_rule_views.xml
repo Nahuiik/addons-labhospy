@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_gn_fiscal_discount_rule_list" model="ir.ui.view">
+        <field name="name">gn.fiscal.discount.rule.list</field>
+        <field name="model">gn.fiscal.discount.rule</field>
+        <field name="arch" type="xml">
+            <list string="Matriz descuento fiscal">
+                <field name="sequence"/>
+                <field name="name"/>
+                <field name="matrix_code"/>
+                <field name="age_min"/>
+                <field name="age_max"/>
+                <field name="discount_percent"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_gn_fiscal_discount_rule_form" model="ir.ui.view">
+        <field name="name">gn.fiscal.discount.rule.form</field>
+        <field name="model">gn.fiscal.discount.rule</field>
+        <field name="arch" type="xml">
+            <form string="Matriz descuento fiscal">
+                <sheet>
+                    <widget name="web_ribbon" title="Archivado" bg_color="text-bg-danger" invisible="active"/>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="active"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="sequence"/>
+                            <field name="matrix_code"/>
+                            <field name="discount_percent"/>
+                        </group>
+                    </group>
+                    <group string="Rango de edad (automático según tipo de matriz)">
+                        <field name="age_min" readonly="1"/>
+                        <field name="age_max" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_gn_fiscal_discount_rule" model="ir.actions.act_window">
+        <field name="name">Matriz descuento fiscal</field>
+        <field name="res_model">gn.fiscal.discount.rule</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem
+        id="menu_gn_fiscal_discount_rule"
+        name="Matriz descuento fiscal"
+        parent="contacts.res_partner_menu_config"
+        action="action_gn_fiscal_discount_rule"
+        sequence="90"
+        groups="sales_team.group_sale_manager"/>
+</odoo>

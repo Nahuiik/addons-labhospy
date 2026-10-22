@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="partner_ageing_pdf_report">
+        <t t-call="web.html_container">
+            <t t-set="data_report_margin_top" t-value="12"/>
+            <t t-set="data_report_header_spacing" t-value="9"/>
+            <t t-set="data_report_dpi" t-value="110"/>
+            <t t-call="web.internal_layout">
+                <div class="page" style="font-family: Arial, sans-serif; padding: 0 20px;">
+                    <center>
+                        <h2 style="margin-bottom: 5px;">Partner Ageing / Vencidas Socios</h2>
+                        <div style="margin-bottom: 20px;"><br/><br/></div>
+                    </center>
+
+                    <t t-set="currency_symbol" t-value="currency_data.get('symbol', '') or '$'"/>
+
+                    <t t-foreach="['receivable', 'payable']" t-as="section_key">
+                        <t t-set="section" t-value="(section_key == 'receivable' and receivable or payable) if section_key == 'receivable' else payable"/>
+                        <t t-if="section and section.get('partners')">
+                            <h3 style="margin: 20px 0 10px 0; border-bottom: 1px solid #ddd;">
+                                <t t-esc="section.get('section_label', section_key == 'receivable' and 'Vencidas por cobrar' or 'Vencidas por pagar')"/>
+                            </h3>
+                            <table class="table" style="width: 100%; border-collapse: collapse; font-size: 12pt; margin-bottom: 30px;">
+                                <thead>
+                                    <tr style="background-color: #f5f5f5;">
+                                        <th style="width: 10%; text-align: left; padding: 8px; border-bottom: 1px solid #ddd;">Move</th>
+                                        <th style="width: 8%; text-align: center; padding: 8px; border-bottom: 1px solid #ddd;">Invoice Date</th>
+                                        <th style="width: 8%; text-align: center; padding: 8px; border-bottom: 1px solid #ddd;">Due Date</th>
+                                        <th style="width: 5%; text-align: center; padding: 8px; border-bottom: 1px solid #ddd;">Journal</th>
+                                        <th style="width: 7%; text-align: center; padding: 8px; border-bottom: 1px solid #ddd;">Account</th>
+                                        <th style="width: 8%; text-align: right; padding: 8px; border-bottom: 1px solid #ddd;">
+                                            <t t-if="periods and periods.get('0')" t-esc="periods['0']['name']"/><t t-else="">At Date</t>
+                                        </th>
+                                        <th style="width: 9%; text-align: right; padding: 8px; border-bottom: 1px solid #ddd;">
+                                            <t t-if="periods and periods.get('1')" t-esc="periods['1']['name']"/><t t-else="">1-60</t>
+                                        </th>
+                                        <th style="width: 9%; text-align: right; padding: 8px; border-bottom: 1px solid #ddd;">
+                                            <t t-if="periods and periods.get('2')" t-esc="periods['2']['name']"/><t t-else="">61-120</t>
+                                        </th>
+                                        <th style="width: 9%; text-align: right; padding: 8px; border-bottom: 1px solid #ddd;">
+                                            <t t-if="periods and periods.get('3')" t-esc="periods['3']['name']"/><t t-else="">121-180</t>
+                                        </th>
+                                        <th style="width: 9%; text-align: right; padding: 8px; border-bottom: 1px solid #ddd;">
+                                            <t t-if="periods and periods.get('4')" t-esc="periods['4']['name']"/><t t-else="">181-240</t>
+                                        </th>
+                                        <th style="width: 9%; text-align: right; padding: 8px; border-bottom: 1px solid #ddd;">
+                                            <t t-if="periods and periods.get('5')" t-esc="periods['5']['name']"/><t t-else="">240+</t>
+                                        </th>
+                                        <th style="width: 9%; text-align: right; padding: 8px; border-bottom: 1px solid #ddd;">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="partners" t-value="section.get('partners', [])"/>
+                                    <t t-set="period_total" t-value="section.get('period_total', {})"/>
+                                    <t t-set="expandedPartners" t-value="data.get('expandedPartners', {}) or {}"/>
+                                    <t t-foreach="partners" t-as="partner" t-key="partner['id']">
+                                        <tr style="background-color: #f9f9f9; border-bottom: 1px solid #ddd;">
+                                            <td style="text-align: left; padding: 6px; font-weight: bold;"><t t-esc="partner['name']"/></td>
+                                            <td/><td/><td/><td/>
+                                            <td style="text-align: right; padding: 6px;" t-esc="partner['period0']"/>
+                                            <td style="text-align: right; padding: 6px;" t-esc="partner['period1']"/>
+                                            <td style="text-align: right; padding: 6px;" t-esc="partner['period2']"/>
+                                            <td style="text-align: right; padding: 6px;" t-esc="partner['period3']"/>
+                                            <td style="text-align: right; padding: 6px;" t-esc="partner['period4']"/>
+                                            <td style="text-align: right; padding: 6px;" t-esc="partner['period5']"/>
+                                            <td style="text-align: right; padding: 6px; font-weight: bold;" t-esc="partner['total']"/>
+                                        </tr>
+                                        <t t-if="partner.get('name', '') in expandedPartners">
+                                            <t t-foreach="partner.get('journal_items', [])" t-as="item" t-key="item['id']">
+                                                <tr style="border-bottom: 1px solid #eee;">
+                                                    <td style="text-align: left; padding: 6px;"><t t-esc="item.get('move_name', '')"/></td>
+                                                    <td style="text-align: center; padding: 6px;"><t t-esc="item.get('invoice_date', '')"/></td>
+                                                    <td style="text-align: center; padding: 6px;"><t t-esc="item.get('due_date', '')"/></td>
+                                                    <td style="text-align: center; padding: 6px;"><t t-esc="item.get('journal_id', '')"/></td>
+                                                    <td style="text-align: center; padding: 6px;"><t t-esc="item.get('account_code', '')"/></td>
+                                                    <td style="text-align: right; padding: 6px;">
+                                                        <t t-if="item.get('period_key') == 'period0'" t-esc="item.get('amount', '')"/>
+                                                        <t t-else=""><t t-esc="currency_symbol"/> 0.00</t>
+                                                    </td>
+                                                    <td style="text-align: right; padding: 6px;">
+                                                        <t t-if="item.get('period_key') == 'period1'" t-esc="item.get('amount', '')"/>
+                                                        <t t-else=""><t t-esc="currency_symbol"/> 0.00</t>
+                                                    </td>
+                                                    <td style="text-align: right; padding: 6px;">
+                                                        <t t-if="item.get('period_key') == 'period2'" t-esc="item.get('amount', '')"/>
+                                                        <t t-else=""><t t-esc="currency_symbol"/> 0.00</t>
+                                                    </td>
+                                                    <td style="text-align: right; padding: 6px;">
+                                                        <t t-if="item.get('period_key') == 'period3'" t-esc="item.get('amount', '')"/>
+                                                        <t t-else=""><t t-esc="currency_symbol"/> 0.00</t>
+                                                    </td>
+                                                    <td style="text-align: right; padding: 6px;">
+                                                        <t t-if="item.get('period_key') == 'period4'" t-esc="item.get('amount', '')"/>
+                                                        <t t-else=""><t t-esc="currency_symbol"/> 0.00</t>
+                                                    </td>
+                                                    <td style="text-align: right; padding: 6px;">
+                                                        <t t-if="item.get('period_key') == 'period5'" t-esc="item.get('amount', '')"/>
+                                                        <t t-else=""><t t-esc="currency_symbol"/> 0.00</t>
+                                                    </td>
+                                                    <td style="text-align: right; padding: 6px;" t-esc="item.get('amount', '')"/>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                    </t>
+                                    <tr style="background-color: #f0f0f0; border-top: 2px solid #ddd; font-weight: bold;">
+                                        <td style="text-align: left; padding: 8px;">Total</td>
+                                        <td/><td/><td/><td/>
+                                        <td style="text-align: right; padding: 8px;" t-esc="period_total.get('period0', '')"/>
+                                        <td style="text-align: right; padding: 8px;" t-esc="period_total.get('period1', '')"/>
+                                        <td style="text-align: right; padding: 8px;" t-esc="period_total.get('period2', '')"/>
+                                        <td style="text-align: right; padding: 8px;" t-esc="period_total.get('period3', '')"/>
+                                        <td style="text-align: right; padding: 8px;" t-esc="period_total.get('period4', '')"/>
+                                        <td style="text-align: right; padding: 8px;" t-esc="period_total.get('period5', '')"/>
+                                        <td style="text-align: right; padding: 8px;" t-esc="period_total.get('total', '')"/>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+
+<record id="paper_format_partnerageing" model="report.paperformat">
+    <field name="name">Partner Ageing Paper Format</field>
+    <field name="default" eval="True" />
+    <field name="format">custom</field>
+    <field name="page_height">297</field>
+    <field name="page_width">250</field>
+    <field name="orientation">Portrait</field>
+    <field name="margin_top">10.00</field>
+    <field name="header_spacing">35</field>
+    <field name="dpi">125</field>
+</record>
+
+<record id="action_partner_ageing_pdf_report" model="ir.actions.report">
+    <field name="name">Partner Ageing</field>
+    <field name="model">partner.ageing</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="report_name">bi_financial_reports_comm.partner_ageing_pdf_report</field>
+    <field name="report_file">bi_financial_reports_comm.partner_ageing_pdf_report</field>
+    <field name="print_report_name">'Partner Ageing'</field>
+    <field name="binding_model_id" ref="model_partner_ageing"/>
+    <field name="binding_type">report</field>
+    <field name="paperformat_id" ref="bi_financial_reports_comm.paper_format_partnerageing"/>
+</record>
+</odoo>

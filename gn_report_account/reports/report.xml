@@ -1,0 +1,82 @@
+<odoo>
+        <record id="action_purcharse_analysis_xls" model="ir.actions.report">
+            <field name="name">Purcharse Analysis XLS</field>
+            <field name="model">purcharse.analysis.report</field>
+            <field name="report_type">xlsx</field>
+            <field name="report_name">gn_report_account.purcharse_xls.xlsx</field>
+            <field name="report_file">Reporte de Analisis de Compras</field>
+        </record>
+
+        <record id="action_supplier_account_state_xls" model="ir.actions.report">
+            <field name="name">Supplier Account State XLS</field>
+            <field name="model">supplier.account.state</field>
+            <field name="report_type">xlsx</field>
+            <field name="report_name">gn_report_account.supplier_account_xls.xlsx</field>
+            <field name="report_file">Reporte Estado Cuenta Proveedor</field>
+        </record>
+
+        <record id="action_advance_not_applied_xls" model="ir.actions.report">
+            <field name="name">Advance not Applied XLS</field>
+            <field name="model">advances.not.applied.wizard</field>
+            <field name="report_type">xlsx</field>
+            <field name="report_name">gn_report_account.advance_not_applied_xls.xlsx</field>
+            <field name="report_file">Anticipos de Clientes no Aplicados</field>
+        </record>
+
+        <record id="action_customer_account_statement_xls" model="ir.actions.report">
+            <field name="name">Customer Account Status XLS</field>
+            <field name="model">customer.account.statement.wizard</field>
+            <field name="report_type">xlsx</field>
+            <field name="report_name">gn_report_account.cust_acc_statement_xls.xlsx</field>
+            <field name="report_file">Estado de Cuenta Clientes</field>
+        </record>
+
+    <!-- Reports in sales and purchase by Nahuiik -->
+
+        <record id="commission_xls" model="ir.actions.report">
+            <field name="name">Sale Report XLS</field>
+            <field name="model">account.move</field>
+            <field name="report_type">xlsx</field>
+            <field name="report_name">gn_report_account.commission_xls.xlsx</field>
+            <field name="report_file">Sale Report XLS</field>
+        </record>
+
+        <record id="action_sale_payments_report" model="ir.actions.report">
+            <field name="name">Sale Payment Report XLS</field>
+            <field name="model">account.payment</field>
+            <field name="report_type">xlsx</field>
+            <field name="report_name">gn_report_account.sale_payment_report_xls.xlsx</field>
+            <field name="report_file">Sale Payment Report XLS</field>
+        </record>
+
+        <record id="action_purchase_payments_report" model="ir.actions.report">
+            <field name="name">Purchase Payment Report XLS</field>
+            <field name="model">account.payment</field>
+            <field name="report_type">xlsx</field>
+            <field name="report_name">gn_report_account.purchase_payment_report_xls.xlsx</field>
+            <field name="report_file">Pagos de Compra</field>
+        </record>
+
+        <record id="action_purchase_report" model="ir.actions.report">
+            <field name="name">Purchase Report XLS</field>
+            <field name="model">account.move</field>
+            <field name="report_type">xlsx</field>
+            <field name="report_name">gn_report_account.purchase_report_xls.xlsx</field>
+            <field name="report_file">Reporte de Compras</field>
+        </record>
+        <record id="action_state_result_monthly_xls" model="ir.actions.report">
+            <field name="name">State Result Monthly Report XLS</field>
+            <field name="model">state.result.monthly</field>
+            <field name="report_type">xlsx</field>
+            <field name="report_name">gn_report_account.state_result_monthly_report_xls.xlsx</field>
+            <field name="report_file">Reporte Estado mensualizado</field>
+        </record>
+    <record id="action_report_overdue_to_pay_xlsx" model="ir.actions.report">
+        <field name="name">Reporte pagos a proveedor XLSX</field>
+        <field name="model">overdue.to.pay</field>
+        <field name="type">ir.actions.report</field>
+        <field name="report_name">a_f_r.report_overdue_to_pay_xlsx</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_file">Reporte pagos a proveedor</field>
+    </record>
+</odoo>

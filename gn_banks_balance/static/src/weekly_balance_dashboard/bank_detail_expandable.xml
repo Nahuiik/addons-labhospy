@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_banks_balance.BankDetailExpandable">
+        <div class="gn-wb-bank-detail">
+            <table class="table table-sm mb-0">
+                <thead>
+                    <tr>
+                        <th>Banco</th>
+                        <th class="text-end">Saldo ini.</th>
+                        <th class="text-end">Entradas</th>
+                        <th class="text-end">Salidas</th>
+                        <th class="text-end">Neto</th>
+                        <th class="text-end">Saldo final</th>
+                        <th class="text-end">Mayor mov.</th>
+                        <th class="text-end"># mov.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="props.week.banks" t-as="bank" t-key="bank.journal_id">
+                        <td t-esc="bank.bank_name"/>
+                        <td class="text-end gn-wb-clickable"
+                            t-on-click="() => this.onBankClick(bank, 'opening')" t-esc="fmt(bank.initial_balance)"/>
+                        <td class="text-end gn-wb-clickable"
+                            t-on-click="() => this.onBankClick(bank, 'inflow')" t-esc="fmt(bank.inflows)"/>
+                        <td class="text-end gn-wb-clickable"
+                            t-on-click="() => this.onBankClick(bank, 'outflow')" t-esc="fmt(bank.outflows)"/>
+                        <td class="text-end" t-esc="fmt(bank.net_flow)"/>
+                        <td class="text-end" t-esc="fmt(bank.final_balance)"/>
+                        <td class="text-end" t-esc="fmt(bank.largest_movement)"/>
+                        <td class="text-end" t-esc="bank.movement_count"/>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_libro_ventas_forecast_ro,libro.ventas.forecast ro,model_libro_ventas_forecast,account.group_account_readonly,1,0,1,0
+access_libro_ventas_forecast_rw,libro.ventas.forecast rw,model_libro_ventas_forecast,account.group_account_invoice,1,1,1,1
+access_libro_ventas_invoice_ro,libro.ventas.invoice ro,model_libro_ventas_invoice,account.group_account_readonly,1,0,0,0
+access_libro_ventas_invoice_rw,libro.ventas.invoice rw,model_libro_ventas_invoice,account.group_account_invoice,1,1,1,1
+access_libro_compras_forecast_ro,libro.compras.forecast ro,model_libro_compras_forecast,account.group_account_readonly,1,0,0,0
+access_libro_compras_forecast_rw,libro.compras.forecast rw,model_libro_compras_forecast,account.group_account_invoice,1,1,1,1
+access_libro_compras_invoice_ro,libro.compras.invoice ro,model_libro_compras_invoice,account.group_account_readonly,1,0,0,0
+access_libro_compras_invoice_rw,libro.compras.invoice rw,model_libro_compras_invoice,account.group_account_invoice,1,1,1,1
+access_wizard_isv_report,wizard ISV,model_l10n_hn_account_wizard_isv_report,account.group_account_readonly,1,1,1,1
+access_hn_backfill_cai_compras_wizard,hn backfill CAI compras,model_hn_backfill_cai_compras_wizard,account.group_account_invoice,1,1,1,1

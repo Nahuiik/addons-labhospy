@@ -1,0 +1,13 @@
+<odoo>
+    <record model="ir.ui.view" id="view_account_journal_form_seq_purchase_ticket">
+        <field name="name">account.journal.seq</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="l10n_hn_account.view_account_journal_form_seq_hn"/>
+        <field name="arch" type="xml">
+            <field name="refund_sequence_number_next" position="after">
+                <field name="is_purchase_ticket"/>
+                <field name="purchase_ticket_seq" invisible="is_purchase_ticket != True"/>
+            </field>
+        </field>
+    </record>
+</odoo>

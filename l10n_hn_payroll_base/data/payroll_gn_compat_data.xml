@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Estructuras usadas por gn_hn_payroll (antes xmlids hr_payroll.*). -->
+    <record id="default_structure" model="hr.payroll.structure">
+        <field name="sequence" eval="20"/>
+        <field name="name">Default</field>
+        <field name="code">DEFAULT_COMPAT</field>
+        <field name="type_id" ref="hr.structure_type_employee"/>
+        <field name="schedule_pay">monthly</field>
+        <field name="rule_ids" eval="[(6, 0, [ref('rule_basic'), ref('rule_gross'), ref('rule_net')])]"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+    <record id="structure_002" model="hr.payroll.structure">
+        <field name="sequence" eval="10"/>
+        <field name="name">Regular Pay</field>
+        <field name="code">REGULAR_COMPAT</field>
+        <field name="type_id" ref="hr.structure_type_employee"/>
+        <field name="schedule_pay">monthly</field>
+        <field name="rule_ids" eval="[(6, 0, [ref('rule_basic'), ref('rule_gross'), ref('rule_net')])]"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <record id="mail_template_new_payslip" model="mail.template">
+        <field name="name">Payslip: New payslip</field>
+        <field name="model_id" ref="model_hr_payslip"/>
+        <field name="subject">{{ object.name }} – Payslip</field>
+        <field name="body_html" type="html">
+            <div>
+                <p>Your payslip is available.</p>
+            </div>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- ============================================================
+             Reglas de alerta
+             ============================================================ -->
+        <record id="view_gn_fd_alert_rule_list" model="ir.ui.view">
+            <field name="name">gn.financial.dashboard.alert.rule.list</field>
+            <field name="model">gn.financial.dashboard.alert.rule</field>
+            <field name="arch" type="xml">
+                <list string="Reglas de alerta">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="category"/>
+                    <field name="kpi"/>
+                    <field name="operator"/>
+                    <field name="threshold"/>
+                    <field name="severity" widget="badge"
+                           decoration-danger="severity == 'critical'"
+                           decoration-warning="severity == 'warning'"
+                           decoration-info="severity == 'info'"/>
+                    <field name="decision_priority"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="active" widget="boolean_toggle"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_gn_fd_alert_rule_form" model="ir.ui.view">
+            <field name="name">gn.financial.dashboard.alert.rule.form</field>
+            <field name="model">gn.financial.dashboard.alert.rule</field>
+            <field name="arch" type="xml">
+                <form string="Regla de alerta">
+                    <sheet>
+                        <group>
+                            <group string="Identificación">
+                                <field name="name"/>
+                                <field name="code"/>
+                                <field name="sequence"/>
+                                <field name="active"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                            </group>
+                            <group string="Condición">
+                                <field name="kpi"/>
+                                <field name="operator"/>
+                                <field name="threshold"/>
+                                <field name="threshold_max"
+                                       invisible="operator not in ('between', 'outside')"/>
+                                <field name="severity"/>
+                                <field name="category"/>
+                                <field name="decision_priority"/>
+                            </group>
+                        </group>
+                        <group string="Mensajes (placeholders: {value}, {threshold}, {threshold_max}, {kpi_label}, {company})">
+                            <field name="message_template" nolabel="1" placeholder="El indicador {kpi_label} cayó a {value} (umbral {threshold})."/>
+                            <field name="action_hint" nolabel="1" placeholder="Acción sugerida..."/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_gn_fd_alert_rule_search" model="ir.ui.view">
+            <field name="name">gn.financial.dashboard.alert.rule.search</field>
+            <field name="model">gn.financial.dashboard.alert.rule</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="kpi"/>
+                    <field name="category"/>
+                    <field name="severity"/>
+                    <filter name="active" string="Activas" domain="[('active','=',True)]"/>
+                    <filter name="critical" string="Críticas" domain="[('severity','=','critical')]"/>
+                    <filter name="warning" string="Advertencia" domain="[('severity','=','warning')]"/>
+                    <separator/>
+                    <filter name="group_category" string="Agrupar por categoría" context="{'group_by': 'category'}"/>
+                    <filter name="group_severity" string="Agrupar por severidad" context="{'group_by': 'severity'}"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_gn_fd_alert_rules" model="ir.actions.act_window">
+            <field name="name">Reglas de alerta</field>
+            <field name="res_model">gn.financial.dashboard.alert.rule</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="view_gn_fd_alert_rule_search"/>
+        </record>
+
+        <menuitem id="menu_gn_fd_alert_rules"
+                  name="Reglas de alerta"
+                  parent="account.menu_finance_configuration"
+                  action="action_gn_fd_alert_rules"
+                  sequence="145"/>
+
+        <!-- ============================================================
+             Eventos de alerta (auditoría e histórico)
+             ============================================================ -->
+        <record id="view_gn_fd_alert_event_list" model="ir.ui.view">
+            <field name="name">gn.financial.dashboard.alert.event.list</field>
+            <field name="model">gn.financial.dashboard.alert.event</field>
+            <field name="arch" type="xml">
+                <list string="Eventos de alerta" decoration-danger="severity == 'critical' and state == 'open'"
+                      decoration-warning="severity == 'warning' and state == 'open'"
+                      decoration-muted="state == 'resolved'">
+                    <field name="date"/>
+                    <field name="name"/>
+                    <field name="severity" widget="badge"
+                           decoration-danger="severity == 'critical'"
+                           decoration-warning="severity == 'warning'"
+                           decoration-info="severity == 'info'"/>
+                    <field name="category"/>
+                    <field name="state" widget="badge"
+                           decoration-danger="state == 'open'"
+                           decoration-warning="state == 'ack'"
+                           decoration-success="state == 'resolved'"
+                           decoration-muted="state == 'snoozed'"/>
+                    <field name="kpi_value"/>
+                    <field name="threshold"/>
+                    <field name="user_ack_id"/>
+                    <field name="user_resolved_id"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_gn_fd_alert_event_form" model="ir.ui.view">
+            <field name="name">gn.financial.dashboard.alert.event.form</field>
+            <field name="model">gn.financial.dashboard.alert.event</field>
+            <field name="arch" type="xml">
+                <form string="Evento de alerta">
+                    <header>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="open,ack,resolved"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="rule_id"/>
+                                <field name="code"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                            </group>
+                            <group>
+                                <field name="severity"/>
+                                <field name="category"/>
+                                <field name="kpi_value"/>
+                                <field name="threshold"/>
+                            </group>
+                        </group>
+                        <group string="Trazabilidad">
+                            <group>
+                                <field name="date"/>
+                                <field name="date_ack"/>
+                                <field name="date_resolved"/>
+                                <field name="snoozed_until"/>
+                            </group>
+                            <group>
+                                <field name="user_ack_id"/>
+                                <field name="user_resolved_id"/>
+                            </group>
+                        </group>
+                        <group string="Detalles">
+                            <field name="action_hint" nolabel="1" readonly="1"/>
+                            <field name="note" nolabel="1" placeholder="Notas internas..."/>
+                            <field name="payload" nolabel="1" readonly="1" invisible="not payload"/>
+                        </group>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_gn_fd_alert_event_search" model="ir.ui.view">
+            <field name="name">gn.financial.dashboard.alert.event.search</field>
+            <field name="model">gn.financial.dashboard.alert.event</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="rule_id"/>
+                    <filter name="open" string="Abiertas" domain="[('state','=','open')]"/>
+                    <filter name="ack" string="Reconocidas" domain="[('state','=','ack')]"/>
+                    <filter name="resolved" string="Resueltas" domain="[('state','=','resolved')]"/>
+                    <separator/>
+                    <filter name="critical" string="Críticas" domain="[('severity','=','critical')]"/>
+                    <filter name="warning" string="Advertencia" domain="[('severity','=','warning')]"/>
+                    <separator/>
+                    <filter name="group_category" string="Agrupar por categoría" context="{'group_by': 'category'}"/>
+                    <filter name="group_state" string="Agrupar por estado" context="{'group_by': 'state'}"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_gn_fd_alert_events" model="ir.actions.act_window">
+            <field name="name">Histórico de alertas</field>
+            <field name="res_model">gn.financial.dashboard.alert.event</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="view_gn_fd_alert_event_search"/>
+            <field name="context">{'search_default_open': 1}</field>
+        </record>
+
+        <menuitem id="menu_gn_fd_alert_events"
+                  name="Histórico de alertas"
+                  parent="account.menu_finance_configuration"
+                  action="action_gn_fd_alert_events"
+                  sequence="146"/>
+    </data>
+</odoo>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_sales_dashboard.SalesInsightsPanel">
+        <section class="gn-sd-panel gn-sd-insights gn-sd-level-2">
+            <header class="gn-sd-panel__head">
+                <h3 class="gn-sd-panel__title">Insights automáticos</h3>
+            </header>
+            <div t-if="props.loading" class="gn-sd-skeleton gn-sd-skeleton--insights"/>
+            <SalesEmptyState t-elif="!(props.insights and props.insights.length)"
+                icon="'fa-lightbulb-o'"
+                title="'Sin insights'"
+                description="'No se detectaron patrones relevantes para los filtros actuales.'"
+                compact="true"/>
+            <div t-else="" class="gn-sd-insights__list">
+                <article t-foreach="visibleInsights" t-as="ins" t-key="ins.title + (ins.metric or '')"
+                         class="gn-sd-insights__item" t-att-class="'gn-sd-insights__item--' + (ins.severity or 'info')"
+                         t-on-click="(ev) => this.onClick(ins, ev)">
+                    <i t-att-class="'fa ' + severityIcon(ins.severity)" aria-hidden="true"/>
+                    <div class="gn-sd-insights__body">
+                        <strong t-esc="ins.title"/>
+                        <p t-esc="ins.explanation"/>
+                        <button type="button" class="gn-sd-insights__action" t-esc="ins.action_label or 'Ver detalle'"/>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </t>
+</templates>

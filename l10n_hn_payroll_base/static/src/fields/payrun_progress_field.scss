@@ -1,0 +1,263 @@
+.o_kanban_view.o_hr_payrun_kanban {
+    // Row accent stripes (light UI defaults; dark overrides in payrun_progress_field.dark.scss)
+    --payrun-row-draft: #2563eb;
+    --payrun-row-done: #16a34a;
+    --payrun-row-paid: #9333ea;
+}
+
+// Kanban row: title block + progress rail (clean-room layout, Odoo 19 CE)
+// Grouped columns: ~92% of content width, centered in the kanban scroll area.
+.o_kanban_view.o_hr_payrun_kanban .o_kanban_renderer {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    --KanbanRecord--small-width: 92%;
+    --KanbanRecord-width: 92%;
+
+    &.o_kanban_grouped {
+        justify-content: center;
+    }
+
+    &.o_kanban_grouped .o_kanban_group:not(.o_column_folded) {
+        flex: 0 0 92%;
+        min-width: 92%;
+        max-width: 92%;
+        box-sizing: border-box;
+    }
+
+    &.o_kanban_ungrouped .o_kanban_record {
+        width: 92%;
+        max-width: 92%;
+        margin-left: auto;
+        margin-right: auto;
+        box-sizing: border-box;
+    }
+}
+
+.o_kanban_view.o_hr_payrun_kanban .o_kanban_grouped .o_kanban_record {
+    width: 100%;
+}
+
+// Group header: full-width rule under state title (OE-like separator)
+.o_kanban_view.o_hr_payrun_kanban .o_kanban_group:not(.o_column_folded) > .o_kanban_header {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.4rem;
+    margin-bottom: 0.4rem;
+}
+
+.o_kanban_view.o_hr_payrun_kanban .o_kanban_header_title {
+    align-items: center;
+}
+
+// Hide column quick-add (+) even if other modules tweak actions
+.o_kanban_view.o_hr_payrun_kanban button.o_kanban_quick_add {
+    display: none !important;
+}
+
+// Card title emphasis
+.o_hr_payrun_kanban_title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.o_hr_payrun_kanban_row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    width: 100%;
+    min-height: 2.75rem;
+    box-sizing: border-box;
+    border-left: 3px solid transparent;
+    padding: 0.4rem 0.15rem 0.4rem 0.65rem;
+    margin-left: -0.35rem;
+}
+
+.o_hr_payrun_kanban_row[data-payrun-state="draft"] {
+    border-left-color: var(--payrun-row-draft);
+}
+
+.o_hr_payrun_kanban_row[data-payrun-state="done"] {
+    border-left-color: var(--payrun-row-done);
+}
+
+.o_hr_payrun_kanban_row[data-payrun-state="paid"] {
+    border-left-color: var(--payrun-row-paid);
+}
+
+.o_hr_payrun_kanban_main {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.o_hr_payrun_kanban_sub {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.15rem 0;
+    margin-top: 0.1rem;
+}
+
+.o_hr_payrun_kanban_sep {
+    opacity: 0.55;
+    user-select: none;
+    padding: 0 0.2rem;
+}
+
+.o_hr_payrun_kanban_emp .oe_inline {
+    display: inline;
+}
+
+// Second line: payslip count (low emphasis)
+.o_hr_payrun_kanban_slips {
+    font-size: 0.68rem;
+    line-height: 1.2;
+    margin-top: 0.12rem;
+    opacity: 0.72;
+    letter-spacing: 0.01em;
+
+    .oe_inline {
+        display: inline;
+        font-weight: 500;
+    }
+}
+
+.o_hr_payrun_kanban_slips_sep {
+    opacity: 0.5;
+    padding: 0 0.2rem;
+    user-select: none;
+}
+
+.o_hr_payrun_kanban_rail {
+    flex: 0 0 auto;
+    max-width: 52%;
+}
+
+@media (max-width: 576px) {
+    .o_hr_payrun_kanban_row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .o_hr_payrun_kanban_rail {
+        max-width: none;
+    }
+}
+
+// --- Light / día: fondos claros, acentos más profundos, fases pendientes más visibles ---
+.o_payrun_progress_field {
+    --payrun-wire-h: 5px;
+    --payrun-node-size: 20px;
+    --payrun-draft: #2563eb;
+    --payrun-done: #16a34a;
+    --payrun-paid: #9333ea;
+    --payrun-node-pending-bg: #94a3b8;
+    --payrun-node-pending-ring: #64748b;
+
+    &.o_palette_draft {
+        --payrun-accent: var(--payrun-draft);
+        --payrun-line-color: rgba(51, 65, 85, 0.45);
+    }
+    &.o_palette_done {
+        --payrun-accent: var(--payrun-done);
+        --payrun-line-color: var(--payrun-done);
+    }
+    &.o_palette_paid {
+        --payrun-accent: var(--payrun-paid);
+        --payrun-line-color: var(--payrun-paid);
+    }
+}
+
+// One horizontal bar through the vertical centre of the three nodes (1/6 → 5/6)
+.o_payrun_rail_track {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    min-height: var(--payrun-node-size);
+}
+
+.o_payrun_rail_line {
+    position: absolute;
+    z-index: 0;
+    left: calc(100% / 6);
+    width: calc(100% * 2 / 3);
+    top: 50%;
+    transform: translateY(-50%);
+    height: var(--payrun-wire-h);
+    border-radius: calc(var(--payrun-wire-h) / 2);
+    background: var(--payrun-line-color);
+    pointer-events: none;
+}
+
+.o_payrun_track_cell {
+    position: relative;
+    z-index: 1;
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.o_payrun_rail_captions {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    width: 100%;
+    margin-top: 0.35rem;
+}
+
+.o_payrun_caption_cell {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.o_payrun_node {
+    width: var(--payrun-node-size);
+    height: var(--payrun-node-size);
+    border-radius: 50%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 2px solid transparent;
+}
+
+.o_payrun_node_fill {
+    background: var(--payrun-accent);
+    border-color: var(--payrun-accent);
+}
+
+.o_payrun_node_pending {
+    background: var(--payrun-node-pending-bg);
+    border-color: var(--payrun-node-pending-ring);
+}
+
+.o_payrun_node_check {
+    color: #fff;
+    font-size: 0.58rem;
+    line-height: 1;
+}
+
+.o_payrun_node_caret {
+    color: #fff;
+    font-size: 0.62rem;
+    line-height: 1;
+    margin-top: 1px;
+}
+
+.o_payrun_node_label {
+    font-size: 0.8rem;
+    line-height: 1.2;
+    text-align: center;
+    width: 100%;
+    max-width: 7rem;
+    color: var(--bs-secondary-color, #6b7280);
+}

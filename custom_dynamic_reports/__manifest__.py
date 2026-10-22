@@ -1,0 +1,25 @@
+{
+    "name": "Reportes Dinámicos",
+    "summary": "Motor de informes dinámicos con almacenamiento en caché respaldado por pandas para grandes exportaciones",
+    "version": "19.0.1.0.0",
+    "category": "Reporting",
+    "author": "Mario Matamoros",
+    "license": "OPL-1",
+    "website": "https://gruponahuiik.com",
+    "icon": "custom_dynamic_reports/static/description/icon.png",
+    "depends": [
+        "account",
+        "sale",
+        "report_xlsx",
+    ],
+    "data": [
+        "security/ir.model.access.csv",
+        "data/ir_sequence.xml",
+        "views/dynamic_report_views.xml",
+        "views/report_menu.xml",
+        "reports/report_templates.xml",
+        "wizards/report_export_wizard_views.xml",
+    ],
+    "installable": True,
+    "application": True,
+}

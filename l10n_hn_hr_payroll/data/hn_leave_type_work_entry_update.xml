@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Actualiza work_entry_type_id en tipos de ausencia existentes (para nómina) -->
+<odoo>
+    <data noupdate="0">
+        <record id="leave_type_hn_vacation" model="hr.leave.type">
+            <field name="work_entry_type_id" ref="hr_work_entry.work_entry_type_legal_leave"/>
+        </record>
+        <record id="leave_type_hn_maternity" model="hr.leave.type">
+            <field name="work_entry_type_id" ref="hr_work_entry.work_entry_type_legal_leave"/>
+        </record>
+        <record id="leave_type_hn_paternity" model="hr.leave.type">
+            <field name="work_entry_type_id" ref="hr_work_entry.work_entry_type_legal_leave"/>
+        </record>
+        <record id="leave_type_hn_bereavement" model="hr.leave.type">
+            <field name="work_entry_type_id" ref="hr_work_entry.work_entry_type_legal_leave"/>
+        </record>
+        <record id="leave_type_hn_marriage" model="hr.leave.type">
+            <field name="work_entry_type_id" ref="hr_work_entry.work_entry_type_legal_leave"/>
+        </record>
+        <record id="leave_type_hn_medical" model="hr.leave.type">
+            <field name="work_entry_type_id" ref="hr_work_entry.work_entry_type_sick_leave"/>
+        </record>
+        <record id="leave_type_hn_union" model="hr.leave.type">
+            <field name="work_entry_type_id" ref="hr_work_entry.work_entry_type_legal_leave"/>
+        </record>
+        <record id="leave_type_hn_jury" model="hr.leave.type">
+            <field name="work_entry_type_id" ref="hr_work_entry.work_entry_type_legal_leave"/>
+        </record>
+        <record id="leave_type_hn_training" model="hr.leave.type">
+            <field name="work_entry_type_id" ref="hr_work_entry.work_entry_type_legal_leave"/>
+        </record>
+        <record id="leave_type_hn_nursing" model="hr.leave.type">
+            <field name="work_entry_type_id" ref="hr_work_entry.work_entry_type_legal_leave"/>
+        </record>
+        <record id="leave_type_hn_calamity" model="hr.leave.type">
+            <field name="work_entry_type_id" ref="hr_work_entry.work_entry_type_legal_leave"/>
+        </record>
+        <record id="leave_type_hn_unpaid" model="hr.leave.type">
+            <field name="work_entry_type_id" ref="hr_work_entry.work_entry_type_unpaid_leave"/>
+        </record>
+    </data>
+</odoo>

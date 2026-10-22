@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_gn_collective_vacation_result_wizard_form" model="ir.ui.view">
+        <field name="name">gn.collective.vacation.result.wizard.form</field>
+        <field name="model">gn.collective.vacation.result.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Resultado vacaciones colectivas" create="false" edit="false" delete="false">
+                <sheet>
+                    <group>
+                        <field name="name" readonly="1"/>
+                        <field name="source_wizard_note" readonly="1"/>
+                        <field name="count_ok" readonly="1"/>
+                        <field name="count_err" readonly="1"/>
+                    </group>
+                    <field name="line_ids" readonly="1" nolabel="1">
+                        <list create="false" delete="false">
+                            <field name="employee_id"/>
+                            <field name="state"/>
+                            <field name="leave_id"/>
+                            <field name="number_of_days"/>
+                            <field name="error_message" optional="show"/>
+                        </list>
+                    </field>
+                </sheet>
+                <footer>
+                    <button name="action_open_created_leaves" type="object" string="Abrir ausencias creadas" class="btn-primary"/>
+                    <button special="cancel" string="Cerrar"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

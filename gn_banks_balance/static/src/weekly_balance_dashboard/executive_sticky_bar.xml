@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_banks_balance.ExecutiveStickyBar">
+        <div t-att-class="'gn-wb-sticky-bar' + (props.visible ? ' gn-wb-sticky-bar--visible' : '')">
+            <div class="gn-wb-sticky-bar__inner">
+                <div class="gn-wb-sticky-bar__item">
+                    <small>Saldo final</small>
+                    <strong t-esc="fmt(props.metrics?.finalBalance)"/>
+                </div>
+                <div class="gn-wb-sticky-bar__item">
+                    <small>Flujo neto</small>
+                    <strong t-att-class="(props.metrics?.netFlow ?? 0) &lt; 0 ? 'text-danger' : 'text-success'"
+                            t-esc="fmt(props.metrics?.netFlow)"/>
+                </div>
+                <div class="gn-wb-sticky-bar__item">
+                    <small>Score liquidez</small>
+                    <strong t-esc="props.metrics?.scoreLabel or props.metrics?.score or '—'"/>
+                </div>
+                <div class="gn-wb-sticky-bar__item">
+                    <small>Riesgo</small>
+                    <span t-att-class="'badge bg-' + riskClass(props.metrics?.riskLevel)"
+                          t-esc="props.metrics?.riskLabel or '—'"/>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

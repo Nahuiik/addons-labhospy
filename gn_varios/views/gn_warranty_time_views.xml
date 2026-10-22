@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_gn_warranty_time_list" model="ir.ui.view">
+        <field name="name">gn.warranty.time.list</field>
+        <field name="model">gn.warranty.time</field>
+        <field name="arch" type="xml">
+            <list string="Tiempos de Garantía" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_gn_warranty_time_form" model="ir.ui.view">
+        <field name="name">gn.warranty.time.form</field>
+        <field name="model">gn.warranty.time</field>
+        <field name="arch" type="xml">
+            <form string="Tiempo de Garantía">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="sequence"/>
+                        <field name="active"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_gn_warranty_time" model="ir.actions.act_window">
+        <field name="name">Tiempos de Garantía</field>
+        <field name="res_model">gn.warranty.time</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Cree registros como "12 meses", "2 años", etc.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_gn_warranty_time"
+              name="Tiempos de Garantía"
+              parent="stock.menu_product_in_config_stock"
+              action="action_gn_warranty_time"
+              sequence="25"
+              groups="product.group_product_manager"/>
+</odoo>

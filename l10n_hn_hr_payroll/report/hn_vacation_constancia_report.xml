@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_hn_vacation_constancia">
+        <t t-call="web.basic_layout">
+            <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <t t-set="doc_type" t-value="doc._get_hn_vacation_document_type('constancia')"/>
+                        <t t-if="doc_type and doc_type.body_html">
+                            <div class="row mt32">
+                                <div class="col-12">
+                                    <t t-if="doc_type.header_html">
+                                        <div t-out="doc_type.render_header_html(doc)"/>
+                                    </t>
+                                    <t t-else="">
+                                        <div class="row mt32">
+                                            <div class="col-12 text-center">
+                                                <h2>CONSTANCIA DE VACACIONES</h2>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </div>
+                            </div>
+                            <div class="row mt32">
+                                <div class="col-12">
+                                    <div t-out="doc_type.render_body_html(doc)"/>
+                                </div>
+                            </div>
+                        </t>
+                        <t t-else="">
+                            <div class="row mt32">
+                                <div class="col-12 text-center">
+                                    <h2>CONSTANCIA DE VACACIONES</h2>
+                                </div>
+                            </div>
+                            <div class="row mt32">
+                                <div class="col-12">
+                                    <p>Por medio de la presente se hace constar que:</p>
+                                    <p><strong><span t-field="doc.employee_id.name"/></strong></p>
+                                    <p>Identidad: <span t-field="doc.employee_id.identification_id"/> (si aplica)</p>
+                                    <p>Labora en esta empresa desde: <span t-field="doc.employee_id.contract_date_start" t-options="{'widget': 'date'}"/></p>
+                                    <p>Ha solicitado y se le han aprobado <strong><t t-esc="doc.number_of_days"/> días</strong> de vacaciones.</p>
+                                    <p>Período: del <span t-field="doc.request_date_from" t-options="{'widget': 'date'}"/> al <span t-field="doc.request_date_to" t-options="{'widget': 'date'}"/>.</p>
+                                    <p>Se extiende la presente a solicitud del interesado.</p>
+                                </div>
+                            </div>
+                        </t>
+                        <div class="row mt32">
+                            <div class="col-12 text-end">
+                                <t t-if="doc.hn_signature">
+                                    <p><img t-att-src="image_data_uri(doc.hn_signature)" alt="Firma" style="max-height: 80px;"/></p>
+                                    <p><t t-esc="doc.hn_signer_name or ''"/></p>
+                                    <t t-if="doc.hn_signer_id_number"><p>Identidad: <t t-esc="doc.hn_signer_id_number"/></p></t>
+                                    <t t-if="doc.hn_sign_date"><p>Fecha: <span t-field="doc.hn_sign_date" t-options="{'widget': 'date'}"/></p></t>
+                                </t>
+                                <t t-else="">
+                                    <t t-set="doc_type" t-value="doc._get_hn_vacation_document_type('constancia')"/>
+                                    <t t-if="doc_type and doc_type.footer_html">
+                                        <div t-out="doc_type.render_footer_html(doc)"/>
+                                    </t>
+                                    <t t-else="">
+                                        <p>_________________________</p>
+                                        <p>Firma y sello</p>
+                                    </t>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_hn_vacation_solicitud">
+        <t t-call="web.basic_layout">
+            <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <t t-set="doc_type" t-value="doc._get_hn_vacation_document_type('solicitud')"/>
+                        <t t-if="doc_type and doc_type.body_html">
+                            <div class="row mt32">
+                                <div class="col-12">
+                                    <t t-if="doc_type.header_html">
+                                        <div t-out="doc_type.render_header_html(doc)"/>
+                                    </t>
+                                    <t t-else="">
+                                        <div class="text-center mb-4"><h2>SOLICITUD DE VACACIONES</h2></div>
+                                    </t>
+                                </div>
+                            </div>
+                            <div class="row mt32">
+                                <div class="col-12">
+                                    <div t-out="doc_type.render_body_html(doc)"/>
+                                </div>
+                            </div>
+                            <t t-if="doc_type.footer_html">
+                                <div t-out="doc_type.render_footer_html(doc)"/>
+                            </t>
+                        </t>
+                        <t t-else="">
+                            <t t-call="l10n_hn_hr_payroll.report_hn_vacation_solicitud_formulario_hn"/>
+                        </t>
+                    </div>
+            </t>
+        </t>
+    </template>
+
+    <!-- Formato papel solicitud tiempo libre (vacaciones), según diseño corporativo -->
+    <template id="report_hn_vacation_solicitud_formulario_hn">
+        <div class="hn-vacation-solicitud-print">
+            <style>
+                .hn-vs { font-family: Arial, Helvetica, sans-serif; }
+                .hn-vs table.hn-tb { width: 100%; border-collapse: collapse; font-size: 11pt; margin-bottom: 18px; }
+                .hn-vs table.hn-tb th, .hn-vs table.hn-tb td { border: 1px solid #000; padding: 8px 10px; vertical-align: top; }
+                .hn-vs .hn-sec { background-color: #d9d9d9; text-align: center; font-weight: bold; text-transform: uppercase; }
+                .hn-vs .hn-lbl { width: 38%; }
+                .hn-vs .hn-sig-row1 { height: 52px; vertical-align: bottom; }
+                .hn-vs .hn-sig-line { border-bottom: 1px solid #000; min-height: 36px; margin: 0 4px 2px 4px; }
+                .hn-vs .hn-sig-foot { text-align: center; font-size: 10pt; vertical-align: top; padding-top: 6px; }
+                .hn-vs .hn-sig-foot-left { text-align: center; font-size: 10pt; vertical-align: top; padding-top: 6px; }
+                .hn-vs .hn-sig-appr-title { font-weight: bold; font-size: 10pt; margin-bottom: 4px; }
+                .hn-vs .hn-just-box { min-height: 110px; border: 1px solid #000; padding: 10px; white-space: pre-wrap; }
+            </style>
+            <div class="hn-vs">
+                <table class="hn-tb">
+                    <tr><th colspan="2" class="hn-sec">Datos personales</th></tr>
+                    <tr>
+                        <td class="hn-lbl">Lugar y fecha:</td>
+                        <td><span t-out="doc._hn_solicitud_lugar_y_fecha_text()"/></td>
+                    </tr>
+                    <tr>
+                        <td class="hn-lbl">Nombre del empleado:</td>
+                        <td><span t-field="doc.employee_id.name"/></td>
+                    </tr>
+                    <tr>
+                        <td class="hn-lbl">Fecha de ingreso:</td>
+                        <td><span t-field="doc.employee_id.contract_date_start" t-options="{'widget': 'date'}"/></td>
+                    </tr>
+                    <tr>
+                        <td class="hn-lbl">Puesto / área de trabajo</td>
+                        <td><span t-out="doc._hn_solicitud_puesto_area_text()"/></td>
+                    </tr>
+                </table>
+                <table class="hn-tb">
+                    <tr><th colspan="2" class="hn-sec">Concepto de solicitud</th></tr>
+                    <tr>
+                        <td class="hn-lbl">Fecha de inicio (D/M/A):</td>
+                        <td><span t-field="doc.request_date_from" t-options="{'widget': 'date'}"/></td>
+                    </tr>
+                    <tr>
+                        <td class="hn-lbl">Fecha término (D/M/A):</td>
+                        <td><span t-field="doc.request_date_to" t-options="{'widget': 'date'}"/></td>
+                    </tr>
+                    <tr>
+                        <td class="hn-lbl">Fecha de reintegro (D/M/A):</td>
+                        <td><span t-out="doc._hn_solicitud_reintegracion_date_display()"/></td>
+                    </tr>
+                    <tr>
+                        <td class="hn-lbl">Días a gozar:</td>
+                        <td><span t-esc="doc.number_of_days"/></td>
+                    </tr>
+                </table>
+                <table class="hn-tb">
+                    <tr><th class="hn-sec">Justificación o comentario</th></tr>
+                    <tr><td><div class="hn-just-box"><span t-field="doc.name"/></div></td></tr>
+                </table>
+                <table class="hn-tb hn-tb-firmas">
+                    <tr>
+                        <td class="hn-sig-row1" style="width: 33.33%;"><div class="hn-sig-line"/></td>
+                        <td class="hn-sig-row1" style="width: 33.33%;"><div class="hn-sig-line"/></td>
+                        <td class="hn-sig-row1" style="width: 33.33%;"><div class="hn-sig-line"/></td>
+                    </tr>
+                    <tr>
+                        <td class="hn-sig-foot-left">
+                            Firma del empleado
+                        </td>
+                        <td class="hn-sig-foot">
+                            <div class="hn-sig-appr-title">Aprobación Jefe inmediato</div>
+                            <div>Aprobado por:</div>
+                        </td>
+                        <td class="hn-sig-foot">
+                            <div class="hn-sig-appr-title">Aprobación RRHH</div>
+                            <div>Aprobado por:</div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </template>
+
+    <template id="report_hn_vacation_preaviso">
+        <t t-call="web.basic_layout">
+            <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <t t-set="doc_type" t-value="doc._get_hn_vacation_document_type('preaviso')"/>
+                        <t t-if="doc_type and doc_type.body_html">
+                            <div class="row mt32">
+                                <div class="col-12">
+                                    <t t-if="doc_type.header_html">
+                                        <div t-out="doc_type.render_header_html(doc)"/>
+                                    </t>
+                                    <t t-else="">
+                                        <div class="text-center mb-4"><h2>CARTA DE PREAVISO DE VACACIONES</h2></div>
+                                    </t>
+                                </div>
+                            </div>
+                            <div class="row mt32">
+                                <div class="col-12">
+                                    <div t-out="doc_type.render_body_html(doc)"/>
+                                </div>
+                            </div>
+                            <t t-if="doc_type.footer_html">
+                                <div t-out="doc_type.render_footer_html(doc)"/>
+                            </t>
+                        </t>
+                        <t t-else="">
+                            <div class="row mt32">
+                                <div class="col-12 text-center">
+                                    <h2>CARTA DE PREAVISO DE VACACIONES</h2>
+                                </div>
+                            </div>
+                            <div class="row mt32">
+                                <div class="col-12">
+                                    <p>Por medio de la presente, se le comunica a <strong><span t-field="doc.employee_id.name"/></strong> que su solicitud de vacaciones ha sido aprobada.</p>
+                                    <p>Período: del <span t-field="doc.request_date_from" t-options="{'widget': 'date'}"/> al <span t-field="doc.request_date_to" t-options="{'widget': 'date'}"/> (<t t-esc="doc.number_of_days"/> días).</p>
+                                    <p>Se le recuerda que debe presentarse a laborar el día siguiente al fin de sus vacaciones.</p>
+                                    <p class="mt32">_________________________</p>
+                                    <p>Firma y sello de la empresa</p>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_report_hn_vacation_constancia" model="ir.actions.report">
+        <field name="name">Constancia de Vacaciones</field>
+        <field name="model">hr.leave</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hn_hr_payroll.report_hn_vacation_constancia</field>
+        <field name="report_file">l10n_hn_hr_payroll.report_hn_vacation_constancia</field>
+        <field name="print_report_name">'Constancia_Vacaciones'</field>
+    </record>
+
+    <record id="action_report_hn_vacation_solicitud" model="ir.actions.report">
+        <field name="name">Solicitud de Vacaciones</field>
+        <field name="model">hr.leave</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hn_hr_payroll.report_hn_vacation_solicitud</field>
+        <field name="report_file">l10n_hn_hr_payroll.report_hn_vacation_solicitud</field>
+    </record>
+
+    <record id="action_report_hn_vacation_preaviso" model="ir.actions.report">
+        <field name="name">Carta de Preaviso</field>
+        <field name="model">hr.leave</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hn_hr_payroll.report_hn_vacation_preaviso</field>
+        <field name="report_file">l10n_hn_hr_payroll.report_hn_vacation_preaviso</field>
+    </record>
+</odoo>

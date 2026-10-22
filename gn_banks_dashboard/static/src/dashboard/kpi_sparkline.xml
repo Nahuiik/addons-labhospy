@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_banks_dashboard.KpiSparkline">
+        <svg t-if="hasSeries"
+             class="gn-bd-spark"
+             t-att-viewBox="viewBox"
+             preserveAspectRatio="none"
+             role="img"
+             aria-label="Tendencia">
+            <path t-att-d="areaPath" t-att-fill="fillColor" stroke="none" t-if="props.filled"/>
+            <path t-att-d="path" t-att-stroke="props.color" stroke-width="1.6"
+                  fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+        </svg>
+    </t>
+
+</templates>

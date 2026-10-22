@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Default AI Configuration Parameters -->
+    <record id="ir_config_parameter_ai_provider" model="ir.config_parameter">
+        <field name="key">l10n_hn_ia.provider</field>
+        <field name="value">openai</field>
+    </record>
+    
+    <record id="ir_config_parameter_ai_timeout" model="ir.config_parameter">
+        <field name="key">l10n_hn_ia.timeout</field>
+        <field name="value">30</field>
+    </record>
+    
+    <record id="ir_config_parameter_ai_temperature" model="ir.config_parameter">
+        <field name="key">l10n_hn_ia.temperature</field>
+        <field name="value">0.7</field>
+    </record>
+    
+    <record id="ir_config_parameter_ai_use_rag" model="ir.config_parameter">
+        <field name="key">l10n_hn_ia.use_rag</field>
+        <field name="value">False</field>
+    </record>
+    
+    <record id="ir_config_parameter_ai_auto_create" model="ir.config_parameter">
+        <field name="key">l10n_hn_ia.auto_create_without_review</field>
+        <field name="value">False</field>
+    </record>
+    
+    <record id="ir_config_parameter_ai_send_email" model="ir.config_parameter">
+        <field name="key">l10n_hn_ia.send_email_with_link</field>
+        <field name="value">False</field>
+    </record>
+</odoo>
+
+
+

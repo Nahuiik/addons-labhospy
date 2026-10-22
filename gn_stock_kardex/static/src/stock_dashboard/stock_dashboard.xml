@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_stock_kardex.StockDashboard">
+        <div class="o_sd h-100">
+
+            <t t-if="state.loading">
+                <div class="d-flex align-items-center justify-content-center h-100">
+                    <i class="fa fa-spinner fa-spin fa-2x me-2 text-muted"/> <span class="text-muted">Cargando panel…</span>
+                </div>
+            </t>
+
+            <t t-if="!state.loading and state.data">
+
+                <!-- ═══ HEADER ═══ -->
+                <div class="o_sd_header d-flex align-items-center justify-content-between px-4 py-3">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="o_sd_logo">
+                            <i class="fa fa-cubes fa-lg"/>
+                        </div>
+                        <h4 class="mb-0 fw-bold text-white">PANEL DE INVENTARIO</h4>
+                    </div>
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="o_sd_product_search position-relative">
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-text bg-white border-end-0"><i class="fa fa-search text-muted"/></span>
+                                <input type="text" class="form-control border-start-0"
+                                       placeholder="Buscar producto…"
+                                       t-att-value="state.productSearch"
+                                       t-on-input="onProductSearch"/>
+                                <t t-if="state.selectedProductId">
+                                    <button class="btn btn-outline-secondary" type="button" t-on-click="clearProduct">
+                                        <i class="fa fa-times"/>
+                                    </button>
+                                </t>
+                            </div>
+                            <div t-if="state.dropdownOpen and state.searchResults.length" class="o_sd_dropdown">
+                                <t t-foreach="state.searchResults" t-as="p" t-key="p.id">
+                                    <div class="o_sd_dropdown_item" t-on-click="() => this.selectProduct(p)" t-esc="p.display_name"/>
+                                </t>
+                            </div>
+                        </div>
+                        <span class="text-white-50 small" t-esc="state.data.company_name"/>
+                    </div>
+                </div>
+
+                <!-- ═══ PRODUCT STRIP ═══ -->
+                <t t-if="state.data.product">
+                    <div class="o_sd_product_strip d-flex align-items-center gap-4 px-4 py-3 bg-white border-bottom">
+                        <div class="o_sd_prod_icon">
+                            <i class="fa fa-cube fa-2x"/>
+                        </div>
+                        <div>
+                            <div class="fw-bold fs-5" t-esc="state.data.product.name"/>
+                            <div class="text-muted small">
+                                <t t-if="state.data.product.default_code">
+                                    Cód: <span t-esc="state.data.product.default_code"/>
+                                </t>
+                                <span class="ms-2 badge bg-success">En Stock</span>
+                            </div>
+                        </div>
+                        <div class="ms-auto text-end">
+                            <div class="text-muted small">Cantidad</div>
+                            <div class="fw-bold fs-4">
+                                <t t-esc="fmt(state.data.product.qty_available)"/>
+                                <span class="fs-6 text-muted ms-1" t-esc="state.data.product.uom"/>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+
+                <!-- ═══ KPI CARDS ═══ -->
+                <div class="o_sd_kpis px-4 pt-4 pb-2">
+                    <div class="row g-3">
+                        <div t-att-class="state.selectedProductId ? 'col-md-6' : 'col-md-3'">
+                            <div class="o_sd_kpi_card">
+                                <div class="o_sd_kpi_icon bg-purple"><i class="fa fa-money"/></div>
+                                <div>
+                                    <div class="o_sd_kpi_label">Valor del Inventario</div>
+                                    <div class="o_sd_kpi_value">
+                                        <span t-esc="state.data.currency_symbol"/>
+                                        <t t-esc="fmt(state.data.inventory.total_value)"/>
+                                    </div>
+                                    <div class="o_sd_kpi_sub"><t t-esc="fmtInt(state.data.inventory.product_count)"/> productos</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div t-att-class="state.selectedProductId ? 'col-md-6' : 'col-md-3'">
+                            <div class="o_sd_kpi_card">
+                                <div class="o_sd_kpi_icon bg-orange"><i class="fa fa-clock-o"/></div>
+                                <div>
+                                    <div class="o_sd_kpi_label">Órdenes Pendientes</div>
+                                    <div class="o_sd_kpi_value" t-esc="fmtInt(state.data.pending.count)"/>
+                                    <div class="o_sd_kpi_sub"><t t-esc="fmt(state.data.pending.total_qty)"/> unidades</div>
+                                </div>
+                            </div>
+                        </div>
+                        <t t-if="!state.selectedProductId and state.data.overstock">
+                            <div class="col-md-3">
+                                <div class="o_sd_kpi_card">
+                                    <div class="o_sd_kpi_icon bg-red"><i class="fa fa-exclamation-triangle"/></div>
+                                    <div>
+                                        <div class="o_sd_kpi_label">Productos Sobrestock</div>
+                                        <div class="o_sd_kpi_value" t-esc="fmtInt(state.data.overstock.overstock_count)"/>
+                                        <div class="o_sd_kpi_sub">
+                                            <span t-esc="state.data.currency_symbol"/>
+                                            <t t-esc="fmt(state.data.overstock.total_excess_value)"/> exceso
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="o_sd_kpi_card">
+                                    <div class="o_sd_kpi_icon bg-gray"><i class="fa fa-ban"/></div>
+                                    <div>
+                                        <div class="o_sd_kpi_label">Sin Movimiento</div>
+                                        <div class="o_sd_kpi_value" t-esc="getNoMovementCount()"/>
+                                        <div class="o_sd_kpi_sub">más de 180 días</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+
+                <!-- ═══ TABS (only when no specific product selected) ═══ -->
+                <t t-if="!state.selectedProductId">
+                    <div class="o_sd_tabs px-4 pt-3">
+                        <ul class="nav nav-pills">
+                            <li class="nav-item">
+                                <a t-att-class="'nav-link' + (state.activeTab === 'general' ? ' active' : '')"
+                                   href="#" t-on-click.prevent="() => this.onTabChange('general')">
+                                    <i class="fa fa-dashboard me-1"/> General
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a t-att-class="'nav-link' + (state.activeTab === 'rotation' ? ' active' : '')"
+                                   href="#" t-on-click.prevent="() => this.onTabChange('rotation')">
+                                    <i class="fa fa-refresh me-1"/> Rotación
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a t-att-class="'nav-link' + (state.activeTab === 'overstock' ? ' active' : '')"
+                                   href="#" t-on-click.prevent="() => this.onTabChange('overstock')">
+                                    <i class="fa fa-exclamation-triangle me-1"/> Sobrestock
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a t-att-class="'nav-link' + (state.activeTab === 'turnover' ? ' active' : '')"
+                                   href="#" t-on-click.prevent="() => this.onTabChange('turnover')">
+                                    <i class="fa fa-line-chart me-1"/> Rotación Inv.
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </t>
+
+                <!-- ═══ TAB CONTENT ═══ -->
+                <div class="o_sd_body p-4">
+
+                    <!-- ── TAB: General ── -->
+                    <t t-if="state.activeTab === 'general' or state.selectedProductId">
+                        <div class="row g-4">
+                            <div class="col-lg-7">
+                                <div class="o_sd_card mb-4">
+                                    <div class="o_sd_card_header">
+                                        <i class="fa fa-line-chart me-2"/> HISTORIAL DE NIVELES DE STOCK
+                                    </div>
+                                    <div class="o_sd_card_body" style="height:280px;">
+                                        <canvas t-ref="stockChart"/>
+                                        <t t-if="!state.data.stock_history || !state.data.stock_history.length">
+                                            <div class="text-center text-muted py-5">Sin datos de historial</div>
+                                        </t>
+                                    </div>
+                                </div>
+
+                                <div class="row g-4">
+                                    <div class="col-md-6">
+                                        <div class="o_sd_card o_sd_value_card">
+                                            <div class="o_sd_card_header">
+                                                <i class="fa fa-money me-2"/> VALOR DEL INVENTARIO
+                                            </div>
+                                            <div class="o_sd_card_body text-center py-4">
+                                                <div class="o_sd_big_number">
+                                                    <span t-esc="state.data.currency_symbol"/>
+                                                    <t t-esc="fmt(state.data.inventory.total_value)"/>
+                                                </div>
+                                                <div class="text-muted small mt-1">
+                                                    <t t-esc="fmtInt(state.data.inventory.product_count)"/> productos
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="o_sd_card o_sd_pending_card">
+                                            <div class="o_sd_card_header">
+                                                <i class="fa fa-clock-o me-2"/> ÓRDENES PENDIENTES
+                                            </div>
+                                            <div class="o_sd_card_body text-center py-4">
+                                                <div class="o_sd_big_number" t-esc="fmtInt(state.data.pending.count)"/>
+                                                <div class="text-muted small mt-1">
+                                                    <t t-esc="fmt(state.data.pending.total_qty)"/> Unidades
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-5">
+                                <div class="o_sd_card mb-4">
+                                    <div class="o_sd_card_header">
+                                        <i class="fa fa-exchange me-2"/> MOVIMIENTOS DE STOCK
+                                    </div>
+                                    <div class="o_sd_card_body o_sd_moves_list">
+                                        <t t-if="!state.data.movements.length">
+                                            <div class="text-center text-muted py-4">Sin movimientos recientes</div>
+                                        </t>
+                                        <t t-foreach="state.data.movements" t-as="mv" t-key="mv.id">
+                                            <div class="o_sd_move_item">
+                                                <div class="o_sd_move_date">
+                                                    <div class="fw-semibold" t-esc="mv.date"/>
+                                                    <div class="text-muted" style="font-size:0.7rem;" t-esc="mv.time"/>
+                                                </div>
+                                                <div class="o_sd_move_info flex-grow-1">
+                                                    <div>
+                                                        <span t-att-class="'o_sd_badge ' + getMoveTypeClass(mv.move_type)"
+                                                              t-esc="mv.label"/>
+                                                    </div>
+                                                    <div class="text-muted small" t-esc="mv.reference"/>
+                                                </div>
+                                                <div class="o_sd_move_wh text-muted small text-end">
+                                                    <t t-esc="mv.warehouse"/>
+                                                </div>
+                                                <div class="o_sd_move_qty">
+                                                    <span t-att-class="mv.move_type === 'in' ? 'text-success' : (mv.move_type === 'out' ? 'text-danger' : 'text-primary')"
+                                                          class="fw-bold">
+                                                        <t t-if="mv.move_type === 'in'">+</t>
+                                                        <t t-elif="mv.move_type === 'out'">-</t>
+                                                        <t t-esc="fmt(mv.quantity)"/>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </div>
+                                </div>
+
+                                <div class="o_sd_card">
+                                    <div class="o_sd_card_header">
+                                        <i class="fa fa-map-marker me-2"/> UBICACIÓN
+                                    </div>
+                                    <div class="o_sd_card_body" style="height:220px;">
+                                        <canvas t-ref="locChart"/>
+                                        <t t-if="!state.data.locations || !state.data.locations.length">
+                                            <div class="text-center text-muted py-4">Sin datos de ubicación</div>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+
+                    <!-- ── TAB: Rotación de Stock ── -->
+                    <t t-if="state.activeTab === 'rotation' and !state.selectedProductId">
+                        <t t-if="state.data.stock_rotation">
+                            <div class="row g-4">
+                                <div class="col-lg-5">
+                                    <div class="o_sd_card">
+                                        <div class="o_sd_card_header">
+                                            <i class="fa fa-bar-chart me-2"/> DISTRIBUCIÓN POR ROTACIÓN
+                                        </div>
+                                        <div class="o_sd_card_body" style="height:320px;">
+                                            <canvas t-ref="rotationChart"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-7">
+                                    <div class="o_sd_card">
+                                        <div class="o_sd_card_header">
+                                            <i class="fa fa-list me-2"/> DETALLE DE ROTACIÓN
+                                        </div>
+                                        <div class="o_sd_card_body p-0">
+
+                                            <!-- Summary badges -->
+                                            <div class="d-flex gap-2 p-3 border-bottom flex-wrap">
+                                                <t t-foreach="state.data.stock_rotation.summary" t-as="s" t-key="s.key">
+                                                    <div t-att-class="'o_sd_rot_badge o_sd_rot_' + s.key"
+                                                         t-on-click="() => this.filterRotation(s.key)">
+                                                        <span class="fw-bold" t-esc="s.count"/> <span t-esc="s.label"/>
+                                                    </div>
+                                                </t>
+                                            </div>
+
+                                            <div class="o_sd_analysis_table">
+                                                <table class="table table-sm table-hover mb-0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Producto</th>
+                                                            <th class="text-end">Cant.</th>
+                                                            <th class="text-end">Valor</th>
+                                                            <th class="text-end">Días</th>
+                                                            <th class="text-center">Clasif.</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <t t-foreach="getFilteredRotationProducts()" t-as="p" t-key="p.product_id">
+                                                            <tr>
+                                                                <td class="text-truncate" style="max-width:200px;" t-esc="p.name"/>
+                                                                <td class="text-end" t-esc="fmt(p.qty)"/>
+                                                                <td class="text-end">
+                                                                    <span t-esc="state.data.currency_symbol"/>
+                                                                    <t t-esc="fmt(p.value)"/>
+                                                                </td>
+                                                                <td class="text-end" t-esc="p.days_since"/>
+                                                                <td class="text-center">
+                                                                    <span t-att-class="'o_sd_cls_badge o_sd_cls_' + p.classification"
+                                                                          t-esc="getRotationLabel(p.classification)"/>
+                                                                </td>
+                                                            </tr>
+                                                        </t>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                        <t t-else="">
+                            <div class="text-center text-muted py-5">Sin datos de rotación disponibles</div>
+                        </t>
+                    </t>
+
+                    <!-- ── TAB: Sobrestock ── -->
+                    <t t-if="state.activeTab === 'overstock' and !state.selectedProductId">
+                        <t t-if="state.data.overstock and state.data.overstock.products.length">
+                            <div class="row g-4">
+                                <div class="col-lg-5">
+                                    <div class="o_sd_card">
+                                        <div class="o_sd_card_header">
+                                            <i class="fa fa-bar-chart me-2"/> TOP PRODUCTOS SOBRESTOCK
+                                        </div>
+                                        <div class="o_sd_card_body" style="height:320px;">
+                                            <canvas t-ref="overstockChart"/>
+                                        </div>
+                                    </div>
+                                    <div class="o_sd_card mt-4">
+                                        <div class="o_sd_card_body text-center py-4">
+                                            <div class="text-muted small">Valor Total en Exceso</div>
+                                            <div class="o_sd_big_number text-danger">
+                                                <span t-esc="state.data.currency_symbol"/>
+                                                <t t-esc="fmt(state.data.overstock.total_excess_value)"/>
+                                            </div>
+                                            <div class="text-muted small mt-1">
+                                                <t t-esc="fmtInt(state.data.overstock.overstock_count)"/> productos con sobrestock
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-7">
+                                    <div class="o_sd_card">
+                                        <div class="o_sd_card_header">
+                                            <i class="fa fa-list me-2"/> DETALLE DE SOBRESTOCK
+                                        </div>
+                                        <div class="o_sd_card_body p-0">
+                                            <div class="o_sd_analysis_table">
+                                                <table class="table table-sm table-hover mb-0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Producto</th>
+                                                            <th class="text-end">Stock</th>
+                                                            <th class="text-end">Demanda/Mes</th>
+                                                            <th class="text-end">Exceso</th>
+                                                            <th class="text-end">Valor Exceso</th>
+                                                            <th class="text-center">Ratio</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <t t-foreach="state.data.overstock.products" t-as="p" t-key="p.product_id">
+                                                            <tr>
+                                                                <td class="text-truncate" style="max-width:180px;" t-esc="p.name"/>
+                                                                <td class="text-end" t-esc="fmt(p.qty)"/>
+                                                                <td class="text-end" t-esc="fmt(p.demand)"/>
+                                                                <td class="text-end text-danger fw-semibold" t-esc="fmt(p.excess_qty)"/>
+                                                                <td class="text-end text-danger">
+                                                                    <span t-esc="state.data.currency_symbol"/>
+                                                                    <t t-esc="fmt(p.excess_value)"/>
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    <span class="o_sd_cls_badge o_sd_cls_none" t-esc="p.ratio + 'x'"/>
+                                                                </td>
+                                                            </tr>
+                                                        </t>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                        <t t-else="">
+                            <div class="text-center py-5">
+                                <i class="fa fa-check-circle fa-3x text-success mb-3"/>
+                                <div class="text-muted fs-5">No se detectaron productos con sobrestock</div>
+                            </div>
+                        </t>
+                    </t>
+
+                    <!-- ── TAB: Turnover / Rotación de Inventario ── -->
+                    <t t-if="state.activeTab === 'turnover' and !state.selectedProductId">
+                        <t t-if="state.data.turnover and state.data.turnover.categories.length">
+                            <div class="row g-4">
+                                <!-- KPIs row -->
+                                <div class="col-12">
+                                    <div class="row g-3">
+                                        <div class="col-md-4">
+                                            <div class="o_sd_card">
+                                                <div class="o_sd_card_body text-center py-3">
+                                                    <div class="text-muted small">Ratio Global de Rotación</div>
+                                                    <div class="o_sd_big_number" t-esc="fmt(state.data.turnover.overall_ratio)"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="o_sd_card">
+                                                <div class="o_sd_card_body text-center py-3">
+                                                    <div class="text-muted small">DSI (Días para Vender)</div>
+                                                    <div class="o_sd_big_number" t-esc="fmt(state.data.turnover.overall_dsi)"/>
+                                                    <div class="text-muted small">días</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="o_sd_card">
+                                                <div class="o_sd_card_body text-center py-3">
+                                                    <div class="text-muted small">Costo Total de Ventas</div>
+                                                    <div class="o_sd_big_number">
+                                                        <span t-esc="state.data.currency_symbol"/>
+                                                        <t t-esc="fmt(state.data.turnover.total_cogs)"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="o_sd_card">
+                                        <div class="o_sd_card_header">
+                                            <i class="fa fa-bar-chart me-2"/> ROTACIÓN POR CATEGORÍA
+                                        </div>
+                                        <div class="o_sd_card_body" style="height:320px;">
+                                            <canvas t-ref="turnoverBarChart"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="o_sd_card">
+                                        <div class="o_sd_card_header">
+                                            <i class="fa fa-line-chart me-2"/> TENDENCIA MENSUAL
+                                        </div>
+                                        <div class="o_sd_card_body" style="height:320px;">
+                                            <canvas t-ref="turnoverLineChart"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="o_sd_card">
+                                        <div class="o_sd_card_header">
+                                            <i class="fa fa-table me-2"/> DETALLE POR CATEGORÍA
+                                        </div>
+                                        <div class="o_sd_card_body p-0">
+                                            <div class="o_sd_analysis_table">
+                                                <table class="table table-sm table-hover mb-0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Categoría</th>
+                                                            <th class="text-end">Costo de Ventas</th>
+                                                            <th class="text-end">Valor Inventario</th>
+                                                            <th class="text-end">Ratio</th>
+                                                            <th class="text-end">DSI (días)</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <t t-foreach="state.data.turnover.categories" t-as="c" t-key="c.categ_id">
+                                                            <tr>
+                                                                <td t-esc="c.name"/>
+                                                                <td class="text-end">
+                                                                    <span t-esc="state.data.currency_symbol"/>
+                                                                    <t t-esc="fmt(c.cogs)"/>
+                                                                </td>
+                                                                <td class="text-end">
+                                                                    <span t-esc="state.data.currency_symbol"/>
+                                                                    <t t-esc="fmt(c.inv_value)"/>
+                                                                </td>
+                                                                <td class="text-end fw-bold" t-esc="fmt(c.ratio)"/>
+                                                                <td class="text-end" t-esc="fmt(c.dsi)"/>
+                                                            </tr>
+                                                        </t>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                        <t t-else="">
+                            <div class="text-center text-muted py-5">Sin datos de rotación de inventario disponibles</div>
+                        </t>
+                    </t>
+
+                </div>
+
+            </t>
+        </div>
+    </t>
+</templates>

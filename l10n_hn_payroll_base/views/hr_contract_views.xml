@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Contract templates = hr.version with employee_id = False (Odoo CE 19). Homologated with Enterprise payroll layout. -->
+    <record id="hr_contract_template_list_payroll" model="ir.ui.view">
+        <field name="name">hr.version.contract.template.list.payroll.hn</field>
+        <field name="model">hr.version</field>
+        <field name="inherit_id" ref="hr.hr_contract_template_list_view"/>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='wage']" position="after">
+                <field name="employee_type" string="Employee Type" optional="show"/>
+            </xpath>
+            <xpath expr="//field[@name='structure_type_id']" position="attributes">
+                <attribute name="string">Salary Structure Type</attribute>
+                <attribute name="optional">show</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_contract_template_form_payroll" model="ir.ui.view">
+        <field name="name">hr.version.contract.template.form.payroll.hn</field>
+        <field name="model">hr.version</field>
+        <field name="inherit_id" ref="hr.hr_contract_template_form_view"/>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <!-- Salary Information: Contract overview aligned with Enterprise hr_payroll contract template -->
+            <xpath expr="//group[@name='contract']" position="replace">
+                <group name="contract" string="Contract Overview" groups="hr.group_hr_user">
+                    <field name="employee_type"/>
+                    <field name="structure_wage_type" string="Wage Type" invisible="not structure_type_id"/>
+                    <field name="schedule_pay" string="Pay schedule" groups="hr.group_hr_manager,l10n_hn_payroll_base.group_hn_payroll_user"/>
+                    <label for="wage"/>
+                    <div class="o_row" name="wage">
+                        <field name="wage" class="o_hr_narrow_field"/>
+                        <field name="wage_period_display" nolabel="1" readonly="1" class="text-muted"/>
+                    </div>
+                    <label for="employer_annual_cost" string="Employer Cost"/>
+                    <div class="o_row">
+                        <field name="employer_annual_cost" class="o_hr_narrow_field" nolabel="1"/>
+                        <span name="employer_cost_period">/ year</span>
+                    </div>
+                    <field name="structure_type_id" string="Pay category"
+                        placeholder="Employee will be excluded from Pay Runs"
+                        domain="['|', ('country_id', '=', False), ('country_id', '=', company_country_id)]"/>
+                    <field name="struct_id" string="Salary structure" options="{'no_create_edit': True}"
+                        groups="l10n_hn_payroll_base.group_hn_payroll_user"/>
+                    <field name="contract_type_id" string="Contract Type" placeholder="Contract Type"/>
+                    <separator name="schedule" string="Schedule"/>
+                    <field name="resource_calendar_id" help="The default working hours are set in configuration."/>
+                </group>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Benefits &amp; deductions" name="payroll_template_benefits"
+                    groups="hr.group_hr_manager,l10n_hn_payroll_base.group_hn_payroll_user">
+                    <div class="alert alert-secondary mb-3" role="status">
+                        Define default amounts per <strong>input type</strong> (payslip inputs). They prefill draft payslips
+                        when the type is allowed on the salary structure (via <em>Other input lines</em> or unrestricted structures).
+                    </div>
+                    <field name="payslip_input_template_line_ids" nolabel="1">
+                        <list editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="input_type_id" options="{'no_create': True}"/>
+                            <field name="default_amount"/>
+                        </list>
+                    </field>
+                </page>
+                <page string="Signatories" name="payroll_template_signatories">
+                    <div class="alert alert-info mb-3" role="status">
+                        Electronic contract signatures are provided by Enterprise signing apps or third-party modules.
+                    </div>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_version_advantage_template_view_form" model="ir.ui.view">
+        <field name="name">hr.version.advantage.template.form</field>
+        <field name="model">hr.version.advantage.template</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                    </group>
+                    <group>
+                        <field name="default_value"/>
+                        <field name="lower_bound"/>
+                        <field name="upper_bound"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_version_advantage_template_view_tree" model="ir.ui.view">
+        <field name="name">hr.version.advantage.template.list</field>
+        <field name="model">hr.version.advantage.template</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="default_value"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_hr_version_advantage_template" model="ir.actions.act_window">
+        <field name="name">Contract advantage templates</field>
+        <field name="res_model">hr.version.advantage.template</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_hr_version_advantage_template" action="action_hr_version_advantage_template"
+        parent="menu_hn_payroll_configuration" sequence="50"/>
+</odoo>

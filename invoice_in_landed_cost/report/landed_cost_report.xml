@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_report_landed_cost" model="ir.actions.report">
+            <field name="name">Report Landed Cost</field>
+            <field name="model">stock.landed.cost</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">invoice_in_landed_cost.report_landed_cost</field>
+            <field name="report_file">invoice_in_landed_cost.report_landed_cost</field>
+        </record>
+    </data>
+</odoo>
+
+
+
+
+
+

@@ -1,0 +1,45 @@
+<odoo>
+	<data>
+	  <record model="ir.ui.view" id="ir_sequence_limited_view_inh">
+      	<field name="name">ir.sequence.limited.view.inh</field>
+      	<field name="model">ir.sequence</field>
+	    <field name="inherit_id" ref="base.sequence_view" />
+		<field name="arch" type="xml">
+		  <notebook position="inside">
+               <page string="Limits">
+                  <group string="Regimen Fiscal">
+						<group>
+	                        <field name="start_date" invisible="1"/>
+	                        <field name="expiration_date"/>
+	                        <field name="dis_min_value" force_save="1"/>
+	                      	<field name="dis_max_value" force_save="1"/>
+	                      	<field name="min_value" force_save="1"/>
+	                      	<field name="max_value" force_save="1"/>
+							<field name="l_number_next_actual"/>
+						</group>
+						<group>
+							<field name="l_prefix"/>
+							<field name="l_padding"/>
+							<spearator string="Alerts" colspan="2"/>
+							<field name="percentage_alert"/>
+							<field name="percentage" widget="progressbar"/>
+						</group>
+				  </group>
+					<notebook>
+					  <page string="Regimen Fiscal">
+					    <field name="fiscal_regime" >
+						  <list editable="top">
+						    <field name="cai"/>
+						    <field name="desde"/>
+						    <field name="hasta"/>
+						    <field name="selected"/>
+						  </list>
+						</field>
+					  </page>
+					</notebook>
+               </page>
+         </notebook>
+	   	</field>
+   	  </record>
+	</data>
+</odoo>

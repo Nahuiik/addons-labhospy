@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_banks_balance.DashboardErrorState">
+        <div class="gn-wb-error">
+            <div class="gn-wb-error__icon">
+                <i class="fa fa-exclamation-circle"/>
+            </div>
+            <h5 class="gn-wb-error__title" t-esc="title"/>
+            <p class="gn-wb-error__message" t-esc="props.message"/>
+            <p class="gn-wb-error__technical text-muted small" t-if="props.technical">
+                <t t-esc="props.technical"/>
+            </p>
+            <button type="button" class="btn btn-primary btn-sm mt-2" t-on-click="props.onRetry">
+                <i class="fa fa-refresh me-1"/>
+                <t t-esc="retryLabel"/>
+            </button>
+        </div>
+    </t>
+</templates>

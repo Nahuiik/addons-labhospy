@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="sale_receipt_config_settings" model="ir.config_parameter">
+            <field name="key">sale_receipt.default_journal_id</field>
+            <field name="value"></field>
+        </record>
+        <record id="sale_receipt_config_payment_journal" model="ir.config_parameter">
+            <field name="key">sale_receipt.default_payment_method_journal_id</field>
+            <field name="value"></field>
+        </record>
+        <record id="sale_receipt_config_auto_description" model="ir.config_parameter">
+            <field name="key">sale_receipt.auto_description</field>
+            <field name="value">True</field>
+        </record>
+    </data>
+</odoo>

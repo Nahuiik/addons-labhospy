@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="group_pricelist_user_access" model="res.groups">
+            <field name="name">Pricelist User Access</field>
+            <field name="sequence">1</field>
+            <field name="comment">This group is allow user to show the User Access tab in Pricelist.</field>
+        </record>
+
+        <record id="restricted_pricelist_rule" model="ir.rule">
+            <field name="name">Restrcited Pricelist Rule</field>
+            <field name="model_id" ref="model_product_pricelist"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+            <field name="domain_force">['|', ('user_ids', 'in', user.id), ('user_ids', '=', False)]</field>
+        </record>
+    </data>
+</odoo>

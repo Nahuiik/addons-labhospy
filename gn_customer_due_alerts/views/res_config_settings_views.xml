@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form_customer_due" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.customer.due.alerts</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app string="Alertas de Cobro" name="gn_customer_due_alerts"
+                     groups="gn_customer_due_alerts.group_customer_due_alert_manager">
+                    <block title="Alertas de vencimiento de facturas de clientes">
+                        <setting string="Activar alertas automaticas"
+                                 help="Envia correos y notificaciones emergentes mediante una tarea programada diaria.">
+                            <field name="customer_due_alert_enabled"/>
+                        </setting>
+                        <setting string="Dias de anticipacion"
+                                 invisible="not customer_due_alert_enabled">
+                            <field name="customer_due_alert_days_before"/>
+                        </setting>
+                        <setting string="Incluir facturas vencidas"
+                                 invisible="not customer_due_alert_enabled">
+                            <field name="customer_due_alert_include_overdue"/>
+                        </setting>
+                        <setting string="Notificacion emergente persistente"
+                                 invisible="not customer_due_alert_enabled">
+                            <field name="customer_due_alert_popup_sticky"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_customer_due_settings" model="ir.actions.act_window">
+        <field name="name">Configuracion de Alertas de Cobro</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+        <field name="context">{'module': 'gn_customer_due_alerts'}</field>
+    </record>
+
+</odoo>

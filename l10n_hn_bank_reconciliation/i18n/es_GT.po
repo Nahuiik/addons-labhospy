@@ -1,0 +1,575 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* conciliacion_bancaria
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-12-23 17:44+0000\n"
+"PO-Revision-Date: 2021-12-23 17:44+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: conciliacion_bancaria
+#: code:addons/conciliacion_bancaria/conciliacion_bancaria/wizard/journal_settings.py:72
+#: code:addons/conciliacion_bancaria/wizard/journal_settings.py:72
+#, python-format
+msgid "'Next Number to Use' must be greater than 'Minimal Value'."
+msgstr "'Next Number to Use' must be greater than 'Minimal Value'."
+
+#. module: conciliacion_bancaria
+#: code:addons/conciliacion_bancaria/conciliacion_bancaria/wizard/journal_settings.py:74
+#: code:addons/conciliacion_bancaria/wizard/journal_settings.py:74
+#, python-format
+msgid "'Next Number to Use' must be less than 'Max Value'."
+msgstr "'Next Number to Use' must be less than 'Max Value'."
+
+#. module: conciliacion_bancaria
+#: model:ir.ui.view,arch_db:conciliacion_bancaria.conciliacion_print_view
+msgid "<br/>\n"
+"			<strong>Banco: </strong>"
+msgstr "<br/>\n"
+"			<strong>Banco: </strong>"
+
+#. module: conciliacion_bancaria
+#: model:ir.ui.view,arch_db:conciliacion_bancaria.conciliacion_print_view
+msgid "<strong>Conciliación Bancaria</strong>"
+msgstr "<strong>Conciliación Bancaria</strong>"
+
+#. module: conciliacion_bancaria
+#: model:ir.ui.view,arch_db:conciliacion_bancaria.conciliacion_print_view
+msgid "<strong>Descripción: </strong>"
+msgstr "<strong>Descripción: </strong>"
+
+#. module: conciliacion_bancaria
+#: model:ir.ui.view,arch_db:conciliacion_bancaria.conciliacion_print_view
+msgid "<strong>Fecha: </strong>"
+msgstr "<strong>Fecha: </strong>"
+
+#. module: conciliacion_bancaria
+#: code:addons/conciliacion_bancaria/reports/consoliation_report_xls.py:87
+#, python-format
+msgid "ACCOUNT ACCOUNTING "
+msgstr "CUENTA CONTABLE"
+
+#. module: conciliacion_bancaria
+#: model:ir.model,name:conciliacion_bancaria.model_account_move
+msgid "Account Entry"
+msgstr "Asiento Contable"
+
+#. module: conciliacion_bancaria
+#: selection:conicliacion.bancaria,state:0
+msgid "Anulado"
+msgstr "Anulado"
+
+#. module: conciliacion_bancaria
+#: model:ir.ui.view,arch_db:conciliacion_bancaria.conicliacion_bancaria_form_view
+msgid "Anular Conciliación"
+msgstr "Anular Conciliación"
+
+#. module: conciliacion_bancaria
+#: code:addons/conciliacion_bancaria/reports/consoliation_report_xls.py:95
+#, python-format
+msgid "Balance According To Bank"
+msgstr "Saldo Según Banco"
+
+#. module: conciliacion_bancaria
+#: code:addons/conciliacion_bancaria/reports/consoliation_report_xls.py:98
+#, python-format
+msgid "Balance According To Book"
+msgstr "Saldo Según Libros"
+
+#. module: conciliacion_bancaria
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_conicliacion_bancaria_balance_start
+msgid "Balance Start"
+msgstr "Saldo Inicial"
+
+#. module: conciliacion_bancaria
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_conicliacion_bancaria_account_id
+msgid "Banco"
+msgstr "Banco"
+
+#. module: conciliacion_bancaria
+#: selection:conicliacion.bancaria,state:0
+msgid "Borrador"
+msgstr "Borrador"
+
+#. module: conciliacion_bancaria
+#: code:addons/conciliacion_bancaria/reports/consoliation_report_xls.py:105
+#, python-format
+msgid "Breakdown"
+msgstr "Desgloce"
+
+#. module: conciliacion_bancaria
+#: code:addons/conciliacion_bancaria/reports/consoliation_report_xls.py:86
+#, python-format
+msgid "CONCILIATION BANK "
+msgstr "CONCILIACION BANCARIA "
+
+#. module: conciliacion_bancaria
+#: code:addons/conciliacion_bancaria/reports/consoliation_report_xls.py:111
+#, python-format
+msgid "Check in transit"
+msgstr "Menos Cheques En Transito"
+
+#. module: conciliacion_bancaria
+#: model:ir.actions.act_window,help:conciliacion_bancaria.action_conicliacion_bancaria
+msgid "Click to record a new conciliación"
+msgstr "Click to record a new conciliación"
+
+#. module: conciliacion_bancaria
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_conicliacion_bancaria_company_id
+msgid "Compañia"
+msgstr "Compañia"
+
+#. module: conciliacion_bancaria
+#: model:ir.ui.view,arch_db:conciliacion_bancaria.conicliacion_bancaria_line_view_tree
+#: model:ir.ui.view,arch_db:conciliacion_bancaria.conicliacion_bancaria_view_tree
+msgid "Conciliaciones"
+msgstr "Conciliaciones"
+
+#. module: conciliacion_bancaria
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_account_move_conciliacion_id
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_conicliacion_bancaria_line_conciliacion_id
+msgid "Conciliación"
+msgstr "Conciliación"
+
+#. module: conciliacion_bancaria
+#: model:ir.actions.act_window,name:conciliacion_bancaria.action_conicliacion_bancaria
+#: model:ir.actions.act_window,name:conciliacion_bancaria.action_movimientos_concilidos
+#: model:ir.actions.report,name:conciliacion_bancaria.conciliacion_print
+#: model:ir.model,name:conciliacion_bancaria.model_conicliacion_bancaria
+#: model:ir.module.category,description:conciliacion_bancaria.module_category_conciliacion
+#: model:ir.module.category,name:conciliacion_bancaria.module_category_conciliacion
+#: model:ir.ui.menu,name:conciliacion_bancaria.menu_banks_conciliation_main
+#: model:ir.ui.menu,name:conciliacion_bancaria.menu_management_conciliation_record
+msgid "Conciliación Bancaria"
+msgstr "Conciliación Bancaria"
+
+#. module: conciliacion_bancaria
+#: model:res.groups,name:conciliacion_bancaria.conciliacion_bancaria_user
+msgid "Conciliación Bancaria lectura"
+msgstr "Conciliación Bancaria lectura"
+
+#. module: conciliacion_bancaria
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_account_move_es_conciliado
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_account_move_line_es_conciliado
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_conicliacion_bancaria_es_conciliado_father
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_conicliacion_bancaria_line_es_conciliado
+msgid "Conciliado"
+msgstr "Conciliado"
+
+#. module: conciliacion_bancaria
+#: model:ir.ui.view,arch_db:conciliacion_bancaria.conicliacion_bancaria_form_view
+msgid "Conciliar Saldos"
+msgstr "Conciliar Saldos"
+
+#. module: conciliacion_bancaria
+#: model:ir.actions.report,name:conciliacion_bancaria.action_conciliation_report_xls
+msgid "Conciliation XLS"
+msgstr "Conciliation XLS"
+
+#. module: conciliacion_bancaria
+#: code:addons/conciliacion_bancaria/reports/consoliation_report_xls.py:117
+#, python-format
+msgid "Consolidated Sub"
+msgstr "Saldo Consolidado"
+
+#. module: conciliacion_bancaria
+#: code:addons/conciliacion_bancaria/reports/consoliation_report_xls.py:120
+#, python-format
+msgid "Created By"
+msgstr "Creado Por"
+
+#. module: conciliacion_bancaria
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_conicliacion_bancaria_create_uid
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_conicliacion_bancaria_line_create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: conciliacion_bancaria
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_conicliacion_bancaria_create_date
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_conicliacion_bancaria_line_create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: conciliacion_bancaria
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_conicliacion_bancaria_line_analytic_id
+msgid "Cuenta Analitica"
+msgstr "Cuenta Analitica"
+
+#. module: conciliacion_bancaria
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_conicliacion_bancaria_line_currency_id
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: conciliacion_bancaria
+#: code:addons/conciliacion_bancaria/reports/consoliation_report_xls.py:141
+#: code:addons/conciliacion_bancaria/reports/consoliation_report_xls.py:171
+#, python-format
+msgid "Date"
+msgstr "Date"
+
+#. module: conciliacion_bancaria
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_conicliacion_bancaria_line_debe
+#: model:ir.ui.view,arch_db:conciliacion_bancaria.conciliacion_print_view
+msgid "Debe"
+msgstr "Debe"
+
+#. module: conciliacion_bancaria
+#: model:ir.ui.view,arch_db:conciliacion_bancaria.conicliacion_bancaria_form_view
+msgid "Debits"
+msgstr "Debitos"
+
+#. module: conciliacion_bancaria
+#: code:addons/conciliacion_bancaria/reports/consoliation_report_xls.py:108
+#, python-format
+msgid "Deposit in transit"
+msgstr "Más Depósitos En Transito  "
+
+#. module: conciliacion_bancaria
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_conicliacion_bancaria_line_name
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_conicliacion_bancaria_name
+#: model:ir.ui.view,arch_db:conciliacion_bancaria.conciliacion_print_view
+msgid "Descripción"
+msgstr "Descripción"
+
+#. module: conciliacion_bancaria
+#: model:ir.ui.view,arch_db:conciliacion_bancaria.conicliacion_bancaria_form_view
+msgid "Descripción de conciliación"
+msgstr "Descripción de conciliación"
+
+#. module: conciliacion_bancaria
+#: model:ir.ui.view,arch_db:conciliacion_bancaria.conicliacion_bancaria_form_view
+msgid "Detalle de Movimientos"
+msgstr "Detalle de Movimientos"
+
+#. module: conciliacion_bancaria
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_conicliacion_bancaria_conciliacion_line
+msgid "Detalle de conciliación"
+msgstr "Detalle de conciliación"
+
+#. module: conciliacion_bancaria
+#: code:addons/conciliacion_bancaria/reports/consoliation_report_xls.py:101
+#, python-format
+msgid "Diference"
+msgstr "Diferencia"
+
+#. module: conciliacion_bancaria
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_conicliacion_bancaria_difference
+msgid "Diferencia"
+msgstr "Diferencia"
+
+#. module: conciliacion_bancaria
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_conicliacion_bancaria_display_name
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_conicliacion_bancaria_line_display_name
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_report_conciliacion_bancaria_consoliation_xls_xlsx_display_name
+msgid "Display Name"
+msgstr "Nombre a Mostrar"
+
+#. module: conciliacion_bancaria
+#: model:ir.model.fields,help:conciliacion_bancaria.field_conicliacion_bancaria_date
+#: model:ir.model.fields,help:conciliacion_bancaria.field_conicliacion_bancaria_line_date
+msgid "Effective date for accounting entries"
+msgstr "Fecha efectiva para entradas contables."
+
+#. module: conciliacion_bancaria
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_conicliacion_bancaria_line_partner_id
+msgid "Empresa"
+msgstr "Empresa"
+
+#. module: conciliacion_bancaria
+#: model:ir.ui.view,arch_db:conciliacion_bancaria.conicliacion_bancaria_form_view
+msgid "Esta seguro que quiere anular este registro?"
+msgstr "Esta seguro que quiere anular este registro?"
+
+#. module: conciliacion_bancaria
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_conicliacion_bancaria_state
+msgid "Estado"
+msgstr "Estado"
+
+#. module: conciliacion_bancaria
+#: code:addons/conciliacion_bancaria/conciliacion_bancaria/models/conciliacion.py:66
+#: code:addons/conciliacion_bancaria/models/conciliacion.py:119
+#, python-format
+msgid "Existe diferencia en la conicliación, debe de revisar todos los movimientos a conciliar"
+msgstr "Existe diferencia en la conicliación, debe de revisar todos los movimientos a conciliar"
+
+#. module: conciliacion_bancaria
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_conicliacion_bancaria_line_date
+#: model:ir.ui.view,arch_db:conciliacion_bancaria.conciliacion_print_view
+msgid "Fecha"
+msgstr "Fecha"
+
+#. module: conciliacion_bancaria
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_conicliacion_bancaria_date
+msgid "Fecha Final"
+msgstr "Fecha Final"
+
+#. module: conciliacion_bancaria
+#: code:addons/conciliacion_bancaria/reports/consoliation_report_xls.py:122
+#, python-format
+msgid "General Counter"
+msgstr "Contador General"
+
+#. module: conciliacion_bancaria
+#: model:ir.ui.view,arch_db:conciliacion_bancaria.conicliacion_bancaria_form_view
+msgid "Generate report XLS"
+msgstr "Generar Reporte Excel"
+
+#. module: conciliacion_bancaria
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_conicliacion_bancaria_line_haber
+#: model:ir.ui.view,arch_db:conciliacion_bancaria.conciliacion_print_view
+msgid "Haber"
+msgstr "Haber"
+
+#. module: conciliacion_bancaria
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_conicliacion_bancaria_id
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_conicliacion_bancaria_line_id
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_report_conciliacion_bancaria_consoliation_xls_xlsx_id
+msgid "ID"
+msgstr "ID"
+
+#. module: conciliacion_bancaria
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_conicliacion_bancaria_line_importe_moneda
+msgid "Importe de moneda"
+msgstr "Importe de moneda"
+
+#. module: conciliacion_bancaria
+#: model:ir.ui.view,arch_db:conciliacion_bancaria.conciliacion_print_view
+msgid "Importe moneda"
+msgstr "Importe moneda"
+
+#. module: conciliacion_bancaria
+#: model:ir.model,name:conciliacion_bancaria.model_account_move_line
+msgid "Journal Item"
+msgstr "Entrada de Diario"
+
+#. module: conciliacion_bancaria
+#: code:addons/conciliacion_bancaria/conciliacion_bancaria/wizard/journal_settings.py:96
+#: code:addons/conciliacion_bancaria/wizard/journal_settings.py:96
+#, python-format
+msgid "Journal settings failed."
+msgstr "Journal settings failed."
+
+#. module: conciliacion_bancaria
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_conicliacion_bancaria___last_update
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_conicliacion_bancaria_line___last_update
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_report_conciliacion_bancaria_consoliation_xls_xlsx___last_update
+msgid "Last Modified on"
+msgstr "Última actualización por"
+
+#. module: conciliacion_bancaria
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_conicliacion_bancaria_line_write_uid
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_conicliacion_bancaria_write_uid
+msgid "Last Updated by"
+msgstr "Última Actualización por"
+
+#. module: conciliacion_bancaria
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_conicliacion_bancaria_line_write_date
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_conicliacion_bancaria_write_date
+msgid "Last Updated on"
+msgstr "Última Actualización el"
+
+#. module: conciliacion_bancaria
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_conicliacion_bancaria_line_move_line_id
+msgid "Linea de movimiento"
+msgstr "Linea de movimiento"
+
+#. module: conciliacion_bancaria
+#: model:res.groups,name:conciliacion_bancaria.conciliacion_bancaria_manager
+msgid "Manager Conciliación Bancaria "
+msgstr "Manager Conciliación Bancaria "
+
+#. module: conciliacion_bancaria
+#: code:addons/conciliacion_bancaria/conciliacion_bancaria/wizard/journal_settings.py:70
+#: code:addons/conciliacion_bancaria/wizard/journal_settings.py:70
+#, python-format
+msgid "Max Value must be greater than Minimal Value."
+msgstr "Max Value must be greater than Minimal Value."
+
+#. module: conciliacion_bancaria
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_conicliacion_bancaria_mes_name
+msgid "Mes del Año"
+msgstr "Mes del Año"
+
+#. module: conciliacion_bancaria
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_conicliacion_bancaria_currency_id
+#: model:ir.ui.view,arch_db:conciliacion_bancaria.conciliacion_print_view
+msgid "Moneda"
+msgstr "Moneda"
+
+#. module: conciliacion_bancaria
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_conicliacion_bancaria_line_move_id
+#: model:ir.ui.view,arch_db:conciliacion_bancaria.conciliacion_print_view
+msgid "Movimiento"
+msgstr "Movimiento"
+
+#. module: conciliacion_bancaria
+#: model:ir.ui.view,arch_db:conciliacion_bancaria.conciliacion_print_view
+#: model:ir.ui.view,arch_db:conciliacion_bancaria.conicliacion_bancaria_form_view
+msgid "Movimientos Conciliados"
+msgstr "Movimientos Conciliados"
+
+#. module: conciliacion_bancaria
+#: model:ir.actions.act_window,name:conciliacion_bancaria.action_no_conicliacion_bancaria_line
+#: model:ir.ui.view,arch_db:conciliacion_bancaria.conicliacion_bancaria_form_view
+msgid "No Conciliados"
+msgstr "No Conciliados"
+
+#. module: conciliacion_bancaria
+#: code:addons/conciliacion_bancaria/conciliacion_bancaria/models/conciliacion.py:63
+#: code:addons/conciliacion_bancaria/models/conciliacion.py:116
+#, python-format
+msgid "No existen movimiento a conciliar"
+msgstr "No existen movimiento a conciliar"
+
+#. module: conciliacion_bancaria
+#: code:addons/conciliacion_bancaria/reports/consoliation_report_xls.py:140
+#: code:addons/conciliacion_bancaria/reports/consoliation_report_xls.py:170
+#, python-format
+msgid "No."
+msgstr "No."
+
+#. module: conciliacion_bancaria
+#: code:addons/conciliacion_bancaria/reports/consoliation_report_xls.py:142
+#, python-format
+msgid "Number Check"
+msgstr "Numero de Cheque"
+
+#. module: conciliacion_bancaria
+#: code:addons/conciliacion_bancaria/reports/consoliation_report_xls.py:172
+#, python-format
+msgid "Number Deposit"
+msgstr "Numero Depósito "
+
+#. module: conciliacion_bancaria
+#: model:ir.ui.view,arch_db:conciliacion_bancaria.conicliacion_bancaria_form_view
+msgid "Obtener Movimientos"
+msgstr "Obtener Movimientos"
+
+#. module: conciliacion_bancaria
+#: code:addons/conciliacion_bancaria/conciliacion_bancaria/wizard/journal_settings.py:65
+#: code:addons/conciliacion_bancaria/wizard/journal_settings.py:65
+#, python-format
+msgid "Padding must be greater than zero."
+msgstr "Padding must be greater than zero."
+
+#. module: conciliacion_bancaria
+#: code:addons/conciliacion_bancaria/reports/consoliation_report_xls.py:144
+#, python-format
+msgid "Reason for payment"
+msgstr "Motivó De Pagó "
+
+#. module: conciliacion_bancaria
+#: code:addons/conciliacion_bancaria/reports/consoliation_report_xls.py:143
+#: code:addons/conciliacion_bancaria/reports/consoliation_report_xls.py:173
+#, python-format
+msgid "Reference"
+msgstr "Reference"
+
+#. module: conciliacion_bancaria
+#: model:ir.model.fields,field_description:conciliacion_bancaria.field_conicliacion_bancaria_saldo_final
+msgid "Saldo Final"
+msgstr "Saldo Final"
+
+#. module: conciliacion_bancaria
+#: code:addons/conciliacion_bancaria/conciliacion_bancaria/wizard/journal_settings.py:57
+#: code:addons/conciliacion_bancaria/wizard/journal_settings.py:57
+#, python-format
+msgid "Select a journal."
+msgstr "Select a journal."
+
+#. module: conciliacion_bancaria
+#: code:addons/conciliacion_bancaria/conciliacion_bancaria/wizard/journal_settings.py:68
+#: code:addons/conciliacion_bancaria/wizard/journal_settings.py:68
+#, python-format
+msgid "Set a minimal and max value."
+msgstr "Set a minimal and max value."
+
+#. module: conciliacion_bancaria
+#: code:addons/conciliacion_bancaria/reports/consoliation_report_xls.py:114
+#, python-format
+msgid "Sub Total"
+msgstr "Sub Total"
+
+#. module: conciliacion_bancaria
+#: code:addons/conciliacion_bancaria/conciliacion_bancaria/wizard/journal_settings.py:93
+#: code:addons/conciliacion_bancaria/wizard/journal_settings.py:93
+#, python-format
+msgid "This transacion type already exists."
+msgstr "This transacion type already exists."
+
+#. module: conciliacion_bancaria
+#: model:ir.ui.view,arch_db:conciliacion_bancaria.conicliacion_bancaria_form_view
+#: model:ir.ui.view,arch_db:conciliacion_bancaria.conicliacion_bancaria_line_view_tree
+msgid "Total"
+msgstr "Total"
+
+#. module: conciliacion_bancaria
+#: code:addons/conciliacion_bancaria/reports/consoliation_report_xls.py:160
+#: code:addons/conciliacion_bancaria/reports/consoliation_report_xls.py:189
+#, python-format
+msgid "Total Check In Transit"
+msgstr "Total Cheque En Transito"
+
+#. module: conciliacion_bancaria
+#: code:addons/conciliacion_bancaria/conciliacion_bancaria/wizard/journal_settings.py:77
+#: code:addons/conciliacion_bancaria/wizard/journal_settings.py:77
+#, python-format
+msgid "Transaction name is empty."
+msgstr "Transaction name is empty."
+
+#. module: conciliacion_bancaria
+#: selection:conicliacion.bancaria,state:0
+msgid "Validado"
+msgstr "Validado"
+
+#. module: conciliacion_bancaria
+#: code:addons/conciliacion_bancaria/reports/consoliation_report_xls.py:145
+#: code:addons/conciliacion_bancaria/reports/consoliation_report_xls.py:174
+#, python-format
+msgid "Value"
+msgstr "Value"
+
+#. module: conciliacion_bancaria
+#: model:ir.ui.view,arch_db:conciliacion_bancaria.conicliacion_bancaria_form_view
+msgid "Volver a borrador"
+msgstr "Volver a borrador"
+
+#. module: conciliacion_bancaria
+#: code:addons/conciliacion_bancaria/conciliacion_bancaria/wizard/journal_settings.py:113
+#: code:addons/conciliacion_bancaria/wizard/journal_settings.py:113
+#, python-format
+msgid "You need select a sequence."
+msgstr "You need select a sequence."
+
+#. module: conciliacion_bancaria
+#: model:ir.model,name:conciliacion_bancaria.model_conicliacion_bancaria_line
+msgid "conicliacion.bancaria.line"
+msgstr "conicliacion.bancaria.line"
+
+#. module: conciliacion_bancaria
+#: model:ir.model,name:conciliacion_bancaria.model_report_conciliacion_bancaria_consoliation_xls_xlsx
+msgid "report.conciliacion_bancaria.consoliation_xls.xlsx"
+msgstr "report.conciliacion_bancaria.consoliation_xls.xlsx"
+
+#. module: conciliacion_bancaria
+#: code:addons/conciliacion_bancaria/conciliacion_bancaria/wizard/journal_settings.py:88
+#: code:addons/conciliacion_bancaria/conciliacion_bancaria/wizard/journal_settings.py:110
+#: code:addons/conciliacion_bancaria/wizard/journal_settings.py:88
+#: code:addons/conciliacion_bancaria/wizard/journal_settings.py:110
+#, python-format
+msgid "the range the numbers for the check book already exists, the number you can use is ."
+msgstr "the range the numbers for the check book already exists, the number you can use is ."
+
+#. module: conciliacion_bancaria
+#: model:ir.ui.view,arch_db:conciliacion_bancaria.conicliacion_bancaria_view_tree
+msgid "total"
+msgstr "Total"
+

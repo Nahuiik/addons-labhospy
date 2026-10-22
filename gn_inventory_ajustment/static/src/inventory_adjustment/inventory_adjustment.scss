@@ -1,0 +1,81 @@
+.o_gn_inv_adj {
+    background-color: #f8f9fa;
+
+    .o_gn_inv_adj_toolbar {
+        select,
+        input[type="text"] {
+            min-width: 150px;
+        }
+
+        .o_gn_inv_adj_loc_select {
+            max-width: 320px;
+        }
+    }
+
+    .o_gn_inv_adj_btn_pdf {
+        background-color: #d9534f;
+        color: #fff;
+
+        &:hover {
+            background-color: #c9302c;
+            color: #fff;
+        }
+    }
+
+    .o_gn_inv_adj_btn_excel {
+        background-color: #1d6f42;
+        color: #fff;
+
+        &:hover {
+            background-color: #155232;
+            color: #fff;
+        }
+    }
+
+    .o_gn_inv_adj_table_wrap {
+        background-color: #fff;
+    }
+
+    .o_gn_inv_adj_table {
+        font-size: 12px;
+
+        .o_gn_inv_adj_thead th {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            background-color: #e9ecef;
+            white-space: nowrap;
+        }
+
+        .o_gn_inv_adj_counted {
+            max-width: 100px;
+            margin-left: auto;
+        }
+
+        .o_gn_inv_adj_row_counted td {
+            background-color: rgba(40, 167, 69, 0.08);
+        }
+    }
+}
+
+.o_gn_inv_adj_modal_backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 1050;
+}
+
+.o_gn_inv_adj_modal {
+    position: fixed;
+    z-index: 1051;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 480px;
+    max-width: 92%;
+}
+
+.o_gn_inv_adj_product_results {
+    max-height: 180px;
+    overflow: auto;
+}

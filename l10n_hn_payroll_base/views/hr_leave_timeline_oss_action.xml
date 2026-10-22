@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_hn_holidays_timeline_oss" model="ir.actions.client">
+        <field name="name">Planificación Time Off (OSS lab)</field>
+        <field name="tag">hn_holidays_timeline_oss</field>
+    </record>
+
+    <menuitem
+        id="menu_hn_holidays_timeline_oss"
+        name="Planificación (OSS lab)"
+        parent="hr_holidays.menu_hr_holidays_root"
+        sequence="16"
+        action="action_hn_holidays_timeline_oss"
+    />
+</odoo>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="credit_debit_form_view_ui" model="ir.ui.view">
+        <field name="name">debit.credit.form.ui</field>
+        <field name="model">debit.credit</field>
+        <field name="inherit_id" ref="gn_banks.credit_debit_form_view"/>
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <xpath expr="//header/button[@name='action_validate']" position="before">
+                <button name="action_submit_for_approval" string="Enviar a aprobación" type="object"
+                        class="btn-secondary"
+                        invisible="state != 'draft' or not approval_required or workflow_state != 'draft'"
+                        groups="gn_banks.banks_debit_credit_user"/>
+                <button name="action_approve" string="Aprobar" type="object"
+                        class="btn-success"
+                        invisible="workflow_state != 'pending_approval'"
+                        groups="gn_banks_ui.banks_approval_manager"/>
+                <button name="action_reject_approval" string="Rechazar" type="object"
+                        class="btn-warning"
+                        invisible="workflow_state != 'pending_approval'"
+                        groups="gn_banks_ui.banks_approval_manager"/>
+            </xpath>
+            <xpath expr="//header/field[@name='state']" position="replace">
+                <field name="workflow_state" invisible="1"/>
+                <field name="approval_required" invisible="1"/>
+                <widget name="bank_status_steps" class="gn-bk-steps--header"/>
+            </xpath>
+            <xpath expr="//sheet/div[hasclass('oe_title')]" position="before">
+                <div class="oe_button_box" name="button_box">
+                    <button name="action_view_account_move" type="object" class="oe_stat_button" icon="fa-book"
+                            invisible="not move_id">
+                        <div class="o_stat_info">
+                            <span class="o_stat_text">Asiento</span>
+                        </div>
+                    </button>
+                    <button name="action_view_bank_invoice" type="object" class="oe_stat_button" icon="fa-file-text-o"
+                            invisible="not bank_invoice_id">
+                        <field name="invoice_count" widget="statinfo" string="Facturas"/>
+                    </button>
+                    <button name="action_view_documents" type="object" class="oe_stat_button" icon="fa-folder-open"
+                            invisible="document_count == 0">
+                        <field name="document_count" widget="statinfo" string="Documentos"/>
+                    </button>
+                    <button name="action_view_attachments" type="object" class="oe_stat_button" icon="fa-paperclip"
+                            invisible="attachment_count == 0">
+                        <field name="attachment_count" widget="statinfo" string="Adjuntos"/>
+                    </button>
+                    <button name="action_view_template" type="object" class="oe_stat_button" icon="fa-clone"
+                            invisible="not template_id">
+                        <span class="o_stat_text">Plantilla</span>
+                    </button>
+                </div>
+            </xpath>
+            <xpath expr="//widget[@name='web_ribbon' and @text='Borrador']" position="replace"/>
+            <xpath expr="//widget[@name='web_ribbon' and @text='Validado']" position="replace"/>
+            <xpath expr="//widget[@name='web_ribbon' and @text='Cancelado']" position="replace"/>
+            <xpath expr="//div[hasclass('oe_title')]" position="replace">
+                <div class="gn-bk-form-shell">
+                    <field name="ui_operation_type_key" invisible="1"/>
+                    <field name="ui_operation_type_label" invisible="1"/>
+                    <field name="ui_operation_icon" invisible="1"/>
+                    <field name="ui_partner_id" invisible="1"/>
+                    <field name="reconciliation_status" invisible="1"/>
+                    <field name="attachment_count" invisible="1"/>
+                    <field name="document_count" invisible="1"/>
+                    <field name="invoice_count" invisible="1"/>
+                    <field name="validated_by" invisible="1"/>
+                    <field name="validated_date" invisible="1"/>
+                    <field name="approved_by" invisible="1"/>
+                    <field name="submitted_by" invisible="1"/>
+                    <field name="create_uid" invisible="1"/>
+                    <field name="write_uid" invisible="1"/>
+                    <field name="write_date" invisible="1"/>
+                    <field name="create_date" invisible="1"/>
+                    <field name="state" invisible="1"/>
+                    <field name="amount_residual" invisible="1"/>
+                    <field name="amount_in_words" invisible="1"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="ui_document_number" invisible="1"/>
+                    <field name="name" invisible="1"/>
+                    <field name="dummy_name" invisible="1"/>
+                    <field name="error_msg" invisible="1"/>
+                    <widget name="bank_operation_header"/>
+                </div>
+            </xpath>
+            <xpath expr="//sheet/group[last()]" position="attributes">
+                <attribute name="class" add="gn-bk-difference-footer oe_right" separator=" "/>
+            </xpath>
+            <xpath expr="//sheet/group[last()]/field[@name='amount_residual']" position="attributes">
+                <attribute name="string">Diferencia</attribute>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Resumen financiero" name="bank_side_panel">
+                    <field name="amount_residual" invisible="1"/>
+                    <field name="amount_in_words" invisible="1"/>
+                    <field name="template_id" invisible="1"/>
+                    <field name="bank_invoice_id" invisible="1"/>
+                    <widget name="bank_side_panel"/>
+                </page>
+            </xpath>
+            <xpath expr="//notebook/page[1]" position="after">
+                <page string="Historial" name="bank_timeline">
+                    <widget name="bank_timeline"/>
+                </page>
+            </xpath>
+            <xpath expr="//field[@name='debit_line_ids']/list" position="attributes">
+                <attribute name="class">gn-bk-lines</attribute>
+            </xpath>
+            <xpath expr="//field[@name='debit_line_ids']/list/field[@name='type']" position="attributes">
+                <attribute name="column_invisible">parent.move_type in ('debit', 'credit', 'deposit')</attribute>
+                <attribute name="string">Tipo</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="debit_credit_list_view_ui" model="ir.ui.view">
+        <field name="name">debit.credit.list.ui</field>
+        <field name="model">debit.credit</field>
+        <field name="inherit_id" ref="gn_banks.debit_credit_list_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//list" position="attributes">
+                <attribute name="decoration-danger">move_type == 'debit'</attribute>
+                <attribute name="decoration-success">move_type in ('credit', 'deposit')</attribute>
+                <attribute name="decoration-info">move_type == 'credit_card'</attribute>
+            </xpath>
+            <xpath expr="//field[@name='state']" position="replace">
+                <field name="workflow_state" string="Estado" widget="badge"
+                       decoration-info="workflow_state == 'draft'"
+                       decoration-warning="workflow_state in ('pending_approval', 'approved')"
+                       decoration-success="workflow_state in ('validated', 'posted', 'reconciled')"
+                       decoration-danger="workflow_state == 'cancelled'"
+                       optional="show"/>
+            </xpath>
+            <xpath expr="//field[@name='total']" position="attributes">
+                <attribute name="widget">monetary</attribute>
+                <attribute name="options">{'currency_field': 'currency_id'}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='journal_id']" position="after">
+                <field name="ui_partner_id" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="gn_banks.action_debit" model="ir.actions.act_window">
+        <field name="view_mode">list,kanban,form</field>
+    </record>
+    <record id="gn_banks.action_credit" model="ir.actions.act_window">
+        <field name="view_mode">list,kanban,form</field>
+    </record>
+    <record id="gn_banks.action_deposit" model="ir.actions.act_window">
+        <field name="view_mode">list,kanban,form</field>
+    </record>
+    <record id="gn_banks.action_credit_card" model="ir.actions.act_window">
+        <field name="view_mode">list,kanban,form</field>
+    </record>
+</odoo>

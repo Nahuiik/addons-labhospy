@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_payslip_contribution_register" model="ir.ui.view">
+        <field name="name">payslip.lines.contribution.register.form</field>
+        <field name="model">payslip.lines.contribution.register</field>
+        <field name="arch" type="xml">
+            <form string="Contribution register">
+                <group>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                </group>
+                <footer>
+                    <button name="print_report" type="object" string="Print" class="btn-primary" data-hotkey="q"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="x"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_payslip_contribution_register" model="ir.actions.act_window">
+        <field name="name">Contribution register</field>
+        <field name="res_model">payslip.lines.contribution.register</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_hr_contribution_register"/>
+    </record>
+
+    <menuitem id="menu_hn_payroll_report_contribution_register"
+              name="Contribution register"
+              action="action_payslip_contribution_register"
+              parent="menu_hn_payroll_reporting"
+              sequence="10"
+              groups="l10n_hn_payroll_base.group_hn_payroll_user"/>
+</odoo>

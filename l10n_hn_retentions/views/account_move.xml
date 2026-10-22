@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inherit_view_move_form_retention" model="ir.ui.view">
+        <field name="name">account.move.view.form.inherit.retention</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_date']" position="after">
+                <field invisible="payment_state != 'paid' or move_type != 'in_invoice'" name="retention_sequence"/>
+            </xpath>
+            <!-- Ocultar columna % profesional en facturas de proveedor -->
+            <xpath expr="//field[@name='invoice_line_ids']/list/field[@name='deductible_amount'][@optional='hide']" position="attributes">
+                <attribute name="column_invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']/list/field[@name='deductible_amount'][@optional='show']" position="attributes">
+                <attribute name="column_invisible">1</attribute>
+            </xpath>
+            <!-- Agregar columna de retención 12.5% en las líneas de factura -->
+            <xpath expr="//field[@name='invoice_line_ids']//field[@name='price_subtotal']" position="after">
+                <field name="retention_amount_12_5" optional="show" sum="Total Ret 12.5%" column_invisible="parent.move_type != 'in_invoice'"/>
+            </xpath>
+
+            <!-- Agregar sección de Cálculo de Retención después de las líneas de factura -->
+            <xpath expr="//field[@name='invoice_line_ids']" position="after">
+                <group invisible="is_payment_account == True or move_type != 'in_invoice'" string="Calculo de Retención" col="2">
+                    <field invisible="1" name="is_payment_account"/>
+                    <field invisible="1" name="state_date_payments_account"/>
+                    <separator string="Nota: estos son campos informativos." colspan="2"/>
+                    <field name="ret_amount_1" string="Retención 1%"/>
+                    <field name="ret_amount_12_5" string="Retención 12.5%"/>
+                </group>
+            </xpath>
+            <xpath expr="//header" position="after">
+                <!-- groups="account.group_account_invoice" -->
+                <div class="alert-nahuiik alert-primary-nahuiik" invisible="is_payment_account == False or move_type != 'in_invoice'" role="alert" style="margin-bottom: 10px;font-weight: bold;">
+                    Supplier
+                    <field name="partner_name"/>
+                    Has payments on account.
+                    <bold invisible="state_date_payments_account != 'validate'" style="color:#155724">
+                        <field name="state_date_payments_account" readonly="1"/>
+                    </bold>
+                    <bold invisible="state_date_payments_account != 'overdue'" style="color:#721C24">
+                        <field name="state_date_payments_account" readonly="1"/>
+                    </bold>
+                    <bold invisible="state_date_payments_account != 'not_established'" style="color:#856404">
+                        <field name="state_date_payments_account" readonly="1"/>
+                    </bold>
+                </div>
+                <div class="alert-nahuiik alert-warning-nahuiik" invisible="is_payment_account == True or move_type != 'in_invoice'" role="alert" style="margin-bottom: 10px;font-weight: bold;">
+                    Supplier
+                    <field name="partner_name"/>
+                    You do not have payments on account.
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_controlled_substances_header_block">
+        <div style="text-align:center;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #2d3748;">
+            <div style="font-size:16px;font-weight:bold;letter-spacing:0.05em;text-transform:uppercase;color:#1a202c;">
+                <span t-esc="report_title"/>
+            </div>
+        </div>
+        <table style="width:100%;margin-bottom:12px;border-collapse:collapse;font-size:12px;border:1px solid #a0aec0;">
+            <tr>
+                <td style="width:50%;vertical-align:top;padding:8px 10px;background-color:#f7fafc;border-right:1px solid #a0aec0;">
+                    <div style="margin-bottom:4px;">
+                        <span style="font-weight:bold;color:#2d3748;">Nombre del establecimiento:</span>
+                        <span t-esc="page['establishment_name']"/>
+                    </div>
+                    <t t-if="page['branch_name']">
+                        <div style="margin-bottom:4px;">
+                            <span style="font-weight:bold;color:#2d3748;">Sucursal:</span>
+                            <span t-esc="page['branch_name']"/>
+                        </div>
+                    </t>
+                    <div style="margin-bottom:4px;">
+                        <span style="font-weight:bold;color:#2d3748;">No. licencia sanitaria:</span>
+                        <span t-esc="page['license_no']"/>
+                    </div>
+                    <div>
+                        <span style="font-weight:bold;color:#2d3748;">Teléfono:</span>
+                        <span t-esc="page['phone']"/>
+                    </div>
+                </td>
+                <td style="width:50%;vertical-align:top;padding:8px 10px;background-color:#f7fafc;">
+                    <div style="margin-bottom:4px;">
+                        <span style="font-weight:bold;color:#2d3748;">Período consultado:</span>
+                        <span t-esc="period_from"/> — <span t-esc="period_to"/>
+                    </div>
+                    <div>
+                        <span style="font-weight:bold;color:#2d3748;">Dirección principal:</span>
+                        <span t-esc="page['address']"/>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </template>
+
+    <template id="report_controlled_substances_section_block">
+        <table style="width:100%;margin-top:4px;margin-bottom:8px;font-size:12px;border-collapse:collapse;border:1px solid #718096;">
+            <tr style="background-color:#edf2f7;">
+                <td style="width:16%;vertical-align:middle;text-align:left;font-weight:bold;padding:6px 8px;border-right:1px solid #cbd5e0;word-wrap:break-word;">
+                    <span t-esc="page['hdr_code']"/>
+                </td>
+                <td style="width:54%;vertical-align:middle;text-align:center;font-weight:bold;padding:6px 8px;border-right:1px solid #cbd5e0;word-wrap:break-word;">
+                    <span t-esc="page['hdr_name']"/>
+                </td>
+                <td style="width:30%;vertical-align:middle;text-align:right;font-weight:bold;padding:6px 8px;word-wrap:break-word;">
+                    <t t-if="page['hdr_catalog']">
+                        <span t-esc="page['catalog_label']"/>: <span t-esc="page['hdr_catalog']"/>
+                    </t>
+                </td>
+            </tr>
+        </table>
+
+        <table style="width:100%;border-collapse:collapse;font-size:12px;border:1px solid #718096;">
+            <colgroup>
+                <col style="width:7%;"/>
+                <col style="width:15%;"/>
+                <col style="width:13%;"/>
+                <col style="width:11%;"/>
+                <col style="width:10%;"/>
+                <col style="width:6%;"/>
+                <col style="width:10%;"/>
+                <col style="width:8%;"/>
+                <col style="width:7%;"/>
+                <col style="width:7%;"/>
+                <col style="width:6%;"/>
+            </colgroup>
+            <thead>
+                <tr>
+                    <th style="background-color:#2d3748;color:#ffffff;font-weight:bold;padding:6px 5px;text-align:center;border:1px solid #4a5568;font-size:12px;">Fecha</th>
+                    <th style="background-color:#2d3748;color:#ffffff;font-weight:bold;padding:6px 5px;text-align:center;border:1px solid #4a5568;font-size:12px;">Empresa a quien es vendida</th>
+                    <th style="background-color:#2d3748;color:#ffffff;font-weight:bold;padding:6px 5px;text-align:center;border:1px solid #4a5568;font-size:12px;">Dirección</th>
+                    <th style="background-color:#2d3748;color:#ffffff;font-weight:bold;padding:6px 5px;text-align:center;border:1px solid #4a5568;font-size:12px;">Aplicación / uso</th>
+                    <th style="background-color:#2d3748;color:#ffffff;font-weight:bold;padding:6px 5px;text-align:center;border:1px solid #4a5568;font-size:12px;">Transacción</th>
+                    <th style="background-color:#2d3748;color:#ffffff;font-weight:bold;padding:6px 5px;text-align:center;border:1px solid #4a5568;font-size:12px;">Resolución</th>
+                    <th style="background-color:#2d3748;color:#ffffff;font-weight:bold;padding:6px 5px;text-align:center;border:1px solid #4a5568;font-size:12px;">Documento</th>
+                    <th style="background-color:#2d3748;color:#ffffff;font-weight:bold;padding:6px 5px;text-align:center;border:1px solid #4a5568;font-size:12px;">Lote</th>
+                    <th style="background-color:#2d3748;color:#ffffff;font-weight:bold;padding:6px 5px;text-align:right;border:1px solid #4a5568;font-size:12px;">Ingreso</th>
+                    <th style="background-color:#2d3748;color:#ffffff;font-weight:bold;padding:6px 5px;text-align:right;border:1px solid #4a5568;font-size:12px;">Salida</th>
+                    <th style="background-color:#2d3748;color:#ffffff;font-weight:bold;padding:6px 5px;text-align:right;border:1px solid #4a5568;font-size:12px;">Saldo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <t t-foreach="page['rows']" t-as="row">
+                    <tr t-att-style="row.get('es_saldo_inicial') and 'background-color:#e2e8f0;font-weight:bold;' or ''">
+                        <td style="padding:5px 6px;border:1px solid #cbd5e0;vertical-align:top;font-size:12px;"><span t-esc="row['fecha_str']"/></td>
+                        <td style="padding:5px 6px;border:1px solid #cbd5e0;vertical-align:top;white-space:pre-line;font-size:12px;"><span t-esc="row['empresa_contacto']"/></td>
+                        <td style="padding:5px 6px;border:1px solid #cbd5e0;vertical-align:top;font-size:12px;"><span t-esc="row['direccion']"/></td>
+                        <td style="padding:5px 6px;border:1px solid #cbd5e0;vertical-align:top;font-size:12px;"><span t-esc="row['aplicacion_uso']"/></td>
+                        <td style="padding:5px 6px;border:1px solid #cbd5e0;vertical-align:top;font-size:12px;"><span t-esc="row['transaccion']"/></td>
+                        <td style="padding:5px 6px;border:1px solid #cbd5e0;vertical-align:top;font-size:12px;"><span t-esc="row['resolucion']"/></td>
+                        <td style="padding:5px 6px;border:1px solid #cbd5e0;vertical-align:top;font-size:12px;"><span t-esc="row['documento']"/></td>
+                        <td style="padding:5px 6px;border:1px solid #cbd5e0;vertical-align:top;font-size:12px;"><span t-esc="row['lote']"/></td>
+                        <td style="padding:5px 6px;border:1px solid #cbd5e0;vertical-align:top;text-align:right;font-size:12px;"><span t-esc="fmt_qty(row['ingreso'])"/></td>
+                        <td style="padding:5px 6px;border:1px solid #cbd5e0;vertical-align:top;text-align:right;font-size:12px;"><span t-esc="fmt_qty(row['salida'])"/></td>
+                        <td style="padding:5px 6px;border:1px solid #cbd5e0;vertical-align:top;text-align:right;font-size:12px;"><span t-esc="fmt_qty(row['saldo'])"/></td>
+                    </tr>
+                </t>
+            </tbody>
+        </table>
+    </template>
+
+    <template id="report_controlled_substances_signature_block">
+        <div style="margin-top:28px;">
+            <div style="border-top:1px solid #2d3748;width:40%;margin-top:42px;">&#160;</div>
+            <p style="margin:0 0 6px 0;font-weight:bold;color:#2d3748;font-size:12px;">Firma y sello</p>
+        </div>
+    </template>
+
+    <template id="report_controlled_substances_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-if="not pages">
+                    <div class="article">
+                        <div class="page" style="font-family:DejaVu Sans,Arial,sans-serif;font-size:12px;color:#1a202c;">
+                            <div style="text-align:center;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #2d3748;">
+                                <div style="font-size:16px;font-weight:bold;letter-spacing:0.05em;text-transform:uppercase;">
+                                    <span t-esc="report_title"/>
+                                </div>
+                            </div>
+                            <p style="color:#718096;font-style:italic;font-size:12px;">No hay movimientos de sustancias controladas en el período seleccionado.</p>
+                            <t t-call="gn_labhospy.report_controlled_substances_signature_block"/>
+                        </div>
+                    </div>
+                    <div class="footer"
+                         style="font-family:DejaVu Sans,Arial,sans-serif;font-size:12px;text-align:center;border-top:1px solid #cbd5e0;padding:6px 4px;color:#718096;">
+                        <t t-if="report_type == 'pdf'">
+                            <span>Pág. </span><span class="page"/><span> / </span><span class="topage"/>
+                            <span> · </span>
+                        </t>
+                        <t t-if="report_type != 'pdf'">
+                            <span>Vista previa · </span>
+                        </t>
+                        <span>Impreso el </span><span t-out="print_date"/><span> a las </span><span t-out="print_time"/>
+                    </div>
+                </t>
+                <t t-foreach="pages" t-as="page">
+                    <div class="article">
+                        <div class="page"
+                             style="font-family:DejaVu Sans,Arial,sans-serif;font-size:12px;color:#1a202c;"
+                             t-att-style="page_index &lt; page_size - 1 and 'page-break-after:always;' or ''">
+                            <t t-call="gn_labhospy.report_controlled_substances_header_block"/>
+                            <t t-call="gn_labhospy.report_controlled_substances_section_block"/>
+                            <t t-call="gn_labhospy.report_controlled_substances_signature_block"/>
+                        </div>
+                    </div>
+                    <div class="footer"
+                         style="font-family:DejaVu Sans,Arial,sans-serif;font-size:12px;text-align:center;border-top:1px solid #cbd5e0;padding:6px 4px;color:#718096;">
+                        <t t-if="report_type == 'pdf'">
+                            <span>Pág. </span><span class="page"/><span> / </span><span class="topage"/>
+                            <span> · </span>
+                        </t>
+                        <t t-if="report_type != 'pdf'">
+                            <span>Vista previa · </span>
+                        </t>
+                        <span>Impreso el </span><span t-out="print_date"/><span> a las </span><span t-out="print_time"/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_controlled_substances_html">
+        <t t-call="gn_labhospy.report_controlled_substances_document"/>
+    </template>
+</odoo>

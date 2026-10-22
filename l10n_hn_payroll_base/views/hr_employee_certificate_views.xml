@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_employee_view_form_employment_certificate" model="ir.ui.view">
+        <field name="name">hr.employee.form.employment.certificate</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <header position="inside">
+                <button name="action_print_employee_declaration"
+                        type="object"
+                        class="btn btn-warning"
+                        groups="l10n_hn_payroll_base.group_certificate_user"
+                        style="color:#fff; border-radius:7px; text-transform: uppercase; box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;"
+                        string="Imprimir constancia"
+                        invisible="not version_id"/>
+                <button name="action_print_employee_cancelled_declaration"
+                        type="object"
+                        class="btn btn-warning"
+                        groups="l10n_hn_payroll_base.group_certificate_user"
+                        style="color:#fff; border-radius:7px; text-transform: uppercase; box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;"
+                        string="Imprimir constancia de salida"
+                        invisible="not version_id or not version_id.is_past"/>
+            </header>
+        </field>
+    </record>
+</odoo>

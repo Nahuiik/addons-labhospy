@@ -1,0 +1,240 @@
+<odoo>
+    <!-- Precio de venta: mismo criterio que el costo — sin field_digits el widget usa
+         decimales de la moneda (p. ej. 2) en lugar de mostrar 6+ decimales del float. -->
+    <record id="product_template_form_list_price_currency_digits" model="ir.ui.view">
+        <field name="name">product.template.form.list.price.currency.digits</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath
+                expr="//div[@name='list_price_uom']/field[@name='list_price']"
+                position="attributes"
+            >
+                <attribute name="options">{'currency_field': 'currency_id'}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_template_kanban_list_price_currency_digits" model="ir.ui.view">
+        <field name="name">product.template.kanban.list.price.currency.digits</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_kanban_view"/>
+        <field name="arch" type="xml">
+            <xpath
+                expr="//field[@name='list_price'][@widget='monetary']"
+                position="attributes"
+            >
+                <attribute name="options">{'currency_field': 'currency_id'}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_normal_form_lst_price_currency_digits" model="ir.ui.view">
+        <field name="name">product.product.form.lst.price.currency.digits</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath
+                expr="//field[@name='lst_price'][@widget='monetary']"
+                position="attributes"
+            >
+                <attribute name="options">{'currency_field': 'currency_id'}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_variant_easy_edit_lst_price_currency_digits" model="ir.ui.view">
+        <field name="name">product.product.easy.edit.lst.price.currency.digits</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_variant_easy_edit_view"/>
+        <field name="arch" type="xml">
+            <xpath
+                expr="//field[@name='lst_price'][@widget='monetary']"
+                position="attributes"
+            >
+                <attribute name="options">{'currency_field': 'currency_id'}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Costo (standard_price): sin field_digits el widget monetary usa los decimales de la moneda
+ (p. ej. 2). Con field_digits=True Odoo 19 puede mostrar hasta 6 decimales por la lógica
+         de min_display_digits + float interno del costo medio (AVCO). -->
+    <record id="product_template_form_standard_price_currency_digits" model="ir.ui.view">
+        <field name="name">product.template.form.standard.price.currency.digits</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='standard_price'][@widget='monetary']" position="attributes">
+                <attribute name="options">{'currency_field': 'cost_currency_id'}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_variant_easy_edit_standard_price_currency_digits" model="ir.ui.view">
+        <field name="name">product.product.easy.edit.standard.price.currency.digits</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_variant_easy_edit_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='standard_price'][@widget='monetary']" position="attributes">
+                <attribute name="options">{'currency_field': 'cost_currency_id'}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Campo técnico en arch: OWL debe cargarlo para que readonly="l10n_hn_standard_price_readonly" sea fiable. -->
+    <record id="product_template_form_l10n_hn_cost_helper_field" model="ir.ui.view">
+        <field name="name">product.template.form.l10n.hn.cost.helper</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="priority" eval="55"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet[@name='product_form']" position="inside">
+                <field name="l10n_hn_standard_price_readonly" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_variant_easy_edit_l10n_hn_cost_helper_field" model="ir.ui.view">
+        <field name="name">product.product.easy.edit.l10n.hn.cost.helper</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_variant_easy_edit_view"/>
+        <field name="priority" eval="55"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <field name="l10n_hn_standard_price_readonly" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Formulario común de plantilla (Odoo base): costo solo con grupo Ver costos; edición con Editar costo. -->
+    <record id="product_template_common_hide_cost_standard_price" model="ir.ui.view">
+        <field name="name">product.template.common.hide.cost.standard.price</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="priority" eval="60"/>
+        <field name="arch" type="xml">
+            <xpath expr="//label[@id='standard_price_label']" position="attributes">
+                <attribute name="groups">l10n_hn_stock.group_view_costs_margins</attribute>
+            </xpath>
+            <xpath expr="//div[@name='standard_price_uom']" position="attributes">
+                <attribute name="groups">l10n_hn_stock.group_view_costs_margins</attribute>
+            </xpath>
+            <xpath expr="//div[@name='standard_price_uom']/field[@name='standard_price']" position="attributes">
+                <attribute name="readonly">l10n_hn_standard_price_readonly</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Misma lógica en ficha variante (modelo product.product). -->
+    <record id="product_normal_form_hide_cost_standard_price" model="ir.ui.view">
+        <field name="name">product.product.normal.hide.cost.standard.price</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="priority" eval="60"/>
+        <field name="arch" type="xml">
+            <xpath expr="//label[@id='standard_price_label']" position="attributes">
+                <attribute name="groups">l10n_hn_stock.group_view_costs_margins</attribute>
+            </xpath>
+            <xpath expr="//div[@name='standard_price_uom']" position="attributes">
+                <attribute name="groups">l10n_hn_stock.group_view_costs_margins</attribute>
+            </xpath>
+            <xpath expr="//div[@name='standard_price_uom']/field[@name='standard_price']" position="attributes">
+                <attribute name="readonly">l10n_hn_standard_price_readonly</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_template_hide_cost_fields" model="ir.ui.view">
+        <field name="name">product.template.hide.cost.fields</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//label[@for='standard_price']" position="attributes">
+                <attribute name="groups">l10n_hn_stock.group_view_costs_margins</attribute>
+            </xpath>
+            <xpath expr="//div[@name='standard_price_uom']" position="attributes">
+                <attribute name="groups">l10n_hn_stock.group_view_costs_margins</attribute>
+            </xpath>
+            <xpath expr="//div[@name='standard_price_uom']/field[@name='standard_price']" position="attributes">
+                <attribute name="readonly">l10n_hn_standard_price_readonly</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_template_hide_cost_fields_tree" model="ir.ui.view">
+        <field name="name">product.template.hide.cost.fields.tree</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="priority" eval="100"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='standard_price']" position="before">
+                <field name="l10n_hn_standard_price_readonly" column_invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='standard_price']" position="attributes">
+                <attribute name="groups">l10n_hn_stock.group_view_costs_margins</attribute>
+                <attribute name="readonly">l10n_hn_standard_price_readonly</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_product_hide_cost_fields_tree" model="ir.ui.view">
+        <field name="name">product.product.hide.cost.fields.tree</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view"/>
+        <field name="priority" eval="100"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='standard_price']" position="before">
+                <field name="l10n_hn_standard_price_readonly" column_invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='standard_price']" position="attributes">
+                <attribute name="groups">l10n_hn_stock.group_view_costs_margins</attribute>
+                <attribute name="readonly">l10n_hn_standard_price_readonly</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_variant_easy_edit_hide_cost_fields" model="ir.ui.view">
+        <field name="name">product.product.hide.cost.fields.easy.edit</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_variant_easy_edit_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//label[@for='standard_price']" position="attributes">
+                <attribute name="groups">l10n_hn_stock.group_view_costs_margins</attribute>
+            </xpath>
+            <xpath expr="//field[@name='standard_price']" position="attributes">
+                <attribute name="groups">l10n_hn_stock.group_view_costs_margins</attribute>
+                <attribute name="readonly">l10n_hn_standard_price_readonly</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_product_stock_account_hide_cost_fields" model="ir.ui.view">
+        <field name="name">product.product.hide.cost.fields.stock.account</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="stock_account.product_product_stock_tree_inherit_stock_account"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='avg_cost']" position="attributes">
+                <attribute name="groups">l10n_hn_stock.group_view_costs_margins</attribute>
+            </xpath>
+            <xpath expr="//field[@name='total_value']" position="attributes">
+                <attribute name="groups">l10n_hn_stock.group_view_costs_margins</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="stock_quant_hide_value_field" model="ir.ui.view">
+        <field name="name">stock.quant.hide.value.field</field>
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock_account.view_stock_quant_tree_editable_inherit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='value']" position="attributes">
+                <attribute name="groups">l10n_hn_stock.group_view_costs_margins</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+
+
+
+

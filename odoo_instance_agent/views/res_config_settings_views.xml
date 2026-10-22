@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_res_config_settings_monitor" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.monitor</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <div class="app_settings_block" data-string="Monitoreo de Usuarios" string="Monitoreo de Usuarios" data-key="odoo_instance_agent">
+                    <h2>Monitoreo de Usuarios</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_setting_label">Token de Seguridad</span>
+                                <div class="text-muted">
+                                    Token para proteger los endpoints de monitoreo.
+                                    Si está vacío, solo se permite acceso desde red local.
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <field name="monitor_token" password="True" placeholder="Dejar vacío para acceso solo LAN"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_setting_label">Ventana de Actividad</span>
+                                <div class="text-muted">
+                                    Ventana de tiempo en minutos para considerar usuarios activos (default: 60)
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <field name="monitor_window_minutes"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_setting_label">Intervalo de Heartbeat</span>
+                                <div class="text-muted">
+                                    Intervalo en segundos para enviar heartbeat desde el navegador (default: 60)
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <field name="monitor_heartbeat_interval"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_setting_label">Días para Limpiar Registros</span>
+                                <div class="text-muted">
+                                    Días de antigüedad para limpiar registros de presencia (default: 7)
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <field name="monitor_cleanup_days"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_setting_label">Estrategia de Monitoreo</span>
+                                <div class="text-muted">
+                                    Estrategia para detectar actividad de usuarios
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <field name="monitor_strategy" widget="radio" options="{'horizontal': true}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt16">
+                        <div class="col-12">
+                            <h3>Endpoints de Monitoreo</h3>
+                            <div class="alert alert-info" role="alert">
+                                <strong>Heartbeat:</strong> POST /monitoring/heartbeat<br/>
+                                <strong>Estado de Usuarios:</strong> GET /monitoring/users_status?window=60&amp;token=TOKEN<br/>
+                                <strong>Health Check:</strong> GET /monitoring/health
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Acción de configuración para Monitoreo -->
+    <record id="action_monitor_config_settings" model="ir.actions.act_window">
+        <field name="name">Configuración Monitoreo</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+        <field name="context">{'module': 'odoo_instance_agent'}</field>
+    </record>
+</odoo>
+

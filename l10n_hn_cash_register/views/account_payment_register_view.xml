@@ -1,0 +1,23 @@
+<odoo>
+
+    <record id="view_account_payment_register_check" model="ir.ui.view">
+        <field name="name">account.payment.register.check.form</field>
+        <field name="model">account.payment.register</field>
+        <field name="inherit_id" ref="account.view_account_payment_register_form"/>
+        <field name="arch" type="xml">
+            <field name="journal_id" position="after">
+                <field name="is_purchase" invisible="1"/>
+                <field name="number_check"
+                    string="Número de cheque"
+                    invisible="not is_purchase"
+                    required="is_purchase"
+                />
+                <field name="date_check"
+                    string="Fecha de cheque"
+                    invisible="not is_purchase"
+                    required="is_purchase"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>

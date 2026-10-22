@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Agrupación por mes de calendario (sin año), vía campos almacenados + web_read_group -->
+    <record id="view_hr_employee_filter_gn_group_calendar_month" model="ir.ui.view">
+        <field name="name">hr.employee.search.gn.group.calendar.month</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='group_birthday']" position="attributes">
+                <attribute name="context">{'group_by': 'birthday_group_month'}</attribute>
+            </xpath>
+            <xpath expr="//filter[@name='group_start']" position="attributes">
+                <attribute name="context">{'group_by': 'contract_start_group_month'}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

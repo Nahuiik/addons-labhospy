@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_financial_dashboard.RecommendationsPanel">
+        <section class="gn-fd-panel">
+            <header class="gn-fd-panel__head">
+                <span>
+                    <i t-att-class="'fa me-2 ' + (props.icon || 'fa-lightbulb-o')"/>
+                    <t t-esc="props.title || 'Recomendaciones'"/>
+                </span>
+            </header>
+            <ul class="gn-fd-recos">
+                <li t-foreach="props.recommendations" t-as="r" t-key="r_index"
+                    t-att-class="'gn-fd-reco ' + priorityClass(r.priority)">
+                    <div class="gn-fd-reco__head">
+                        <span class="gn-fd-reco__priority">
+                            <i class="fa fa-flag me-1"/><t t-esc="priorityLabel(r.priority)"/>
+                        </span>
+                        <strong class="gn-fd-reco__title" t-esc="r.title"/>
+                        <span t-if="r.impact_amount" class="gn-fd-reco__impact">
+                            <i class="fa fa-money me-1"/><t t-esc="formatAmount(r.impact_amount)"/>
+                        </span>
+                    </div>
+                    <div class="gn-fd-reco__desc" t-if="r.description" t-esc="r.description"/>
+                    <div class="gn-fd-reco__benefit" t-if="r.expected_impact">
+                        <i class="fa fa-arrow-right me-1"/>
+                        <t t-esc="r.expected_impact"/>
+                        <span t-if="r.eta" class="gn-fd-reco__eta"> · <i class="fa fa-clock-o me-1"/><t t-esc="r.eta"/></span>
+                    </div>
+                </li>
+                <li t-if="!props.recommendations.length" class="gn-fd-reco gn-fd-reco--ok">
+                    <i class="fa fa-check-circle me-2"/>Sin recomendaciones para el período.
+                </li>
+            </ul>
+        </section>
+    </t>
+
+</templates>

@@ -1,0 +1,180 @@
+/* Dark mode overrides */
+.o_dark {
+    .gn-bk-header,
+    .gn-bk-steps,
+    .gn-bk-side-panel,
+    .gn-bk-dashboard,
+    .gn-bk-kpi,
+    .gn-bk-chart-card {
+        background: var(--gn-bk-surface);
+        border-color: var(--gn-bk-border);
+    }
+
+    .gn-bk-header__amount {
+        color: var(--gn-bk-text);
+    }
+
+    .gn-bk-header--debit .gn-bk-header__amount {
+        color: #ff8a80;
+    }
+
+    .gn-bk-header--credit .gn-bk-header__amount,
+    .gn-bk-header--deposit .gn-bk-header__amount {
+        color: #69f0ae;
+    }
+
+    .gn-bk-lines .o_list_table tbody tr:hover {
+        background: rgba(255, 255, 255, 0.04);
+    }
+
+    .gn-bk-side-panel__badge--partial {
+        color: #ffc107;
+    }
+}
+
+.gn-bk-dashboard {
+    background: var(--gn-bk-bg);
+    min-height: 100%;
+    padding: 16px;
+}
+
+.gn-bk-dashboard__hero {
+    background: linear-gradient(135deg, var(--gn-bk-primary), #4a2f44);
+    color: #fff;
+    border-radius: var(--gn-bk-radius);
+    padding: 24px;
+    margin-bottom: 20px;
+}
+
+.gn-bk-dashboard__hero h1 {
+    font-size: 1.5rem;
+    margin: 0 0 4px;
+    color: #fff;
+}
+
+.gn-bk-dashboard__hero p {
+    margin: 0;
+    opacity: 0.85;
+    font-size: 0.9rem;
+}
+
+.gn-bk-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.gn-bk-kpi {
+    background: var(--gn-bk-surface);
+    border: 1px solid var(--gn-bk-border);
+    border-radius: var(--gn-bk-radius);
+    padding: 16px;
+    box-shadow: var(--gn-bk-shadow);
+}
+
+.gn-bk-kpi__label {
+    font-size: 0.78rem;
+    color: var(--gn-bk-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.gn-bk-kpi__value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gn-bk-text);
+    margin-top: 4px;
+}
+
+.gn-bk-kpi__icon {
+    float: right;
+    font-size: 1.4rem;
+    opacity: 0.5;
+}
+
+.gn-bk-kpi--danger .gn-bk-kpi__value { color: var(--gn-bk-debit); }
+.gn-bk-kpi--success .gn-bk-kpi__value { color: var(--gn-bk-credit); }
+.gn-bk-kpi--info .gn-bk-kpi__value { color: var(--gn-bk-transfer); }
+.gn-bk-kpi--warning .gn-bk-kpi__value { color: #c9a227; }
+.gn-bk-kpi--purple .gn-bk-kpi__value { color: var(--gn-bk-pos); }
+
+.gn-bk-charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 16px;
+}
+
+.gn-bk-chart-card {
+    background: var(--gn-bk-surface);
+    border: 1px solid var(--gn-bk-border);
+    border-radius: var(--gn-bk-radius);
+    padding: 16px;
+    box-shadow: var(--gn-bk-shadow);
+}
+
+.gn-bk-chart-card__title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--gn-bk-text-muted);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.gn-bk-chart-card canvas {
+    max-height: 260px;
+}
+
+.gn-bk-dashboard__toolbar {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+/* Kanban card */
+.gn-bk-kanban-card {
+    padding: 12px;
+}
+
+.gn-bk-kanban-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.gn-bk-kanban-card__number {
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.gn-bk-kanban-card__amount {
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.gn-bk-kanban-card__meta {
+    font-size: 0.78rem;
+    color: var(--gn-bk-text-muted);
+    line-height: 1.5;
+}
+
+@media (max-width: 767.98px) {
+    .gn-bk-kpi-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .gn-bk-charts-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .gn-bk-kpi-grid {
+        grid-template-columns: 1fr;
+    }
+    .gn-bk-header__amount {
+        font-size: 1.5rem;
+    }
+}

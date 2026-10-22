@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="paperformat_kardex" model="report.paperformat">
+        <field name="name">Kardex AVCO</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">10</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+    </record>
+
+    <!-- Reportes detallados (Kardex por producto) -->
+    <record id="action_report_kardex_pdf" model="ir.actions.report">
+        <field name="name">Kardex AVCO (PDF)</field>
+        <field name="model">gn.stock.kardex.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">gn_stock_kardex.report_kardex_template</field>
+        <field name="report_file">gn_stock_kardex.report_kardex_template</field>
+        <field name="binding_model_id" ref="gn_stock_kardex.model_gn_stock_kardex_wizard"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_kardex"/>
+    </record>
+
+    <record id="action_report_kardex_xlsx" model="ir.actions.report">
+        <field name="name">Kardex AVCO (Excel)</field>
+        <field name="model">gn.stock.kardex.wizard</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">gn_stock_kardex.stock_kardex_xlsx</field>
+        <field name="report_file">gn_stock_kardex.stock_kardex_xlsx</field>
+        <field name="binding_model_id" ref="gn_stock_kardex.model_gn_stock_kardex_wizard"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- Reportes de resumen (agrupados por categoría) -->
+    <record id="action_report_kardex_summary_pdf" model="ir.actions.report">
+        <field name="name">Kardex Resumen (PDF)</field>
+        <field name="model">gn.stock.kardex.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">gn_stock_kardex.report_kardex_summary_template</field>
+        <field name="report_file">gn_stock_kardex.report_kardex_summary_template</field>
+        <field name="binding_model_id" ref="gn_stock_kardex.model_gn_stock_kardex_wizard"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_kardex"/>
+    </record>
+
+    <record id="action_report_kardex_summary_xlsx" model="ir.actions.report">
+        <field name="name">Kardex Resumen (Excel)</field>
+        <field name="model">gn.stock.kardex.wizard</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">gn_stock_kardex.stock_kardex_summary_xlsx</field>
+        <field name="report_file">gn_stock_kardex.stock_kardex_summary_xlsx</field>
+        <field name="binding_model_id" ref="gn_stock_kardex.model_gn_stock_kardex_wizard"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- Reportes de Antigüedad de Stock -->
+    <record id="action_report_stock_age_pdf" model="ir.actions.report">
+        <field name="name">Antigüedad de Stock (PDF)</field>
+        <field name="model">gn.stock.age.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">gn_stock_kardex.report_stock_age_template</field>
+        <field name="report_file">gn_stock_kardex.report_stock_age_template</field>
+        <field name="binding_model_id" ref="gn_stock_kardex.model_gn_stock_age_wizard"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_kardex"/>
+    </record>
+
+    <record id="action_report_stock_age_xlsx" model="ir.actions.report">
+        <field name="name">Antigüedad de Stock (Excel)</field>
+        <field name="model">gn.stock.age.wizard</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">gn_stock_kardex.stock_age_xlsx</field>
+        <field name="report_file">gn_stock_kardex.stock_age_xlsx</field>
+        <field name="binding_model_id" ref="gn_stock_kardex.model_gn_stock_age_wizard"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_powerbi_table_tree" model="ir.ui.view">
+        <field name="name">powerbi.table.tree</field>
+        <field name="model">powerbi.table</field>
+        <field name="arch" type="xml">
+            <list string="Tablas Power BI">
+                <field name="name"/>
+                <field name="dataset_id"/>
+                <field name="model_id"/>
+                <field name="last_sync_state" widget="badge" decoration-success="last_sync_state == 'success'" decoration-danger="last_sync_state == 'failed'"/>
+                <field name="last_sync_datetime"/>
+                <field name="use_cron" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_powerbi_table_form" model="ir.ui.view">
+        <field name="name">powerbi.table.form</field>
+        <field name="model">powerbi.table</field>
+        <field name="arch" type="xml">
+            <form string="Tabla Power BI">
+                <header>
+                    <button name="action_export_manual" string="Exportar Datos" type="object" class="btn-primary"/>
+                    <button name="action_create_server_action" string="Crear Server Action" type="object"/>
+                    <button name="action_delete_server_action" string="Eliminar Server Action" type="object"/>
+                    <field name="last_sync_state" widget="statusbar" statusbar_visible="never_run,success,failed,no_data"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="pbi_table_name" placeholder="Dejar vacío para usar el nombre"/>
+                            <field name="dataset_id"/>
+                            <field name="model_id" options="{'no_create': True}"/>
+                        </group>
+                        <group>
+                            <field name="company_id"/>
+                            <field name="batch_size"/>
+                            <field name="use_cron" widget="boolean_toggle"/>
+                            <field name="cron_mode" invisible="not use_cron"/>
+                            <field name="force_full_export_next_run" widget="boolean_toggle"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Dominio">
+                            <field name="domain" placeholder="[('state', '=', 'posted')]"/>
+                        </page>
+                        <page string="Campos">
+                            <field name="field_ids" nolabel="1">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="field_id" options="{'no_create': True}"/>
+                                    <field name="name"/>
+                                    <field name="ttype" readonly="1"/>
+                                    <field name="relation_child_field_id" invisible="ttype not in ['many2one', 'one2many', 'many2many']"/>
+                                    <field name="export" widget="boolean_toggle"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Sincronización">
+                            <group>
+                                <group>
+                                    <field name="last_sync_datetime" readonly="1"/>
+                                    <field name="last_cron_run" readonly="1"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_powerbi_table" model="ir.actions.act_window">
+        <field name="name">Tablas Power BI</field>
+        <field name="res_model">powerbi.table</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>
+

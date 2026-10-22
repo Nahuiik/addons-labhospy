@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_sales_dashboard.SalesDataTable">
+        <section class="gn-sd-table-card">
+            <div class="gn-sd-table-card__toolbar">
+                <input type="search" class="form-control form-control-sm gn-sd-table-card__search"
+                       t-att-placeholder="'Buscar…'"
+                       t-att-value="state.search"
+                       t-on-input="onSearchInput"/>
+                <span class="gn-sd-table-card__meta" t-esc="state.total + ' registros'"/>
+            </div>
+            <div t-if="state.loading" class="gn-sd-skeleton gn-sd-skeleton--table"/>
+            <div t-elif="state.error" class="alert alert-danger m-2" t-esc="state.error"/>
+            <div t-elif="!state.rows.length" class="gn-sd-empty gn-sd-empty--sm">
+                <p>Sin registros para los filtros actuales</p>
+            </div>
+            <div t-else="" class="table-responsive">
+                <table class="table table-sm gn-sd-table">
+                    <thead>
+                        <tr>
+                            <th t-foreach="state.columns" t-as="col" t-key="col.key"
+                                t-att-class="col.sortable ? 'gn-sd-table__sortable' : ''"
+                                t-on-click="() => this.toggleSort(col)"
+                                t-esc="col.label"/>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="state.rows" t-as="row" t-key="row.id"
+                            class="gn-sd-table__row"
+                            t-on-click="() => this.onRowClick(row)">
+                            <td t-foreach="state.columns" t-as="col" t-key="col.key"
+                                t-esc="formatCell(row, col)"/>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div t-if="state.pages > 1" class="gn-sd-table-card__pager">
+                <button type="button" class="btn btn-sm btn-outline-secondary"
+                        t-att-disabled="state.page &lt;= 1"
+                        t-on-click="() => this.goPage(-1)">‹</button>
+                <span t-esc="state.page + ' / ' + state.pages"/>
+                <button type="button" class="btn btn-sm btn-outline-secondary"
+                        t-att-disabled="state.page >= state.pages"
+                        t-on-click="() => this.goPage(1)">›</button>
+            </div>
+        </section>
+    </t>
+</templates>

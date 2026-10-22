@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_stock_move_hn_mo_overview_list" model="ir.ui.view">
+        <field name="name">stock.move.hn.mo.overview.list</field>
+        <field name="model">stock.move</field>
+        <field name="arch" type="xml">
+            <list create="0" delete="0" edit="1" default_order="sequence, id">
+                <field name="company_currency_id" column_invisible="1"/>
+                <field name="hn_overview_state_key" column_invisible="1"/>
+                <field name="hn_overview_receipt_decorator" column_invisible="1"/>
+                <field name="hn_overview_can_edit_lot" column_invisible="1"/>
+                <field name="has_tracking" column_invisible="1"/>
+                <field name="state" column_invisible="1"/>
+                <field name="product_id" string="Producto" readonly="1"/>
+                <field
+                    name="hn_overview_state"
+                    string="Estado"
+                    readonly="1"
+                    decoration-danger="hn_overview_state_key == 'to_order'"
+                    decoration-info="hn_overview_state_key in ('confirmed', 'draft', 'progress')"
+                />
+                <field name="hn_overview_qty" string="Cantidad" readonly="1"/>
+                <field
+                    name="hn_overview_lot_id"
+                    string="Lote / Serie"
+                    groups="stock.group_production_lot"
+                    readonly="not hn_overview_can_edit_lot"
+                    column_invisible="parent.state == 'draft'"
+                    invisible="has_tracking == 'none'"
+                    options="{'no_create': True}"
+                    force_save="1"
+                />
+                <field
+                    name="hn_overview_lot_expiration"
+                    string="Vence"
+                    readonly="1"
+                    groups="stock.group_production_lot"
+                    column_invisible="parent.state == 'draft'"
+                    invisible="has_tracking == 'none'"
+                    optional="show"
+                />
+                <field name="hn_overview_free_on_hand" string="Disponible / stock real" readonly="1"/>
+                <field name="hn_overview_qty_reserved" string="Reservado" readonly="1"/>
+                <field
+                    name="hn_overview_receipt"
+                    string="Recibido"
+                    readonly="1"
+                    decoration-success="hn_overview_receipt_decorator == 'success'"
+                    decoration-warning="hn_overview_receipt_decorator == 'warning'"
+                    decoration-danger="hn_overview_receipt_decorator == 'danger'"
+                />
+                <field name="hn_overview_unit_cost" string="Costo unit." readonly="1" groups="l10n_hn_stock.group_view_costs_margins"/>
+                <field name="hn_overview_total_cost" string="Costo x ctd" readonly="1" groups="l10n_hn_stock.group_view_costs_margins"/>
+                <field name="hn_is_container_product" column_invisible="1"/>
+                <field
+                    name="hn_content_consume_qty"
+                    string="Consumo contenido"
+                    readonly="state in ('done', 'cancel')"
+                    invisible="not hn_is_container_product"
+                    optional="show"
+                />
+                <field
+                    name="hn_content_lot_remaining"
+                    string="Restante lote"
+                    readonly="1"
+                    invisible="not hn_is_container_product"
+                    optional="show"
+                />
+            </list>
+        </field>
+    </record>
+
+    <record id="view_mrp_production_form_inherit_l10_hn_overview" model="ir.ui.view">
+        <field name="name">mrp.production.form.inherit.l10.hn.overview</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field
+                    name="hn_profit_margin_percent"
+                    readonly="state in ('done', 'cancel')"
+                    groups="l10n_hn_stock.group_view_costs_margins"
+                />
+                <field name="hn_unit_cost" groups="l10n_hn_stock.group_view_costs_margins"/>
+                <field name="hn_sale_price" groups="l10n_hn_stock.group_view_costs_margins"/>
+            </xpath>
+            <xpath expr="//page[@name='components']" position="after">
+                <page string="Vista general" name="hn_mo_overview">
+                    <field name="company_currency_id" invisible="1"/>
+                    <field name="hn_can_request_material_transfer" invisible="1"/>
+                    <field name="product_tracking" invisible="1"/>
+                    <field name="hn_overview_can_edit_finished_lot" invisible="1"/>
+                    <field name="hn_overview_finished_state_key" invisible="1"/>
+                    <field name="hn_overview_finished_receipt_decorator" invisible="1"/>
+                    <div class="d-flex flex-wrap align-items-start gap-2 mb-2">
+                        <field
+                            name="hn_material_shortage_html"
+                            nolabel="1"
+                            readonly="1"
+                            invisible="not hn_material_shortage_html"
+                            class="flex-grow-1"
+                        />
+                        <button
+                            name="action_generate_material_transfer"
+                            type="object"
+                            string="Solicitar faltantes"
+                            class="btn-primary"
+                            invisible="not hn_can_request_material_transfer or state in ('draft', 'done', 'cancel')"
+                            groups="mrp.group_mrp_user"
+                        />
+                    </div>
+                    <div class="o_hn_mo_overview_table mb-2">
+                        <table class="table table-sm table-borderless mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-start"/>
+                                    <th class="text-center">Estado</th>
+                                    <th class="text-end">Cantidad</th>
+                                    <th class="text-start" groups="stock.group_production_lot">Lote / Serie</th>
+                                    <th class="text-end" groups="stock.group_production_lot">Vence</th>
+                                    <th class="text-end">Disponible / stock real</th>
+                                    <th class="text-end">Reservado</th>
+                                    <th class="text-end">Recibido</th>
+                                    <th class="text-end" groups="l10n_hn_stock.group_view_costs_margins">Costo unit.</th>
+                                    <th class="text-end" groups="l10n_hn_stock.group_view_costs_margins">Costo x ctd</th>
+                                    <th class="text-end" groups="l10n_hn_stock.group_view_costs_margins">Margen %</th>
+                                    <th class="text-end" groups="l10n_hn_stock.group_view_costs_margins">Precio venta</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-start">
+                                        <field name="product_id" nolabel="1" readonly="1"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <field
+                                            name="hn_overview_finished_state"
+                                            nolabel="1"
+                                            readonly="1"
+                                            decoration-danger="hn_overview_finished_state_key == 'to_order'"
+                                            decoration-info="hn_overview_finished_state_key in ('confirmed', 'draft', 'progress')"
+                                        />
+                                    </td>
+                                    <td class="text-end">
+                                        <field name="hn_overview_finished_qty" nolabel="1" readonly="1"/>
+                                    </td>
+                                    <td class="text-start" groups="stock.group_production_lot">
+                                        <div class="d-flex align-items-center gap-1" invisible="product_tracking == 'none'">
+                                            <field
+                                                name="hn_overview_finished_lot_id"
+                                                nolabel="1"
+                                                readonly="not hn_overview_can_edit_finished_lot"
+                                                options="{'no_create': False, 'no_open': True}"
+                                                context="{'default_product_id': product_id}"
+                                                force_save="1"
+                                            />
+                                            <button
+                                                name="action_generate_serial"
+                                                type="object"
+                                                string="Generar"
+                                                class="btn btn-link btn-sm p-0"
+                                                invisible="not hn_overview_can_edit_finished_lot or hn_overview_finished_lot_id or product_tracking not in ('lot', 'serial')"
+                                            />
+                                        </div>
+                                    </td>
+                                    <td class="text-end" groups="stock.group_production_lot">
+                                        <field
+                                            name="hn_overview_finished_lot_expiration"
+                                            nolabel="1"
+                                            readonly="1"
+                                            invisible="product_tracking == 'none'"
+                                        />
+                                    </td>
+                                    <td class="text-end">
+                                        <field name="hn_overview_finished_free_on_hand" nolabel="1" readonly="1"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <field name="hn_overview_finished_qty_reserved" nolabel="1" readonly="1"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <field
+                                            name="hn_overview_finished_receipt"
+                                            nolabel="1"
+                                            readonly="1"
+                                            decoration-success="hn_overview_finished_receipt_decorator == 'success'"
+                                            decoration-warning="hn_overview_finished_receipt_decorator == 'warning'"
+                                            decoration-danger="hn_overview_finished_receipt_decorator == 'danger'"
+                                        />
+                                    </td>
+                                    <td class="text-end" groups="l10n_hn_stock.group_view_costs_margins">
+                                        <field name="hn_overview_finished_unit_cost" nolabel="1" readonly="1"/>
+                                    </td>
+                                    <td class="text-end" groups="l10n_hn_stock.group_view_costs_margins">
+                                        <field name="hn_overview_finished_total_cost" nolabel="1" readonly="1"/>
+                                    </td>
+                                    <td class="text-end" groups="l10n_hn_stock.group_view_costs_margins">
+                                        <field name="hn_profit_margin_percent" nolabel="1" readonly="state in ('done', 'cancel')"/>
+                                    </td>
+                                    <td class="text-end" groups="l10n_hn_stock.group_view_costs_margins">
+                                        <field name="hn_sale_price" nolabel="1" readonly="1"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <field
+                        name="move_raw_overview_ids"
+                        nolabel="1"
+                        readonly="state in ('done', 'cancel')"
+                    >
+                        <list create="0" delete="0" edit="1" default_order="sequence, id">
+                            <field name="company_currency_id" column_invisible="1"/>
+                            <field name="hn_overview_state_key" column_invisible="1"/>
+                            <field name="hn_overview_receipt_decorator" column_invisible="1"/>
+                            <field name="hn_overview_can_edit_lot" column_invisible="1"/>
+                            <field name="has_tracking" column_invisible="1"/>
+                            <field name="state" column_invisible="1"/>
+                            <field name="product_id" string="Producto" readonly="1"/>
+                            <field
+                                name="hn_overview_state"
+                                string="Estado"
+                                readonly="1"
+                                decoration-danger="hn_overview_state_key == 'to_order'"
+                                decoration-info="hn_overview_state_key in ('confirmed', 'draft', 'progress')"
+                            />
+                            <field name="hn_overview_qty" string="Cantidad" readonly="1"/>
+                            <field
+                                name="hn_overview_lot_id"
+                                string="Lote / Serie"
+                                groups="stock.group_production_lot"
+                                readonly="not hn_overview_can_edit_lot"
+                                column_invisible="parent.state == 'draft'"
+                                invisible="has_tracking == 'none'"
+                                options="{'no_create': True}"
+                                force_save="1"
+                            />
+                            <field
+                                name="hn_overview_lot_expiration"
+                                string="Vence"
+                                readonly="1"
+                                groups="stock.group_production_lot"
+                                column_invisible="parent.state == 'draft'"
+                                invisible="has_tracking == 'none'"
+                                optional="show"
+                            />
+                            <field name="hn_overview_free_on_hand" string="Disponible / stock real" readonly="1"/>
+                            <field name="hn_overview_qty_reserved" string="Reservado" readonly="1"/>
+                            <field
+                                name="hn_overview_receipt"
+                                string="Recibido"
+                                readonly="1"
+                                decoration-success="hn_overview_receipt_decorator == 'success'"
+                                decoration-warning="hn_overview_receipt_decorator == 'warning'"
+                                decoration-danger="hn_overview_receipt_decorator == 'danger'"
+                            />
+                            <field name="hn_overview_unit_cost" string="Costo unit." readonly="1" groups="l10n_hn_stock.group_view_costs_margins"/>
+                            <field name="hn_overview_total_cost" string="Costo x ctd" readonly="1" groups="l10n_hn_stock.group_view_costs_margins"/>
+                            <field name="hn_is_container_product" column_invisible="1"/>
+                            <field
+                                name="hn_content_consume_qty"
+                                string="Consumo contenido"
+                                readonly="parent.state in ('done', 'cancel')"
+                                invisible="not hn_is_container_product"
+                                optional="show"
+                            />
+                            <field
+                                name="hn_content_lot_remaining"
+                                string="Restante lote"
+                                readonly="1"
+                                invisible="not hn_is_container_product"
+                                optional="show"
+                            />
+                        </list>
+                    </field>
+                    <div class="o_hn_mo_overview_footer mt-3" groups="l10n_hn_stock.group_view_costs_margins">
+                        <table class="table table-sm table-borderless mb-0 w-100">
+                            <thead>
+                                <tr>
+                                    <th class="text-start border-bottom pb-1" colspan="2">Costo unitario</th>
+                                    <th class="text-end border-bottom pb-1" colspan="2">Precio venta</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-start align-middle pe-3">
+                                        <field name="hn_overview_unit_mo_cost" nolabel="1" readonly="1"/>
+                                    </td>
+                                    <td class="text-start align-middle pe-3">
+                                        <field name="hn_overview_finished_total_cost" nolabel="1" readonly="1"/>
+                                    </td>
+                                    <td class="text-end align-middle ps-3">
+                                        <field name="hn_profit_margin_percent" nolabel="1" readonly="state in ('done', 'cancel')"/>
+                                    </td>
+                                    <td class="text-end align-middle ps-3">
+                                        <field name="hn_sale_price" nolabel="1" readonly="1"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

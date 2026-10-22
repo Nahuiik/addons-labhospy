@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista búsqueda -->
+    <record id="view_l10n_hn_payroll_audit_run_search" model="ir.ui.view">
+        <field name="name">l10n.hn.payroll.audit.run.search</field>
+        <field name="model">l10n.hn.payroll.audit.run</field>
+        <field name="arch" type="xml">
+            <search string="Procesos de Auditoría">
+                <field name="period_year"/>
+                <field name="company_id"/>
+                <filter string="Mensual" name="filter_monthly" domain="[('audit_type', '=', 'monthly')]"/>
+                <filter string="Anual" name="filter_annual" domain="[('audit_type', '=', 'annual')]"/>
+                <filter string="Pendiente" name="filter_pending" domain="[('state', '=', 'pending')]"/>
+                <filter string="En progreso" name="filter_in_progress" domain="[('state', '=', 'in_progress')]"/>
+                <filter string="Completada" name="filter_completed" domain="[('state', '=', 'completed')]"/>
+                <separator/>
+                <filter string="Mi compañía" name="filter_my_company" domain="[('company_id', 'in', allowed_company_ids)]"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Vista lista -->
+    <record id="view_l10n_hn_payroll_audit_run_list" model="ir.ui.view">
+        <field name="name">l10n.hn.payroll.audit.run.list</field>
+        <field name="model">l10n.hn.payroll.audit.run</field>
+        <field name="arch" type="xml">
+            <list string="Procesos de Auditoría" create="1" delete="1">
+                <field name="audit_type"/>
+                <field name="period_month"/>
+                <field name="period_year"/>
+                <field name="company_id"/>
+                <field name="state"/>
+                <field name="assigned_to"/>
+                <field name="date_completed"/>
+                <field name="item_ids" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Vista formulario -->
+    <record id="view_l10n_hn_payroll_audit_run_form" model="ir.ui.view">
+        <field name="name">l10n.hn.payroll.audit.run.form</field>
+        <field name="model">l10n.hn.payroll.audit.run</field>
+        <field name="arch" type="xml">
+            <form string="Proceso de Auditoría">
+                <header>
+                    <button name="action_start" string="Iniciar" type="object" class="oe_highlight"
+                            invisible="state != 'pending'"/>
+                    <button name="action_complete" string="Completar auditoría" type="object" class="oe_highlight"
+                            invisible="state == 'completed'"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <widget name="web_ribbon" title="Completada" bg_color="text-bg-success" invisible="state != 'completed'"/>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="audit_type"/>
+                            <field name="period_month" invisible="audit_type != 'monthly'"/>
+                            <field name="period_year"/>
+                            <field name="company_id"/>
+                            <field name="state"/>
+                            <field name="assigned_to"/>
+                            <field name="date_completed" invisible="state != 'completed'"/>
+                        </group>
+                        <group>
+                            <field name="notes" placeholder="Notas adicionales..."/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Checklist" name="items">
+                            <field name="item_ids">
+                                <list editable="bottom" create="0" delete="0">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="is_done"/>
+                                    <field name="name"/>
+                                    <field name="action_id" column_invisible="1"/>
+                                    <button name="action_open" type="object" string="Abrir" icon="fa-external-link"
+                                            invisible="not action_id"/>
+                                    <field name="notes"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acción -->
+    <record id="action_l10n_hn_payroll_audit_run" model="ir.actions.act_window">
+        <field name="name">Procesos de Auditoría</field>
+        <field name="res_model">l10n.hn.payroll.audit.run</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_filter_pending': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Procesos de auditoría de nómina
+            </p>
+            <p>
+                Los procesos de auditoría mensual y anual se crean automáticamente el día 1 de cada mes y el 1 de enero respectivamente.
+                Puede crear procesos manualmente si lo necesita.
+            </p>
+        </field>
+    </record>
+</odoo>

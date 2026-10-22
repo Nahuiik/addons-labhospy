@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_purchase_dashboard.ComparativePanel">
+        <div t-if="props.open" class="gn-pd-modal">
+            <div class="gn-pd-modal__backdrop" t-on-click="onCloseClick"/>
+            <div class="gn-pd-modal__dialog gn-pd-modal__dialog--wide">
+                <header class="gn-pd-modal__head">
+                    <h2>Análisis comparativo</h2>
+                    <button type="button" class="btn btn-link" t-on-click="onCloseClick">×</button>
+                </header>
+                <div class="gn-pd-modal__body">
+                    <div class="row g-2 mb-3">
+                        <div class="col-md-4">
+                            <select class="form-select" t-model="state.compareType">
+                                <option value="vendor">Proveedor vs Proveedor</option>
+                                <option value="buyer">Comprador vs Comprador</option>
+                                <option value="branch">Sucursal vs Sucursal</option>
+                                <option value="category">Categoría vs Categoría</option>
+                                <option value="company">Empresa vs Empresa</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select" t-model.number="state.entityA">
+                                <option value="false">Entidad A</option>
+                                <option t-foreach="entityOptions" t-as="opt" t-key="opt.id" t-att-value="opt.id" t-esc="opt.name"/>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select" t-model.number="state.entityB">
+                                <option value="false">Entidad B</option>
+                                <option t-foreach="entityOptions" t-as="opt" t-key="opt.id" t-att-value="opt.id" t-esc="opt.name"/>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-primary w-100" t-on-click="runCompare">Comparar</button>
+                        </div>
+                    </div>
+                    <table t-if="state.result?.rows" class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>KPI</th>
+                                <th t-esc="state.result.entity_a.name"/>
+                                <th t-esc="state.result.entity_b.name"/>
+                                <th>Δ%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="state.result.rows" t-as="row" t-key="row.key">
+                                <td t-esc="row.label"/>
+                                <td t-esc="fmt(row, 'a')"/>
+                                <td t-esc="fmt(row, 'b')"/>
+                                <td t-esc="row.delta_pct.toFixed(1) + '%'"/>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

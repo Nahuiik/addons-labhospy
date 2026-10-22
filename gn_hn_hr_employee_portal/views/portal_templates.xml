@@ -1,0 +1,1363 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Políticas a aceptar -->
+    <template id="portal_my_policies" name="Políticas y documentos">
+        <t t-call="portal.portal_layout">
+            <div class="container mt-4">
+                <h1>Políticas y documentos</h1>
+                <t t-if="required and pending">
+                    <div class="alert alert-warning">
+                        Debe aceptar las siguientes políticas para continuar usando el portal.
+                    </div>
+                </t>
+                <t t-foreach="policies" t-as="policy">
+                    <div class="card mb-3">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0" t-esc="policy.name"/>
+                            <t t-if="policy.id in pending_ids">
+                                <form method="post" t-att-action="'/my/policies/accept/%s' % policy.id" class="d-inline">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <button type="submit" class="btn btn-primary btn-sm">Aceptar</button>
+                                </form>
+                            </t>
+                            <t t-else="">
+                                <span class="badge bg-success">Aceptada</span>
+                            </t>
+                        </div>
+                        <div class="card-body" t-if="policy.content">
+                            <div t-out="policy.content"/>
+                        </div>
+                    </div>
+                </t>
+                <t t-if="not required or not pending">
+                    <a href="/my/employee" class="btn btn-secondary">Continuar al portal</a>
+                </t>
+            </div>
+        </t>
+    </template>
+
+    <!-- Template: empleado no vinculado -->
+    <template id="portal_employee_not_linked" name="Empleado no vinculado">
+        <t t-call="portal.portal_layout">
+            <t t-set="no_breadcrumbs" t-value="True"/>
+            <div class="container mt-5">
+                <div class="alert alert-warning">
+                    <h4>No tiene un empleado vinculado</h4>
+                    <p>Su cuenta de portal no está asociada a ningún empleado. Contacte a Recursos Humanos para que le vinculen su usuario al registro de empleado correspondiente.</p>
+                    <p>Debe tener el mismo correo electrónico en su usuario y en la ficha del empleado.</p>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- Dashboard principal -->
+    <template id="portal_employee_home" name="Portal Empleado - Inicio">
+        <t t-call="portal.portal_layout">
+            <t t-set="no_breadcrumbs" t-value="False"/>
+            <div class="container mt-4">
+                <h1>Bienvenido, <t t-esc="employee.name"/></h1>
+                <p class="lead">Portal de autoservicio para empleados</p>
+
+                <!-- Dashboard Vacaciones y Ausencias -->
+                <t t-if="leave_dashboard and portal_cards.get('leaves')">
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-header d-flex justify-content-between align-items-center py-3">
+                            <h5 class="mb-0">Vacaciones y Ausencias</h5>
+                            <a t-if="employee.hn_vacation_requests_allowed" href="/my/leaves/new" class="btn btn-sm btn-success">Solicitar vacaciones</a>
+                            <a t-else="" href="/my/leaves/new" class="btn btn-sm btn-outline-primary">Nueva solicitud de ausencia</a>
+                        </div>
+                        <div class="card-body">
+                            <!-- Tarjetas de resumen -->
+                            <div class="row g-3 mb-4">
+                                <div class="col-6 col-md-3">
+                                    <div class="border rounded p-3 text-center">
+                                        <div class="text-muted small text-uppercase">Asignadas</div>
+                                        <div class="fs-4 fw-bold" t-esc="'%.2f' % leave_dashboard['totals']['asignadas']"/>
+                                        <div class="small">días</div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <div class="border rounded p-3 text-center">
+                                        <div class="text-muted small text-uppercase">Tomadas</div>
+                                        <div class="fs-4 fw-bold" t-esc="'%.2f' % leave_dashboard['totals']['tomadas']"/>
+                                        <div class="small">días</div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <div class="border rounded p-3 text-center">
+                                        <div class="text-muted small text-uppercase">Pendientes</div>
+                                        <div class="fs-4 fw-bold" t-esc="'%.2f' % leave_dashboard['totals']['pendientes']"/>
+                                        <div class="small">días</div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <div class="border rounded p-3 text-center border-success border-2">
+                                        <div class="text-muted small text-uppercase">Disponibles</div>
+                                        <div class="fs-4 fw-bold text-success" t-esc="'%.2f' % leave_dashboard['totals']['disponibles']"/>
+                                        <div class="small">días</div>
+                                        <div class="small text-muted" t-if="leave_dashboard['totals']['solicitables'] &gt;= 0">
+                                            Solicitables: <t t-esc="'%.2f' % leave_dashboard['totals']['solicitables']"/> días
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!-- Detalle por tipo -->
+                                <div class="col-lg-6 mb-3">
+                                    <h6 class="text-muted mb-2">Detalle por tipo</h6>
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Tipo</th>
+                                                    <th class="text-end">Asignadas</th>
+                                                    <th class="text-end">Tomadas</th>
+                                                    <th class="text-end">Pendientes</th>
+                                                    <th class="text-end">Solicitables</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <t t-foreach="leave_dashboard['by_type']" t-as="row">
+                                                    <tr>
+                                                        <td t-esc="row['name']"/>
+                                                        <td class="text-end" t-esc="'%.2f' % row['asignadas']"/>
+                                                        <td class="text-end" t-esc="'%.2f' % row['tomadas']"/>
+                                                        <td class="text-end" t-esc="'%.2f' % row['pendientes']"/>
+                                                        <td class="text-end" t-esc="'Sin límite' if row.get('sin_limite') else '%.2f' % row['solicitables']"/>
+                                                    </tr>
+                                                </t>
+                                                <t t-if="not leave_dashboard['by_type']">
+                                                    <tr><td colspan="5" class="text-center text-muted">Sin tipos con asignación</td></tr>
+                                                </t>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- Últimas solicitudes -->
+                                <div class="col-lg-6 mb-3">
+                                    <h6 class="text-muted mb-2">Últimas solicitudes</h6>
+                                    <div class="d-flex flex-wrap gap-1 mb-2">
+                                        <span class="badge bg-secondary">Borrador</span>
+                                        <span class="badge bg-warning">Por aprobar</span>
+                                        <span class="badge bg-info">En revisión</span>
+                                        <span class="badge bg-success">Aprobada</span>
+                                        <span class="badge bg-danger">Rechazada</span>
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        <t t-foreach="leave_dashboard['recent_leaves']" t-as="leave">
+                                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                                <span>
+                                                    <t t-esc="leave.holiday_status_id.name"/> —
+                                                    <t t-esc="leave.request_date_from"/>
+                                                    <t t-if="leave.request_date_to != leave.request_date_from"> - <t t-esc="leave.request_date_to"/></t>
+                                                </span>
+                                                <span t-attf-class="badge bg-{{ 'success' if leave.state == 'validate' else 'warning' if leave.state in ('confirm','validate1') else 'danger' if leave.state == 'refuse' else 'secondary' }}">
+                                                    <t t-if="leave.state == 'validate'">Aprobada</t>
+                                                    <t t-elif="leave.state in ('confirm','validate1')">Por aprobar</t>
+                                                    <t t-elif="leave.state == 'refuse'">Rechazada</t>
+                                                    <t t-elif="leave.state == 'cancel'">Cancelada</t>
+                                                    <t t-else="">Borrador</t>
+                                                </span>
+                                            </li>
+                                        </t>
+                                        <t t-if="not leave_dashboard['recent_leaves']">
+                                            <li class="list-group-item text-muted">No hay solicitudes</li>
+                                        </t>
+                                    </ul>
+                                    <a href="/my/leaves" class="btn btn-link btn-sm mt-2">Ver todas</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+
+                <div class="row g-3 mt-2">
+                    <div class="col-md-4" t-if="portal_cards.get('profile')">
+                        <a href="/my/employee/profile" class="card text-decoration-none text-dark h-100">
+                            <div class="card-body">
+                                <i class="fa fa-user fa-2x text-primary mb-2"/>
+                                <h5>Mi Perfil</h5>
+                                <p class="text-muted small mb-0">Solicitar cambios de datos personales</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4" t-if="portal_cards.get('requests')">
+                        <a href="/my/requests" class="card text-decoration-none text-dark h-100">
+                            <div class="card-body">
+                                <i class="fa fa-list fa-2x text-info mb-2"/>
+                                <h5>Mis Solicitudes</h5>
+                                <p class="text-muted small mb-0">Ver estado de todas mis solicitudes</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4" t-if="portal_cards.get('certificates')">
+                        <a href="/my/certificates" class="card text-decoration-none text-dark h-100">
+                            <div class="card-body">
+                                <i class="fa fa-file-text fa-2x text-success mb-2"/>
+                                <h5>Mis Constancias</h5>
+                                <p class="text-muted small mb-0">Solicitar constancias de trabajo</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4" t-if="portal_cards.get('leaves')">
+                        <a href="/my/leaves" class="card text-decoration-none text-dark h-100">
+                            <div class="card-body">
+                                <i class="fa fa-calendar fa-2x text-warning mb-2"/>
+                                <h5>Mis Ausencias</h5>
+                                <p class="text-muted small mb-0">Vacaciones y permisos</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4" t-if="portal_cards.get('personal_calendar')">
+                        <a href="/my/calendar" class="card text-decoration-none text-dark h-100">
+                            <div class="card-body">
+                                <i class="fa fa-calendar-check-o fa-2x text-info mb-2"/>
+                                <h5>Mi Calendario</h5>
+                                <p class="text-muted small mb-0">Ver ausencias en calendario</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4" t-if="portal_cards.get('attendances')">
+                        <a href="/my/attendances" class="card text-decoration-none text-dark h-100">
+                            <div class="card-body">
+                                <i class="fa fa-clock-o fa-2x text-secondary mb-2"/>
+                                <h5>Mis Asistencias</h5>
+                                <p class="text-muted small mb-0">Registro de entrada y salida</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4" t-if="portal_cards.get('payslips')">
+                        <a href="/my/payslips" class="card text-decoration-none text-dark h-100">
+                            <div class="card-body">
+                                <i class="fa fa-money fa-2x text-success mb-2"/>
+                                <h5>Mis Nóminas</h5>
+                                <p class="text-muted small mb-0">Ver nóminas y descargar</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4" t-if="portal_cards.get('salary_advances')">
+                        <a href="/my/salary-advances" class="card text-decoration-none text-dark h-100">
+                            <div class="card-body">
+                                <i class="fa fa-hand-o-right fa-2x text-primary mb-2"/>
+                                <h5>Anticipos de salario</h5>
+                                <p class="text-muted small mb-0">Solicitar anticipo (13°, 14° o planilla); aprobación en RRHH</p>
+                            </div>
+                        </a>
+                    </div>
+                    <t t-if="is_manager">
+                        <div class="col-md-4" t-if="portal_cards.get('team_leaves')">
+                            <a href="/my/team/leaves" class="card text-decoration-none text-dark h-100">
+                                <div class="card-body">
+                                    <i class="fa fa-users fa-2x text-primary mb-2"/>
+                                    <h5>Ausencias del equipo</h5>
+                                    <p class="text-muted small mb-0">Ver vacaciones de mi equipo</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4" t-if="portal_cards.get('team_calendar')">
+                            <a href="/my/team/calendar" class="card text-decoration-none text-dark h-100">
+                                <div class="card-body">
+                                    <i class="fa fa-calendar-plus-o fa-2x text-primary mb-2"/>
+                                    <h5>Calendario del equipo</h5>
+                                    <p class="text-muted small mb-0">Ausencias del equipo en calendario</p>
+                                </div>
+                            </a>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- Perfil -->
+    <template id="portal_employee_profile" name="Mi Perfil">
+        <t t-call="portal.portal_layout">
+            <div class="container mt-4">
+                <h1>Mi Perfil</h1>
+                <p class="text-muted">Solicitar cambios en sus datos personales. Los cambios requieren aprobación de RRHH.</p>
+                <form method="post" action="/my/employee/profile" class="mt-4">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Teléfono personal</label>
+                            <input type="text" name="phone_personal" class="form-control" t-att-value="employee.work_phone"/>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Móvil</label>
+                            <input type="text" name="mobile_phone" class="form-control" t-att-value="employee.mobile_phone"/>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label class="form-label">Dirección</label>
+                            <textarea name="address" class="form-control" rows="2" t-esc="employee.work_contact_id and employee.work_contact_id.street or ''"/>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Contacto de emergencia</label>
+                            <input type="text" name="emergency_contact" class="form-control"/>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Teléfono emergencia</label>
+                            <input type="text" name="emergency_contact_phone" class="form-control"/>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enviar solicitud</button>
+                </form>
+            </div>
+        </t>
+    </template>
+
+    <!-- Mis Solicitudes -->
+    <template id="portal_my_requests" name="Mis Solicitudes">
+        <t t-call="portal.portal_layout">
+            <div class="container mt-4">
+                <h1>Mis Solicitudes</h1>
+                <t t-if="success">
+                    <div class="alert alert-success">Solicitud enviada correctamente.</div>
+                </t>
+                <div class="table-responsive mt-3">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Fecha</th>
+                                <th>Estado</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="items" t-as="item">
+                                <tr>
+                                    <td>
+                                        <t t-if="item['type'] == 'profile'">Cambio de perfil</t>
+                                        <t t-elif="item['type'] == 'certificate'">Constancia</t>
+                                        <t t-elif="item['type'] == 'advance'">Anticipo de salario</t>
+                                        <t t-else="">Ausencia</t>
+                                    </td>
+                                    <td t-esc="item['date']"/>
+                                    <td>
+                                        <span t-attf-class="badge bg-{{
+                                            'success' if item['state'] in ('approved','validate','issued') else
+                                            'danger' if item['state'] in ('reject','refuse') else
+                                            'secondary' if item['state'] in ('draft','cancel') else
+                                            'warning'
+                                        }}">
+                                            <t t-esc="item.get('state_label') or item['state']"/>
+                                        </span>
+                                    </td>
+                                    <td><a t-att-href="item['url']">Ver</a></td>
+                                </tr>
+                            </t>
+                            <t t-if="not items">
+                                <tr><td colspan="4" class="text-center text-muted">No hay solicitudes</td></tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- Anticipos salariales -->
+    <template id="portal_my_salary_advances" name="Mis anticipos de salario">
+        <t t-call="portal.portal_layout">
+            <div class="container mt-4">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                    <h1>Anticipos de salario</h1>
+                    <a href="/my/salary-advances/new" class="btn btn-primary">Nueva solicitud</a>
+                </div>
+                <p class="text-muted">Las solicitudes se envían a Recursos Humanos para aprobación y registro contable.</p>
+                <t t-if="success">
+                    <div class="alert alert-success">Solicitud enviada correctamente.</div>
+                </t>
+                <t t-if="error">
+                    <div class="alert alert-danger" t-esc="error"/>
+                </t>
+                <div class="table-responsive mt-3">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Referencia</th>
+                                <th>Fecha</th>
+                                <th>Tipo</th>
+                                <th class="text-end">Monto</th>
+                                <th>Estado</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="advances" t-as="adv">
+                                <tr>
+                                    <td t-esc="adv.name"/>
+                                    <td t-esc="adv.date"/>
+                                    <td>
+                                        <t t-if="adv.advance_target == 'thirteenth'">Décimo tercer mes</t>
+                                        <t t-elif="adv.advance_target == 'fourteenth'">Décimo cuarto mes</t>
+                                        <t t-else="">Salario (planilla)</t>
+                                    </td>
+                                    <td class="text-end" t-esc="'%.2f' % adv.advance_amount"/>
+                                    <td>
+                                        <span t-attf-class="badge bg-{{
+                                            'success' if adv.state == 'approved' else
+                                            'danger' if adv.state == 'reject' else
+                                            'secondary' if adv.state in ('draft','cancel') else
+                                            'warning'
+                                        }}">
+                                            <t t-if="adv.state == 'draft'">Borrador</t>
+                                            <t t-elif="adv.state == 'submit'">Enviado</t>
+                                            <t t-elif="adv.state == 'waiting_approval'">En espera de aprobación</t>
+                                            <t t-elif="adv.state == 'approved'">Aprobado</t>
+                                            <t t-elif="adv.state == 'cancel'">Cancelado</t>
+                                            <t t-elif="adv.state == 'reject'">Rechazado</t>
+                                            <t t-else="" t-esc="adv.state"/>
+                                        </span>
+                                    </td>
+                                    <td><a t-attf-href="/my/salary-advances/{{ adv.id }}">Ver</a></td>
+                                </tr>
+                            </t>
+                            <t t-if="not advances">
+                                <tr><td colspan="6" class="text-center text-muted">No hay solicitudes de anticipo</td></tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+                <t t-if="pager['page_count'] &gt; 1">
+                    <t t-call="portal.pager"/>
+                </t>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_my_salary_advances_new" name="Nueva solicitud de anticipo">
+        <t t-call="portal.portal_layout">
+            <div class="container mt-4">
+                <h1>Solicitar anticipo de salario</h1>
+                <p class="text-muted">Indique el tipo de anticipo y el monto. RRHH validará límites y completará la aprobación en el sistema.</p>
+                <t t-set="Lim" t-value="advance_limits_by_target or {}"/>
+                <div t-if="Lim" class="text-muted small mb-2">
+                    <p class="mb-1">Tope orientativo por tipo de anticipo (según políticas en cada tipo de estructura):</p>
+                    <ul class="mb-0 ps-3">
+                        <li t-if="Lim.get('payroll') and Lim['payroll'].get('max_advance_amount', 0) &gt; 0">
+                            Planilla: hasta <strong t-esc="Lim['payroll']['max_advance_amount']"/>
+                            (<t t-esc="Lim['payroll']['max_advance_percentage']"/>%).
+                        </li>
+                        <li t-if="Lim.get('thirteenth') and Lim['thirteenth'].get('max_advance_amount', 0) &gt; 0">
+                            Décimo tercero: hasta <strong t-esc="Lim['thirteenth']['max_advance_amount']"/>
+                            (<t t-esc="Lim['thirteenth']['max_advance_percentage']"/>%).
+                        </li>
+                        <li t-if="Lim.get('fourteenth') and Lim['fourteenth'].get('max_advance_amount', 0) &gt; 0">
+                            Décimo cuarto: hasta <strong t-esc="Lim['fourteenth']['max_advance_amount']"/>
+                            (<t t-esc="Lim['fourteenth']['max_advance_percentage']"/>%).
+                        </li>
+                    </ul>
+                </div>
+                <t t-if="error">
+                    <div class="alert alert-danger" t-esc="error"/>
+                </t>
+                <div class="card bg-light mt-3">
+                    <div class="card-body">
+                        <form method="post" action="/my/salary-advances/new">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <div class="mb-3">
+                                <label class="form-label">Tipo de anticipo</label>
+                                <select name="advance_target" class="form-select" required="required">
+                                    <t t-foreach="advance_targets" t-as="opt">
+                                        <option t-att-value="opt[0]"
+                                                t-att-selected="opt[0] == (form_values.get('advance_target') or 'payroll') and 'selected' or None">
+                                            <t t-esc="opt[1]"/>
+                                        </option>
+                                    </t>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Monto solicitado</label>
+                                <input type="number" step="0.01" min="0.01" name="advance_amount" class="form-control"
+                                       required="required" t-att-value="form_values.get('advance_amount')"/>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Notas (opcional)</label>
+                                <textarea name="notes" class="form-control" rows="2"><t t-esc="form_values.get('notes') or ''"/></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Enviar solicitud</button>
+                            <a href="/my/salary-advances" class="btn btn-link">Cancelar</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_my_salary_advance_detail" name="Detalle anticipo salarial">
+        <t t-call="portal.portal_layout">
+            <div class="container mt-4">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/my/salary-advances">Anticipos</a></li>
+                        <li class="breadcrumb-item active" t-esc="advance.name"/>
+                    </ol>
+                </nav>
+                <h1 t-esc="advance.name"/>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <table class="table table-sm">
+                            <tr><th>Estado</th><td t-esc="state_label"/></tr>
+                            <tr><th>Tipo</th><td t-esc="target_label"/></tr>
+                            <tr><th>Fecha solicitud</th><td t-esc="advance.date"/></tr>
+                            <tr><th>Monto</th><td t-esc="'%.2f' % advance.advance_amount"/></tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6" t-if="advance.notes">
+                        <h6>Notas</h6>
+                        <p t-esc="advance.notes"/>
+                    </div>
+                </div>
+                <p class="text-muted small mt-3">Para cualquier gestión adicional contacte a Recursos Humanos. El flujo de aprobación y pago se realiza en el sistema administrativo.</p>
+                <a href="/my/salary-advances" class="btn btn-secondary">Volver al listado</a>
+            </div>
+        </t>
+    </template>
+
+    <!-- Constancias: lista -->
+    <template id="portal_my_certificates" name="Mis Constancias">
+        <t t-call="portal.portal_layout">
+            <div class="container mt-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h1>Mis Constancias</h1>
+                    <a href="/my/certificates/new" class="btn btn-primary">Nueva solicitud</a>
+                </div>
+                <div class="table-responsive mt-3">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Referencia</th>
+                                <th>Tipo</th>
+                                <th>Fecha</th>
+                                <th>Dirigido a</th>
+                                <th>Estado</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="requests" t-as="req">
+                                <tr>
+                                    <td t-esc="req.name"/>
+                                    <td t-esc="req.certificate_type_id.name"/>
+                                    <td t-esc="req.request_date"/>
+                                    <td t-esc="req.recipient_id.name or '-'"/>
+                                    <td><span t-attf-class="badge bg-{{ 'success' if req.state == 'issued' else 'warning' if req.state in ('submitted','in_review') else 'secondary' }}" t-esc="req.state"/></td>
+                                    <td>
+                                        <a t-att-href="'/my/certificates/%s' % req.id">Ver</a>
+                                        <t t-if="req.state == 'issued' and req.issued_document_id">
+                                            <a t-att-href="'/my/certificates/%s/download' % req.id" class="ms-2">Descargar</a>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </t>
+                            <t t-if="not requests">
+                                <tr><td colspan="6" class="text-center text-muted">No hay solicitudes</td></tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+                <t t-if="pager and pager.get('page_count', 1) > 1">
+                    <t t-call="portal.pager"/>
+                </t>
+            </div>
+        </t>
+    </template>
+
+    <!-- Constancias: nueva -->
+    <template id="portal_my_certificates_new" name="Nueva solicitud de constancia">
+        <t t-call="portal.portal_layout">
+            <div class="container mt-4">
+                <h1>Nueva solicitud de constancia</h1>
+                <form method="post" action="/my/certificates/new">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <div class="mb-3">
+                        <label class="form-label">Tipo de constancia</label>
+                        <select name="certificate_type_id" class="form-select" required="1">
+                            <option value="">-- Seleccione --</option>
+                            <t t-foreach="certificate_types" t-as="ct">
+                                <option t-att-value="ct.id" t-esc="ct.name"/>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Dirigido a</label>
+                        <select name="recipient_id" class="form-select">
+                            <option value="">-- Seleccione destinatario --</option>
+                            <t t-foreach="recipients" t-as="rec">
+                                <option t-att-value="rec.id" t-esc="rec.name"/>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Notas</label>
+                        <textarea name="notes" class="form-control" rows="3"/>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enviar solicitud</button>
+                </form>
+            </div>
+        </t>
+    </template>
+
+    <!-- Constancias: detalle -->
+    <template id="portal_my_certificate_detail" name="Detalle constancia">
+        <t t-call="portal.portal_layout">
+            <div class="container mt-4">
+                <h1 t-esc="cert_request.name"/>
+                <dl class="row">
+                    <dt class="col-sm-3">Tipo</dt>
+                    <dd class="col-sm-9" t-esc="cert_request.certificate_type_id.name"/>
+                    <dt class="col-sm-3">Fecha</dt>
+                    <dd class="col-sm-9" t-esc="cert_request.request_date"/>
+                    <dt class="col-sm-3">Estado</dt>
+                    <dd class="col-sm-9"><span t-attf-class="badge" t-esc="cert_request.state"/></dd>
+                    <dt class="col-sm-3">Dirigido a</dt>
+                    <dd class="col-sm-9" t-esc="cert_request.recipient_id.name or '-'"/>
+                </dl>
+                <t t-if="cert_request.state == 'issued' and cert_request.issued_document_id">
+                    <a t-att-href="'/my/certificates/%s/download' % cert_request.id" class="btn btn-primary">Descargar PDF</a>
+                </t>
+                <a href="/my/certificates" class="btn btn-secondary">Volver</a>
+            </div>
+        </t>
+    </template>
+
+    <!-- Ausencias: lista -->
+    <template id="portal_my_leaves" name="Mis Ausencias">
+        <t t-call="portal.portal_layout">
+            <div class="container mt-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h1>Mis Ausencias</h1>
+                    <a href="/my/leaves/new" class="btn btn-primary">Nueva solicitud</a>
+                </div>
+                <div class="table-responsive mt-3">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Desde</th>
+                                <th>Hasta</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="leaves" t-as="leave">
+                                <tr>
+                                    <td t-esc="leave.holiday_status_id.name"/>
+                                    <td t-esc="leave.date_from"/>
+                                    <td t-esc="leave.date_to"/>
+                                    <td><span t-attf-class="badge" t-esc="leave.state"/></td>
+                                </tr>
+                            </t>
+                            <t t-if="not leaves">
+                                <tr><td colspan="4" class="text-center text-muted">No hay ausencias</td></tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+                <t t-if="pager and pager.get('page_count', 1) > 1">
+                    <t t-call="portal.pager"/>
+                </t>
+            </div>
+        </t>
+    </template>
+
+    <!-- Ausencias: nueva -->
+    <template id="portal_my_leaves_new" name="Solicitar vacaciones">
+        <t t-call="portal.portal_layout">
+            <div class="container mt-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h1 class="mb-0">
+                        <t t-if="employee.hn_vacation_requests_allowed">Solicitar vacaciones</t>
+                        <t t-else="">Solicitar ausencia</t>
+                    </h1>
+                    <a href="/my/leaves" class="btn btn-link">Ver historial</a>
+                </div>
+                <t t-if="not employee.hn_vacation_requests_allowed">
+                    <div class="alert alert-info">
+                        No está habilitado para solicitar <strong>vacaciones Honduras</strong> (tipo principal) desde el portal.
+                        Puede enviar otros tipos de ausencia si aplica; para vacaciones contacte a Recursos Humanos.
+                    </div>
+                </t>
+                <div id="portal_leave_restrictions_alert" class="alert d-none mb-3" role="alert"></div>
+                <div class="row">
+                    <!-- Formulario izquierda -->
+                    <div class="col-lg-7">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <form method="post" action="/my/leaves/new" id="portal_leave_form" enctype="multipart/form-data">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <div class="mb-3">
+                                        <label class="form-label">Tipo de ausencia</label>
+                                        <select name="holiday_status_id" id="leave_type_select" class="form-select" required="1">
+                                            <option value="">-- Seleccione --</option>
+                                            <t t-foreach="leave_types" t-as="lt">
+                                                <option t-att-value="lt.id" t-att-data-request-unit="lt.request_unit" t-esc="lt.name"/>
+                                            </t>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Fecha inicio</label>
+                                        <input type="date" name="request_date_from" id="request_date_from" class="form-control" required="1"/>
+                                    </div>
+                                    <div id="leave_section_date_to" class="mb-3">
+                                        <label class="form-label">Fecha fin</label>
+                                        <input type="date" name="request_date_to" id="request_date_to" class="form-control" placeholder="dd/mm/aaaa"/>
+                                        <small class="text-muted">Déjelo vacío si es un solo día.</small>
+                                    </div>
+                                    <div id="leave_section_hour_multi" class="leave_section mb-3" style="display:none;">
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="leave_multi_day" name="leave_multi_day"/>
+                                            <label class="form-check-label" for="leave_multi_day">Solicitar por varios días</label>
+                                        </div>
+                                    </div>
+                                    <div id="leave_section_half_day" class="leave_section mb-3" style="display:none;">
+                                        <div class="mb-3">
+                                            <label class="form-label">Período inicio</label>
+                                            <select name="request_date_from_period" class="form-select">
+                                                <option value="am">Mañana</option>
+                                                <option value="pm">Tarde</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Período fin</label>
+                                            <select name="request_date_to_period" class="form-select">
+                                                <option value="am">Mañana</option>
+                                                <option value="pm">Tarde</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div id="leave_section_hour" class="leave_section mb-3" style="display:none;">
+                                        <div class="mb-3">
+                                            <label class="form-label">Hora desde</label>
+                                            <select name="request_hour_from" class="form-select">
+                                                <option value="">-- Seleccione --</option>
+                                                <t t-foreach="calendar_hours" t-as="h">
+                                                    <option t-att-value="h" t-esc="str(h) + ':00'"/>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Hora hasta</label>
+                                            <select name="request_hour_to" class="form-select">
+                                                <option value="">-- Seleccione --</option>
+                                                <t t-foreach="calendar_hours" t-as="h">
+                                                    <option t-att-value="h" t-esc="str(h) + ':00'"/>
+                                                </t>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Motivo (opcional)</label>
+                                        <textarea name="notes" class="form-control" rows="3" placeholder="Indique el motivo de su solicitud..."/>
+                                    </div>
+                                    <t t-if="enable_leave_attachments">
+                                        <div class="mb-3">
+                                            <label class="form-label">Adjuntos (opcional)</label>
+                                            <input type="file" name="attachment" class="form-control" multiple="1" accept=".pdf,.jpg,.jpeg,.png,.gif"/>
+                                        </div>
+                                    </t>
+                                    <div class="d-flex gap-2 mt-3">
+                                        <a href="/my/leaves" class="btn btn-secondary">Cancelar</a>
+                                        <button type="submit" class="btn btn-info">Enviar solicitud</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Saldo actual derecha -->
+                    <div class="col-lg-5">
+                        <t t-if="leave_balance">
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h5 class="card-title mb-3">Tu saldo actual</h5>
+                                    <p class="mb-2">
+                                        <strong>Disponibles:</strong> <span class="fs-4" t-esc="'%.2f' % leave_balance['totals']['disponibles']"/> días
+                                    </p>
+                                    <p class="text-muted small mb-3">
+                                        Puedes solicitar hasta <strong t-esc="'%.2f' % leave_balance['totals']['solicitables']"/> días considerando solicitudes pendientes.
+                                    </p>
+                                    <p class="text-muted small mb-3">
+                                        Tus solicitudes se calculan en la zona horaria <strong t-esc="user_tz"/>.
+                                    </p>
+                                    <p class="small mb-3">
+                                        Los tipos marcados como <strong>Sin límite</strong> pueden solicitarse sin saldo disponible.
+                                    </p>
+                                    <h6 class="small text-uppercase text-muted mb-2">Límites por tipo de ausencia</h6>
+                                    <ul class="list-unstyled mb-0">
+                                        <t t-foreach="leave_balance['type_limits']" t-as="tl">
+                                            <li class="d-flex justify-content-between py-1 border-bottom border-light">
+                                                <span t-esc="tl['name']"/>
+                                                <span t-esc="tl['limit']"/>
+                                            </li>
+                                        </t>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            <script>
+                (function() {
+                    var form = document.getElementById('portal_leave_form');
+                    var select = document.getElementById('leave_type_select');
+                    var dateToSection = document.getElementById('leave_section_date_to');
+                    var halfSection = document.getElementById('leave_section_half_day');
+                    var hourSection = document.getElementById('leave_section_hour');
+                    var hourMultiSection = document.getElementById('leave_section_hour_multi');
+                    var multiDayCheck = document.getElementById('leave_multi_day');
+                    var dateFrom = document.getElementById('request_date_from');
+                    var dateTo = document.getElementById('request_date_to');
+                    var hourFrom = document.querySelector('#leave_section_hour select[name="request_hour_from"]');
+                    var hourTo = document.querySelector('#leave_section_hour select[name="request_hour_to"]');
+                    var restrictionsAlert = document.getElementById('portal_leave_restrictions_alert');
+                    var restrictionTimer = null;
+
+                    function collectLeaveParams() {
+                        var typeId = select.value;
+                        var fromVal = dateFrom.value;
+                        var toVal = dateTo.value;
+                        if (!typeId || !fromVal) {
+                            return null;
+                        }
+                        if (document.getElementById('leave_section_hour').style.display !== 'none' &amp;&amp; !multiDayCheck.checked) {
+                            toVal = fromVal;
+                        }
+                        var params = {
+                            holiday_status_id: parseInt(typeId, 10),
+                            request_date_from: fromVal,
+                            request_date_to: toVal || fromVal
+                        };
+                        var unit = select.options[select.selectedIndex].getAttribute('data-request-unit');
+                        if (unit === 'half_day') {
+                            params.request_date_from_period = document.querySelector('#portal_leave_form select[name="request_date_from_period"]').value;
+                            params.request_date_to_period = document.querySelector('#portal_leave_form select[name="request_date_to_period"]').value;
+                        } else if (unit === 'hour' &amp;&amp; hourFrom &amp;&amp; hourTo) {
+                            params.request_hour_from = hourFrom.value ? hourFrom.value + ':00' : '';
+                            params.request_hour_to = hourTo.value ? hourTo.value + ':00' : '';
+                        }
+                        return params;
+                    }
+
+                    function renderRestrictionsAlert(blocking, warnings, errorStr) {
+                        if (!restrictionsAlert) return;
+                        restrictionsAlert.className = 'alert mb-3';
+                        restrictionsAlert.innerHTML = '';
+                        restrictionsAlert.classList.add('d-none');
+                        if (errorStr) {
+                            restrictionsAlert.classList.remove('d-none');
+                            restrictionsAlert.classList.add('alert-danger');
+                            restrictionsAlert.textContent = errorStr;
+                            return;
+                        }
+                        var msgs = [];
+                        if (blocking &amp;&amp; blocking.length) {
+                            restrictionsAlert.classList.remove('d-none');
+                            restrictionsAlert.classList.add('alert-danger');
+                            msgs = msgs.concat(blocking);
+                        } else if (warnings &amp;&amp; warnings.length) {
+                            restrictionsAlert.classList.remove('d-none');
+                            restrictionsAlert.classList.add('alert-warning');
+                            msgs = msgs.concat(warnings);
+                        }
+                        if (!msgs.length) return;
+                        var ul = document.createElement('ul');
+                        ul.className = 'mb-0 ps-3';
+                        msgs.forEach(function(t) {
+                            var li = document.createElement('li');
+                            li.textContent = t;
+                            ul.appendChild(li);
+                        });
+                        restrictionsAlert.appendChild(ul);
+                    }
+
+                    function runRestrictionsCheck() {
+                        var params = collectLeaveParams();
+                        if (!params) {
+                            renderRestrictionsAlert([], [], null);
+                            return;
+                        }
+                        var csrf = document.querySelector('#portal_leave_form input[name="csrf_token"]');
+                        var headers = {'Content-Type': 'application/json'};
+                        if (csrf) headers['X-CSRF-TOKEN'] = csrf.value;
+                        fetch('/my/leaves/check_restrictions', {
+                            method: 'POST',
+                            headers: headers,
+                            body: JSON.stringify({
+                                jsonrpc: '2.0',
+                                method: 'call',
+                                params: params,
+                                id: 1
+                            })
+                        }).then(function(r) { return r.json(); }).then(function(resp) {
+                            var data = resp.result || resp;
+                            if (!data) {
+                                renderRestrictionsAlert([], [], 'No se pudo validar la solicitud.');
+                                return;
+                            }
+                            if (data.error) {
+                                renderRestrictionsAlert([], [], String(data.error));
+                                return;
+                            }
+                            renderRestrictionsAlert(data.blocking || [], data.warnings || [], null);
+                        }).catch(function() {
+                            renderRestrictionsAlert([], [], 'Error de red al validar.');
+                        });
+                    }
+
+                    function scheduleRestrictionsCheck() {
+                        if (restrictionTimer) clearTimeout(restrictionTimer);
+                        restrictionTimer = setTimeout(runRestrictionsCheck, 450);
+                    }
+
+                    function updateSections() {
+                        var opt = select.options[select.selectedIndex];
+                        var unit = opt ? (opt.getAttribute('data-request-unit') || 'day') : 'day';
+                        var isHour = (unit === 'hour');
+                        var isHalfDay = (unit === 'half_day');
+
+                        halfSection.style.display = isHalfDay ? 'block' : 'none';
+                        hourSection.style.display = isHour ? 'block' : 'none';
+                        hourMultiSection.style.display = isHour ? 'block' : 'none';
+
+                        if (isHour) {
+                            dateToSection.style.display = multiDayCheck.checked ? 'block' : 'none';
+                            dateTo.required = multiDayCheck.checked;
+                            if (!multiDayCheck.checked) dateTo.value = dateFrom.value;
+                        } else {
+                            dateToSection.style.display = 'block';
+                            dateTo.required = false;
+                        }
+                        if (hourFrom) hourFrom.required = isHour;
+                        if (hourTo) hourTo.required = isHour;
+                        scheduleRestrictionsCheck();
+                    }
+
+                    function onMultiDayChange() {
+                        dateToSection.style.display = multiDayCheck.checked ? 'block' : 'none';
+                        dateTo.required = multiDayCheck.checked;
+                        if (!multiDayCheck.checked) {
+                            dateTo.value = dateFrom.value;
+                        }
+                        scheduleRestrictionsCheck();
+                    }
+
+                    form.addEventListener('submit', function() {
+                        if (document.getElementById('leave_section_hour').style.display !== 'none' &amp;&amp; !multiDayCheck.checked) {
+                            dateTo.value = dateFrom.value;
+                        }
+                        if (!dateTo.value &amp;&amp; dateFrom.value) {
+                            dateTo.value = dateFrom.value;
+                        }
+                    });
+
+                    select.addEventListener('change', updateSections);
+                    if (multiDayCheck) multiDayCheck.addEventListener('change', onMultiDayChange);
+                    if (dateFrom) dateFrom.addEventListener('change', function() {
+                        if (document.getElementById('leave_section_hour').style.display !== 'none' &amp;&amp; !multiDayCheck.checked) {
+                            dateTo.value = dateFrom.value;
+                        }
+                        scheduleRestrictionsCheck();
+                    });
+                    if (dateTo) dateTo.addEventListener('change', scheduleRestrictionsCheck);
+                    var halfSel = document.querySelectorAll('#leave_section_half_day select');
+                    if (halfSel.length) {
+                        halfSel.forEach(function(el) { el.addEventListener('change', scheduleRestrictionsCheck); });
+                    }
+                    if (hourFrom) hourFrom.addEventListener('change', scheduleRestrictionsCheck);
+                    if (hourTo) hourTo.addEventListener('change', scheduleRestrictionsCheck);
+
+                    if (select.value) updateSections();
+
+                    var btnSimulate = document.getElementById('btn_simulate');
+                    var resultSpan = document.getElementById('simulate_result');
+                    if (btnSimulate &amp;&amp; resultSpan) {
+                        btnSimulate.addEventListener('click', function() {
+                            var params = collectLeaveParams();
+                            if (!params) {
+                                resultSpan.textContent = 'Seleccione tipo y fecha desde.';
+                                return;
+                            }
+                            resultSpan.textContent = 'Calculando...';
+                            var csrf = document.querySelector('input[name="csrf_token"]');
+                            var headers = {'Content-Type': 'application/json'};
+                            if (csrf) headers['X-CSRF-TOKEN'] = csrf.value;
+                            var body = JSON.stringify({
+                                jsonrpc: '2.0',
+                                method: 'call',
+                                params: params,
+                                id: 1
+                            });
+                            fetch('/my/leaves/simulate', {
+                                method: 'POST',
+                                headers: headers,
+                                body: body
+                            }).then(function(r) { return r.json(); }).then(function(resp) {
+                                var data = resp.result || resp;
+                                if (data &amp;&amp; data.error) {
+                                    resultSpan.textContent = 'Error: ' + data.error;
+                                } else if (data) {
+                                    var txt = 'Días: ' + data.number_of_days + ' | Saldo disponible: ' + data.virtual_remaining_leaves;
+                                    if (data.number_of_hours &gt; 0) txt += ' | Horas: ' + data.number_of_hours;
+                                    resultSpan.textContent = txt;
+                                } else {
+                                    resultSpan.textContent = 'Error al simular.';
+                                }
+                            }).catch(function() {
+                                resultSpan.textContent = 'Error al simular.';
+                            });
+                        });
+                    }
+                })();
+            </script>
+            </div>
+        </t>
+    </template>
+
+    <!-- Asistencias -->
+    <template id="portal_my_attendances" name="Mis Asistencias">
+        <t t-call="portal.portal_layout">
+            <div class="container mt-4">
+                <h1>Mis Asistencias</h1>
+                <p>
+                    <a href="/my/attendances/corrections" class="btn btn-outline-secondary btn-sm">Solicitar corrección</a>
+                </p>
+                <t t-if="enable_punch">
+                    <form method="post" action="/my/attendances/punch" class="mb-4">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <button type="submit" class="btn btn-lg" t-attf-class="btn-{{ 'danger' if checked_in else 'success' }}">
+                            <t t-if="checked_in">Registrar salida</t>
+                            <t t-else="">Registrar entrada</t>
+                        </button>
+                    </form>
+                </t>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Entrada</th>
+                                <th>Salida</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="attendances" t-as="att">
+                                <tr>
+                                    <td t-esc="att.check_in"/>
+                                    <td t-esc="att.check_out or '-'"/>
+                                </tr>
+                            </t>
+                            <t t-if="not attendances">
+                                <tr><td colspan="2" class="text-center text-muted">No hay registros</td></tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+                <t t-if="pager and pager.get('page_count', 1) > 1">
+                    <t t-call="portal.pager"/>
+                </t>
+            </div>
+        </t>
+    </template>
+
+    <!-- Correcciones de asistencia: lista -->
+    <template id="portal_my_attendance_corrections" name="Solicitudes de corrección">
+        <t t-call="portal.portal_layout">
+            <div class="container mt-4">
+                <h1>Solicitudes de corrección de asistencia</h1>
+                <p><a href="/my/attendances" class="btn btn-link">← Volver a asistencias</a></p>
+                <p><a href="/my/attendances/corrections/new" class="btn btn-primary">Nueva solicitud</a></p>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Registro</th>
+                                <th>Entrada solicitada</th>
+                                <th>Salida solicitada</th>
+                                <th>Estado</th>
+                                <th>Fecha solicitud</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="corrections" t-as="c">
+                                <tr>
+                                    <td t-esc="c.attendance_id.check_in"/>
+                                    <td t-esc="c.requested_check_in"/>
+                                    <td t-esc="c.requested_check_out or '-'"/>
+                                    <td>
+                                        <span t-if="c.state == 'submitted'" class="badge bg-info">Enviada</span>
+                                        <span t-elif="c.state == 'approved'" class="badge bg-success">Aprobada</span>
+                                        <span t-else="" class="badge bg-danger">Rechazada</span>
+                                    </td>
+                                    <td t-esc="c.request_date"/>
+                                </tr>
+                            </t>
+                            <t t-if="not corrections">
+                                <tr><td colspan="5" class="text-center text-muted">No hay solicitudes</td></tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+                <t t-if="pager and pager.get('page_count', 1) > 1">
+                    <t t-call="portal.pager"/>
+                </t>
+            </div>
+        </t>
+    </template>
+
+    <!-- Correcciones: nueva -->
+    <template id="portal_my_attendance_correction_new" name="Nueva corrección">
+        <t t-call="portal.portal_layout">
+            <div class="container mt-4">
+                <h1>Nueva solicitud de corrección</h1>
+                <p><a href="/my/attendances/corrections" class="btn btn-link">← Volver</a></p>
+                <t t-if="error">
+                    <div class="alert alert-danger">Complete todos los campos obligatorios.</div>
+                </t>
+                <form method="post" action="/my/attendances/corrections/new">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <div class="mb-3">
+                        <label class="form-label">Registro a corregir</label>
+                        <select name="attendance_id" class="form-select" required="1">
+                            <option value="">-- Seleccione --</option>
+                            <t t-foreach="attendances" t-as="att">
+                                <option t-att-value="att.id" t-att-data-check-in="att.check_in" t-att-data-check-out="att.check_out">
+                                    Entrada: <t t-esc="att.check_in"/> | Salida: <t t-esc="att.check_out or '-'"/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Nueva hora de entrada</label>
+                        <input type="datetime-local" name="requested_check_in" class="form-control" required="1"/>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Nueva hora de salida (opcional)</label>
+                        <input type="datetime-local" name="requested_check_out" class="form-control"/>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Motivo</label>
+                        <textarea name="reason" class="form-control" rows="3" required="1" placeholder="Indique el motivo de la corrección"/>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enviar solicitud</button>
+                </form>
+            </div>
+        </t>
+    </template>
+
+    <!-- Payslips: lista -->
+    <template id="portal_my_payslips" name="Mis Nóminas">
+        <t t-call="portal.portal_layout">
+            <div class="container mt-4">
+                <h1>Mis Nóminas</h1>
+                <div class="table-responsive mt-3">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Período</th>
+                                <th>Estado</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="payslips" t-as="ps">
+                                <tr>
+                                    <td t-esc="ps.date_from"/> - <t t-esc="ps.date_to"/>
+                                    <td><span t-attf-class="badge" t-esc="ps.state"/></td>
+                                    <td>
+                                        <a t-att-href="'/my/payslips/%s' % ps.id">Ver</a>
+                                        <a t-att-href="'/my/payslips/%s/download' % ps.id" class="ms-2">Descargar</a>
+                                    </td>
+                                </tr>
+                            </t>
+                            <t t-if="not payslips">
+                                <tr><td colspan="3" class="text-center text-muted">No hay nóminas</td></tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+                <t t-if="pager and pager.get('page_count', 1) > 1">
+                    <t t-call="portal.pager"/>
+                </t>
+            </div>
+        </t>
+    </template>
+
+    <!-- Payslips: detalle -->
+    <template id="portal_my_payslip_detail" name="Detalle nómina">
+        <t t-call="portal.portal_layout">
+            <div class="container mt-4">
+                <h1>Nómina</h1>
+                <dl class="row">
+                    <dt class="col-sm-3">Período</dt>
+                    <dd class="col-sm-9"><t t-esc="payslip.date_from"/> - <t t-esc="payslip.date_to"/></dd>
+                    <dt class="col-sm-3">Estado</dt>
+                    <dd class="col-sm-9" t-esc="payslip.state"/>
+                </dl>
+                <a t-att-href="'/my/payslips/%s/download' % payslip.id" class="btn btn-primary">Descargar PDF</a>
+                <a href="/my/payslips" class="btn btn-secondary">Volver</a>
+            </div>
+        </t>
+    </template>
+
+    <!-- Ausencias del equipo (jefes) -->
+    <template id="portal_team_leaves" name="Ausencias del equipo">
+        <t t-call="portal.portal_layout">
+            <div class="container mt-4">
+                <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                    <h1 class="mb-0">Ausencias de mi equipo</h1>
+                    <div class="d-flex gap-2">
+                        <a href="/my/team/leaves/new" class="btn btn-success btn-sm">Solicitar por colaborador</a>
+                        <a href="/my/employee" class="btn btn-outline-secondary btn-sm">Mi portal</a>
+                    </div>
+                </div>
+                <form method="get" action="/my/team/leaves" class="row g-3 mb-4 p-3 bg-light rounded">
+                    <div class="col-md-2">
+                        <label class="form-label">Empleado</label>
+                        <select name="filter_employee_id" class="form-select form-select-sm">
+                            <option value="">Todos</option>
+                            <t t-foreach="subordinates" t-as="sub">
+                                <option t-att-value="sub.id" t-att-selected="'selected' if (filter_employee_id and str(sub.id) == str(filter_employee_id)) else None" t-esc="sub.name"/>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Tipo</label>
+                        <select name="filter_holiday_status_id" class="form-select form-select-sm">
+                            <option value="">Todos</option>
+                            <t t-foreach="leave_types" t-as="lt">
+                                <option t-att-value="lt.id" t-att-selected="'selected' if (filter_holiday_status_id and str(lt.id) == str(filter_holiday_status_id)) else None" t-esc="lt.name"/>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Estado</label>
+                        <select name="filter_state" class="form-select form-select-sm">
+                            <option value="">Todos</option>
+                            <option value="confirm" t-att-selected="'selected' if filter_state == 'confirm' else None">Por aprobar</option>
+                            <option value="validate1" t-att-selected="'selected' if filter_state == 'validate1' else None">Segunda aprobación</option>
+                            <option value="validate" t-att-selected="'selected' if filter_state == 'validate' else None">Aprobado</option>
+                            <option value="refuse" t-att-selected="'selected' if filter_state == 'refuse' else None">Rechazado</option>
+                            <option value="cancel" t-att-selected="'selected' if filter_state == 'cancel' else None">Cancelado</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Desde</label>
+                        <input type="date" name="filter_date_from" class="form-control form-control-sm" t-att-value="filter_date_from or ''"/>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Hasta</label>
+                        <input type="date" name="filter_date_to" class="form-control form-control-sm" t-att-value="filter_date_to or ''"/>
+                    </div>
+                    <div class="col-md-2 d-flex align-items-end">
+                        <button type="submit" class="btn btn-sm btn-primary me-2">Filtrar</button>
+                        <a href="/my/team/leaves" class="btn btn-sm btn-outline-secondary">Limpiar</a>
+                    </div>
+                </form>
+                <div class="table-responsive mt-3">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Empleado</th>
+                                <th>Tipo</th>
+                                <th>Desde</th>
+                                <th>Hasta</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="leaves" t-as="leave">
+                                <tr>
+                                    <td t-esc="leave.employee_id.name"/>
+                                    <td t-esc="leave.holiday_status_id.name"/>
+                                    <td t-esc="leave.date_from"/>
+                                    <td t-esc="leave.date_to"/>
+                                    <td><span t-attf-class="badge" t-esc="leave.state"/></td>
+                                </tr>
+                            </t>
+                            <t t-if="not leaves">
+                                <tr><td colspan="5" class="text-center text-muted">No hay ausencias</td></tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+                <t t-if="pager and pager.get('page_count', 1) > 1">
+                    <t t-call="portal.pager"/>
+                </t>
+            </div>
+        </t>
+    </template>
+
+    <!-- Calendario personal -->
+    <template id="portal_my_calendar" name="Mi Calendario">
+        <t t-call="portal.portal_layout">
+            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+            <div class="container mt-4">
+                <h1>Mi calendario de ausencias</h1>
+                <p><a href="/my/leaves/new" class="btn btn-primary btn-sm">Nueva ausencia</a> <a href="/my/leaves" class="btn btn-link btn-sm">Ver lista</a></p>
+                <div id="portal_calendar" style="min-height: 500px;"></div>
+            </div>
+            <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.css" rel="stylesheet"/>
+            <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
+            <script>
+                (function() {
+                    var calendarEl = document.getElementById('portal_calendar');
+                    if (!calendarEl) return;
+                    var csrf = document.querySelector('input[name="csrf_token"]');
+                    var headers = {'Content-Type': 'application/json'};
+                    if (csrf) headers['X-CSRF-TOKEN'] = csrf.value;
+                    var calendar = new FullCalendar.Calendar(calendarEl, {
+                        initialView: 'dayGridMonth',
+                        locale: 'es',
+                        headerToolbar: { left: 'prev,next today', center: 'title', right: 'dayGridMonth,listWeek' },
+                        events: function(info, successCallback, failureCallback) {
+                            var body = JSON.stringify({ jsonrpc: '2.0', method: 'call', params: { start: info.startStr, end: info.endStr }, id: 1 });
+                            fetch('/my/calendar/events', { method: 'POST', headers: headers, body: body })
+                                .then(function(r) { return r.json(); })
+                                .then(function(resp) { successCallback((resp.result || resp) || []); })
+                                .catch(function() { failureCallback(); });
+                        },
+                        eventClick: function(info) { if (info.event.url) window.location = info.event.url; }
+                    });
+                    calendar.render();
+                })();
+            </script>
+        </t>
+    </template>
+
+    <!-- Calendario del equipo -->
+    <template id="portal_team_calendar" name="Calendario del equipo">
+        <t t-call="portal.portal_layout">
+            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+            <div class="container mt-4">
+                <h1>Calendario de ausencias del equipo</h1>
+                <p><a href="/my/team/leaves" class="btn btn-link btn-sm">Ver lista</a></p>
+                <div id="portal_team_calendar" style="min-height: 500px;"></div>
+            </div>
+            <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.css" rel="stylesheet"/>
+            <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
+            <script>
+                (function() {
+                    var calendarEl = document.getElementById('portal_team_calendar');
+                    if (!calendarEl) return;
+                    var csrf = document.querySelector('input[name="csrf_token"]');
+                    var headers = {'Content-Type': 'application/json'};
+                    if (csrf) headers['X-CSRF-TOKEN'] = csrf.value;
+                    var calendar = new FullCalendar.Calendar(calendarEl, {
+                        initialView: 'dayGridMonth',
+                        locale: 'es',
+                        headerToolbar: { left: 'prev,next today', center: 'title', right: 'dayGridMonth,listWeek' },
+                        events: function(info, successCallback, failureCallback) {
+                            var body = JSON.stringify({ jsonrpc: '2.0', method: 'call', params: { start: info.startStr, end: info.endStr }, id: 1 });
+                            fetch('/my/team/calendar/events', { method: 'POST', headers: headers, body: body })
+                                .then(function(r) { return r.json(); })
+                                .then(function(resp) { successCallback((resp.result || resp) || []); })
+                                .catch(function() { failureCallback(); });
+                        },
+                        eventClick: function(info) { if (info.event.url) window.location = info.event.url; }
+                    });
+                    calendar.render();
+                })();
+            </script>
+        </t>
+    </template>
+</odoo>

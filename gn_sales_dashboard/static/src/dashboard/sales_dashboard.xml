@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_sales_dashboard.SalesDashboardPremium">
+        <Layout display="display" className="rootClassName">
+            <div class="gn-sd-shell">
+                <div class="gn-sd-sticky-bar">
+                    <div class="gn-sd-layout gn-sd-layout--toolbar">
+                        <header class="gn-sd-exec-header">
+                            <div class="gn-sd-exec-header__left">
+                                <h1 class="gn-sd-exec-header__title" t-esc="state.data.header?.title or 'Dashboard de Ventas'"/>
+                                <p class="gn-sd-exec-header__subtitle" t-esc="labels.executiveSubtitle"/>
+                                <p class="gn-sd-exec-header__meta">
+                                    <span t-esc="labels.subtitle"/>
+                                    <span>· Comparación: <t t-esc="labels.compareLabel"/></span>
+                                    <span t-if="labels.lastUpdate">· Actualizado <t t-esc="labels.lastUpdate"/></span>
+                                    <span t-if="state.loading or state.filtersApplying or state.advancedLoading" class="gn-sd-exec-header__loading">
+                                        <i class="fa fa-spinner fa-spin" aria-hidden="true"/> Actualizando…
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="gn-sd-exec-header__actions">
+                                <button type="button" class="btn btn-primary gn-sd-btn"
+                                        t-att-disabled="state.loading"
+                                        t-att-title="labels.refresh"
+                                        t-att-aria-label="labels.refresh"
+                                        t-on-click="() => this.loadInit()">
+                                    <i t-att-class="state.loading ? 'fa fa-spinner fa-spin' : 'fa fa-refresh'" aria-hidden="true"/>
+                                    <span t-esc="labels.refresh"/>
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary gn-sd-btn"
+                                        t-att-disabled="state.loading or state.exportingCsv"
+                                        t-att-title="labels.export"
+                                        t-att-aria-label="labels.export"
+                                        t-on-click="onExportCsv">
+                                    <i t-att-class="state.exportingCsv ? 'fa fa-spinner fa-spin' : 'fa fa-download'" aria-hidden="true"/>
+                                    <span t-esc="labels.export"/>
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary gn-sd-btn"
+                                        t-att-disabled="state.loading or state.exportingPdf"
+                                        t-att-title="labels.pdf"
+                                        t-att-aria-label="labels.pdf"
+                                        t-on-click="onExportPdf">
+                                    <i t-att-class="state.exportingPdf ? 'fa fa-spinner fa-spin' : 'fa fa-file-pdf-o'" aria-hidden="true"/>
+                                    <span t-esc="labels.pdf"/>
+                                </button>
+                            </div>
+                        </header>
+
+                        <SalesFilterBar
+                            filterOptions="state.filterOptions"
+                            draftFilters="state.draftFilters"
+                            labels="labels"
+                            applying="state.filtersApplying"
+                            onSelect.bind="onSelect"
+                            onApply.bind="applyFilters"
+                            onReset.bind="resetFilters"
+                        />
+
+                        <div t-if="activeFilterChips.length" class="gn-sd-filter-chips" role="list" aria-label="Filtros activos">
+                            <span t-foreach="activeFilterChips" t-as="chip" t-key="chip.field"
+                                  class="gn-sd-chip" role="listitem">
+                                <t t-esc="chip.label"/>
+                                <button type="button" class="gn-sd-chip__remove"
+                                        t-att-title="'Quitar filtro'"
+                                        t-att-aria-label="'Quitar ' + chip.label"
+                                        t-on-click="() => this.removeFilterChip(chip.field)">×</button>
+                            </span>
+                        </div>
+
+                        <nav class="gn-sd-tabs" role="tablist" aria-label="Secciones del dashboard">
+                            <button t-foreach="sections" t-as="sec" t-key="sec.id"
+                                    type="button" role="tab"
+                                    t-att-class="'gn-sd-tabs__btn' + (state.activeSection === sec.id ? ' gn-sd-tabs__btn--active' : '')"
+                                    t-att-aria-selected="state.activeSection === sec.id"
+                                    t-on-click="() => this.setSection(sec.id)"
+                                    t-esc="sec.label"/>
+                        </nav>
+
+                        <div t-if="state.loadError" class="alert alert-danger mb-0 mt-2" role="alert" t-esc="state.loadError"/>
+                    </div>
+                </div>
+
+                <div class="gn-sd-scroll" tabindex="-1">
+                    <div class="gn-sd-layout gn-sd-layout--body">
+
+                        <!-- Resumen -->
+                        <main t-if="state.activeSection === 'summary'" class="gn-sd-main">
+                            <section class="gn-sd-kpi-grid gn-sd-kpi-grid--primary" aria-label="KPI ejecutivos">
+                                <t t-if="state.loading and !primaryKpis.length">
+                                    <div t-foreach="[1,2,3,4,5,6]" t-as="i" t-key="i" class="gn-sd-skeleton gn-sd-skeleton--kpi-primary"/>
+                                </t>
+                                <t t-else="">
+                                    <SalesKpiCard t-foreach="primaryKpis" t-as="kpi" t-key="kpi.key"
+                                        kpi="kpi" size="'primary'" currencyId="currencyId"
+                                        onClick.bind="onKpiClick"/>
+                                </t>
+                            </section>
+
+                            <section t-if="secondaryKpis.length" class="gn-sd-kpi-grid gn-sd-kpi-grid--secondary" aria-label="KPI secundarios">
+                                <SalesKpiCard t-foreach="secondaryKpis" t-as="kpi" t-key="kpi.key"
+                                    kpi="kpi" size="'secondary'" currencyId="currencyId"
+                                    onClick.bind="onKpiClick"/>
+                            </section>
+
+                            <div class="gn-sd-main--trend-goal">
+                                <SalesHeroChart config="heroChart" loading="state.loading"
+                                    groupBy="state.heroGroupBy" error="state.heroError"
+                                    onDrilldown.bind="onHeroDrilldown"
+                                    onGroupByChange.bind="setHeroGroupBy"
+                                    onRetry.bind="loadInit"/>
+                                <SalesGoalTrackerCard
+                                    goal="state.advanced.goal_tracker"
+                                    closingForecast="state.advanced.closing_forecast"
+                                    loading="state.advancedLoading"
+                                    fmtMoney.bind="fmtMoney"
+                                    canConfigure="canConfigureGoal"
+                                    onConfigure.bind="onConfigureGoal"/>
+                            </div>
+
+                            <div class="gn-sd-main--intel-row">
+                                <SalesHealthGauge health="state.advanced.health" loading="state.advancedLoading"
+                                    onFactorClick.bind="onFactorClick"/>
+                                <SalesAlertsPanel alerts="state.advanced.alerts" loading="state.advancedLoading"
+                                    compact="true" onAlertClick.bind="onAlertClick"
+                                    onViewAll.bind="onViewAllAlerts"/>
+                                <SalesInsightsPanel insights="state.advanced.insights"
+                                    loading="state.advancedLoading" onInsightClick.bind="onInsightClick"/>
+                            </div>
+
+                            <div class="gn-sd-main--rankings">
+                                <SalesTopRankingCard title="'Top vendedores'" section="'sellers'" type="'sellers'"
+                                    rows="state.advanced.top5?.sellers or []"
+                                    loading="state.advancedLoading" fmtMoney.bind="fmtMoney"
+                                    onViewAll.bind="onViewAllSection" onRowClick.bind="onTop5RowClick"/>
+                                <SalesTopRankingCard title="'Top productos'" section="'products'" type="'products'"
+                                    rows="state.advanced.top5?.products or []"
+                                    loading="state.advancedLoading" fmtMoney.bind="fmtMoney"
+                                    onViewAll.bind="onViewAllSection" onRowClick.bind="onTop5RowClick"/>
+                                <SalesTopRankingCard title="'Top clientes'" section="'customers'" type="'customers'"
+                                    rows="state.advanced.top5?.customers or []"
+                                    loading="state.advancedLoading" fmtMoney.bind="fmtMoney"
+                                    onViewAll.bind="onViewAllSection" onRowClick.bind="onTop5RowClick"/>
+                            </div>
+                        </main>
+
+                        <!-- Vendedores -->
+                        <main t-elif="state.activeSection === 'sellers'" class="gn-sd-main gn-sd-main--grid2">
+                            <SalesRankingPanel title="'Ranking de vendedores'" type="'sellers'"
+                                rows="state.widgets.seller_ranking?.rows or []"
+                                currencyId="currencyId" loading="state.widgetsLoading"
+                                onRowClick.bind="onRankingClick"/>
+                            <SalesRankingPanel title="'Ventas por equipo'" type="'teams'"
+                                rows="state.widgets.team_ranking?.rows or []"
+                                currencyId="currencyId" loading="state.widgetsLoading"
+                                onRowClick.bind="onRankingClick"/>
+                        </main>
+
+                        <!-- Productos -->
+                        <main t-elif="state.activeSection === 'products'" class="gn-sd-main">
+                            <section class="gn-sd-panel">
+                                <h3 class="gn-sd-panel__title">Productos más vendidos</h3>
+                                <div t-if="state.widgetsLoading" class="gn-sd-skeleton gn-sd-skeleton--panel"/>
+                                <div t-elif="!(state.widgets.top_products?.rows?.length)" class="gn-sd-empty-state gn-sd-empty-state--compact">
+                                    <p>Sin movimiento de productos</p>
+                                </div>
+                                <div t-else="" class="gn-sd-product-grid">
+                                    <article t-foreach="state.widgets.top_products.rows" t-as="p" t-key="p.product_id"
+                                             class="gn-sd-product-card" t-on-click="() => this.onProductClick(p)">
+                                        <img t-if="p.image_url" t-att-src="p.image_url" class="gn-sd-product-card__img" alt=""/>
+                                        <div class="gn-sd-product-card__body">
+                                            <strong t-esc="p.name"/>
+                                            <small t-esc="p.sku"/>
+                                            <span t-esc="fmtMoney(p.sales)"/>
+                                            <small t-esc="'Margen ' + fmtMoney(p.margin) + ' · Qty ' + p.qty"/>
+                                        </div>
+                                    </article>
+                                </div>
+                            </section>
+                            <SalesDataTable tableKey="'top_products_table'" filters="state.appliedFilters"
+                                currencyId="currencyId" onRowClick.bind="onTableRowClick"/>
+                        </main>
+
+                        <!-- Clientes -->
+                        <main t-elif="state.activeSection === 'customers'" class="gn-sd-main">
+                            <section class="gn-sd-panel">
+                                <h3 class="gn-sd-panel__title">Top clientes</h3>
+                                <div t-if="state.widgetsLoading" class="gn-sd-skeleton gn-sd-skeleton--panel"/>
+                                <div t-else="" class="table-responsive">
+                                    <table class="table table-sm gn-sd-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Cliente</th><th>Segmento</th><th>Ventas</th><th>Pedidos</th><th>Última compra</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr t-foreach="state.widgets.top_customers?.rows or []" t-as="c" t-key="c.partner_id"
+                                                class="gn-sd-table__row" t-on-click="() => this.onCustomerClick(c)">
+                                                <td><strong t-esc="c.name"/><small t-if="c.city" t-esc="c.city"/></td>
+                                                <td><span class="gn-sd-badge gn-sd-badge--neutral" t-esc="c.segment"/></td>
+                                                <td t-esc="fmtMoney(c.sales)"/>
+                                                <td t-esc="c.orders"/>
+                                                <td t-esc="c.last_purchase or '—'"/>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </section>
+                            <SalesDataTable tableKey="'top_customers_table'" filters="state.appliedFilters"
+                                currencyId="currencyId" onRowClick.bind="onTableRowClick"/>
+                        </main>
+
+                        <!-- Pipeline -->
+                        <main t-elif="state.activeSection === 'pipeline'" class="gn-sd-main gn-sd-main--grid2">
+                            <SalesPipelineChart config="state.widgets.pipeline_chart or {}"
+                                loading="state.widgetsLoading" onStageClick.bind="onPipelineStage"/>
+                            <section class="gn-sd-panel">
+                                <h3 class="gn-sd-panel__title">Detalle por etapa</h3>
+                                <div t-if="state.widgetsLoading" class="gn-sd-skeleton gn-sd-skeleton--panel"/>
+                                <table t-else="" class="table table-sm gn-sd-table">
+                                    <thead><tr><th>Etapa</th><th>Oport.</th><th>Esperado</th><th>Ponderado</th><th>Prob.</th></tr></thead>
+                                    <tbody>
+                                        <tr t-foreach="state.widgets.pipeline_funnel?.rows or []" t-as="s" t-key="s.stage_id"
+                                            class="gn-sd-table__row" t-on-click="() => this.onPipelineStage(s.stage_id, s.name)">
+                                            <td t-esc="s.name"/><td t-esc="s.count"/>
+                                            <td t-esc="fmtMoney(s.expected)"/><td t-esc="fmtMoney(s.weighted)"/>
+                                            <td t-esc="s.avg_probability?.toFixed(1) + '%'"/>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </section>
+                        </main>
+
+                        <!-- Análisis -->
+                        <main t-elif="state.activeSection === 'analytics'" class="gn-sd-main gn-sd-main--stack">
+                            <section class="gn-sd-panel">
+                                <h3 class="gn-sd-panel__title">Waterfall de ingresos</h3>
+                                <div t-if="state.advancedLoading" class="gn-sd-skeleton gn-sd-skeleton--panel"/>
+                                <div t-else="" class="gn-sd-waterfall">
+                                    <div t-foreach="state.advanced.waterfall?.steps or []" t-as="step" t-key="step.label" class="gn-sd-waterfall__step">
+                                        <span t-esc="step.label"/><strong t-esc="fmtMoney(step.value)"/>
+                                    </div>
+                                </div>
+                            </section>
+                            <div class="gn-sd-main--grid2">
+                                <section class="gn-sd-panel">
+                                    <h3 class="gn-sd-panel__title">Pareto clientes</h3>
+                                    <p t-esc="'Top ' + (state.advanced.pareto_customers?.eighty_count or 0) + ' clientes ≈ 80% ventas'"/>
+                                    <table class="table table-sm gn-sd-table">
+                                        <tr t-foreach="state.advanced.pareto_customers?.rows or []" t-as="r" t-key="r.name">
+                                            <td t-esc="r.name"/><td t-esc="fmtMoney(r.value)"/><td t-esc="r.cumulative_pct?.toFixed(1) + '%'"/>
+                                        </tr>
+                                    </table>
+                                </section>
+                                <section class="gn-sd-panel">
+                                    <h3 class="gn-sd-panel__title">Pareto productos</h3>
+                                    <table class="table table-sm gn-sd-table">
+                                        <tr t-foreach="state.advanced.pareto_products?.rows or []" t-as="r" t-key="r.name">
+                                            <td t-esc="r.name"/><td t-esc="fmtMoney(r.value)"/><td t-esc="r.cumulative_pct?.toFixed(1) + '%'"/>
+                                        </tr>
+                                    </table>
+                                </section>
+                            </div>
+                            <section class="gn-sd-panel">
+                                <h3 class="gn-sd-panel__title">Análisis RFM</h3>
+                                <div t-if="state.advanced.rfm?.insufficient_data" class="gn-sd-empty-state gn-sd-empty-state--compact"><p>Sin datos RFM</p></div>
+                                <table t-else="" class="table table-sm gn-sd-table">
+                                    <thead><tr><th>Segmento</th><th>Clientes</th><th>Valor</th></tr></thead>
+                                    <tbody>
+                                        <tr t-foreach="state.advanced.rfm?.segments or []" t-as="s" t-key="s.segment">
+                                            <td t-esc="s.segment"/><td t-esc="s.count"/><td t-esc="fmtMoney(s.value)"/>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </section>
+                        </main>
+
+                        <!-- Pronóstico -->
+                        <main t-elif="state.activeSection === 'forecast'" class="gn-sd-main">
+                            <SalesForecastChart config="state.advanced.forecast or {}"
+                                currencyId="currencyId" loading="state.advancedLoading"/>
+                        </main>
+
+                        <!-- Alertas -->
+                        <main t-elif="state.activeSection === 'alerts'" class="gn-sd-main">
+                            <SalesAlertsPanel alerts="state.advanced.alerts" loading="state.advancedLoading"
+                                onAlertClick.bind="onAlertClick"/>
+                        </main>
+
+                        <!-- Operaciones -->
+                        <main t-elif="state.activeSection === 'operations'" class="gn-sd-main gn-sd-main--stack">
+                            <SalesDataTable tableKey="'recent_invoices'" filters="state.appliedFilters"
+                                currencyId="currencyId" onRowClick.bind="onTableRowClick"/>
+                            <SalesDataTable tableKey="'recent_orders'" filters="state.appliedFilters"
+                                currencyId="currencyId" onRowClick.bind="onTableRowClick"/>
+                        </main>
+
+                    </div>
+                </div>
+            </div>
+        </Layout>
+    </t>
+</templates>

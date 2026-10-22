@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+    <data noupdate="0">
+
+        <record model="ir.cron" id="ir_cron_weekly_customer_statements">
+            <field name="name">Scheduled Action to Send Weekly Customer Statements</field>
+            <field name="model_id" ref="model_res_partner"/>
+            <field name="state">code</field>
+            <field name="code">model._ir_cron_weekly_customer_statements()</field>
+            <field name="active">True</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">weeks</field>
+        </record>
+
+        <record model="ir.cron" id="ir_cron_customer_overdue_statements">
+            <field name="name">Scheduled Action to Send Customer Overdue Statements</field>
+            <field name="model_id" ref="model_res_partner"/>
+            <field name="state">code</field>
+            <field name="code">model._ir_cron_customer_overdue_statements()</field>
+            <field name="active">True</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+        </record>
+
+         <record model="ir.cron" id="ir_cron_monthly_customer_statements">
+            <field name="name">Scheduled Action to Send Customer Monthly Statements</field>
+            <field name="model_id" ref="model_res_partner"/>
+            <field name="active">True</field>
+            <field name="state">code</field>
+            <field name="code">model._ir_cron_monthly_customer_statements()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="paperformat_advance_payment" model="report.paperformat">
+        <field name="name">Anticipo de Cliente</field>
+        <field name="format">Letter</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">10</field>
+        <field name="margin_bottom">36</field>
+        <field name="margin_left">2</field>
+        <field name="margin_right">2</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+    </record>
+    
+    <record id="action_report_advance_payment" model="ir.actions.report">
+        <field name="name">Comprobante de Abono/Anticipo</field>
+        <field name="model">account.payment</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">gts_customer_advance.report_advance_payment</field>
+        <field name="report_file">gts_customer_advance.report_advance_payment</field>
+        <field name="binding_model_id" ref="account.model_account_payment"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_advance_payment"/>
+    </record>
+
+    <template id="report_advance_payment_copy">
+        <style>
+            .advance-copy * {
+                font-weight: 400 !important;
+            }
+            .advance-copy strong,
+            .advance-copy b {
+                font-weight: 700 !important;
+            }
+        </style>
+        <t t-set="logo_src" t-value="o.company_id.logo and image_data_uri(o.company_id.logo) or False"/>
+        <t t-set="amount_words" t-value="o.currency_id and o.currency_id.amount_to_text(o.amount or 0.0) or ''"/>
+        <t t-set="quote_orders_from_links" t-value="'sale_order_advance_link_ids' in o._fields and o.sale_order_advance_link_ids.mapped('sale_order_id') or o.env['sale.order']"/>
+        <t t-set="quote_orders" t-value="('sale_order_id' in o._fields and o.sale_order_id and (o.sale_order_id | quote_orders_from_links) or quote_orders_from_links)"/>
+        <t t-set="quote_order" t-value="('sale_order_id' in o._fields and o.sale_order_id) or (quote_orders_from_links and quote_orders_from_links[0]) or False"/>
+        <t t-set="total_sale" t-value="sum(quote_orders.mapped('amount_total')) if quote_orders else 0.0"/>
+        <t t-set="paid_to_date" t-value="quote_order and quote_order.advance_linked_amount or 0.0"/>
+        <t t-set="balance_due" t-value="(total_sale or 0.0) - (paid_to_date or 0.0)"/>
+        <t t-set="quote_lines" t-value="'sale_order_id' in o._fields and o.sale_order_id and o.sale_order_id.order_line.filtered(lambda l: not l.display_type and l.product_id) or []"/>
+        <t t-set="quote_lines_from_advance_links" t-value="'sale_order_advance_link_ids' in o._fields and o.sale_order_advance_link_ids.mapped('sale_order_id.order_line').filtered(lambda l: not l.display_type and l.product_id) or []"/>
+        <t t-set="invoice_lines" t-value="o.advance_link_ids and o.advance_link_ids[0].move_id and o.advance_link_ids[0].move_id.invoice_line_ids.filtered(lambda l: not l.display_type and l.product_id) or []"/>
+        <div class="advance-copy" style="font-family: Arial, sans-serif; color: #4f3b7d; font-size: 11px; background: transparent !important; padding: 0 8px; border: 0 none !important; outline: 0 !important; box-shadow: none !important; page-break-inside: avoid !important; break-inside: avoid !important;">
+            <div class="row" style="margin: 0 0 8px 0;">
+                <div class="col-5" style="font-weight: 700; padding-top: 10px;"/>
+                <div class="col-2 text-center"></div>
+                <div class="col-5 text-end" style="padding-top: 35px; padding-right: 0px;">
+                    <div style="font-size: 16px; font-weight: 800; color: #d92f2f; line-height: 1.05;">
+                        <strong><span t-field="o.name"/></strong>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center" style="margin-bottom: 18px; line-height: 1.5;">
+                <div style="font-size: 11px; font-weight: 700; margin-top: 22px;">
+                    <t t-if="'branch_id' in o._fields and o.branch_id">
+                        <strong><span t-esc="o.branch_id.name"/></strong><br/>
+                        <span t-esc="o.branch_id.address"/>
+                    </t>
+                </div>
+                <div style="font-size: 11px; font-weight: 700;">
+                    TELEFONO: <span t-esc="o.branch_id.telephone_no or '-'"/>
+                </div>
+            </div>
+
+            <div style="background: #FCEFE0; line-height: 1.75; border-radius: 18px; padding: 10px 18px; margin-top: 8px; margin-bottom: 8px;">
+                <div style="font-size: 15px; font-weight: 800; margin-bottom: 8px;"><strong>DATOS GENERALES</strong></div>
+                <div style="font-size: 12px; font-weight: 700; margin-bottom: 2px;"><strong>FECHA:</strong> <span t-field="o.date" t-options='{"widget": "date", "format": "dd/MM/yyyy"}'/></div>
+                <div style="font-size: 12px; font-weight: 700; margin-bottom: 2px;"><strong>NOMBRE:</strong> <span t-esc="o.partner_id.name or '-'"/></div>
+                <div style="font-size: 12px; font-weight: 700;"><strong>ASESOR:</strong> <span t-esc="o.create_uid.name or '-'"/></div>
+            </div>
+
+            <div style="background: #ddd7e8; border-radius: 18px; padding: 10px 18px; margin-bottom: 8px; line-height: 1.75;">
+                <div style="font-size: 15px; font-weight: 800;  margin-bottom: 8px;"><strong>DETALLE DE PAGO:</strong></div>
+                <div style="font-size: 15px; font-weight: 800;"><strong>ABONO POR:</strong>
+                    <span t-field="o.amount" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                </div>
+                <div style="font-size: 15px; font-weight: 700; margin-top: 2px;">
+                    <strong>LA SUMA DE:</strong> <span t-esc="(amount_words or '').upper()"/>
+                </div>
+                <div style="margin-top: 6px; font-size: 12px; font-weight: 700;">
+                    <strong>TOTAL DE LA VENTA:</strong>
+                    <span t-esc="o.currency_id.symbol or '$'"/>
+                    <span t-esc="'{:,.2f}'.format(total_sale)"/>
+                </div>
+                <table cellpadding="0" cellspacing="0" style="width: 100%; border: 1px solid #ddd7e8; border-collapse: collapse; table-layout: fixed; margin-top: 2px; font-size: 12px;">
+                    <tr>
+                        <td style="width: 58%; border: 1px solid #ddd7e8; padding: 0; vertical-align: top;">
+                            <strong>PAGADO A LA FECHA:</strong>
+                            <span t-esc="o.currency_id.symbol or '$'"/>
+                            <span t-esc="'{:,.2f}'.format(paid_to_date)"/>
+                        </td>
+                        <td style="width: 42%; border: 0; padding: 0; vertical-align: top;">
+                            <strong>SALDO:</strong>
+                            <span t-esc="o.currency_id.symbol or '$'"/>
+                            <span t-esc="'{:,.2f}'.format(balance_due)"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 58%; border: 0; padding: 2px 0 0 0; vertical-align: top;">
+                            <strong>FORMA DE PAGO:</strong>
+                            <span t-esc="(o.payment_method_id.name or '-').upper()"/>
+                        </td>
+                        <td style="width: 42%; border: 0; padding: 2px 0 0 0; vertical-align: top;">
+                            <strong>CUOTAS:</strong>
+                            <t t-if="o.months == '0'"> NORMAL </t>
+                            <t t-if="o.months == '3'"> 3 MESES </t>
+                            <t t-if="o.months == '6'"> 6 MESES </t>
+                            <t t-if="o.months == '9'"> 9 MESES </t>
+                            <t t-if="o.months == '12'"> 12 MESES </t>
+                            <t t-if="not o.months"> - </t>
+                        </td>
+                    </tr>
+                </table>
+                <div style="font-size: 12px; font-weight: 700; margin-top: 2px;">
+                    <strong>TIPO DE ABONO:</strong>
+                    <span style="margin-left: 10px;">
+                        <t t-if="quote_orders">ABONO</t>
+                        <t t-else="">ANTICIPO</t>
+                    </span>
+                </div>
+                <table cellpadding="0" cellspacing="0" style="width: 100%; border: 1px solid #ddd7e8;  border-collapse: collapse; table-layout: fixed; margin-top: 2px; font-size: 12px;">
+                    <tr>
+                        <td style="width: 58%; border: 1px solid #ddd7e8;  padding: 0; vertical-align: top;">
+                            <strong>TERMINOS DE PAGO:</strong>
+                            <span style="margin-left: 10px;">
+                                <t t-if="quote_order and quote_order.payment_form">
+                                    <t t-if="quote_order.payment_form == 'contado'">CONTADO</t>
+                                    <t t-if="quote_order.payment_form == 'credito'">CREDITO</t>
+                                    <t t-if="quote_order.payment_form == 'contra_entrega'">CONTRA ENTREGA</t>
+                                </t>
+                                <t t-else="">CONTADO</t>
+                            </span>
+                        </td>
+                        <td style="width: 42%; border: 0; padding: 0; vertical-align: top;">
+                            <strong>PLAZO:</strong>
+                            <t t-if="quote_order and quote_order.payment_term_id and quote_order.payment_term_id.name and quote_order.payment_form == 'credito'">
+                                <t t-esc="quote_order.payment_term_id.name"/>
+                            </t>
+                            <t t-else="">-</t>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div style="background: #FCEFE0; border-radius: 18px; padding: 10px 18px; margin-bottom: 8px;line-height: 1.75;">
+                <div style="font-size: 14px; font-weight: 800; margin-bottom: 6px;"><strong>DETALLE DEL PRODUCTO:</strong></div>
+                <t t-set="product_lines" t-value="quote_lines_from_advance_links or quote_lines or invoice_lines"/>
+                <t t-set="aro_lines" t-value="product_lines.filtered(lambda l: l.product_id and l.product_id.categ_id and 'ARO' in (l.product_id.categ_id.complete_name or l.product_id.categ_id.name or '').upper())"/>
+                <t t-set="lente_lines" t-value="product_lines.filtered(lambda l: l.product_id and l.product_id.categ_id and 'LENTE' in (l.product_id.categ_id.complete_name or l.product_id.categ_id.name or '').upper())"/>
+                <t t-set="name_separator" t-value="'   |   '"/>
+                <t t-set="aro_names" t-value="name_separator.join([((l.product_id.name or '') + (' [' + (l.product_id.gn_color_id.name if ('gn_color_id' in l.product_id._fields and l.product_id.gn_color_id and l.product_id.gn_color_id.name) else (l.product_id.product_tmpl_id.gn_color_id.name if (l.product_id.product_tmpl_id and 'gn_color_id' in l.product_id.product_tmpl_id._fields and l.product_id.product_tmpl_id.gn_color_id and l.product_id.product_tmpl_id.gn_color_id.name) else '')) + ']' if (('gn_color_id' in l.product_id._fields and l.product_id.gn_color_id and l.product_id.gn_color_id.name) or (l.product_id.product_tmpl_id and 'gn_color_id' in l.product_id.product_tmpl_id._fields and l.product_id.product_tmpl_id.gn_color_id and l.product_id.product_tmpl_id.gn_color_id.name)) else '')).strip() for l in aro_lines if l.product_id and l.product_id.name])"/>
+                <t t-set="lente_names" t-value="name_separator.join([n for n in lente_lines.mapped('product_id.name') if n])"/>
+                <t t-set="all_product_names" t-value="name_separator.join([n for n in product_lines.mapped('product_id.name') if n])"/>
+                <t t-if="product_lines">
+                    <div style="font-size: 12px; font-weight: 700;">
+                        <strong>ARO:</strong> <span t-esc="aro_names or all_product_names or '-'"/>
+                    </div>
+                    <div style="font-size: 12px; font-weight: 700;">
+                        <strong>LENTES:</strong> <span t-esc="lente_names or '-'"/>
+                    </div>
+                </t>
+                <t t-else="">
+                    <div style="font-size: 12px; font-weight: 700;"><strong>ARO:</strong> <span t-esc="o.memo or '-'"/></div>
+                    <div style="font-size: 12px; font-weight: 700;"><strong>LENTES:</strong> -</div>
+                </t>
+            </div>
+
+            <div style="font-size:11px; line-height: 1.5; margin-top: 8px; margin-left: 6px; margin-right: 6px; page-break-inside: avoid !important; break-inside: avoid !important;">
+                <div>*LOS PAGOS CON CHEQUE ESTÁN SUJETOS A LA CONFIRMACIÓN DE FONDOS DEL BANCO EMISOR.</div>
+                <div>*TODO SALDO A FAVOR POR CONCEPTO DE ANTICIPO TENDRÁ UNA CADUCIDAD DE 365 DÍAS CALENDARIO.</div>
+                <div>*GARANTIZAMOS LA RESERVA Y APARTADO DEL ARO RESERVADO POR UN PERIODO MÁXIMO DE 90 DÍAS. POSTERIOR A ESTE PLAZO, SI EL MODELO YA NO LO TENEMOS EN EXISTENCIA, PODRÁS USAR TU ABONO PARA ELEGIR UN MODELO NUEVO.</div>
+                <div>*TIENES 365 DÍAS PARA RETIRAR TUS LENTES YA PROCESADOS. PASADO ESTE TIEMPO, USAREMOS EL ABONO PARA CUBRIR LOS GASTOS DE MANUFACTURA.</div>
+            </div>
+        </div>
+    </template>
+
+    <template id="report_advance_payment">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.basic_layout">
+                    <div class="page" style="padding: 0 0 48px 0; margin: 0; border: 0 none !important; outline: 0 !important; page-break-inside: avoid !important; break-inside: avoid !important;">
+                        <div style="width: 50%; float: left; border: 0 none !important; outline: 0 !important;">
+                            <div style="padding-right: 25px; zoom: 0.90; border: 0 none !important; outline: 0 !important; page-break-inside: avoid !important; break-inside: avoid !important;">
+                                <t t-call="gts_customer_advance.report_advance_payment_copy"/>
+                            </div>
+                        </div>
+                        <div style="width: 50%; float: left; border: 0 none !important; outline: 0 !important;">
+                            <div style="padding-left: 25px; zoom: 0.90; border: 0 none !important; outline: 0 !important; page-break-inside: avoid !important; break-inside: avoid !important;">
+                                <t t-call="gts_customer_advance.report_advance_payment_copy"/>
+                            </div>
+                        </div>
+                        <div style="clear: both;"></div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

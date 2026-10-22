@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- ISR Configuration 2026 - Migrated from l10n.hn.isr.table -->
+        <!-- This replaces the old ISR table system with the new comprehensive ISR config -->
+        
+        <!-- Default Company ISR Config 2026 -->
+        <record id="isr_config_2026_default" model="l10n.hn.isr.config">
+            <field name="year">2026</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="periodicity">biweekly</field>
+            <field name="apply_in">both</field>
+            <field name="salario_minimo_promedio">13985.16</field>
+            <field name="salario_exento">19027.03</field>
+            <field name="multiplicador_tope_exento_decimos">10</field>
+            <field name="exoneracion_tercera_edad_monto">350000.0</field>
+            <field name="edad_tercera_edad">65</field>
+            <field name="meses_retencion">12</field>
+            <field name="meses_excluidos_retencion"></field>
+            <field name="medical_expenses_enabled" eval="True"/>
+            <field name="medical_expenses_by_age" eval="True"/>
+            <field name="medical_expenses_default_limit">40000.0</field>
+            <field name="state">validated</field>
+            <field name="active" eval="True"/>
+        </record>
+        
+        <!-- ISR Brackets 2026 - Migrated from l10n.hn.isr.table.line (Annual) -->
+        <!-- Bracket 1: Exempt (0 to 228,324.32) -->
+        <record id="isr_bracket_2026_1" model="l10n.hn.isr.config.bracket">
+            <field name="config_id" ref="isr_config_2026_default"/>
+            <field name="sequence">10</field>
+            <field name="from_amount">0.0</field>
+            <field name="to_amount">228324.32</field>
+            <field name="rate">0.0</field>
+            <field name="fixed_quota">0.0</field>
+            <field name="excess_over">0.0</field>
+        </record>
+        
+        <!-- Bracket 2: 15% (228,324.33 to 348,154.10) -->
+        <record id="isr_bracket_2026_2" model="l10n.hn.isr.config.bracket">
+            <field name="config_id" ref="isr_config_2026_default"/>
+            <field name="sequence">20</field>
+            <field name="from_amount">228324.33</field>
+            <field name="to_amount">348154.10</field>
+            <field name="rate">15.0</field>
+            <field name="fixed_quota">0.0</field>
+            <field name="excess_over">228324.33</field>
+        </record>
+        
+        <!-- Bracket 3: 20% (348,154.11 to 809,660.75) -->
+        <record id="isr_bracket_2026_3" model="l10n.hn.isr.config.bracket">
+            <field name="config_id" ref="isr_config_2026_default"/>
+            <field name="sequence">30</field>
+            <field name="from_amount">348154.11</field>
+            <field name="to_amount">809660.75</field>
+            <field name="rate">20.0</field>
+            <field name="fixed_quota">17974.47</field>
+            <field name="excess_over">348154.11</field>
+        </record>
+        
+        <!-- Bracket 4: 25% (809,660.76 and above) -->
+        <record id="isr_bracket_2026_4" model="l10n.hn.isr.config.bracket">
+            <field name="config_id" ref="isr_config_2026_default"/>
+            <field name="sequence">40</field>
+            <field name="from_amount">809660.76</field>
+            <field name="to_amount">0.0</field>
+            <field name="rate">25.0</field>
+            <field name="fixed_quota">110275.80</field>
+            <field name="excess_over">809660.76</field>
+        </record>
+        
+        <!-- Medical Expenses by Age Rules 2026 -->
+        <record id="isr_medical_expense_2026_1" model="l10n.hn.isr.medical_expense_rule">
+            <field name="config_id" ref="isr_config_2026_default"/>
+            <field name="age_from">0</field>
+            <field name="age_to">59</field>
+            <field name="limit_amount">40000.0</field>
+        </record>
+        
+        <record id="isr_medical_expense_2026_2" model="l10n.hn.isr.medical_expense_rule">
+            <field name="config_id" ref="isr_config_2026_default"/>
+            <field name="age_from">60</field>
+            <field name="age_to">64</field>
+            <field name="limit_amount">70000.0</field>
+        </record>
+        
+        <record id="isr_medical_expense_2026_3" model="l10n.hn.isr.medical_expense_rule">
+            <field name="config_id" ref="isr_config_2026_default"/>
+            <field name="age_from">65</field>
+            <field name="age_to">0</field>
+            <field name="limit_amount">110000.0</field>
+        </record>
+    </data>
+</odoo>

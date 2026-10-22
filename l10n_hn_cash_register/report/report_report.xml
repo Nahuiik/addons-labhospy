@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <!-- <data> -->
+        <record id="action_cash_register_xls" model="ir.actions.report">
+            <field name="name">Arqueo Caja Report</field>
+            <field name="model">account.payment</field>
+            <field name="report_type">xlsx</field>
+            <field name="report_name">l10n_hn_cash_register.cash_register_xls.xlsx</field>
+            <field name="report_file">Arqueo Caja Report</field>
+        </record>
+
+        <record id="action_cash_register_qweb" model="ir.actions.report">
+            <!-- <field name="name">l10n_hn_cash_register.cash_register_qweb</field> -->
+            <field name="name">Reporte Arqueo Caja</field>
+            <field name="model">cash.register.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">l10n_hn_cash_register.cash_register_qweb</field>
+            <field name="report_file">l10n_hn_cash_register.cash_register_qweb</field>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="report_qweb_paperformat"/>
+        </record>
+    <!-- </data> -->
+</odoo>

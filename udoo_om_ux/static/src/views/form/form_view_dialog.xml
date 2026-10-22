@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-inherit="web.FormViewDialog" t-inherit-mode="extension">
+        <xpath expr="//Dialog" position="attributes">
+            <attribute name="contentClass">dropinCls</attribute>
+            <attribute name="size">'xl'</attribute>
+        </xpath>
+        <xpath expr="//Dialog/View" position="after">
+            <div>
+                <Chatter t-if="viewProps.context.coChatter or (ui.dropinUid == props.resModel and ui.dropinMode == 'chatter')"
+                    threadId="props.resId"
+                    threadModel="props.resModel"/>
+            </div>
+        </xpath>
+    </t>
+</templates>

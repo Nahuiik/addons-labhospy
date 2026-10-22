@@ -1,0 +1,260 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* dev_partner_ledger
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-09 04:22+0000\n"
+"PO-Revision-Date: 2026-04-09 04:22+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es_GT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: dev_partner_ledger
+#: model:ir.module.module,shortdesc:base.module_dev_partner_ledger
+msgid "Partner Ledger On Screen"
+msgstr "Libro mayor del contacto en pantalla"
+
+#. module: dev_partner_ledger
+#: model:ir.module.module,summary:base.module_dev_partner_ledger
+msgid ""
+"Odoo app will display Partner Ledger on customer screen partner Leadger "
+"Partner move line partner due balance partner overdue report"
+msgstr ""
+"Muestra el libro mayor del contacto en la ficha del cliente: líneas de "
+"asiento, saldos y movimientos relacionados."
+
+#. module: dev_partner_ledger
+#: model:ir.module.module,description:base.module_dev_partner_ledger
+msgid ""
+"\n"
+"         Odoo app will display Partner Ledger on customer screen\n"
+"\n"
+"    Partner Ledger \n"
+"    Odoo partner Leadger \n"
+"    Odoo partner Details ledger\n"
+"    Odoo due balance \n"
+"    Odoo Partner ledger Balance\n"
+"        \n"
+msgstr ""
+"\n"
+"        Muestra el libro mayor del contacto en la pantalla del cliente.\n"
+"\n"
+"    Libro mayor del contacto\n"
+"    Detalle de movimientos contables\n"
+"    Saldos y líneas de asiento\n"
+"    Saldo pendiente\n"
+"    Balance del libro mayor del contacto\n"
+"        \n"
+
+#. module: dev_partner_ledger
+#. odoo-python
+#: code:addons/dev_partner_ledger/models/res_partner.py:0
+#: model:ir.model.fields,field_description:dev_partner_ledger.field_res_partner__balance
+#: model:ir.model.fields,field_description:dev_partner_ledger.field_res_users__balance
+msgid "Balance"
+msgstr "Saldo"
+
+#. module: dev_partner_ledger
+#: model:ir.model,name:dev_partner_ledger.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: dev_partner_ledger
+#: model:ir.model.fields,field_description:dev_partner_ledger.field_res_partner__display_name
+msgid "Display Name"
+msgstr "Nombre para mostrar"
+
+#. module: dev_partner_ledger
+#: model:ir.model.fields,field_description:dev_partner_ledger.field_res_partner__id
+msgid "ID"
+msgstr "ID"
+
+#. module: dev_partner_ledger
+#. odoo-python
+#: code:addons/dev_partner_ledger/models/res_partner.py:0
+#: model:ir.model.fields,field_description:dev_partner_ledger.field_res_partner__journal_item_ids
+#: model:ir.model.fields,field_description:dev_partner_ledger.field_res_users__journal_item_ids
+msgid "Journal Items"
+msgstr "Líneas de asiento"
+
+#. module: dev_partner_ledger
+#: model_terms:ir.ui.view,arch_db:dev_partner_ledger.parnter_ledger_view
+msgid "Move lines"
+msgstr "Líneas de asiento"
+
+#. module: dev_partner_ledger
+#: model_terms:ir.ui.view,arch_db:dev_partner_ledger.parnter_ledger_view
+msgid "Follow-up report"
+msgstr "Reporte de seguimiento"
+
+#. module: dev_partner_ledger
+#: model_terms:ir.ui.view,arch_db:dev_partner_ledger.parnter_ledger_view
+msgid "Total balance"
+msgstr "Total saldo"
+
+#. module: dev_partner_ledger
+#: model_terms:ir.ui.view,arch_db:dev_partner_ledger.parnter_ledger_view
+msgid "Total credit"
+msgstr "Total crédito"
+
+#. module: dev_partner_ledger
+#: model_terms:ir.ui.view,arch_db:dev_partner_ledger.parnter_ledger_view
+msgid "Total debit"
+msgstr "Total débito"
+
+#. module: dev_partner_ledger
+#: model_terms:ir.ui.view,arch_db:dev_partner_ledger.view_partner_form_partner_ledger_stat
+#: model_terms:ir.ui.view,arch_db:dev_partner_ledger.parnter_ledger_view
+msgid "Adeudado"
+msgstr "Adeudado"
+
+#. module: dev_partner_ledger
+#: model_terms:ir.ui.view,arch_db:dev_partner_ledger.parnter_ledger_view
+msgid ""
+"Quick view (latest lines). Open follow-up report (same OWL as Accounting reports from BrowseInfo): ageing buckets, filters, PDF/XLSX."
+msgstr ""
+"Vista rápida (últimas líneas). Abra el reporte de seguimiento (mismo OWL que los informes BrowseInfo): tramos de antigüedad, filtros, PDF/XLSX."
+
+#. module: dev_partner_ledger
+#: model_terms:ir.ui.view,arch_db:dev_partner_ledger.parnter_ledger_view
+msgid "Open follow-up report"
+msgstr "Abrir reporte de seguimiento"
+
+#. module: dev_partner_ledger
+#: model_terms:ir.ui.view,arch_db:dev_partner_ledger.view_partner_form_partner_ledger_stat
+msgid "Enterprise: Accounting Reports. Community: Reporte de seguimiento (bi_financial_reports_comm)."
+msgstr ""
+"Enterprise: informes contables. Community: reporte de seguimiento (bi_financial_reports_comm)."
+
+#. module: dev_partner_ledger
+#: model:ir.model.fields,field_description:dev_partner_ledger.field_res_partner__enterprise_partner_ledger_available
+#: model:ir.model.fields,field_description:dev_partner_ledger.field_res_users__enterprise_partner_ledger_available
+msgid "Enterprise Partner Ledger available"
+msgstr "Libro mayor Enterprise disponible"
+
+#. module: dev_partner_ledger
+#: model:ir.model,name:dev_partner_ledger.model_dev_partner_ledger_wizard
+msgid "Partner Ledger date range (Community)"
+msgstr "Libro mayor del contacto — rango de fechas (Community)"
+
+#. module: dev_partner_ledger
+#: model:ir.model.fields,field_description:dev_partner_ledger.field_dev_partner_ledger_wizard__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: dev_partner_ledger
+#: model:ir.model.fields,field_description:dev_partner_ledger.field_dev_partner_ledger_wizard__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: dev_partner_ledger
+#: model:ir.model.fields,field_description:dev_partner_ledger.field_dev_partner_ledger_wizard__display_name
+msgid "Display Name"
+msgstr "Nombre para mostrar"
+
+#. module: dev_partner_ledger
+#: model:ir.model.fields,field_description:dev_partner_ledger.field_dev_partner_ledger_wizard__id
+msgid "ID"
+msgstr "ID"
+
+#. module: dev_partner_ledger
+#: model:ir.model.fields,field_description:dev_partner_ledger.field_dev_partner_ledger_wizard__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: dev_partner_ledger
+#: model:ir.model.fields,field_description:dev_partner_ledger.field_dev_partner_ledger_wizard__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: dev_partner_ledger
+#: model:ir.model.fields,field_description:dev_partner_ledger.field_dev_partner_ledger_wizard__partner_id
+msgid "Partner"
+msgstr "Contacto"
+
+#. module: dev_partner_ledger
+#: model:ir.model.fields,field_description:dev_partner_ledger.field_dev_partner_ledger_wizard__date_from
+msgid "Start Date"
+msgstr "Fecha inicial"
+
+#. module: dev_partner_ledger
+#: model:ir.model.fields,field_description:dev_partner_ledger.field_dev_partner_ledger_wizard__date_to
+msgid "End Date"
+msgstr "Fecha final"
+
+#. module: dev_partner_ledger
+#. odoo-python
+#: code:addons/dev_partner_ledger/models/dev_partner_ledger_wizard.py:0
+msgid "The start date must be on or before the end date."
+msgstr "La fecha inicial debe ser anterior o igual a la fecha final."
+
+#. module: dev_partner_ledger
+#: model_terms:ir.ui.view,arch_db:dev_partner_ledger.view_dev_partner_ledger_wizard_form
+msgid "Partner Ledger"
+msgstr "Libro mayor del contacto"
+
+#. module: dev_partner_ledger
+#: model_terms:ir.ui.view,arch_db:dev_partner_ledger.view_dev_partner_ledger_wizard_form
+msgid "Period"
+msgstr "Periodo"
+
+#. module: dev_partner_ledger
+#: model_terms:ir.ui.view,arch_db:dev_partner_ledger.view_dev_partner_ledger_wizard_form
+msgid "Open journal items"
+msgstr "Abrir líneas de asiento"
+
+#. module: dev_partner_ledger
+#: model_terms:ir.ui.view,arch_db:dev_partner_ledger.view_dev_partner_ledger_wizard_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: dev_partner_ledger
+#: model_terms:ir.ui.view,arch_db:dev_partner_ledger.view_move_line_tree_partner_ledger
+msgid "Partner Ledger"
+msgstr "Libro mayor del contacto"
+
+#. module: dev_partner_ledger
+#. odoo-python
+#: code:addons/dev_partner_ledger/models/dev_partner_followup_report.py:0
+msgid "Overdue"
+msgstr "Vencidas"
+
+#. module: dev_partner_ledger
+#. odoo-python
+#: code:addons/dev_partner_ledger/models/dev_partner_followup_report.py:0
+msgid "Due"
+msgstr "Por vencer"
+
+#. module: dev_partner_ledger
+#. odoo-python
+#: code:addons/dev_partner_ledger/models/dev_partner_followup_report.py:0
+msgid "Total"
+msgstr "Total"
+
+#. module: dev_partner_ledger
+#. odoo-python
+#: code:addons/dev_partner_ledger/models/res_partner.py:0
+msgid "Follow-up report"
+msgstr "Informe de seguimiento"
+
+#. module: dev_partner_ledger
+#: model:ir.model,name:dev_partner_ledger.model_dev_partner_followup_report
+msgid "Partner follow-up report (Community)"
+msgstr "Informe de seguimiento de contacto (Community)"
+
+#. module: dev_partner_ledger
+#: model:ir.model,name:dev_partner_ledger.model_dev_partner_followup_report_line
+msgid "Partner follow-up report line"
+msgstr "Línea del informe de seguimiento"
+
+#. module: dev_partner_ledger
+#: model:ir.actions.report,name:dev_partner_ledger.action_report_followup_pdf
+msgid "Follow-up report"
+msgstr "Informe de seguimiento"

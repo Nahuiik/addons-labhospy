@@ -1,0 +1,171 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <!-- <record id="inherit_view_account_journal_form_gts_multi" model="ir.ui.view">
+        <field name="name">account.journal.view.form.inherit</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="arch" type="xml">
+            
+            <xpath expr="//page[@id='inbound_payment_settings']//field[@name='available_payment_method_ids']" position="attributes">
+                <attribute name="invisible">0</attribute>
+            </xpath>
+            
+        </field>
+    </record> -->
+
+    
+    <!-- Tree view for "model" -->
+    <record id="view_account_payment_method_tree" model="ir.ui.view">
+        <field name="name">view.account.payment.method.tree.gts</field>
+        <field name="model">account.payment.method</field>
+        <field name="type">list</field>
+        <field name="mode">primary</field>
+        <field name="priority" eval="16" />
+        <field name="active" eval="True" />
+        <field name="arch" type="xml">
+            <list string="account_payment_method_tree" create="true" delete="true" edit="true">
+                <field name="name" />
+                <field name="code"/>
+                <field name="payment_type"/>
+            </list>
+        </field>
+    </record>
+    
+    <!-- Form view for "model" -->
+    <record id="view_account_payment_method_form" model="ir.ui.view">
+        <field name="name">view.account.payment.method.form.gts</field>
+        <field name="model">account.payment.method</field>
+        <field name="type">form</field>
+        <field name="mode">primary</field>
+        <field name="priority" eval="16" />
+        <field name="active" eval="True" />
+        <field name="arch" type="xml">
+            <form string="account_payment_method_form" create="true" delete="true" edit="true">
+                <header>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only" />
+                        <h1>
+                            <field name="name" class="oe_inline"
+                                placeholder="name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="payment_type"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <!-- Main window action for "model" -->
+    <record id="action_account_payment_method_act_window" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Metodos de Pago 2</field>
+        <field name="res_model">account.payment.method</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to add new Payment Method
+            </p><p>
+                Something about model
+            </p>
+        </field>
+    </record>
+    
+    <!-- Main menu for "model" -->
+    <record id="menu_account_payment_method_gts" model="ir.ui.menu" >
+        <field name="name">Metodos de Pago 2</field>
+        <field name="sequence" eval="10" />
+        <field name="action" ref="action_account_payment_method_act_window" />
+        <field name="parent_id" ref="account.menu_finance_configuration" />
+    </record>
+    
+
+    <!-- Lineas de metodos de pago -->
+    <!-- Tree view for "model" -->
+    <record id="view_account_payment_method_line_tree" model="ir.ui.view">
+        <field name="name">view.account.payment.method.line.tree.gts</field>
+        <field name="model">account.payment.method.line</field>
+        <field name="type">list</field>
+        <field name="mode">primary</field>
+        <field name="priority" eval="16" />
+        <field name="active" eval="True" />
+        <field name="arch" type="xml">
+            <list string="account_payment_method_line_tree" create="true" delete="true" edit="true">
+                <field name="name" />
+                <field name="sequence"/>
+                <field name="payment_method_id"/>
+                <field name="payment_account_id"/>
+                <field name="journal_id"/>
+                <field name="code"/>
+                <field name="payment_type"/>
+            </list>
+        </field>
+    </record>
+    
+    <!-- Form view for "model" -->
+    <record id="view_account_payment_method_line_form" model="ir.ui.view">
+        <field name="name">view.account.payment.method.line.form.gts</field>
+        <field name="model">account.payment.method.line</field>
+        <field name="type">form</field>
+        <field name="mode">primary</field>
+        <field name="priority" eval="16" />
+        <field name="active" eval="True" />
+        <field name="arch" type="xml">
+            <form string="account_payment_method_line_form" create="true" delete="true" edit="true">
+                <header>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only" />
+                        <h1>
+                            <field name="name" class="oe_inline"
+                                placeholder="name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="sequence"/>
+                            <field name="payment_method_id"/>
+                            <field name="payment_account_id"/>
+                            <field name="journal_id"/>
+                            <field name="code"/>
+                            <field name="payment_type"/>
+                            <field name="available_payment_method_ids"/>
+                            <field name="company_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <!-- Main window action for "model" -->
+    <record id="action_account_payment_method_line_act_window" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Lineas de Metodos de Pago</field>
+        <field name="res_model">account.payment.method.line</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to add new Payment Method
+            </p><p>
+                Something about model
+            </p>
+        </field>
+    </record>
+    
+    <!-- Main menu for "model" -->
+    <record id="menu_account_payment_method_line_gts" model="ir.ui.menu" >
+        <field name="name">Lineas de Metodos de Pagos</field>
+        <field name="sequence" eval="10" />
+        <field name="action" ref="action_account_payment_method_line_act_window" />
+        <field name="parent_id" ref="account.menu_finance_configuration" />
+    </record>
+    
+</odoo>

@@ -1,0 +1,78 @@
+<odoo>
+    <data>
+
+        <record id="dei_cai_tree_view" model="ir.ui.view">
+            <field name="name">dei_cai_tree_view</field>
+            <field name="model">dei.cai</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                    <field name="expiration_date"/>
+                    <!--field name="active"/-->
+                    <field name="company"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="dei_cai_form_view" model="ir.ui.view">
+            <field name="name">dei_cai_form_view</field>
+            <field name="model">dei.cai</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Documentos Solicitados">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="id" invisible="1"/>
+                                <field name="name" col="1"/>
+                                <field name="company" col="3"/>
+                                <!--field name="active" /-->
+                                <field name="expiration_date"/>
+                            </group>
+                            <group>
+                                <field name="notify_before"/>
+                                <field name="sequence_exceed_limit"/>
+                                <field name="notify_user_ids" widget="many2many_tags"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page string="Sequence">
+                                <field name="fiscal_regimes">
+                                    <list editable="bottom">
+                                        <field name="sequence"/>
+                                        <!--field name="next"/-->
+                                        <field name="desde"/>
+                                        <field name="hasta"/>
+                                        <!--field name="next_number"/-->
+                                        <!--field name="estado"/-->
+                                    </list>
+                                    <form>
+                                        <sheet col="4">
+                                            <group col="4" string="Doc Requested">
+                                                <!--field name="description"/-->
+
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <chatter reload_on_post="True"/>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="dei_cai_action_id">
+            <field name="name">Registro Fiscales</field>
+            <field name="res_model">dei.cai</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+
+        <menuitem id="cai" name="Registo de CAI" parent="account.menu_finance_configuration" sequence="10"
+                  action="dei_cai_action_id"/>
+    </data>
+</odoo>

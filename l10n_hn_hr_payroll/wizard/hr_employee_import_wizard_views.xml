@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_employee_import_wizard_form" model="ir.ui.view">
+        <field name="name">hr.employee.import.wizard.form</field>
+        <field name="model">hr.employee.import.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Import Employees from Excel">
+                <sheet>
+                    <div class="alert alert-info" role="alert" style="margin-bottom: 15px; padding: 10px; background-color: #d1ecf1; border-left: 4px solid #0c5460; border-radius: 4px;">
+                        <strong>📥 Archivo de Ejemplo:</strong> Puede descargar un archivo Excel de ejemplo con el formato correcto haciendo clic en el botón "Descargar Ejemplo" a continuación. El archivo incluye 5 registros de ejemplo y una hoja de instrucciones detalladas.
+                    </div>
+                    <group>
+                        <group>
+                            <field name="excel_file" filename="excel_filename" widget="binary"/>
+                            <field name="excel_filename" invisible="1"/>
+                            <div style="margin-top: 10px;">
+                                <button name="action_download_example" string="📥 Descargar Archivo de Ejemplo" type="object" class="btn-primary"/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="import_mode"/>
+                            <field name="create_departments"/>
+                            <field name="create_jobs"/>
+                            <field name="create_banks"/>
+                            <field name="create_contracts"/>
+                        </group>
+                    </group>
+                    <field name="example_file" invisible="1"/>
+                    <field name="example_filename" invisible="1"/>
+                    <notebook invisible="state == 'draft'">
+                        <page string="Import Log">
+                            <field name="import_log" nolabel="1" widget="html"/>
+                        </page>
+                        <page string="Error Log">
+                            <field name="error_log" nolabel="1" widget="html"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <footer>
+                    <button name="action_import" string="Import" type="object" class="oe_highlight"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    
+    <record id="action_hr_employee_import_wizard" model="ir.actions.act_window">
+        <field name="name">Import Employees</field>
+        <field name="res_model">hr.employee.import.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

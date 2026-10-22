@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_retention" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.retention</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@id='default_accounts']" position="after">
+                <h2>
+                    Retenciones de Proveedor
+                </h2>
+                <div class="row mt16 o_settings_container" name="default_taxes_setting_container">
+                    <div class="col-12 col-lg-6 o_setting_box" id="default_retentions" title="Calculate Retentions.">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">
+                                Retenciones a proveedores
+                            </span>
+                            <span aria-label="Values set here are company-specific." class="fa fa-lg fa-building-o" role="img" title="Values set here are company-specific."/>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label class="col-lg-3 o_form_label" for="apply_retentions" string="Aplicar retenciones a proveedores"/>
+                                    <field name="apply_retentions"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" id="default_retentions_apply_1" invisible="apply_retentions == False" title="Calculate Retentions.">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">
+                                Retención 1% (proveedores)
+                            </span>
+                            <field name="apply_1"/>
+                            <field invisible="apply_1 == False" name="account_ret_1" required="apply_1 == True"/>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" id="default_retentions_apply_12_5" invisible="apply_retentions == False" title="Calculate Retentions.">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">
+                                Retención 12.5% (proveedores)
+                            </span>
+                            <field name="apply_12_5"/>
+                            <field invisible="apply_12_5 == False" name="account_ret_12_5" required="apply_12_5 == True"/>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" id="default_retentions_apply_15" invisible="apply_retentions == False" title="Calculate Retentions.">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">
+                                Retención 15% (proveedores)
+                            </span>
+                            <field name="apply_15"/>
+                            <field invisible="apply_15 == False" name="account_ret_15" required="apply_15 == True"/>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" id="default_warning_exclude_receipt" invisible="apply_retentions == False" title="Calculate Retentions.">
+                        <div class="o_setting_left_pane">
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">
+                                Exclude Paymnets In Account Supplier
+                            </span>
+                            <field name="is_exclude_receipt"/>
+                        </div>
+                    </div>
+                </div>
+                <h2>
+                    Retenciones de Cliente
+                </h2>
+                <div class="row mt16 o_settings_container" name="default_taxes_setting_container">
+                    <div class="col-12 col-lg-6 o_setting_box" id="default_retentions" title="Calculate Retentions.">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">
+                                Retentions
+                            </span>
+                            <span aria-label="Values set here are company-specific." class="fa fa-lg fa-building-o" role="img" title="Values set here are company-specific."/>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label class="col-lg-3 o_form_label" for="apply_customer_retentions" string="Aplicar retenciones a clientes"/>
+                                    <field name="apply_customer_retentions"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" id="default_retentions_apply_1" invisible="apply_customer_retentions == False" title="Calculate Retentions.">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">
+                                Retención 1% (clientes)
+                            </span>
+                            <field name="apply_customer_1"/>
+                            <field invisible="apply_customer_1 == False" name="account_customer_ret_1" required="apply_customer_1 == True"/>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" id="default_retentions_apply_12_5" invisible="apply_customer_retentions == False" title="Calculate Retentions.">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">
+                                Retención 12.5% (clientes)
+                            </span>
+                            <field name="apply_customer_12_5"/>
+                            <field invisible="apply_customer_12_5 == False" name="account_customer_ret_12_5" required="apply_customer_12_5 == True"/>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" id="default_retentions_apply_15" invisible="apply_customer_retentions == False" title="Calculate Retentions.">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">
+                                Retención 15% (clientes)
+                            </span>
+                            <field name="apply_customer_15"/>
+                            <field invisible="apply_customer_15 == False" name="account_customer_ret_15" required="apply_customer_15 == True"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath></field>
+    </record>
+</odoo>

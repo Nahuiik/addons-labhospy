@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_sale_labhospy_application_use" model="ir.ui.view">
+        <field name="name">res.config.settings.sale.labospy.application.use</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//app[@name='sale_management']//block[@name='catalog_setting_container']" position="inside">
+                <setting id="labhospy_application_use_sale"
+                         string="Aplicaciones / uso (LabHosPy)"
+                         help="Mismo catálogo que Inventario / Configuración. Úselo desde las líneas del pedido o en las facturas.">
+                    <div class="mt8">
+                        <button name="%(action_gn_labhospy_application_use)d"
+                                type="action"
+                                string="Aplicaciones / uso"
+                                icon="oi-arrow-right"
+                                class="btn-link"/>
+                    </div>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+</odoo>

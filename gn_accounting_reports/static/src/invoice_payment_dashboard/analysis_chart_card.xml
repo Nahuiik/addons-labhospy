@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_accounting_reports.InvPayAnalysisChartCard">
+        <div class="card border-0 shadow-sm h-100 o_inv_pay_analysis_card">
+            <div class="card-header bg-white py-2 px-3">
+                <div class="d-flex flex-wrap justify-content-between align-items-start gap-2">
+                    <strong class="small" t-out="title"/>
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle py-0"
+                                data-bs-toggle="dropdown">Acciones</button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#" t-on-click.prevent="() => this.onAction('detail')">Ver detalle</a></li>
+                            <li><a class="dropdown-item" href="#" t-on-click.prevent="() => this.onAction('filter')">Aplicar como filtro</a></li>
+                            <li><a class="dropdown-item" href="#" t-on-click.prevent="() => this.onAction('image')">Exportar imagen</a></li>
+                            <li><a class="dropdown-item" href="#" t-on-click.prevent="() => this.onAction('data')">Exportar datos</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="d-flex flex-wrap gap-2 mt-2">
+                    <t t-if="metrics.length">
+                        <div class="btn-group btn-group-sm">
+                            <button t-foreach="metrics" t-as="m" t-key="m.id"
+                                    type="button"
+                                    t-attf-class="btn #{state.metric === m.id ? 'btn-primary' : 'btn-outline-secondary'}"
+                                    t-on-click="() => this.setMetric(m.id)"
+                                    t-out="m.label"/>
+                        </div>
+                    </t>
+                    <t t-if="props.chartType === 'client'">
+                        <div class="btn-group btn-group-sm">
+                            <button t-foreach="topOptions" t-as="n" t-key="n"
+                                    type="button"
+                                    t-attf-class="btn #{state.topN === n ? 'btn-primary' : 'btn-outline-secondary'}"
+                                    t-on-click="() => this.setTopN(n)">
+                                Top <t t-out="n"/>
+                            </button>
+                        </div>
+                    </t>
+                    <t t-if="props.chartType === 'distribution'">
+                        <div class="btn-group btn-group-sm">
+                            <button type="button"
+                                    t-attf-class="btn #{state.distributionType === 'donut' ? 'btn-primary' : 'btn-outline-secondary'}"
+                                    t-on-click="() => this.setDistributionType('donut')">Donut</button>
+                            <button type="button"
+                                    t-attf-class="btn #{state.distributionType === 'bar' ? 'btn-primary' : 'btn-outline-secondary'}"
+                                    t-on-click="() => this.setDistributionType('bar')">Barras</button>
+                            <button type="button"
+                                    t-attf-class="btn #{state.viewMode === 'table' ? 'btn-primary' : 'btn-outline-secondary'}"
+                                    t-on-click="() => this.setDistributionType('table')">Tabla</button>
+                        </div>
+                    </t>
+                </div>
+            </div>
+            <div class="card-body p-2 o_inv_pay_analysis_card__body">
+                <div t-if="props.loading" class="o_inv_pay_chart_skeleton placeholder-glow">
+                    <div class="placeholder col-12" style="height:260px;"/>
+                </div>
+                <div t-elif="props.error" class="text-center py-4">
+                    <p class="text-danger small" t-out="props.error"/>
+                    <button t-if="props.onRetry" type="button" class="btn btn-sm btn-outline-danger"
+                            t-on-click="props.onRetry">Reintentar</button>
+                </div>
+                <div t-elif="isEmpty" class="text-center py-5 text-muted">
+                    <i class="fa fa-chart-bar fa-2x mb-2 d-block opacity-50"/>
+                    <div class="small">Sin datos para los filtros seleccionados.</div>
+                </div>
+                <div t-elif="state.viewMode === 'table'" class="table-responsive">
+                    <table class="table table-sm table-hover mb-0">
+                        <thead><tr><th>Nombre</th><th class="text-end">Valor</th></tr></thead>
+                        <tbody>
+                            <tr t-foreach="tableRows" t-as="row" t-key="row_index"
+                                class="o_inv_pay_table__row"
+                                t-on-click="() => this.onBarClick(row.index)">
+                                <td t-att-title="row.fullLabel" t-out="row.label"/>
+                                <td class="text-end" t-out="row.display"/>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div t-else="" t-ref="chart" class="o_inv_pay_chart_canvas" style="width:100%;height:280px;"/>
+            </div>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vista del wizard -->
+        <record id="view_pos_commission_report_wizard_form" model="ir.ui.view">
+            <field name="name">pos.commission.report.wizard.form</field>
+            <field name="model">pos.commission.report.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Reporte de Comisiones POS">
+                    <group>
+                        <group string="Período">
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                        </group>
+                        <group string="Filtros">
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="journal_ids" widget="many2many_tags"/>
+                            <field name="card_agreement_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="action_print_excel" string="Exportar Excel" type="object" class="btn-primary"/>
+                        <button name="action_print_pdf" string="Exportar PDF" type="object" class="btn-secondary"/>
+                        <button string="Cancelar" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- Acción para abrir el wizard -->
+        <record id="action_pos_commission_report_wizard" model="ir.actions.act_window">
+            <field name="name">Reporte de Comisiones POS</field>
+            <field name="res_model">pos.commission.report.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <!-- Menú -->
+        <!-- Contabilidad > Informes (cash_registers_accounting_menu eliminado en l10n_hn_cash_register 19.0.1.0.6) -->
+        <menuitem
+            id="menu_pos_commission_report"
+            name="Reporte de Comisiones POS"
+            parent="account.menu_finance_reports"
+            action="action_pos_commission_report_wizard"
+            sequence="20"/>
+    </data>
+</odoo>

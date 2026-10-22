@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="dev_advance_inventory_dashboard.InventoryDashboardPremium">
+        <Layout display="{ controlPanel: false }" className="'o_inventory_dashboard_premium'">
+            <div class="inv-dash-scroll">
+                <div t-att-class="'inv-cc inv-dash' + (state.darkMode ? ' inv-cc--dark' : '')" id="inv_dashboard_root">
+                    <t t-if="state.loadError">
+                        <div class="alert alert-danger m-3" t-esc="state.loadError"/>
+                    </t>
+                    <t t-elif="state.coreLoading and !(state.data.kpis || []).length">
+                        <div class="p-3">
+                            <div class="inv-skeleton inv-skeleton--header mb-3"/>
+                            <div class="inv-kpi-grid">
+                                <div class="inv-skeleton inv-skeleton--card" t-foreach="[1,2,3,4,5,6]" t-as="i" t-key="i"/>
+                            </div>
+                        </div>
+                    </t>
+                    <t t-else="">
+                        <!-- Command bar -->
+                        <div class="inv-cc-command-bar">
+                            <div class="inv-cc-command-bar__brand">
+                                <div>
+                                    <h1 class="inv-cc-command-bar__title" t-esc="labels.commandCenter"/>
+                                    <div class="inv-cc-command-bar__meta">
+                                        <t t-esc="state.data.header.company_name"/> ·
+                                        <t t-esc="state.data.updated_at ? labels.updatedAt + ' ' + formatUpdatedAt() : ''"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="inv-cc-command-bar__actions">
+                                <label class="inv-cc-sparkline-select">
+                                    <span class="small text-muted me-1" t-esc="labels.sparklinePeriod"/>
+                                    <select class="form-select form-select-sm" style="width:auto"
+                                            t-on-change="onSparklineDaysChange">
+                                        <t t-foreach="state.filterOptions.sparkline_days_presets or []" t-as="sp" t-key="sp.id">
+                                            <option t-att-value="sp.id"
+                                                    t-att-selected="state.sparklineDays === sp.id"
+                                                    t-esc="sp.name"/>
+                                        </t>
+                                    </select>
+                                </label>
+                                <select class="form-select form-select-sm" style="width:auto" t-on-change="onRefreshIntervalChange">
+                                    <t t-foreach="state.filterOptions.refresh_presets or []" t-as="rp" t-key="rp.id">
+                                        <option t-att-value="rp.id" t-att-selected="state.refreshMinutes === rp.id" t-esc="rp.name"/>
+                                    </t>
+                                </select>
+                                <button type="button" class="inv-cc-btn inv-cc-btn--ghost" t-on-click="toggleDarkMode" title="Dark mode">
+                                    <i t-att-class="state.darkMode ? 'fa fa-sun-o' : 'fa fa-moon-o'"/>
+                                </button>
+                                <button type="button" class="inv-cc-btn" t-on-click="toggleLayoutEditor">
+                                    <i class="fa fa-th-large"/> <t t-esc="labels.configureLayout"/>
+                                </button>
+                                <button type="button" class="inv-cc-btn" t-on-click="loadData">
+                                    <i class="fa fa-refresh"/> <t t-esc="labels.refresh"/>
+                                </button>
+                                <button type="button" class="inv-cc-btn inv-cc-btn--primary" t-on-click="downloadExecutiveReport">
+                                    <i class="fa fa-file-pdf-o"/> <t t-esc="labels.executiveReport"/>
+                                </button>
+                            </div>
+                        </div>
+
+                        <InvDashboardFilterBar
+                            draftFilters="state.draftFilters"
+                            filterOptions="state.filterOptions"
+                            labels="labels"
+                            onDraftChange.bind="onDraftChange"
+                            onApply.bind="applyFilters"
+                            onReset.bind="resetFilters"/>
+
+                        <t t-if="state.showLayoutEditor">
+                            <InvDashboardLayoutEditor
+                                layouts="state.layouts"
+                                activeLayoutId="state.activeLayoutId"
+                                widgets="state.layoutWidgets"
+                                layoutPresets="state.filterOptions.layout_presets"
+                                labels="labels"
+                                refreshMinutes="state.refreshMinutes"
+                                onSave.bind="saveLayout"
+                                onReset.bind="resetLayout"
+                                onClose.bind="toggleLayoutEditor"
+                                onToggleWidget.bind="onToggleWidget"
+                                onMoveWidget.bind="onMoveWidget"
+                                onDragReorder.bind="onDragReorder"
+                                onApplyPreset.bind="applyLayoutPreset"
+                                onRefreshChange.bind="setRefreshMinutes"/>
+                        </t>
+
+                        <!-- Executive Header + Health Gauge -->
+                        <section t-if="isWidgetVisible('executive_header')" class="inv-cc-exec-header inv-cc-section">
+                            <div class="inv-cc-exec-header__profile">
+                                <img t-if="state.data.header.company_has_logo"
+                                     t-att-src="'/web/image/res.company/' + state.data.header.company_id + '/logo'"
+                                     class="inv-cc-exec-header__avatar inv-cc-exec-header__avatar--company" alt=""/>
+                                <img t-elif="state.data.header.user_img"
+                                     t-att-src="'/web/image/res.users/' + state.data.header.user_id + '/image_128'"
+                                     class="inv-cc-exec-header__avatar" alt=""/>
+                                <div t-else="" class="inv-cc-exec-header__avatar inv-cc-exec-header__avatar--ph">
+                                    <i class="fa fa-building"/>
+                                </div>
+                                <div>
+                                    <h2 class="inv-cc-exec-header__greeting">
+                                        <t t-esc="state.data.header.greeting"/>, <t t-esc="state.data.header.user_name"/>
+                                    </h2>
+                                    <div class="inv-cc-exec-header__sub">
+                                        <t t-esc="state.data.header.company_name"/> ·
+                                        <t t-esc="state.data.header.warehouse_name"/> ·
+                                        <t t-esc="formatHeaderDate()"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="inv-cc-exec-header__gauge-wrap" t-att-title="state.data.health.tooltip or ''">
+                                <div class="inv-cc-exec-header__gauge-label" t-esc="labels.inventoryHealth"/>
+                                <div class="inv-cc-exec-header__gauge-score">
+                                    <span class="inv-cc-exec-header__gauge-value" t-esc="formatHealthScore()"/>
+                                    <span class="inv-cc-exec-header__gauge-unit">%</span>
+                                </div>
+                                <canvas id="inv_health_gauge" class="inv-cc-exec-header__gauge-canvas" width="160" height="90"/>
+                                <div t-attf-class="inv-cc-exec-header__gauge-status inv-health__score--#{state.data.health.color}"
+                                     t-esc="state.data.health.status"/>
+                                <div class="inv-cc-exec-header__gauge-tooltip" t-esc="state.data.health.tooltip"/>
+                            </div>
+                        </section>
+
+                        <!-- Executive KPIs -->
+                        <section t-if="isWidgetVisible('executive_kpis')" class="inv-cc-section">
+                            <div class="inv-cc-section__head">
+                                <h3 class="inv-cc-section__title" t-esc="labels.executiveKpis"/>
+                                <button type="button" class="btn btn-link btn-sm p-0" t-on-click="() => state.showAllKpis = !state.showAllKpis">
+                                    <t t-if="state.showAllKpis" t-esc="labels.showLess"/>
+                                    <t t-else="" t-esc="labels.showMore"/>
+                                </button>
+                            </div>
+                            <div class="inv-kpi-grid">
+                                <t t-foreach="visibleKpis" t-as="kpi" t-key="kpi.key">
+                                    <article t-attf-class="inv-kpi inv-kpi--#{kpi.tone}" t-on-click="() => this.onKpiClick(kpi)" t-att-title="kpi.label">
+                                        <div class="inv-kpi__icon"><i t-attf-class="fa #{kpi.icon}"/></div>
+                                        <div class="inv-kpi__body">
+                                            <div class="inv-kpi__label" t-esc="kpi.label"/>
+                                            <div class="inv-kpi__value" t-esc="formatKpiValue(kpi)"/>
+                                            <div class="inv-kpi__prev small text-muted">
+                                                <t t-esc="labels.vsPrevious"/>: <t t-esc="formatKpiPrevious(kpi)"/>
+                                            </div>
+                                            <div t-attf-class="inv-kpi__var inv-kpi__var--#{kpi.trend}">
+                                                <i t-if="kpi.trend === 'up'" class="fa fa-arrow-up"/>
+                                                <i t-elif="kpi.trend === 'down'" class="fa fa-arrow-down"/>
+                                                <i t-else="" class="fa fa-minus"/>
+                                                <t t-esc="formatKpiVariation(kpi)"/>
+                                            </div>
+                                        </div>
+                                        <t t-if="kpi.sparkline_insufficient">
+                                            <div class="inv-kpi__spark-empty" t-esc="kpi.sparkline_message or labels.insufficientHistory"/>
+                                        </t>
+                                        <svg t-else="" class="inv-kpi__spark" viewBox="0 0 80 24" preserveAspectRatio="none">
+                                            <path t-att-d="sparklinePath(kpi.sparkline)" fill="none" stroke="currentColor" stroke-width="2"/>
+                                        </svg>
+                                    </article>
+                                </t>
+                            </div>
+                        </section>
+
+                        <!-- Hero Chart -->
+                        <section t-if="isWidgetVisible('hero_chart')" class="inv-cc-section inv-cc-hero-chart">
+                            <t t-if="isWidgetLoading('hero_chart')">
+                                <div class="inv-skeleton inv-skeleton--chart"/>
+                            </t>
+                            <t t-elif="widgetError('hero_chart')">
+                                <div class="alert alert-warning m-2" t-esc="widgetError('hero_chart')"/>
+                            </t>
+                            <t t-elif="heroVizConfig">
+                                <InvVizWidget config="heroVizConfig"
+                                              darkMode="state.darkMode"
+                                              filters="state.appliedFilters"
+                                              height="'300px'"/>
+                            </t>
+                        </section>
+
+                        <!-- Alerts + Insights + AI -->
+                        <section t-if="isWidgetVisible('alerts_insights')" class="inv-cc-section inv-cc-dual-grid">
+                            <t t-if="isWidgetLoading('alerts_insights')">
+                                <div class="inv-skeleton inv-skeleton--card"/>
+                                <div class="inv-skeleton inv-skeleton--card"/>
+                            </t>
+                            <t t-elif="widgetError('alerts_insights')">
+                                <div class="alert alert-warning" t-esc="widgetError('alerts_insights')"/>
+                            </t>
+                            <t t-else="">
+                            <div class="inv-card">
+                                <h3><i class="fa fa-bell-o me-1"/> <t t-esc="labels.alertCenter"/></h3>
+                                <t t-foreach="state.data.alerts or []" t-as="alert" t-key="alert.key">
+                                    <div t-attf-class="inv-alert inv-alert--#{alert.level}">
+                                        <span class="inv-alert__semaphore"/>
+                                        <div class="flex-grow-1">
+                                            <strong t-esc="alert.title"/> · <t t-esc="alert.count"/>
+                                            <div class="small text-muted" t-esc="alert.description"/>
+                                            <span t-if="alert.impact" class="badge text-bg-secondary ms-1" t-esc="alert.impact"/>
+                                        </div>
+                                        <div class="inv-alert__actions">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary" t-on-click="() => this.onAlertClick(alert, false)" t-esc="labels.view"/>
+                                            <button type="button" class="btn btn-sm btn-primary" t-on-click="() => this.onAlertClick(alert, true)" t-esc="labels.resolve"/>
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                            <div>
+                                <div class="inv-card mb-2">
+                                    <h3 t-esc="labels.insights"/>
+                                    <ul class="inv-insights mb-0">
+                                        <t t-foreach="state.data.insights or []" t-as="ins" t-key="ins_index">
+                                            <li><i t-attf-class="fa #{ins.icon} me-2"/> <t t-esc="ins.text"/></li>
+                                        </t>
+                                    </ul>
+                                </div>
+                                <div class="inv-card">
+                                    <h3 t-esc="labels.aiRecommendations"/>
+                                    <t t-foreach="state.data.recommendations or []" t-as="rec" t-key="rec_index">
+                                        <div t-attf-class="inv-rec inv-rec--#{rec.level}">
+                                            <span t-if="rec.priority" class="badge text-bg-danger me-1" t-esc="rec.priority"/>
+                                            <i class="fa fa-lightbulb-o me-1"/><span t-esc="rec.text"/>
+                                        </div>
+                                    </t>
+                                </div>
+                            </div>
+                            </t>
+                        </section>
+
+                        <!-- Financial Panel -->
+                        <section t-if="isWidgetVisible('financial')" class="inv-cc-section inv-card">
+                            <t t-if="isWidgetLoading('financial')">
+                                <div class="inv-skeleton inv-skeleton--card"/>
+                            </t>
+                            <t t-elif="widgetError('financial')">
+                                <div class="alert alert-warning m-2" t-esc="widgetError('financial')"/>
+                            </t>
+                            <t t-else="">
+                            <h3 t-esc="state.data.financial_panel?.title or labels.financialPanel"/>
+                            <div class="inv-cc-fin-grid">
+                                <t t-foreach="state.data.financial_panel?.items or []" t-as="fin" t-key="fin.key">
+                                    <div class="inv-cc-fin-item" t-on-click="() => this.onFinancialClick(fin)">
+                                        <div class="inv-cc-fin-item__label" t-esc="fin.label"/>
+                                        <div class="inv-cc-fin-item__value" t-esc="formatFinValue(fin)"/>
+                                    </div>
+                                </t>
+                            </div>
+                            </t>
+                        </section>
+
+                        <!-- Advanced Charts -->
+                        <section t-if="isWidgetVisible('advanced_charts')" class="inv-cc-section inv-card inv-card--charts">
+                            <div class="inv-card__head d-flex justify-content-between align-items-center flex-wrap gap-2">
+                                <h3 class="mb-0" t-esc="labels.charts"/>
+                                <div class="inv-chart-tabs">
+                                    <t t-foreach="chartTabs" t-as="tab" t-key="tab.id">
+                                        <button type="button"
+                                                t-attf-class="inv-cc-btn #{state.activeChartKey === tab.id ? 'inv-cc-btn--primary' : ''}"
+                                                t-on-click="() => this.setChartTab(tab.id)" t-esc="tab.label"/>
+                                    </t>
+                                </div>
+                            </div>
+                            <t t-if="isWidgetLoading('advanced_charts')">
+                                <div class="inv-skeleton inv-skeleton--chart"/>
+                            </t>
+                            <t t-elif="widgetError('advanced_charts')">
+                                <div class="alert alert-warning m-2" t-esc="widgetError('advanced_charts')"/>
+                            </t>
+                            <t t-elif="activeChartConfig">
+                                <InvVizWidget t-key="state.activeChartKey"
+                                              config="activeChartConfig"
+                                              darkMode="state.darkMode"
+                                              filters="state.appliedFilters"
+                                              height="'320px'"/>
+                            </t>
+                        </section>
+
+                        <!-- Activity + Quick Actions row -->
+                        <div t-if="isWidgetVisible('activity') or isWidgetVisible('quick_actions')" class="inv-cc-section inv-cc-dual-grid">
+                            <section t-if="isWidgetVisible('activity')" class="inv-card">
+                                <h3 t-esc="labels.activityFeed"/>
+                                <div class="inv-cc-activity">
+                                    <t t-foreach="state.data.activity_feed or []" t-as="act" t-key="act_index">
+                                        <div class="inv-cc-activity__item" t-on-click="() => this.onActivityClick(act)">
+                                            <div class="inv-cc-activity__icon"><i t-attf-class="fa #{act.icon}"/></div>
+                                            <div>
+                                                <strong t-esc="act.title"/>
+                                                <div class="text-muted small" t-esc="act.subtitle"/>
+                                                <div class="text-muted small"><t t-esc="formatActivityDateTime(act.datetime)"/> · <t t-esc="act.user"/></div>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </div>
+                            </section>
+                            <section t-if="isWidgetVisible('quick_actions')" class="inv-card">
+                                <h3 t-esc="labels.quickActions"/>
+                                <div class="inv-quick-actions">
+                                    <t t-foreach="state.data.quick_actions or []" t-as="qa" t-key="qa.key">
+                                        <button type="button" class="inv-cc-btn" t-on-click="() => this.onQuickAction(qa)">
+                                            <i t-attf-class="fa #{qa.icon}"/> <t t-esc="qa.label"/>
+                                        </button>
+                                    </t>
+                                </div>
+                            </section>
+                        </div>
+
+                        <!-- Tables -->
+                        <section t-if="isWidgetVisible('tables')" class="inv-cc-section inv-card inv-card--tables">
+                            <div class="inv-card__head d-flex justify-content-between align-items-center flex-wrap gap-2">
+                                <h3 class="mb-0" t-esc="labels.tables"/>
+                            </div>
+                            <div class="inv-chart-tabs mb-2">
+                                <t t-foreach="tableTabs" t-as="tab" t-key="tab.id">
+                                    <button type="button"
+                                            t-attf-class="inv-cc-btn #{state.activeTableKey === tab.id ? 'inv-cc-btn--primary' : ''}"
+                                            t-on-click="() => this.setTableTab(tab.id)" t-esc="tab.label"/>
+                                </t>
+                            </div>
+                            <AdvancedDataTable t-key="state.activeTableKey"
+                                               tableKey="state.activeTableKey"
+                                               filters="state.appliedFilters"
+                                               onRowClick.bind="onTableRowClick"/>
+                        </section>
+                    </t>
+                </div>
+            </div>
+        </Layout>
+    </t>
+
+</templates>

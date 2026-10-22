@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_partner_form" model="ir.ui.view">
+            <field name="name">res.partner.customer.form.os_customer_vendor_statements</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='category_id']" position="after">
+                    <field name='exclude_auto_sent'/>
+                </xpath>
+                <xpath expr="//page[@name='sales_purchases']" position="after">
+                    <page string="Customer Statements" name="customer_statements" invisible="customer_rank &lt;= 0">
+                        <div class="oe_left" name="div_customer_statements_button">
+                            <button name="action_open_filter_customer_vendor_statement_form" type="object"
+                                    class="btn btn-link"
+                                    style="color:black;background-color:#576fd0;margin-right: 54px;margin-left: 60px"
+                                    string="Customer Statement By Date" context="{'customer': True}"/>
+                            <button name="action_customer_vendor_statements" icon="fa-print" type="object"
+                                    class="btn btn-link"
+                                    style="color:black;background-color:#8493cd ;margin-right: 54px;"
+                                    string="Print Statement" context="{'customer': True}"/>
+                            <button name="action_sent_all_mail_statements" icon="fa-envelope" type="object"
+                                    style="color:black;background-color:#8493cd;margin-right: 54px;"
+                                    class="btn btn-link"
+                                    string="Send Statement" context="{'due': True, 'customer': True}"/>
+                            <button name="action_customer_overdue_statement" icon="fa-print" type="object"
+                                    class="btn btn-link"
+                                    style="color:black;background-color: #8493cd ;margin-right: 54px;"
+                                    string="Print Overdue Statement"/>
+                            <button name="action_sent_all_mail_statements" type="object" class="btn btn-link"
+                                    icon="fa-envelope"
+                                    style="color:black;background-color:#8493cd;margin-right: 61px;"
+                                    string="Send Overdue Statement" context="{'Overdue': True}"/>
+                        </div>
+                        <br/>
+                        <br/>
+                        <separator string="Customer Statements"/>
+                        <field name="customer_amount_ids">
+                            <list string="Customer Statements line" editable="bottom" delete="0" create="0"
+                                  colors="red:(not invoice_date_due or invoice_date_due&lt;=context_today().strftime('%Y-%m-%d')) and remaining_due_amount&gt;0">
+                                <field name="name" readonly="True"/>
+                                <field name="invoice_date" readonly="True"/>
+                                <field name="invoice_date_due" readonly="True"/>
+                                <field name="amount_total_signed" readonly="True" string="Invoices/Debits"/>
+                                <field name="credit_amount" readonly="True" string="Payments/Credits"/>
+                                <field name="remaining_due_amount" readonly="True" string="Balance"/>
+                                <field name="state" readonly="True" invisible="1" optional="hide"/>
+                                <field name="company_id" readonly="True"
+                                       groups="base.group_multi_company" optional="hide"/>
+                                <button name="action_check_record" class="btn-link" icon="fa-arrow-right" type="object"
+                                        string="Open"/>
+                            </list>
+                        </field>
+                        <group class="oe_subtotal_footer oe_right">
+                            <field name="customer_amount_due"/>
+                            <div class="oe_inline o_td_label">
+                                <label for="customer_amount_overdue"/>
+                            </div>
+                            <field name="customer_amount_overdue" nolabel="1"/>
+
+                        </group>
+                    </page>
+                    <page string="Vendor Statements" name="vendor_statements" invisible="supplier_rank &lt;= 0">
+                        <div class="oe_right" name="div_customer_statements_button">
+                            <button name="action_open_filter_customer_vendor_statement_form" type="object"
+                                    class="btn btn-link"
+                                    style="color:black;background-color:#8AC7DB;"
+                                    string="Vendor Statements By Date" context="{'vendor': True}"/>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                            <button name="action_customer_vendor_statements" icon="fa-print" type="object"
+                                    class="btn btn-link"
+                                    style="color:black;background-color:#8AC7DB;"
+                                    string="Print Vendor Statements" context="{'vendor': True}"/>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                        </div>
+                        <br/>
+                        <br/>
+                        <separator string="Vendor Statements"/>
+                        <field name="vendor_amount_ids">
+                            <list string="Vendor Statements line" editable="bottom" delete="0" create="0"
+                                  colors="red:(not invoice_date_due or invoice_date_due&lt;=context_today().strftime('%Y-%m-%d')) and remaining_due_amount&gt;0">
+                                <field name="name" readonly="True"/>
+                                <field name="invoice_date" readonly="True"/>
+                                <field name="invoice_date_due" readonly="True"/>
+                                <field name="amount_total_signed" readonly="True" string="Invoices/Debits"/>
+                                <field name="credit_amount" readonly="True" string="Payments/Credits"/>
+                                <field name="remaining_due_amount" readonly="True" string="Balance"/>
+                                <field name="state" readonly="True" invisible="1" optional="hide"/>
+                                <field name="company_id" readonly="True"
+                                       groups="base.group_multi_company" optional="hide"/>
+                                <button name="action_check_record" class="btn-link" icon="fa-arrow-right" type="object"
+                                        string="Open"/>
+                            </list>
+                        </field>
+                        <group class="oe_subtotal_footer oe_right" colspan="2">
+                            <field name="vendor_amount_due"/>
+                            <div class="oe_inline o_td_label">
+                                <label for="vendor_amount_overdue"/>
+                            </div>
+                            <field name="vendor_amount_overdue" nolabel="1"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_res_partner_filter" model="ir.ui.view">
+            <field name="name">res.partner.search.inherited.os_customer_vendor_statements</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='supplier']" position="after">
+                    <filter string="Overdue Customers" name="customer_overdue_amount"
+                            domain="[('customer_amount_overdue','>',0)]"
+                            context="{'res_partner_search_mode': 'customer'}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_customer_filtered_statements" model="ir.ui.view">
+            <field name="name">res.partner.customer_filtered_statements.form</field>
+            <field name="model">res.partner</field>
+            <field name="priority">1000</field>
+            <field name="arch" type="xml">
+                <form string="Customer Form">
+                    <div class="oe_inline" name="edit_origin" style="display: inline;">
+                        <label for="customer_filter_date_from"/>
+                        <field name="customer_filter_date_from"/>
+                        <label for="customer_filter_date_to"/>
+                        <field name="customer_filter_date_to"/>
+                        <button name="action_fetch_customer_vendor_filtered_statements" type="object"
+                                class="btn btn-link"
+                                style="color:black;background-color:#8AC7DB;"
+                                string="Get Filtered Customer Statements" context="{'customer': True}"/>
+                    </div>
+
+
+                    <separator/>
+                    <field name="customer_filter_line_ids">
+                        <list string="Filter Customer Statements" editable="bottom">
+                            <field name="reference" readonly="True"/>
+                            <field name="invoice_date" readonly="True"/>
+                            <field name="company_id" readonly="True"
+                                   groups="base.group_multi_company"/>
+                            <field name="due_invoice_date" readonly="True"/>
+                            <field name="amount_total_signed" readonly="True" string="Invoices/Debits"
+                                   sum="Total Debits "/>
+                            <field name="credit_amount" readonly="True" string="Payments/Credits"
+                                   sum="Total Credits"/>
+                            <field name="remaining_due_amount" readonly="True" string="Balance"
+                                   sum="Total Balance"/>
+                            <field name="amount_residual" invisible="1" optional="hide"/>
+                            <field name="amount_residual_signed" invisible="1" optional="hide"/>
+                            <field name="amount_total" invisible="1" optional="hide"/>
+                            <button name="action_check_record" class="btn-link" icon="fa-arrow-right" type="object"
+                                    string="Open"/>
+                        </list>
+                    </field>
+                    <group class="oe_subtotal_footer oe_right" colspan="2">
+                        <field name="customer_filter_amount_due"/>
+                        <div class="oe_inline o_td_label">
+                            <label for="customer_filter_amount_overdue"/>
+                        </div>
+                        <field name="customer_filter_amount_overdue" nolabel="1"/>
+                    </group>
+                    <footer class="oe_edit_only">
+                        <button name="action_filtered_customer_vendor_statements" icon="fa-print" type="object"
+                                class="btn btn-link"
+                                string="Print Filtered Customer Statements" context="{'customer': True}"/>
+                        <button name="action_sent_all_mail_statements" icon="fa-envelope" type="object"
+                                class="btn btn-link"
+                                string="Send Filtered Customer Statements"
+                                context="{'customer_filter': True, 'customer':True}"/>
+                        <button string="Discard" special="cancel" data-hotkey="z"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_vendor_filtered_statements" model="ir.ui.view">
+            <field name="name">res.partner.vendor_filtered_statements.form</field>
+            <field name="model">res.partner</field>
+            <field name="priority">1000</field>
+            <field name="arch" type="xml">
+                <form string="Vendor Form">
+                    <div class="oe_inline" name="edit_origin" style="display: inline;">
+                        <label for="vendor_filter_date_from"/>
+                        <field name="vendor_filter_date_from"/>
+                        <label for="vendor_filter_date_to"/>
+                        <field name="vendor_filter_date_to"/>
+                        <button name="action_fetch_customer_vendor_filtered_statements" type="object" class="btn btn-link"
+                            style="color:black;background-color:#8AC7DB;"
+                            string="Get Filtered Vendor Statements" context="{'vendor': True}"/>
+                    </div>
+                    <separator/>
+                    <field name="vendor_filter_line_ids">
+                        <list string="Filter Vendor Statements" editable="bottom">
+                            <field name="reference" readonly="True"/>
+                            <field name="invoice_date" readonly="True"/>
+                            <field name="company_id" readonly="True"
+                                   groups="base.group_multi_company"/>
+                            <field name="due_invoice_date" readonly="True"/>
+                            <field name="amount_total_signed" readonly="True" string="Invoices/Debits"
+                                   sum="Total Debits "/>
+                            <field name="credit_amount" readonly="True" string="Payments/Credits"
+                                   sum="Total Credits"/>
+                            <field name="remaining_due_amount" readonly="True" string="Balance"
+                                   sum="Total Balance"/>
+                            <field name="amount_residual" invisible="1" optional="hide"/>
+                            <field name="amount_residual_signed" invisible="1" optional="hide"/>
+                            <field name="amount_total" invisible="1" optional="hide"/>
+                            <button name="action_check_record" class="btn-link" icon="fa-arrow-right" type="object"
+                                    string="Open"/>
+                        </list>
+                    </field>
+                    <group class="oe_subtotal_footer oe_right" colspan="2">
+                        <field name="vendor_filter_amount_due"/>
+                        <div class="oe_inline o_td_label">
+                            <label for="vendor_filter_amount_overdue"/>
+                        </div>
+                        <field name="vendor_filter_amount_overdue" nolabel="1"/>
+                    </group>
+                    <footer class="oe_edit_only">
+                        <button name="action_filtered_customer_vendor_statements" icon="fa-print" type="object"
+                                class="btn btn-link"
+                                string="Print Filtered Customer Statements" context="{'vendor': True}"/>
+                        <button string="Discard" special="cancel" data-hotkey="z"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

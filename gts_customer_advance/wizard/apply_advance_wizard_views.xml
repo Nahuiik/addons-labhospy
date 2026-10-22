@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- =================================================================== -->
+    <!-- WIZARD: Aplicar anticipos a una factura (desde la factura) -->
+    <!-- =================================================================== -->
+
+    <!-- Vista de formulario del wizard de aplicación de anticipos -->
+    <record id="view_apply_advance_wizard_form" model="ir.ui.view">
+        <field name="name">apply.advance.wizard.form</field>
+        <field name="model">apply.advance.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Aplicar Abono/Anticipo de Cliente">
+                <group>
+                    <group string="Factura">
+                        <field name="move_id" readonly="1"/>
+                        <field name="partner_id"/>
+                        <field name="invoice_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        <field name="residual_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        <field name="currency_id" invisible="1"/>
+                    </group>
+                    <group string="Resumen de aplicación">
+                        <field name="total_to_apply" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        <field name="remaining_after_apply" widget="monetary" options="{'currency_field': 'currency_id'}"
+                               decoration-success="remaining_after_apply == 0"
+                               decoration-warning="remaining_after_apply > 0"/>
+                        <field name="reclass_date"/>
+                    </group>
+                </group>
+                <separator string="Abonos/Anticipos Disponibles"/>
+                <field name="line_ids" nolabel="1">
+                    <list editable="bottom" create="0" delete="0">
+                        <field name="payment_id" readonly="1"/>
+                        <field name="payment_name" readonly="1" optional="hide"/>
+                        <field name="payment_date" readonly="1"/>
+                        <field name="journal_id" readonly="1" optional="hide"/>
+                        <field name="available_amount" widget="monetary" 
+                               options="{'currency_field': 'currency_id'}"
+                               readonly="1"/>
+                        <field name="amount_to_apply" widget="monetary" 
+                               options="{'currency_field': 'currency_id'}"/>
+                        <field name="currency_id" column_invisible="1"/>
+                        <button name="action_apply_max" type="object" 
+                                string="Máx" class="btn-link"
+                                title="Aplicar monto máximo"/>
+                        <button name="action_clear" type="object" 
+                                string="Limpiar" class="btn-link text-danger"
+                                title="Limpiar monto"/>
+                    </list>
+                </field>
+                <footer>
+                    <button name="action_apply_advances" 
+                            string="Aplicar Abonos/Anticipos" 
+                            type="object" 
+                            class="btn-primary"
+                            invisible="total_to_apply &lt;= 0"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- =================================================================== -->
+    <!-- WIZARD: Aplicar un anticipo a múltiples facturas (desde el pago) -->
+    <!-- =================================================================== -->
+
+    <!-- Vista de formulario del wizard de aplicación a facturas -->
+    <record id="view_apply_advance_to_invoices_wizard_form" model="ir.ui.view">
+        <field name="name">apply.advance.to.invoices.wizard.form</field>
+        <field name="model">apply.advance.to.invoices.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Aplicar Abono/Anticipo a Facturas">
+                <group>
+                    <group string="Abono/Anticipo">
+                        <field name="payment_id" readonly="1"/>
+                        <field name="partner_id"/>
+                        <field name="advance_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        <field name="available_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        <field name="currency_id" invisible="1"/>
+                    </group>
+                    <group string="Resumen de aplicación">
+                        <field name="total_to_apply" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        <field name="remaining_after_apply" widget="monetary" options="{'currency_field': 'currency_id'}"
+                               decoration-success="remaining_after_apply >= 0"
+                               decoration-danger="remaining_after_apply &lt; 0"/>
+                    </group>
+                </group>
+                <separator string="Facturas Pendientes"/>
+                <p class="text-muted">
+                    <i class="fa fa-info-circle me-1"/>
+                    Ingrese el monto a aplicar en cada factura. Las facturas están ordenadas por fecha.
+                </p>
+                <field name="line_ids" nolabel="1">
+                    <list editable="bottom" create="0" delete="0">
+                        <field name="move_id" readonly="1"/>
+                        <field name="invoice_name" readonly="1" optional="hide"/>
+                        <field name="invoice_date" readonly="1"/>
+                        <field name="amount_total" widget="monetary" 
+                               options="{'currency_field': 'currency_id'}"
+                               readonly="1"/>
+                        <field name="amount_residual" widget="monetary" 
+                               options="{'currency_field': 'currency_id'}"
+                               readonly="1"/>
+                        <field name="max_amount" widget="monetary" 
+                               options="{'currency_field': 'currency_id'}"
+                               readonly="1" optional="hide"/>
+                        <field name="amount_to_apply" widget="monetary" 
+                               options="{'currency_field': 'currency_id'}"/>
+                        <field name="currency_id" column_invisible="1"/>
+                    </list>
+                </field>
+                <footer>
+                    <button name="action_apply_to_invoices" 
+                            string="Aplicar a Facturas" 
+                            type="object" 
+                            class="btn-primary"
+                            invisible="total_to_apply &lt;= 0"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

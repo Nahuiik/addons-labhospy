@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+      Lista dedicada al post-import QIF/IA: js_class OWL (cabecera informativa).
+      Basada en la lista de account_statement_base (CE); sin dependency Enterprise.
+    -->
+    <record id="view_gn_qif_bank_st_line_list" model="ir.ui.view">
+        <field name="name">account.bank.statement.line.list.gn.qif.openai</field>
+        <field name="model">account.bank.statement.line</field>
+        <field name="arch" type="xml">
+            <list string="Líneas de extracto (QIF)" create="false" multi_edit="1" js_class="gn_qif_bank_st_line" decoration-muted="is_reconciled">
+                <field name="sequence"/>
+                <field name="date" readonly="is_reconciled"/>
+                <field name="statement_id" optional="show"/>
+                <field name="payment_ref" readonly="is_reconciled"/>
+                <field name="ref" optional="hide" readonly="is_reconciled"/>
+                <field name="partner_id" readonly="is_reconciled"/>
+                <field name="amount" readonly="is_reconciled"/>
+                <field name="running_balance" optional="show"/>
+                <field name="journal_id" optional="hide" readonly="is_reconciled"/>
+                <field name="is_reconciled" column_invisible="True"/>
+                <field name="company_id" column_invisible="True"/>
+                <field name="currency_id" column_invisible="True"/>
+                <button name="action_open_journal_entry" type="object" title="Asiento" icon="fa-folder-open-o"/>
+            </list>
+        </field>
+    </record>
+</odoo>

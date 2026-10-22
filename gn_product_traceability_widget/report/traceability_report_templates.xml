@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="traceability_pdf">
+        <t t-call="web.html_container">
+            <t t-set="product_info" t-value="payload.get('product') or {}"/>
+            <t t-set="summary" t-value="payload.get('summary') or {}"/>
+            <t t-set="show_costs" t-value="(payload.get('meta') or {}).get('can_show_costs')"/>
+            <div class="page" style="font-family: Arial, sans-serif; font-size: 11px;">
+                <h2 style="margin-bottom: 4px;">Trazabilidad de producto</h2>
+                <p style="color: #555; margin-top: 0;">
+                    <t t-esc="company.name"/> · Generado: <t t-esc="payload.get('generated_at')"/>
+                    · <t t-esc="payload.get('generated_by')"/>
+                </p>
+
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 12px;">
+                    <tr>
+                        <td style="padding: 4px; border: 1px solid #ddd;"><strong>Producto</strong></td>
+                        <td style="padding: 4px; border: 1px solid #ddd;" t-esc="product_info.get('name')"/>
+                        <td style="padding: 4px; border: 1px solid #ddd;"><strong>Referencia</strong></td>
+                        <td style="padding: 4px; border: 1px solid #ddd;" t-esc="product_info.get('default_code')"/>
+                    </tr>
+                    <tr>
+                        <td style="padding: 4px; border: 1px solid #ddd;"><strong>Saldo inicial</strong></td>
+                        <td style="padding: 4px; border: 1px solid #ddd;" t-esc="summary.get('opening_qty')"/>
+                        <td style="padding: 4px; border: 1px solid #ddd;"><strong>Saldo final</strong></td>
+                        <td style="padding: 4px; border: 1px solid #ddd;" t-esc="summary.get('closing_qty')"/>
+                    </tr>
+                    <tr>
+                        <td style="padding: 4px; border: 1px solid #ddd;"><strong>Entradas</strong></td>
+                        <td style="padding: 4px; border: 1px solid #ddd;" t-esc="summary.get('incoming_qty')"/>
+                        <td style="padding: 4px; border: 1px solid #ddd;"><strong>Salidas</strong></td>
+                        <td style="padding: 4px; border: 1px solid #ddd;" t-esc="summary.get('outgoing_qty')"/>
+                    </tr>
+                    <tr t-if="show_costs">
+                        <td style="padding: 4px; border: 1px solid #ddd;"><strong>Valor inicial</strong></td>
+                        <td style="padding: 4px; border: 1px solid #ddd;" t-esc="summary.get('opening_value_fmt')"/>
+                        <td style="padding: 4px; border: 1px solid #ddd;"><strong>Valor final</strong></td>
+                        <td style="padding: 4px; border: 1px solid #ddd;" t-esc="summary.get('closing_value_fmt')"/>
+                    </tr>
+                    <tr t-if="show_costs">
+                        <td style="padding: 4px; border: 1px solid #ddd;"><strong>Valor entradas</strong></td>
+                        <td style="padding: 4px; border: 1px solid #ddd;" t-esc="summary.get('incoming_value_fmt')"/>
+                        <td style="padding: 4px; border: 1px solid #ddd;"><strong>Valor salidas</strong></td>
+                        <td style="padding: 4px; border: 1px solid #ddd;" t-esc="summary.get('outgoing_value_fmt')"/>
+                    </tr>
+                </table>
+
+                <h3 style="font-size: 13px;">Totales por tipo de movimiento</h3>
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 12px; font-size: 10px;">
+                    <thead>
+                        <tr style="background: #e2e8f0;">
+                            <th style="padding: 4px; border: 1px solid #ccc;">Tipo</th>
+                            <th style="padding: 4px; border: 1px solid #ccc;">Cantidad</th>
+                            <th style="padding: 4px; border: 1px solid #ccc;">Entrada</th>
+                            <th style="padding: 4px; border: 1px solid #ccc;">Salida</th>
+                            <th t-if="show_costs" style="padding: 4px; border: 1px solid #ccc;">Valor entrada</th>
+                            <th t-if="show_costs" style="padding: 4px; border: 1px solid #ccc;">Valor salida</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="payload.get('movement_summary', [])" t-as="ms">
+                            <td style="padding: 3px; border: 1px solid #ddd;" t-esc="ms.get('label')"/>
+                            <td style="padding: 3px; border: 1px solid #ddd;" t-esc="ms.get('count')"/>
+                            <td style="padding: 3px; border: 1px solid #ddd;" t-esc="ms.get('qty_in')"/>
+                            <td style="padding: 3px; border: 1px solid #ddd;" t-esc="ms.get('qty_out')"/>
+                            <td t-if="show_costs" style="padding: 3px; border: 1px solid #ddd;" t-esc="ms.get('value_in')"/>
+                            <td t-if="show_costs" style="padding: 3px; border: 1px solid #ddd;" t-esc="ms.get('value_out')"/>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 style="font-size: 13px;">Movimientos</h3>
+                <table style="width: 100%; border-collapse: collapse; font-size: 10px;">
+                    <thead>
+                        <tr style="background: #2563eb; color: #fff;">
+                            <th style="padding: 4px; border: 1px solid #ccc;">Fecha</th>
+                            <th style="padding: 4px; border: 1px solid #ccc;">Tipo</th>
+                            <th style="padding: 4px; border: 1px solid #ccc;">Documento</th>
+                            <th style="padding: 4px; border: 1px solid #ccc;">Origen</th>
+                            <th style="padding: 4px; border: 1px solid #ccc;">Destino</th>
+                            <th style="padding: 4px; border: 1px solid #ccc;">Entrada</th>
+                            <th style="padding: 4px; border: 1px solid #ccc;">Salida</th>
+                            <th style="padding: 4px; border: 1px solid #ccc;">Saldo</th>
+                            <th t-if="show_costs" style="padding: 4px; border: 1px solid #ccc;">Costo unit.</th>
+                            <th t-if="show_costs" style="padding: 4px; border: 1px solid #ccc;">Valor entrada</th>
+                            <th t-if="show_costs" style="padding: 4px; border: 1px solid #ccc;">Valor salida</th>
+                            <th t-if="show_costs" style="padding: 4px; border: 1px solid #ccc;">Saldo valor</th>
+                            <th style="padding: 4px; border: 1px solid #ccc;">Lote</th>
+                            <th style="padding: 4px; border: 1px solid #ccc;">Proveedor</th>
+                            <th style="padding: 4px; border: 1px solid #ccc;">Cliente</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="payload.get('events', [])" t-as="ev">
+                            <td style="padding: 3px; border: 1px solid #ddd;" t-esc="ev.get('date_fmt')"/>
+                            <td style="padding: 3px; border: 1px solid #ddd;" t-esc="ev.get('type_label')"/>
+                            <td style="padding: 3px; border: 1px solid #ddd;" t-esc="ev.get('document')"/>
+                            <td style="padding: 3px; border: 1px solid #ddd;" t-esc="ev.get('source')"/>
+                            <td style="padding: 3px; border: 1px solid #ddd;" t-esc="ev.get('destination')"/>
+                            <td style="padding: 3px; border: 1px solid #ddd;" t-esc="ev.get('in_qty')"/>
+                            <td style="padding: 3px; border: 1px solid #ddd;" t-esc="ev.get('out_qty')"/>
+                            <td style="padding: 3px; border: 1px solid #ddd;" t-esc="ev.get('balance')"/>
+                            <td t-if="show_costs" style="padding: 3px; border: 1px solid #ddd;" t-esc="ev.get('unit_cost_fmt')"/>
+                            <td t-if="show_costs" style="padding: 3px; border: 1px solid #ddd;" t-esc="ev.get('value_in_fmt')"/>
+                            <td t-if="show_costs" style="padding: 3px; border: 1px solid #ddd;" t-esc="ev.get('value_out_fmt')"/>
+                            <td t-if="show_costs" style="padding: 3px; border: 1px solid #ddd;" t-esc="ev.get('value_balance_fmt')"/>
+                            <td style="padding: 3px; border: 1px solid #ddd;" t-esc="ev.get('lot')"/>
+                            <td style="padding: 3px; border: 1px solid #ddd;" t-esc="ev.get('supplier')"/>
+                            <td style="padding: 3px; border: 1px solid #ddd;" t-esc="ev.get('customer')"/>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+</odoo>

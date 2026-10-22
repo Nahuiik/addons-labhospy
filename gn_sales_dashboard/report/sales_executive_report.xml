@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_sales_executive" model="ir.actions.report">
+        <field name="name">Reporte ejecutivo de ventas</field>
+        <field name="model">res.company</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">gn_sales_dashboard.report_sales_exec</field>
+        <field name="report_file">gn_sales_dashboard.report_sales_exec</field>
+        <field name="print_report_name">'Ventas_Ejecutivo_%s' % (object.name)</field>
+    </record>
+
+    <template id="report_sales_exec">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="company">
+                <div class="page" style="font-family:Arial,sans-serif;padding:20px;">
+                    <h2 style="color:#0f172a;margin:0;">Reporte ejecutivo de ventas</h2>
+                    <p style="color:#64748b;">
+                        <t t-esc="company.name"/> ·
+                        <t t-esc="report_data.get('filters', {}).get('date_from', '')"/> —
+                        <t t-esc="report_data.get('filters', {}).get('date_to', '')"/>
+                    </p>
+                    <p><strong>Generado por:</strong> <t t-esc="report_data.get('user_name', '')"/></p>
+                    <div style="margin:16px 0;padding:12px;background:#eff6ff;border-radius:8px;">
+                        <strong>Sales Health Score:</strong>
+                        <span style="font-size:22px;font-weight:bold;">
+                            <t t-esc="report_data.get('health', {}).get('score', 0)"/> / 100
+                        </span>
+                        (<t t-esc="report_data.get('health', {}).get('status', '')"/>)
+                    </div>
+                    <h3>KPIs</h3>
+                    <table style="width:100%;border-collapse:collapse;font-size:12px;">
+                        <thead>
+                            <tr style="background:#eef2f7;">
+                                <th style="padding:6px;text-align:left;">Indicador</th>
+                                <th style="padding:6px;text-align:right;">Valor</th>
+                                <th style="padding:6px;text-align:right;">Var %</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="report_data.get('kpis', [])" t-as="kpi">
+                                <tr>
+                                    <td style="padding:5px;border-bottom:1px solid #e5e7eb;"><t t-esc="kpi.get('label')"/></td>
+                                    <td style="padding:5px;text-align:right;border-bottom:1px solid #e5e7eb;"><t t-esc="kpi.get('value')"/></td>
+                                    <td style="padding:5px;text-align:right;border-bottom:1px solid #e5e7eb;"><t t-esc="kpi.get('variation_pct')"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <h3 style="margin-top:20px;">Alertas</h3>
+                    <ul>
+                        <t t-foreach="report_data.get('alerts', [])" t-as="alert">
+                            <li><strong t-esc="alert.get('title')"/> — <t t-esc="alert.get('explanation')"/></li>
+                        </t>
+                    </ul>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

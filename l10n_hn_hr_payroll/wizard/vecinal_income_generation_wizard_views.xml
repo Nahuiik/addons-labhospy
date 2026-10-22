@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_vecinal_income_generation_wizard_form" model="ir.ui.view">
+        <field name="name">l10n.hn.vecinal.income_generation_wizard.form</field>
+        <field name="model">l10n.hn.vecinal.income_generation_wizard</field>
+        <field name="arch" type="xml">
+            <form string="Generate Employee Income Records">
+                <group>
+                    <field name="company_id" options="{'no_create': True}"/>
+                    <field name="year_base"/>
+                </group>
+                <div class="alert alert-info" role="alert">
+                    This will create draft income records for all active employees of the selected company
+                    for the specified base year. Existing records will not be overwritten.
+                </div>
+                <footer>
+                    <button string="Generate" name="action_generate" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    
+    <record id="action_vecinal_income_generation_wizard" model="ir.actions.act_window">
+        <field name="name">Generate Employee Income Records</field>
+        <field name="res_model">l10n.hn.vecinal.income_generation_wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

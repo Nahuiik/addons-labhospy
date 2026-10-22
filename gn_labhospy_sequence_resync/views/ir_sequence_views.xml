@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_ir_sequence_form_inherit_resync" model="ir.ui.view">
+        <field name="name">ir.sequence.form.inherit.resync</field>
+        <field name="model">ir.sequence</field>
+        <field name="inherit_id" ref="base.sequence_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <button name="action_gn_resync_from_moves" type="object"
+                            string="Resincronizar con datos"
+                            class="btn-primary"
+                            help="Ajusta el siguiente numero al mayor sufijo usado en account.move.name + 1."/>
+                </header>
+            </xpath>
+            <xpath expr="//field[@name='number_next_actual']" position="after">
+                <field name="gn_max_used_number" readonly="1"/>
+                <field name="gn_needs_resync" readonly="1"
+                       decoration-danger="gn_needs_resync == True"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

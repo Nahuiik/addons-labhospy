@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_purchase_dashboard.LeadTimePanel">
+        <section class="gn-pd-lead-time">
+            <div t-if="props.loading" class="gn-pd-skeleton gn-pd-skeleton--lead-time"/>
+            <t t-else="">
+                <div class="gn-pd-lead-time__grid">
+                    <div t-att-class="'gn-pd-lead-time__zone gn-pd-lead-time__zone--hero gn-pd-lead-time__zone--' + statusClass">
+                        <span class="gn-pd-lead-time__eyebrow"><i class="fa fa-clock-o"/> Lead Time Promedio</span>
+                        <strong t-att-class="'gn-pd-lead-time__value' + (state.pulse ? ' gn-pd-lead-time__value--pulse' : '')"
+                                t-esc="avgDays + ' días'"/>
+                        <div class="gn-pd-lead-time__meta-row">
+                            <span class="gn-pd-lead-time__meta" t-esc="'Meta: ' + targetDays + ' días'"/>
+                            <span t-att-class="'gn-pd-lead-time__delta gn-pd-lead-time__delta--' + statusClass">
+                                <i t-att-class="'fa ' + deltaIcon"/> <t t-esc="deltaLabel"/>
+                            </span>
+                        </div>
+                        <div class="gn-pd-lead-time__goal">
+                            <div class="gn-pd-lead-time__goal-head">
+                                <span>Objetivo</span>
+                                <strong t-esc="goalPct + '%'"/>
+                            </div>
+                            <div class="gn-pd-lead-time__goal-bar">
+                                <div class="gn-pd-lead-time__goal-fill" t-att-style="'width:' + goalPct + '%'"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gn-pd-lead-time__zone gn-pd-lead-time__zone--trend">
+                        <span class="gn-pd-lead-time__zone-title">Tendencia</span>
+                        <svg class="gn-pd-lead-time__spark" viewBox="0 0 120 36" preserveAspectRatio="none"
+                             t-on-mousemove="onSparkMove" t-on-mouseleave="onSparkLeave">
+                            <path t-if="sparkPath" t-att-d="sparkPath" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                        </svg>
+                        <div t-if="state.hoverSpark" class="gn-pd-lead-time__spark-tip"
+                             t-esc="state.hoverSpark.value + ' d'"/>
+                        <div class="gn-pd-lead-time__spark-stats">
+                            <span><small>Tend.</small> <t t-esc="sparkStats.trend"/></span>
+                            <span><small>Prom.</small> <t t-esc="sparkStats.avg + ' d'"/></span>
+                            <span><small>Mín.</small> <t t-esc="sparkStats.min + ' d'"/></span>
+                            <span><small>Máx.</small> <t t-esc="sparkStats.max + ' d'"/></span>
+                        </div>
+                    </div>
+
+                    <div class="gn-pd-lead-time__zone gn-pd-lead-time__zone--breakdown">
+                        <span class="gn-pd-lead-time__zone-title">Desglose</span>
+                        <div t-if="!breakdownRows.length" class="gn-pd-lead-time__empty">Sin datos de recepción</div>
+                        <div t-foreach="breakdownRows" t-as="row" t-key="row.key" class="gn-pd-lead-time__bar-row">
+                            <span class="gn-pd-lead-time__bar-label" t-esc="row.label"/>
+                            <div class="gn-pd-lead-time__bar-track">
+                                <div t-att-class="'gn-pd-lead-time__bar-fill gn-pd-lead-time__bar-fill--' + row.color"
+                                     t-att-style="'width:' + row.pct + '%'"/>
+                            </div>
+                            <span class="gn-pd-lead-time__bar-val" t-esc="row.value + ' · ' + row.pct + '%'"/>
+                        </div>
+                    </div>
+
+                    <div class="gn-pd-lead-time__zone gn-pd-lead-time__zone--mini">
+                        <span class="gn-pd-lead-time__zone-title">KPIs</span>
+                        <div class="gn-pd-lead-time__mini-grid">
+                            <div t-foreach="miniKpis" t-as="mk" t-key="mk.label" class="gn-pd-lead-time__mini-kpi">
+                                <span t-esc="mk.label"/>
+                                <strong t-esc="mk.value"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gn-pd-lead-time__insight">
+                    <i class="fa fa-lightbulb-o"/>
+                    <span t-esc="aiInsight"/>
+                </div>
+
+                <div class="gn-pd-lead-time__vendors">
+                    <div class="gn-pd-lead-time__vendor-col">
+                        <span class="gn-pd-lead-time__vendor-title">Más rápidos</span>
+                        <div t-foreach="fastestVendors" t-as="v" t-key="v.name" class="gn-pd-lead-time__vendor-row">
+                            <span t-esc="v.name"/>
+                            <strong t-esc="v.days.toFixed(1) + ' d'"/>
+                        </div>
+                    </div>
+                    <div class="gn-pd-lead-time__vendor-col">
+                        <span class="gn-pd-lead-time__vendor-title">Más lentos</span>
+                        <div t-foreach="slowestVendors" t-as="v" t-key="v.name" class="gn-pd-lead-time__vendor-row">
+                            <span t-esc="v.name"/>
+                            <strong t-esc="v.days.toFixed(1) + ' d'"/>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </section>
+    </t>
+</templates>

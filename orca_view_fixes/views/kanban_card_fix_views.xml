@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Ensure account audit kanban exposes card/menu templates -->
+    <record id="account_audit_kanban_card_fix" model="ir.ui.view">
+        <field name="name">account.audit.kanban.card.fix</field>
+        <field name="model">account.return</field>
+        <field name="inherit_id" ref="account_reports.account_audit_kanban_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//kanban/t[@t-name='card']" position="replace">
+                <templates>
+                    <t t-name="card">
+                        <div class="o_audit_kanban_record d-flex flex-column w-100 h-100">
+                            <div class="d-flex flex-row justify-content-between w-100 px-2 py-2">
+                                <h3 class="text-truncate" style="width:70%;" t-att-title="record.name.raw_value">
+                                    <field name="name" widget="account_return_name_badge"/>
+                                </h3>
+                                <div class="pe-3">
+                                    <field
+                                        widget="account_return_selection_badge"
+                                        name="audit_status"
+                                        options="{
+                                            'ongoing': {'decoration': 'muted'},
+                                            'paused': {'decoration': 'danger'},
+                                            'done': {'decoration': 'success'},
+                                        }"
+                                    />
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column w-100 h-100 px-2 mt-2 gap-3">
+                                <a type="object" class="link_balances_progressbar" name="action_open_audit_balances">
+                                    <div class="w-100">
+                                        <label for="resolved_check_count">Balances</label>
+                                        <field name="audit_balances_count" invisible="1"/>
+                                        <field name="audit_balances_completed_count" class="w-100 audit_return_progressbar" widget="account_audit_progressbar" options="{ 'max_value': 'audit_balances_count'}"/>
+                                    </div>
+                                </a>
+                                <div class="w-100">
+                                    <label for="resolved_check_count">Checks</label>
+                                    <field name="check_count" invisible="1"/>
+                                    <field name="resolved_check_count" class="w-100 audit_return_progressbar" widget="account_audit_progressbar" options="{ 'max_value': 'check_count'}"/>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-row-reverse w-100 h-25 px-2 mt-2 align-items-center align-self-end">
+                                <field name="activity_ids" widget="kanban_activity" class="ms-1"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </xpath>
+            <xpath expr="//kanban/templates" position="inside">
+                <t t-name="menu">
+                    <div class="py-2">
+                        <field name="is_completed" invisible="1"/>
+                        <a class="dropdown-item" type="object" name="action_mark_completed" string="Mark as Completed" invisible="is_completed"/>
+                        <a class="dropdown-item" type="object" name="action_mark_uncompleted" string="Reset" invisible="not is_completed"/>
+                        <a class="dropdown-item" type="object" name="action_archive" string="Archive" invisible="state != 'new' or is_completed or not active"/>
+                        <a class="dropdown-item" type="object" name="action_unarchive" string="Unarchive" invisible="active"/>
+                        <a class="dropdown-item" type="object" name="action_export_working_files" string="Export"/>
+                        <a invisible="state != 'new'" class="dropdown-item" type="object" name="action_delete" string="Delete"/>
+                    </div>
+                </t>
+            </xpath>
+            <xpath expr="//kanban/t[@t-name='menu' and not(parent::templates)]" position="replace"/>
+        </field>
+    </record>
+
+    <!-- Wrap tax return kanban card template -->
+    <record id="account_return_kanban_card_fix" model="ir.ui.view">
+        <field name="name">account.return.kanban.card.fix</field>
+        <field name="model">account.return</field>
+        <field name="inherit_id" ref="account_reports.account_return_kanban_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//kanban/t[@t-name='card']" position="replace">
+                <templates>
+                    <t t-name="card">
+                        <div class="p-0 w-100">
+                            <widget name="web_ribbon" title="Archived" bg_color="bg-danger" invisible="not context.get('in_checks_view') or active"/>
+                            <div class="w-100 p-2 px-3">
+                                <div class="row h-full position-relative">
+                                    <div class="col-12 col-lg-3">
+                                        <div class="row">
+                                            <div class="o_field_widget">
+                                                <field class="oe_state_value pe-2 fs-5" name="name"/>
+                                                <field invisible="context.get('in_checks_view') or unresolved_check_count &lt;= 0" class="oe_state_value pe-1 text-danger" name="unresolved_check_count"/>
+                                                <span invisible="context.get('in_checks_view') or unresolved_check_count &lt;= 0" class="oe_stat_text ps-0 text-danger">Pending</span>
+                                                <field invisible="context.get('in_checks_view') or unresolved_check_count != 0 or resolved_check_count &lt;= 0" class="oe_state_value pe-1 text-success" name="resolved_check_count"/>
+                                                <span invisible="context.get('in_checks_view') or unresolved_check_count != 0 or resolved_check_count &lt;= 0" class="oe_stat_text ps-0 text-success">Passed</span>
+                                            </div>
+                                        </div>
+                                        <div id="date_wrapper" class="row o_field_widget" t-att-class="{'text-black': (record.days_to_deadline.raw_value &gt;= 0) or record.date_submission.raw_value or record.is_completed.raw_value, 'text-danger': (record.days_to_deadline.raw_value &lt; 0) and !record.date_submission.raw_value and !record.is_completed.raw_value}" invisible="return_type_category == 'audit'">
+                                            <t t-if="!record.date_submission.raw_value">
+                                                <span class="oe_stat_text pe-1 text-black">Deadline: </span><field class="oe_stat_value ps-0" name="date_deadline"/>
+                                            </t>
+                                            <t t-else="">
+                                                <span class="oe_stat_text pe-1 text-black-50">Submitted on: </span><field class="oe_stat_value ps-0 text-black-50" name="date_submission"/>
+                                            </t>
+                                        </div>
+                                        <div class="row" invisible="not show_companies">
+                                            <field name="company_ids" widget="many2many_tags"/>
+                                        </div>
+                                    </div>
+                                    <div id="account_tax_return_amount" class="col-12 col-lg-2 px-lg-0 d-flex align-items-center text-end">
+                                        <field name="amount_to_pay_currency_id" invisible="1"/>
+                                        <div id="return_amount_to_pay" invisible="not show_amount_to_pay or not is_main_company_active or return_type_category == 'audit'">
+                                            <h2 class="o_account_return_amount o_field_widget">
+                                                <field name="period_amount_to_pay"/>
+                                            </h2>
+                                            <span class="oe_stat_text text-black-50 fs-5 fw-bold" t-att-class="{'invisible': record.total_amount_to_pay.raw_value == record.period_amount_to_pay.raw_value}" invisible="context.get('in_checks_view') and total_amount_to_pay == period_amount_to_pay">
+                                                Balance <field name="total_amount_to_pay"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-3">
+                                        <div class="o_field_widget">
+                                            <label for="visible_states" class="oe_stat_text">Status</label>
+                                            <field name="state" widget="account_return_selection_badge" options="{
+                                                'new': {'decoration': 'warning'},
+                                                'reviewed': {'decoration': 'info'},
+                                                'submitted': {'decoration': 'primary'},
+                                                'paid': {'decoration': 'success'},
+                                                'cancelled': {'decoration': 'danger'}
+                                            }"/>
+                                        </div>
+                                        <div class="o_field_widget" invisible="return_type_category == 'audit'">
+                                            <label for="visible_states" class="oe_stat_text">Filing Status</label>
+                                            <field name="visible_states" widget="many2many_tags"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-4">
+                                        <div class="o_field_widget" invisible="return_type_category != 'audit'">
+                                            <label for="visible_states" class="oe_stat_text">Category</label>
+                                            <field name="return_type_category"/>
+                                        </div>
+                                        <div class="o_field_widget" invisible="return_type_category == 'audit'">
+                                            <label for="visible_states" class="oe_stat_text">Period</label>
+                                            <field name="date_from"/>
+                                            <field name="date_to"/>
+                                        </div>
+                                        <div class="o_field_widget" invisible="return_type_category == 'audit'">
+                                            <label for="visible_states" class="oe_stat_text">Company</label>
+                                            <field name="company_id"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Wrap payment method line kanban card -->
+    <record id="account_payment_method_line_kanban_card_fix" model="ir.ui.view">
+        <field name="name">account.payment.method.line.kanban.card.fix</field>
+        <field name="model">account.payment.method.line</field>
+        <field name="inherit_id" ref="account.view_account_payment_method_line_kanban_mobile"/>
+        <field name="arch" type="xml">
+            <xpath expr="//kanban/t[@t-name='card']" position="replace">
+                <templates>
+                    <t t-name="card">
+                        <field name="display_name"/>
+                    </t>
+                </templates>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Wrap website controller page kanban card -->
+    <record id="website_controller_pages_kanban_card_fix" model="ir.ui.view">
+        <field name="name">website.controller.page.kanban.card.fix</field>
+        <field name="model">website.controller.page</field>
+        <field name="inherit_id" ref="website.website_controller_pages_kanban_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//kanban/t[@t-name='card']" position="replace">
+                <templates>
+                    <t t-name="card">
+                        <field name="website_published" invisible="1"/>
+                        <widget name="web_ribbon" text="Published" invisible="not website_published"/>
+                        <widget name="web_ribbon" text="Unpublished" invisible="website_published" bg_color="text-bg-danger"/>
+                        <div data-section="data" class="d-flex align-items-center">
+                            <div class="fw-bold me-2" data-section="title"><field name="name"/></div>
+                            <div data-section="name">
+                                <div invisible="website_id">On all websites</div>
+                                <div invisible="not website_id"><span class="me-1">On:</span><field name="website_id"/></div>
+                            </div>
+                        </div>
+                        <div class="d-md-flex align-items-center gap-3" data-section="more-info">
+                            <i class="fa fa-2x fa-arrow-right text-primary" title="URL"/>
+                            <field name="url_demo" widget="url"/>
+                        </div>
+                    </t>
+                </templates>
+            </xpath>
+        </field>
+    </record>
+</odoo>

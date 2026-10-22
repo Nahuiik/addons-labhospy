@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_lock_exception_tree_gn" model="ir.ui.view">
+        <field name="name">account.lock_exception.tree.gn</field>
+        <field name="model">account.lock_exception</field>
+        <field name="arch" type="xml">
+            <list string="Lock Date Exceptions" default_order="create_date desc">
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="user_id"/>
+                <field name="lock_date_field"/>
+                <field name="lock_date"/>
+                <field name="company_lock_date"/>
+                <field name="reason"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'active'"
+                       decoration-muted="state == 'expired'"
+                       decoration-danger="state == 'revoked'"/>
+                <field name="end_datetime"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_account_lock_exception_search_gn" model="ir.ui.view">
+        <field name="name">account.lock_exception.search.gn</field>
+        <field name="model">account.lock_exception</field>
+        <field name="arch" type="xml">
+            <search string="Lock Exceptions">
+                <field name="user_id"/>
+                <field name="lock_date_field"/>
+                <field name="company_id"/>
+                <filter string="Active" name="active" domain="[('state', '=', 'active')]"/>
+                <filter string="Revoked" name="revoked" domain="[('state', '=', 'revoked')]"/>
+                <filter string="Expired" name="expired" domain="[('state', '=', 'expired')]"/>
+                <group>
+                    <filter string="Company" name="grp_company" domain="[]" context="{'group_by': 'company_id'}"/>
+                    <filter string="User" name="grp_user" domain="[]" context="{'group_by': 'user_id'}"/>
+                    <filter string="State" name="grp_state" domain="[]" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_account_lock_exception_kanban_gn" model="ir.ui.view">
+        <field name="name">account.lock_exception.kanban.gn</field>
+        <field name="model">account.lock_exception</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile" quick_create="false">
+                <field name="user_id"/>
+                <field name="lock_date_field"/>
+                <field name="lock_date"/>
+                <field name="reason"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="p-2">
+                            <div><field name="lock_date_field"/></div>
+                            <div><field name="lock_date"/></div>
+                            <div t-if="record.user_id.raw_value"><field name="user_id"/></div>
+                            <div t-if="record.reason.raw_value" class="text-muted small"><field name="reason"/></div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_account_lock_exception_gn" model="ir.actions.act_window">
+        <field name="name">Lock Date Exceptions</field>
+        <field name="res_model">account.lock_exception</field>
+        <field name="view_mode">list,kanban,form</field>
+        <field name="search_view_id" ref="view_account_lock_exception_search_gn"/>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No lock date exceptions.</p>
+            <p>Active exceptions temporarily relax soft lock dates for specific users.</p>
+        </field>
+    </record>
+</odoo>

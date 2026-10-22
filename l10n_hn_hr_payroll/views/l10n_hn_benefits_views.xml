@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_l10n_hn_thirteenth_month_tree" model="ir.ui.view">
+        <field name="name">l10n.hn.thirteenth.month.tree</field>
+        <field name="model">l10n.hn.thirteenth.month</field>
+        <field name="arch" type="xml">
+            <list string="13th Month">
+                <header>
+                    <button name="%(action_l10n_hn_thirteenth_month_generation_wizard)d" string="Generar por Año" 
+                            type="action" class="btn-primary"
+                            help="Abre un wizard para seleccionar el año y generar los registros de 13° mes para todos los empleados activos"/>
+                </header>
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="year"/>
+                <field name="calculated_amount"/>
+                <field name="paid"/>
+                <field name="payment_month"/>
+            </list>
+        </field>
+    </record>
+    
+    <record id="view_l10n_hn_thirteenth_month_form" model="ir.ui.view">
+        <field name="name">l10n.hn.thirteenth.month.form</field>
+        <field name="model">l10n.hn.thirteenth.month</field>
+        <field name="arch" type="xml">
+            <form string="13th Month">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="employee_id"/>
+                            <field name="year"/>
+                            <field name="calculation_method"/>
+                        </group>
+                        <group>
+                            <field name="period_start" readonly="1"/>
+                            <field name="period_end" readonly="1"/>
+                            <field name="worked_days" readonly="1"/>
+                            <field name="total_days" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="calculated_amount" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="payment_month"/>
+                            <field name="paid"/>
+                            <field name="payslip_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="isr_exempt_amount"/>
+                            <field name="isr_taxable_amount" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <record id="action_l10n_hn_thirteenth_month" model="ir.actions.act_window">
+        <field name="name">13th Month</field>
+        <field name="res_model">l10n.hn.thirteenth.month</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    
+    <record id="view_l10n_hn_fourteenth_month_tree" model="ir.ui.view">
+        <field name="name">l10n.hn.fourteenth.month.tree</field>
+        <field name="model">l10n.hn.fourteenth.month</field>
+        <field name="arch" type="xml">
+            <list string="14th Month">
+                <header>
+                    <button name="%(action_l10n_hn_fourteenth_month_generation_wizard)d" string="Generar por Año" 
+                            type="action" class="btn-primary"
+                            help="Abre un wizard para seleccionar el año y generar los registros de 14° mes para todos los empleados activos"/>
+                </header>
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="year"/>
+                <field name="calculated_amount"/>
+                <field name="paid"/>
+                <field name="payment_month"/>
+            </list>
+        </field>
+    </record>
+    
+    <record id="view_l10n_hn_fourteenth_month_form" model="ir.ui.view">
+        <field name="name">l10n.hn.fourteenth.month.form</field>
+        <field name="model">l10n.hn.fourteenth.month</field>
+        <field name="arch" type="xml">
+            <form string="14th Month">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="employee_id"/>
+                            <field name="year"/>
+                            <field name="calculation_method"/>
+                        </group>
+                        <group>
+                            <field name="calculation_period_start" readonly="1"/>
+                            <field name="calculation_period_end" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="calculated_amount" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="payment_month"/>
+                            <field name="paid"/>
+                            <field name="payslip_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="isr_exempt_amount"/>
+                            <field name="isr_taxable_amount" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <record id="action_l10n_hn_fourteenth_month" model="ir.actions.act_window">
+        <field name="name">14th Month</field>
+        <field name="res_model">l10n.hn.fourteenth.month</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

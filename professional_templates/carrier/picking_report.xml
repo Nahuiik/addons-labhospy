@@ -1,0 +1,68 @@
+<odoo>
+    <template id="report_pk1_document2" inherit_id="professional_templates.PICK_1_document" name="Modern">
+        <xpath expr="//div[@name='div_sched_date']" position="after">
+                   <div t-if="o.picking_type_id.code == 'outgoing' and o._fields.get('carrier_id') and o.carrier_id" t-attf-style="{{div_style}}">
+                     <strong>Carrier:</strong>
+                     <p t-field="o.carrier_id"/>
+                   </div>
+
+                   <t t-set="weight_value" t-value="o._fields.get('weight') and o.weight"/>
+                   <t t-set="weight_uom" t-value="o._fields.get('weight_uom_name') and o.weight_uom_name"/>
+                   <div t-if="weight_value" t-attf-style="{{div_style}}">
+                     <strong>Weight:</strong>
+                     <p><span t-esc="weight_value"/> <span t-if="weight_uom" t-esc="weight_uom"/></p>
+                   </div>
+        </xpath>
+    </template>
+
+
+    <template id="report_pk2_document2" inherit_id="professional_templates.PICK_2_document" name="Classic">
+        <xpath expr="//div[@name='div_sched_date']" position="after">
+                   <div t-if="o.picking_type_id.code == 'outgoing' and o.carrier_id" t-attf-style="{{div_style}}">
+                     <strong>Carrier:</strong>
+                     <p t-field="o.carrier_id"/>
+                   </div>
+
+                   <t t-set="weight_value" t-value="o._fields.get('weight') and o.weight"/>
+                   <t t-set="weight_uom" t-value="o._fields.get('weight_uom_name') and o.weight_uom_name"/>
+                   <div t-if="weight_value" t-attf-style="{{div_style}}">
+                     <strong>Weight:</strong>
+                     <p><span t-esc="weight_value"/> <span t-if="weight_uom" t-esc="weight_uom"/></p>
+                   </div>
+        </xpath>
+    </template>
+
+
+    <template id="report_pk3_document2" inherit_id="professional_templates.PICK_3_document" name="Retro">
+        <xpath expr="//div[@name='div_sched_date']" position="after">
+                   <div t-if="o.picking_type_id.code == 'outgoing' and o.carrier_id" t-attf-style="{{div_style}}">
+                     <strong>Carrier:</strong>
+                     <p t-field="o.carrier_id"/>
+                   </div>
+
+                   <t t-set="weight_value" t-value="o._fields.get('weight') and o.weight"/>
+                   <t t-set="weight_uom" t-value="o._fields.get('weight_uom_name') and o.weight_uom_name"/>
+                   <div t-if="weight_value" t-attf-style="{{div_style}}">
+                     <strong>Weight:</strong>
+                     <p><span t-esc="weight_value"/> <span t-if="weight_uom" t-esc="weight_uom"/></p>
+                   </div>
+        </xpath>
+    </template>
+
+
+    <template id="report_pk4_document2" inherit_id="professional_templates.PICK_4_document" name="TVA">
+        <xpath expr="//div[@name='div_sched_date']" position="after">
+                   <div t-if="o.picking_type_id.code == 'outgoing' and o.carrier_id" t-attf-style="{{div_style}}">
+                     <strong>Carrier:</strong>
+                     <p t-field="o.carrier_id"/>
+                   </div>
+
+                   <t t-set="weight_value" t-value="o._fields.get('weight') and o.weight"/>
+                   <t t-set="weight_uom" t-value="o._fields.get('weight_uom_name') and o.weight_uom_name"/>
+                   <div t-if="weight_value" t-attf-style="{{div_style}}">
+                     <strong>Weight:</strong>
+                     <p><span t-esc="weight_value"/> <span t-if="weight_uom" t-esc="weight_uom"/></p>
+                   </div>
+        </xpath>
+    </template>
+</odoo>

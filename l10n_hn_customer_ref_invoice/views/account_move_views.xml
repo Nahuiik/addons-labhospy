@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_move_form_customer_ref_invoice" model="ir.ui.view">
+        <field name="name">account.move.form.customer.ref.invoice</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_post'][contains(@invisible, &quot;move_type == 'entry'&quot;)]" position="before">
+                <button name="action_post_with_customer_ref"
+                        type="object"
+                        string="Validar con referencia SAR"
+                        class="btn-primary"
+                        invisible="move_type != 'out_invoice' or state != 'draft'"
+                        groups="l10n_hn_customer_ref_invoice.group_customer_ref_invoice_post"
+                        confirm="Se publicará la factura usando el número de «Referencia del cliente» (19 caracteres, formato 000-002-01-00022827). ¿Continuar?"/>
+            </xpath>
+            <xpath expr="//page[@name='other_info']//field[@name='ref']" position="after">
+                <field name="l10n_hn_customer_ref_ready" invisible="1"/>
+            </xpath>
+            <xpath expr="//page[@name='other_info']//field[@name='ref'][@nolabel='1']" position="attributes">
+                <attribute name="placeholder">000-002-01-00022827</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_out_invoice_tree_customer_ref_hint" model="ir.ui.view">
+        <field name="name">account.move.tree.customer.ref.invoice</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_out_invoice_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='ref']" position="attributes">
+                <attribute name="optional">show</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

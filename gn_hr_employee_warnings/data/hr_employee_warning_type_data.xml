@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="warning_type_missing_docs" model="hr.employee.warning.type">
+            <field name="name">Documentos obligatorios faltantes</field>
+            <field name="code">MISSING_DOCS</field>
+            <field name="description">Muestra una alerta cuando el empleado tiene documentos de entrada marcados como obligatorios pero sin archivo adjunto.</field>
+            <field name="sequence">10</field>
+            <field name="icon">fa-file-o</field>
+            <field name="alert_style">warning</field>
+            <field name="employee_field">has_missing_documents</field>
+            <field name="config_hint">Empleados → Configuración → Tipos de Documento (marcar como obligatorio)</field>
+        </record>
+
+        <record id="warning_type_license_expiry" model="hr.employee.warning.type">
+            <field name="name">Licencias por vencer o vencidas</field>
+            <field name="code">LICENSE_EXPIRY</field>
+            <field name="description">Muestra una alerta cuando el empleado tiene licencias de conducir próximas a vencer (30 días o menos) o ya vencidas.</field>
+            <field name="sequence">20</field>
+            <field name="icon">fa-id-card</field>
+            <field name="alert_style">danger</field>
+            <field name="employee_field">has_expiring_licenses</field>
+            <field name="config_hint">Se activa automáticamente cuando la licencia vence en ≤ 30 días</field>
+        </record>
+
+        <record id="warning_type_contract_expiry" model="hr.employee.warning.type">
+            <field name="name">Contrato por vencer</field>
+            <field name="code">CONTRACT_EXPIRY</field>
+            <field name="description">Muestra una alerta cuando el contrato del empleado está por vencer dentro del número de días configurado.</field>
+            <field name="sequence">30</field>
+            <field name="icon">fa-calendar-times-o</field>
+            <field name="alert_style">warning</field>
+            <field name="employee_field">contract_expiring_soon</field>
+            <field name="config_hint">Nómina → Ajustes → Alerta contrato por vencer (días antes)</field>
+        </record>
+
+        <record id="warning_type_loan_no_dates" model="hr.employee.warning.type">
+            <field name="name">Préstamos sin fechas completas</field>
+            <field name="code">LOAN_NO_DATES</field>
+            <field name="description">Muestra una alerta cuando el empleado tiene préstamos activos sin fecha de inicio o fecha de fin configurada.</field>
+            <field name="sequence">40</field>
+            <field name="icon">fa-money</field>
+            <field name="alert_style">warning</field>
+            <field name="employee_field">has_loan_missing_dates_warning</field>
+            <field name="config_hint">Se activa automáticamente cuando un préstamo activo no tiene fechas</field>
+        </record>
+
+        <record id="warning_type_loan_ending_soon" model="hr.employee.warning.type">
+            <field name="name">Préstamo casi terminado (pocas cuotas)</field>
+            <field name="code">LOAN_ENDING_SOON</field>
+            <field name="description">Muestra una alerta cuando un préstamo activo en conceptos recurrentes del contrato tiene un número configurable de cuotas pendientes o menos.</field>
+            <field name="sequence">45</field>
+            <field name="icon">fa-flag-checkered</field>
+            <field name="alert_style">info</field>
+            <field name="employee_field">has_loan_ending_soon_warning</field>
+            <field name="config_hint">Nómina → Ajustes → Préstamo en contrato: cuotas por terminar (umbral)</field>
+        </record>
+
+        <record id="warning_type_parent_type" model="hr.employee.warning.type">
+            <field name="name">Padre/Madre inconsistente</field>
+            <field name="code">PARENT_TYPE</field>
+            <field name="description">Muestra una alerta cuando el empleado está marcado como padre o madre pero no tiene hijos registrados, o hay inconsistencia entre género y tipo de padre/madre.</field>
+            <field name="sequence">50</field>
+            <field name="icon">fa-exclamation-triangle</field>
+            <field name="alert_style">warning</field>
+            <field name="employee_field">has_parent_type_warning</field>
+            <field name="config_hint">Empleado → Personal → Campo Padre/Madre + Datos Familiares</field>
+        </record>
+        
+        <record id="warning_type_trial_period" model="hr.employee.warning.type">
+            <field name="name">Período de prueba</field>
+            <field name="code">TRIAL_PERIOD</field>
+            <field name="description">Muestra una alerta informativa cuando el empleado está dentro de su período de prueba. También envía correo al jefe inmediato y encargados de RRHH al cumplir los días configurados.</field>
+            <field name="sequence">60</field>
+            <field name="icon">fa-hourglass-half</field>
+            <field name="alert_style">info</field>
+            <field name="employee_field">has_trial_period_warning</field>
+            <field name="config_hint">Nómina → Ajustes → Período de Prueba (días + receptores)</field>
+        </record>
+
+        <record id="warning_type_low_net_pay_quincena" model="hr.employee.warning.type">
+            <field name="name">Líquido quincenal muy bajo</field>
+            <field name="code">LOW_NET_PAY_QUINCENA</field>
+            <field name="description">Indica cuando el salario líquido estimado de la quincena en curso (tras IHSS/RAP/ISR en Honduras o ISSS/AFP/ISR en El Salvador, más deducciones recurrentes) queda en o por debajo del umbral configurable respecto al bruto quincenal.</field>
+            <field name="sequence">55</field>
+            <field name="icon">fa-percent</field>
+            <field name="alert_style">danger</field>
+            <field name="employee_field">has_low_net_pay_quincena_warning</field>
+            <field name="config_hint">Nómina → Ajustes → Líquido quincenal mínimo (% del bruto)</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,61 @@
+<odoo>
+    <record id="view_account_payment_register_form_writeoff" model="ir.ui.view">
+        <field name="name">account.register.payments.wizard.inherit</field>
+        <field name="model">account.payment.register</field>
+        <field name="inherit_id" ref="account.view_account_payment_register_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_difference_handling']" position="after">
+                <field name="post_diff_in"
+                       widget="radio"
+                       invisible="payment_difference_handling == 'open'"
+                       required="payment_difference_handling != 'open'"/>
+            </xpath>
+
+            <xpath expr="//div[hasclass('o_inner_group') and descendant::field[@name='writeoff_account_id']]" position="attributes">
+                <attribute name="invisible">hide_writeoff_section or payment_difference_handling == 'open' or post_diff_in == 'multi'</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='writeoff_account_id']" position="attributes">
+                <attribute name="required">payment_difference_handling == 'reconcile' and post_diff_in == 'single' and not early_payment_discount_mode</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='writeoff_label']" position="attributes">
+                <attribute name="required">payment_difference_handling == 'reconcile' and post_diff_in == 'single'</attribute>
+                <attribute name="invisible">writeoff_is_exchange_account or post_diff_in == 'multi'</attribute>
+            </xpath>
+
+            <!-- <group name="group1" position="after">
+                <div class="o_inner_group o_full_width p-0"
+                     invisible="post_diff_in != 'multi' or payment_difference_handling == 'open'">
+                    <field name="write_off_lines" nolabel="1"  class="o_full_width">
+                        <list editable="bottom">
+                            <field name="account_id" options="{'no_open': True}" required="1"/>
+                            <field name="description" required="1"/>
+                            <field name="amount_per" sum="Total Percentage" required="1"/>
+                            <field name="amount" sum="Total" required="1"/>
+                        </list>
+                    </field>
+                </div>
+            </group> -->
+            <xpath expr="//footer" position="before">
+
+                <group name="group_writeoff_lines">
+                    <div class="o_inner_group o_full_width p-0"
+                        invisible="post_diff_in != 'multi' or payment_difference_handling == 'open'">
+
+                        <field name="write_off_lines" nolabel="1" class="o_full_width">
+                            <list editable="bottom">
+                                <field name="account_id" options="{'no_open': True}" required="1"/>
+                                <field name="description" required="1"/>
+                                <field name="amount_per" sum="Total Percentage" required="1"/>
+                                <field name="amount" sum="Total" required="1"/>
+                            </list>
+                        </field>
+
+                    </div>
+                </group>
+
+            </xpath>
+        </field>
+    </record>
+</odoo>

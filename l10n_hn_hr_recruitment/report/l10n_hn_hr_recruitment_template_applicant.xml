@@ -1,0 +1,859 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="template_applicant">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <div class="row">
+                            <div class="col-xs-12">
+                           <div class="col-xs-10">
+                            <table width="100%">
+                                <tr>
+                                    <td width="75%"  rowspan="2" style="border-bottom: 2px solid black;height:20px;border-left: 2px solid #848484;
+                                    background-color:#848484;">
+                                        <h4><b>Ficha de Empleado</b></h4>
+                                    </td>
+                                    <td  width="25%" style="border-bottom: 2px solid black;border-right: 2px solid #848484;
+                                    height:10px;background-color:#848484;">
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="25%" style="border-left: 2px solid black;border-right: 2px solid black;border-bottom: 2px solid black;font-size:8pt;position:relative;">Fecha: <t t-esc="datetime.datetime.now().strftime('%d-%m-%Y')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="75%" style="border: 2px solid black;font-size:8pt;height:35px;margin-right:5px;">Puesto que solicita: <span t-field="o.job_id.name"/></td>
+                                    <td width="25%" style="border: 2px solid black;font-size:8pt;height:35px;margin-right:5px;">Sueldo Mensual Deseado:
+                                   <span t-field="o.salary_expected"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="75%" rowspan="2" style="text-align:center;vertical-align:middle;border: 2px solid black;font-size:8pt;height:80px;">Nota: Toda la información aquí proporcionada será
+                                                tratada con confidencialidad</td>
+                                    <td width="25%" style="border: 2px solid black;font-size:8pt;height:35px;">Sueldo Mensual Aprobado:
+                                   <span t-field="o.salary_proposed"/></td>
+                                </tr>
+                                <tr>
+                                    <td width="25%" style="border: 2px solid black;font-size:8pt;height:35px;">Fecha de contratación:
+                                   <span t-field="o.availability"/></td>
+                                </tr>
+                            </table>
+                                </div>
+                            <div class="col-xs-2">
+                                
+                                <!-- <t t-if="o.image_1920">
+                                    <img t-if="o.image_1920" t-att-src="'data:image/png;base64,%s' % to_text(o.image_1920)"
+                                         style="border-radius:15px;height:125px;width:125px;"/>
+                                </t>
+                                <t t-if="not o.image_1920">
+                                    
+                                </t> -->
+
+                            </div>
+                                </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <br/>
+                            <table width="100%">
+                                <tr>
+                                    <td width="25%"></td>
+                                    <td colspan="3" witdh="45%" style="text-align:center;vertical-align:middle;
+                                    border: 2px solid black;font-size:12pt;background-color:#848484;color:white;">
+                                        <b>DATOS PERSONALES</b>
+                                    </td>
+                                    <td width="5%"></td>
+                                    <td width="25%"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5" width="75%" style="border: 2px solid black;font-size:8pt;height:35px;">
+                                        Nombre y Apellidos: <span t-field="o.name"/>
+                                    </td>
+                                    <td width="25%" style="border: 2px solid black;font-size:8pt;height:35px;">Edad: <span t-field="o.age"/> Años</td>
+                                </tr>
+                                <tr>
+                                    <td width="25%" style="border: 2px solid black;border-right: none;font-size:8pt;height:35px;">
+                                        Domicilio<br/>
+                                        <span t-field="o.street"/>, <span t-field="o.street2"/>
+                                    </td>
+                                    <td width="15%" style="border: 2px solid black;border-right: none;border-left: none;font-size:8pt;height:35px;">
+                                        Colonia<br/>
+                                        <span t-field="o.city"/>
+                                    </td>
+                                    <td width="15%" style="text-align:right;border: 2px solid black;border-left: none;font-size:8pt;height:35px;">
+                                        Correo Electronico<br/>
+                                        <span t-field="o.email_from"/>
+                                    </td>
+                                    <td width="20%" colspan="2" style="border: 2px solid black;font-size:8pt;height:35px;">
+                                        Teléfono:
+                                        <span t-field="o.partner_mobile"/>
+                                    </td>
+                                    <td width="25%" style="border: 2px solid black;font-size:8pt;height:35px;">
+                                        Sexo:<br/>
+                                        <t t-if="o.gender=='male'">
+                                            <label class="radio-inline"><input type="radio" name="male" checked="">Masculino</input></label>
+                                            <label class="radio-inline"><input type="radio" name="female">Femenino</input></label>
+                                            <label class="radio-inline"><input type="radio" name="other">Otro</input></label>
+                                        </t>
+                                        <t t-if="o.gender=='female'">
+                                            <label class="radio-inline"><input type="radio" name="male">Masculino</input></label>
+                                            <label class="radio-inline"><input type="radio" name="female" checked="">Femenino</input></label>
+                                            <label class="radio-inline"><input type="radio" name="other">Otro</input></label>
+                                        </t>
+                                        <t t-if="o.gender=='other'">
+                                            <label class="radio-inline"><input type="radio" name="male">Masculino</input></label>
+                                            <label class="radio-inline"><input type="radio" name="female">Femenino</input></label>
+                                            <label class="radio-inline"><input type="radio" name="other" checked="">Otro</input></label>
+                                        </t>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="40%" colspan="2" style="border: 2px solid black;border-right: none;font-size:8pt;height:35px;">
+                                        Delegación o Municipio<br/>
+                                         <span t-field="o.city"/>, <span t-field="o.municipality"/>
+                                    </td>
+                                    <td width="15%"  style="border: 2px solid black;border-right: none;font-size:8pt;height:35px;">
+                                        Lugar de nacimiento<br/>
+                                        <span t-field="o.place_of_birth"/>
+                                    </td>
+                                    <td width="20%"  colspan="2" style="border: 2px solid black;border-right: none;font-size:8pt;height:35px;">
+                                        Fecha de Nacimiento<br/>
+                                        <span t-field="o.birth_date"/>
+                                    </td>
+                                    <td width="25%"  style="border: 2px solid black;font-size:8pt;height:35px;">
+                                        Nacionalidad<br/>
+                                        <span t-field="o.nationality_id.name"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="55%" colspan="3" style="border: 2px solid black;border-right: none;font-size:8pt;height:35px;">
+                                        Vive con<br/>
+                                        <t t-if="o.live_with==False">
+                                            <label class="radio-inline"><input type="radio" name="his_parent">Sus padres</input></label>
+                                            <label class="radio-inline"><input type="radio" name="his_family">Su familia</input></label>
+                                            <label class="radio-inline"><input type="radio" name="his_relative">Parientes</input></label>
+                                            <label class="radio-inline"><input type="radio" name="other">Solo</input></label>
+                                        </t>
+                                        <t t-if="o.live_with=='his_parent'">
+                                            <label class="radio-inline"><input type="radio" name="his_parent" checked="">Sus padres</input></label>
+                                            <label class="radio-inline"><input type="radio" name="his_family">Su familia</input></label>
+                                            <label class="radio-inline"><input type="radio" name="his_relative">Parientes</input></label>
+                                            <label class="radio-inline"><input type="radio" name="other">Solo</input></label>
+                                        </t>
+                                        <t t-if="o.live_with=='his_family'">
+                                            <label class="radio-inline"><input type="radio" name="his_parent">Sus padres</input></label>
+                                            <label class="radio-inline"><input type="radio" name="his_family" checked="">Su familia</input></label>
+                                            <label class="radio-inline"><input type="radio" name="his_relative">Parientes</input></label>
+                                            <label class="radio-inline"><input type="radio" name="other">Solo</input></label>
+                                        </t>
+                                        <t t-if="o.live_with=='his_relative'">
+                                            <label class="radio-inline"><input type="radio" name="his_parent">Sus padres</input></label>
+                                            <label class="radio-inline"><input type="radio" name="his_family">Su familia</input></label>
+                                            <label class="radio-inline"><input type="radio" name="his_relative" checked="">Otro</input></label>
+                                            <label class="radio-inline"><input type="radio" name="other">Solo</input></label>
+                                        </t>
+                                        <t t-if="o.live_with=='alone'">
+                                            <label class="radio-inline"><input type="radio" name="his_parent">Sus padres</input></label>
+                                            <label class="radio-inline"><input type="radio" name="his_family">Su familia</input></label>
+                                            <label class="radio-inline"><input type="radio" name="his_relative">Parientes</input></label>
+                                            <label class="radio-inline"><input type="radio" name="other" checked="">Solo</input></label>
+                                        </t>
+                                    </td>
+                                    <td width="20%" colspan="2" style="border: 2px solid black;border-right: none;font-size:8pt;height:35px;">
+                                        Estatura <span t-field="o.height"/>
+                                    </td>
+                                    <td width="25%"  style="border: 2px solid black;font-size:8pt;height:35px;">
+                                        Peso <span t-field="o.weight"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="55%" colspan="3" style="border: 2px solid black;border-right: none;font-size:8pt;height:35px;">
+                                        Personas que dependen de Usted<br/>
+
+                                        <t t-foreach="o.dependent_people" t-as="dep">
+                                          * <t t-esc="dep.name"/>
+                                        </t>
+                                    </td>
+                                    <td width="45%" colspan="3" style="border: 2px solid black;font-size:8pt;height:35px;">
+                                        Estado civil<br/>
+                                        <t t-if="o.marital_status_id">
+                                            <span t-field="o.marital_status_id"/>
+                                        </t>
+                                        <t t-else="">
+                                            <t t-if="o.marital=='single'">
+                                                <label class="radio-inline"><input type="radio" name="single" checked="">Soltero</input></label>
+                                                <label class="radio-inline"><input type="radio" name="married">Casado</input></label>
+                                                <label class="radio-inline"><input type="radio" name="other">Otros (Explique)</input></label>
+                                            </t>
+                                            <t t-if="o.marital=='married'">
+                                                <label class="radio-inline"><input type="radio" name="single">Soltero</input></label>
+                                                <label class="radio-inline"><input type="radio" name="married" checked="">Casado</input></label>
+                                                <label class="radio-inline"><input type="radio" name="other">Otros (Explique)</input></label>
+                                            </t>
+                                            <t t-if="o.marital=='other'">
+                                                <label class="radio-inline"><input type="radio" name="single">Soltero</input></label>
+                                                <label class="radio-inline"><input type="radio" name="married">Casado</input></label>
+                                                <label class="radio-inline"><input type="radio" name="other" checked="">Otros (Explique)</input></label>
+                                            </t>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <table width="100%">
+                                <tr>
+                                    <td width="25%"></td>
+                                    <td colspan="3" witdh="45%" style="text-align:center;vertical-align:middle;
+                                    border: 2px solid black;font-size:12pt;background-color:#848484;color:white;">
+                                        <b>DOCUMENTACIÓN</b>
+                                    </td>
+                                    <td width="5%"></td>
+                                    <td width="25%"></td>
+                                </tr>
+                                <tr>
+                                    <td width="55%" colspan="3" style="border: 2px solid black;border-right: none;font-size:8pt;height:35px;">
+                                        No. Identidad<br/><span t-field="o.identification_id"/>
+
+                                    </td>
+                                    <td width="45%" colspan="3" style="border: 2px solid black;font-size:8pt;height:35px;">
+                                        RTN<br/><span t-field="o.rtn"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="25%" style="border: 2px solid black;border-right: none;font-size:8pt;height:35px;">
+
+                                    </td>
+                                    <td width="30%" colspan="2" style="border: 2px solid black;border-right: none;font-size:8pt;height:35px;">
+                                        Número de Seguro Social<br/>
+                                        <span t-field="o.insurance_id"/>
+                                    </td>
+                                    <td width="20%" colspan="2" style="border: 2px solid black;border-right: none;font-size:8pt;height:35px;">
+
+                                    </td>
+                                    <td width="25%" style="border: 2px solid black;font-size:8pt;height:35px;">
+                                        Pasaporte No.<br/><span t-field="o.passport_id"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="25%" style="border: 2px solid black;border-right: none;font-size:8pt;height:35px;">
+                                        Tiene licencia de manejar<br/>
+                                        <t t-if="o.has_license=='not'">
+                                            <label class="radio-inline"><input type="radio" name="single" checked="">No</input></label>
+                                            <label class="radio-inline"><input type="radio" name="married">Si</input></label>
+                                        </t>
+                                        <t t-if="o.has_license=='yes'">
+                                            <label class="radio-inline"><input type="radio" name="single" >No</input></label>
+                                            <label class="radio-inline"><input type="radio" name="married" checked="">Si</input></label>
+                                        </t>
+                                    </td>
+                                    <td width="30%" colspan="2" style="border: 2px solid black;border-right: none;font-size:8pt;height:35px;">
+                                        Clase y Número de Licencia<br/>
+                                        <span t-field="o.class_license"/>
+                                        <span t-field="o.number_license"/>
+                                    </td>
+                                    <td width="45%" colspan="3" style="border: 2px solid black;font-size:8pt;height:35px;">
+                                        Siendo extranjero qué documento le permite trabajar en el país
+
+                                    </td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <table width="100%">
+                                <tr>
+                                    <td width="25%"></td>
+                                    <td colspan="3" witdh="45%" style="text-align:center;vertical-align:middle;
+                                    border: 2px solid black;font-size:12pt;background-color:#848484;color:white;">
+                                        <b>ESTADO DE SALUD Y HÁBITOS PERSONALES</b>
+                                    </td>
+                                    <td width="5%"></td>
+                                    <td width="25%"></td>
+                                </tr>
+                                <tr>
+                                    <td width="40%" colspan="2" style="border: 2px solid black;border-right: none;font-size:8pt;height:35px;">
+                                        ¿Cómo considera su estado de salud actual?<br/>
+                                        <t t-if="o.health_status=='good'">
+                                            <label class="radio-inline"><input type="radio" name="good" checked="" >Bueno</input></label>
+                                            <label class="radio-inline"><input type="radio" name="regular" >Regular</input></label>
+                                            <label class="radio-inline"><input type="radio" name="bad" >Malo</input></label>
+                                        </t>
+                                        <t t-if="o.health_status=='regular'">
+                                           <label class="radio-inline"><input type="radio" name="good" >Bueno</input></label>
+                                            <label class="radio-inline"><input type="radio" name="regular" checked="">Regular</input></label>
+                                            <label class="radio-inline"><input type="radio" name="bad" >Malo</input></label>
+                                        </t>
+                                        <t t-if="o.health_status=='bad'">
+                                            <label class="radio-inline"><input type="radio" name="good" >Bueno</input></label>
+                                            <label class="radio-inline"><input type="radio" name="regular">Regular</input></label>
+                                            <label class="radio-inline"><input type="radio" name="bad" checked="">Malo</input></label>
+                                        </t>
+                                    </td>
+                                    <td width="60%" colspan="4" style="border: 2px solid black;font-size:8pt;height:35px;">
+                                        ¿Padece de alguna enfermedad crónica?<br/>
+                                        <t t-if="o.chronic_illness=='not'">
+                                            <label class="radio-inline"><input type="radio" name="single" checked="">No</input></label>
+                                            <label class="radio-inline"><input type="radio" name="married">Si</input></label>
+                                        </t>
+                                        <t t-if="o.chronic_illness=='yes'">
+                                            <label class="radio-inline"><input type="radio" name="single" >No</input></label>
+                                            <label class="radio-inline"><input type="radio" name="married" checked="">Si</input></label>
+                                        </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="25%"  style="border: 2px solid black;border-right: none;font-size:8pt;height:35px;">
+                                        ¿Practica usted algún deporte?<br/>
+                                        <t t-if="o.practice_sport=='not'">
+                                            <label class="radio-inline"><input type="radio" name="single" checked="">No</input></label>
+                                            <label class="radio-inline"><input type="radio" name="married">Si</input></label>
+                                        </t>
+                                        <t t-if="o.practice_sport=='yes'">
+                                            <label class="radio-inline"><input type="radio" name="single" >No</input></label>
+                                            <label class="radio-inline"><input type="radio" name="married" checked="">Si</input></label>
+                                        </t>
+
+                                    </td>
+                                    <td width="30%" colspan="2" style="border: 2px solid black;border-right: none;font-size:8pt;height:35px;">
+                                        ¿Pertenece a algún Club Social o Deportivo?<br/>
+                                        <t t-if="o.club_social_deport=='not'">
+                                            <label class="radio-inline"><input type="radio" name="single" checked="">No</input></label>
+                                            <label class="radio-inline"><input type="radio" name="married">Si</input></label>
+                                        </t>
+                                        <t t-if="o.club_social_deport=='yes'">
+                                            <label class="radio-inline"><input type="radio" name="single" >No</input></label>
+                                            <label class="radio-inline"><input type="radio" name="married" checked="">Si</input></label>
+                                        </t>
+                                    </td>
+                                    <td width="45%" colspan="3" style="border: 2px solid black;font-size:8pt;height:35px;">
+                                        ¿Cuál es su pasatiempo favorito?<br/>
+                                        <span t-field="o.favorite_hobby"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <table width="100%">
+                                <tr>
+                                    <td width="25%"></td>
+                                    <td colspan="3" witdh="45%" style="text-align:center;vertical-align:middle;
+                                    border: 2px solid black;font-size:12pt;background-color:#848484;color:white;">
+                                        <b>DATOS FAMILIARES</b>
+                                    </td>
+                                    <td width="5%"></td>
+                                    <td width="25%"></td>
+                                </tr>
+                                <tr style="background-color:#848484;">
+                                    <td width="40%" colspan="2" style="text-align:center;border: 2px solid black;border-right: none;font-size:10pt;">
+                                       <b>NOMBRE</b>
+                                    </td>
+                                    <td width="35%" colspan="3" style="text-align:center;border: 2px solid black;border-right: none;font-size:10pt;">
+                                       <b>DOMICILIO</b>
+                                    </td>
+                                    <td width="25%" colspan="3" style="text-align:center;border: 2px solid black;font-size:10pt;">
+                                       <b>OCUPACIÓN</b>
+                                    </td>
+                                </tr>
+                                <t t-foreach="o.family_information_id" t-as="f">
+                                    <tr>
+                                        <td width="40%" colspan="2" style="border: 2px solid black;border-right: none;font-size:8pt;height:25px;">
+                                            <t t-esc="f.relation.name"/> <t t-esc="f.name"/>
+                                        </td>
+                                        <td width="35%" colspan="3" style="border: 2px solid black;border-right: none;font-size:8pt;height:25px;">
+                                            <t t-esc="f.domicile"/>
+                                        </td>
+                                        <td width="25%" colspan="3" style="border: 2px solid black;font-size:8pt;height:25px;">
+                                            <t t-esc="f.ocupation"/>
+                                        </td>
+                                    </tr> 
+                                </t>
+                                <t t-if="o.name_father">
+                                    <tr>
+                                        <td width="40%" colspan="2" style="border: 2px solid black;border-right: none;font-size:8pt;height:25px;">
+                                             <t t-esc="o.name_father"/>
+                                        </td>
+                                        <td width="35%" colspan="3" style="border: 2px solid black;border-right: none;font-size:8pt;height:25px;">
+                                            <t t-esc="o.address_father"/>
+                                        </td>
+                                        <td width="25%" colspan="3" style="border: 2px solid black;font-size:8pt;height:25px;">
+                                            <t t-esc="o.occupation_father"/>
+                                        </td>
+                                    </tr> 
+                                </t>
+                                <t t-if="o.name_mother">
+                                    <tr>
+                                        <td width="40%" colspan="2" style="border: 2px solid black;border-right: none;font-size:8pt;height:25px;">
+                                            <t t-esc="o.name_mother"/>
+                                        </td>
+                                        <td width="35%" colspan="3" style="border: 2px solid black;border-right: none;font-size:8pt;height:25px;">
+                                            <t t-esc="o.address_mother"/>
+                                        </td>
+                                        <td width="25%" colspan="3" style="border: 2px solid black;font-size:8pt;height:25px;">
+                                            <t t-esc="o.occupation_mother"/>
+                                        </td>
+                                    </tr> 
+                                </t>
+                                
+                               
+                            </table>
+                            <br/>
+                            <table width="100%">
+                                <tr>
+                                    <td width="25%"></td>
+                                    <td colspan="3" witdh="45%" style="text-align:center;vertical-align:middle;
+                                    border: 2px solid black;font-size:12pt;background-color:#848484;color:white;">
+                                        <b>ESCOLARIDAD</b>
+                                    </td>
+                                    <td width="5%"></td>
+                                    <td width="25%"></td>
+                                </tr>
+                                <tr style="background-color:#848484;">
+                                    <td width="25%" style="text-align:center;border: 2px solid black;border-right: none;font-size:10pt;">
+                                       <b>NOMBRE</b>
+                                    </td>
+                                    <td width="25%" style="text-align:center;border: 2px solid black;border-right: none;font-size:10pt;">
+                                       <b>DIRECCIÓN</b>
+                                    </td>
+                                    <td width="10%" style="text-align:center;border: 2px solid black;border-right: none;font-size:10pt;">
+                                       <b>DE</b>
+                                    </td>
+                                    <td width="10%" style="text-align:center;border: 2px solid black;font-size:10pt;">
+                                       <b>A</b>
+                                    </td>
+                                    <td width="10%" style="text-align:center;border: 2px solid black;font-size:10pt;">
+                                       <b>AÑOS</b>
+                                    </td>
+                                    <td width="25%" style="text-align:center;border: 2px solid black;font-size:10pt;">
+                                        <b>TÍTULO RECIBIDO</b>
+                                    </td>
+                                </tr>
+                                <t t-foreach="o.academic_training_id" t-as="academic">
+                                    <tr>
+                                    <td width="25%" style="text-align:center;border: 2px solid black;border-right: none;font-size:10pt;height:25px;">
+                                        <t t-esc="academic.name"/>
+                                    </td>
+                                    <td width="25%" style="text-align:center;border: 2px solid black;border-right: none;font-size:10pt;height:25px;">
+                                        <t t-esc="academic.address"/>
+                                    </td>
+                                    <td width="10%" style="text-align:center;border: 2px solid black;border-right: none;font-size:10pt;height:25px;">
+                                        <t t-esc="academic.date_from"/>
+                                    </td>
+                                    <td width="10%" style="text-align:center;border: 2px solid black;font-size:10pt;height:25px;">
+                                        <t t-esc="academic.date_to"/>
+                                    </td>
+                                    <td width="10%" style="text-align:center;border: 2px solid black;font-size:10pt;height:25px;">
+
+                                    </td>
+                                    <td width="25%" style="text-align:center;border: 2px solid black;font-size:10pt;height:25px;">
+                                        <t t-esc="academic.title_received"/>
+                                    </td>
+                                </tr>
+                                </t>
+                                <tr>
+                                    <td colspan="6" style="border-left: 2px solid black;border-right: 2px solid black;">Estudios que esta efectuando en la actualidad:</td>
+                                </tr>
+                                <tr>
+                                    <td width="25%" style="text-align:left;border-left: 2px solid black;font-size:10pt;">
+                                        Escuela
+                                    </td>
+                                    <td width="25%" style="text-align:center;font-size:10pt;">
+                                        Horario
+                                    </td>
+                                    <td colspan="3" style="text-align:center;font-size:10pt;">
+                                        Curso o Carrera
+                                    </td>
+                                    <td style="text-align:center;border-right: 2px solid black;font-size:10pt;">
+                                        Grado
+                                    </td>
+                                </tr>
+                                <!-- <t t-foreach="o.other_courses_id" t-as="course">
+                                    <td width="25%" style="text-align:left;border-left: 2px solid black;font-size:10pt;height:25px;">
+                                        <t t-esc="course.study_center"/>
+                                    </td>
+                                    <td width="25%" style="text-align:center;font-size:10pt;height:25px;">
+                                       <t t-esc="course.schedule"/>
+                                    </td>
+                                    <td colspan="3" style="text-align:center;font-size:10pt;height:25px;">
+                                        <t t-esc="course.course"/>
+                                    </td>
+                                    <td style="text-align:center;border-right: 2px solid black;font-size:10pt;height:25px;">
+                                        <t t-esc="course.grade"/>
+                                    </td>
+                                </t> -->
+                                <tr>
+                                    <td width="100%"  colspan="6" style="text-align:center;border-bottom: 2px solid black;border-right: 2px solid black;border-left: 2px solid black;font-size:10pt;"></td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <table width="100%">
+                                <tr>
+                                    <td width="25%"></td>
+                                    <td colspan="3" witdh="45%" style="text-align:center;vertical-align:middle;
+                                    border: 2px solid black;font-size:12pt;background-color:#848484;color:white;">
+                                        <b>CONOCIMIENTOS GENERALES</b>
+                                    </td>
+                                    <td width="5%"></td>
+                                    <td width="25%"></td>
+                                </tr>
+                                <tr>
+                                    <td width="55%" colspan="3" style="border: 2px solid black;border-right: none;font-size:8pt;height:35px;">
+                                        Que otros idiomas habla<br/>
+                                    </td>
+                                    <td width="45%" colspan="3" style="border: 2px solid black;font-size:8pt;height:35px;">
+                                        Funciones de oficina que domina
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="55%" colspan="3" style="border: 2px solid black;border-right: none;font-size:8pt;height:35px;">
+                                        Otros trabajos o funciones que domina<br/>
+                                    </td>
+                                    <td width="45%" colspan="3" style="border: 2px solid black;font-size:8pt;height:35px;">
+                                        Software que maneja
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="100%" colspan="6" style="border: 2px solid black;font-size:8pt;height:35px;">
+                                        Máquinas de oficina o taller que sepa manejar
+                                    </td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <table width="100%" style="page-break-inside: avoid; page-break-before: auto; page-break-after: auto;">
+                                <tr style="page-break-inside: avoid;">
+                                    <td width="25%"></td>
+                                    <td colspan="3" witdh="55%" style="text-align:center;vertical-align:middle;
+                                    border: 2px solid black;font-size:12pt;background-color:#848484;color:white;">
+                                        <b>REFERENCIAS PERSONALES</b>
+                                    </td>
+                                    <td width="5%"></td>
+                                    <td width="15%"></td>
+                                </tr>
+                                <tr  style="background-color:#848484;page-break-inside: avoid;">
+                                    <td width="25%" style="vertical-align:middle;text-align:center;border: 2px solid black;border-right: none;font-size:10pt;">
+                                       <b>NOMBRE</b>
+                                    </td>
+                                    <td width="25%" style="vertical-align:middle;text-align:center;border: 2px solid black;border-right: none;font-size:10pt;">
+                                       <b>DOMICILIO</b>
+                                    </td>
+                                    <td width="15%" style="vertical-align:middle;text-align:center;border: 2px solid black;border-right: none;font-size:10pt;">
+                                       <b>TELEFONO</b>
+                                    </td>
+                                    <td width="20%" colspan="2" style="vertical-align:middle;text-align:center;border: 2px solid black;font-size:10pt;">
+                                       <b>OCUPACIÓN</b>
+                                    </td>
+                                    <td width="15%" style="vertical-align:middle;text-align:center;border: 2px solid black;font-size:10pt;">
+                                       <b>TIEMPO DE CONOCERLO</b>
+                                    </td>
+                                </tr>
+
+                                   <t t-foreach="o.reference_ids" t-as="ref">
+
+                                    <tr style="page-break-inside: avoid;">
+                                    <td width="25%" style="text-align:center;border: 2px solid black;border-right: none;font-size:8pt;height:25px;">
+                                         <t t-esc="ref.name"/>
+                                    </td>
+                                    <td width="25%" style="text-align:center;border: 2px solid black;border-right: none;font-size:8pt;height:25px;">
+                                        <t t-esc="ref.address"/>
+                                    </td>
+                                    <td width="15%" style="text-align:center;border: 2px solid black;border-right: none;font-size:8pt;height:25px;">
+                                        <t t-esc="ref.phone"/>
+                                    </td>
+                                    <td width="20%" colspan="2" style="text-align:center;border: 2px solid black;font-size:8pt;height:25px;">
+                                        <t t-esc="ref.occupation"/>
+                                    </td>
+                                    <td width="15%" style="text-align:center;border: 2px solid black;font-size:8pt;height:25px;">
+                                        <t t-esc="ref.time"/>
+                                    </td>
+                                </tr>
+
+                                </t>
+
+                            </table>
+                            <br/>
+
+                            <br/>
+                            <table width="100%" style="page-break-inside: avoid; page-break-before: auto; page-break-after: auto;">
+                                <tr>
+                                    <td colspan="4" width="25%"></td>
+                                    <td colspan="4" witdh="50%" style="text-align:center;vertical-align:middle;
+                                    border: 2px solid black;font-size:12pt;background-color:#848484;color:white;">
+                                        <b>CURSOS Y CAPACITACIONES</b>
+                                    </td>
+                                    <td colspan="4" width="25%"></td>
+                                </tr>
+                                <tr >
+                                    <td colspan="12" width="100%" style="text-align:left;border: 2px solid black;font-size:10pt;">
+                                        Nombre de Cursos y Capacitaciones Recibidos<br/>
+                                        <t t-foreach="o.course_ids" t-as="course">
+                                                <t t-esc="course.name"/><br/>
+                                                
+                                        </t>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <br/>
+                            <table width="100%" style="page-break-inside: avoid; page-break-before: auto; page-break-after: auto;">
+                                <tr>
+                                    <td width="35%" colspan="3"></td>
+                                    <td colspan="3" witdh="32%" style="text-align:center;vertical-align:middle;
+                                    border: 2px solid black;font-size:12pt;background-color:#848484;color:white;">
+                                        <b>CONTACTOS DE EMERGENCIA</b>
+                                    </td>
+                                    <td colspan="3" width="33%"></td>
+                                </tr>
+                                <tr style="background-color:#848484;">
+                                    <td width="35%" colspan="3" style="text-align:center;border: 2px solid black;font-size:10pt;">
+                                        Nombre 
+                                    </td>
+                                    <td width="32%" colspan="3" style="text-align:center;border: 2px solid black;font-size:10pt;">
+                                        Teléfono de emergencia
+                                    </td>
+                                    <td width="33%" colspan="3" style="text-align:center;border: 2px solid black;font-size:10pt;">
+                                        Relacion
+                                    </td>
+                                
+                                </tr>
+                                
+                                <tr>
+                                    <td width="35%" colspan="3" style="text-align:left;border: 2px solid black;font-size:10pt;height:25px;">
+                                        <t t-esc="o.emergency_contact"/>
+                                    </td>
+                                    <td width="32%" colspan="3"  style="text-align:center;border: 2px solid black;font-size:10pt;height:25px;">
+                                        <t t-esc="o.emergency_phone"/>
+                                    </td>
+                                    <td colspan="3" width="33%" style="text-align:center;border: 2px solid black;font-size:10pt;height:25px;">
+                                        <t t-esc="o.relation_emergency_id.name"/>
+                                    </td>
+                                        
+                                </tr>
+
+                                <tr>
+                                    <td width="35%" colspan="3" style="text-align:left;border: 2px solid black;font-size:10pt;height:25px;">
+                                        <t t-esc="o.name_emergency"/>
+                                    </td>
+                                    <td width="32%" colspan="3"  style="text-align:center;border: 2px solid black;font-size:10pt;height:25px;">
+                                        <t t-esc="o.number_emergency2"/>
+                                    </td>
+                                    <td colspan="3" width="33%" style="text-align:center;border: 2px solid black;font-size:10pt;height:25px;">
+                                        <t t-esc="o.relation_emergency_2_id.name"/>
+                                    </td>
+                                        
+                                </tr>
+                                
+                            </table>
+                            
+                            <br/>
+                            <table width="100%" style="page-break-inside: avoid; page-break-before: auto; page-break-after: auto;">
+                                <tr>
+                                    <td width="25%"></td>
+                                    <td colspan="3" witdh="55%" style="text-align:center;vertical-align:middle;
+                                    border: 2px solid black;font-size:12pt;background-color:#848484;color:white;">
+                                        <b>EMPLEO ACTUAL Y ANTERIORES</b>
+                                    </td>
+                                    <td width="20%"></td>
+                                </tr>
+                                <tr style="background-color:#848484;">
+                                    <td width="25%" style="text-align:left;border: 2px solid black;font-size:10pt;">
+                                        Compañia
+                                    </td>
+                                    <td width="25%" style="text-align:center;border: 2px solid black;font-size:10pt;">
+                                        Trabajo desempeñado
+                                    </td>
+                                    <td width="30%" colspan="2" style="text-align:center;border: 2px solid black;font-size:10pt;">
+                                        Motivo de Separacion
+                                    </td>
+                                    <td width="20%" style="text-align:center;border: 2px solid black;font-size:10pt;">
+                                        Tiempo Trabajado
+                                    </td>
+                                </tr>
+                                <t t-foreach="o.job_current_ids" t-as="job">
+                                    <tr>
+                                        <td width="25%" style="text-align:left;border: 2px solid black;font-size:10pt;height:25px;">
+                                            <t t-esc="job.company"/>
+                                        </td>
+                                        <td width="25%" style="text-align:center;border: 2px solid black;font-size:10pt;height:25px;">
+                                        <t t-esc="job.job_id"/>
+                                        </td>
+                                        <td colspan="2" width="30%" style="text-align:center;border: 2px solid black;font-size:10pt;height:25px;">
+                                            <t t-esc="job.motive_separate"/>
+                                        </td>
+                                        <td width="20%" style="text-align:center;border: 2px solid black;font-size:10pt;height:25px;">
+                                            <t t-esc="job.address"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </table>
+                        </div>
+                        <br/>
+                        
+                        <div class="col-xs-6">
+                            <table width="100%">
+                                <tr>
+                                    <td width="30%"></td>
+                                    <td witdh="40%" style="font-size:10pt;text-align:center;vertical-align:middle;
+                                    border: 2px solid black;font-size:12pt;background-color:#848484;color:white;">
+                                       DATOS GENERALES
+                                    </td>
+                                    <td width="30%"></td>
+                                </tr>
+                                    <tr>
+                                    <td width="100%" colspan="3" style="border: 2px solid black;font-size:8pt;height:25px;">
+                                        ¿Cómo supo usted de este empleo?
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                    <td width="100%" colspan="3" style="border: 2px solid black;font-size:8pt;height:25px;">
+                                        ¿Tiene parientes trabajando en esta Empresa?
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                    <td width="100%"  colspan="3" style="border: 2px solid black;font-size:8pt;height:25px;">
+                                        ¿Ha estado afianzado?
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                    <td width="100%" colspan="3" style="border: 2px solid black;font-size:8pt;height:25px;">
+                                        ¿Ha estado afiliado a algun sindicato?
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                    <td width="100%" colspan="3" style="border: 2px solid black;font-size:8pt;height:25px;">
+                                        ¿Ha estado afiliado a algún sindicato?
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                    <td width="100%"  colspan="3" style="border: 2px solid black;font-size:8pt;height:25px;">
+                                        ¿Tiene seguro de Vida?
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                    <td width="100%" colspan="3" style="border: 2px solid black;font-size:8pt;height:25px;">
+                                        ¿Puede viajar?
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                    <td width="100%" colspan="3" style="border: 2px solid black;font-size:8pt;height:25px;">
+                                        ¿Está dispuesto a cambiar su lugar de residencia?
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                    <td width="100%" colspan="3" style="border: 2px solid black;font-size:8pt;height:25px;">
+                                        Fecha en que podrá presentarse a trabajar
+                                    </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <br/>
+                        <div class="col-xs-12" style="">
+                            <div class="col-xs-6">
+                                 <table width="100%">
+                                    <tr>
+                                        <td width="25%"></td>
+                                        <td witdh="50%" style="font-size:10pt;text-align:center;vertical-align:middle;
+                                    border: 2px solid black;font-size:12pt;background-color:#848484;color:white;">
+                                           DATOS ECONOMICOS
+                                    </td>
+                                        <td width="25%"></td>
+                                    </tr>
+                                    <tr>
+                                    <td width="100%" colspan="3" style="border: 2px solid black;font-size:8pt;height:25px;">
+                                        ¿Tiene usted otros ingresos?
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                    <td width="100%" colspan="3" style="border: 2px solid black;font-size:8pt;height:25px;">
+                                        ¿Su conyugue trabaja?
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                    <td width="100%"  colspan="3" style="border: 2px solid black;font-size:8pt;height:25px;">
+                                        ¿Vive en casa propia?
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                    <td width="100%" colspan="3" style="border: 2px solid black;font-size:8pt;height:25px;">
+                                        ¿Ha estado afiliado a algun sindicato?
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                    <td width="100%" colspan="3" style="border: 2px solid black;font-size:8pt;height:25px;">
+                                        ¿Paga renta?
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                    <td width="100%"  colspan="3" style="border: 2px solid black;font-size:8pt;height:25px;">
+                                        ¿Tiene automóvil propio?
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                    <td width="100%" colspan="3" style="border: 2px solid black;font-size:8pt;height:25px;">
+                                        ¿Tiene deudas?
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                    <td width="100%" colspan="3" style="border: 2px solid black;font-size:8pt;height:25px;">
+                                        ¿Cuánto abona mensualmente?
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                    <td width="100%" colspan="3" style="border: 2px solid black;font-size:8pt;height:25px;">
+                                        ¿A cuánto ascienden sus gastos mensuales?
+                                    </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="col-xs-5">
+                                <br/>
+                                <table width="100%">
+                                    <tr>
+                                    <td width="100%" style="text-align:center;border: 2px solid black;font-size:8pt;height:110px;">
+                                        Hago constar que mis respuestas son verdaderas<br/><br/><br/><br/>
+                                        ______________________________________<br/>
+                                        Firma del solicitante
+
+                                    </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                            <div class="col-xs-7">
+                                <br/>
+                                <table width="100%">
+                                    <tr>
+                                    <td width="100%" style="text-align:left;border: 2px solid black;font-size:8pt;height:90px;">
+                                        Comentarios de Entrevistador y firma
+
+                                    </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                            
+                            <div class="col-xs-7">
+                                <br/>
+                                <p style="text-align:center;font-size:10pt;">
+                                    Declaro que todos los datos que proporcioné en la presente solicitud son verdaderos, 
+                                    y autorizo a <span t-field="o.company_id.name"/> para que los verifique absolutamente 
+                                    por los medio que disponga (INFORNET, etc.). En caso de encontrar alguna información
+                                    incierta, carente de toda verdad, la empresa <span t-field="o.company_id.name"/>
+                                    puede anular esta solicitud de empleo y por ende mi contratación.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </t>
+            </t>
+        </template>
+
+
+
+
+
+
+    </data>
+</odoo>

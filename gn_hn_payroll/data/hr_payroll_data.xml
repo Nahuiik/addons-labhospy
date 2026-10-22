@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="input_type_ihss" model="hr.payslip.input.type">
+        <field name="name">IHSS</field>
+        <field name="code">IHSS</field>
+    </record>
+    <record id="input_type_afp" model="hr.payslip.input.type">
+        <field name="name">AFP</field>
+        <field name="code">AFP</field>
+    </record>
+
+    <record id="hr_payroll.default_structure" model="hr.payroll.structure">
+        <field name="input_line_type_ids" eval="[(4, ref('gn_hn_payroll.input_type_ihss')), (4, ref('gn_hn_payroll.input_type_afp'))]"/>
+    </record>
+    <record id="hr_payroll.structure_002" model="hr.payroll.structure">
+        <field name="input_line_type_ids" eval="[(4, ref('gn_hn_payroll.input_type_ihss')), (4, ref('gn_hn_payroll.input_type_afp'))]"/>
+    </record>
+
+    <record id="salary_rule_ihss_default_structure" model="hr.salary.rule">
+        <field name="name">IHSS</field>
+        <field name="code">IHSS</field>
+        <field name="sequence">180</field>
+        <field name="category_id" ref="hr_payroll.DED"/>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = 'IHSS' in inputs</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = -inputs['IHSS'].amount
+result_name = inputs['IHSS'].name
+        </field>
+        <field name="struct_id" ref="hr_payroll.default_structure"/>
+    </record>
+
+    <record id="salary_rule_ihss_regular_structure" model="hr.salary.rule">
+        <field name="name">IHSS</field>
+        <field name="code">IHSS</field>
+        <field name="sequence">180</field>
+        <field name="category_id" ref="hr_payroll.DED"/>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = 'IHSS' in inputs</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = -inputs['IHSS'].amount
+result_name = inputs['IHSS'].name
+        </field>
+        <field name="struct_id" ref="hr_payroll.structure_002"/>
+    </record>
+
+    <record id="salary_rule_afp_default_structure" model="hr.salary.rule">
+        <field name="name">AFP</field>
+        <field name="code">AFP</field>
+        <field name="sequence">181</field>
+        <field name="category_id" ref="hr_payroll.DED"/>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = 'AFP' in inputs</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = -inputs['AFP'].amount
+result_name = inputs['AFP'].name
+        </field>
+        <field name="struct_id" ref="hr_payroll.default_structure"/>
+    </record>
+
+    <record id="salary_rule_afp_regular_structure" model="hr.salary.rule">
+        <field name="name">AFP</field>
+        <field name="code">AFP</field>
+        <field name="sequence">181</field>
+        <field name="category_id" ref="hr_payroll.DED"/>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = 'AFP' in inputs</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = -inputs['AFP'].amount
+result_name = inputs['AFP'].name
+        </field>
+        <field name="struct_id" ref="hr_payroll.structure_002"/>
+    </record>
+</odoo>

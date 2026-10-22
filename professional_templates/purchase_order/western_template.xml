@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="PO_8_document" name="Western Template">
+            <!-- Multicompany -->
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"></t>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"></t>
+            </t>
+            <div class="header" t-attf-style="color:{{style.text_color}} !important;font-size:{{int(style.header_font)}}px !important;font-family:{{style.font_family}} !important;">
+                <div class="p-0 mb-2" t-if="style.header"  t-attf-style="border-bottom:15px dotted {{style.theme_color}}">
+                    <div class="row">
+                        <h5 class="text-center">
+                            <span t-field="company.name" t-attf-style="color:{{style.name_color}};"/>
+                        </h5>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <t t-call="professional_templates.company_address_noname"/>
+                            <div t-if="company.twitter or company.facebook or company.facebook" t-attf-style="display:inline-block; width:auto; padding-right:15px; padding-top:4px; padding-bottom:2px;" class="mb8">
+                                <span t-if="company.twitter" class="fa fa-twitter-square "/>&#160;<span t-field="company.twitter"/> &#160;
+                                <span t-if="company.facebook" class="fa fa-facebook-square "/>&#160;<span t-field="company.facebook"/> &#160;
+                                <span t-if="company.youtube" class="fa fa-youtube-square "/>&#160;<span t-field="company.youtube"/>
+                            </div>
+                        </div>
+                        <div class="col-4 text-center" t-attf-style="color:{{style.theme_color}};">
+                            <h3>
+                                <span t-if="o.state in ['draft', 'sent', 'to approve']">Solicitud de Cotizacion #<span t-field="o.name"/></span>
+                                <span t-if="o.state in ['purchase', 'done']">Orden de Compra #<span t-field="o.name"/></span>
+                                <span t-if="o.state == 'cancel'">Orden de Compra Cancelada #<span t-field="o.name"/></span>
+                            </h3>
+                        </div>
+                        <div class="col-4 text-end">
+                            <span t-if="style.logo">
+                                <img t-if="style.logo" t-att-src="image_data_uri(style.logo)" alt="Logo"/>
+                            </span>
+                            <span t-if="not style.logo">
+                                <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo"/>
+                            </span>
+                        </div>
+                    </div>
+                    <!-- </div> -->
+            </div>
+        </div> <!--end of Header-->
+        <!-- START OF PAGE -->
+        <div class="article page" t-attf-data-oe-model="purchase.order" t-attf-data-oe-id="{{o.id}}" t-attf-style="color:{{style.text_color}} !important;font-size:{{int(style.body_font)}}px !important;font-family:{{style.font_family}} !important;">
+            <div class="col-12" t-attf-style="white-space:pre-line;color:#{style.wm_color};left:#{style.leftpadding}mm; top:#{style.toppadding}mm;font-size:#{style.fontsize}px; opacity:#{style.opacity};z-index:-99; -webkit-transform:rotate(-#{style.rotate}deg);position:fixed;"><t t-esc="style.wm_eval(o, time, user, res_company)"/></div>
+            <div class="row row-cols-3 mb-2">
+                <div class="col">
+                    <span t-if="o.dest_address_id and o.dest_address_id != o.partner_id" t-attf-style="font-size:{{int(style.body_font)+6}}px; font-weight:bold;">
+                        Direccion:
+                    </span>
+                    <span t-if="o.dest_address_id == o.partner_id or not o.dest_address_id" t-attf-style="font-size:{{int(style.body_font)+6}}px; font-weight:bold;">
+                        Direccion:
+                    </span>
+                    <div t-if="o.partner_id" t-attf-style="color:{{style.cust_color}};font-size:{{int(style.body_font)+6}}px;font-weight:500;">
+                        <t t-if="o.partner_id.parent_id">
+                            <span t-field="o.partner_id.parent_id"/>, <span t-if="o.partner_id._fields.get('title') and o.partner_id.title" t-field="o.partner_id.title"/> <span t-field="o.partner_id.name"/>
+                        </t>
+                        <t t-if="not o.partner_id.parent_id">
+                            <span t-if="o.partner_id._fields.get('title') and o.partner_id.title" t-field="o.partner_id.title"/> <span t-field="o.partner_id"/>
+                        </t>
+                    </div>
+                    <address t-field="o.partner_id"  t-options='{"widget": "contact", "fields":["address","phone","email","website"],"no_marker": false}'/>
+                    <div t-if="o.partner_id.vat">NIT: <span t-field="o.partner_id.vat"/></div>
+                </div>
+                <div class="col" t-if="o.dest_address_id and o.dest_address_id != o.partner_id">
+                    <span t-attf-style="font-size:{{int(style.body_font)+6}}px;font-weight:bold;">Ship To:</span>
+                    <address t-field="o.dest_address_id" t-options='{"widget": "contact", "fields":["name", "address","phone","email","website"],"no_marker": false}'/>
+                </div>
+                <div class="col px-2" t-attf-style="border-left:2px solid {{style.theme_color}}">
+                    <div t-if="o.name">
+                        <strong>
+                            <span t-if="o.state in ['draft', 'sent', 'to approve']">Solicitud de Cotizacion #</span>
+                            <span t-if="o.state in ['purchase', 'done']">Orden de Compra #</span>
+                            <span t-if="o.state == 'cancel'">Orden de Compra Cancelada #</span>
+                        </strong>
+                        <span t-field="o.name"/>
+                    </div>
+                    <div t-if="o.state in ['purchase','done'] and o.date_approve">
+                        <strong>Fecha de Orden:</strong>
+                        <span t-field="o.date_approve"/>
+                    </div>
+                    <div t-if="o.date_order">
+                        <strong>Fecha Limite:</strong>
+                        <span t-field="o.date_order"/>
+                    </div>
+                    <div t-if="o.partner_id.ref">
+                        <strong>Codigo de Proveedor:</strong>
+                        <span t-field="o.partner_id.ref"/>
+                    </div>
+                    <div t-if="o.partner_ref">
+                        <strong>Referencia del Proveedor:</strong>
+                        <span t-field="o.partner_ref"/>
+                    </div>
+                </div>
+            </div>
+            <!-- DATA-->
+            <t t-call="professional_templates.purchase_lines"/>
+                <!--/DATA-->
+        </div><!--End of PAGE-->
+        <!--FOOTER -->
+        <div class="footer" t-attf-style="font-size:{{style.footer_font}}px !important;font-family:{{style.font_family}} !important;">
+            <t t-call="professional_templates.company_footer"/>
+        </div>
+        <!--/FOOTER-->
+    </template>
+</data>
+</odoo>

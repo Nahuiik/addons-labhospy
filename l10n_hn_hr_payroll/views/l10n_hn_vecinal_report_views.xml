@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ============================================ -->
+    <!-- IMPUESTO VECINAL RETENTION HISTORY VIEWS -->
+    <!-- ============================================ -->
+    
+    <record id="view_l10n_hn_vecinal_retention_history_tree" model="ir.ui.view">
+        <field name="name">l10n.hn.vecinal.retention_history.tree</field>
+        <field name="model">l10n.hn.vecinal.retention_history</field>
+        <field name="arch" type="xml">
+            <list string="Impuesto Vecinal Retention History">
+                <field name="employee_id"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="year"/>
+                <field name="period_start"/>
+                <field name="period_end"/>
+                <field name="annual_income_base" sum="Total"/>
+                <field name="annual_tax" sum="Total"/>
+                <field name="period_amount" sum="Total"/>
+                <field name="deduction_method"/>
+                <field name="payslip_id" optional="hide"/>
+            </list>
+        </field>
+    </record>
+    
+    <record id="view_l10n_hn_vecinal_retention_history_form" model="ir.ui.view">
+        <field name="name">l10n.hn.vecinal.retention_history.form</field>
+        <field name="model">l10n.hn.vecinal.retention_history</field>
+        <field name="arch" type="xml">
+            <form string="Impuesto Vecinal Retention History">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="employee_id" options="{'no_create': True}"/>
+                            <field name="company_id" groups="base.group_multi_company"
+                                   options="{'no_create': True}"/>
+                            <field name="year"/>
+                        </group>
+                        <group>
+                            <field name="period_start"/>
+                            <field name="period_end"/>
+                            <field name="deduction_method"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="annual_income_base" widget="monetary" 
+                                   options="{'currency_field': 'company_id.currency_id'}"/>
+                            <field name="annual_tax" widget="monetary"
+                                   options="{'currency_field': 'company_id.currency_id'}"/>
+                            <field name="period_amount" widget="monetary"
+                                   options="{'currency_field': 'company_id.currency_id'}"/>
+                        </group>
+                        <group>
+                            <field name="payslip_id" options="{'no_create': True}"/>
+                            <field name="settings_id" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <record id="view_l10n_hn_vecinal_retention_history_search" model="ir.ui.view">
+        <field name="name">l10n.hn.vecinal.retention_history.search</field>
+        <field name="model">l10n.hn.vecinal.retention_history</field>
+        <field name="arch" type="xml">
+            <search string="Search Retention History">
+                <field name="employee_id"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="year"/>
+                <field name="deduction_method"/>
+                <filter string="This Year" name="this_year" domain="[('year', '=', context_today().year)]"/>
+                <filter string="Last Year" name="last_year" domain="[('year', '=', context_today().year - 1)]"/>
+                <separator/>
+                <filter string="Group by Employee" name="group_by_employee" context="{'group_by': 'employee_id'}"/>
+                <filter string="Group by Year" name="group_by_year" context="{'group_by': 'year'}"/>
+                <filter string="Group by Company" name="group_by_company" context="{'group_by': 'company_id'}" groups="base.group_multi_company"/>
+            </search>
+        </field>
+    </record>
+    
+    <record id="action_l10n_hn_vecinal_retention_history" model="ir.actions.act_window">
+        <field name="name">Impuesto Vecinal Retention History</field>
+        <field name="res_model">l10n.hn.vecinal.retention_history</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                View Impuesto Vecinal Retention History
+            </p>
+            <p>
+                This report shows all Impuesto Vecinal deductions made in payroll.
+                Each record represents a deduction from a payslip.
+            </p>
+        </field>
+    </record>
+    
+    <!-- ============================================ -->
+    <!-- IMPUESTO VECINAL SUMMARY REPORT -->
+    <!-- ============================================ -->
+    
+    <record id="view_l10n_hn_vecinal_summary_tree" model="ir.ui.view">
+        <field name="name">l10n.hn.vecinal.summary.tree</field>
+        <field name="model">l10n.hn.vecinal.retention_history</field>
+        <field name="arch" type="xml">
+            <list string="Impuesto Vecinal Summary by Employee" default_order="employee_id,year desc">
+                <field name="employee_id" readonly="1"/>
+                <field name="company_id" groups="base.group_multi_company" readonly="1"/>
+                <field name="year" readonly="1"/>
+                <field name="annual_income_base" sum="Total" readonly="1"/>
+                <field name="annual_tax" sum="Total" readonly="1"/>
+                <field name="period_amount" sum="Total" readonly="1"/>
+            </list>
+        </field>
+    </record>
+    
+    <record id="action_l10n_hn_vecinal_summary" model="ir.actions.act_window">
+        <field name="name">Impuesto Vecinal Summary</field>
+        <field name="res_model">l10n.hn.vecinal.retention_history</field>
+        <field name="view_mode">list</field>
+        <field name="domain">[]</field>
+        <field name="context">{'group_by': 'employee_id,year'}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                View Impuesto Vecinal Summary
+            </p>
+            <p>
+                Summary report showing total Impuesto Vecinal deductions per employee and year.
+            </p>
+        </field>
+    </record>
+    
+</odoo>

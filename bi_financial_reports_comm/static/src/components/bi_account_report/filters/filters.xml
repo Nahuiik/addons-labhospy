@@ -1,0 +1,835 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="bi_financial_reports_comm.BiAccountReportFilters">
+        <div class="o_bi_filter_bar d-flex flex-wrap align-items-center gap-2 w-100 min-w-0">
+            <t t-if="hasPartnerAgeingFilters">
+                <div class="o_bi_filter_ageing_rows d-flex flex-column gap-2 w-100">
+                    <!-- Fila 1: fecha, tipo de cuenta, contactos, etiquetas -->
+                    <div class="o_bi_filter_ageing_row d-flex flex-wrap align-items-center gap-2 w-100">
+                        <div class="bi_filter_partner_ageing_date">
+                            <button type="button" class="btn btn-secondary btn-sm text-nowrap" t-ref="partnerAgeingDate" t-on-click="onPartnerAgeingDateClick">
+                                <i class="fa fa-calendar me-1"/><t t-esc="_t('As of')"/> <t t-esc="partnerAgeingDateLabel"/>
+                            </button>
+                        </div>
+                        <Dropdown menuClass="'dropdown-menu-end'">
+                            <button class="btn btn-secondary btn-sm">
+                                <i class="fa fa-user me-1"/><t t-esc="accountTypeLabel"/>
+                            </button>
+                            <t t-set-slot="content">
+                                <DropdownItem class="{ 'selected': controller.state.options.account_type === 'both' }" closingMode="'none'" onSelected="() => this.onAccountTypeSet('both')"><t t-esc="_t('Por cobrar y por pagar')"/></DropdownItem>
+                                <DropdownItem class="{ 'selected': controller.state.options.account_type === 'receivable' }" closingMode="'none'" onSelected="() => this.onAccountTypeSet('receivable')"><t t-esc="_t('Por cobrar')"/></DropdownItem>
+                                <DropdownItem class="{ 'selected': controller.state.options.account_type === 'payable' }" closingMode="'none'" onSelected="() => this.onAccountTypeSet('payable')"><t t-esc="_t('Por pagar')"/></DropdownItem>
+                            </t>
+                        </Dropdown>
+                        <Dropdown menuClass="'dropdown-menu-end bi_filter_menu_with_input'">
+                            <button class="btn btn-secondary btn-sm">
+                                <i class="fa fa-folder-open me-1"/><t t-esc="_t('Contactos')"/> <t t-if="partnerNameFilter">(<t t-esc="partnerNameFilter"/>)</t>
+                            </button>
+                            <t t-set-slot="content">
+                                <div class="px-3 py-2" t-on-click.stop="">
+                                    <label class="form-label small mb-1"><t t-esc="_t('Contactos')"/></label>
+                                    <input type="text" class="form-control form-control-sm" t-att-placeholder="_t('Type contact name...')" t-att-value="partnerNameFilter" t-on-input="onPartnerFilterInput"/>
+                                </div>
+                            </t>
+                        </Dropdown>
+                        <Dropdown menuClass="'dropdown-menu-end bi_filter_menu_with_input'">
+                            <button class="btn btn-secondary btn-sm">
+                                <i class="fa fa-tags me-1"/><t t-esc="_t('Tags')"/> <t t-if="partnerTagNameFilter">(<t t-esc="partnerTagNameFilter"/>)</t>
+                            </button>
+                            <t t-set-slot="content">
+                                <div class="px-3 py-2" t-on-click.stop="">
+                                    <label class="form-label small mb-1"><t t-esc="_t('Tags')"/></label>
+                                    <input type="text" class="form-control form-control-sm" t-att-placeholder="_t('Type tag name...')" t-att-value="partnerTagNameFilter" t-on-input="onTagFilterInput"/>
+                                </div>
+                            </t>
+                        </Dropdown>
+                    </div>
+                    <!-- Fila 2: base de fechas, periodo, asientos, selector de informe, más filtros -->
+                    <div class="o_bi_filter_ageing_row d-flex flex-wrap align-items-center gap-2 w-100">
+                        <Dropdown menuClass="'dropdown-menu-end'">
+                            <button class="btn btn-secondary btn-sm">
+                                <i class="fa fa-file-text me-1"/><t t-esc="basedOnLabel"/>
+                            </button>
+                            <t t-set-slot="content">
+                                <DropdownItem class="{ 'selected': controller.state.options.based_on === 'due' }" closingMode="'none'" onSelected="() => this.onBasedOnSet('due')"><t t-esc="_t('Due Date')"/></DropdownItem>
+                                <DropdownItem class="{ 'selected': controller.state.options.based_on === 'invoice' }" closingMode="'none'" onSelected="() => this.onBasedOnSet('invoice')"><t t-esc="_t('Invoice Date')"/></DropdownItem>
+                            </t>
+                        </Dropdown>
+                        <Dropdown menuClass="'dropdown-menu-end'">
+                            <button class="btn btn-secondary btn-sm">
+                                <i class="fa fa-calendar me-1"/><t t-esc="periodLengthLabel"/>
+                            </button>
+                            <t t-set-slot="content">
+                                <DropdownItem class="{ 'selected': controller.state.options.period_length === 15 }" closingMode="'none'" onSelected="() => this.onPeriodLengthSet(15)">15 <t t-esc="_t('days')"/></DropdownItem>
+                                <DropdownItem class="{ 'selected': controller.state.options.period_length === 30 }" closingMode="'none'" onSelected="() => this.onPeriodLengthSet(30)">30 <t t-esc="_t('days')"/></DropdownItem>
+                                <DropdownItem class="{ 'selected': controller.state.options.period_length === 45 }" closingMode="'none'" onSelected="() => this.onPeriodLengthSet(45)">45 <t t-esc="_t('days')"/></DropdownItem>
+                                <DropdownItem class="{ 'selected': controller.state.options.period_length === 60 }" closingMode="'none'" onSelected="() => this.onPeriodLengthSet(60)">60 <t t-esc="_t('days')"/></DropdownItem>
+                            </t>
+                        </Dropdown>
+                        <Dropdown menuClass="'dropdown-menu-end'">
+                            <button class="btn btn-secondary btn-sm">
+                                <i class="fa fa-filter me-1"/><t t-esc="targetMoveLabel"/>
+                            </button>
+                            <t t-set-slot="content">
+                                <DropdownItem class="{ 'selected': controller.state.options.target_move === 'posted' }" closingMode="'none'" onSelected="() => this.onTargetMoveSet('posted')"><t t-esc="_t('Posted')"/></DropdownItem>
+                                <DropdownItem class="{ 'selected': controller.state.options.target_move === 'all' }" closingMode="'none'" onSelected="() => this.onTargetMoveSet('all')"><t t-esc="_t('All')"/></DropdownItem>
+                            </t>
+                        </Dropdown>
+                        <t t-if="hasReportSwitcher">
+                            <Dropdown menuClass="'dropdown-menu-end'">
+                                <button class="btn btn-secondary btn-sm">
+                                    <i class="fa fa-book me-1"/><t t-esc="_t('Reporte')"/>: <t t-esc="reportSwitcherLabel"/>
+                                </button>
+                                <t t-set-slot="content">
+                                    <t t-foreach="reportOptions" t-as="opt" t-key="opt.id">
+                                        <DropdownItem class="{ 'selected': isReportSelected(opt.id) }" closingMode="'none'" onSelected="() => this.onReportSelect(opt.action)">
+                                            <span class="d-flex align-items-center gap-2">
+                                                <i class="fa fa-check text-primary" t-att-class="isReportSelected(opt.id) ? '' : 'invisible'"/>
+                                                <span t-esc="opt.name"/>
+                                            </span>
+                                        </DropdownItem>
+                                    </t>
+                                </t>
+                            </Dropdown>
+                        </t>
+                        <a class="btn btn-link btn-sm align-self-center" href="#" t-on-click.prevent="onOpenWizard"><t t-esc="_t('More filters')"/></a>
+                    </div>
+                </div>
+            </t>
+            <t t-else="">
+                <t t-if="hasGeneralLedgerFilters or hasTrialBalanceFilters">
+                    <div class="o_searchview form-control form-control-sm d-flex align-items-center py-1" style="min-width: 180px; max-width: 280px;" role="search">
+                        <i class="fa fa-search text-muted me-2" role="img" aria-label="Search..."/>
+                        <input type="text" class="o_searchview_input o_input border-0 flex-grow-1 bg-transparent" t-att-placeholder="_t('Search...')" t-att-value="accountFilter" t-on-input="onAccountFilterInput"/>
+                    </div>
+                </t>
+                <!-- Date filter -->
+                <t t-if="hasPeriodDateFilter">
+                    <Dropdown menuClass="'dropdown-menu-end bi_date_filter_menu'">
+                        <button class="btn btn-secondary btn-sm">
+                            <i class="fa fa-calendar me-1"/><t t-esc="periodDateFilterLabel"/>
+                        </button>
+                        <t t-set-slot="content">
+                            <DropdownItem tag="'div'" class="'bi_date_filter_row d-flex align-items-center justify-content-between px-1 py-1'" onSelected="() => this.onDateFilterTypeChange('month')" closingMode="'none'">
+                                <span class="d-flex align-items-center gap-2">
+                                    <i class="fa fa-check text-primary" t-att-class="dateFilterType === 'month' ? '' : 'invisible'"/>
+                                    <span><t t-esc="_t('Mes')"/></span>
+                                </span>
+                                <span class="d-flex align-items-center gap-1">
+                                    <span class="bi_date_period_value"><t t-esc="periodMonthLabel"/></span>
+                                    <button type="button" class="btn btn-link btn-sm p-0 text-secondary" t-on-click.stop="(ev) => this.onDateFilterNav(ev, 'month', -1)"><i class="fa fa-chevron-left"/></button>
+                                    <button type="button" class="btn btn-link btn-sm p-0 text-secondary" t-on-click.stop="(ev) => this.onDateFilterNav(ev, 'month', 1)"><i class="fa fa-chevron-right"/></button>
+                                </span>
+                            </DropdownItem>
+                            <DropdownItem tag="'div'" class="'bi_date_filter_row d-flex align-items-center justify-content-between px-1 py-1'" onSelected="() => this.onDateFilterTypeChange('quarter')" closingMode="'none'">
+                                <span class="d-flex align-items-center gap-2">
+                                    <i class="fa fa-check text-primary" t-att-class="dateFilterType === 'quarter' ? '' : 'invisible'"/>
+                                    <span><t t-esc="_t('Trimestre')"/></span>
+                                </span>
+                                <span class="d-flex align-items-center gap-1">
+                                    <span class="bi_date_period_value"><t t-esc="periodQuarterLabel"/></span>
+                                    <button type="button" class="btn btn-link btn-sm p-0 text-secondary" t-on-click.stop="(ev) => this.onDateFilterNav(ev, 'quarter', -1)"><i class="fa fa-chevron-left"/></button>
+                                    <button type="button" class="btn btn-link btn-sm p-0 text-secondary" t-on-click.stop="(ev) => this.onDateFilterNav(ev, 'quarter', 1)"><i class="fa fa-chevron-right"/></button>
+                                </span>
+                            </DropdownItem>
+                            <DropdownItem tag="'div'" class="'bi_date_filter_row d-flex align-items-center justify-content-between px-1 py-1'" onSelected="() => this.onDateFilterTypeChange('year')" closingMode="'none'">
+                                <span class="d-flex align-items-center gap-2">
+                                    <i class="fa fa-check text-primary" t-att-class="dateFilterType === 'year' ? '' : 'invisible'"/>
+                                    <span><t t-esc="_t('Año')"/></span>
+                                </span>
+                                <span class="d-flex align-items-center gap-1">
+                                    <span class="bi_date_period_value"><t t-esc="periodYearLabel"/></span>
+                                    <button type="button" class="btn btn-link btn-sm p-0 text-secondary" t-on-click.stop="(ev) => this.onDateFilterNav(ev, 'year', -1)"><i class="fa fa-chevron-left"/></button>
+                                    <button type="button" class="btn btn-link btn-sm p-0 text-secondary" t-on-click.stop="(ev) => this.onDateFilterNav(ev, 'year', 1)"><i class="fa fa-chevron-right"/></button>
+                                </span>
+                            </DropdownItem>
+                            <div class="dropdown-divider"/>
+                            <DropdownItem tag="'div'" class="'bi_date_filter_row d-flex align-items-center justify-content-between px-1 py-1'" onSelected="() => this.onDateFilterCustomClick()" closingMode="'none'">
+                                <span class="d-flex align-items-center gap-2">
+                                    <i class="fa fa-check text-primary" t-att-class="dateFilterType === 'custom' ? '' : 'invisible'"/>
+                                    <span><t t-esc="_t('Fechas personalizadas')"/></span>
+                                </span>
+                                <div class="d-flex align-items-center gap-1" t-if="dateFilterType === 'custom'" t-on-click.stop="">
+                                    <DateTimeInput type="'date'" value="customDateFrom" onChange="(date) => this.setCustomDateFrom(date)"/>
+                                    <span class="mx-1 text-muted small"><t t-esc="_t('para')"/></span>
+                                    <DateTimeInput type="'date'" value="customDateTo" onChange="(date) => this.setCustomDateTo(date)"/>
+                                </div>
+                                <span class="bi_date_period_value" t-else=""><t t-esc="customDateRangeLabel"/></span>
+                            </DropdownItem>
+                        </t>
+                    </Dropdown>
+                </t>
+                <t t-else="">
+                    <div class="bi_filter_date_from">
+                        <label class="form-label me-1 mb-0"><t t-esc="_t('From')"/></label>
+                        <button type="button" class="btn btn-secondary btn-sm text-nowrap" t-ref="dateFrom" t-on-click="onDateFromClick">
+                            <i class="fa fa-calendar me-1"/><t t-esc="dateFromLabel"/>
+                        </button>
+                    </div>
+                    <div class="bi_filter_date_to">
+                        <label class="form-label me-1 mb-0"><t t-esc="_t('To')"/></label>
+                        <button type="button" class="btn btn-secondary btn-sm text-nowrap" t-ref="dateTo" t-on-click="onDateToClick">
+                            <i class="fa fa-calendar me-1"/><t t-esc="dateToLabel"/>
+                        </button>
+                    </div>
+                </t>
+                <t t-if="hasReportCurrencyFilter">
+                    <Dropdown menuClass="'dropdown-menu-end'">
+                        <button class="btn btn-secondary btn-sm">
+                            <i class="fa fa-money me-1"/><t t-esc="reportCurrencyButtonLabel"/>
+                        </button>
+                        <t t-set-slot="content">
+                            <DropdownItem closingMode="'none'" onSelected="() => this.onReportCurrencyClear()">
+                                <t t-esc="_t('Moneda de la compañía (sin conversión)')"/>
+                            </DropdownItem>
+                            <div class="dropdown-divider" t-if="reportCurrencyList.length"/>
+                            <t t-foreach="reportCurrencyList" t-as="cur" t-key="cur.id">
+                                <DropdownItem class="{ 'selected': isReportCurrencySelected(cur.id) }" closingMode="'none'" onSelected="() => this.onReportCurrencyPick(cur.id)">
+                                    <t t-esc="cur.name"/>
+                                </DropdownItem>
+                            </t>
+                        </t>
+                    </Dropdown>
+                </t>
+                <t t-if="supportsSavedFilters">
+                    <Dropdown menuClass="'dropdown-menu-end'">
+                        <button class="btn btn-secondary btn-sm" type="button">
+                            <i class="fa fa-star me-1"/><t t-esc="_t('Mis filtros')"/>
+                        </button>
+                        <t t-set-slot="content">
+                            <DropdownItem closingMode="'none'" onSelected="() => this.onSaveBiFilter()">
+                                <i class="fa fa-save me-1"/><t t-esc="_t('Guardar filtro actual')"/>
+                            </DropdownItem>
+                            <div class="dropdown-divider" t-if="savedFiltersList.length"/>
+                            <t t-foreach="savedFiltersList" t-as="sf" t-key="sf.id">
+                                <DropdownItem tag="'div'" class="'d-flex align-items-center justify-content-between gap-2 px-2 py-1'" closingMode="'none'">
+                                    <button type="button" class="btn btn-link btn-sm text-start p-0 flex-grow-1" t-on-click="() => this.onApplyBiFilter(sf.id)">
+                                        <t t-esc="sf.name"/>
+                                    </button>
+                                    <button type="button" class="btn btn-link btn-sm text-danger p-0" t-att-title="_t('Eliminar')" t-on-click="(ev) => this.onDeleteBiFilter(sf.id, ev)">
+                                        <i class="fa fa-trash"/>
+                                    </button>
+                                </DropdownItem>
+                            </t>
+                            <div class="dropdown-item text-muted small" t-if="savedFiltersList.length === 0">
+                                <t t-esc="_t('No hay filtros guardados')"/>
+                            </div>
+                        </t>
+                    </Dropdown>
+                </t>
+                <!-- Journals filter -->
+                <t t-if="hasGeneralLedgerFilters">
+                    <Dropdown menuClass="'dropdown-menu-end'">
+                        <button class="btn btn-secondary btn-sm">
+                            <i class="fa fa-book me-1"/><t t-esc="journalFilterLabel"/>
+                        </button>
+                        <t t-set-slot="content">
+                            <DropdownItem closingMode="'none'" onSelected="() => this.onJournalSelectAll()"><t t-esc="_t('Todos')"/></DropdownItem>
+                            <DropdownItem closingMode="'none'" onSelected="() => this.onJournalClearAll()"><t t-esc="_t('Ninguno')"/></DropdownItem>
+                            <div class="dropdown-divider"/>
+                            <t t-foreach="journalList" t-as="journal" t-key="journal.id">
+                                <DropdownItem class="{ 'selected': isJournalSelected(journal.id) }" closingMode="'none'" onSelected="() => this.onJournalToggle(null, journal.id)">
+                                    <t t-esc="journal.code"/> - <t t-esc="journal.name"/>
+                                </DropdownItem>
+                            </t>
+                        </t>
+                    </Dropdown>
+                    <!-- Analytic filter -->
+                    <Dropdown menuClass="'dropdown-menu-end'">
+                        <button class="btn btn-secondary btn-sm">
+                            <i class="oi oi-group me-1"/><t t-esc="analyticFilterLabel"/>
+                        </button>
+                        <t t-set-slot="content">
+                            <div class="dropdown-item gap-2 align-items-center o_bi_analytic_filter_row" t-on-click.stop="">
+                                <label class="me-2 mb-0"><t t-esc="_t('Cuentas')"/></label>
+                                <MultiRecordSelector t-props="analyticAccountSelectorProps"/>
+                            </div>
+                            <div class="dropdown-item gap-2 align-items-center o_bi_analytic_filter_row" t-on-click.stop="">
+                                <label class="me-2 mb-0"><t t-esc="_t('Planes')"/></label>
+                                <MultiRecordSelector t-props="analyticPlanSelectorProps"/>
+                            </div>
+                            <div t-if="supportsAnalyticColumns" class="dropdown-item d-flex gap-2 align-items-center o_bi_analytic_filter_row" role="menuitemcheckbox" t-att-aria-checked="analyticColumnsActive" t-on-click.stop="onToggleAnalyticColumns">
+                                <input type="checkbox" class="form-check-input mt-0 me-1" t-att-checked="analyticColumnsActive"/>
+                                <label class="mb-0"><t t-esc="_t('Mostrar analíticas en columnas')"/></label>
+                            </div>
+                        </t>
+                    </Dropdown>
+                    <!-- Options filter -->
+                    <Dropdown menuClass="'dropdown-menu-end'">
+                        <button class="btn btn-secondary btn-sm">
+                            <i class="fa fa-sliders me-1"/><t t-esc="optionsFilterLabel"/>
+                        </button>
+                        <t t-set-slot="content">
+                            <t t-foreach="financialReportExtraOptions" t-as="opt" t-key="'gl_' + opt.id">
+                                <t t-if="opt.divider">
+                                    <div class="dropdown-divider"/>
+                                </t>
+                                <t t-else="">
+                                    <DropdownItem class="{ 'selected': isFinancialReportOptionSelected(opt.id) }" closingMode="'none'" onSelected="() => this.onFinancialReportOptionToggle(opt.id)">
+                                        <t t-esc="opt.name"/>
+                                    </DropdownItem>
+                                </t>
+                            </t>
+                            <div class="dropdown-divider"/>
+                            <div class="dropdown-header"><t t-esc="_t('Display')"/></div>
+                            <DropdownItem class="{ 'selected': controller.state.options.display_account === 'all' }" closingMode="'none'" onSelected="() => this.onDisplayAccountSet('all')"><t t-esc="_t('All')"/></DropdownItem>
+                            <DropdownItem class="{ 'selected': controller.state.options.display_account === 'movement' }" closingMode="'none'" onSelected="() => this.onDisplayAccountSet('movement')"><t t-esc="_t('With movements')"/></DropdownItem>
+                            <DropdownItem class="{ 'selected': controller.state.options.display_account === 'not_zero' }" closingMode="'none'" onSelected="() => this.onDisplayAccountSet('not_zero')"><t t-esc="_t('With balance not zero')"/></DropdownItem>
+                        </t>
+                    </Dropdown>
+                </t>
+                <!-- Partner Ledger: account type, contacts, journals -->
+                <t t-if="hasPartnerLedgerFilters">
+                    <Dropdown menuClass="'dropdown-menu-end'">
+                        <button class="btn btn-secondary btn-sm">
+                            <i class="fa fa-user me-1"/><t t-esc="_t('Account')"/>: <t t-esc="accountTypeLabel"/>
+                        </button>
+                        <t t-set-slot="content">
+                            <t t-foreach="accountTypeOptions" t-as="opt" t-key="opt.id">
+                                <DropdownItem class="{ 'selected': isAccountTypeSelected(opt.id) }" closingMode="'none'" onSelected="() => this.onAccountTypeToggle(opt.id)">
+                                    <span class="d-flex align-items-center gap-2">
+                                        <i class="fa fa-check text-primary" t-att-class="isAccountTypeSelected(opt.id) ? '' : 'invisible'"/>
+                                        <span t-esc="opt.name"/>
+                                    </span>
+                                </DropdownItem>
+                            </t>
+                        </t>
+                    </Dropdown>
+                <Dropdown menuClass="'dropdown-menu-end bi_filter_menu_with_input'">
+                    <button class="btn btn-secondary btn-sm">
+                        <i class="fa fa-folder-open me-1"/><t t-esc="_t('Contactos')"/> <t t-if="partnerNameFilter">(<t t-esc="partnerNameFilter"/>)</t>
+                    </button>
+                    <t t-set-slot="content">
+                        <div class="px-3 py-2" t-on-click.stop="">
+                            <label class="form-label small mb-1"><t t-esc="_t('Contactos')"/></label>
+                            <input type="text" class="form-control form-control-sm" t-att-placeholder="_t('Type contact name...')" t-att-value="partnerNameFilter" t-on-input="onPartnerFilterInput"/>
+                        </div>
+                    </t>
+                </Dropdown>
+                <Dropdown menuClass="'dropdown-menu-end'">
+                        <button class="btn btn-secondary btn-sm">
+                            <i class="fa fa-book me-1"/><t t-esc="journalFilterLabel"/>
+                        </button>
+                        <t t-set-slot="content">
+                            <DropdownItem closingMode="'none'" onSelected="() => this.onJournalSelectAll()"><t t-esc="_t('Todos')"/></DropdownItem>
+                            <DropdownItem closingMode="'none'" onSelected="() => this.onJournalClearAll()"><t t-esc="_t('Ninguno')"/></DropdownItem>
+                            <div class="dropdown-divider"/>
+                            <t t-foreach="journalList" t-as="journal" t-key="journal.id">
+                                <DropdownItem class="{ 'selected': isJournalSelected(journal.id) }" closingMode="'none'" onSelected="() => this.onJournalToggle(null, journal.id)">
+                                    <t t-esc="journal.code"/> - <t t-esc="journal.name"/>
+                                </DropdownItem>
+                            </t>
+                        </t>
+                    </Dropdown>
+                </t>
+                <t t-if="hasPartnerLedgerFilters">
+                    <Dropdown menuClass="'dropdown-menu-end'">
+                        <button class="btn btn-secondary btn-sm">
+                            <i class="fa fa-list me-1"/><t t-esc="_t('Asientos registrados')"/>
+                        </button>
+                        <t t-set-slot="content">
+                            <t t-foreach="entriesOptions" t-as="opt" t-key="opt.id">
+                                <DropdownItem class="{ 'selected': isEntryOptionSelected(opt.id) }" closingMode="'none'" onSelected="() => this.onEntryOptionToggle(opt.id)">
+                                    <t t-esc="opt.name"/>
+                                </DropdownItem>
+                            </t>
+                        </t>
+                    </Dropdown>
+                </t>
+                <t t-if="hasReportSwitcher and !hasPartnerAgeingFilters">
+                    <Dropdown menuClass="'dropdown-menu-end'">
+                        <button class="btn btn-secondary btn-sm">
+                            <i class="fa fa-book me-1"/><t t-esc="_t('Reporte')"/>: <t t-esc="reportSwitcherLabel"/>
+                        </button>
+                        <t t-set-slot="content">
+                            <t t-foreach="reportOptions" t-as="opt" t-key="opt.id">
+                                <DropdownItem class="{ 'selected': isReportSelected(opt.id) }" closingMode="'none'" onSelected="() => this.onReportSelect(opt.action)">
+                                    <span class="d-flex align-items-center gap-2">
+                                        <i class="fa fa-check text-primary" t-att-class="isReportSelected(opt.id) ? '' : 'invisible'"/>
+                                        <span t-esc="opt.name"/>
+                                    </span>
+                                </DropdownItem>
+                            </t>
+                        </t>
+                    </Dropdown>
+                </t>
+                <t t-if="hasTargetMoveFilter and !hasGeneralLedgerFilters and !hasPartnerLedgerFilters and !hasTrialBalanceFilters">
+                    <Dropdown menuClass="'dropdown-menu-end'">
+                        <button class="btn btn-secondary btn-sm">
+                            <i class="fa fa-sliders me-1"/><t t-esc="targetMoveLabel"/>
+                        </button>
+                        <t t-set-slot="content">
+                            <DropdownItem class="{ 'selected': controller.state.options.target_move === 'posted' }" closingMode="'none'" onSelected="() => this.onTargetMoveSet('posted')"><t t-esc="_t('Posted')"/></DropdownItem>
+                            <DropdownItem class="{ 'selected': controller.state.options.target_move === 'all' }" closingMode="'none'" onSelected="() => this.onTargetMoveSet('all')"><t t-esc="_t('All')"/></DropdownItem>
+                        </t>
+                    </Dropdown>
+                </t>
+                <!-- Trial Balance: full Enterprise-style filters -->
+                <t t-if="hasTrialBalanceFilters">
+                    <Dropdown menuClass="'dropdown-menu-end'">
+                        <button class="btn btn-secondary btn-sm">
+                            <i class="fa fa-book me-1"/><t t-esc="journalFilterLabel"/>
+                        </button>
+                        <t t-set-slot="content">
+                            <DropdownItem closingMode="'none'" onSelected="() => this.onJournalSelectAll()"><t t-esc="_t('Todos los diarios')"/></DropdownItem>
+                            <DropdownItem closingMode="'none'" onSelected="() => this.onJournalClearAll()"><t t-esc="_t('Ninguno')"/></DropdownItem>
+                            <div class="dropdown-divider"/>
+                            <t t-foreach="journalList" t-as="journal" t-key="journal.id">
+                                <DropdownItem class="{ 'selected': isJournalSelected(journal.id) }" closingMode="'none'" onSelected="() => this.onJournalToggle(null, journal.id)">
+                                    <t t-esc="journal.code"/> - <t t-esc="journal.name"/>
+                                </DropdownItem>
+                            </t>
+                        </t>
+                    </Dropdown>
+                    <Dropdown menuClass="'dropdown-menu-end'">
+                        <button class="btn btn-secondary btn-sm">
+                            <i class="oi oi-group me-1"/><t t-esc="analyticFilterLabel"/>
+                        </button>
+                        <t t-set-slot="content">
+                            <div class="dropdown-item gap-2 align-items-center o_bi_analytic_filter_row" t-on-click.stop="">
+                                <label class="me-2 mb-0"><t t-esc="_t('Cuentas')"/></label>
+                                <MultiRecordSelector t-props="analyticAccountSelectorProps"/>
+                            </div>
+                            <div class="dropdown-item gap-2 align-items-center o_bi_analytic_filter_row" t-on-click.stop="">
+                                <label class="me-2 mb-0"><t t-esc="_t('Planes')"/></label>
+                                <MultiRecordSelector t-props="analyticPlanSelectorProps"/>
+                            </div>
+                            <div t-if="supportsAnalyticColumns" class="dropdown-item d-flex gap-2 align-items-center o_bi_analytic_filter_row" role="menuitemcheckbox" t-att-aria-checked="analyticColumnsActive" t-on-click.stop="onToggleAnalyticColumns">
+                                <input type="checkbox" class="form-check-input mt-0 me-1" t-att-checked="analyticColumnsActive"/>
+                                <label class="mb-0"><t t-esc="_t('Mostrar analíticas en columnas')"/></label>
+                            </div>
+                        </t>
+                    </Dropdown>
+                    <Dropdown menuClass="'dropdown-menu-end'">
+                        <button class="btn btn-secondary btn-sm">
+                            <i class="fa fa-sliders me-1"/><t t-esc="trialBalanceOptionsLabel"/>
+                        </button>
+                        <t t-set-slot="content">
+                            <t t-foreach="financialReportExtraOptions" t-as="opt" t-key="'tb_' + opt.id">
+                                <t t-if="opt.divider">
+                                    <div class="dropdown-divider"/>
+                                </t>
+                                <t t-else="">
+                                    <DropdownItem class="{ 'selected': isFinancialReportOptionSelected(opt.id) }" closingMode="'none'" onSelected="() => this.onFinancialReportOptionToggle(opt.id)">
+                                        <t t-esc="opt.name"/>
+                                    </DropdownItem>
+                                </t>
+                            </t>
+                            <div class="dropdown-divider"/>
+                            <div class="dropdown-header"><t t-esc="_t('Display')"/></div>
+                            <DropdownItem class="{ 'selected': controller.state.options.display_account === 'all' }" closingMode="'none'" onSelected="() => this.onDisplayAccountSet('all')"><t t-esc="_t('All')"/></DropdownItem>
+                            <DropdownItem class="{ 'selected': controller.state.options.display_account === 'movement' }" closingMode="'none'" onSelected="() => this.onDisplayAccountSet('movement')"><t t-esc="_t('With movements')"/></DropdownItem>
+                            <DropdownItem class="{ 'selected': controller.state.options.display_account === 'not_zero' }" closingMode="'none'" onSelected="() => this.onDisplayAccountSet('not_zero')"><t t-esc="_t('With balance not zero')"/></DropdownItem>
+                        </t>
+                    </Dropdown>
+                </t>
+                <!-- Comparison filter (Estados financieros) -->
+                <t t-if="hasProfitLossFilters or hasBalanceSheetFilters or hasExecutiveSummaryFilters or hasTrialBalanceFilters or hasCashFlowFilters or hasTaxReportFilters">
+                    <Dropdown menuClass="'dropdown-menu-end bi_comparison_filter_menu'">
+                        <button class="btn btn-secondary btn-sm">
+                            <i class="fa fa-percent me-1"/><t t-esc="comparisonFilterLabel"/>
+                        </button>
+                        <t t-set-slot="content">
+                            <DropdownItem class="{ 'selected': controller.state.options.comparison_filter === 'no_comparison' }" closingMode="'none'" onSelected="() => this.onComparisonFilterSet('no_comparison')">
+                                <t t-esc="_t('Sin comparación')"/>
+                            </DropdownItem>
+                            <DropdownItem tag="'div'" class="'bi_comparison_period_row d-flex align-items-center justify-content-between px-2 py-1'" closingMode="'none'" onSelected="() => this.onComparisonFilterSet('previous_period')">
+                                <span class="d-flex align-items-center">
+                                    <i class="fa fa-check text-primary me-2" t-att-class="controller.state.options.comparison_filter === 'previous_period' ? '' : 'invisible'"/>
+                                    <span><t t-esc="_t('Periodo anterior')"/></span>
+                                </span>
+                                <span class="d-flex align-items-center gap-1" t-on-click.stop="">
+                                    <input type="number" min="1" max="12" class="form-control form-control-sm bi_comparison_number_input" t-att-value="comparisonNumberPeriod" t-on-input="onComparisonNumberPeriodChange"/>
+                                    <span class="text-muted small"><t t-esc="comparisonPeriodUnitLabel"/></span>
+                                </span>
+                            </DropdownItem>
+                            <DropdownItem tag="'div'" class="'bi_comparison_period_row d-flex align-items-center justify-content-between px-2 py-1'" closingMode="'none'" onSelected="() => this.onComparisonFilterSet('same_last_year')">
+                                <span class="d-flex align-items-center">
+                                    <i class="fa fa-check text-primary me-2" t-att-class="controller.state.options.comparison_filter === 'same_last_year' ? '' : 'invisible'"/>
+                                    <span><t t-esc="_t('Mismo periodo el año anterior')"/></span>
+                                </span>
+                                <span class="d-flex align-items-center gap-1" t-on-click.stop="" t-if="controller.state.options.comparison_filter === 'same_last_year'">
+                                    <input type="number" min="1" max="12" class="form-control form-control-sm bi_comparison_number_input" t-att-value="comparisonNumberPeriod" t-on-input="onComparisonNumberPeriodChange"/>
+                                    <span class="text-muted small"><t t-esc="_t('Año')"/></span>
+                                </span>
+                            </DropdownItem>
+                            <DropdownItem tag="'div'" class="'bi_comparison_specific_date_row px-2 py-2'" closingMode="'none'" onSelected="() => this.onComparisonFilterSet('specific_date')">
+                                <div class="d-flex align-items-center flex-wrap gap-2">
+                                    <span class="d-flex align-items-center flex-grow-1">
+                                        <i class="fa fa-check text-primary me-2" t-att-class="controller.state.options.comparison_filter === 'specific_date' ? '' : 'invisible'"/>
+                                        <span><t t-esc="_t('Fecha específica')"/></span>
+                                    </span>
+                                    <div t-if="controller.state.options.comparison_filter === 'specific_date'" t-on-click.stop="">
+                                        <DateTimeInput type="'date'" value="comparisonSpecificDate" onChange="(d) => this.onComparisonSpecificDateChange(d)"/>
+                                    </div>
+                                </div>
+                            </DropdownItem>
+                            <div class="dropdown-divider"/>
+                            <div class="dropdown-item d-flex align-items-center px-2 py-1">
+                                <label class="form-label small mb-0 me-2 flex-shrink-0"><t t-esc="_t('Orden del periodo')"/></label>
+                                <select class="form-select form-select-sm" t-att-value="comparisonPeriodOrder" t-on-change="onComparisonPeriodOrderChange">
+                                    <option value="descending"><t t-esc="_t('Descendente')"/></option>
+                                    <option value="ascending"><t t-esc="_t('Ascendente')"/></option>
+                                </select>
+                            </div>
+                        </t>
+                    </Dropdown>
+                </t>
+                <!-- Profit and Loss / Estado de Resultados: full Enterprise-style filters -->
+                <t t-if="hasProfitLossFilters">
+                    <Dropdown menuClass="'dropdown-menu-end'">
+                        <button class="btn btn-secondary btn-sm">
+                            <i class="fa fa-book me-1"/><t t-esc="journalFilterLabel"/>
+                        </button>
+                        <t t-set-slot="content">
+                            <DropdownItem closingMode="'none'" onSelected="() => this.onJournalSelectAll()"><t t-esc="_t('Todos los diarios')"/></DropdownItem>
+                            <DropdownItem closingMode="'none'" onSelected="() => this.onJournalClearAll()"><t t-esc="_t('Ninguno')"/></DropdownItem>
+                            <div class="dropdown-divider"/>
+                            <t t-foreach="journalList" t-as="journal" t-key="journal.id">
+                                <DropdownItem class="{ 'selected': isJournalSelected(journal.id) }" closingMode="'none'" onSelected="() => this.onJournalToggle(null, journal.id)">
+                                    <t t-esc="journal.code"/> - <t t-esc="journal.name"/>
+                                </DropdownItem>
+                            </t>
+                        </t>
+                    </Dropdown>
+                    <Dropdown menuClass="'dropdown-menu-end'">
+                        <button class="btn btn-secondary btn-sm">
+                            <i class="oi oi-group me-1"/><t t-esc="analyticFilterLabel"/>
+                        </button>
+                        <t t-set-slot="content">
+                            <div class="dropdown-item gap-2 align-items-center o_bi_analytic_filter_row" t-on-click.stop="">
+                                <label class="me-2 mb-0"><t t-esc="_t('Cuentas')"/></label>
+                                <MultiRecordSelector t-props="analyticAccountSelectorProps"/>
+                            </div>
+                            <div class="dropdown-item gap-2 align-items-center o_bi_analytic_filter_row" t-on-click.stop="">
+                                <label class="me-2 mb-0"><t t-esc="_t('Planes')"/></label>
+                                <MultiRecordSelector t-props="analyticPlanSelectorProps"/>
+                            </div>
+                            <div t-if="supportsAnalyticColumns" class="dropdown-item d-flex gap-2 align-items-center o_bi_analytic_filter_row" role="menuitemcheckbox" t-att-aria-checked="analyticColumnsActive" t-on-click.stop="onToggleAnalyticColumns">
+                                <input type="checkbox" class="form-check-input mt-0 me-1" t-att-checked="analyticColumnsActive"/>
+                                <label class="mb-0"><t t-esc="_t('Mostrar analíticas en columnas')"/></label>
+                            </div>
+                        </t>
+                    </Dropdown>
+                    <Dropdown menuClass="'dropdown-menu-end'">
+                        <button class="btn btn-secondary btn-sm">
+                            <i class="fa fa-sliders me-1"/><t t-esc="profitLossOptionsLabel"/>
+                        </button>
+                        <t t-set-slot="content">
+                            <t t-foreach="financialReportExtraOptions" t-as="opt" t-key="opt.id">
+                                <t t-if="opt.divider">
+                                    <div class="dropdown-divider"/>
+                                </t>
+                                <t t-else="">
+                                    <DropdownItem class="{ 'selected': isFinancialReportOptionSelected(opt.id) }" closingMode="'none'" onSelected="() => this.onFinancialReportOptionToggle(opt.id)">
+                                        <t t-esc="opt.name"/>
+                                    </DropdownItem>
+                                </t>
+                            </t>
+                        </t>
+                    </Dropdown>
+                </t>
+                <!-- Balance Sheet: full Enterprise-style filters (Date, Diarios, Analítica, Opciones) -->
+                <t t-if="hasBalanceSheetFilters">
+                    <Dropdown menuClass="'dropdown-menu-end'">
+                        <button class="btn btn-secondary btn-sm">
+                            <i class="fa fa-book me-1"/><t t-esc="journalFilterLabel"/>
+                        </button>
+                        <t t-set-slot="content">
+                            <DropdownItem closingMode="'none'" onSelected="() => this.onJournalSelectAll()"><t t-esc="_t('Todos los diarios')"/></DropdownItem>
+                            <DropdownItem closingMode="'none'" onSelected="() => this.onJournalClearAll()"><t t-esc="_t('Ninguno')"/></DropdownItem>
+                            <div class="dropdown-divider"/>
+                            <t t-foreach="journalList" t-as="journal" t-key="journal.id">
+                                <DropdownItem class="{ 'selected': isJournalSelected(journal.id) }" closingMode="'none'" onSelected="() => this.onJournalToggle(null, journal.id)">
+                                    <t t-esc="journal.code"/> - <t t-esc="journal.name"/>
+                                </DropdownItem>
+                            </t>
+                        </t>
+                    </Dropdown>
+                    <Dropdown menuClass="'dropdown-menu-end'">
+                        <button class="btn btn-secondary btn-sm">
+                            <i class="oi oi-group me-1"/><t t-esc="analyticFilterLabel"/>
+                        </button>
+                        <t t-set-slot="content">
+                            <div class="dropdown-item gap-2 align-items-center o_bi_analytic_filter_row" t-on-click.stop="">
+                                <label class="me-2 mb-0"><t t-esc="_t('Cuentas')"/></label>
+                                <MultiRecordSelector t-props="analyticAccountSelectorProps"/>
+                            </div>
+                            <div class="dropdown-item gap-2 align-items-center o_bi_analytic_filter_row" t-on-click.stop="">
+                                <label class="me-2 mb-0"><t t-esc="_t('Planes')"/></label>
+                                <MultiRecordSelector t-props="analyticPlanSelectorProps"/>
+                            </div>
+                            <div t-if="supportsAnalyticColumns" class="dropdown-item d-flex gap-2 align-items-center o_bi_analytic_filter_row" role="menuitemcheckbox" t-att-aria-checked="analyticColumnsActive" t-on-click.stop="onToggleAnalyticColumns">
+                                <input type="checkbox" class="form-check-input mt-0 me-1" t-att-checked="analyticColumnsActive"/>
+                                <label class="mb-0"><t t-esc="_t('Mostrar analíticas en columnas')"/></label>
+                            </div>
+                        </t>
+                    </Dropdown>
+                    <Dropdown menuClass="'dropdown-menu-end'">
+                        <button class="btn btn-secondary btn-sm">
+                            <i class="fa fa-sliders me-1"/><t t-esc="balanceSheetOptionsLabel"/>
+                        </button>
+                        <t t-set-slot="content">
+                            <t t-foreach="financialReportExtraOptions" t-as="opt" t-key="opt.id">
+                                <t t-if="opt.divider">
+                                    <div class="dropdown-divider"/>
+                                </t>
+                                <t t-else="">
+                                    <DropdownItem class="{ 'selected': isFinancialReportOptionSelected(opt.id) }" closingMode="'none'" onSelected="() => this.onFinancialReportOptionToggle(opt.id)">
+                                        <t t-esc="opt.name"/>
+                                    </DropdownItem>
+                                </t>
+                            </t>
+                        </t>
+                    </Dropdown>
+                </t>
+                <!-- Cash Flow: Diarios y Opciones (Estado de flujo de efectivo) -->
+                <t t-if="hasCashFlowFilters">
+                    <Dropdown menuClass="'dropdown-menu-end'">
+                        <button class="btn btn-secondary btn-sm">
+                            <i class="fa fa-book me-1"/><t t-esc="journalFilterLabel"/>
+                        </button>
+                        <t t-set-slot="content">
+                            <DropdownItem closingMode="'none'" onSelected="() => this.onJournalSelectAll()"><t t-esc="_t('Todos los diarios')"/></DropdownItem>
+                            <DropdownItem closingMode="'none'" onSelected="() => this.onJournalClearAll()"><t t-esc="_t('Ninguno')"/></DropdownItem>
+                            <div class="dropdown-divider"/>
+                            <t t-foreach="journalList" t-as="journal" t-key="journal.id">
+                                <DropdownItem class="{ 'selected': isJournalSelected(journal.id) }" closingMode="'none'" onSelected="() => this.onJournalToggle(null, journal.id)">
+                                    <t t-esc="journal.code"/> - <t t-esc="journal.name"/>
+                                </DropdownItem>
+                            </t>
+                        </t>
+                    </Dropdown>
+                    <Dropdown menuClass="'dropdown-menu-end'">
+                        <button class="btn btn-secondary btn-sm">
+                            <i class="oi oi-group me-1"/><t t-esc="analyticFilterLabel"/>
+                        </button>
+                        <t t-set-slot="content">
+                            <div class="dropdown-item gap-2 align-items-center o_bi_analytic_filter_row" t-on-click.stop="">
+                                <label class="me-2 mb-0"><t t-esc="_t('Cuentas')"/></label>
+                                <MultiRecordSelector t-props="analyticAccountSelectorProps"/>
+                            </div>
+                            <div class="dropdown-item gap-2 align-items-center o_bi_analytic_filter_row" t-on-click.stop="">
+                                <label class="me-2 mb-0"><t t-esc="_t('Planes')"/></label>
+                                <MultiRecordSelector t-props="analyticPlanSelectorProps"/>
+                            </div>
+                            <div t-if="supportsAnalyticColumns" class="dropdown-item d-flex gap-2 align-items-center o_bi_analytic_filter_row" role="menuitemcheckbox" t-att-aria-checked="analyticColumnsActive" t-on-click.stop="onToggleAnalyticColumns">
+                                <input type="checkbox" class="form-check-input mt-0 me-1" t-att-checked="analyticColumnsActive"/>
+                                <label class="mb-0"><t t-esc="_t('Mostrar analíticas en columnas')"/></label>
+                            </div>
+                        </t>
+                    </Dropdown>
+                    <Dropdown menuClass="'dropdown-menu-end'">
+                        <button class="btn btn-secondary btn-sm">
+                            <i class="fa fa-sliders me-1"/><t t-esc="cashFlowOptionsLabel"/>
+                        </button>
+                        <t t-set-slot="content">
+                            <t t-foreach="financialReportExtraOptions" t-as="opt" t-key="'cf_' + opt.id">
+                                <t t-if="opt.divider">
+                                    <div class="dropdown-divider"/>
+                                </t>
+                                <t t-else="">
+                                    <DropdownItem class="{ 'selected': isFinancialReportOptionSelected(opt.id) }" closingMode="'none'" onSelected="() => this.onFinancialReportOptionToggle(opt.id)">
+                                        <t t-esc="opt.name"/>
+                                    </DropdownItem>
+                                </t>
+                            </t>
+                        </t>
+                    </Dropdown>
+                </t>
+                <!-- Bank reconciliation: journals + as-of date -->
+                <t t-if="hasBankReconciliationFilters">
+                    <t t-if="hasPeriodDateFilter">
+                        <Dropdown menuClass="'dropdown-menu-end bi_date_filter_menu'">
+                            <button class="btn btn-secondary btn-sm">
+                                <i class="fa fa-calendar me-1"/><t t-esc="periodDateFilterLabel"/>
+                            </button>
+                            <t t-set-slot="content">
+                                <DropdownItem tag="'div'" class="'bi_date_filter_row d-flex align-items-center justify-content-between px-1 py-1'" onSelected="() => this.onDateFilterTypeChange('month')" closingMode="'none'">
+                                    <span class="d-flex align-items-center gap-2">
+                                        <i class="fa fa-check text-primary" t-att-class="dateFilterType === 'month' ? '' : 'invisible'"/>
+                                        <span><t t-esc="_t('Mes')"/></span>
+                                    </span>
+                                    <span class="d-flex align-items-center gap-1">
+                                        <span class="bi_date_period_value"><t t-esc="periodMonthLabel"/></span>
+                                        <button type="button" class="btn btn-link btn-sm p-0 text-secondary" t-on-click.stop="(ev) => this.onDateFilterNav(ev, 'month', -1)"><i class="fa fa-chevron-left"/></button>
+                                        <button type="button" class="btn btn-link btn-sm p-0 text-secondary" t-on-click.stop="(ev) => this.onDateFilterNav(ev, 'month', 1)"><i class="fa fa-chevron-right"/></button>
+                                    </span>
+                                </DropdownItem>
+                                <DropdownItem tag="'div'" class="'bi_date_filter_row d-flex align-items-center justify-content-between px-1 py-1'" onSelected="() => this.onDateFilterTypeChange('custom')" closingMode="'none'">
+                                    <span class="d-flex align-items-center gap-2">
+                                        <i class="fa fa-check text-primary" t-att-class="dateFilterType === 'custom' ? '' : 'invisible'"/>
+                                        <span><t t-esc="_t('Fecha corte')"/></span>
+                                    </span>
+                                    <div t-if="dateFilterType === 'custom'" t-on-click.stop="">
+                                        <DateTimeInput type="'date'" value="customDateTo" onChange="(date) => this.setCustomDateTo(date)"/>
+                                    </div>
+                                </DropdownItem>
+                            </t>
+                        </Dropdown>
+                    </t>
+                    <Dropdown menuClass="'dropdown-menu-end'">
+                        <button class="btn btn-secondary btn-sm">
+                            <i class="fa fa-book me-1"/><t t-esc="journalFilterLabel"/>
+                        </button>
+                        <t t-set-slot="content">
+                            <DropdownItem closingMode="'none'" onSelected="() => this.onJournalSelectAll()"><t t-esc="_t('Todos los diarios')"/></DropdownItem>
+                            <DropdownItem closingMode="'none'" onSelected="() => this.onJournalClearAll()"><t t-esc="_t('Ninguno')"/></DropdownItem>
+                            <div class="dropdown-divider"/>
+                            <t t-foreach="journalList" t-as="journal" t-key="journal.id">
+                                <DropdownItem class="{ 'selected': isJournalSelected(journal.id) }" closingMode="'none'" onSelected="() => this.onJournalToggle(null, journal.id)">
+                                    <t t-esc="journal.code"/> - <t t-esc="journal.name"/>
+                                </DropdownItem>
+                            </t>
+                        </t>
+                    </Dropdown>
+                    <Dropdown menuClass="'dropdown-menu-end'">
+                        <button class="btn btn-secondary btn-sm">
+                            <i class="fa fa-sliders me-1"/><t t-esc="targetMoveLabel"/>
+                        </button>
+                        <t t-set-slot="content">
+                            <DropdownItem class="{ 'selected': controller.state.options.target_move === 'posted' }" closingMode="'none'" onSelected="() => this.onTargetMoveSet('posted')"><t t-esc="_t('Posted')"/></DropdownItem>
+                            <DropdownItem class="{ 'selected': controller.state.options.target_move === 'all' }" closingMode="'none'" onSelected="() => this.onTargetMoveSet('all')"><t t-esc="_t('All')"/></DropdownItem>
+                        </t>
+                    </Dropdown>
+                </t>
+                <!-- Tax Report / Tax Return: Diarios y Opciones -->
+                <t t-if="hasTaxReportFilters">
+                    <Dropdown menuClass="'dropdown-menu-end'">
+                        <button class="btn btn-secondary btn-sm">
+                            <i class="fa fa-book me-1"/><t t-esc="journalFilterLabel"/>
+                        </button>
+                        <t t-set-slot="content">
+                            <DropdownItem closingMode="'none'" onSelected="() => this.onJournalSelectAll()"><t t-esc="_t('Todos los diarios')"/></DropdownItem>
+                            <DropdownItem closingMode="'none'" onSelected="() => this.onJournalClearAll()"><t t-esc="_t('Ninguno')"/></DropdownItem>
+                            <div class="dropdown-divider"/>
+                            <t t-foreach="journalList" t-as="journal" t-key="journal.id">
+                                <DropdownItem class="{ 'selected': isJournalSelected(journal.id) }" closingMode="'none'" onSelected="() => this.onJournalToggle(null, journal.id)">
+                                    <t t-esc="journal.code"/> - <t t-esc="journal.name"/>
+                                </DropdownItem>
+                            </t>
+                        </t>
+                    </Dropdown>
+                    <Dropdown menuClass="'dropdown-menu-end'">
+                        <button class="btn btn-secondary btn-sm">
+                            <i class="fa fa-sliders me-1"/><t t-esc="taxReportOptionsLabel"/>
+                        </button>
+                        <t t-set-slot="content">
+                            <t t-foreach="financialReportExtraOptions" t-as="opt" t-key="'tax_' + opt.id">
+                                <t t-if="opt.divider">
+                                    <div class="dropdown-divider"/>
+                                </t>
+                                <t t-else="">
+                                    <DropdownItem class="{ 'selected': isFinancialReportOptionSelected(opt.id) }" closingMode="'none'" onSelected="() => this.onFinancialReportOptionToggle(opt.id)">
+                                        <t t-esc="opt.name"/>
+                                    </DropdownItem>
+                                </t>
+                            </t>
+                        </t>
+                    </Dropdown>
+                </t>
+                <!-- Executive Summary: Date, Diarios, % Comparación, Opciones (Enterprise-style) -->
+                <t t-if="hasExecutiveSummaryFilters">
+                    <Dropdown menuClass="'dropdown-menu-end'">
+                        <button class="btn btn-secondary btn-sm">
+                            <i class="fa fa-book me-1"/><t t-esc="journalFilterLabel"/>
+                        </button>
+                        <t t-set-slot="content">
+                            <DropdownItem closingMode="'none'" onSelected="() => this.onJournalSelectAll()"><t t-esc="_t('Todos los diarios')"/></DropdownItem>
+                            <DropdownItem closingMode="'none'" onSelected="() => this.onJournalClearAll()"><t t-esc="_t('Ninguno')"/></DropdownItem>
+                            <div class="dropdown-divider"/>
+                            <t t-foreach="journalList" t-as="journal" t-key="journal.id">
+                                <DropdownItem class="{ 'selected': isJournalSelected(journal.id) }" closingMode="'none'" onSelected="() => this.onJournalToggle(null, journal.id)">
+                                    <t t-esc="journal.code"/> - <t t-esc="journal.name"/>
+                                </DropdownItem>
+                            </t>
+                        </t>
+                    </Dropdown>
+                    <Dropdown menuClass="'dropdown-menu-end'">
+                        <button class="btn btn-secondary btn-sm">
+                            <i class="oi oi-group me-1"/><t t-esc="analyticFilterLabel"/>
+                        </button>
+                        <t t-set-slot="content">
+                            <div class="dropdown-item gap-2 align-items-center o_bi_analytic_filter_row" t-on-click.stop="">
+                                <label class="me-2 mb-0"><t t-esc="_t('Cuentas')"/></label>
+                                <MultiRecordSelector t-props="analyticAccountSelectorProps"/>
+                            </div>
+                            <div class="dropdown-item gap-2 align-items-center o_bi_analytic_filter_row" t-on-click.stop="">
+                                <label class="me-2 mb-0"><t t-esc="_t('Planes')"/></label>
+                                <MultiRecordSelector t-props="analyticPlanSelectorProps"/>
+                            </div>
+                            <div t-if="supportsAnalyticColumns" class="dropdown-item d-flex gap-2 align-items-center o_bi_analytic_filter_row" role="menuitemcheckbox" t-att-aria-checked="analyticColumnsActive" t-on-click.stop="onToggleAnalyticColumns">
+                                <input type="checkbox" class="form-check-input mt-0 me-1" t-att-checked="analyticColumnsActive"/>
+                                <label class="mb-0"><t t-esc="_t('Mostrar analíticas en columnas')"/></label>
+                            </div>
+                        </t>
+                    </Dropdown>
+                    <Dropdown menuClass="'dropdown-menu-end'">
+                        <button class="btn btn-secondary btn-sm">
+                            <i class="fa fa-sliders me-1"/><t t-esc="executiveSummaryOptionsLabel"/>
+                        </button>
+                        <t t-set-slot="content">
+                            <t t-foreach="financialReportExtraOptions" t-as="opt" t-key="'es_' + opt.id">
+                                <t t-if="opt.divider">
+                                    <div class="dropdown-divider"/>
+                                </t>
+                                <t t-else="">
+                                    <DropdownItem class="{ 'selected': isFinancialReportOptionSelected(opt.id) }" closingMode="'none'" onSelected="() => this.onFinancialReportOptionToggle(opt.id)">
+                                        <t t-esc="opt.name"/>
+                                    </DropdownItem>
+                                </t>
+                            </t>
+                        </t>
+                    </Dropdown>
+                </t>
+                <!-- Analytic Report: Date, Diarios, Analítica, Opciones (Enterprise-style) -->
+                <t t-if="hasAnalyticReportFilters">
+                    <Dropdown menuClass="'dropdown-menu-end'">
+                        <button class="btn btn-secondary btn-sm">
+                            <i class="fa fa-book me-1"/><t t-esc="journalFilterLabel"/>
+                        </button>
+                        <t t-set-slot="content">
+                            <DropdownItem closingMode="'none'" onSelected="() => this.onJournalSelectAll()"><t t-esc="_t('Todos los diarios')"/></DropdownItem>
+                            <DropdownItem closingMode="'none'" onSelected="() => this.onJournalClearAll()"><t t-esc="_t('Ninguno')"/></DropdownItem>
+                            <div class="dropdown-divider"/>
+                            <t t-foreach="journalList" t-as="journal" t-key="journal.id">
+                                <DropdownItem class="{ 'selected': isJournalSelected(journal.id) }" closingMode="'none'" onSelected="() => this.onJournalToggle(null, journal.id)">
+                                    <t t-esc="journal.code"/> - <t t-esc="journal.name"/>
+                                </DropdownItem>
+                            </t>
+                        </t>
+                    </Dropdown>
+                    <Dropdown menuClass="'dropdown-menu-end'">
+                        <button class="btn btn-secondary btn-sm">
+                            <i class="oi oi-group me-1"/><t t-esc="analyticFilterLabel"/>
+                        </button>
+                        <t t-set-slot="content">
+                            <div class="dropdown-item gap-2 align-items-center o_bi_analytic_filter_row" t-on-click.stop="">
+                                <label class="me-2 mb-0"><t t-esc="_t('Cuentas')"/></label>
+                                <MultiRecordSelector t-props="analyticAccountSelectorProps"/>
+                            </div>
+                            <div class="dropdown-item gap-2 align-items-center o_bi_analytic_filter_row" t-on-click.stop="">
+                                <label class="me-2 mb-0"><t t-esc="_t('Planes')"/></label>
+                                <MultiRecordSelector t-props="analyticPlanSelectorProps"/>
+                            </div>
+                            <div t-if="supportsAnalyticColumns" class="dropdown-item d-flex gap-2 align-items-center o_bi_analytic_filter_row" role="menuitemcheckbox" t-att-aria-checked="analyticColumnsActive" t-on-click.stop="onToggleAnalyticColumns">
+                                <input type="checkbox" class="form-check-input mt-0 me-1" t-att-checked="analyticColumnsActive"/>
+                                <label class="mb-0"><t t-esc="_t('Mostrar analíticas en columnas')"/></label>
+                            </div>
+                        </t>
+                    </Dropdown>
+                    <Dropdown menuClass="'dropdown-menu-end'">
+                        <button class="btn btn-secondary btn-sm">
+                            <i class="fa fa-sliders me-1"/><t t-esc="_t('Opciones')"/>
+                        </button>
+                        <t t-set-slot="content">
+                            <div class="dropdown-header"><t t-esc="_t('Target')"/></div>
+                            <DropdownItem class="{ 'selected': controller.state.options.target_move === 'posted' }" closingMode="'none'" onSelected="() => this.onTargetMoveSet('posted')"><t t-esc="_t('Asientos registrados')"/></DropdownItem>
+                            <DropdownItem class="{ 'selected': controller.state.options.target_move === 'all' }" closingMode="'none'" onSelected="() => this.onTargetMoveSet('all')"><t t-esc="_t('Todos')"/></DropdownItem>
+                        </t>
+                    </Dropdown>
+                </t>
+            </t>
+        </div>
+    </t>
+</templates>

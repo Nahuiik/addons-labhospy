@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_l10n_hn_isr_deduction_type_tree" model="ir.ui.view">
+        <field name="name">l10n.hn.isr.deduction.type.tree</field>
+        <field name="model">l10n.hn.isr.deduction.type</field>
+        <field name="arch" type="xml">
+            <list string="Tipos de Deducción" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="is_self_paid" string="Por Cuenta Propia"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_l10n_hn_isr_deduction_type_form" model="ir.ui.view">
+        <field name="name">l10n.hn.isr.deduction.type.form</field>
+        <field name="model">l10n.hn.isr.deduction.type</field>
+        <field name="arch" type="xml">
+            <form string="Tipo de Deducción">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="sequence"/>
+                        </group>
+                        <group>
+                            <field name="is_self_paid"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_l10n_hn_isr_deduction_type" model="ir.actions.act_window">
+        <field name="name">Tipos de Deducción</field>
+        <field name="res_model">l10n.hn.isr.deduction.type</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crear Tipo de Deducción
+            </p>
+            <p>
+                Configure los tipos de deducción disponibles para las deducciones ISR de empleados
+                (ej: AFP, Colegio Profesional). Estos tipos se seleccionan al crear una deducción en el contrato.
+            </p>
+        </field>
+    </record>
+</odoo>

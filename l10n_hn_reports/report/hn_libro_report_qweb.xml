@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="paperformat_hn_libro_landscape" model="report.paperformat">
+        <field name="name">HN — Libro consumidor final (A4 horizontal)</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">40</field>
+        <field name="margin_bottom">28</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">40</field>
+        <field name="dpi">90</field>
+        <field name="css_margins" eval="True"/>
+    </record>
+
+    <template id="hn_libro_std">
+        <t t-call="web.basic_layout">
+            <div class="article nh-report nh-report--std" t-foreach="docs" t-as="doc" t-att-style="report_branding_style">
+                <div class="nh-motif nh-header-brand">
+                    <div>
+                        <img t-if="report_logo_src or report_logo_http_src or nh_report_logo_src" t-att-src="nh_report_logo_src or report_logo_src or report_logo_http_src" alt="" class="nh-logo"/>
+                    </div>
+                    <div class="text-end">
+                        <p class="nh-title mb-0" t-esc="company.name"/>
+                        <p class="nh-subtitle mb-0" t-esc="title"/>
+                        <p class="nh-period">
+                            Periodo: <span t-esc="date_from_fmt"/> al <span t-esc="date_to_fmt"/>
+                            — <span t-esc="tipo_label"/>
+                        </p>
+                    </div>
+                </div>
+                <div class="nh-meta">
+                    <span>NIT: <t t-esc="nit or ''"/></span>
+                    <span>NRC: <t t-esc="nrc or ''"/></span>
+                    <span>Sucursales: <t t-esc="branch_label or ''"/></span>
+                    <span><t t-esc="user_filter_label or ''"/>: <t t-esc="user_label or ''"/></span>
+                </div>
+                <div class="nh-table-wrap">
+                    <table class="nh-table">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>CAI</th>
+                                <th>RTN</th>
+                                <th>Contribuyente</th>
+                                <th>Nº documento</th>
+                                <th class="text-end">Base</th>
+                                <th class="text-end">ISV</th>
+                                <th class="text-end">Total</th>
+                                <th>Moneda</th>
+                                <th class="text-end">Tipo cambio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="lines" t-as="line">
+                                <td><t t-esc="line['fecha_fmt']"/></td>
+                                <td><t t-esc="line['cai']"/></td>
+                                <td><t t-esc="line['rtn']"/></td>
+                                <td><t t-esc="line['partner']"/></td>
+                                <td><t t-esc="line['documento']"/></td>
+                                <td class="text-end"><t t-esc="line['base_fmt']"/></td>
+                                <td class="text-end"><t t-esc="line['impuesto_fmt']"/></td>
+                                <td class="text-end"><t t-esc="line['total_fmt']"/></td>
+                                <td><t t-esc="line['moneda']"/></td>
+                                <td class="text-end">
+                                    <t t-if="line['tc_fmt']">
+                                        <t t-esc="line['tc_fmt']"/></t>
+                                    <t t-else="">—</t>
+                                </td>
+                            </tr>
+                            <tr class="nh-totals-row" t-if="lines">
+                                <td colspan="5">TOTALES</td>
+                                <td class="text-end"><t t-esc="sums_fmt['base']"/></td>
+                                <td class="text-end"><t t-esc="sums_fmt['tax']"/></td>
+                                <td class="text-end"><t t-esc="sums_fmt['total']"/></td>
+                                <td/>
+                                <td/>
+                            </tr>
+                            <tr t-if="not lines">
+                                <td colspan="10" class="text-center text-muted">Sin movimientos en el período.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="nh-footer-sign">
+                    <div class="nh-line"/>
+                    <div class="nh-label">CONTADOR</div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="hn_libro_resumen">
+        <t t-call="web.basic_layout">
+            <div class="article nh-report nh-libro-resumen" t-foreach="docs" t-as="doc" t-att-style="report_branding_style">
+                <div class="nh-resumen-hero">
+                    <h1 class="nh-resumen-hero-title" t-esc="hero_title"/>
+                    <p class="nh-resumen-hero-sub">Parámetros del período</p>
+                </div>
+                <div class="nh-motif nh-header-brand">
+                    <div>
+                        <img t-if="report_logo_src or report_logo_http_src or nh_report_logo_src" t-att-src="nh_report_logo_src or report_logo_src or report_logo_http_src" alt="" class="nh-logo"/>
+                    </div>
+                    <div class="text-end">
+                        <p class="nh-title mb-0" t-esc="company.name"/>
+                        <p class="nh-subtitle mb-0" t-esc="libro_title"/>
+                    </div>
+                </div>
+
+                <div class="nh-resumen-grid">
+                    <div class="nh-resumen-col">
+                        <div class="nh-resumen-kv">
+                            <span class="nh-label">Año</span>
+                            <span class="nh-value" t-esc="year"/>
+                        </div>
+                        <div class="nh-resumen-kv">
+                            <span class="nh-label">Fecha de inicio</span>
+                            <span class="nh-value" t-esc="date_from_fmt"/>
+                        </div>
+                        <div class="nh-resumen-kv">
+                            <span class="nh-label">Moneda</span>
+                            <span class="nh-value nh-currency" t-esc="currency_code"/>
+                        </div>
+                    </div>
+                    <div class="nh-resumen-col">
+                        <div class="nh-resumen-kv">
+                            <span class="nh-label">Mes</span>
+                            <span class="nh-value" t-esc="mes_nombre"/>
+                        </div>
+                        <div class="nh-resumen-kv">
+                            <span class="nh-label">Fecha final</span>
+                            <span class="nh-value" t-esc="date_to_fmt"/>
+                        </div>
+                        <div class="nh-resumen-kv">
+                            <span class="nh-label">Solo con tipo doc. fiscal</span>
+                            <span class="nh-value nh-muted-val" t-esc="opt_documento_fiscal"/>
+                        </div>
+                        <div class="nh-resumen-kv">
+                            <span class="nh-label">Incluir borradores</span>
+                            <span class="nh-value nh-muted-val" t-esc="opt_incluye_borradores"/>
+                        </div>
+                        <div class="nh-resumen-kv">
+                            <span class="nh-label">Sucursales</span>
+                            <span class="nh-value nh-muted-val" t-esc="branch_label"/>
+                        </div>
+                        <div class="nh-resumen-kv">
+                            <span class="nh-label" t-esc="user_filter_label"/>
+                            <span class="nh-value nh-muted-val" t-esc="user_label"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nh-resumen-card">
+                    <h2 class="nh-card-title" t-esc="libro_title"/>
+                    <div class="nh-resumen-grid">
+                        <div class="nh-resumen-col">
+                            <div class="nh-resumen-metrics">
+                                <div class="nh-metric-row">
+                                    <div class="nh-metric-cell"><span class="nh-metric-label"><t t-esc="total_etiqueta"/></span></div>
+                                    <div class="nh-metric-cell val"><span class="nh-metric-amount nh-highlight" t-esc="total_general_fmt"/></div>
+                                </div>
+                                <div class="nh-metric-row">
+                                    <div class="nh-metric-cell"><span class="nh-metric-label">Mes</span></div>
+                                    <div class="nh-metric-cell val"><span class="nh-metric-amount" t-esc="mes_nombre"/></div>
+                                </div>
+                                <div class="nh-metric-row">
+                                    <div class="nh-metric-cell"><span class="nh-metric-label">Año</span></div>
+                                    <div class="nh-metric-cell val"><span class="nh-metric-amount" t-esc="anio_fmt_miles"/></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="nh-resumen-col">
+                            <div class="nh-resumen-metrics">
+                                <div class="nh-metric-row">
+                                    <div class="nh-metric-cell"><span class="nh-metric-label">Total gravado (importe documentos)</span></div>
+                                    <div class="nh-metric-cell val"><span class="nh-metric-amount" t-esc="total_gravado_fmt"/></div>
+                                </div>
+                                <div class="nh-metric-row">
+                                    <div class="nh-metric-cell"><span class="nh-metric-label">Neto gravado (base imponible)</span></div>
+                                    <div class="nh-metric-cell val"><span class="nh-metric-amount" t-esc="neto_gravado_fmt"/></div>
+                                </div>
+                                <div class="nh-metric-row">
+                                    <div class="nh-metric-cell"><span class="nh-metric-label">Total facturas exentas (base)</span></div>
+                                    <div class="nh-metric-cell val"><span class="nh-metric-amount" t-esc="monto_exentas_fmt"/></div>
+                                </div>
+                                <div class="nh-metric-row">
+                                    <div class="nh-metric-cell"><span class="nh-metric-label">Impuestos</span></div>
+                                    <div class="nh-metric-cell val"><span class="nh-metric-amount" t-esc="impuestos_fmt"/></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <span class="nh-resumen-tab" t-esc="tab_documentos_title"/>
+                <div class="nh-resumen-tabpanel">
+                    <div class="nh-resumen-grid">
+                        <div class="nh-resumen-col">
+                            <div class="nh-resumen-kv"><span class="nh-label"># Facturas</span><span class="nh-value" t-esc="n_facturas"/></div>
+                        </div>
+                        <div class="nh-resumen-col">
+                            <div class="nh-resumen-kv"><span class="nh-label"># Facturas gravadas</span><span class="nh-value" t-esc="n_gravadas"/></div>
+                            <div class="nh-resumen-kv"><span class="nh-label"># Facturas exentas</span><span class="nh-value" t-esc="n_exentas"/></div>
+                            <div class="nh-resumen-kv"><span class="nh-label">Facturas canceladas</span><span class="nh-value" t-esc="n_canceladas"/></div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="nh-resumen-footnote" t-esc="resumen_nota_pie"/>
+                <div class="nh-footer-sign">
+                    <div class="nh-line"/>
+                    <div class="nh-label">CONTADOR</div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <record id="action_report_hn_libro_std_pdf" model="ir.actions.report">
+        <field name="name">Libro HN — PDF (estándar)</field>
+        <field name="model">hn.libro.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hn_reports.hn_libro_std</field>
+        <field name="report_file">l10n_hn_reports.hn_libro_std</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+    </record>
+
+    <record id="action_report_hn_libro_std_html" model="ir.actions.report">
+        <field name="name">Libro HN — HTML (estándar)</field>
+        <field name="model">hn.libro.report</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">l10n_hn_reports.hn_libro_std</field>
+        <field name="report_file">l10n_hn_reports.hn_libro_std</field>
+    </record>
+
+    <record id="action_report_hn_libro_resumen_pdf" model="ir.actions.report">
+        <field name="name">Libro HN — resumen (PDF)</field>
+        <field name="model">hn.libro.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hn_reports.hn_libro_resumen</field>
+        <field name="report_file">l10n_hn_reports.hn_libro_resumen</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+    </record>
+
+    <record id="action_report_hn_libro_resumen_html" model="ir.actions.report">
+        <field name="name">Libro HN — resumen (HTML)</field>
+        <field name="model">hn.libro.report</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">l10n_hn_reports.hn_libro_resumen</field>
+        <field name="report_file">l10n_hn_reports.hn_libro_resumen</field>
+    </record>
+</odoo>

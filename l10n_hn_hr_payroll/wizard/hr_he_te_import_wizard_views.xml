@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_he_te_import_wizard_form" model="ir.ui.view">
+        <field name="name">hr.he.te.import.wizard.form</field>
+        <field name="model">hr.he.te.import.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Importar HHEE y TE">
+                <sheet>
+                    <div class="alert alert-info" role="alert" invisible="state != 'draft'">
+                        <strong>Flujo:</strong> 1) Configure filtros y descargue la plantilla. 2) Complete HE 25%%/50%%/75%%/100%% y Turno A/B/C en Excel. 3) Suba el archivo e importe.
+                    </div>
+                    <group invisible="state != 'draft'">
+                        <group>
+                            <field name="payroll_sheet_id" options="{'no_create': True}"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="payroll_period_id" invisible="payroll_sheet_id"/>
+                            <field name="department_id"/>
+                            <field name="employee_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                            <field name="skip_empty"/>
+                        </group>
+                    </group>
+                    <group invisible="state != 'draft'">
+                        <group string="Archivo a importar">
+                            <field name="file_data" filename="file_name"/>
+                            <field name="file_name" invisible="1"/>
+                        </group>
+                    </group>
+                    <group invisible="state != 'done'">
+                        <group>
+                            <field name="result_summary" nolabel="1" colspan="2" widget="text"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_download_template" string="Descargar plantilla" type="object"
+                            class="btn-secondary" invisible="state != 'draft'"/>
+                    <button name="action_import_file" string="Importar archivo" type="object"
+                            class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_download_log" string="Descargar log" type="object"
+                            class="btn-secondary" invisible="state != 'done' or not result_log"/>
+                    <button string="Cerrar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hr_he_te_import_wizard" model="ir.actions.act_window">
+        <field name="name">Importar HHEE y TE</field>
+        <field name="res_model">hr.he.te.import.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Importación masiva de Horas Extra (HHEE) y Turnos Extra (TE).</p>
+            <p>1) Descargue la plantilla Excel con empleados filtrados.</p>
+            <p>2) Complete las columnas HHEE y TE.</p>
+            <p>3) Suba el archivo e importe.</p>
+        </field>
+    </record>
+</odoo>

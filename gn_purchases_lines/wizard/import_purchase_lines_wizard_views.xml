@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_import_purchase_lines_wizard_form" model="ir.ui.view">
+        <field name="name">gn_purchases_lines.import_wizard.form</field>
+        <field name="model">gn_purchases_lines.import_wizard</field>
+        <field name="arch" type="xml">
+            <form string="Importar Líneas de Compra">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="purchase_order_id" readonly="1"/>
+                            <field name="product_details_option" widget="radio" options="{'horizontal': true}"/>
+                            <field name="import_product_by" widget="radio" options="{'horizontal': true}"/>
+                            <field name="create_product_if_not_found" 
+                                   invisible="import_product_by != 'name'"/>
+                        </group>
+                        <group>
+                            <field name="file_data" filename="file_name" widget="binary"/>
+                            <field name="file_name" invisible="1"/>
+                        </group>
+                    </group>
+                    
+                    <div class="alert alert-info" role="alert">
+                        <strong>Formato del archivo:</strong>
+                        <ul>
+                            <li>Columnas requeridas: PRODUCT (o CODE/BARCODE/NAME según la opción), QUANTITY</li>
+                            <li>Columnas opcionales: UOM, PRICE, DESCRIPTION, TAX</li>
+                            <li>Si usa valores numéricos para código o código de barras, asegúrese de que el formato de celda sea Texto</li>
+                        </ul>
+                    </div>
+                </sheet>
+                <footer>
+                    <button string="Importar" name="action_import" type="object" class="btn-primary"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
+
+
+
+
+
+
+
+
+
+
+

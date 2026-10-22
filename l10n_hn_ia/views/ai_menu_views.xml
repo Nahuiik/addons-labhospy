@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- AI Menu -->
+    <menuitem id="menu_ai_root" 
+              name="AI" 
+              parent="sale.sale_menu_root" 
+              sequence="100"
+              groups="l10n_hn_ia.ai_group_sales_user"/>
+    
+    <menuitem id="menu_ai_suggestions" 
+              name="AI Suggestions" 
+              parent="menu_ai_root" 
+              action="action_ai_suggestion_log" 
+              sequence="10"
+              groups="l10n_hn_ia.ai_group_sales_user"/>
+</odoo>
+
+
+

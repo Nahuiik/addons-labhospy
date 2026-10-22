@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_financial_dashboard.DecisionHub">
+        <div class="gn-fd-deck">
+            <div t-if="!props.decisions.length" class="gn-fd-empty">
+                <i class="fa fa-check-circle text-success me-2"/>
+                No hay decisiones críticas en este momento.
+            </div>
+
+            <div t-else="" class="gn-fd-deck-grid">
+                <div t-foreach="props.decisions" t-as="d" t-key="d_index"
+                     class="gn-fd-deck-card"
+                     t-att-class="urgencyClass(d.urgency)"
+                     t-on-click="() => this.onCardClick(d)">
+                    <div class="gn-fd-deck-head">
+                        <div class="gn-fd-deck-rank">#<t t-esc="d_index + 1"/></div>
+                        <i class="fa" t-att-class="kindIcon(d.kind)"/>
+                        <span class="gn-fd-deck-urgency" t-esc="urgencyLabel(d.urgency)"/>
+                    </div>
+                    <div class="gn-fd-deck-title" t-esc="d.title"/>
+                    <div class="gn-fd-deck-meta">
+                        <span class="badge bg-light text-dark" t-esc="categoryLabel(d.category)"/>
+                    </div>
+                    <div class="gn-fd-deck-summary" t-esc="d.summary"/>
+                    <div t-if="d.action_hint" class="gn-fd-deck-action">
+                        <i class="fa fa-arrow-right me-1"/>
+                        <t t-esc="d.action_hint"/>
+                    </div>
+                </div>
+            </div>
+
+            <div t-if="props.total and props.total > props.decisions.length"
+                 class="text-muted mt-2 small">
+                Mostrando <t t-esc="props.decisions.length"/> de
+                <t t-esc="props.total"/> decisiones detectadas.
+            </div>
+        </div>
+    </t>
+
+</templates>

@@ -1,0 +1,81 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* generic_read_only_user_app
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-08 13:32+0000\n"
+"PO-Revision-Date: 2026-04-08 13:32+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: generic_read_only_user_app
+#: model_terms:ir.ui.view,arch_db:generic_read_only_user_app.view_users_form_inherit
+msgid "Apply Read Only"
+msgstr ""
+
+#. module: generic_read_only_user_app
+#: model_terms:ir.ui.view,arch_db:generic_read_only_user_app.view_users_form_inherit
+msgid "Click for Apply Read only Access and Reset Read Only Access."
+msgstr ""
+
+#. module: generic_read_only_user_app
+#: model:ir.model.fields,field_description:generic_read_only_user_app.field_ir_model_access__display_name
+#: model:ir.model.fields,field_description:generic_read_only_user_app.field_ir_rule__display_name
+#: model:ir.model.fields,field_description:generic_read_only_user_app.field_res_users__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: generic_read_only_user_app
+#: model:ir.model.fields,field_description:generic_read_only_user_app.field_ir_model_access__id
+#: model:ir.model.fields,field_description:generic_read_only_user_app.field_ir_rule__id
+#: model:ir.model.fields,field_description:generic_read_only_user_app.field_res_users__id
+msgid "ID"
+msgstr ""
+
+#. module: generic_read_only_user_app
+#: model:ir.model.fields,field_description:generic_read_only_user_app.field_res_users__read_only
+msgid "Make Read Only"
+msgstr ""
+
+#. module: generic_read_only_user_app
+#: model:ir.model,name:generic_read_only_user_app.model_ir_model_access
+msgid "Model Access"
+msgstr ""
+
+#. module: generic_read_only_user_app
+#: model:res.groups,name:generic_read_only_user_app.group_read_only_user
+msgid "Read Only Access"
+msgstr ""
+
+#. module: generic_read_only_user_app
+#. odoo-python
+#: code:addons/generic_read_only_user_app/models/res_user_read_only.py:0
+msgid "Read only user can not done this operation..! (%s)"
+msgstr ""
+
+#. module: generic_read_only_user_app
+#: model:res.groups.privilege,name:generic_read_only_user_app.res_groups_privilege_read_only
+msgid "Read-only mode"
+msgstr ""
+
+#. module: generic_read_only_user_app
+#: model:ir.model,name:generic_read_only_user_app.model_ir_rule
+msgid "Record Rule"
+msgstr ""
+
+#. module: generic_read_only_user_app
+#: model:ir.model,name:generic_read_only_user_app.model_res_users
+msgid "User"
+msgstr ""
+
+#. module: generic_read_only_user_app
+#: model:ir.model.fields,help:generic_read_only_user_app.field_res_users__read_only
+msgid "Whether the user has the Read Only Access group."
+msgstr ""

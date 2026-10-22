@@ -1,0 +1,146 @@
+// Resumen ejecutivo libro compras/ventas (QWeb)
+.nh-libro-resumen {
+  font-size: 11px;
+  color: var(--nh-ink);
+
+  .nh-resumen-hero {
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--nh-border);
+
+    .nh-resumen-hero-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--nh-heading);
+      margin: 0 0 4px;
+      letter-spacing: -0.02em;
+    }
+    .nh-resumen-hero-sub {
+      font-size: 11px;
+      color: var(--nh-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin: 0;
+    }
+  }
+
+  .nh-resumen-grid {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0 0;
+    margin-bottom: 16px;
+
+    .nh-resumen-col {
+      display: table-cell;
+      width: 50%;
+      vertical-align: top;
+      padding-right: 16px;
+    }
+    .nh-resumen-col:last-child {
+      padding-right: 0;
+      padding-left: 16px;
+    }
+  }
+
+  .nh-resumen-kv {
+    margin: 0 0 6px;
+    .nh-label {
+      color: var(--nh-muted);
+      font-size: 10px;
+      display: inline-block;
+      min-width: 120px;
+      vertical-align: top;
+    }
+    .nh-value {
+      color: var(--nh-ink);
+      font-weight: 600;
+    }
+    .nh-value.nh-currency {
+      color: var(--nh-accent);
+      font-weight: 700;
+    }
+    .nh-value.nh-muted-val {
+      color: var(--nh-muted);
+      font-weight: 500;
+    }
+  }
+
+  .nh-resumen-card {
+    background: var(--nh-row-alt);
+    border: 1px solid var(--nh-border);
+    border-radius: 2px;
+    padding: 12px 14px;
+    margin-bottom: 14px;
+
+    .nh-card-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--nh-heading);
+      margin: 0 0 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--nh-border);
+    }
+  }
+
+  .nh-resumen-metrics {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+
+    .nh-metric-row {
+      display: table-row;
+    }
+    .nh-metric-cell {
+      display: table-cell;
+      padding: 5px 8px 5px 0;
+      vertical-align: top;
+    }
+    .nh-metric-cell.val {
+      text-align: right;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .nh-metric-label {
+      color: var(--nh-muted);
+      font-size: 10px;
+    }
+    .nh-metric-amount {
+      color: var(--nh-ink);
+      font-size: 12px;
+    }
+    .nh-metric-amount.nh-highlight {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--nh-heading);
+    }
+  }
+
+  .nh-resumen-tab {
+    display: inline-block;
+    padding: 6px 14px;
+    font-weight: 700;
+    font-size: 11px;
+    color: var(--nh-heading);
+    background: #fff;
+    border: 1px solid var(--nh-border);
+    border-bottom: none;
+    border-radius: 2px 2px 0 0;
+    margin-bottom: -1px;
+  }
+
+  .nh-resumen-tabpanel {
+    border: 1px solid var(--nh-border);
+    padding: 12px 14px;
+    background: #fff;
+    margin-bottom: 12px;
+  }
+
+  .nh-resumen-footnote {
+    font-size: 9px;
+    color: var(--nh-muted);
+    line-height: 1.4;
+    margin-top: 8px;
+  }
+}

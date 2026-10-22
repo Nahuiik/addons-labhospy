@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- IMPORTANT: view_hr_version_form_wage_readonly must load before view_hr_contract_template_form_name_optional
+         so validation uses updated deduction_type_id (not old deduction_type from DB) -->
+    <!-- Extend hr.version list view to add periodicity field -->
+    <record id="view_hr_version_list_inherit" model="ir.ui.view">
+        <field name="name">hr.version.list.inherit</field>
+        <field name="model">hr.version</field>
+        <field name="inherit_id" ref="hr.hr_version_list_view"/>
+        <field name="arch" type="xml">
+            <!-- Add periodicity field after wage -->
+            <field name="wage" position="after">
+                <field name="periodicity" optional="show" string="Payment Periodicity"/>
+            </field>
+        </field>
+    </record>
+    
+    <!-- Make wage field readonly once payslips exist (can only be changed via salary increase) -->
+    <record id="view_hr_version_form_wage_readonly" model="ir.ui.view">
+        <field name="name">hr.version.form.wage.readonly</field>
+        <field name="model">hr.version</field>
+        <field name="inherit_id" ref="hr.hr_contract_template_form_view"/>
+        <field name="arch" type="xml">
+            <field name="wage" position="attributes">
+                <attribute name="readonly">payslips_count</attribute>
+            </field>
+            
+            <!-- Add deductions section -->
+            <xpath expr="//notebook" position="inside">
+                <page string="Deducciones" name="deductions" groups="l10n_hn_hr_payroll.group_hr_payroll_admin,l10n_hn_hr_payroll.group_hr_payroll_user">
+                    <!-- Status Summary -->
+                    <group>
+                        <group>
+                            <field name="ihss_excluded" readonly="1"/>
+                            <field name="rap_excluded" readonly="1"/>
+                            <field name="isr_excluded" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="has_ihss" readonly="1" widget="boolean_toggle"/>
+                            <field name="has_rap" readonly="1" widget="boolean_toggle"/>
+                            <field name="has_isr" readonly="1" widget="boolean_toggle"/>
+                        </group>
+                    </group>
+                    
+                    <notebook>
+                        <!-- IHSS Details: visible cuando no está excluido -->
+                        <page string="IHSS" name="ihss_details" invisible="ihss_excluded">
+                            <group>
+                                <group string="Cálculo automático" invisible="not has_ihss">
+                                    <field name="ihss_settings_id" readonly="1" options="{'no_create': True, 'no_open': True}"/>
+                                    <field name="ihss_amount_monthly" readonly="1"/>
+                                    <field name="ihss_amount_biweekly" readonly="1" invisible="periodicity != 'biweekly'"/>
+                                </group>
+                                <group string="IHSS Manual">
+                                    <field name="ihss_manual"/>
+                                    <field name="amount_ihss_manual" invisible="not ihss_manual"/>
+                                </group>
+                                <group invisible="not has_ihss">
+                                    <field name="ihss_ivm_amount" readonly="1"/>
+                                    <field name="ihss_em_amount" readonly="1"/>
+                                </group>
+                            </group>
+                        </page>
+                        
+                        <!-- RAP Details: visible cuando no está excluido (permite RAP manual aunque salario &lt; techo) -->
+                        <page string="RAP" name="rap_details" invisible="rap_excluded">
+                            <group>
+                                <group string="Configuración RAP General" invisible="not has_rap">
+                                    <field name="rap_settings_id" readonly="1" options="{'no_create': True, 'no_open': True}"/>
+                                    <field name="rap_foviif_amount_monthly" readonly="1"/>
+                                    <field name="rap_foviif_amount_biweekly" readonly="1" invisible="periodicity != 'biweekly'"/>
+                                </group>
+                                <group string="RAP Manual (si salario &lt; techo o requiere monto fijo)">
+                                    <field name="rap_manual"/>
+                                    <field name="amount_rap_manual" invisible="not rap_manual"/>
+                                </group>
+                                <group string="Establecer RAP (Asignado)" invisible="not has_rap">
+                                    <field name="rap_setup_id" readonly="1" options="{'no_create': True}"/>
+                                    <field name="rap_fee" readonly="1"/>
+                                </group>
+                            </group>
+                        </page>
+                        
+                        <!-- ISR Details: visible cuando no está excluido -->
+                        <page string="ISR" name="isr_details" invisible="isr_excluded">
+                            <group>
+                                <group string="Configuración ISR" invisible="not has_isr">
+                                    <field name="isr_config_id" readonly="1" options="{'no_create': True, 'no_open': True}"/>
+                                    <field name="isr_retenido_ytd" readonly="1"/>
+                                </group>
+                                <group string="ISR por Período">
+                                    <field name="amount_isr_calculated" readonly="1"/>
+                                    <separator string="Sobreescritura Manual"/>
+                                    <field name="isr_manual"/>
+                                    <field name="amount_isr_manual" invisible="not isr_manual"/>
+                                </group>
+                            </group>
+                            
+                            <group string="Ingresos y Deducciones Anuales (SAR 2026)">
+                                <group>
+                                    <field name="dias_vacaciones_pagadas_anual"/>
+                                    <field name="colegiacion_anual"/>
+                                    <field name="pension_privada_anual"/>
+                                    <field name="otras_deducciones_anual"/>
+                                </group>
+                                <group>
+                                    <field name="otros_ingresos_anual"/>
+                                    <field name="amount_other_income"/>
+                                </group>
+                            </group>
+                            <group string="Horas Extra (Planilla)" invisible="not extra_hour_ids">
+                                <field name="extra_hour_ids" nolabel="1" readonly="1">
+                                    <list>
+                                        <field name="payroll_sheet_id"/>
+                                        <field name="he_25"/>
+                                        <field name="he_50"/>
+                                        <field name="he_75"/>
+                                        <field name="he_100"/>
+                                        <field name="amount_25"/>
+                                        <field name="amount_50"/>
+                                        <field name="amount_75"/>
+                                        <field name="amount_100"/>
+                                    </list>
+                                </field>
+                            </group>
+                            
+                            <field name="isr_employee_deduction_ids" nolabel="1" groups="l10n_hn_hr_payroll.group_hr_payroll_admin">
+                                <list string="Deducciones ISR" editable="bottom">
+                                    <field name="name"/>
+                                    <field name="deduction_type_id" options="{'no_create': True}"/>
+                                    <field name="amount"/>
+                                    <field name="periodicity"/>
+                                    <field name="date_start"/>
+                                    <field name="date_end"/>
+                                    <field name="active"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Nombre de plantilla: obligatorio solo para plantillas (sin empleado); opcional para versiones de contrato -->
+    <!-- Debe cargarse DESPUÉS de view_hr_version_form_wage_readonly para que la validación use deduction_type_id actualizado -->
+    <record id="view_hr_contract_template_form_name_optional" model="ir.ui.view">
+        <field name="name">hr.contract.template.form.name.optional</field>
+        <field name="model">hr.version</field>
+        <field name="inherit_id" ref="hr.hr_contract_template_form_view"/>
+        <field name="arch" type="xml">
+            <field name="name" position="attributes">
+                <attribute name="required">not employee_id</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>

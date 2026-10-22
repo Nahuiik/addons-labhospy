@@ -1,0 +1,2204 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* gn_banks
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-05-06 17:53+0000\n"
+"PO-Revision-Date: 2022-05-06 11:55-0600\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: es_GT\n"
+"X-Generator: Poedit 3.0\n"
+
+#. module: gn_banks
+#: model:res.groups,name:gn_banks.banks_debit_credit_manager
+msgid " Debit/Credit Manager "
+msgstr "Manager de débito / crédito"
+
+#. module: gn_banks
+#: model:res.groups,name:gn_banks.banks_debit_credit_user
+msgid " User Debit and Credit "
+msgstr "Usuario Débito y crédito"
+
+#. module: gn_banks
+#: model:ir.actions.report,print_report_name:gn_banks.report_print_account_journal_entries
+msgid "'Journal Entries'"
+msgstr "'Journal Entries'"
+
+#. module: gn_banks
+#: model:ir.actions.report,print_report_name:gn_banks.banks_deposit_print
+msgid "'Voucher'"
+msgstr "'Voucher'"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.account_desktop_check
+#: model_terms:ir.ui.view,arch_db:gn_banks.account_tranference_payment
+#: model_terms:ir.ui.view,arch_db:gn_banks.check_print
+msgid ", EMITIDO EL"
+msgstr ""
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.check_print
+msgid "0.00"
+msgstr ""
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.template_print_account_journal_entries_document
+msgid "<strong><span>Internal Note : </span></strong>"
+msgstr "<strong><span> Nota Interna : </span></strong>"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.account_desktop_check
+#: model_terms:ir.ui.view,arch_db:gn_banks.account_tranference_payment
+msgid ""
+"<strong>A FAVOR DE: </strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t***"
+msgstr ""
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.check_print
+msgid ""
+"<strong>A FAVOR DE: </strong>\n"
+"\t\t\t\t\t\t\t\t\t\t\t***"
+msgstr ""
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.deposit_print
+msgid "<strong>Amount In Word:</strong>"
+msgstr "<strong>Cantidad en letras:</strong>"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.account_desktop_check
+#: model_terms:ir.ui.view,arch_db:gn_banks.account_tranference_payment
+#: model_terms:ir.ui.view,arch_db:gn_banks.check_print
+msgid "<strong>BANCO DEL QUE SE EMITE: </strong>"
+msgstr ""
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.deposit_print
+msgid "<strong>Customer:</strong>"
+msgstr "<strong>Cliente:</strong>"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.account_desktop_check
+#: model_terms:ir.ui.view,arch_db:gn_banks.account_tranference_payment
+#: model_terms:ir.ui.view,arch_db:gn_banks.check_print
+msgid "<strong>DESCRIPCION: </strong>"
+msgstr ""
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.template_print_account_journal_entries_document
+msgid "<strong>Date : </strong>"
+msgstr "<strong>Fecha : </strong>"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.deposit_print
+msgid "<strong>Date:</strong>"
+msgstr "<strong>Fecha: </strong>"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.account_desktop_check
+#: model_terms:ir.ui.view,arch_db:gn_banks.account_tranference_payment
+#: model_terms:ir.ui.view,arch_db:gn_banks.check_print
+msgid "<strong>Debe</strong>"
+msgstr ""
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.account_desktop_check
+#: model_terms:ir.ui.view,arch_db:gn_banks.account_tranference_payment
+#: model_terms:ir.ui.view,arch_db:gn_banks.check_print
+msgid "<strong>Descripción</strong>"
+msgstr ""
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.account_desktop_check
+#: model_terms:ir.ui.view,arch_db:gn_banks.account_tranference_payment
+#: model_terms:ir.ui.view,arch_db:gn_banks.check_print
+msgid "<strong>Haber</strong>"
+msgstr ""
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.deposit_print
+msgid "<strong>In Concept of:</strong>"
+msgstr "<strong>En Concepto de:</strong>"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.template_print_account_journal_entries_document
+msgid "<strong>Journal : </strong>"
+msgstr "<strong>Diario : </strong>"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.template_print_account_journal_entries_document
+msgid "<strong>Journal Entry # : </strong>"
+msgstr "<strong>Asiento Conrable # : </strong>"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.account_desktop_check
+msgid "<strong>NO NEGOCIABLE</strong>"
+msgstr ""
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.account_desktop_check
+#: model_terms:ir.ui.view,arch_db:gn_banks.account_tranference_payment
+#: model_terms:ir.ui.view,arch_db:gn_banks.check_print
+msgid "<strong>NUMERO DE CUENTA: </strong>"
+msgstr ""
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.account_desktop_check
+#: model_terms:ir.ui.view,arch_db:gn_banks.account_tranference_payment
+#: model_terms:ir.ui.view,arch_db:gn_banks.check_print
+msgid "<strong>Nombre de Cuenta</strong>"
+msgstr ""
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.dynamic_cheque_form_view
+msgid "<strong>Note :</strong> Consider value of all the parameter in px."
+msgstr ""
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.account_desktop_check
+#: model_terms:ir.ui.view,arch_db:gn_banks.account_tranference_payment
+#: model_terms:ir.ui.view,arch_db:gn_banks.check_print
+msgid "<strong>Número de Cuenta</strong>"
+msgstr ""
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.template_print_account_journal_entries_document
+msgid "<strong>Reference : </strong>"
+msgstr "<strong>Referencia : </strong>"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.account_tranference_payment
+msgid "<strong>TOTAL DEL PAGO: </strong>"
+msgstr ""
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.deposit_print
+msgid "<strong>Total:</strong>"
+msgstr ""
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.template_print_account_journal_entries_document
+msgid "<strong>Total</strong>"
+msgstr ""
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.view_banks_transfer_search
+msgid "A Banco"
+msgstr ""
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.report_dynamic_check_print
+msgid "A/C Pay"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__ac_pay
+#: model_terms:ir.ui.view,arch_db:gn_banks.dynamic_cheque_form_view
+msgid "A/c Pay"
+msgstr ""
+
+#. module: gn_banks
+#: code:addons/gn_banks/reports/card_settlement_xls.py:0
+#: code:addons/gn_banks/reports/check_report_xls.py:0
+#: code:addons/gn_banks/reports/credit_report_xls.py:0
+#: code:addons/gn_banks/reports/debit_report_xls.py:0
+#: code:addons/gn_banks/reports/deposit_report_xls.py:0
+#: code:addons/gn_banks/reports/wire_transfer_xls.py:0
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check_line__account_id
+#: model:ir.model.fields,field_description:gn_banks.field_bank_template_line__account_id
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__account_id
+#: model_terms:ir.ui.view,arch_db:gn_banks.template_print_account_journal_entries_document
+#, python-format
+msgid "Account"
+msgstr "Cuenta"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__move_id
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__move_id
+#: model_terms:ir.ui.view,arch_db:gn_banks.bank_check_view
+#: model_terms:ir.ui.view,arch_db:gn_banks.credit_debit_form_view
+msgid "Account Move"
+msgstr "Movimiento Cuenta"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__message_needaction
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__message_needaction
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__message_needaction
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__message_needaction
+msgid "Action Needed"
+msgstr "Acción requerida"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__activity_ids
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__activity_ids
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__activity_ids
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__activity_ids
+msgid "Activities"
+msgstr "Actividades"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__activity_exception_decoration
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__activity_exception_decoration
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__activity_exception_decoration
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Decoración de Actividad  de Excepción"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__activity_state
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__activity_state
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__activity_state
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__activity_state
+msgid "Activity State"
+msgstr "Estado de la actividad"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__activity_type_icon
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__activity_type_icon
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__activity_type_icon
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Ícono de tipo de actvidad"
+
+#. module: gn_banks
+#: model:ir.model.fields.selection,name:gn_banks.selection__check_format_custom__af_currency_symbol_position__after
+#: model:ir.model.fields.selection,name:gn_banks.selection__check_format_custom__sc_currency_name_position__after
+msgid "After"
+msgstr "Después de"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.view_account_journal_form_inherit_sequence
+msgid "Allow Multi Sequence"
+msgstr "Permitir secuencia múltiple"
+
+#. module: gn_banks
+#: code:addons/gn_banks/reports/card_settlement_xls.py:0
+#: code:addons/gn_banks/reports/check_report_xls.py:0
+#: code:addons/gn_banks/reports/credit_report_xls.py:0
+#: code:addons/gn_banks/reports/debit_report_xls.py:0
+#: code:addons/gn_banks/reports/deposit_report_xls.py:0
+#: code:addons/gn_banks/reports/transfer_banks_xls.py:0
+#: code:addons/gn_banks/reports/wire_transfer_xls.py:0
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check_line__amount
+#: model:ir.model.fields,field_description:gn_banks.field_bank_template_line__amount
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__amount
+#, python-format
+msgid "Amount"
+msgstr "Importe"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.dynamic_cheque_form_view
+msgid "Amount in Figure"
+msgstr "Cantidad en letras"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__amount_in_words
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__amount_in_words
+#: model_terms:ir.ui.view,arch_db:gn_banks.dynamic_cheque_form_view
+msgid "Amount in Word"
+msgstr "Cantidad en letras"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.deposit_print
+msgid "Amount:"
+msgstr "Monto:"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check_line__analytic_id
+#: model:ir.model.fields,field_description:gn_banks.field_bank_template_line__analytic_id
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__analytic_id
+#: model_terms:ir.ui.view,arch_db:gn_banks.template_print_account_journal_entries_document
+msgid "Analytic Account"
+msgstr "Cuenta analítica"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__analytic_precision
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check_line__analytic_precision
+#: model:ir.model.fields,field_description:gn_banks.field_bank_template__analytic_precision
+#: model:ir.model.fields,field_description:gn_banks.field_bank_template_line__analytic_precision
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__analytic_precision
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__analytic_precision
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__analytic_precision
+msgid "Analytic Precision"
+msgstr "Precisión Analítica"
+
+#. module: gn_banks
+#: model:ir.model.fields,help:gn_banks.field_bank_check__analytic_precision
+#: model:ir.model.fields,help:gn_banks.field_bank_check_line__analytic_precision
+#: model:ir.model.fields,help:gn_banks.field_bank_template__analytic_precision
+#: model:ir.model.fields,help:gn_banks.field_bank_template_line__analytic_precision
+#: model:ir.model.fields,help:gn_banks.field_bank_transfer__analytic_precision
+#: model:ir.model.fields,help:gn_banks.field_debit_credit__analytic_precision
+#: model:ir.model.fields,help:gn_banks.field_debit_credit_line__analytic_precision
+msgid "Precision for analytic amounts"
+msgstr "Precisión para montos analíticos"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__analytic_tag_ids
+msgid "Analytic Tags"
+msgstr "Etiquetas analíticas"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__move_id
+msgid "Apunte Contable"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__message_attachment_count
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__message_attachment_count
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__message_attachment_count
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__message_attachment_count
+msgid "Attachment Count"
+msgstr "Nº de archivos adjuntos"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.account_desktop_check
+#: model_terms:ir.ui.view,arch_db:gn_banks.account_tranference_payment
+#: model_terms:ir.ui.view,arch_db:gn_banks.check_print
+msgid "Autorizado Por"
+msgstr ""
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.account_desktop_check
+#: model_terms:ir.ui.view,arch_db:gn_banks.account_tranference_payment
+#: model_terms:ir.ui.view,arch_db:gn_banks.check_print
+msgid "BORRADOR:"
+msgstr ""
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.view_banks_debit_search
+#: model_terms:ir.ui.view,arch_db:gn_banks.view_check_search
+msgid "Banco"
+msgstr ""
+
+#. module: gn_banks
+#: code:addons/gn_banks/reports/check_report_xls.py:0
+#: code:addons/gn_banks/reports/transfer_banks_xls.py:0
+#: code:addons/gn_banks/reports/wire_transfer_xls.py:0
+#, python-format
+msgid "Bank"
+msgstr "Banco"
+
+#. module: gn_banks
+#: model:ir.model,name:gn_banks.model_bank_check_line
+msgid "Bank Check Lines"
+msgstr "Líneas de cheques bancarios"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.view_banks_debit_search
+#: model_terms:ir.ui.view,arch_db:gn_banks.view_check_search
+msgid "Bank Debits Weekly"
+msgstr "Débitos bancarios semanales"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.view_banks_debit_search
+#: model_terms:ir.ui.view,arch_db:gn_banks.view_check_search
+msgid "Bank Debits Year"
+msgstr "Débitos bancarios anuales"
+
+#. module: gn_banks
+#: model:ir.module.category,description:gn_banks.module_category_banks
+#: model:ir.module.category,name:gn_banks.module_category_banks
+msgid "Bank Management"
+msgstr "Gestión bancaria"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.view_account_journal_form_inherit_sequence
+msgid "Bank Sequences"
+msgstr "Secuencias bancarias"
+
+#. module: gn_banks
+#: model:ir.model,name:gn_banks.model_bank_template_line
+msgid "Bank Template Lines"
+msgstr "Líneas de plantilla de banco"
+
+#. module: gn_banks
+#: model:ir.model,name:gn_banks.model_bank_template
+msgid "Bank Templates"
+msgstr "Plantillas bancarias"
+
+#. module: gn_banks
+#: model:ir.actions.act_window,name:gn_banks.action_bank_account_transfer
+#: model:ir.model,name:gn_banks.model_bank_transfer
+#: model:ir.model.fields.selection,name:gn_banks.selection__bank_transfer__move_type__transference_banks
+#: model:ir.ui.menu,name:gn_banks.menu_bank_account_transfer
+#: model:res.groups,name:gn_banks.group_bank_transfers
+#: model_terms:ir.ui.view,arch_db:gn_banks.bank_account_transfer_tree_view
+#: model_terms:ir.ui.view,arch_db:gn_banks.bank_account_transfer_view
+#: model_terms:ir.ui.view,arch_db:gn_banks.view_banks_transfer_search
+msgid "Bank Transfer"
+msgstr "Transferencia bancaria"
+
+#. module: gn_banks
+#: model:ir.ui.menu,name:gn_banks.menu_main_banks
+#: model:ir.ui.menu,name:gn_banks.menu_sub_banks
+msgid "Banks"
+msgstr "Bancos"
+
+#. module: gn_banks
+#: model:ir.actions.report,name:gn_banks.report_check_report
+#: model:ir.model,name:gn_banks.model_report_check_report_xls
+msgid "Banks - Cheque Report"
+msgstr "Reporte de Cheques"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_account_journal__bank_multi_sequence
+msgid "Banks Multi Sequence"
+msgstr "Bancos de secuencia múltiple"
+
+#. module: gn_banks
+#: model:ir.ui.menu,name:gn_banks.menuitem_bank_reports
+msgid "Banks Report"
+msgstr "Reporte de Bancos"
+
+#. module: gn_banks
+#: model:ir.actions.act_window,name:gn_banks.action_banks_reports
+#: model_terms:ir.ui.view,arch_db:gn_banks.banks_reports_wizard_form
+msgid "Banks Reports"
+msgstr "Reporte de Bancos"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.plantillas_banco_form_view
+msgid "Banks Template"
+msgstr "Plantilla de bancos"
+
+#. module: gn_banks
+#: model:ir.model,name:gn_banks.model_banks_wizard_template
+msgid "Banks Wizard Template"
+msgstr "Plantilla de asistente de bancos"
+
+#. module: gn_banks
+#: model:ir.model.fields.selection,name:gn_banks.selection__check_format_custom__af_currency_symbol_position__before
+#: model:ir.model.fields.selection,name:gn_banks.selection__check_format_custom__sc_currency_name_position__before
+msgid "Before"
+msgstr "Antes"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.account_desktop_check
+#: model_terms:ir.ui.view,arch_db:gn_banks.account_tranference_payment
+#: model_terms:ir.ui.view,arch_db:gn_banks.check_print
+msgid "CHEQUE No."
+msgstr ""
+
+#. module: gn_banks
+#: code:addons/gn_banks/reports/credit_report_xls.py:0
+#, python-format
+msgid "CREDITS"
+msgstr "CREDITOS"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.bank_account_transfer_view
+#: model_terms:ir.ui.view,arch_db:gn_banks.bank_check_view
+#: model_terms:ir.ui.view,arch_db:gn_banks.banks_journal_template_view_form
+#: model_terms:ir.ui.view,arch_db:gn_banks.banks_reports_wizard_form
+#: model_terms:ir.ui.view,arch_db:gn_banks.credit_debit_form_view
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: gn_banks
+#: model:ir.model.fields.selection,name:gn_banks.selection__bank_check__state__cancel
+#: model:ir.model.fields.selection,name:gn_banks.selection__bank_transfer__state__cancel
+msgid "Canceled"
+msgstr "Cancelado"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__cancel_date
+msgid "Cancellation Date"
+msgstr "Fecha de cancelación"
+
+#. module: gn_banks
+#: model:res.groups,name:gn_banks.banks_cancel_documents
+msgid "Cancellation of Documents"
+msgstr "Cancelación de documentos"
+
+#. module: gn_banks
+#: model:ir.model.fields.selection,name:gn_banks.selection__debit_credit__state__cancel
+msgid "Cancelled"
+msgstr "Cancelado"
+
+#. module: gn_banks
+#: model:ir.actions.report,name:gn_banks.action_card_settlement_report_xls
+msgid "POS Settlements XLS"
+msgstr "Liquidaciones POS XLS"
+
+#. module: gn_banks
+#: model:ir.model.fields.selection,name:gn_banks.selection__account_payment__payment_move_type__cash
+msgid "Cash"
+msgstr "Efectivo"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__char_spacing
+msgid "Character Spacing"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.actions.act_window,name:gn_banks.action_bank_check
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check_line__check_id
+#: model_terms:ir.ui.view,arch_db:gn_banks.check_list_view
+msgid "Check"
+msgstr "Cheque"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.bank_check_view
+msgid "Check / Transfer"
+msgstr "Cheque / Transferencia"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__date
+msgid "Check Date"
+msgstr "Fecha Cheque"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__cheque_format
+msgid "Check Format"
+msgstr "Formato Cheque"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__check_lines
+msgid "Check Lines"
+msgstr "Lineas Cheque"
+
+#. module: gn_banks
+#: model:ir.model,name:gn_banks.model_bank_check
+msgid "Check/Transfer"
+msgstr "Cheque / Transferencia"
+
+#. module: gn_banks
+#: model:res.groups,name:gn_banks.banks_check_manager
+msgid "Check/Transfer Manager"
+msgstr "Manager Cheque / Transferencia"
+
+#. module: gn_banks
+#: model:ir.actions.act_window,name:gn_banks.action_dynamic_cheque_print
+#: model:ir.model.fields.selection,name:gn_banks.selection__bank_check__move_type__check
+#: model:ir.model.fields.selection,name:gn_banks.selection__bank_template__move_type__check
+#: model:ir.model.fields.selection,name:gn_banks.selection__banks_reports__transaction_type__check
+#: model_terms:ir.ui.view,arch_db:gn_banks.dynamic_cheque_form_view
+#: model_terms:ir.ui.view,arch_db:gn_banks.dynamic_cheque_print_tree_view
+msgid "Cheque"
+msgstr ""
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.dynamic_cheque_form_view
+msgid "Cheque Date"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__name
+#: model_terms:ir.ui.view,arch_db:gn_banks.dynamic_cheque_form_view
+msgid "Cheque Format"
+msgstr ""
+
+#. module: gn_banks
+#: code:addons/gn_banks/reports/check_report_xls.py:0
+#, python-format
+msgid "Cheque Report"
+msgstr "Reporte de Cheques"
+
+#. module: gn_banks
+#: model:ir.model.fields.selection,name:gn_banks.selection__account_payment__payment_move_type__check
+#: model:ir.model.fields.selection,name:gn_banks.selection__ir_sequence__move_type__check
+#: model:ir.ui.menu,name:gn_banks.menu_bank_check
+msgid "Cheques"
+msgstr ""
+
+#. module: gn_banks
+#: code:addons/gn_banks/reports/check_report_xls.py:0
+#, python-format
+msgid "Chk#"
+msgstr "Chq#"
+
+#. module: gn_banks
+#: model_terms:ir.actions.act_window,help:gn_banks.action_plantilla_bancaria
+msgid "Click para crear un nuevo registro."
+msgstr ""
+
+#. module: gn_banks
+#: model_terms:ir.actions.act_window,help:gn_banks.action_bank_account_transfer
+msgid "Click to record for bank transfer."
+msgstr "Haga clic para registrar la transferencia bancaria."
+
+#. module: gn_banks
+#: model_terms:ir.actions.act_window,help:gn_banks.action_bank_check
+#: model_terms:ir.actions.act_window,help:gn_banks.action_bank_transference
+msgid "Click to record for check."
+msgstr "Haga clic para registrar un cheque"
+
+#. module: gn_banks
+#: model_terms:ir.actions.act_window,help:gn_banks.action_credit_card
+msgid "Click to record a POS settlement."
+msgstr "Haga clic para registrar una liquidación POS."
+
+#. module: gn_banks
+#: model_terms:ir.actions.act_window,help:gn_banks.action_credit
+#: model_terms:ir.actions.act_window,help:gn_banks.action_debit
+#: model_terms:ir.actions.act_window,help:gn_banks.action_deposit
+msgid "Click to record for credit/debit/deposit."
+msgstr "Haga clic para registrar un debito/crédito/deposito"
+
+#. module: gn_banks
+#: model_terms:ir.actions.act_window,help:gn_banks.action_debit_credit
+msgid "Click to record for debit/credit."
+msgstr "Haga clic para registrar un debito/crédito"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__company_id
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__company_id
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__company_id
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__partner_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__comapny_name
+msgid "Company Name"
+msgstr "Nombre de la compañía"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.dynamic_cheque_form_view
+msgid "Company Sign"
+msgstr "Firma de la empresa"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.view_banks_debit_search
+#: model_terms:ir.ui.view,arch_db:gn_banks.view_banks_transfer_search
+#: model_terms:ir.ui.view,arch_db:gn_banks.view_check_search
+msgid "Compañia"
+msgstr ""
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.deposit_print
+msgid "Copia: Contabilidad"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.actions.act_window,name:gn_banks.action_wizard_crear_plantilla
+#: model_terms:ir.ui.view,arch_db:gn_banks.banks_journal_template_view_form
+msgid "Crear Plantilla"
+msgstr ""
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.bank_check_view
+#: model_terms:ir.ui.view,arch_db:gn_banks.credit_debit_form_view
+msgid "Create Template"
+msgstr "Crear plantilla"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__create_uid
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check_line__create_uid
+#: model:ir.model.fields,field_description:gn_banks.field_bank_documents__create_uid
+#: model:ir.model.fields,field_description:gn_banks.field_bank_template__create_uid
+#: model:ir.model.fields,field_description:gn_banks.field_bank_template_line__create_uid
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__create_uid
+#: model:ir.model.fields,field_description:gn_banks.field_banks_reports__create_uid
+#: model:ir.model.fields,field_description:gn_banks.field_banks_wizard_template__create_uid
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__create_uid
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__create_uid
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__create_date
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check_line__create_date
+#: model:ir.model.fields,field_description:gn_banks.field_bank_documents__create_date
+#: model:ir.model.fields,field_description:gn_banks.field_bank_template__create_date
+#: model:ir.model.fields,field_description:gn_banks.field_bank_template_line__create_date
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__create_date
+#: model:ir.model.fields,field_description:gn_banks.field_banks_reports__create_date
+#: model:ir.model.fields,field_description:gn_banks.field_banks_wizard_template__create_date
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__create_date
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__create_date
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: gn_banks
+#: code:addons/gn_banks/reports/check_report_xls.py:0
+#: code:addons/gn_banks/reports/credit_report_xls.py:0
+#: code:addons/gn_banks/reports/deposit_report_xls.py:0
+#: code:addons/gn_banks/reports/wire_transfer_xls.py:0
+#: model:ir.actions.act_window,name:gn_banks.action_credit
+#: model:ir.model.fields.selection,name:gn_banks.selection__bank_check_line__move_type1__credit
+#: model:ir.model.fields.selection,name:gn_banks.selection__bank_template_line__move_type1__credit
+#: model:ir.model.fields.selection,name:gn_banks.selection__debit_credit_line__type__credit
+#: model:ir.ui.menu,name:gn_banks.menu_credit
+#: model_terms:ir.ui.view,arch_db:gn_banks.template_print_account_journal_entries_document
+#, python-format
+msgid "Credit"
+msgstr "Crédito"
+
+#. module: gn_banks
+#: model:ir.actions.act_window,name:gn_banks.action_credit_card
+#: model:ir.ui.menu,name:gn_banks.menu_credit_card
+#: code:addons/gn_banks/reports/card_settlement_xls.py:0
+#: model:ir.model.fields.selection,name:gn_banks.selection__banks_reports__transaction_type__card_settlement
+#, python-format
+msgid "POS Settlements"
+msgstr "Liquidaciones POS"
+
+#. module: gn_banks
+#: model:ir.model.fields.selection,name:gn_banks.selection__debit_credit__move_type__credit_card
+#: model:ir.model.fields.selection,name:gn_banks.selection__ir_sequence__move_type__credit_card
+#: model:ir.model.fields.selection,name:gn_banks.selection__wizard_create_sequence__move_type__credit_card
+msgid "POS Settlement"
+msgstr "Liquidación POS"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.credit_debit_form_view
+msgid "Credit Debit"
+msgstr "Crédito Debito"
+
+#. module: gn_banks
+#: code:addons/gn_banks/reports/credit_report_xls.py:0
+#: model:ir.model.fields.selection,name:gn_banks.selection__banks_reports__transaction_type__credit
+#, python-format
+msgid "Credits"
+msgstr "Créditos"
+
+#. module: gn_banks
+#: model:ir.actions.report,name:gn_banks.action_credit_report_xls
+msgid "Credits XLS"
+msgstr "Créditos XLS"
+
+#. module: gn_banks
+#: model:ir.model.fields.selection,name:gn_banks.selection__bank_template__move_type__credit
+#: model:ir.model.fields.selection,name:gn_banks.selection__debit_credit__move_type__credit
+msgid "Crédito"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model.fields.selection,name:gn_banks.selection__ir_sequence__move_type__credit
+msgid "Créditos"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__currency_id
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check_line__currency_id
+#: model:ir.model.fields,field_description:gn_banks.field_bank_template__currency_id
+#: model:ir.model.fields,field_description:gn_banks.field_bank_template_line__currency_id
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__currency_id
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__currency_id
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__currency_id
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__sc_currency_name
+msgid "Currency Name"
+msgstr "Moneda"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__sc_currency_name_position
+msgid "Currency Name Position"
+msgstr "Posición Moneda"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__currency_rate
+#: model:ir.model.fields,field_description:gn_banks.field_bank_template__currency_rate
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__currency_rate
+msgid "Currency Rate"
+msgstr "Tasa de Cambio"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__af_currency_symbol
+msgid "Currency Symbol"
+msgstr "Símbolo Moneda"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__af_currency_symbol_position
+msgid "Currency Symbol Position"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__partner_id
+msgid "Customer"
+msgstr "Cliente"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__is_advance
+msgid "Customer Advance"
+msgstr "Anticipo del cliente"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.desktop_voucher
+msgid "DE"
+msgstr ""
+
+#. module: gn_banks
+#: code:addons/gn_banks/reports/debit_report_xls.py:0
+#, python-format
+msgid "DEBITS"
+msgstr "DEBITOS"
+
+#. module: gn_banks
+#: code:addons/gn_banks/reports/deposit_report_xls.py:0
+#, python-format
+msgid "DEPOSITS"
+msgstr "DEPOSITOS"
+
+#. module: gn_banks
+#: code:addons/gn_banks/reports/card_settlement_xls.py:0
+#: code:addons/gn_banks/reports/check_report_xls.py:0
+#: code:addons/gn_banks/reports/credit_report_xls.py:0
+#: code:addons/gn_banks/reports/debit_report_xls.py:0
+#: code:addons/gn_banks/reports/deposit_report_xls.py:0
+#: code:addons/gn_banks/reports/transfer_banks_xls.py:0
+#: code:addons/gn_banks/reports/wire_transfer_xls.py:0
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__date
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__date
+#: model_terms:ir.ui.view,arch_db:gn_banks.view_banks_debit_search
+#: model_terms:ir.ui.view,arch_db:gn_banks.view_banks_transfer_search
+#: model_terms:ir.ui.view,arch_db:gn_banks.view_check_search
+#, python-format
+msgid "Date"
+msgstr "Fecha"
+
+#. module: gn_banks
+#: code:addons/gn_banks/reports/check_report_xls.py:0
+#, python-format
+msgid "Date: %s to %s"
+msgstr "Fecha: %s a %s"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.view_banks_transfer_search
+msgid "De Banco"
+msgstr ""
+
+#. module: gn_banks
+#: code:addons/gn_banks/reports/card_settlement_xls.py:0
+#: code:addons/gn_banks/reports/check_report_xls.py:0
+#: code:addons/gn_banks/reports/debit_report_xls.py:0
+#: code:addons/gn_banks/reports/deposit_report_xls.py:0
+#: code:addons/gn_banks/reports/wire_transfer_xls.py:0
+#: model:ir.actions.act_window,name:gn_banks.action_debit
+#: model:ir.model.fields,field_description:gn_banks.field_bank_documents__bank_debit_id
+#: model:ir.model.fields.selection,name:gn_banks.selection__bank_check_line__move_type1__debit
+#: model:ir.model.fields.selection,name:gn_banks.selection__bank_template_line__move_type1__debit
+#: model:ir.model.fields.selection,name:gn_banks.selection__debit_credit_line__type__debit
+#: model:ir.ui.menu,name:gn_banks.menu_debit
+#: model_terms:ir.ui.view,arch_db:gn_banks.template_print_account_journal_entries_document
+#, python-format
+msgid "Debit"
+msgstr "Debito"
+
+#. module: gn_banks
+#: model:ir.model,name:gn_banks.model_debit_credit_line
+msgid "Debit Credit Line"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.actions.act_window,name:gn_banks.action_debit_credit
+#: model:ir.model,name:gn_banks.model_debit_credit
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check_line__move_type1
+#: model:ir.model.fields,field_description:gn_banks.field_bank_template_line__move_type
+#: model:ir.model.fields,field_description:gn_banks.field_bank_template_line__move_type1
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__debit_id
+msgid "Debit/Credit"
+msgstr "Debito/Credito"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check_line__move_type
+msgid "Debit/Credit Check"
+msgstr "Débito / crédito"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check_line__move_type1
+msgid "Check Debit/Credit"
+msgstr "Débito / Crédito"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_template_line__move_type1
+msgid "Bank Debit-Credit"
+msgstr "Débito / Crédito Bancario"
+
+#. module: gn_banks
+#: model:ir.model.fields.selection,name:gn_banks.selection__banks_reports__transaction_type__debit
+msgid "Debits"
+msgstr "Débitos"
+
+#. module: gn_banks
+#: model:ir.actions.report,name:gn_banks.action_debit_report_xls
+msgid "Debits XLS"
+msgstr "Débitos XLS"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.debit_credit_list_view
+msgid "Debits and Credits"
+msgstr "Débitos y Créditos"
+
+#. module: gn_banks
+#: model:ir.actions.act_window,name:gn_banks.action_deposit
+#: model:ir.model.fields.selection,name:gn_banks.selection__banks_reports__transaction_type__deposit
+#: model:ir.ui.menu,name:gn_banks.menu_deposit
+msgid "Deposit"
+msgstr "Deposito"
+
+#. module: gn_banks
+#: code:addons/gn_banks/reports/debit_report_xls.py:0
+#: code:addons/gn_banks/reports/deposit_report_xls.py:0
+#, python-format
+msgid "Deposits"
+msgstr "Depósitos"
+
+#. module: gn_banks
+#: model:ir.actions.report,name:gn_banks.action_deposit_report_xls
+msgid "Deposits XLS"
+msgstr "Depósitos XLS"
+
+#. module: gn_banks
+#: model:ir.model.fields.selection,name:gn_banks.selection__bank_template__move_type__deposit
+#: model:ir.model.fields.selection,name:gn_banks.selection__debit_credit__move_type__deposit
+msgid "Depósito"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model.fields.selection,name:gn_banks.selection__ir_sequence__move_type__deposit
+msgid "Depósitos"
+msgstr ""
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.plantillas_banco_form_view
+msgid "Descripción de Cheque Emitido"
+msgstr ""
+
+#. module: gn_banks
+#: code:addons/gn_banks/reports/card_settlement_xls.py:0
+#: code:addons/gn_banks/reports/check_report_xls.py:0
+#: code:addons/gn_banks/reports/credit_report_xls.py:0
+#: code:addons/gn_banks/reports/debit_report_xls.py:0
+#: code:addons/gn_banks/reports/deposit_report_xls.py:0
+#: code:addons/gn_banks/reports/transfer_banks_xls.py:0
+#: code:addons/gn_banks/reports/wire_transfer_xls.py:0
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__description
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check_line__name
+#: model:ir.model.fields,field_description:gn_banks.field_bank_template__description
+#: model:ir.model.fields,field_description:gn_banks.field_bank_template_line__name
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__description
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__description
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__name
+#, python-format
+msgid "Description"
+msgstr "Descripción"
+
+#. module: gn_banks
+#: code:addons/gn_banks/reports/check_report_xls.py:0
+#, python-format
+msgid "Detail Cheques Report"
+msgstr "Reporte Detallado de Cheques"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.credit_debit_form_view
+msgid "Details"
+msgstr "Detalles"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.plantillas_banco_form_view
+msgid "Detalle de Transacción"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__debit_line_ids
+msgid "Detalle de debito/credito"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__amount_residual
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__amount_residual
+msgid "Difference"
+msgstr "Diferencia"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_account_journal__display_name
+#: model:ir.model.fields,field_description:gn_banks.field_account_move__display_name
+#: model:ir.model.fields,field_description:gn_banks.field_account_payment__display_name
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__display_name
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check_line__display_name
+#: model:ir.model.fields,field_description:gn_banks.field_bank_documents__display_name
+#: model:ir.model.fields,field_description:gn_banks.field_bank_template__display_name
+#: model:ir.model.fields,field_description:gn_banks.field_bank_template_line__display_name
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__display_name
+#: model:ir.model.fields,field_description:gn_banks.field_banks_reports__display_name
+#: model:ir.model.fields,field_description:gn_banks.field_banks_wizard_template__display_name
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__display_name
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__display_name
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__display_name
+#: model:ir.model.fields,field_description:gn_banks.field_ir_sequence__display_name
+#: model:ir.model.fields,field_description:gn_banks.field_report_check_report_xls__display_name
+#: model:ir.model.fields,field_description:gn_banks.field_report_gn_banks_card_settlement_report_xls_xlsx__display_name
+#: model:ir.model.fields,field_description:gn_banks.field_report_gn_banks_credit_report_xls_xlsx__display_name
+#: model:ir.model.fields,field_description:gn_banks.field_report_gn_banks_debit_report_xls_xlsx__display_name
+#: model:ir.model.fields,field_description:gn_banks.field_report_gn_banks_deposit_report_xls_xlsx__display_name
+#: model:ir.model.fields,field_description:gn_banks.field_report_gn_banks_transfer_banks_report_xls_xlsx__display_name
+#: model:ir.model.fields,field_description:gn_banks.field_report_gn_banks_wire_transfer_report_xls_xlsx__display_name
+#: model:ir.model.fields,field_description:gn_banks.field_report_report_xlsx_abstract__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_documents__file
+#: model_terms:ir.ui.view,arch_db:gn_banks.credit_debit_form_view
+msgid "Document"
+msgstr "Documento"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__document_ids
+#: model_terms:ir.ui.view,arch_db:gn_banks.credit_debit_form_view
+msgid "Documents"
+msgstr "Documentos"
+
+#. module: gn_banks
+#: model:ir.model.fields.selection,name:gn_banks.selection__bank_check__state__draft
+#: model:ir.model.fields.selection,name:gn_banks.selection__bank_transfer__state__draft
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.template_print_account_journal_entries_document
+msgid "Due Date"
+msgstr "Fecha vencimiento"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__dummy_name
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__dummy_name
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__dummy_name
+msgid "Dummy Name"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.ui.menu,name:gn_banks.dynamic_cheque_config_menu
+msgid "Dynamic Cheque"
+msgstr "Cheque Dinámico"
+
+#. module: gn_banks
+#: model:ir.model.fields.selection,name:gn_banks.selection__bank_template__move_type__debit
+#: model:ir.model.fields.selection,name:gn_banks.selection__debit_credit__move_type__debit
+msgid "Débito"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model.fields.selection,name:gn_banks.selection__ir_sequence__move_type__debit
+msgid "Débitos"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model.fields,help:gn_banks.field_bank_transfer__date
+msgid "Effective Transaction Date"
+msgstr "Fecha de transacción efectiva"
+
+#. module: gn_banks
+#: model:ir.model.fields,help:gn_banks.field_bank_check__date
+#: model:ir.model.fields,help:gn_banks.field_debit_credit__date
+msgid "Effective date for accounting entries"
+msgstr "Fecha efectiva para asientos contables"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.account_desktop_check
+#: model_terms:ir.ui.view,arch_db:gn_banks.account_tranference_payment
+#: model_terms:ir.ui.view,arch_db:gn_banks.check_print
+#: model_terms:ir.ui.view,arch_db:gn_banks.deposit_print
+msgid "Elaborador Por"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_template__company_id
+msgid "Empresa"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_banks_reports__end_date
+msgid "End Date"
+msgstr "Fecha Final"
+
+#. module: gn_banks
+#: code:addons/gn_banks/reports/card_settlement_xls.py:0
+#: code:addons/gn_banks/reports/credit_report_xls.py:0
+#: code:addons/gn_banks/reports/debit_report_xls.py:0
+#: code:addons/gn_banks/reports/deposit_report_xls.py:0
+#: code:addons/gn_banks/reports/transfer_banks_xls.py:0
+#: code:addons/gn_banks/reports/wire_transfer_xls.py:0
+#, python-format
+msgid "End Date: %s"
+msgstr "Fecha Final: %s"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.deposit_print
+msgid "Entregué Conforme"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__error_msg
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__error_msg
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__error_msg
+msgid "Error Massage"
+msgstr "Masaje de error"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check_line__analytic_tag_ids
+#: model:ir.model.fields,field_description:gn_banks.field_bank_template_line__analytic_tag_ids
+msgid "Etiquetas Analíticas"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__currency_rate
+msgid "Exchange rate"
+msgstr "Tasa de cambio"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_documents__file_name
+msgid "File Name"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__first_line_amount
+msgid "First Line"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__fl_left_margin
+msgid "First Line Left Margin"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__fl_top_margin
+msgid "First Line Top Margin"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__fl_width
+msgid "First Line Width"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__message_follower_ids
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__message_follower_ids
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__message_follower_ids
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__message_channel_ids
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__message_channel_ids
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__message_channel_ids
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__message_channel_ids
+msgid "Followers (Channels)"
+msgstr "Seguidores (Canales)"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__message_partner_ids
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__message_partner_ids
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__message_partner_ids
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (Contactos)"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__ac_font_size
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__af_font_size
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__comp_font_size
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__font_size
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__payee_font_size
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__sc_font_size
+msgid "Font Size"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model.fields,help:gn_banks.field_bank_check__activity_type_icon
+#: model:ir.model.fields,help:gn_banks.field_bank_transfer__activity_type_icon
+#: model:ir.model.fields,help:gn_banks.field_debit_credit__activity_type_icon
+#: model:ir.model.fields,help:gn_banks.field_debit_credit_line__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Icono de Font Awesome ej. fa-tasks"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__is_for_payroll
+msgid "For Payroll?"
+msgstr "¿Para la nómina?"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.banks_reports_wizard_form
+msgid "Generate"
+msgstr "Generar"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__cheque_hight
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__sb_hight
+msgid "Height"
+msgstr "Altto"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_account_journal__id
+#: model:ir.model.fields,field_description:gn_banks.field_account_move__id
+#: model:ir.model.fields,field_description:gn_banks.field_account_payment__id
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__id
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check_line__id
+#: model:ir.model.fields,field_description:gn_banks.field_bank_documents__id
+#: model:ir.model.fields,field_description:gn_banks.field_bank_template__id
+#: model:ir.model.fields,field_description:gn_banks.field_bank_template_line__id
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__id
+#: model:ir.model.fields,field_description:gn_banks.field_banks_reports__id
+#: model:ir.model.fields,field_description:gn_banks.field_banks_wizard_template__id
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__id
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__id
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__id
+#: model:ir.model.fields,field_description:gn_banks.field_ir_sequence__id
+#: model:ir.model.fields,field_description:gn_banks.field_report_check_report_xls__id
+#: model:ir.model.fields,field_description:gn_banks.field_report_gn_banks_card_settlement_report_xls_xlsx__id
+#: model:ir.model.fields,field_description:gn_banks.field_report_gn_banks_credit_report_xls_xlsx__id
+#: model:ir.model.fields,field_description:gn_banks.field_report_gn_banks_debit_report_xls_xlsx__id
+#: model:ir.model.fields,field_description:gn_banks.field_report_gn_banks_deposit_report_xls_xlsx__id
+#: model:ir.model.fields,field_description:gn_banks.field_report_gn_banks_transfer_banks_report_xls_xlsx__id
+#: model:ir.model.fields,field_description:gn_banks.field_report_gn_banks_wire_transfer_report_xls_xlsx__id
+#: model:ir.model.fields,field_description:gn_banks.field_report_report_xlsx_abstract__id
+msgid "ID"
+msgstr "Identificación"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__activity_exception_icon
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__activity_exception_icon
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__activity_exception_icon
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__activity_exception_icon
+msgid "Icon"
+msgstr "Icono"
+
+#. module: gn_banks
+#: model:ir.model.fields,help:gn_banks.field_bank_check__activity_exception_icon
+#: model:ir.model.fields,help:gn_banks.field_bank_transfer__activity_exception_icon
+#: model:ir.model.fields,help:gn_banks.field_debit_credit__activity_exception_icon
+#: model:ir.model.fields,help:gn_banks.field_debit_credit_line__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Icono para indicar una actividad de excepción."
+
+#. module: gn_banks
+#: model:ir.model.fields,help:gn_banks.field_bank_check__message_needaction
+#: model:ir.model.fields,help:gn_banks.field_bank_check__message_unread
+#: model:ir.model.fields,help:gn_banks.field_bank_transfer__message_needaction
+#: model:ir.model.fields,help:gn_banks.field_bank_transfer__message_unread
+#: model:ir.model.fields,help:gn_banks.field_debit_credit__message_needaction
+#: model:ir.model.fields,help:gn_banks.field_debit_credit__message_unread
+#: model:ir.model.fields,help:gn_banks.field_debit_credit_line__message_needaction
+#: model:ir.model.fields,help:gn_banks.field_debit_credit_line__message_unread
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcado hay nuevos mensajes que requieren su atención."
+
+#. module: gn_banks
+#: model:ir.model.fields,help:gn_banks.field_bank_check__message_has_error
+#: model:ir.model.fields,help:gn_banks.field_bank_check__message_has_sms_error
+#: model:ir.model.fields,help:gn_banks.field_bank_transfer__message_has_error
+#: model:ir.model.fields,help:gn_banks.field_bank_transfer__message_has_sms_error
+#: model:ir.model.fields,help:gn_banks.field_debit_credit__message_has_error
+#: model:ir.model.fields,help:gn_banks.field_debit_credit__message_has_sms_error
+#: model:ir.model.fields,help:gn_banks.field_debit_credit_line__message_has_error
+#: model:ir.model.fields,help:gn_banks.field_debit_credit_line__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si se encuentra marcado, algunos mensajes tienen error de envío."
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.account_payment_print_check_form
+msgid "Imprimir Cheque"
+msgstr ""
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.account_payment_print_check_form
+msgid "Imprimir Transferencia"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__message_is_follower
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__message_is_follower
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__message_is_follower
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__message_is_follower
+msgid "Is Follower"
+msgstr "Es un seguidor"
+
+#. module: gn_banks
+#: code:addons/gn_banks/reports/card_settlement_xls.py:0
+#: code:addons/gn_banks/reports/credit_report_xls.py:0
+#: code:addons/gn_banks/reports/debit_report_xls.py:0
+#: code:addons/gn_banks/reports/deposit_report_xls.py:0
+#: model:ir.model,name:gn_banks.model_account_journal
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__journal_id
+#: model:ir.model.fields,field_description:gn_banks.field_bank_template__journal_id
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__journal_id
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__journal_id
+#: model:ir.model.fields,field_description:gn_banks.field_ir_sequence__journal_id
+#, python-format
+msgid "Journal"
+msgstr "Diario"
+
+#. module: gn_banks
+#: model:ir.actions.report,name:gn_banks.report_print_account_journal_entries
+msgid "Journal Entries"
+msgstr "Asientos contables"
+
+#. module: gn_banks
+#: model:ir.model,name:gn_banks.model_account_move
+#: model_terms:ir.ui.view,arch_db:gn_banks.template_print_account_journal_entries_document
+msgid "Journal Entry"
+msgstr "Asiento contable"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.template_print_account_journal_entries_document
+msgid "Label"
+msgstr "Descripción"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.view_banks_debit_search
+#: model_terms:ir.ui.view,arch_db:gn_banks.view_check_search
+msgid "Last 30 Days"
+msgstr "Últimos 30 días"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.view_banks_debit_search
+#: model_terms:ir.ui.view,arch_db:gn_banks.view_check_search
+msgid "Last 7 Days"
+msgstr "Últimos 7 días"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_account_journal____last_update
+#: model:ir.model.fields,field_description:gn_banks.field_account_move____last_update
+#: model:ir.model.fields,field_description:gn_banks.field_account_payment____last_update
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check____last_update
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check_line____last_update
+#: model:ir.model.fields,field_description:gn_banks.field_bank_documents____last_update
+#: model:ir.model.fields,field_description:gn_banks.field_bank_template____last_update
+#: model:ir.model.fields,field_description:gn_banks.field_bank_template_line____last_update
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer____last_update
+#: model:ir.model.fields,field_description:gn_banks.field_banks_reports____last_update
+#: model:ir.model.fields,field_description:gn_banks.field_banks_wizard_template____last_update
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom____last_update
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit____last_update
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line____last_update
+#: model:ir.model.fields,field_description:gn_banks.field_ir_sequence____last_update
+#: model:ir.model.fields,field_description:gn_banks.field_report_check_report_xls____last_update
+#: model:ir.model.fields,field_description:gn_banks.field_report_gn_banks_card_settlement_report_xls_xlsx____last_update
+#: model:ir.model.fields,field_description:gn_banks.field_report_gn_banks_credit_report_xls_xlsx____last_update
+#: model:ir.model.fields,field_description:gn_banks.field_report_gn_banks_debit_report_xls_xlsx____last_update
+#: model:ir.model.fields,field_description:gn_banks.field_report_gn_banks_deposit_report_xls_xlsx____last_update
+#: model:ir.model.fields,field_description:gn_banks.field_report_gn_banks_transfer_banks_report_xls_xlsx____last_update
+#: model:ir.model.fields,field_description:gn_banks.field_report_gn_banks_wire_transfer_report_xls_xlsx____last_update
+#: model:ir.model.fields,field_description:gn_banks.field_report_report_xlsx_abstract____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__write_uid
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check_line__write_uid
+#: model:ir.model.fields,field_description:gn_banks.field_bank_documents__write_uid
+#: model:ir.model.fields,field_description:gn_banks.field_bank_template__write_uid
+#: model:ir.model.fields,field_description:gn_banks.field_bank_template_line__write_uid
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__write_uid
+#: model:ir.model.fields,field_description:gn_banks.field_banks_reports__write_uid
+#: model:ir.model.fields,field_description:gn_banks.field_banks_wizard_template__write_uid
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__write_uid
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__write_uid
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__write_date
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check_line__write_date
+#: model:ir.model.fields,field_description:gn_banks.field_bank_documents__write_date
+#: model:ir.model.fields,field_description:gn_banks.field_bank_template__write_date
+#: model:ir.model.fields,field_description:gn_banks.field_bank_template_line__write_date
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__write_date
+#: model:ir.model.fields,field_description:gn_banks.field_banks_reports__write_date
+#: model:ir.model.fields,field_description:gn_banks.field_banks_wizard_template__write_date
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__write_date
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__write_date
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.view_banks_debit_search
+#: model_terms:ir.ui.view,arch_db:gn_banks.view_check_search
+msgid "Last weeks"
+msgstr "Ultimas semanas"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__ac_left_margin
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__af_left_margin
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__comp_left_margin
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__left_margin
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__payee_left_margin
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__sb_left_margin
+#: model_terms:ir.ui.view,arch_db:gn_banks.dynamic_cheque_form_view
+msgid "Left Margin"
+msgstr "Margen Izquierdo"
+
+#. module: gn_banks
+#: code:addons/gn_banks/models/bank_check.py:0
+#: code:addons/gn_banks/models/debit_credit.py:0
+#, python-format
+msgid "Line total must be same as total amount!"
+msgstr "¡El total de la línea debe ser igual al monto total!"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__message_main_attachment_id
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__message_main_attachment_id
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__message_main_attachment_id
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "Adjuntos principales"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__message_has_error
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__message_has_error
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__message_has_error
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__message_has_error
+msgid "Message Delivery error"
+msgstr "Error de Envío de Mensaje"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__message_ids
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__message_ids
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__message_ids
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.view_banks_debit_search
+#: model_terms:ir.ui.view,arch_db:gn_banks.view_banks_transfer_search
+#: model_terms:ir.ui.view,arch_db:gn_banks.view_check_search
+msgid "Moneda"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__move_type
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__move_type
+msgid "Move Type"
+msgstr "Tipo de Movimiento"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__my_activity_date_deadline
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__my_activity_date_deadline
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__my_activity_date_deadline
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr ""
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.account_desktop_check
+msgid "NO NEGOCIABLE"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__name
+#: model:ir.model.fields,field_description:gn_banks.field_bank_documents__name
+#: model:ir.model.fields,field_description:gn_banks.field_bank_template__name
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__name
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__name
+#: model_terms:ir.ui.view,arch_db:gn_banks.credit_debit_form_view
+msgid "Name"
+msgstr "Nombre"
+
+#. module: gn_banks
+#: code:addons/gn_banks/models/bank_check.py:0
+#: code:addons/gn_banks/models/bank_transfer.py:0
+#: code:addons/gn_banks/models/debit_credit.py:0
+#, python-format
+msgid "Negative or zero total is not allowed"
+msgstr "Negativo o cero total no está permitido"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__activity_date_deadline
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__activity_date_deadline
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__activity_date_deadline
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Siguiente plazo de actividad"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__activity_summary
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__activity_summary
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__activity_summary
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__activity_summary
+msgid "Next Activity Summary"
+msgstr "Resumen de la siguiente actividad"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__activity_type_id
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__activity_type_id
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__activity_type_id
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__activity_type_id
+msgid "Next Activity Type"
+msgstr "Siguiente tipo de actividad"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.bank_account_transfer_tree_view
+#: model_terms:ir.ui.view,arch_db:gn_banks.check_list_view
+#: model_terms:ir.ui.view,arch_db:gn_banks.debit_credit_list_view
+msgid "Next Number"
+msgstr "Siguiente número"
+
+#. module: gn_banks
+#: code:addons/gn_banks/reports/card_settlement_xls.py:0
+#: code:addons/gn_banks/reports/credit_report_xls.py:0
+#: code:addons/gn_banks/reports/debit_report_xls.py:0
+#: code:addons/gn_banks/reports/deposit_report_xls.py:0
+#: code:addons/gn_banks/reports/transfer_banks_xls.py:0
+#: code:addons/gn_banks/reports/wire_transfer_xls.py:0
+#, python-format
+msgid "No."
+msgstr "N°"
+
+#. module: gn_banks
+#: code:addons/gn_banks/reports/check_report_xls.py:0
+#, python-format
+msgid "#"
+msgstr "N°"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__words_in_fl_line
+msgid "No. of Word in First Line"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__words_in_sc_line
+msgid "No. of Word in Second Line"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_banks_wizard_template__name
+msgid "Nombre de plantilla"
+msgstr ""
+
+#. module: gn_banks
+#: code:addons/gn_banks/reports/card_settlement_xls.py:0
+#: code:addons/gn_banks/reports/credit_report_xls.py:0
+#: code:addons/gn_banks/reports/debit_report_xls.py:0
+#: code:addons/gn_banks/reports/deposit_report_xls.py:0
+#: code:addons/gn_banks/reports/transfer_banks_xls.py:0
+#: code:addons/gn_banks/reports/wire_transfer_xls.py:0
+#: model_terms:ir.ui.view,arch_db:gn_banks.bank_account_transfer_tree_view
+#: model_terms:ir.ui.view,arch_db:gn_banks.check_list_view
+#: model_terms:ir.ui.view,arch_db:gn_banks.debit_credit_list_view
+#, python-format
+msgid "Number"
+msgstr "Número"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__message_needaction_counter
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__message_needaction_counter
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__message_needaction_counter
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de acciones"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__message_has_error_counter
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__message_has_error_counter
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__message_has_error_counter
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__message_has_error_counter
+msgid "Number of errors"
+msgstr "Numero de errores"
+
+#. module: gn_banks
+#: model:ir.model.fields,help:gn_banks.field_bank_check__message_needaction_counter
+#: model:ir.model.fields,help:gn_banks.field_bank_transfer__message_needaction_counter
+#: model:ir.model.fields,help:gn_banks.field_debit_credit__message_needaction_counter
+#: model:ir.model.fields,help:gn_banks.field_debit_credit_line__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "Número de mensajes que requieren una acción"
+
+#. module: gn_banks
+#: model:ir.model.fields,help:gn_banks.field_bank_check__message_has_error_counter
+#: model:ir.model.fields,help:gn_banks.field_bank_transfer__message_has_error_counter
+#: model:ir.model.fields,help:gn_banks.field_debit_credit__message_has_error_counter
+#: model:ir.model.fields,help:gn_banks.field_debit_credit_line__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensajes con error de envío"
+
+#. module: gn_banks
+#: model:ir.model.fields,help:gn_banks.field_bank_check__message_unread_counter
+#: model:ir.model.fields,help:gn_banks.field_bank_transfer__message_unread_counter
+#: model:ir.model.fields,help:gn_banks.field_debit_credit__message_unread_counter
+#: model:ir.model.fields,help:gn_banks.field_debit_credit_line__message_unread_counter
+msgid "Number of unread messages"
+msgstr "Número de mensajes no leidos"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.deposit_print
+msgid "Original: Cliente"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model.fields.selection,name:gn_banks.selection__account_payment__payment_move_type__otro
+#: model:ir.model.fields.selection,name:gn_banks.selection__ir_sequence__move_type__otro
+msgid "Otro"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check_line__partner_id
+#: model:ir.model.fields,field_description:gn_banks.field_bank_template__partner_id
+#: model:ir.model.fields,field_description:gn_banks.field_bank_template_line__partner_id
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__partner_id
+#: model_terms:ir.ui.view,arch_db:gn_banks.template_print_account_journal_entries_document
+#: model_terms:ir.ui.view,arch_db:gn_banks.view_check_search
+msgid "Partner"
+msgstr "Contacto"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__partner_id
+msgid "Pay To"
+msgstr "Pagar a"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.dynamic_cheque_form_view
+msgid "Payee Name"
+msgstr ""
+
+#. module: gn_banks
+#: code:addons/gn_banks/reports/check_report_xls.py:0
+#: code:addons/gn_banks/reports/wire_transfer_xls.py:0
+#, python-format
+msgid "Payment To"
+msgstr "Pagar a"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_account_payment__payment_move_type
+msgid "Payment Transaction Type"
+msgstr "Tipo de Transaccion de Pago"
+
+#. module: gn_banks
+#: model:ir.model,name:gn_banks.model_account_payment
+msgid "Payments"
+msgstr "Pagos"
+
+#. module: gn_banks
+#: model:ir.actions.act_window,name:gn_banks.action_plantilla_bancaria
+#: model:ir.ui.menu,name:gn_banks.menu_plantillas_bancos
+msgid "Plantillas Bancarias"
+msgstr ""
+
+#. module: gn_banks
+#: code:addons/gn_banks/models/bank_check.py:0
+#: code:addons/gn_banks/models/debit_credit.py:0
+#, python-format
+msgid "Please add some line before validate!"
+msgstr "¡Agregue alguna línea antes de validar!"
+
+#. module: gn_banks
+#: model:ir.model.fields.selection,name:gn_banks.selection__bank_check__state__postdated
+msgid "Post-Dated"
+msgstr "Post-fechado"
+
+#. module: gn_banks
+#: model:ir.actions.report,name:gn_banks.account_payment_desktop_check
+#: model:ir.actions.report,name:gn_banks.account_payment_tranference
+msgid "Print Account Check Voucher"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.actions.report,name:gn_banks.banks_desktop_voucher
+msgid "Print Check Desktop"
+msgstr "Imprimir Cheque Escritorio"
+
+#. module: gn_banks
+#: model:ir.actions.report,name:gn_banks.banks_check_print
+msgid "Print Check Voucher"
+msgstr "Imprimir Cheque Voucher"
+
+#. module: gn_banks
+#: model:ir.actions.report,name:gn_banks.dynamic_cheque_print_report_action
+msgid "Print Dynamic Cheque"
+msgstr "Imprimir Cheque"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.bank_account_transfer_view
+#: model_terms:ir.ui.view,arch_db:gn_banks.bank_check_view
+#: model_terms:ir.ui.view,arch_db:gn_banks.credit_debit_form_view
+msgid "Print Entry"
+msgstr "Imprimir Asiento"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.credit_debit_form_view
+msgid "Print Voucher"
+msgstr "Imprimir Voucher"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.deposit_print
+msgid "RECIBO DE CAJA"
+msgstr ""
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.account_desktop_check
+#: model_terms:ir.ui.view,arch_db:gn_banks.account_tranference_payment
+#: model_terms:ir.ui.view,arch_db:gn_banks.check_print
+msgid "Recibido Por"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.ui.menu,name:gn_banks.menu_banks_reports
+msgid "Reports"
+msgstr "Reportes"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__activity_user_id
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__activity_user_id
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__activity_user_id
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__activity_user_id
+msgid "Responsible User"
+msgstr "Usuario responsable"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__message_has_sms_error
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__message_has_sms_error
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__message_has_sms_error
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Error de entrega del SMS"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__second_line_amount
+msgid "Second Line"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__sc_left_margin
+msgid "Second Line Left Margin"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__sc_top_margin
+msgid "Second Line Top Margin"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__sc_width
+msgid "Second Line Width"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model,name:gn_banks.model_ir_sequence
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_account_bank_statement_line__sequence_generated
+#: model:ir.model.fields,field_description:gn_banks.field_account_move__sequence_generated
+#: model:ir.model.fields,field_description:gn_banks.field_account_payment__sequence_generated
+msgid "Sequence Generated"
+msgstr "Secuencia generada"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_account_journal__sequence_ids
+msgid "Sequences"
+msgstr "Sequencias"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.bank_account_transfer_view
+#: model_terms:ir.ui.view,arch_db:gn_banks.bank_check_view
+#: model_terms:ir.ui.view,arch_db:gn_banks.credit_debit_form_view
+msgid "Set To Draft"
+msgstr "Establecer en borrador"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.dynamic_cheque_form_view
+msgid "Signature Box"
+msgstr ""
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.template_print_account_journal_entries_document
+msgid "Sr"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_banks_reports__start_date
+msgid "Start Date"
+msgstr "Fecha Inicio"
+
+#. module: gn_banks
+#: code:addons/gn_banks/reports/card_settlement_xls.py:0
+#: code:addons/gn_banks/reports/credit_report_xls.py:0
+#: code:addons/gn_banks/reports/debit_report_xls.py:0
+#: code:addons/gn_banks/reports/deposit_report_xls.py:0
+#: code:addons/gn_banks/reports/transfer_banks_xls.py:0
+#: code:addons/gn_banks/reports/wire_transfer_xls.py:0
+#, python-format
+msgid "Start Date: %s"
+msgstr "Fecha Inicio: %s"
+
+#. module: gn_banks
+#: code:addons/gn_banks/reports/check_report_xls.py:0
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__state
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__state
+#, python-format
+msgid "State"
+msgstr "Estado"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__state
+msgid "Status"
+msgstr "Estado"
+
+#. module: gn_banks
+#: model:ir.model.fields,help:gn_banks.field_bank_check__activity_state
+#: model:ir.model.fields,help:gn_banks.field_bank_transfer__activity_state
+#: model:ir.model.fields,help:gn_banks.field_debit_credit__activity_state
+#: model:ir.model.fields,help:gn_banks.field_debit_credit_line__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Estado basado en actividades\n"
+"Vencida: la fecha tope ya ha pasado\n"
+"Hoy: La fecha tope es hoy\n"
+"Planificada: futuras actividades."
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.desktop_voucher
+msgid "TEGUCIGALPA"
+msgstr ""
+
+#. module: gn_banks
+#: code:addons/gn_banks/reports/transfer_banks_xls.py:0
+#, python-format
+msgid "TRANSFER BETWEEN BANKS"
+msgstr "TRANSFERENCIA ENTRE BANCOS"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.check_print
+msgid "Tegucigalpa"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__template_id
+#: model:ir.model.fields,field_description:gn_banks.field_bank_template_line__template_id
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__template_id
+msgid "Template"
+msgstr "Plantilla"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_template__template_lines
+msgid "Template Lines"
+msgstr "Líneas de plantilla"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.view_banks_debit_search
+#: model_terms:ir.ui.view,arch_db:gn_banks.view_check_search
+msgid "This Year"
+msgstr "Este Año"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.view_banks_debit_search
+#: model_terms:ir.ui.view,arch_db:gn_banks.view_check_search
+msgid "This weeks"
+msgstr "De esta semana"
+
+#. module: gn_banks
+#: code:addons/gn_banks/reports/transfer_banks_xls.py:0
+#, python-format
+msgid "To Bank"
+msgstr "Al Banco"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.view_banks_debit_search
+#: model_terms:ir.ui.view,arch_db:gn_banks.view_check_search
+msgid "Today"
+msgstr "Hoy"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__ac_top_margin
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__af_top_margin
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__comp_top_margin
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__payee_top_margin
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__sb_top_margin
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__top_margin
+#: model_terms:ir.ui.view,arch_db:gn_banks.dynamic_cheque_form_view
+msgid "Top Margin"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__total
+#: model:ir.model.fields,field_description:gn_banks.field_bank_template__total
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__total
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__total
+#: model_terms:ir.ui.view,arch_db:gn_banks.bank_check_view
+msgid "Total"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__total_credit
+msgid "Total Credit"
+msgstr "Total Crédito"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__total_debit
+msgid "Total Debit"
+msgstr "Total Debito"
+
+#. module: gn_banks
+#: code:addons/gn_banks/reports/card_settlement_xls.py:0
+#: code:addons/gn_banks/reports/credit_report_xls.py:0
+#: code:addons/gn_banks/reports/debit_report_xls.py:0
+#: code:addons/gn_banks/reports/deposit_report_xls.py:0
+#: code:addons/gn_banks/reports/transfer_banks_xls.py:0
+#: code:addons/gn_banks/reports/wire_transfer_xls.py:0
+#, python-format
+msgid "TOTAL:"
+msgstr "TOTAL:"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.bank_check_view
+#: model_terms:ir.ui.view,arch_db:gn_banks.credit_debit_form_view
+msgid "Transaction Detail"
+msgstr "Detalle de la transacción"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.bank_check_view
+msgid "Transaction Details"
+msgstr "Detalle de la transacción"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__move_type
+#: model:ir.model.fields,field_description:gn_banks.field_bank_template__move_type
+#: model:ir.model.fields,field_description:gn_banks.field_banks_reports__transaction_type
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__move_type
+#: model:ir.model.fields,field_description:gn_banks.field_ir_sequence__move_type
+#: model_terms:ir.ui.view,arch_db:gn_banks.banks_journal_template_view_form
+msgid "Transaction Type"
+msgstr "Tipo de transacción"
+
+#. module: gn_banks
+#: model:ir.model.fields.selection,name:gn_banks.selection__account_payment__payment_move_type__transference
+msgid "Transfer"
+msgstr "Transferencia"
+
+#. module: gn_banks
+#: code:addons/gn_banks/reports/transfer_banks_xls.py:0
+#, python-format
+msgid "Transfer Between Banks"
+msgstr "Transferencia entre bancos"
+
+#. module: gn_banks
+#: model:ir.actions.report,name:gn_banks.action_transfer_banks_report_xls
+msgid "Transfer Between Banks XLS"
+msgstr "Transferencia entre bancos XLS"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__dest_journal_id
+msgid "Transfer To"
+msgstr "Transferir a"
+
+#. module: gn_banks
+#: model:ir.model.fields.selection,name:gn_banks.selection__banks_reports__transaction_type__tbb
+msgid "Transfer between banks"
+msgstr "Transferencia entre bancos"
+
+#. module: gn_banks
+#: model:ir.actions.act_window,name:gn_banks.action_bank_transference
+#: model:ir.ui.menu,name:gn_banks.menu_bank_transference
+msgid "Transference"
+msgstr "Transferencia"
+
+#. module: gn_banks
+#: model:ir.model.fields.selection,name:gn_banks.selection__bank_check__move_type__transference
+#: model:ir.model.fields.selection,name:gn_banks.selection__bank_template__move_type__transference
+msgid "Transferencia"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model.fields.selection,name:gn_banks.selection__ir_sequence__move_type__transference
+msgid "Transferencias"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model.fields.selection,name:gn_banks.selection__ir_sequence__move_type__transference_banks
+msgid "Transferencias entre Bancos"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__type
+msgid "Type"
+msgstr "Tipo"
+
+#. module: gn_banks
+#: model:ir.model.fields,help:gn_banks.field_bank_check__activity_exception_decoration
+#: model:ir.model.fields,help:gn_banks.field_bank_transfer__activity_exception_decoration
+#: model:ir.model.fields,help:gn_banks.field_debit_credit__activity_exception_decoration
+#: model:ir.model.fields,help:gn_banks.field_debit_credit_line__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Tipo de actividad de excepción registrada."
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__message_unread
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__message_unread
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__message_unread
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__message_unread
+msgid "Unread Messages"
+msgstr "Mensajes sin leer"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__message_unread_counter
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__message_unread_counter
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__message_unread_counter
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "Nº de mensajes sin leer"
+
+#. module: gn_banks
+#: model:res.groups,name:gn_banks.banks_check_user
+msgid "User Checks/Transfer"
+msgstr "Usuario Cheques / Transferencia"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.banks_journal_template_view_form
+msgid "Validar"
+msgstr ""
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.bank_account_transfer_view
+#: model_terms:ir.ui.view,arch_db:gn_banks.bank_check_view
+#: model_terms:ir.ui.view,arch_db:gn_banks.credit_debit_form_view
+msgid "Validate"
+msgstr "Validar"
+
+#. module: gn_banks
+#: code:addons/gn_banks/reports/check_report_xls.py:0
+#: model:ir.model.fields.selection,name:gn_banks.selection__bank_check__state__validated
+#: model:ir.model.fields.selection,name:gn_banks.selection__bank_transfer__state__validated
+#: model:ir.model.fields.selection,name:gn_banks.selection__debit_credit__state__validated
+#, python-format
+msgid "Validated"
+msgstr "Validado"
+
+#. module: gn_banks
+#: model:ir.actions.report,name:gn_banks.banks_deposit_print
+msgid "Voucher"
+msgstr ""
+
+#. module: gn_banks
+#: code:addons/gn_banks/reports/wire_transfer_xls.py:0
+#, python-format
+msgid "WIRE TRANSFER"
+msgstr "Transferencia Bancaria"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_bank_check__website_message_ids
+#: model:ir.model.fields,field_description:gn_banks.field_bank_transfer__website_message_ids
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit__website_message_ids
+#: model:ir.model.fields,field_description:gn_banks.field_debit_credit_line__website_message_ids
+msgid "Website Messages"
+msgstr "Mensajes del sitio web"
+
+#. module: gn_banks
+#: model:ir.model.fields,help:gn_banks.field_bank_check__website_message_ids
+#: model:ir.model.fields,help:gn_banks.field_bank_transfer__website_message_ids
+#: model:ir.model.fields,help:gn_banks.field_debit_credit__website_message_ids
+#: model:ir.model.fields,help:gn_banks.field_debit_credit_line__website_message_ids
+msgid "Website communication history"
+msgstr "Historial de comunicaciones del sitio web"
+
+#. module: gn_banks
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__af_width
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__cheque_width
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__payee_width
+#: model:ir.model.fields,field_description:gn_banks.field_check_format_custom__sb_width
+#: model_terms:ir.ui.view,arch_db:gn_banks.dynamic_cheque_form_view
+msgid "Width"
+msgstr "Ancho"
+
+#. module: gn_banks
+#: code:addons/gn_banks/reports/wire_transfer_xls.py:0
+#: model:ir.model.fields.selection,name:gn_banks.selection__banks_reports__transaction_type__wire_transfer
+#, python-format
+msgid "Wire Transfer"
+msgstr "Transferencia Bancaria"
+
+#. module: gn_banks
+#: model:ir.actions.report,name:gn_banks.action_wire_transfer_report_xls
+msgid "Wire Transfer XLS"
+msgstr "Transferencia Bancaria XLS"
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.view_banks_debit_search
+#: model_terms:ir.ui.view,arch_db:gn_banks.view_check_search
+msgid "Yesterday"
+msgstr "Ayer"
+
+#. module: gn_banks
+#: code:addons/gn_banks/models/bank_check.py:0
+#: code:addons/gn_banks/models/bank_transfer.py:0
+#: code:addons/gn_banks/models/debit_credit.py:0
+#, python-format
+msgid "You cannot delete an record which has been validated once."
+msgstr "No puede eliminar un registro que haya sido validado una vez."
+
+#. module: gn_banks
+#: model:ir.model,name:gn_banks.model_bank_documents
+msgid "bank documents"
+msgstr "Documentos"
+
+#. module: gn_banks
+#: model:ir.model,name:gn_banks.model_banks_reports
+msgid "banks reports"
+msgstr "Reporte bancos"
+
+#. module: gn_banks
+#: model:ir.model,name:gn_banks.model_check_format_custom
+msgid "check format custom"
+msgstr "Formato Personalizado"
+
+#. module: gn_banks
+#: model:ir.model.fields.selection,name:gn_banks.selection__debit_credit__state__draft
+msgid "draft"
+msgstr "Borrador"
+
+#. module: gn_banks
+#: model:ir.model,name:gn_banks.model_report_gn_banks_card_settlement_report_xls_xlsx
+msgid "report gn_banks card_settlement_report_xls xlsx"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model,name:gn_banks.model_report_gn_banks_credit_report_xls_xlsx
+msgid "report gn_banks credit_report_xls xlsx"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model,name:gn_banks.model_report_gn_banks_debit_report_xls_xlsx
+msgid "report gn_banks debit_report_xls xlsx"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model,name:gn_banks.model_report_gn_banks_deposit_report_xls_xlsx
+msgid "report gn_banks deposit_report_xls xlsx"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model,name:gn_banks.model_report_gn_banks_transfer_banks_report_xls_xlsx
+msgid "report gn_banks transfer_banks_report_xls xlsx"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model,name:gn_banks.model_report_gn_banks_wire_transfer_report_xls_xlsx
+msgid "report gn_banks wire_transfer_report_xls xlsx"
+msgstr ""
+
+#. module: gn_banks
+#: model:ir.model,name:gn_banks.model_report_report_xlsx_abstract
+msgid "report report_xlsx abstract"
+msgstr ""
+
+#. module: gn_banks
+#: model_terms:ir.ui.view,arch_db:gn_banks.bank_account_transfer_tree_view
+#: model_terms:ir.ui.view,arch_db:gn_banks.banks_template_view_tree
+#: model_terms:ir.ui.view,arch_db:gn_banks.check_list_view
+#: model_terms:ir.ui.view,arch_db:gn_banks.debit_credit_list_view
+msgid "total"
+msgstr "Total"

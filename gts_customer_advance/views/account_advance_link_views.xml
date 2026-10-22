@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista de lista de enlaces de anticipos -->
+    <record id="view_account_advance_link_tree" model="ir.ui.view">
+        <field name="name">account.advance.link.tree</field>
+        <field name="model">account.advance.link</field>
+        <field name="arch" type="xml">
+            <list create="0" delete="0">
+                <field name="payment_id"/>
+                <field name="payment_date"/>
+                <field name="move_id"/>
+                <field name="invoice_date"/>
+                <field name="amount" widget="monetary" options="{'currency_field': 'currency_id'}" sum="Total"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'applied'"
+                       decoration-danger="state == 'reversed'"/>
+                <field name="applied_date"/>
+                <field name="applied_user_id"/>
+                <field name="reclass_move_id"/>
+                <field name="company_id" optional="hide"/>
+                <field name="advance_cancel_allowed" column_invisible="1"/>
+                <button name="action_reverse" 
+                        type="object" 
+                        string="Revertir" 
+                        icon="fa-undo"
+                        invisible="state == 'reversed' or not advance_cancel_allowed"
+                        class="btn-danger"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Vista de formulario de enlaces de anticipos -->
+    <record id="view_account_advance_link_form" model="ir.ui.view">
+        <field name="name">account.advance.link.form</field>
+        <field name="model">account.advance.link</field>
+        <field name="arch" type="xml">
+            <form create="0">
+                <header>
+                    <field name="advance_cancel_allowed" invisible="1"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="display_name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Anticipo">
+                            <field name="payment_id"/>
+                            <field name="payment_date"/>
+                            <field name="amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group string="Factura">
+                            <field name="move_id"/>
+                            <field name="invoice_date"/>
+                            <field name="partner_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Reclasificación">
+                            <field name="reclass_move_id"/>
+                        </group>
+                        <group string="Auditoría">
+                            <field name="applied_date"/>
+                            <field name="applied_user_id"/>
+                            <field name="company_id"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_button_box" name="button_box">
+                    <button name="action_reverse" 
+                            type="object" 
+                            string="Revertir Aplicación" 
+                            icon="fa-undo"
+                            class="oe_stat_button btn-danger"
+                            invisible="state == 'reversed' or not advance_cancel_allowed"
+                            help="Revertir esta aplicación de anticipo"/>
+                </div>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vista de búsqueda de enlaces de anticipos -->
+    <record id="view_account_advance_link_search" model="ir.ui.view">
+        <field name="name">account.advance.link.search</field>
+        <field name="model">account.advance.link</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="payment_id"/>
+                <field name="move_id"/>
+                <field name="partner_id"/>
+                <separator/>
+                <filter string="Aplicados" name="filter_applied" domain="[('state', '=', 'applied')]"/>
+                <filter string="Revertidos" name="filter_reversed" domain="[('state', '=', 'reversed')]"/>
+                <separator/>
+                <group name="group_by">
+                    <filter string="Cliente" name="group_partner" domain="[]" context="{'group_by': 'partner_id'}"/>
+                    <filter string="Anticipo" name="group_payment" domain="[]" context="{'group_by': 'payment_id'}"/>
+                    <filter string="Factura" name="group_move" domain="[]" context="{'group_by': 'move_id'}"/>
+                    <filter string="Estado" name="group_state" domain="[]" context="{'group_by': 'state'}"/>
+                    <filter string="Fecha de aplicación" name="group_applied_date" domain="[]" context="{'group_by': 'applied_date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Acción para ver enlaces de anticipos de clientes -->
+    <record id="action_account_advance_link_customers" model="ir.actions.act_window">
+        <field name="name">Aplicaciones de Anticipos de Clientes</field>
+        <field name="res_model">account.advance.link</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_account_advance_link_search"/>
+        <field name="domain">[('partner_id.customer_rank', '>', 0)]</field>
+        <field name="context">{'search_default_filter_applied': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay aplicaciones de anticipos de clientes registradas.
+            </p>
+            <p>
+                Las aplicaciones se crean automáticamente cuando se aplica
+                un anticipo a una factura de cliente.
+            </p>
+        </field>
+    </record>
+
+    <!-- Acción para ver enlaces de anticipos de proveedores -->
+    <record id="action_account_advance_link_vendors" model="ir.actions.act_window">
+        <field name="name">Aplicaciones de Anticipos de Proveedores</field>
+        <field name="res_model">account.advance.link</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_account_advance_link_search"/>
+        <field name="domain">[('partner_id.supplier_rank', '>', 0)]</field>
+        <field name="context">{'search_default_filter_applied': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay aplicaciones de anticipos de proveedores registradas.
+            </p>
+            <p>
+                Las aplicaciones se crean automáticamente cuando se aplica
+                un anticipo a una factura de proveedor.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menú para ver aplicaciones de anticipos de clientes -->
+    <menuitem id="menu_account_advance_link_customers"
+              name="Aplicaciones de Anticipos"
+              parent="account.menu_finance_receivables"
+              action="action_account_advance_link_customers"
+              sequence="16"/>
+
+    <!-- Menú para ver aplicaciones de anticipos de proveedores -->
+    <menuitem id="menu_account_advance_link_vendors"
+              name="Aplicaciones de Anticipos"
+              parent="account.menu_finance_payables"
+              action="action_account_advance_link_vendors"
+              sequence="16"/>
+</odoo>

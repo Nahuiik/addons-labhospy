@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_financial_dashboard.IndicatorGauge">
+        <div t-att-class="statusClass">
+            <div class="gn-fd-indicator__title" t-esc="props.indicator.name"/>
+            <div class="gn-fd-indicator__body">
+                <div class="gn-fd-indicator__gauge">
+                    <canvas t-ref="canvas"/>
+                    <div class="gn-fd-indicator__value">
+                        <span t-esc="props.indicator.display"/>
+                    </div>
+                </div>
+                <div class="gn-fd-indicator__info">
+                    <div class="gn-fd-indicator__formula" t-esc="props.indicator.formula"/>
+                    <ul class="gn-fd-indicator__notes">
+                        <li t-if="props.indicator.ok" class="gn-fd-indicator__note--ok">
+                            <i class="fa fa-check-circle"/> <t t-esc="props.indicator.ok"/>
+                        </li>
+                        <li t-if="props.indicator.warn" class="gn-fd-indicator__note--warn">
+                            <i class="fa fa-exclamation-triangle"/> <t t-esc="props.indicator.warn"/>
+                        </li>
+                        <li t-if="props.indicator.bad" class="gn-fd-indicator__note--bad">
+                            <i class="fa fa-times-circle"/> <t t-esc="props.indicator.bad"/>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

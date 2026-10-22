@@ -1,0 +1,151 @@
+/* Dashboard de Informes de Empleados - OWL */
+
+.oe-report-dashboard-wrap {
+    height: calc(100vh - 120px);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.oe-report-dashboard {
+    padding: 20px 24px;
+    max-width: 1400px;
+    margin: 0 auto;
+
+    &__intro {
+        margin-bottom: 24px;
+        padding: 16px 20px;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border-radius: 12px;
+        border-left: 4px solid #0d6efd;
+    }
+
+    &__intro-text {
+        margin: 0;
+        font-size: 15px;
+        color: #495057;
+        line-height: 1.5;
+    }
+
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 20px;
+    }
+}
+
+.oe-report-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e9ecef;
+    overflow: hidden;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+
+    &:hover {
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    &--category {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 18px;
+        background: var(--category-color, #6c757d);
+        color: #fff;
+        font-weight: 600;
+        font-size: 15px;
+    }
+
+    &__category-icon {
+        font-size: 18px;
+        opacity: 0.95;
+    }
+
+    &__category-label {
+        flex: 1;
+        text-transform: capitalize;
+    }
+
+    &__body {
+        padding: 12px 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+}
+
+.oe-report-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 12px 16px;
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    text-align: left;
+    font-size: 14px;
+    color: #212529;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+
+    &:hover {
+        background: #f1f3f5;
+        color: #0d6efd;
+    }
+
+    &:active {
+        background: #e9ecef;
+    }
+
+    &__icon {
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #e9ecef;
+        border-radius: 8px;
+        color: #6c757d;
+        font-size: 14px;
+        flex-shrink: 0;
+    }
+
+    &:hover &__icon {
+        background: #0d6efd;
+        color: #fff;
+    }
+
+    &__label {
+        flex: 1;
+        font-weight: 500;
+    }
+
+    &__arrow {
+        font-size: 12px;
+        color: #adb5bd;
+        opacity: 0;
+        transition: opacity 0.15s ease;
+    }
+
+    &:hover &__arrow {
+        opacity: 1;
+        color: #0d6efd;
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .oe-report-dashboard {
+        padding: 16px;
+
+        &__grid {
+            grid-template-columns: 1fr;
+        }
+    }
+}

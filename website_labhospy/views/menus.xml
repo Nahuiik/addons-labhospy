@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Solo menú esencial: homepage + contacto -->
+    <function model="website.menu" name="write">
+        <value model="website.menu" search="[('url', '=', '/'), ('website_id', '=', ref('website.default_website'))]"/>
+        <value eval="{'name': 'INICIO', 'sequence': 10}"/>
+    </function>
+    <function model="website.menu" name="write">
+        <value model="website.menu" search="[('url', '=', '/contactus'), ('website_id', '=', ref('website.default_website'))]"/>
+        <value eval="{'name': 'CONTÁCTANOS', 'sequence': 20}"/>
+    </function>
+    <record id="menu_sobre_nosotros" model="website.menu">
+        <field name="name">SOBRE NOSOTROS</field>
+        <field name="url">/about-us</field>
+        <field name="page_id" model="website.page" search="[('url', '=', '/about-us')]"/>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">15</field>
+        <field name="website_id" ref="website.default_website"/>
+    </record>
+    <function model="website.menu" name="unlink">
+        <value model="website.menu" search="[('url', 'in', ['/#productos', '/#marcas', '/contactus?subject=Solicitud%20de%20cotizaci%C3%B3n']), ('website_id', '=', ref('website.default_website'))]"/>
+    </function>
+</odoo>

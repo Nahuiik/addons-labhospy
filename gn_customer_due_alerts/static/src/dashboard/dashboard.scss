@@ -1,0 +1,110 @@
+// Scroll del action lo maneja .o_gn_dashboard_root (dashboard_common.scss).
+
+.o_gn_due {
+    padding: 16px 20px 40px;
+    background: #f5f6f8;
+
+    .o_gn_due_topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 18px;
+
+        .o_gn_due_title {
+            margin: 0;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        .o_gn_due_sub {
+            color: #7f8c8d;
+            font-size: 13px;
+        }
+    }
+
+    .o_gn_due_msg {
+        padding: 24px;
+        font-size: 15px;
+    }
+
+    // --- Tarjetas semaforo ---
+    .o_gn_due_cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 14px;
+        margin-bottom: 12px;
+    }
+
+    .o_gn_due_card {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 16px 18px;
+        border-radius: 12px;
+        color: #fff;
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+        transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+        opacity: .82;
+
+        &:hover { transform: translateY(-2px); opacity: 1; }
+        &.o_gn_selected {
+            opacity: 1;
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.12), 0 6px 14px rgba(0, 0, 0, 0.18);
+            transform: translateY(-2px);
+        }
+
+        .o_gn_due_card_icon {
+            font-size: 30px;
+            width: 44px;
+            text-align: center;
+            opacity: .9;
+        }
+        .o_gn_due_card_label { font-size: 13px; text-transform: uppercase; letter-spacing: .4px; }
+        .o_gn_due_card_count { font-size: 30px; font-weight: 700; line-height: 1.1; }
+        .o_gn_due_card_total { font-size: 13px; opacity: .95; }
+    }
+
+    .o_gn_card_overdue  { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+    .o_gn_card_today    { background: linear-gradient(135deg, #f39c12, #e67e22); }
+    .o_gn_card_soon     { background: linear-gradient(135deg, #f7dc6f, #f1c40f); color: #5d4a00; }
+    .o_gn_card_upcoming { background: linear-gradient(135deg, #2ecc71, #27ae60); }
+
+    .o_gn_due_grand {
+        margin: 8px 2px 18px;
+        font-size: 15px;
+        color: #2c3e50;
+        strong { color: #c0392b; }
+    }
+
+    // --- Detalle ---
+    .o_gn_due_detail {
+        background: #fff;
+        border-radius: 12px;
+        padding: 16px 18px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+
+        h3 {
+            margin: 0 0 12px;
+            font-weight: 600;
+            padding-left: 10px;
+            border-left: 5px solid #bdc3c7;
+        }
+        .o_gn_head_overdue  { border-color: #c0392b; color: #c0392b; }
+        .o_gn_head_today    { border-color: #e67e22; color: #e67e22; }
+        .o_gn_head_soon     { border-color: #f1c40f; color: #b7950b; }
+        .o_gn_head_upcoming { border-color: #27ae60; color: #27ae60; }
+    }
+
+    .o_gn_due_table {
+        margin: 0;
+        .o_gn_due_row { cursor: pointer; }
+        th { color: #7f8c8d; font-size: 12px; text-transform: uppercase; }
+    }
+
+    .badge.o_gn_badge_overdue  { background: #c0392b; color: #fff; }
+    .badge.o_gn_badge_today    { background: #e67e22; color: #fff; }
+    .badge.o_gn_badge_soon     { background: #f1c40f; color: #5d4a00; }
+    .badge.o_gn_badge_upcoming { background: #27ae60; color: #fff; }
+}

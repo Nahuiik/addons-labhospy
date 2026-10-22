@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gts_customer_advance.KpiCard">
+        <div t-attf-class="gts-advance-kpi-card {{ colorClass }}">
+            <div class="gts-advance-kpi-card__icon">
+                <i t-attf-class="fa {{ props.icon || 'fa-bar-chart' }}"/>
+            </div>
+            <div class="gts-advance-kpi-card__body">
+                <div class="gts-advance-kpi-card__value"><t t-esc="props.value"/></div>
+                <div class="gts-advance-kpi-card__label"><t t-esc="props.label"/></div>
+            </div>
+        </div>
+    </t>
+
+</templates>

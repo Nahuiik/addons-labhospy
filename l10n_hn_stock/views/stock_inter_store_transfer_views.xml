@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_stock_inter_store_transfer_form" model="ir.ui.view">
+        <field name="name">stock.inter.store.transfer.form</field>
+        <field name="model">stock.inter.store.transfer</field>
+        <field name="arch" type="xml">
+            <form string="Traslado entre Tiendas">
+                <header>
+                    <button
+                        name="action_confirm"
+                        string="Confirmar"
+                        type="object"
+                        class="btn-primary"
+                        invisible="state != 'draft'"
+                    />
+                    <button
+                        name="action_send"
+                        string="Enviar"
+                        type="object"
+                        class="btn-primary"
+                        invisible="state != 'confirmed'"
+                    />
+                    <button
+                        name="action_receive"
+                        string="Recibir"
+                        type="object"
+                        class="btn-primary"
+                        invisible="state != 'sent'"
+                    />
+                    <button
+                        name="action_cancel"
+                        string="Cancelar"
+                        type="object"
+                        class="btn-danger"
+                        invisible="state not in ('draft', 'confirmed', 'sent')"
+                        confirm="¿Está seguro de querer cancelar el traslado?"
+                    />
+                    <button
+                        name="action_draft"
+                        string="Volver a borrador"
+                        type="object"
+                        invisible="state != 'cancel'"
+                    />
+                    <button
+                        name="action_generate_remission_sequence"
+                        string="Generar guía de remisión"
+                        type="object"
+                        class="btn-secondary"
+                        invisible="not hn_remission_enabled or hn_remission_number or state not in ('confirmed', 'sent', 'received')"
+                    />
+                    <button
+                        name="action_print_remission_guide"
+                        string="Imprimir guía de remisión"
+                        type="object"
+                        class="btn-secondary"
+                        invisible="not hn_remission_enabled or not hn_remission_number"
+                    />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,sent,received"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            type="object"
+                            name="action_view_picking_out"
+                            class="oe_stat_button"
+                            icon="fa-truck"
+                            string="Envío"
+                            invisible="not picking_out_id"
+                        />
+                        <button
+                            type="object"
+                            name="action_view_picking_in"
+                            class="oe_stat_button"
+                            icon="fa-archive"
+                            string="Recepción"
+                            invisible="not picking_in_id"
+                        />
+                    </div>
+                    <h2>
+                        <field name="name" readonly="1"/>
+                    </h2>
+                    <group>
+                        <group string="Origen">
+                            <field
+                                name="branch_id"
+                                string="Sucursal"
+                                options="{'no_open': True, 'no_create': True}"
+                            />
+                            <field
+                                name="location_src_id"
+                                readonly="state != 'draft'"
+                                options="{'no_open': True, 'no_create': True}"
+                            />
+                        </group>
+                        <group string="Destino">
+                            <field
+                                name="branch_dest_id"
+                                string="Sucursal"
+                                options="{'no_open': True, 'no_create': True}"
+                            />
+                            <field
+                                name="location_dest_id"
+                                readonly="state != 'draft'"
+                                options="{'no_open': True, 'no_create': True}"
+                            />
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="date" readonly="state != 'draft'"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field
+                                name="sent_by_user_id"
+                                invisible="not sent_by_user_id"
+                                options="{'no_open': True}"
+                            />
+                            <field name="transit_location_id" invisible="1"/>
+                            <field name="state" invisible="1"/>
+                            <field name="picking_out_id" invisible="1"/>
+                            <field name="picking_in_id" invisible="1"/>
+                            <field name="allowed_product_ids" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Productos" name="productos_page">
+                            <field name="line_ids" readonly="state != 'draft'">
+                                <list
+                                    string="Líneas"
+                                    editable="bottom"
+                                    decoration-warning="gn_labhospy_is_controlled"
+                                >
+                                    <field name="sequence_number"/>
+                                    <field name="allowed_product_ids" column_invisible="1"/>
+                                    <field name="product_tracking" column_invisible="1"/>
+                                    <field name="company_id" column_invisible="1"/>
+                                    <field name="gn_labhospy_is_controlled" column_invisible="1"/>
+                                    <field
+                                        name="product_id"
+                                        string="Producto"
+                                        options="{'no_create': True, 'no_quick_create': True}"
+                                    />
+                                    <field
+                                        name="gn_labhospy_supplier_id"
+                                        string="Proveedor (LabHosPy)"
+                                        options="{'no_open': True, 'no_create': True}"
+                                    />
+                                    <field
+                                        name="gn_labhospy_catalog_code"
+                                        string="Código de Catálogo"
+                                    />
+                                    <field
+                                        name="lot_id"
+                                        string="Lote/serie"
+                                        optional="show"
+                                        domain="[('product_id', '=', product_id), '|', ('company_id', '=', False), ('company_id', '=', company_id)]"
+                                        options="{'no_create': True, 'no_quick_create': True}"
+                                    />
+                                    <field
+                                        name="qty_available"
+                                        string="Disponible"
+                                        decoration-danger="parent.state in ('draft', 'confirmed') and qty_available == 0 and product_id"
+                                    />
+                                    <field
+                                        name="product_uom_qty"
+                                        decoration-danger="parent.state == 'draft' and qty_available == 0 and product_id"
+                                    />
+                                    <field name="product_uom" options="{'no_open': True}"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Guía de remisión" name="remission_page">
+                            <group>
+                                <field name="hn_remission_enabled"/>
+                                <field name="hn_remission_number" readonly="1"/>
+                                <field name="hn_remission_note" placeholder="Observaciones que aparecerán en el PDF..."/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_stock_inter_store_transfer_tree" model="ir.ui.view">
+        <field name="name">stock.inter.store.transfer.list</field>
+        <field name="model">stock.inter.store.transfer</field>
+        <field name="arch" type="xml">
+            <list string="Traslados entre Tiendas">
+                <field name="name"/>
+                <field name="branch_id" string="Sucursal Origen"/>
+                <field name="branch_dest_id" string="Sucursal Destino"/>
+                <field name="location_src_id" optional="hide"/>
+                <field name="location_dest_id" optional="hide"/>
+                <field name="date"/>
+                <field name="hn_remission_number" optional="show" string="Remisión"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_stock_inter_store_transfer_search" model="ir.ui.view">
+        <field name="name">stock.inter.store.transfer.search</field>
+        <field name="model">stock.inter.store.transfer</field>
+        <field name="arch" type="xml">
+            <search string="Traslados entre Tiendas">
+                <field name="name" string="Referencia" filter_domain="[('name', 'ilike', self)]"/>
+                <field name="branch_id"/>
+                <field name="branch_dest_id"/>
+                <field name="product_id"/>
+                <field name="lot_id" groups="stock.group_production_lot"/>
+                <field name="hn_remission_number" string="Remisión"/>
+                <field name="state"/>
+                <filter string="Borrador" name="draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Confirmado" name="confirmed" domain="[('state', '=', 'confirmed')]"/>
+                <filter string="Enviado" name="sent" domain="[('state', '=', 'sent')]"/>
+                <filter string="Recibido" name="received" domain="[('state', '=', 'received')]"/>
+                <filter string="Cancelado" name="cancel" domain="[('state', '=', 'cancel')]"/>
+                <group>
+                    <filter string="Estado" name="groupby_state" context="{'group_by': 'state'}"/>
+                    <filter string="Sucursal origen" name="groupby_branch" context="{'group_by': 'branch_id'}"/>
+                    <filter string="Sucursal destino" name="groupby_branch_dest" context="{'group_by': 'branch_dest_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_stock_inter_store_transfer" model="ir.actions.act_window">
+        <field name="name">Traslados entre Tiendas</field>
+        <field name="res_model">stock.inter.store.transfer</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_stock_inter_store_transfer_search"/>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crear un traslado entre tiendas
+            </p>
+            <p>
+                Use este formulario para trasladar productos de una ubicación a otra.
+                Los productos quedarán en tránsito hasta que se reciban en la ubicación destino.
+                No es necesario digitar el traslado dos veces.
+            </p>
+            <p>
+                <strong>Flujo:</strong>
+            </p>
+            <ol>
+                <li>Complete origen, destino y productos.</li>
+                <li>Haga clic en <strong>Confirmar</strong> para crear los movimientos.</li>
+                <li>Haga clic en <strong>Enviar</strong> para que los productos salgan del origen (irán a tránsito).</li>
+                <li>En la tienda destino, haga clic en <strong>Recibir</strong> para que los productos lleguen.</li>
+            </ol>
+        </field>
+    </record>
+
+    <menuitem
+        id="menu_stock_inter_store_transfer"
+        name="Traslados entre Tiendas"
+        action="action_stock_inter_store_transfer"
+        parent="stock.menu_stock_warehouse_mgmt"
+        sequence="45"
+        groups="stock.group_stock_manager"
+    />
+</odoo>

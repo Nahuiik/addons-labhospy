@@ -1,0 +1,142 @@
+.gn-bk-header {
+    background: var(--gn-bk-surface);
+    border: 1px solid var(--gn-bk-border);
+    border-radius: var(--gn-bk-radius);
+    box-shadow: var(--gn-bk-shadow);
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+}
+
+.gn-bk-header__top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.gn-bk-header__meta {
+    flex: 1;
+    min-width: 200px;
+}
+
+.gn-bk-header__number {
+    font-size: 0.85rem;
+    color: var(--gn-bk-text-muted);
+    margin-bottom: 4px;
+}
+
+.gn-bk-header__title-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.gn-bk-header__type-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.gn-bk-header__state-badge {
+    display: inline-flex;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: var(--gn-bk-border);
+    color: var(--gn-bk-text);
+}
+
+.gn-bk-header__amount-block {
+    flex-shrink: 0;
+    text-align: right;
+    padding-right: 8px;
+    margin-right: 4.5rem;
+}
+
+.gn-bk-header__amount {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--gn-bk-text);
+}
+
+.gn-bk-header__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--gn-bk-border);
+}
+
+.gn-bk-header__field-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--gn-bk-text-muted);
+    margin-bottom: 2px;
+}
+
+.gn-bk-header__field-value {
+    font-size: 0.92rem;
+    color: var(--gn-bk-text);
+    word-break: break-word;
+}
+
+/* Type modifiers */
+.gn-bk-header--debit .gn-bk-header__type-badge { background: var(--gn-bk-debit-bg); color: var(--gn-bk-debit); }
+.gn-bk-header--credit .gn-bk-header__type-badge { background: var(--gn-bk-credit-bg); color: var(--gn-bk-credit); }
+.gn-bk-header--transfer .gn-bk-header__type-badge { background: var(--gn-bk-transfer-bg); color: var(--gn-bk-transfer); }
+.gn-bk-header--check .gn-bk-header__type-badge { background: var(--gn-bk-check-bg); color: var(--gn-bk-check); }
+.gn-bk-header--deposit .gn-bk-header__type-badge { background: var(--gn-bk-deposit-bg); color: var(--gn-bk-deposit); }
+.gn-bk-header--pos .gn-bk-header__type-badge { background: var(--gn-bk-pos-bg); color: var(--gn-bk-pos); }
+.gn-bk-header--interbank .gn-bk-header__type-badge { background: var(--gn-bk-interbank-bg); color: var(--gn-bk-interbank); }
+
+.gn-bk-header--debit .gn-bk-header__amount { color: var(--gn-bk-debit); }
+.gn-bk-header--credit .gn-bk-header__amount,
+.gn-bk-header--deposit .gn-bk-header__amount { color: var(--gn-bk-credit); }
+
+.gn-bk-ribbon {
+    --gn-bk-ribbon-size: 9rem;
+    width: var(--gn-bk-ribbon-size);
+    height: var(--gn-bk-ribbon-size);
+    overflow: hidden;
+    position: absolute;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.gn-bk-ribbon--bottom-right {
+    bottom: 0;
+    right: 0;
+
+    span {
+        position: absolute;
+        right: -28%;
+        bottom: 18%;
+        width: 141.421%;
+        height: 2.2rem;
+        line-height: 2.2rem;
+        transform: rotate(-45deg);
+        transform-origin: center;
+        color: #fff;
+        font-size: 0.85rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        text-align: center;
+        box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.12);
+        overflow: hidden;
+        user-select: none;
+    }
+}

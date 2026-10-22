@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <!-- ==========================================================
+         Base Setup: Row Number Initialization for ListRenderer
+         - Resets row counter before loop
+         - Increments counter for each record row
+         ========================================================== -->
+    <t
+        t-name="rowno_in_tree.add_number"
+        t-inherit="web.ListRenderer.Rows"
+        t-inherit-mode="extension"
+        owl="1"
+    >
+        <!-- Initialize row number before looping records -->
+        <xpath expr="//t[@t-foreach='list.records']" position="before">
+            <t t-set="rowNumber" t-value="0" />
+        </xpath>
+
+        <!-- Increment row number for each record -->
+        <xpath
+            expr="//t[@t-call='{{ constructor.recordRowTemplate }}']"
+            position="before"
+        >
+            <t t-set="rowNumber" t-value="rowNumber + 1" />
+        </xpath>
+    </t>
+
+    <!-- ==========================================================
+         Generic Row Number Column
+         - Adds a # column before selectors in all tree/list views
+         ========================================================== -->
+    <t
+        t-name="rowno_in_tree.ListRenderer.RecordRowNumber"
+        t-inherit="web.ListRenderer.RecordRow"
+        t-inherit-mode="extension"
+        owl="1"
+    >
+        <xpath expr="//tr/td[@t-if='hasSelectors']" position="before">
+            <td tabindex="-1">
+                <span t-esc="rowNumber" />
+            </td>
+        </xpath>
+    </t>
+
+    <!-- ==========================================================
+         Sale Module Row Number Support
+         ========================================================== -->
+    <t
+        t-name="rowno_in_tree.sale.RecordRowNumber"
+        t-inherit="sale.ListRenderer.RecordRow"
+        t-inherit-mode="extension"
+        owl="1"
+    >
+        <xpath expr="//tr/td[@t-if='hasSelectors']" position="before">
+            <td tabindex="-1">
+                <span t-esc="rowNumber" />
+            </td>
+        </xpath>
+    </t>
+
+    <!-- ==========================================================
+         Stock Module Row Number Support
+         ========================================================== -->
+    <t
+        t-name="rowno_in_tree.stock.RecordRowNumber"
+        t-inherit="stock.MovesListRenderer.RecordRow"
+        t-inherit-mode="extension"
+        owl="1"
+    >
+        <xpath expr="//tr/td[@t-if='hasSelectors']" position="before">
+            <td tabindex="-1">
+                <span t-esc="rowNumber" />
+            </td>
+        </xpath>
+    </t>
+
+    <!-- ==========================================================
+         Account Module Row Number Support
+         ========================================================== -->
+    <t
+        t-name="rowno_in_tree.account.RecordRowNumber"
+        t-inherit="account.SectionAndNoteListRenderer.RecordRow"
+        t-inherit-mode="extension"
+        owl="1"
+    >
+        <xpath expr="//tr/td[@t-if='hasSelectors']" position="before">
+            <td tabindex="-1">
+                <span t-esc="rowNumber" />
+            </td>
+        </xpath>
+    </t>
+
+    <!-- ==========================================================
+         Sale Management Row Number Support
+         ========================================================== -->
+    <t
+        t-name="rowno_in_tree.sale_mgmt.RecordRowNumber"
+        t-inherit="sale_management.ListRenderer.RecordRow"
+        t-inherit-mode="extension"
+        owl="1"
+    >
+        <xpath expr="//tr/td[@t-if='hasSelectors']" position="before">
+            <td tabindex="-1">
+                <span t-esc="rowNumber" />
+            </td>
+        </xpath>
+    </t>
+
+    <!-- ==========================================================
+         Website Module Row Number Support
+         ========================================================== -->
+    <t
+        t-name="rowno_in_tree.website.RecordRowNumber"
+        t-inherit="website.PageListRenderer.RecordRow"
+        t-inherit-mode="extension"
+        owl="1"
+    >
+        <xpath expr="//tr/td[@t-if='hasSelectors']" position="before">
+            <td tabindex="-1">
+                <span t-esc="rowNumber" />
+            </td>
+        </xpath>
+    </t>
+
+    <!-- ==========================================================
+         Resource (Employee Schedule) Row Number Support
+         ========================================================== -->
+    <t
+        t-name="rowno_in_tree.resource.RecordRowNumber"
+        t-inherit="resource.SectionListRenderer.RecordRow"
+        t-inherit-mode="extension"
+        owl="1"
+    >
+        <xpath expr="//tr/td[@t-if='hasSelectors']" position="before">
+            <td tabindex="-1">
+                <span t-esc="rowNumber" />
+            </td>
+        </xpath>
+    </t>
+
+    <!-- ==========================================================
+         Stock Package Move Row Number Initialization
+         ========================================================== -->
+    <t
+        t-name="rowno_in_tree.stock.RecordRowNumber"
+        t-inherit="stock.AddPackageListRendererRows"
+        t-inherit-mode="extension"
+        owl="1"
+    >
+        <!-- Reset counter -->
+        <xpath expr="//t[@t-foreach='list.records']" position="before">
+            <t t-set="rowNumber" t-value="0" />
+        </xpath>
+
+        <!-- Increment counter -->
+        <xpath
+            expr="//t[@t-call='{{ constructor.recordRowTemplate }}']"
+            position="before"
+        >
+            <t t-set="rowNumber" t-value="rowNumber + 1" />
+        </xpath>
+    </t>
+
+    <!-- ==========================================================
+         Project Notebook Task Row Number Initialization
+         ========================================================== -->
+    <t
+        t-name="rowno_in_tree.NotebookTaskListRenderer.RecordRowNumber"
+        t-inherit="project.NotebookTaskListRenderer.Rows"
+        t-inherit-mode="extension"
+        owl="1"
+    >
+        <!-- Reset counter -->
+        <xpath expr="//t[@t-foreach='list.records']" position="before">
+            <t t-set="rowNumber" t-value="0" />
+        </xpath>
+
+        <!-- Increment counter -->
+        <xpath
+            expr="//t[@t-call='{{ constructor.recordRowTemplate }}']"
+            position="before"
+        >
+            <t t-set="rowNumber" t-value="rowNumber + 1" />
+        </xpath>
+    </t>
+
+    <!-- ==========================================================
+         Documents Module Row Number Support
+         ========================================================== -->
+    <t
+        t-name="rowno_in_tree.documents.RecordRowNumber"
+        t-inherit="documents.DocumentsListRenderer.RecordRow"
+        t-inherit-mode="extension"
+        owl="1"
+    >
+        <xpath expr="//tr/td[@t-if='hasSelectors']" position="before">
+            <td tabindex="-1">
+                <span t-esc="rowNumber" />
+            </td>
+        </xpath>
+    </t>
+</templates>

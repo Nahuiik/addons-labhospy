@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_sales_dashboard.SalesHeroChart">
+        <section class="gn-sd-hero gn-sd-level-1">
+            <header class="gn-sd-hero__head">
+                <div class="gn-sd-hero__titles">
+                    <h3 class="gn-sd-hero__title" t-esc="props.config?.title or 'Tendencia de ventas netas'"/>
+                    <p class="gn-sd-hero__subtitle" t-esc="props.config?.subtitle or 'Evolución del período vs comparativo, meta y pronóstico'"/>
+                </div>
+                <div class="gn-sd-hero__tools">
+                    <div class="gn-sd-hero__granularity" role="group" aria-label="Granularidad">
+                        <button type="button" t-att-class="'gn-sd-hero__gran-btn' + (props.groupBy === 'day' ? ' active' : '')"
+                                t-on-click="() => this.setGroupBy('day')">Día</button>
+                        <button type="button" t-att-class="'gn-sd-hero__gran-btn' + (props.groupBy === 'week' ? ' active' : '')"
+                                t-on-click="() => this.setGroupBy('week')">Semana</button>
+                        <button type="button" t-att-class="'gn-sd-hero__gran-btn' + (props.groupBy === 'month' ? ' active' : '')"
+                                t-on-click="() => this.setGroupBy('month')">Mes</button>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-outline-secondary"
+                            t-att-disabled="!props.config?.labels?.length or state.exportBusy"
+                            t-att-title="'Exportar PNG'"
+                            t-att-aria-label="'Exportar PNG'"
+                            t-on-click="onExportPng">
+                        <i t-att-class="state.exportBusy ? 'fa fa-spinner fa-spin' : 'fa fa-download'" aria-hidden="true"/>
+                    </button>
+                </div>
+            </header>
+            <div t-if="props.loading" class="gn-sd-skeleton gn-sd-skeleton--hero"/>
+            <div t-elif="props.error" class="gn-sd-widget-error">
+                <p t-esc="props.error"/>
+                <button type="button" class="btn btn-sm btn-outline-primary" t-on-click="onRetryClick">Reintentar</button>
+            </div>
+            <SalesEmptyState t-elif="!(props.config?.labels?.length)"
+                icon="'fa-line-chart'"
+                title="'Sin datos para el período'"
+                description="'Ajuste los filtros o seleccione un rango con movimiento de ventas.'"
+                compact="true"/>
+            <div t-else="" class="gn-sd-hero__canvas" t-ref="chartRoot" role="img" t-att-aria-label="props.config?.title or 'Gráfico de tendencia'"/>
+        </section>
+    </t>
+</templates>

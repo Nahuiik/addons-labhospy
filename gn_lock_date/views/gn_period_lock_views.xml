@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista de lista -->
+    <record id="view_gn_period_lock_tree" model="ir.ui.view">
+        <field name="name">gn.period.lock.tree</field>
+        <field name="model">gn.period.lock</field>
+        <field name="arch" type="xml">
+            <list string="Bloqueos de Período">
+                <field name="name"/>
+                <field name="from_date"/>
+                <field name="to_date"/>
+                <field name="journal_ids" widget="many2many_tags"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="state" widget="badge" decoration-success="state == 'unlocked'" decoration-danger="state == 'locked'"/>
+                <field name="active" widget="boolean_toggle"/>
+                <field name="is_currently_blocking" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Vista de formulario -->
+    <record id="view_gn_period_lock_form" model="ir.ui.view">
+        <field name="name">gn.period.lock.form</field>
+        <field name="model">gn.period.lock</field>
+        <field name="arch" type="xml">
+            <form string="Bloqueo de Período">
+                <header>
+                    <button name="%(gn_lock_date.action_lock_dates_dashboard)d" type="action"
+                            string="Lock Dates Center" class="btn-secondary"
+                            groups="account.group_account_manager"/>
+                    <button name="action_lock" string="Bloquear" type="object" 
+                            class="oe_highlight" 
+                            invisible="state == 'locked'"
+                            groups="gn_lock_date.group_period_lock_manager"/>
+                    <button name="action_unlock" string="Desbloquear" type="object" 
+                            class="btn-secondary"
+                            invisible="state == 'unlocked'"
+                            groups="gn_lock_date.group_period_lock_unlock"/>
+                    <field name="state" widget="statusbar" statusbar_visible="locked,unlocked"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" placeholder="Ej: Bloqueo Mensual Enero 2026"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="from_date"/>
+                            <field name="to_date"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="journal_ids" widget="many2many_tags" 
+                               options="{'no_create': True, 'no_open': True}"
+                               placeholder="Seleccione los diarios a bloquear"/>
+                    </group>
+                    <notebook>
+                        <page string="Información Adicional">
+                            <group>
+                                <group>
+                                    <field name="locked_by" readonly="1"/>
+                                    <field name="unlocked_by" readonly="1"/>
+                                </group>
+                                <group>
+                                    <field name="unlock_date" readonly="1"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_gn_period_lock_kanban" model="ir.ui.view">
+        <field name="name">gn.period.lock.kanban</field>
+        <field name="model">gn.period.lock</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile" quick_create="false" default_group_by="state">
+                <field name="name"/>
+                <field name="from_date"/>
+                <field name="to_date"/>
+                <field name="state"/>
+                <field name="is_currently_blocking"/>
+                <field name="journal_ids"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="d-flex flex-column p-2">
+                            <strong><field name="name"/></strong>
+                            <span class="text-muted">
+                                <field name="from_date"/> — <field name="to_date"/>
+                            </span>
+                            <span t-if="record.is_currently_blocking.raw_value" class="badge text-bg-warning">Today</span>
+                            <field name="journal_ids" widget="many2many_tags" readonly="1"/>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Vista de búsqueda -->
+    <record id="view_gn_period_lock_search" model="ir.ui.view">
+        <field name="name">gn.period.lock.search</field>
+        <field name="model">gn.period.lock</field>
+        <field name="arch" type="xml">
+            <search string="Bloqueos de Período">
+                <field name="name" string="Nombre"/>
+                <field name="journal_ids" string="Diarios"/>
+                <filter string="Bloqueados" name="locked" domain="[('state', '=', 'locked')]"/>
+                <filter string="Desbloqueados" name="unlocked" domain="[('state', '=', 'unlocked')]"/>
+                <filter string="Activos" name="active" domain="[('active', '=', True)]"/>
+                <filter string="Inactivos" name="inactive" domain="[('active', '=', False)]"/>
+                <separator/>
+                <filter string="Mi Compañía" name="my_company" domain="[('company_id', '=', company_id)]"/>
+                <filter string="Estado" name="group_by_state" domain="[]" context="{'group_by': 'state'}"/>
+                <filter string="Compañía" name="group_by_company" domain="[]" context="{'group_by': 'company_id'}"/>
+                <filter string="Fecha Desde" name="group_by_from_date" domain="[]" context="{'group_by': 'from_date'}"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Acción -->
+    <record id="action_gn_period_lock" model="ir.actions.act_window">
+        <field name="name">Bloqueos de Período</field>
+        <field name="res_model">gn.period.lock</field>
+        <field name="view_mode">list,kanban,form</field>
+        <field name="view_id" ref="view_gn_period_lock_tree"/>
+        <field name="search_view_id" ref="view_gn_period_lock_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crear un nuevo bloqueo de período
+            </p>
+            <p>
+                Los bloqueos de período previenen que los usuarios publiquen movimientos contables
+                en las fechas y diarios especificados.
+            </p>
+        </field>
+    </record>
+</odoo>
+

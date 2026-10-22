@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_landed_cost_margin" model="ir.actions.report">
+        <field name="name">Resumen margen venta (costeo)</field>
+        <field name="model">landed.cost.sale.margin.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">invoice_in_landed_cost.report_landed_cost_margin</field>
+        <field name="report_file">invoice_in_landed_cost.report_landed_cost_margin</field>
+    </record>
+</odoo>

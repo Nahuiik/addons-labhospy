@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_generate_quotas_wizard_form" model="ir.ui.view">
+        <field name="name">generate.quotas.wizard.form</field>
+        <field name="model">generate.quotas.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Generar Plan de Cuotas">
+                <group>
+                    <group>
+                        <field name="sale_order_id" invisible="1"/>
+                        <field name="amount_total"/>
+                        <field name="num_quotas"/>
+                        <field name="amount_per_quota"/>
+                        <field name="currency_id" invisible="1"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_confirm" string="Generar" type="object" class="btn-primary"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

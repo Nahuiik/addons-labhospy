@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_l10n_hn_hr_departure_specific_reason_list" model="ir.ui.view">
+        <field name="name">l10n.hn.hr.departure.specific.reason.list</field>
+        <field name="model">l10n.hn.hr.departure.specific.reason</field>
+        <field name="arch" type="xml">
+            <list string="Motivos específicos" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_l10n_hn_hr_departure_specific_reason_form" model="ir.ui.view">
+        <field name="name">l10n.hn.hr.departure.specific.reason.form</field>
+        <field name="model">l10n.hn.hr.departure.specific.reason</field>
+        <field name="arch" type="xml">
+            <form string="Motivo específico">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="sequence"/>
+                        <field name="active"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_l10n_hn_hr_departure_specific_reason" model="ir.actions.act_window">
+        <field name="name">Motivo específico</field>
+        <field name="res_model">l10n.hn.hr.departure.specific.reason</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Cree un motivo específico de despido
+            </p>
+            <p>
+                Estos valores alimentan el campo “Motivo específico” en el wizard de despido de empleado.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_l10n_hn_hr_departure_specific_reason"
+              name="Motivo específico"
+              parent="hr.menu_config_employee"
+              action="action_l10n_hn_hr_departure_specific_reason"
+              sequence="8"/>
+</odoo>

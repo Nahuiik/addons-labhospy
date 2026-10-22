@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_res_bank_form_gn_payroll_extras" model="ir.ui.view">
+        <field name="name">res.bank.form.gn.payroll.extras</field>
+        <field name="model">res.bank</field>
+        <field name="inherit_id" ref="base.view_res_bank_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='country']" position="after">
+                <field name="gn_is_default_bank" widget="boolean_toggle"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_res_bank_tree_gn_payroll_extras" model="ir.ui.view">
+        <field name="name">res.bank.list.gn.payroll.extras</field>
+        <field name="model">res.bank</field>
+        <field name="inherit_id" ref="base.view_res_bank_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='country']" position="after">
+                <field name="gn_is_default_bank" widget="boolean_toggle" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

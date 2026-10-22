@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_sales_dashboard.SalesFilterBar">
+        <div class="gn-sd-filters-wrap">
+            <div class="gn-sd-filters gn-sd-filters--primary">
+                <div class="gn-sd-filters__group">
+                    <label class="gn-sd-filters__label">Período</label>
+                    <select class="gn-sd-filters__control" t-on-change="onPeriodChange"
+                            t-att-aria-label="props.labels.period or 'Período'">
+                        <t t-foreach="props.filterOptions.period_presets or []" t-as="p" t-key="p.id">
+                            <option t-att-value="p.id" t-att-selected="props.draftFilters.period === p.id" t-esc="p.label"/>
+                        </t>
+                    </select>
+                </div>
+                <div t-if="props.filterOptions.multi_company" class="gn-sd-filters__group">
+                    <label class="gn-sd-filters__label">Compañía</label>
+                    <select class="gn-sd-filters__control" t-on-change="onCompanyChange" aria-label="Compañía">
+                        <t t-foreach="props.filterOptions.companies or []" t-as="co" t-key="co.id">
+                            <option t-att-value="co.id" t-att-selected="props.draftFilters.company_id === co.id" t-esc="co.name"/>
+                        </t>
+                    </select>
+                </div>
+                <div t-if="props.filterOptions.teams and props.filterOptions.teams.length" class="gn-sd-filters__group">
+                    <label class="gn-sd-filters__label">Equipo</label>
+                    <select class="gn-sd-filters__control" t-on-change="onTeamChange" t-att-aria-label="props.labels.team">
+                        <option value=""><t t-esc="props.labels.team"/></option>
+                        <t t-foreach="props.filterOptions.teams" t-as="t" t-key="t.id">
+                            <option t-att-value="t.id" t-att-selected="props.draftFilters.team_id === t.id" t-esc="t.name"/>
+                        </t>
+                    </select>
+                </div>
+                <div t-if="props.filterOptions.users and props.filterOptions.users.length" class="gn-sd-filters__group">
+                    <label class="gn-sd-filters__label">Vendedor</label>
+                    <select class="gn-sd-filters__control" t-on-change="onUserChange" t-att-aria-label="props.labels.salesperson">
+                        <option value=""><t t-esc="props.labels.salesperson"/></option>
+                        <t t-foreach="props.filterOptions.users" t-as="u" t-key="u.id">
+                            <option t-att-value="u.id" t-att-selected="props.draftFilters.user_id === u.id" t-esc="u.name"/>
+                        </t>
+                    </select>
+                </div>
+                <div t-if="props.filterOptions.branches and props.filterOptions.branches.length" class="gn-sd-filters__group">
+                    <label class="gn-sd-filters__label">Sucursal</label>
+                    <select class="gn-sd-filters__control" t-on-change="onBranchChange" t-att-aria-label="props.labels.branch">
+                        <option value=""><t t-esc="props.labels.branch"/></option>
+                        <t t-foreach="props.filterOptions.branches" t-as="b" t-key="b.id">
+                            <option t-att-value="b.id" t-att-selected="props.draftFilters.branch_id === b.id" t-esc="b.name"/>
+                        </t>
+                    </select>
+                </div>
+                <div t-if="props.filterOptions.channels and props.filterOptions.channels.length" class="gn-sd-filters__group">
+                    <label class="gn-sd-filters__label">Canal</label>
+                    <select class="gn-sd-filters__control" t-on-change="onChannelChange" aria-label="Canal">
+                        <option value="">Canal</option>
+                        <t t-foreach="props.filterOptions.channels" t-as="ch" t-key="ch.id">
+                            <option t-att-value="ch.id" t-att-selected="props.draftFilters.channel_id === ch.id" t-esc="ch.name"/>
+                        </t>
+                    </select>
+                </div>
+                <div class="gn-sd-filters__actions">
+                    <button type="button"
+                            class="btn btn-outline-secondary gn-sd-filters__more-btn"
+                            t-att-class="state.showMore ? ' active' : ''"
+                            t-on-click="toggleMore"
+                            t-att-aria-expanded="state.showMore"
+                            t-esc="moreFiltersLabel"/>
+                    <button type="button" class="btn btn-primary gn-sd-filters__apply"
+                            t-att-disabled="props.applying"
+                            t-on-click="onApplyClick">
+                        <i t-if="props.applying" class="fa fa-spinner fa-spin" aria-hidden="true"/>
+                        <t t-esc="props.applying ? 'Aplicando…' : props.labels.apply"/>
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary"
+                            t-att-disabled="props.applying"
+                            t-on-click="onResetClick"
+                            t-esc="props.labels.clear or 'Limpiar filtros'"/>
+                </div>
+            </div>
+            <div t-if="state.showMore" class="gn-sd-filters gn-sd-filters--drawer">
+                <div class="gn-sd-filters__group">
+                    <label class="gn-sd-filters__label">Comparación</label>
+                    <select class="gn-sd-filters__control" t-on-change="onCompareChange">
+                        <t t-foreach="props.filterOptions.compare_modes or []" t-as="c" t-key="c.id">
+                            <option t-att-value="c.id" t-att-selected="props.draftFilters.compare_mode === c.id" t-esc="c.label"/>
+                        </t>
+                    </select>
+                </div>
+                <div class="gn-sd-filters__group">
+                    <label class="gn-sd-filters__label">Desde</label>
+                    <input type="date" class="gn-sd-filters__control"
+                           t-att-value="props.draftFilters.date_from or ''"
+                           t-on-change="onDateFromChange"/>
+                </div>
+                <div class="gn-sd-filters__group">
+                    <label class="gn-sd-filters__label">Hasta</label>
+                    <input type="date" class="gn-sd-filters__control"
+                           t-att-value="props.draftFilters.date_to or ''"
+                           t-on-change="onDateToChange"/>
+                </div>
+                <div t-if="props.filterOptions.journals and props.filterOptions.journals.length" class="gn-sd-filters__group">
+                    <label class="gn-sd-filters__label">Diario</label>
+                    <select class="gn-sd-filters__control" t-on-change="onJournalChange">
+                        <option value=""><t t-esc="props.labels.journal"/></option>
+                        <t t-foreach="props.filterOptions.journals" t-as="j" t-key="j.id">
+                            <option t-att-value="j.id" t-att-selected="props.draftFilters.journal_id === j.id" t-esc="j.name"/>
+                        </t>
+                    </select>
+                </div>
+                <div t-if="props.filterOptions.warehouses and props.filterOptions.warehouses.length" class="gn-sd-filters__group">
+                    <label class="gn-sd-filters__label">Almacén</label>
+                    <select class="gn-sd-filters__control" t-on-change="onWarehouseChange">
+                        <option value="">Almacén</option>
+                        <t t-foreach="props.filterOptions.warehouses" t-as="w" t-key="w.id">
+                            <option t-att-value="w.id" t-att-selected="props.draftFilters.warehouse_id === w.id" t-esc="w.name"/>
+                        </t>
+                    </select>
+                </div>
+                <div t-if="props.filterOptions.categories and props.filterOptions.categories.length" class="gn-sd-filters__group">
+                    <label class="gn-sd-filters__label">Categoría</label>
+                    <select class="gn-sd-filters__control" t-on-change="onCategoryChange">
+                        <option value="">Categoría</option>
+                        <t t-foreach="props.filterOptions.categories" t-as="c" t-key="c.id">
+                            <option t-att-value="c.id" t-att-selected="props.draftFilters.category_id === c.id" t-esc="c.name"/>
+                        </t>
+                    </select>
+                </div>
+                <div t-if="props.filterOptions.order_states and props.filterOptions.order_states.length" class="gn-sd-filters__group">
+                    <label class="gn-sd-filters__label">Estado pedido</label>
+                    <select class="gn-sd-filters__control" t-on-change="onOrderStateChange">
+                        <option value="">Estado pedido</option>
+                        <t t-foreach="props.filterOptions.order_states" t-as="os" t-key="os.id">
+                            <option t-att-value="os.id" t-att-selected="props.draftFilters.order_state === os.id" t-esc="os.label"/>
+                        </t>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

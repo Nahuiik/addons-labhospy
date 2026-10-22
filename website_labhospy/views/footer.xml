@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Pie principal (estilo labhospy.hn) -->
+    <template id="labhospy_footer" inherit_id="website.layout" name="LABHOSPY Footer" priority="99">
+        <xpath expr="//div[@id='footer']" position="replace">
+            <div id="footer" class="oe_structure oe_structure_solo text-break labhospy-footer" t-ignore="true" t-if="not no_footer">
+                <section class="labhospy-footer-main pt48 pb32" data-snippet="s_text_block">
+                    <div class="container">
+                        <div class="row g-4">
+                            <div class="col-md-6 col-lg-3">
+                                <h2 class="labhospy-footer-title">LABHOSPY</h2>
+                                <p class="mb-3">Somos distribuidores de equipos de la más alta calidad y tecnología para laboratorios con el respaldo de marcas con prestigio internacional. Contamos con asesoría, instalación, capacitación y soporte técnico de nuestras marcas.</p>
+                                <a href="/about-us" class="labhospy-footer-readmore">Leer más</a>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <h2 class="labhospy-footer-title">Información</h2>
+                                <ul class="list-unstyled labhospy-footer-links mb-0">
+                                    <li><a href="/about-us">Sobre Nosotros</a></li>
+                                    <li><a href="/#productos">Nuestros Productos</a></li>
+                                    <li><a href="/#marcas">Marcas Distribuidas</a></li>
+                                    <li><a href="/contactus">Contacto</a></li>
+                                    <li><a href="/contactus?subject=Solicitud%20de%20cotizaci%C3%B3n">Solicitar Cotización</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <h2 class="labhospy-footer-title">Contacto</h2>
+                                <p class="mb-2">Bo. La Moncada 2da. Ave, 3era. Calle, Edificio Gómez Andino No.1009, Contiguo Escuela Estados Unidos, Tegucigalpa, Honduras C.A.</p>
+                                <p class="mb-1">
+                                    <a href="tel:+50422375567" class="o_force_ltr labhospy-footer-contact">(504) 2237-5567 – 2237-3997</a>
+                                </p>
+                                <p class="mb-0">
+                                    <a href="mailto:info@labhospy.hn" class="labhospy-footer-contact">info@labhospy.hn</a>
+                                </p>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <h2 class="labhospy-footer-title">Horario de Atención</h2>
+                                <ul class="list-unstyled mb-0">
+                                    <li>Lunes-Viernes: 8:00 am a 4:30 pm</li>
+                                    <li>Sábado: 8:00 am a 12:00 pm</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="labhospy-footer-social py-4">
+                    <div class="container">
+                        <div class="row justify-content-center g-4 text-center">
+                            <div class="col-auto">
+                                <a href="https://www.facebook.com/labhospy/" target="_blank" rel="noopener" aria-label="Facebook" class="labhospy-footer-social-link">
+                                    <i class="fa fa-facebook-square fa-2x"/>
+                                </a>
+                            </div>
+                            <div class="col-auto">
+                                <a href="https://www.instagram.com/labhospy/" target="_blank" rel="noopener" aria-label="Instagram" class="labhospy-footer-social-link">
+                                    <i class="fa fa-instagram fa-2x"/>
+                                </a>
+                            </div>
+                            <div class="col-auto">
+                                <a href="https://www.linkedin.com/company/labhospyhn/" target="_blank" rel="noopener" aria-label="LinkedIn" class="labhospy-footer-social-link">
+                                    <i class="fa fa-linkedin-square fa-2x"/>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </xpath>
+    </template>
+
+    <!-- Copyright (derechos reservados LABHOSPY) -->
+    <template id="labhospy_footer_copyright" inherit_id="website.layout" name="LABHOSPY Footer Copyright" priority="99">
+        <xpath expr="//div[hasclass('o_footer_copyright')]" position="attributes">
+            <attribute name="class" add="labhospy-footer-copyright" separator=" "/>
+        </xpath>
+        <xpath expr="//span[hasclass('o_footer_copyright_name')]" position="replace">
+            <span class="o_footer_copyright_name me-2 small labhospy-copyright-text">
+                Derechos reservados © LABHOSPY <t t-out="datetime.datetime.now().year"/>.
+            </span>
+        </xpath>
+        <xpath expr="//t[@t-call='web.brand_promotion']" position="replace"/>
+    </template>
+</odoo>

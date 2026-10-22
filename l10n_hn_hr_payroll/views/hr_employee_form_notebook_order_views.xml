@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+      Orden y etiquetas de pestañas en la ficha de empleado (Grupohmm).
+      Prioridad alta: se aplica tras nómina, reclutación y vacaciones.
+    -->
+    <record id="view_hr_employee_form_notebook_order_hn" model="ir.ui.view">
+        <field name="name">hr.employee.form.notebook.order.hn</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="priority" eval="999"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='personal_information']" position="attributes">
+                <attribute name="string">Información Personal</attribute>
+            </xpath>
+            <xpath expr="//page[@name='resume']" position="attributes">
+                <attribute name="string">Currículum</attribute>
+            </xpath>
+            <xpath expr="//page[@name='payroll_information']" position="attributes">
+                <attribute name="string">Nómina</attribute>
+            </xpath>
+
+            <xpath expr="//page[@name='work_information']" position="after">
+                <page name="personal_information" position="move"/>
+            </xpath>
+            <xpath expr="//page[@name='personal_information']" position="after">
+                <page name="entry_documents" position="move"/>
+            </xpath>
+            <xpath expr="//page[@name='entry_documents']" position="after">
+                <page name="resume" position="move"/>
+            </xpath>
+            <xpath expr="//page[@name='resume']" position="after">
+                <page name="payroll_information" position="move"/>
+            </xpath>
+            <xpath expr="//page[@name='payroll_information']" position="after">
+                <page name="l10n_hn_payroll" position="move"/>
+            </xpath>
+            <xpath expr="//page[@name='l10n_hn_payroll']" position="after">
+                <page name="benefits_deductions_history" position="move"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

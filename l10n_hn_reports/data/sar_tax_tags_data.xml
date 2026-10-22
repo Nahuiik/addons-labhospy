@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Etiquetas fiscales SAR (Form 904). Asignar en repartición de impuestos según proceda. -->
+        <record id="sar_tag_904_1" model="account.account.tag">
+            <field name="name">HN 904-1 — Ventas gravadas 15%</field>
+            <field name="applicability">taxes</field>
+            <field name="country_id" ref="base.hn"/>
+            <field name="casilla_904">1</field>
+        </record>
+        <record id="sar_tag_904_2" model="account.account.tag">
+            <field name="name">HN 904-2 — Ventas exentas</field>
+            <field name="applicability">taxes</field>
+            <field name="country_id" ref="base.hn"/>
+            <field name="casilla_904">2</field>
+        </record>
+        <record id="sar_tag_904_3" model="account.account.tag">
+            <field name="name">HN 904-3 — Ventas exoneradas</field>
+            <field name="applicability">taxes</field>
+            <field name="country_id" ref="base.hn"/>
+            <field name="casilla_904">3</field>
+        </record>
+        <record id="sar_tag_904_4" model="account.account.tag">
+            <field name="name">HN 904-4 — Exportaciones</field>
+            <field name="applicability">taxes</field>
+            <field name="country_id" ref="base.hn"/>
+            <field name="casilla_904">4</field>
+        </record>
+        <record id="sar_tag_904_11" model="account.account.tag">
+            <field name="name">HN 904-11 — Compras gravadas 15%</field>
+            <field name="applicability">taxes</field>
+            <field name="country_id" ref="base.hn"/>
+            <field name="casilla_904">11</field>
+        </record>
+        <record id="sar_tag_904_13" model="account.account.tag">
+            <field name="name">HN 904-13 — Compras exentas / exoneradas</field>
+            <field name="applicability">taxes</field>
+            <field name="country_id" ref="base.hn"/>
+            <field name="casilla_904">13</field>
+        </record>
+        <record id="sar_tag_904_21" model="account.account.tag">
+            <field name="name">HN 904-21 — ISV débito fiscal</field>
+            <field name="applicability">taxes</field>
+            <field name="country_id" ref="base.hn"/>
+            <field name="casilla_904">21</field>
+        </record>
+        <record id="sar_tag_904_31" model="account.account.tag">
+            <field name="name">HN 904-31 — ISV crédito fiscal</field>
+            <field name="applicability">taxes</field>
+            <field name="country_id" ref="base.hn"/>
+            <field name="casilla_904">31</field>
+        </record>
+        <record id="sar_tag_904_41" model="account.account.tag">
+            <field name="name">HN 904-41 — ISV a pagar / saldo a favor (ajuste manual)</field>
+            <field name="applicability">taxes</field>
+            <field name="country_id" ref="base.hn"/>
+            <field name="casilla_904">41</field>
+        </record>
+    </data>
+</odoo>

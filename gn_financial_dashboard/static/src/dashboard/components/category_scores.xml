@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_financial_dashboard.CategoryScores">
+        <div class="gn-fd-catscores">
+            <div t-foreach="props.categories" t-as="cat" t-key="cat.key"
+                 t-att-class="'gn-fd-catscore ' + levelClass(cat.score) + (props.onSelect ? ' gn-fd-catscore--clickable' : '')"
+                 t-on-click="() => this.onClick(cat)">
+                <div class="gn-fd-catscore__icon"><i t-att-class="'fa ' + iconFor(cat.key)"/></div>
+                <div class="gn-fd-catscore__body">
+                    <div class="gn-fd-catscore__label" t-esc="cat.label"/>
+                    <div class="gn-fd-catscore__value">
+                        <span class="gn-fd-catscore__num" t-esc="cat.score"/>
+                        <span class="gn-fd-catscore__max">/100</span>
+                    </div>
+                    <div class="gn-fd-catscore__bar">
+                        <div class="gn-fd-catscore__bar-fill" t-att-style="'width:' + cat.score + '%'"/>
+                    </div>
+                    <div class="gn-fd-catscore__meta">peso <t t-esc="cat.weight"/>% · <t t-esc="cat.points"/> pts</div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

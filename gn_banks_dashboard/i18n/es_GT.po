@@ -1,0 +1,940 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* gn_banks_dashboard
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-21 12:44+0000\n"
+"PO-Revision-Date: 2026-05-21 12:44+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "%(bank)s concentrates %(pct).2f%% of POS liquidations."
+msgstr "%(bank)s concentra el %(pct).2f%% de las liquidaciones POS."
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "%(n)s operations lack analytic distribution."
+msgstr "Existen %(n)s operaciones sin distribución analítica."
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "%(n)s pending checks in the selected period."
+msgstr "Hay %(n)s cheques pendientes en el período seleccionado."
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/journal_multi_selector.js:0
+msgid "%s of %s journals"
+msgstr "%s de %s diarios"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard.js:0
+msgid "%s%% vs previous period"
+msgstr "%s%% vs período anterior"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard.js:0
+msgid "Action not available."
+msgstr "Acción no disponible."
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/journal_multi_selector.js:0
+msgid "All journals (%s)"
+msgstr "Todos los diarios (%s)"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/journal_multi_selector.js:0
+msgid "All journals (no filter)"
+msgstr "Todos los diarios (sin filtro)"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Analysis"
+msgstr "Análisis"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Apply"
+msgstr "Aplicar"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Available balance"
+msgstr "Saldo disponible"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "BAC import errors"
+msgstr "Errores en importación BAC"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Bank journals"
+msgstr "Diarios bancarios"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Bank liquidity"
+msgstr "Liquidez bancaria"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Bank transfer"
+msgstr "Transferencia bancaria"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Bank transfers"
+msgstr "Transferencias entre bancos"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Banks / journals"
+msgstr "Bancos / diarios"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Branch with largest negative flow: %(branch)s."
+msgstr "La sucursal con mayor flujo negativo es %(branch)s."
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Breakdowns"
+msgstr "Desglose"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "By account"
+msgstr "Por cuenta contable"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "By analytic account"
+msgstr "Por cuenta analítica"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "By bank"
+msgstr "Por banco"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "By branch"
+msgstr "Por sucursal"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "By contact"
+msgstr "Por contacto"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "By operation type"
+msgstr "Por tipo de operación"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "By status"
+msgstr "Por estado"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "By user"
+msgstr "Por usuario"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Cancelled"
+msgstr "Cancelado"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Cancelled in period"
+msgstr "Cancelados en el período"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Cancelled operations"
+msgstr "Operaciones canceladas"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Check"
+msgstr "Cheque"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Checks"
+msgstr "Cheques"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Checks by status"
+msgstr "Cheques por estado"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Checks issued"
+msgstr "Cheques emitidos"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Clear"
+msgstr "Limpiar"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Clear journal filter"
+msgstr "Quitar filtro de diarios"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Click a segment to open filtered records"
+msgstr "Clic en un segmento para abrir registros filtrados"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Compact KPIs"
+msgstr "KPIs compactos"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Company"
+msgstr "Compañía"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard.js:0
+msgid "Could not load filters."
+msgstr "No se pudieron cargar los filtros."
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Credit"
+msgstr "Crédito"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Credits"
+msgstr "Créditos"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Cumulative"
+msgstr "Acumulado"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Daily cash flow"
+msgstr "Flujo de caja diario"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Debit"
+msgstr "Débito"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Debits"
+msgstr "Débitos"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Deposit"
+msgstr "Depósito"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Deposits"
+msgstr "Depósitos"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Details"
+msgstr "Detalle"
+
+#. module: gn_banks_dashboard
+#: model:ir.model.fields,field_description:gn_banks_dashboard.field_gn_banks_dashboard_service__display_name
+msgid "Display Name"
+msgstr "Nombre a mostrar"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Distributions"
+msgstr "Distribuciones"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Docs"
+msgstr "Docs"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Documents pending validation"
+msgstr "Documentos pendientes de validar"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard.js:0
+msgid "Error loading dashboard."
+msgstr "Error al cargar el dashboard."
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Executive view of gn_banks treasury operations"
+msgstr "Vista ejecutiva de operaciones de tesorería gn_banks"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Expanded KPIs"
+msgstr "KPIs amplios"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Fewer metrics"
+msgstr "Menos métricas"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "From"
+msgstr "Desde"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "High amount (manual)"
+msgstr "Monto alto (manual)"
+
+#. module: gn_banks_dashboard
+#: model:ir.model.fields,field_description:gn_banks_dashboard.field_gn_banks_dashboard_service__id
+msgid "ID"
+msgstr "ID"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Inflows"
+msgstr "Entradas"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Insights"
+msgstr "Indicadores"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Intelligence"
+msgstr "Inteligencia"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Inter-bank transfers"
+msgstr "Transferencias entre bancos"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Invalid company."
+msgstr "Compañía no válida."
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "JSON import errors"
+msgstr "Errores en importación JSON"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/journal_multi_selector.js:0
+msgid "Journal #%s"
+msgstr "Diario #%s"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Label"
+msgstr "Etiqueta"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "More metrics"
+msgstr "Más métricas"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Net"
+msgstr "Neto"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Net bank movements"
+msgstr "Movimientos bancarios netos"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Net flow"
+msgstr "Flujo neto"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "No access to checks."
+msgstr "Sin acceso a cheques."
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "No alerts."
+msgstr "Sin alertas."
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "No analytic"
+msgstr "Sin analítica"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "No bank"
+msgstr "Sin banco"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "No branch"
+msgstr "Sin sucursal"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "No data for this view"
+msgstr "Sin datos para esta vista"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "No insights for this period."
+msgstr "Sin indicadores para el período."
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/journal_multi_selector.js:0
+msgid "No journals available"
+msgstr "No hay diarios disponibles"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Operational alerts"
+msgstr "Alertas operativas"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Operational risk"
+msgstr "Riesgo operativo"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Operations"
+msgstr "Operaciones"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Operations without analytic"
+msgstr "Operaciones sin analítica"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Operations without branch"
+msgstr "Operaciones sin sucursal"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Operations without contact"
+msgstr "Operaciones sin contacto"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Outflows"
+msgstr "Salidas"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Outflows decreased %(pct).2f%% compared to the previous period."
+msgstr "Las salidas disminuyeron %(pct).2f%% respecto al período anterior."
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Outflows increased %(pct).2f%% compared to the previous period."
+msgstr "Las salidas aumentaron %(pct).2f%% respecto al período anterior."
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Overdue post-dated checks"
+msgstr "Cheques posfechados vencidos"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "POS liquidation"
+msgstr "Liquidación POS"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "POS liquidations"
+msgstr "Liquidaciones POS"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "POS settlements by bank"
+msgstr "Liquidaciones POS por banco"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "POS without bank invoice"
+msgstr "Liquidaciones POS sin factura bancaria"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Pending checks"
+msgstr "Cheques pendientes"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Pending validation"
+msgstr "Pendientes de validar"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Period"
+msgstr "Período"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Period inflows"
+msgstr "Entradas del período"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Period outflows"
+msgstr "Salidas del período"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Post-dated"
+msgstr "Posfechado"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Post-dated checks due this week"
+msgstr "Cheques posfechados por vencer esta semana"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Reconciled amount"
+msgstr "Monto conciliado"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Reconciled lines"
+msgstr "Apuntes conciliados"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Refresh"
+msgstr "Actualizar"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Reset filters"
+msgstr "Restablecer filtros"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Search bank or journal…"
+msgstr "Buscar banco o diario…"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Select all"
+msgstr "Seleccionar todos"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Select all bank journals"
+msgstr "Seleccionar todos los diarios bancarios"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Share"
+msgstr "Participación"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Start date must be before end date."
+msgstr "La fecha inicial debe ser anterior a la fecha final."
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "To"
+msgstr "Hasta"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Top cancelling user"
+msgstr "Usuario con más cancelaciones"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Top contacts"
+msgstr "Principales contactos"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Top contacts by amount"
+msgstr "Top contactos por monto"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Top movements"
+msgstr "Principales movimientos"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Transference"
+msgstr "Transferencia"
+
+#. module: gn_banks_dashboard
+#: model:ir.actions.client,name:gn_banks_dashboard.action_gn_banks_treasury_dashboard
+#: model:ir.ui.menu,name:gn_banks_dashboard.menu_gn_banks_treasury_dashboard
+msgid "Treasury Dashboard"
+msgstr "Dashboard de Tesorería"
+
+#. module: gn_banks_dashboard
+#: model:ir.model,name:gn_banks_dashboard.model_gn_banks_dashboard_service
+msgid "Treasury dashboard data service (gn_banks)"
+msgstr "Servicio de datos del dashboard de tesorería (gn_banks)"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Treasury operations"
+msgstr "Operaciones de tesorería"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "Treasury — Dashboard"
+msgstr "Tesorería — Dashboard"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Unbalanced drafts"
+msgstr "Borradores descuadrados"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Unknown drill-down metric: %s"
+msgstr "Métrica de detalle desconocida: %s"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Unreconciled amount"
+msgstr "Monto no conciliado"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Unreconciled lines"
+msgstr "Apuntes no conciliados"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Validated"
+msgstr "Validado"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Validated without journal entry"
+msgstr "Validados sin asiento contable"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "View detail"
+msgstr "Ver detalle"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Without analytics"
+msgstr "Sin analítica"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Without branch"
+msgstr "Sin sucursal"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Without contact"
+msgstr "Sin contacto"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "Without journal entry"
+msgstr "Sin asiento contable"
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "You do not have access to this company."
+msgstr "No tiene acceso a esta compañía."
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "bac.unified.import.batch"
+msgstr ""
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "credit"
+msgstr ""
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "credit_card"
+msgstr ""
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "deposit"
+msgstr ""
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "reconciled"
+msgstr ""
+
+#. module: gn_banks_dashboard
+#. odoo-python
+#: code:addons/gn_banks_dashboard/models/dashboard_service.py:0
+msgid "transference"
+msgstr ""
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "vs previous period"
+msgstr "vs período anterior"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard_labels.js:0
+msgid "7-day trend"
+msgstr "Tendencia 7 días"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/dashboard.js:0
+msgid "Inflows: %s · Outflows: %s · Net: %s"
+msgstr "Entradas: %s · Salidas: %s · Neto: %s"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/indicator_gauges.js:0
+msgid "Indicadores operativos"
+msgstr "Indicadores operativos"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/indicator_gauges.js:0
+msgid "Calidad de datos y riesgo del período"
+msgstr "Calidad de datos y riesgo del período"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/indicator_gauges.js:0
+msgid "Saludable"
+msgstr "Saludable"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/indicator_gauges.js:0
+msgid "Atención"
+msgstr "Atención"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/indicator_gauges.js:0
+msgid "Riesgo"
+msgstr "Riesgo"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/indicator_gauges.js:0
+msgid "N/D"
+msgstr "N/D"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/indicator_gauges.js:0
+msgid "Objetivo: %s"
+msgstr "Objetivo: %s"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/indicator_gauges.js:0
+msgid "Sin operaciones en el período"
+msgstr "Sin operaciones en el período"
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/indicator_gauges.js:0
+msgid ""
+"No hay movimientos validados con los filtros actuales. Los indicadores "
+"aparecerán cuando exista actividad."
+msgstr ""
+"No hay movimientos validados con los filtros actuales. Los indicadores "
+"aparecerán cuando exista actividad."
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/indicator_gauges.js:0
+msgid "Amplía fechas o restablece filtros de banco y sucursal."
+msgstr "Amplía fechas o restablece filtros de banco y sucursal."
+
+#. module: gn_banks_dashboard
+#. odoo-javascript
+#: code:addons/gn_banks_dashboard/static/src/dashboard/indicator_gauges.js:0
+msgid "Rango saludable: %s"
+msgstr "Rango saludable: %s"
+

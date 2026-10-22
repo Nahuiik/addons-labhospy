@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_invoice_point_sale_report"  model="ir.actions.report">
+            <field name="name">FACTURA PV</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">gn_report_invoice_ps.report_invoice_point_sale</field>
+            <field name="report_file">gn_report_invoice_ps.report_invoice_point_sale</field>
+            <field name="paperformat_id" ref="gn_report_invoice_ps.invoice_point_sale_format"/>
+        </record>
+
+    </data>
+</odoo>

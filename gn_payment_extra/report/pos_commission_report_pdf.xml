@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="pos_commission_report_pdf_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="wizard">
+                    <t t-set="report_data" t-value="wizard._get_report_data()"/>
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <!-- Título -->
+                            <div class="text-center mb-4">
+                                <h2 style="color: #4472C4;">REPORTE DE COMISIONES POR POS</h2>
+                                <p>
+                                    <strong>Compañía:</strong> <t t-esc="report_data['company'].name"/><br/>
+                                    <strong>Período:</strong> <t t-esc="report_data['date_from']"/> - <t t-esc="report_data['date_to']"/>
+                                </p>
+                            </div>
+
+                            <!-- Iterar por cada convenio -->
+                            <t t-foreach="report_data['data'].items()" t-as="agreement_item">
+                                <t t-set="agreement_name" t-value="agreement_item[0]"/>
+                                <t t-set="agreement_data" t-value="agreement_item[1]"/>
+                                
+                                <!-- Nombre del convenio -->
+                                <div class="mt-4 mb-2" style="background-color: #FFC000; padding: 8px; font-weight: bold;">
+                                    CONVENIO: <t t-esc="agreement_name"/>
+                                </div>
+
+                                <!-- Tabla de datos -->
+                                <table class="table table-sm table-bordered" style="font-size: 10px;">
+                                    <thead style="background-color: #D9E1F2;">
+                                        <tr>
+                                            <th>Fecha</th>
+                                            <th>Referencia</th>
+                                            <th>Cliente</th>
+                                            <th>Tipo Método</th>
+                                            <th class="text-center">Meses</th>
+                                            <th class="text-right">% Com.</th>
+                                            <th class="text-right">Ventas</th>
+                                            <th class="text-right">Sin IVA</th>
+                                            <th class="text-right">IVA</th>
+                                            <th class="text-right">Comisión</th>
+                                            <th class="text-right">IVA Com.</th>
+                                            <th class="text-right">Retención</th>
+                                            <th class="text-right">Deduc.</th>
+                                            <th class="text-right">A Recibir</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="agreement_data['lines']" t-as="line">
+                                            <tr>
+                                                <td><t t-esc="line['date']"/></td>
+                                                <td><t t-esc="line['name']"/></td>
+                                                <td><t t-esc="line['partner'][:25]"/>...</td>
+                                                <td><t t-esc="line['method_type']"/></td>
+                                                <td class="text-center"><t t-esc="line['months']"/></td>
+                                                <td class="text-right"><t t-esc="'%.2f' % line['commission_pct']"/>%</td>
+                                                <td class="text-right">$ <t t-esc="'%.2f' % line['amount']"/></td>
+                                                <td class="text-right">$ <t t-esc="'%.2f' % line['amount_without_vat']"/></td>
+                                                <td class="text-right">$ <t t-esc="'%.2f' % line['vat_amount']"/></td>
+                                                <td class="text-right">$ <t t-esc="'%.2f' % line['commission_amount']"/></td>
+                                                <td class="text-right">$ <t t-esc="'%.2f' % line['commission_vat_amount']"/></td>
+                                                <td class="text-right">$ <t t-esc="'%.2f' % line['retention_amount']"/></td>
+                                                <td class="text-right">$ <t t-esc="'%.2f' % line['total_deductions']"/></td>
+                                                <td class="text-right" style="font-weight: bold; color: green;">$ <t t-esc="'%.2f' % line['amount_to_receive']"/></td>
+                                            </tr>
+                                        </t>
+                                        <!-- Subtotal del convenio -->
+                                        <tr style="background-color: #E2EFDA; font-weight: bold;">
+                                            <td colspan="4">Subtotal <t t-esc="agreement_name"/></td>
+                                            <td class="text-center"><t t-esc="agreement_data['subtotals']['count']"/></td>
+                                            <td></td>
+                                            <td class="text-right">$ <t t-esc="'%.2f' % agreement_data['subtotals']['amount']"/></td>
+                                            <td class="text-right">$ <t t-esc="'%.2f' % agreement_data['subtotals']['without_vat']"/></td>
+                                            <td class="text-right">$ <t t-esc="'%.2f' % agreement_data['subtotals']['vat']"/></td>
+                                            <td class="text-right">$ <t t-esc="'%.2f' % agreement_data['subtotals']['commission']"/></td>
+                                            <td class="text-right">$ <t t-esc="'%.2f' % agreement_data['subtotals']['commission_vat']"/></td>
+                                            <td class="text-right">$ <t t-esc="'%.2f' % agreement_data['subtotals']['retention']"/></td>
+                                            <td class="text-right">$ <t t-esc="'%.2f' % agreement_data['subtotals']['deductions']"/></td>
+                                            <td class="text-right" style="color: green;">$ <t t-esc="'%.2f' % agreement_data['subtotals']['to_receive']"/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </t>
+
+                            <!-- Total General -->
+                            <t t-set="totals" t-value="report_data['totals']"/>
+                            <table class="table table-sm table-bordered mt-4" style="font-size: 11px;">
+                                <thead>
+                                    <tr style="background-color: #4472C4; color: white; font-weight: bold;">
+                                        <th colspan="4">TOTAL GENERAL</th>
+                                        <th class="text-center"><t t-esc="totals['payment_count']"/> pagos</th>
+                                        <th></th>
+                                        <th class="text-right">$ <t t-esc="'%.2f' % totals['total_amount']"/></th>
+                                        <th class="text-right">$ <t t-esc="'%.2f' % totals['total_without_vat']"/></th>
+                                        <th class="text-right">$ <t t-esc="'%.2f' % totals['total_vat']"/></th>
+                                        <th class="text-right">$ <t t-esc="'%.2f' % totals['total_commission']"/></th>
+                                        <th class="text-right">$ <t t-esc="'%.2f' % totals['total_commission_vat']"/></th>
+                                        <th class="text-right">$ <t t-esc="'%.2f' % totals['total_retention']"/></th>
+                                        <th class="text-right">$ <t t-esc="'%.2f' % totals['total_deductions']"/></th>
+                                        <th class="text-right">$ <t t-esc="'%.2f' % totals['total_to_receive']"/></th>
+                                    </tr>
+                                </thead>
+                            </table>
+
+                            <!-- Resumen -->
+                            <div class="row mt-4">
+                                <div class="col-6">
+                                    <table class="table table-sm" style="font-size: 11px; width: 50%;">
+                                        <tr>
+                                            <td><strong>Total Pagos:</strong></td>
+                                            <td class="text-right"><t t-esc="totals['payment_count']"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Total Ventas:</strong></td>
+                                            <td class="text-right">$ <t t-esc="'%.2f' % totals['total_amount']"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Total Comisiones:</strong></td>
+                                            <td class="text-right">$ <t t-esc="'%.2f' % totals['total_commission']"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Total Deducciones:</strong></td>
+                                            <td class="text-right">$ <t t-esc="'%.2f' % totals['total_deductions']"/></td>
+                                        </tr>
+                                        <tr style="background-color: #E2EFDA;">
+                                            <td><strong>Total a Recibir:</strong></td>
+                                            <td class="text-right" style="font-size: 14px; color: green;"><strong>$ <t t-esc="'%.2f' % totals['total_to_receive']"/></strong></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

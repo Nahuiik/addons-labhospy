@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- LIBRO DE VACACIONES -->
+    <record id="view_gn_hn_vacation_libro_tree" model="ir.ui.view">
+        <field name="name">gn.hn.vacation.libro.list</field>
+        <field name="model">gn.hn.vacation.libro</field>
+        <field name="arch" type="xml">
+            <list string="Libro de Vacaciones" create="0" edit="0" delete="0" decoration-danger="days_remaining &lt;= 0" decoration-warning="days_remaining &gt; 0 and days_remaining &lt; 5">
+                <field name="employee_name"/>
+                <field name="department_id"/>
+                <field name="job_id" optional="show"/>
+                <field name="contract_date_start" optional="show"/>
+                <field name="seniority_years"/>
+                <field name="period_start"/>
+                <field name="period_end"/>
+                <field name="days_entitled" sum="Total asignados"/>
+                <field name="days_taken" sum="Total gozados"/>
+                <field name="days_remaining" sum="Total saldo"/>
+                <field name="constancia_count"/>
+                <field name="paid_count"/>
+                <field name="allocation_state"/>
+                <field name="company_id" optional="hide" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_gn_hn_vacation_libro_pivot" model="ir.ui.view">
+        <field name="name">gn.hn.vacation.libro.pivot</field>
+        <field name="model">gn.hn.vacation.libro</field>
+        <field name="arch" type="xml">
+            <pivot string="Libro de Vacaciones">
+                <field name="department_id" type="row"/>
+                <field name="employee_name" type="row"/>
+                <field name="days_entitled" type="measure"/>
+                <field name="days_taken" type="measure"/>
+                <field name="days_remaining" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_gn_hn_vacation_libro_graph" model="ir.ui.view">
+        <field name="name">gn.hn.vacation.libro.graph</field>
+        <field name="model">gn.hn.vacation.libro</field>
+        <field name="arch" type="xml">
+            <graph string="Libro de Vacaciones" type="bar" stacked="1">
+                <field name="department_id"/>
+                <field name="days_entitled" type="measure"/>
+                <field name="days_taken" type="measure"/>
+                <field name="days_remaining" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_gn_hn_vacation_libro_search" model="ir.ui.view">
+        <field name="name">gn.hn.vacation.libro.search</field>
+        <field name="model">gn.hn.vacation.libro</field>
+        <field name="arch" type="xml">
+            <search string="Libro de Vacaciones">
+                <field name="employee_id"/>
+                <field name="department_id"/>
+                <filter name="with_balance" string="Con saldo" domain="[('days_remaining', '&gt;', 0)]"/>
+                <filter name="no_balance" string="Sin saldo" domain="[('days_remaining', '&lt;=', 0)]"/>
+                <filter name="approved" string="Aprobadas" domain="[('allocation_state', '=', 'validate')]"/>
+                <filter string="Departamento" name="group_department" context="{'group_by': 'department_id'}"/>
+                <filter string="Empleado" name="group_employee" context="{'group_by': 'employee_id'}"/>
+                <filter string="Período inicio" name="group_period" context="{'group_by': 'period_start'}"/>
+                <filter string="Estado" name="group_state" context="{'group_by': 'allocation_state'}"/>
+                <filter string="Compañía" name="group_company" context="{'group_by': 'company_id'}" groups="base.group_multi_company"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_gn_hn_vacation_libro" model="ir.actions.act_window">
+        <field name="name">Libro de Vacaciones</field>
+        <field name="res_model">gn.hn.vacation.libro</field>
+        <field name="view_mode">list,pivot,graph</field>
+        <field name="search_view_id" ref="view_gn_hn_vacation_libro_search"/>
+        <field name="context">{'search_default_approved': 1, 'search_default_group_department': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay datos de vacaciones Honduras
+            </p>
+            <p>
+                El libro se alimenta de las asignaciones de vacaciones HN aprobadas.
+            </p>
+        </field>
+    </record>
+</odoo>

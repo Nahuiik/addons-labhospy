@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="blind_closing_wizard_form">
+        <field name="name">gn.cash.closing.blind.wizard.form</field>
+        <field name="model">gn.cash.closing.blind.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Cierre Inicial a Ciegas" class="blind-wizard-form">
+                <sheet>
+                    <field name="state" invisible="1"/>
+                    <field name="data_loaded" invisible="1"/>
+                    <field name="can_edit_branch" invisible="1"/>
+                    <field name="efectivo_falta" invisible="1"/>
+                    <field name="tarjetas_falta" invisible="1"/>
+                    <field name="transferencias_falta" invisible="1"/>
+
+                    <div class="blind-wizard-container">
+                        <!-- Paso 1: Inicio -->
+                        <div class="blind-wizard-card" invisible="state != 'inicio'">
+                            <h4>Resumen de Cierre</h4>
+                            <group col="3">
+                                <field name="user_id" readonly="1" options="{'no_create': True}"/>
+                                <field name="branch_id" options="{'no_create': True}" readonly="not can_edit_branch"/>
+                                <field name="date"/>
+                            </group>
+                            <div class="mt-3">
+                                <button name="action_iniciar_cierre" type="object"
+                                        string="Iniciar Cierre" class="btn btn-primary blind-wizard-btn blind-wizard-btn-primary"
+                                        icon="fa-play"/>
+                            </div>
+                        </div>
+
+                        <!-- ============================================ -->
+                        <!-- Paso 2: Digitación a ciegas (sin esperado) -->
+                        <!-- ============================================ -->
+                        <div class="blind-wizard-card" invisible="state != 'digitando'">
+                            <!-- Header tipo POS -->
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h4 class="my-1">Cierre de Caja</h4>
+                                <div class="closing-total-orders fw-bolder">
+                                    Total <field name="total_facturas"/> facturas:
+                                    <field name="total_facturas_monto" widget="float"/>
+                                </div>
+                            </div>
+                            <!-- Encabezados de columna -->
+                            <div class="d-flex align-items-center mb-2 closing-col-headers">
+                                <div class="flex-grow-1 me-3">
+                                    <span>Tipo de Pago</span>
+                                </div>
+                                <div class="closing-counted-col text-center">
+                                    <span>Contado</span>
+                                </div>
+                            </div>
+                            <!-- Efectivo -->
+                            <div class="d-flex align-items-center mb-2">
+                                <div class="closing-pm-box flex-grow-1 me-3">
+                                    <span class="fw-bold">Efectivo</span>
+                                </div>
+                                <div class="closing-counted-col">
+                                    <field name="efectivo_digitado" nolabel="1" widget="float" class="closing-input"/>
+                                </div>
+                            </div>
+                            <!-- Liquidación Tarjeta -->
+                            <div class="d-flex align-items-center mb-2">
+                                <div class="closing-pm-box flex-grow-1 me-3">
+                                    <span class="fw-bold">Liquidación Tarjeta</span>
+                                </div>
+                                <div class="closing-counted-col">
+                                    <field name="tarjetas_digitado" nolabel="1" widget="float" class="closing-input"/>
+                                </div>
+                            </div>
+                            <!-- Transferencias -->
+                            <div class="d-flex align-items-center mb-2">
+                                <div class="closing-pm-box flex-grow-1 me-3">
+                                    <span class="fw-bold">Transferencias</span>
+                                </div>
+                                <div class="closing-counted-col">
+                                    <field name="transferencias_digitado" nolabel="1" widget="float" class="closing-input"/>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="closing-notes-container">
+                                <span class="o_form_label">Nota de cierre</span>
+                                <field name="closing_notes" nolabel="1" widget="text"
+                                       placeholder="Agregar una nota de cierre..."/>
+                            </div>
+                        </div>
+
+                        <!-- ============================================ -->
+                        <!-- Paso 3: Comparación (layout POS completo)   -->
+                        <!-- ============================================ -->
+                        <div class="blind-wizard-card" invisible="state != 'comparacion'">
+                            <!-- Header tipo POS -->
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h4 class="my-1">Cierre de Caja</h4>
+                                <div class="closing-total-orders fw-bolder">
+                                    Total <field name="total_facturas"/> facturas:
+                                    <field name="total_facturas_monto" widget="float"/>
+                                </div>
+                            </div>
+                            <!-- Encabezados de columna -->
+                            <div class="d-flex align-items-center mb-2 closing-col-headers">
+                                <div class="flex-grow-1 me-3 d-flex justify-content-between">
+                                    <span>Tipo de Pago</span>
+                                    <span>Esperado</span>
+                                </div>
+                                <div class="closing-counted-col text-center">
+                                    <span>Contado</span>
+                                </div>
+                                <div class="closing-diff-col text-end">
+                                    <span>Diferencia</span>
+                                </div>
+                            </div>
+                            <!-- Efectivo -->
+                            <div class="d-flex align-items-center mb-2">
+                                <div class="closing-pm-box flex-grow-1 me-3 d-flex justify-content-between align-items-center">
+                                    <span class="fw-bold">Efectivo</span>
+                                    <field name="efectivo_calculado" readonly="1" nolabel="1" widget="float"/>
+                                </div>
+                                <div class="closing-counted-col closing-val-cell">
+                                    <field name="efectivo_digitado" readonly="1" nolabel="1" widget="float"/>
+                                </div>
+                                <div class="closing-diff-col closing-val-cell">
+                                    <field name="efectivo_diferencia" readonly="1" nolabel="1" widget="float"
+                                           decoration-danger="efectivo_falta"/>
+                                </div>
+                            </div>
+                            <!-- Liquidación Tarjeta -->
+                            <div class="d-flex align-items-center mb-2">
+                                <div class="closing-pm-box flex-grow-1 me-3 d-flex justify-content-between align-items-center">
+                                    <span class="fw-bold">Liquidación Tarjeta</span>
+                                    <field name="tarjetas_calculado" readonly="1" nolabel="1" widget="float"/>
+                                </div>
+                                <div class="closing-counted-col closing-val-cell">
+                                    <field name="tarjetas_digitado" readonly="1" nolabel="1" widget="float"/>
+                                </div>
+                                <div class="closing-diff-col closing-val-cell">
+                                    <field name="tarjetas_diferencia" readonly="1" nolabel="1" widget="float"
+                                           decoration-danger="tarjetas_falta"/>
+                                </div>
+                            </div>
+                            <!-- Transferencias -->
+                            <div class="d-flex align-items-center mb-2">
+                                <div class="closing-pm-box flex-grow-1 me-3 d-flex justify-content-between align-items-center">
+                                    <span class="fw-bold">Transferencias</span>
+                                    <field name="transferencias_calculado" readonly="1" nolabel="1" widget="float"/>
+                                </div>
+                                <div class="closing-counted-col closing-val-cell">
+                                    <field name="transferencias_digitado" readonly="1" nolabel="1" widget="float"/>
+                                </div>
+                                <div class="closing-diff-col closing-val-cell">
+                                    <field name="transferencias_diferencia" readonly="1" nolabel="1" widget="float"
+                                           decoration-danger="transferencias_falta"/>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="closing-notes-container" invisible="not closing_notes">
+                                <span class="o_form_label">Nota de cierre</span>
+                                <field name="closing_notes" readonly="1" nolabel="1" widget="text"/>
+                            </div>
+                        </div>
+                    </div>
+                </sheet>
+                <footer class="closing-footer">
+                    <!-- Paso 1 -->
+                    <button string="Cancelar" class="btn btn-secondary" special="cancel"
+                            invisible="state != 'inicio'"/>
+                    <!-- Paso 2 -->
+                    <button name="action_continuar" type="object" string="Continuar"
+                            class="btn btn-primary btn-lg" icon="fa-arrow-right"
+                            confirm="¿Está seguro que lo digitado es correcto? No podrá modificar una vez confirmado."
+                            invisible="state != 'digitando'"
+                            groups="gn_daily_cash_closing.group_cash_closing_generate"/>
+                    <!-- Paso 3: solo Cerrar Cierre para cerrar el wizard -->
+                    <button name="action_finalizar" type="object" string="Cerrar Cierre"
+                            class="btn btn-primary btn-lg"
+                            invisible="state != 'comparacion'"
+                            groups="gn_daily_cash_closing.group_cash_closing_generate"/>
+                    <!-- Paso 3: derecha (empujados con ms-auto) - requiere permiso Descargar Venta Diaria -->
+                    <button name="action_descargar_cierre" type="object" string="Venta Diaria"
+                            class="btn btn-secondary btn-lg ms-auto" icon="fa-download"
+                            invisible="state != 'comparacion'"
+                            groups="gn_daily_cash_closing.group_cash_closing_venta_diaria"/>
+                    <button name="action_imprimir_voucher" type="object" string=""
+                            class="btn btn-secondary btn-lg" icon="fa-print"
+                            title="Imprimir"
+                            invisible="state != 'comparacion'"
+                            groups="gn_daily_cash_closing.group_cash_closing_generate"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_gn_cash_closing_blind_wizard">
+        <field name="name">Cierre Inicial a Ciegas</field>
+        <field name="res_model">gn.cash.closing.blind.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_gn_cash_closing_blind_wizard"
+              name="Cierre Inicial a Ciegas"
+              parent="sale.menu_sale_report"
+              action="action_gn_cash_closing_blind_wizard"
+              groups="gn_daily_cash_closing.group_cash_closing_generate"
+              sequence="100"/>
+</odoo>

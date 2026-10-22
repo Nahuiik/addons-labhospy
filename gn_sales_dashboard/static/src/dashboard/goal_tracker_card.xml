@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_sales_dashboard.SalesGoalTrackerCard">
+        <section t-att-class="'gn-sd-panel gn-sd-goal gn-sd-level-1' + (!props.goal?.is_configured ? ' gn-sd-goal--empty' : '')">
+            <header class="gn-sd-panel__head">
+                <h3 class="gn-sd-panel__title">Meta vs real</h3>
+            </header>
+            <div t-if="props.loading" class="gn-sd-skeleton gn-sd-skeleton--goal"/>
+            <SalesEmptyState t-elif="!props.goal?.is_configured"
+                icon="'fa-bullseye'"
+                title="'Meta comercial no configurada'"
+                description="'Configure una meta para comparar ventas reales, proyección y cumplimiento del período.'"
+                compact="true"/>
+            <button t-if="!props.goal?.is_configured and props.canConfigure and props.goal?.configure_action"
+                    type="button" class="btn btn-sm btn-primary mt-2"
+                    t-on-click="onConfigureClick">
+                Configurar meta
+            </button>
+            <div t-else="" class="gn-sd-goal__body">
+                <div class="gn-sd-goal__kpis">
+                    <div><span>Meta</span><strong t-esc="props.fmtMoney(props.goal.target)"/></div>
+                    <div><span>Real</span><strong t-esc="props.fmtMoney(props.goal.actual)"/></div>
+                    <div><span>Cumplimiento</span><strong t-esc="(props.goal.achievement or 0).toFixed(1) + '%'"/></div>
+                    <div t-if="props.closingForecast?.has_data"><span>Proyección</span><strong t-esc="props.fmtMoney(props.closingForecast.projection)"/></div>
+                </div>
+                <div class="gn-sd-goal__bullet">
+                    <div class="gn-sd-goal__bullet-track">
+                        <div class="gn-sd-goal__bullet-fill" t-att-style="'width:' + actualPct + '%'"/>
+                        <div class="gn-sd-goal__bullet-marker gn-sd-goal__bullet-marker--target" style="left:100%" title="Meta"/>
+                        <div t-if="props.goal.projection" class="gn-sd-goal__bullet-marker gn-sd-goal__bullet-marker--forecast"
+                             t-att-style="'left:' + Math.min(projectionPct, 100) + '%'" title="Proyección"/>
+                    </div>
+                </div>
+                <div class="gn-sd-goal__meta">
+                    <span><t t-esc="props.goal.days_elapsed"/> d transcurridos · <t t-esc="props.goal.days_remaining"/> restantes</span>
+                    <span>Ritmo <t t-esc="props.fmtMoney(props.goal.daily_actual)"/>/d · Req. <t t-esc="props.fmtMoney(props.goal.required_daily)"/>/d</span>
+                </div>
+                <p t-att-class="'gn-sd-goal__message ' + riskClass" t-esc="props.goal.message"/>
+            </div>
+        </section>
+    </t>
+</templates>

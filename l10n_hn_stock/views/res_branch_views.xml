@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_res_branch_form_inherit_transfer_sequence" model="ir.ui.view">
+        <field name="name">res.branch.form.inherit.transfer.sequence</field>
+        <field name="model">res.branch</field>
+        <field name="inherit_id" ref="gts_branch_management.view_res_branch_form"/>
+        <field name="arch" type="xml">
+            <field name="purchase_sequence_id" position="after">
+                <field name="transfer_sequence_id"/>
+                <field name="hn_remission_sequence_id"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_res_branch_form_inherit_remission_pdf" model="ir.ui.view">
+        <field name="name">res.branch.form.inherit.remission.pdf</field>
+        <field name="model">res.branch</field>
+        <field name="inherit_id" ref="gts_branch_management.view_res_branch_form"/>
+        <field name="arch" type="xml">
+            <field name="pdf_watermark_fname_branch_order" position="after">
+                <field name="pdf_watermark_branch_remission" filename="pdf_watermark_fname_branch_remission"/>
+                <field name="pdf_watermark_fname_branch_remission" invisible="1"/>
+            </field>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<template id="PAYMENT_0_document" name="Odoo Template">
+			<t t-call="account.report_payment_receipt_document" t-lang="lang"/>
+		</template>
+	</data>
+</odoo>
+

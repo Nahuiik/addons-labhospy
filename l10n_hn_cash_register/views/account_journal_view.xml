@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+      <record model="ir.ui.view" id="view_account_cash_registers_journal_form_inherit">
+        <field name="name">account.journal.cash.register.form</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="arch" type="xml">
+          <xpath expr="//sheet//group//group[2]" position="inside">
+              <field name="is_purchase" invisible="1"/>
+          </xpath>
+        </field>
+      </record>
+    </data>
+</odoo>

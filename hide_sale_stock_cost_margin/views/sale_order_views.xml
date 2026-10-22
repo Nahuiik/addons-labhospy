@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_order_hide_margin_fields" model="ir.ui.view">
+        <field name="name">sale.order.hide.margin.fields</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_margin.sale_margin_sale_order"/>
+        <field name="arch" type="xml">
+            <!-- <xpath expr="//field[@name='order_line']//list//field[@name='name']" position="after">
+                <field name="cost_margin_visible" invisible="0"/>
+            </xpath> -->
+            <xpath expr="//field[@name='order_line']//list//field[@name='purchase_price']" position="replace">
+                <field name="purchase_price" optional="hide" groups="hide_sale_stock_cost_margin.sale_cost_margin_hide_group"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']//list//field[@name='margin']" position="replace">
+                <field name="margin" optional="hide" groups="hide_sale_stock_cost_margin.sale_cost_margin_hide_group"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']//list//field[@name='margin_percent']" position="replace">
+                <field name="margin_percent" invisible="price_subtotal == 0" optional="hide" widget="percentage" groups="hide_sale_stock_cost_margin.sale_cost_margin_hide_group"/>
+            </xpath>
+            <!-- <xpath expr="//field[@name='order_line']//form//field[@name='purchase_price']" position="replace">
+                <field name="purchase_price" groups="hide_sale_stock_cost_margin.sale_cost_margin_hide_group"/>
+            </xpath> -->
+            <xpath expr="//field[@name='tax_totals']/following-sibling::div[label[@for='margin']]" position="attributes">
+                <attribute name="groups">hide_sale_stock_cost_margin.sale_cost_margin_hide_group</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

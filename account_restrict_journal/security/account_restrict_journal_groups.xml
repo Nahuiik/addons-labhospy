@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Grupo de usuarios que aplican restricción de diarios -->
+    <record id="account_restrict_journal_group_admin" model="res.groups">
+        <field name="name">Restrict Journals</field>
+        <field name="comment">Grupo utilizado para restringir el acceso a diarios contables.</field>
+    </record>
+</odoo>

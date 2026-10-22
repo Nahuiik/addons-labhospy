@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="mail_template_customer_statements" model="mail.template">
+            <field name="name">Email Customer Statements</field>
+            <field name="email_from">{{(user.company_id.partner_id.email or '')}}</field>
+            <field name="subject">{{user.company_id.name}} Customer Statement</field>
+            <field name="email_to">{{object.email}}</field>
+            <field name="lang">{{object.lang}}</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html" type="html">
+                <div style="font-family: Verdana, Arial,sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: rgb(255, 255, 255); ">
+                    <p>Dear <t t-out="object.name or ''"/>,
+                    </p>
+                    <p>
+                        Here is the payment statement.
+                        Please find the attachment.
+                    </p>
+                    <br/>
+                    Best Regards,
+                    <br/>
+                    <br/>
+                    <t t-out="user.company_id.name  or ''"/>
+                    <br/>
+                    <br/>
+                    <br/>
+                </div>
+
+            </field>
+        </record>
+
+        <record id="mail_template_customer_overdue_statements" model="mail.template">
+            <field name="name">Email Customer Overdue Statements</field>
+            <field name="email_from">{{(user.company_id.partner_id.email or '')}}</field>
+            <field name="subject">{{user.company_id.name}} Customer Overdue Statements</field>
+            <field name="email_to">{{object.email}}</field>
+            <field name="lang">{{object.lang}}</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html" type="html">
+                <div style="font-family: Verdana, Arial,sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: rgb(255, 255, 255); ">
+                    <p>Dear <t t-out="object.name or ''"/>,
+                    </p>
+                    <p>
+                        Here is the payment statement.
+                        Please find the attachment.
+                    </p>
+                    <br/>
+                    Best Regards,
+                    <br/>
+                    <br/>
+                    <t t-out="user.company_id.name  or ''"/>
+
+                    <br/>
+                    <br/>
+                    <br/>
+                </div>
+
+            </field>
+        </record>
+
+        <record id="mail_template_filtered_customer_statements" model="mail.template">
+            <field name="name">Email Customer Filtered Statements</field>
+            <field name="email_from">{{(user.company_id.partner_id.email or '')}}</field>
+            <field name="subject">{{user.company_id.name}} Customer Filtered Statements</field>
+            <field name="email_to">{{object.email}}</field>
+            <field name="lang">{{object.lang}}</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html" type="html">
+                <div style="font-family: Verdana, Arial,sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: rgb(255, 255, 255); ">
+                    <p>Dear <t t-out="object.name or ''"/>,
+                    </p>
+                    <p>
+                        Here is the payment statement.
+                        Please find the attachment.
+                    </p>
+                    <br/>
+                    Best Regards,
+                    <br/>
+                    <br/>
+                    <t t-out="user.company_id.name  or ''"/>
+
+                    <br/>
+                    <br/>
+                    <br/>
+                </div>
+            </field>
+        </record>
+
+        <record id="mail_template_custom_customer_statements" model="mail.template">
+            <field name="name">Custom Customer Statements</field>
+            <field name="email_from">{{(user.company_id.partner_id.email or '')}}</field>
+            <field name="subject">{{user.company_id.name}} - Custom Customer's Statement</field>
+            <field name="email_to">{{object.email}}</field>
+            <field name="lang">{{object.lang}}</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html" type="html">
+                <div style="font-family: Verdana, Arial,sans-serif; background-color: rgb(255, 255, 255); font-size: 12px; color: rgb(34, 34, 34);  ">
+                    <p>Dear <t t-out="object.name or ''"/>,
+                    </p>
+                    <p>
+                        Here is the Custom Customer's statement.
+                        Please find the attachment.
+                    </p>
+                    <br/>
+                    Best Regards,
+                    <br/>
+                    <br/>
+                    <t t-out="user.company_id.name  or ''"/>
+                    <br/>
+                    <br/>
+                    <br/>
+                </div>
+            </field>
+        </record>
+
+        <record id="mail_template_monthly_customer_statements" model="mail.template">
+            <field name="name">Monthly Customer's Statements</field>
+            <field name="email_from">{{(user.company_id.partner_id.email or '')}}</field>
+            <field name="subject">{{user.company_id.name}} - Monthly Customer's Statement</field>
+            <field name="email_to">{{object.email}}</field>
+            <field name="lang">{{object.lang}}</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html" type="html">
+                <div style="font-family: Verdana, Arial,sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: rgb(255, 255, 255); ">
+                    <p>Dear <t t-out="object.name or ''"/>,
+                    </p>
+                    <p>
+                        Here is the Monthly Customer's statement.
+                        Please find the attachment.
+                    </p>
+                    <br/>
+                    Best Regards,
+                    <br/>
+                    <br/>
+                    <t t-out="user.company_id.name  or ''"/>
+                    <br/>
+                    <br/>
+                    <br/>
+                </div>
+            </field>
+        </record>
+
+        <record id="mail_template_weekly_customer_statements" model="mail.template">
+            <field name="name">Weekly Customer's Statements</field>
+            <field name="email_from">{{(user.company_id.partner_id.email or '')}}</field>
+            <field name="subject">{{user.company_id.name}} - Weekly Customer's Statement</field>
+            <field name="email_to">{{object.email}}</field>
+            <field name="lang">{{object.lang}}</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html" type="html">
+                <div style="font-family: Verdana, Arial,sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: rgb(255, 255, 255); ">
+                    <p>Dear <t t-out="object.name or ''"/>,
+                    </p>
+                    <p>
+                        Here is the Weekly Customer's statement.
+                        Please find the attachment.
+                    </p>
+                    <br/>
+                    Best Regards,
+                    <br/>
+                    <br/>
+                    <t t-out="user.company_id.name  or ''"/>
+                    <br/>
+                    <br/>
+                    <br/>
+                </div>
+            </field>
+        </record>
+
+    </data>
+</odoo>

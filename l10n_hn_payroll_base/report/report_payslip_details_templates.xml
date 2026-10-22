@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_payslipdetails">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Payslip details</h2>
+                        <p><span t-field="o.employee_id"/> — <span t-field="o.name"/></p>
+                        <t t-set="blocks" t-value="lines_by_category.get(o.id, [])"/>
+                        <t t-foreach="blocks" t-as="block">
+                            <h4 class="mt16" t-out="block['rule_category']"/>
+                            <table class="table table-sm">
+                                <tbody>
+                                    <t t-set="sublines" t-value="block['lines']"/>
+                                    <tr t-foreach="sublines" t-as="line">
+                                        <td><span t-field="line.name"/></td>
+                                        <td class="text-end"><span t-field="line.total"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Subtotal</strong></td>
+                                        <td class="text-end"><t t-out="block['total']"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

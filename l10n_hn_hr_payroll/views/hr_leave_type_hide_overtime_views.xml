@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Quita de la ficha el campo de hr_holidays_attendance (la lógica queda desactivada vía modelo). -->
+    <record id="view_hr_leave_type_form_hide_overtime_l10n_hn" model="ir.ui.view">
+        <field name="name">hr.leave.type.form.hide.overtime.l10n.hn</field>
+        <field name="model">hr.leave.type</field>
+        <field name="inherit_id" ref="hr_holidays_attendance.hr_leave_type_view_form"/>
+        <field name="arch" type="xml">
+            <label for="overtime_deductible" position="replace"/>
+            <field name="overtime_deductible" position="replace"/>
+        </field>
+    </record>
+</odoo>

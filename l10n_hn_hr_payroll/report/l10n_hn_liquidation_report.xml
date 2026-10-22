@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_l10n_hn_liquidation" model="ir.actions.report">
+        <field name="name">Liquidación laboral (HN)</field>
+        <field name="model">l10n.hn.liquidation</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hn_hr_payroll.report_l10n_hn_liquidation_document</field>
+        <field name="report_file">l10n_hn_hr_payroll.report_l10n_hn_liquidation_document</field>
+        <field name="binding_model_id" ref="model_l10n_hn_liquidation"/>
+        <field name="binding_type">report</field>
+    </record>
+    <template id="report_l10n_hn_liquidation_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Liquidación laboral</h2>
+                        <p><strong>Referencia:</strong> <t t-esc="o.name"/></p>
+                        <p><strong>Empleado:</strong> <t t-esc="o.employee_id.name"/></p>
+                        <p><strong>Motivo legal:</strong> <t t-esc="o.legal_termination_reason"/></p>
+                        <p><strong>Fechas:</strong> <t t-esc="o.start_date"/> — <t t-esc="o.end_date"/></p>
+                        <p><strong>SBD / SOD / SPD:</strong>
+                            <t t-esc="round(o.sbd_computed, 2)"/> /
+                            <t t-esc="round(o.sod_computed, 2)"/> /
+                            <t t-esc="round(o.spd_computed, 2)"/>
+                        </p>
+                        <p class="text-muted small">
+                            Referencia metodológica: guía STSS; topes cesantía Dec. 150-2008 (25 meses; 15 micro).
+                        </p>
+                        <h3>Ingresos</h3>
+                        <table class="table table-sm">
+                            <thead><tr><th>Concepto</th><th>Base</th><th>Días</th><th class="text-end">Monto</th></tr></thead>
+                            <tbody>
+                                <t t-foreach="o.income_ids" t-as="line">
+                                    <tr>
+                                        <td><t t-esc="line.name"/></td>
+                                        <td><t t-esc="line.salary_base_used"/></td>
+                                        <td><t t-esc="line.quantity_days"/></td>
+                                        <td class="text-end"><t t-esc="line.amount"/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        <h3>Deducciones</h3>
+                        <table class="table table-sm">
+                            <thead><tr><th>Concepto</th><th class="text-end">Monto</th></tr></thead>
+                            <tbody>
+                                <t t-foreach="o.deduction_ids" t-as="d">
+                                    <tr>
+                                        <td><t t-esc="d.name"/></td>
+                                        <td class="text-end"><t t-esc="d.amount"/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        <p><strong>Neto:</strong> <t t-esc="o.net_amount"/></p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_user_form_inherited" model="ir.ui.view">
+        <field name="name">res.user.form.inherited</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='other_preferences']" position="inside">
+                <field name="journal_default_id" domain="[('type', '=', 'sale')]"/>
+            </xpath>
+            <xpath expr="//page[@name='preferences']/group" position="before">
+                <group string="Branches" name="branch_settings">
+                    <field name="branch_id"
+                        options='{"no_open": True, "no_create": 1, "no_create_edit": 1}'/>
+                    <field name="branch_ids" widget="many2many_tags" string="Allowed Branches"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="report_settings_view_inh" model="ir.ui.view">
+        <field name="model">report.template.settings</field>
+        <field name="inherit_id" ref="professional_templates.view_report_style_form"/>
+        <field name="arch" type="xml">
+            <field name="header" position="before">
+                <field name="branch_id"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

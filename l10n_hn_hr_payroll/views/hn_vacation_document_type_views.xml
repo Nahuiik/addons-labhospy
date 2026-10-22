@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hn_vacation_document_type_form" model="ir.ui.view">
+        <field name="name">hn.vacation.document.type.form</field>
+        <field name="model">hn.vacation.document.type</field>
+        <field name="arch" type="xml">
+            <form string="Tipo de documento">
+                <sheet>
+                    <div class="oe_button_box" name="button_box"/>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="report_id"/>
+                            <field name="sequence"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Encabezado" name="header">
+                            <field name="header_html"/>
+                        </page>
+                        <page string="Contenido" name="body">
+                            <field name="body_html"/>
+                        </page>
+                        <page string="Pie" name="footer">
+                            <field name="footer_html"/>
+                        </page>
+                        <page string="Marcadores" name="markers">
+                            <field name="markers_help_html" nolabel="1" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_hn_vacation_document_type_tree" model="ir.ui.view">
+        <field name="name">hn.vacation.document.type.tree</field>
+        <field name="model">hn.vacation.document.type</field>
+        <field name="arch" type="xml">
+            <list string="Tipos de documento" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="report_id"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_hn_vacation_document_type" model="ir.actions.act_window">
+        <field name="name">Plantillas de documentos</field>
+        <field name="res_model">hn.vacation.document.type</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Configurar plantillas de documentos
+            </p>
+            <p>
+                Las plantillas definen el contenido HTML de la constancia, solicitud y preaviso de vacaciones.
+                Use marcadores como {employee_name}, {number_of_days}, {date_from}, {date_to}, etc.
+            </p>
+        </field>
+    </record>
+</odoo>

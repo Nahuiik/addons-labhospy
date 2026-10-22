@@ -1,0 +1,211 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* gn_lock_date
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-07 12:00:00\n"
+"PO-Revision-Date: 2026-01-07 12:00:00\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es_GT\n"
+
+#. module: gn_lock_date
+#: model:ir.module.category,name:gn_lock_date.module_category_gn_lock_date
+msgid "GN Lock Date"
+msgstr "GN Bloqueo de Fecha"
+
+#. module: gn_lock_date
+#: model:ir.model,name:gn_lock_date.model_gn_period_lock
+msgid "Bloqueo de Período"
+msgstr "Bloqueo de Período"
+
+#. module: gn_lock_date
+#: model:ir.model.fields,field_description:gn_lock_date.field_gn_period_lock_name
+msgid "Nombre"
+msgstr "Nombre"
+
+#. module: gn_lock_date
+#: model:ir.model.fields,field_description:gn_lock_date.field_gn_period_lock_from_date
+msgid "Fecha Desde"
+msgstr "Fecha Desde"
+
+#. module: gn_lock_date
+#: model:ir.model.fields,field_description:gn_lock_date.field_gn_period_lock_to_date
+msgid "Fecha Hasta"
+msgstr "Fecha Hasta"
+
+#. module: gn_lock_date
+#: model:ir.model.fields,field_description:gn_lock_date.field_gn_period_lock_journal_ids
+msgid "Diarios"
+msgstr "Diarios"
+
+#. module: gn_lock_date
+#: model:ir.model.fields,field_description:gn_lock_date.field_gn_period_lock_company_id
+msgid "Compañía"
+msgstr "Compañía"
+
+#. module: gn_lock_date
+#: model:ir.model.fields,field_description:gn_lock_date.field_gn_period_lock_state
+msgid "Estado"
+msgstr "Estado"
+
+#. module: gn_lock_date
+#: model:ir.model.fields,field_description:gn_lock_date.field_gn_period_lock_locked_by
+msgid "Bloqueado por"
+msgstr "Bloqueado por"
+
+#. module: gn_lock_date
+#: model:ir.model.fields,field_description:gn_lock_date.field_gn_period_lock_unlocked_by
+msgid "Desbloqueado por"
+msgstr "Desbloqueado por"
+
+#. module: gn_lock_date
+#: model:ir.model.fields,field_description:gn_lock_date.field_gn_period_lock_unlock_date
+msgid "Fecha de Desbloqueo"
+msgstr "Fecha de Desbloqueo"
+
+#. module: gn_lock_date
+#: model:ir.model.fields,field_description:gn_lock_date.field_gn_period_lock_active
+msgid "Activo"
+msgstr "Activo"
+
+#. module: gn_lock_date
+#: model:ir.model.fields,help:gn_lock_date.field_gn_period_lock_name
+msgid "Nombre descriptivo del bloqueo de período"
+msgstr "Nombre descriptivo del bloqueo de período"
+
+#. module: gn_lock_date
+#: model:ir.model.fields,help:gn_lock_date.field_gn_period_lock_from_date
+msgid "Fecha inicial del período bloqueado"
+msgstr "Fecha inicial del período bloqueado"
+
+#. module: gn_lock_date
+#: model:ir.model.fields,help:gn_lock_date.field_gn_period_lock_to_date
+msgid "Fecha final del período bloqueado"
+msgstr "Fecha final del período bloqueado"
+
+#. module: gn_lock_date
+#: model:ir.model.fields,help:gn_lock_date.field_gn_period_lock_journal_ids
+msgid "Diarios que serán bloqueados en este período"
+msgstr "Diarios que serán bloqueados en este período"
+
+#. module: gn_lock_date
+#: model:ir.model.fields,help:gn_lock_date.field_gn_period_lock_company_id
+msgid "Compañía a la que aplica este bloqueo"
+msgstr "Compañía a la que aplica este bloqueo"
+
+#. module: gn_lock_date
+#: model:ir.model.fields,help:gn_lock_date.field_gn_period_lock_state
+msgid "Estado del bloqueo de período"
+msgstr "Estado del bloqueo de período"
+
+#. module: gn_lock_date
+#: model:ir.model.fields,help:gn_lock_date.field_gn_period_lock_locked_by
+msgid "Usuario que creó el bloqueo"
+msgstr "Usuario que creó el bloqueo"
+
+#. module: gn_lock_date
+#: model:ir.model.fields,help:gn_lock_date.field_gn_period_lock_unlocked_by
+msgid "Usuario que desbloqueó el período"
+msgstr "Usuario que desbloqueó el período"
+
+#. module: gn_lock_date
+#: model:ir.model.fields,help:gn_lock_date.field_gn_period_lock_unlock_date
+msgid "Fecha y hora en que se desbloqueó el período"
+msgstr "Fecha y hora en que se desbloqueó el período"
+
+#. module: gn_lock_date
+#: model:ir.model.fields,help:gn_lock_date.field_gn_period_lock_active
+msgid "Si está desactivado, el bloqueo no se aplicará"
+msgstr "Si está desactivado, el bloqueo no se aplicará"
+
+#. module: gn_lock_date
+#: selection:gn.period.lock,state:0
+msgid "Bloqueado"
+msgstr "Bloqueado"
+
+#. module: gn_lock_date
+#: selection:gn.period.lock,state:0
+msgid "Desbloqueado"
+msgstr "Desbloqueado"
+
+#. module: gn_lock_date
+#: model:ir.actions.act_window,name:gn_lock_date.action_gn_period_lock
+msgid "Bloqueos de Período"
+msgstr "Bloqueos de Período"
+
+#. module: gn_lock_date
+#: model:ir.ui.view,name:gn_lock_date.view_gn_period_lock_tree
+msgid "gn.period.lock.tree"
+msgstr "Lista de Bloqueos de Período"
+
+#. module: gn_lock_date
+#: model:ir.ui.view,name:gn_lock_date.view_gn_period_lock_form
+msgid "gn.period.lock.form"
+msgstr "Formulario de Bloqueo de Período"
+
+#. module: gn_lock_date
+#: model:ir.ui.view,name:gn_lock_date.view_gn_period_lock_search
+msgid "gn.period.lock.search"
+msgstr "Búsqueda de Bloqueos de Período"
+
+#. module: gn_lock_date
+#: model:ir.ui.menu,name:gn_lock_date.menu_gn_period_lock
+msgid "Bloqueos de Período"
+msgstr "Bloqueos de Período"
+
+#. module: gn_lock_date
+#: model:res.groups,name:gn_lock_date.group_period_lock_user
+msgid "Usuario de Bloqueo de Período"
+msgstr "Usuario de Bloqueo de Período"
+
+#. module: gn_lock_date
+#: model:res.groups,name:gn_lock_date.group_period_lock_unlock
+msgid "Permiso Especial para Desbloquear Períodos"
+msgstr "Permiso Especial para Desbloquear Períodos"
+
+#. module: gn_lock_date
+#: model:res.groups,name:gn_lock_date.group_period_lock_manager
+msgid "Administrador de Bloqueo de Período"
+msgstr "Administrador de Bloqueo de Período"
+
+#. module: gn_lock_date
+#: code:addons/gn_lock_date/models/gn_period_lock.py:0
+#, python-format
+msgid "La fecha desde debe ser menor o igual a la fecha hasta."
+msgstr "La fecha desde debe ser menor o igual a la fecha hasta."
+
+#. module: gn_lock_date
+#: code:addons/gn_lock_date/models/gn_period_lock.py:0
+#, python-format
+msgid "Ya existe un período bloqueado que se superpone con este período para uno o más de los diarios seleccionados."
+msgstr "Ya existe un período bloqueado que se superpone con este período para uno o más de los diarios seleccionados."
+
+#. module: gn_lock_date
+#: code:addons/gn_lock_date/models/gn_period_lock.py:0
+#, python-format
+msgid "No tiene permisos para desbloquear períodos. Contacte al administrador para obtener permisos especiales."
+msgstr "No tiene permisos para desbloquear períodos. Contacte al administrador para obtener permisos especiales."
+
+#. module: gn_lock_date
+#: code:addons/gn_lock_date/models/gn_period_lock.py:0
+#, python-format
+msgid "No puede crear/modificar/publicar movimientos contables para el diario \"%(journal)s\" en la fecha %(date)s porque el período desde %(from_date)s hasta %(to_date)s está bloqueado por \"%(lock_name)s\"."
+msgstr "No puede crear/modificar/publicar movimientos contables para el diario \"%(journal)s\" en la fecha %(date)s porque el período desde %(from_date)s hasta %(to_date)s está bloqueado por \"%(lock_name)s\"."
+
+#. module: gn_lock_date
+#: model:ir.model.fields,field_description:gn_lock_date.field_gn_period_lock_comment
+msgid "Comentario"
+msgstr "Comentario"
+
+#. module: gn_lock_date
+#: model:ir.model.fields,field_description:gn_lock_date.field_res_groups_comment
+msgid "Comentario"
+msgstr "Comentario"
+

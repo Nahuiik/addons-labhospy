@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_gn_hr_main_dashboard" model="ir.actions.client">
+        <field name="name">Dashboard RRHH</field>
+        <field name="tag">gn_hr_main_dashboard</field>
+        <field name="path">hr-main-dashboard</field>
+        <field name="target">main</field>
+        <field name="context" eval="{'dashboard_default_tab': 'reports'}"/>
+    </record>
+
+    <record id="action_gn_hr_main_dashboard_regional" model="ir.actions.client">
+        <field name="name">Dashboard RRHH (regional)</field>
+        <field name="tag">gn_hr_main_dashboard</field>
+        <field name="path">hr-main-dashboard-regional</field>
+        <field name="target">main</field>
+        <field name="context" eval="{'dashboard_default_tab': 'regional'}"/>
+    </record>
+
+    <record id="menu_gn_hr_dashboard_reports" model="ir.ui.menu">
+        <field name="name">Tablero</field>
+        <field name="parent_id" ref="hr.menu_hr_root"/>
+        <field name="action" ref="action_gn_hr_main_dashboard"/>
+        <field name="sequence">2</field>
+        <field name="group_ids" eval="[(6, 0, [ref('hr.group_hr_user')])]"/>
+    </record>
+
+    <!-- Dashboard regional desactivado -->
+    <record id="menu_gn_hr_dashboard_regional" model="ir.ui.menu">
+        <field name="name">Dashboard regional (obsoleto)</field>
+        <field name="parent_id" ref="hr.menu_hr_root"/>
+        <field name="action" ref="action_gn_hr_main_dashboard_regional"/>
+        <field name="sequence">3</field>
+        <field name="active" eval="False"/>
+        <field name="group_ids" eval="[(6, 0, [ref('gn_hr_dashboard.group_gn_hr_dashboard_regional')])]"/>
+    </record>
+</odoo>

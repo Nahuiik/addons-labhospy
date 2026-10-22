@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_inter_store_transfer" model="ir.actions.report">
+        <field name="name">Traslado entre Tiendas</field>
+        <field name="model">stock.inter.store.transfer</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hn_stock.report_inter_store_transfer</field>
+        <field name="report_file">l10n_hn_stock.report_inter_store_transfer</field>
+        <field name="binding_model_id" ref="model_stock_inter_store_transfer"/>
+        <field name="binding_type">report</field>
+        <field name="print_report_name">'Traslado-%s' % (object.name)</field>
+    </record>
+</odoo>

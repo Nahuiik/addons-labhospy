@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_salary_increase_list" model="ir.ui.view">
+        <field name="name">hr.salary.increase.list</field>
+        <field name="model">hr.salary.increase</field>
+        <field name="arch" type="xml">
+            <list string="Aumentos Salariales">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="create_date" string="Creado" optional="hide"/>
+                <field name="date_validated" string="Validado" optional="hide"/>
+                <field name="increase_type"/>
+                <field name="calculation_method" invisible="1"/>
+                <field name="state" widget="badge" decoration-success="state == 'validated'" decoration-info="state == 'draft'"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_hr_salary_increase_form" model="ir.ui.view">
+        <field name="name">hr.salary.increase.form</field>
+        <field name="model">hr.salary.increase</field>
+        <field name="arch" type="xml">
+            <form string="Aumento Salarial">
+                <header>
+                    <button name="action_get_employees" string="Obtener Empleados" type="object" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_validate" string="Validar" type="object" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_set_draft" string="Revertir" type="object"
+                            invisible="state != 'validated'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,validated"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" placeholder="Ej: Aumento General Febrero 2026"/>
+                            <field name="date"/>
+                            <field name="create_date" string="Fecha de creación" readonly="1"/>
+                            <field name="date_validated" string="Fecha de validación" readonly="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="increase_type"/>
+                            <field name="department_id" required="increase_type == 'department'"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="calculation_method"/>
+                            <field name="percentage" required="increase_type != 'individual'"/>
+                            <field name="fixed_amount" required="increase_type != 'individual'"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Líneas de Empleados">
+                            <field name="line_ids" nolabel="1">
+                                <list editable="bottom">
+                                    <field name="employee_id"/>
+                                    <field name="current_department_id" string="Depto actual" optional="show"/>
+                                    <field name="new_department_id" string="Nuevo depto" optional="show"/>
+                                    <field name="current_job_id" string="Puesto actual" optional="show"/>
+                                    <field name="new_job_id" string="Nuevo puesto" optional="show"/>
+                                    <field name="current_wage" sum="Total"/>
+                                    <field name="new_wage" sum="Total"/>
+                                    <field name="increase_amount" sum="Total"/>
+                                    <field name="increase_percentage"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notas">
+                            <field name="notes" placeholder="Notas adicionales..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_hr_salary_increase_search" model="ir.ui.view">
+        <field name="name">hr.salary.increase.search</field>
+        <field name="model">hr.salary.increase</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Aumentos Salariales">
+                <field name="name"/>
+                <field name="department_id"/>
+                <filter string="Borrador" name="draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Validado" name="validated" domain="[('state', '=', 'validated')]"/>
+                <separator/>
+                <filter string="Tipo de Aumento" name="group_by_increase_type" context="{'group_by': 'increase_type'}"/>
+                <filter string="Estado" name="group_by_state" context="{'group_by': 'state'}"/>
+                <filter string="Empresa" name="group_by_company" context="{'group_by': 'company_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_hr_salary_increase" model="ir.actions.act_window">
+        <field name="name">Aumentos Salariales</field>
+        <field name="res_model">hr.salary.increase</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crear un nuevo aumento salarial
+            </p>
+            <p>
+                Los aumentos pueden ser individuales, por departamento o para todos los empleados.
+            </p>
+        </field>
+    </record>
+
+    <record id="view_hr_historical_salary_increase_list" model="ir.ui.view">
+        <field name="name">hr.historical.salary.increase.list</field>
+        <field name="model">hr.historical.salary.increase</field>
+        <field name="arch" type="xml">
+            <list string="Historial de Aumentos">
+                <field name="employee_id"/>
+                <field name="date"/>
+                <field name="previous_department_id" string="Depto anterior" optional="show"/>
+                <field name="new_department_id" string="Depto nuevo" optional="show"/>
+                <field name="previous_job_id" string="Puesto anterior" optional="show"/>
+                <field name="new_job_id" string="Puesto nuevo" optional="show"/>
+                <field name="previous_wage" sum="Total"/>
+                <field name="new_wage" sum="Total"/>
+                <field name="increase_amount" sum="Total"/>
+                <field name="increase_percentage"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_hr_historical_salary_increase" model="ir.actions.act_window">
+        <field name="name">Historial de Aumentos Salariales</field>
+        <field name="res_model">hr.historical.salary.increase</field>
+        <field name="view_mode">list</field>
+    </record>
+</odoo>

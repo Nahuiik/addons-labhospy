@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_powerbi_metric_tree" model="ir.ui.view">
+        <field name="name">powerbi.metric.tree</field>
+        <field name="model">powerbi.metric</field>
+        <field name="arch" type="xml">
+            <list string="Métricas Power BI">
+                <field name="date"/>
+                <field name="name"/>
+                <field name="table_id"/>
+                <field name="metric_type"/>
+                <field name="value"/>
+                <field name="state" widget="badge" decoration-success="state == 'success'" decoration-danger="state == 'failed'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_powerbi_metric_search" model="ir.ui.view">
+        <field name="name">powerbi.metric.search</field>
+        <field name="model">powerbi.metric</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Métricas">
+                <field name="name"/>
+                <field name="table_id"/>
+                <field name="metric_type"/>
+                <field name="state"/>
+                <filter string="Éxito" name="success" domain="[('state', '=', 'success')]"/>
+                <filter string="Error" name="failed" domain="[('state', '=', 'failed')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_powerbi_metric" model="ir.actions.act_window">
+        <field name="name">Métricas Power BI</field>
+        <field name="res_model">powerbi.metric</field>
+        <field name="view_mode">list</field>
+        <field name="search_view_id" ref="view_powerbi_metric_search"/>
+    </record>
+</odoo>
+

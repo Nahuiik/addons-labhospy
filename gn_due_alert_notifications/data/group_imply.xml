@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="gn_invoice_due_alerts.group_invoice_due_alert_user" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('gn_due_alert_notifications.group_due_alert_notif_user'))]"/>
+    </record>
+
+    <record id="gn_invoice_due_alerts.group_invoice_due_alert_manager" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('gn_due_alert_notifications.group_due_alert_notif_manager'))]"/>
+    </record>
+
+    <record id="gn_customer_due_alerts.group_customer_due_alert_user" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('gn_due_alert_notifications.group_due_alert_notif_user'))]"/>
+    </record>
+
+    <record id="gn_customer_due_alerts.group_customer_due_alert_manager" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('gn_due_alert_notifications.group_due_alert_notif_manager'))]"/>
+    </record>
+
+</odoo>

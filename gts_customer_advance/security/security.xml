@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <!-- Categoría de seguridad -->
+        <record id="module_category_advance" model="ir.module.category">
+            <field name="name">ANTICIPOS</field>
+            <field name="description">Permisos para gestionar Abonos/Anticipos de clientes y proveedores</field>
+            <field name="sequence">100</field>
+        </record>
+
+        <!-- Privilegios para Abonos/Anticipos -->
+        <record model="res.groups.privilege" id="privilege_advance_customers">
+            <field name="name">Clientes</field>
+            <field name="sequence">1</field>
+            <field name="category_id" ref="gts_customer_advance.module_category_advance"/>
+        </record>
+
+        <record model="res.groups.privilege" id="privilege_advance_suppliers">
+            <field name="name">Proveedores</field>
+            <field name="sequence">2</field>
+            <field name="category_id" ref="gts_customer_advance.module_category_advance"/>
+        </record>
+
+        <!-- Grupos para Clientes -->
+        <record id="group_advance_customers_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="privilege_id" ref="gts_customer_advance.privilege_advance_customers"/>
+            <field name="comment">Permite gestionar Abonos/Anticipos de clientes: ver, crear, aplicar y revertir</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <!-- Grupos para Proveedores -->
+        <record id="group_advance_suppliers_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="privilege_id" ref="gts_customer_advance.privilege_advance_suppliers"/>
+            <field name="comment">Permite gestionar Abonos/Anticipos de proveedores: ver, crear, aplicar y revertir</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record model="res.groups.privilege" id="privilege_advance_cancel">
+            <field name="name">Cancelación tardía</field>
+            <field name="sequence">3</field>
+            <field name="category_id" ref="gts_customer_advance.module_category_advance"/>
+        </record>
+
+        <record id="group_advance_cancel_after_day" model="res.groups">
+            <field name="name">Cancelar después del día de creación</field>
+            <field name="privilege_id" ref="gts_customer_advance.privilege_advance_cancel"/>
+            <field name="comment">Permite cancelar o revertir anticipos de clientes y proveedores una vez pasada la medianoche del día en que se creó el documento.</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <!-- Regla de registro para account.advance.link - Multi-compañía -->
+        <record id="advance_link_company_rule" model="ir.rule">
+            <field name="name">Account Advance Link: Multi-company</field>
+            <field name="model_id" ref="model_account_advance_link"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <!-- Regla de registro para account.advance.link - Solo ver propios para usuarios básicos -->
+        <record id="advance_link_user_rule" model="ir.rule">
+            <field name="name">Account Advance Link: User can see all in company</field>
+            <field name="model_id" ref="model_account_advance_link"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('account.group_account_user'))]"/>
+        </record>
+
+    </data>
+</odoo>

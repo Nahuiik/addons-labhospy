@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_gn_collective_vacation_wizard_form" model="ir.ui.view">
+        <field name="name">gn.collective.vacation.wizard.form</field>
+        <field name="model">gn.collective.vacation.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Vacaciones colectivas">
+                <sheet>
+                    <group>
+                        <field name="company_id"/>
+                        <field name="holiday_status_id"/>
+                        <field name="allocation_mode" groups="hr_holidays.group_hr_holidays_user"/>
+                        <field name="employee_ids" invisible="allocation_mode != 'employee'" required="allocation_mode == 'employee'" widget="many2many_avatar_employee"/>
+                        <field name="department_id" invisible="allocation_mode != 'department'"/>
+                        <field name="department_ids" invisible="allocation_mode != 'department'" widget="many2many_tags"/>
+                        <field name="category_id" invisible="allocation_mode != 'category'" required="allocation_mode == 'category'"/>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                        <field name="reason"/>
+                        <field name="discount_from_balance"/>
+                        <field name="only_employed_in_vacation_period"/>
+                        <field name="exclude_zero_balance_in_start_month"/>
+                        <field name="name"/>
+                    </group>
+                    <group string="Vista previa" colspan="2" class="o_collective_vacation_preview" invisible="not preview_line_ids">
+                        <field name="preview_line_ids" colspan="2" nolabel="1">
+                            <list readonly="1" create="false" delete="false">
+                                <field name="employee_id" string="Empleado"/>
+                                <field name="current_balance" string="Saldo actual"/>
+                                <field name="days_requested" string="Días solicitados"/>
+                                <field name="resulting_balance" string="Saldo resultante"/>
+                                <field name="status" string="Estado"/>
+                            </list>
+                        </field>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_preview" type="object" string="Vista previa" class="btn-secondary"/>
+                    <button name="action_generate" type="object" class="btn-primary" string="Generar" title="No adjunta informes PDF masivos por empleado (evita tiempo de espera); puede generarlos desde cada ausencia."/>
+                    <button special="cancel" string="Cancelar"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_gn_collective_vacation_wizard" model="ir.actions.act_window">
+        <field name="name">Vacaciones colectivas</field>
+        <field name="res_model">gn.collective.vacation.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_gn_collective_vacation_wizard"
+        name="Vacaciones colectivas"
+        parent="hr_holidays.menu_hr_holidays_configuration"
+        action="action_gn_collective_vacation_wizard"
+        sequence="24"
+        groups="hr_holidays.group_hr_holidays_manager"/>
+</odoo>

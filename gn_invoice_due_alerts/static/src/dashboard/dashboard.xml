@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gn_invoice_due_alerts.Dashboard">
+        <div class="o_gn_dashboard_root o_gn_due">
+            <!-- Barra superior -->
+            <div class="o_gn_due_topbar">
+                <div class="o_gn_due_titlewrap">
+                    <h2 class="o_gn_due_title">
+                        <i class="fa fa-traffic-light mr-2"/>Semaforo de pagos
+                    </h2>
+                    <t t-if="state.data">
+                        <span class="o_gn_due_sub">
+                            <t t-esc="state.data.company"/> &#8226; al <t t-esc="state.data.today"/>
+                            &#8226; proximas &#8804; <t t-esc="state.data.soon_days"/> dias
+                        </span>
+                    </t>
+                </div>
+                <div class="o_gn_due_actions">
+                    <button class="btn btn-secondary" t-on-click="onReload">
+                        <i class="fa fa-refresh mr-1"/>Actualizar
+                    </button>
+                    <t t-if="state.data and state.data.can_notify">
+                        <button class="btn btn-primary ml-2" t-on-click="onSendAlerts"
+                                t-att-disabled="state.sending ? 'disabled' : false">
+                            <i class="fa fa-paper-plane mr-1"/>
+                            <t t-if="state.sending">Enviando...</t>
+                            <t t-else="">Enviar alertas ahora</t>
+                        </button>
+                    </t>
+                </div>
+            </div>
+
+            <div t-if="state.loading" class="o_gn_due_msg">
+                <i class="fa fa-spinner fa-spin mr-2"/>Cargando...
+            </div>
+            <div t-if="state.error" class="o_gn_due_msg text-danger">
+                <i class="fa fa-exclamation-circle mr-2"/><t t-esc="state.error"/>
+            </div>
+
+            <t t-if="!state.loading and !state.error and state.data">
+                <!-- Tarjetas semaforo -->
+                <div class="o_gn_kpi_scroll">
+                <div class="o_gn_due_cards">
+                    <t t-foreach="order" t-as="key" t-key="key">
+                        <div class="o_gn_due_card"
+                             t-attf-class="o_gn_card_{{ key }} {{ state.selected === key ? 'o_gn_selected' : '' }}"
+                             t-on-click="() => this.selectBucket(key)">
+                            <div class="o_gn_due_card_icon">
+                                <i class="fa" t-attf-class="{{ icon(key) }}"/>
+                            </div>
+                            <div class="o_gn_due_card_body">
+                                <div class="o_gn_due_card_label">
+                                    <t t-esc="state.data.buckets[key].label"/>
+                                </div>
+                                <div class="o_gn_due_card_count">
+                                    <t t-esc="state.data.buckets[key].count"/>
+                                </div>
+                                <div class="o_gn_due_card_total">
+                                    <t t-esc="state.data.buckets[key].total_str"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+                </div>
+
+                <div class="o_gn_due_grand">
+                    Total pendiente de pago:
+                    <strong t-esc="state.data.grand_total_str"/>
+                </div>
+
+                <!-- Detalle del bucket seleccionado -->
+                <div class="o_gn_due_detail">
+                    <h3 t-attf-class="o_gn_head_{{ state.selected }}">
+                        <t t-esc="state.data.buckets[state.selected].label"/>
+                        (<t t-esc="state.data.buckets[state.selected].count"/>)
+                    </h3>
+                    <t t-if="selectedBills.length">
+                        <div class="o_gn_table_wrap">
+                        <table class="table table-sm table-hover o_gn_due_table">
+                            <thead>
+                                <tr>
+                                    <th>Factura de Proveedor</th>
+                                    <th>Proveedor</th>
+                                    <th class="text-center">Vence</th>
+                                    <th class="text-center">Dias</th>
+                                    <th class="text-right">Saldo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="selectedBills" t-as="b" t-key="b.id">
+                                    <tr class="o_gn_due_row"
+                                        t-on-click="() => this.openBill(b.id)">
+                                        <td><t t-esc="b.name"/></td>
+                                        <td><t t-esc="b.partner"/></td>
+                                        <td class="text-center"><t t-esc="b.date_due"/></td>
+                                        <td class="text-center">
+                                            <span class="badge badge-pill"
+                                                  t-attf-class="o_gn_badge_{{ state.selected }}">
+                                                <t t-esc="b.days"/>
+                                            </span>
+                                        </td>
+                                        <td class="text-right"><t t-esc="b.residual_str"/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        </div>
+                    </t>
+                    <t t-else="">
+                        <div class="o_gn_due_msg text-muted">
+                            <i class="fa fa-check-circle mr-2"/>Sin facturas en esta categoria.
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </div>
+    </t>
+
+</templates>

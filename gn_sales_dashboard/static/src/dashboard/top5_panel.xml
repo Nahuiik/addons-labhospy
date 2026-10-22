@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_sales_dashboard.SalesTop5Panel">
+        <section class="gn-sd-panel gn-sd-top5">
+            <div class="gn-sd-top5__block">
+                <div class="gn-sd-top5__head">
+                    <h4>Top 5 vendedores</h4>
+                    <button type="button" class="btn btn-link btn-sm" t-on-click="() => onView('sellers')">Ver todos</button>
+                </div>
+                <div t-foreach="props.top5?.sellers or []" t-as="r" t-key="r.user_id or r.rank"
+                     class="gn-sd-top5__row" t-on-click="() => this.onClickRow('sellers', r)">
+                    <span class="gn-sd-top5__rank" t-esc="r.rank"/>
+                    <span class="gn-sd-top5__name" t-esc="r.name"/>
+                    <strong t-esc="props.fmtMoney(r.sales)"/>
+                </div>
+            </div>
+            <div class="gn-sd-top5__block">
+                <div class="gn-sd-top5__head">
+                    <h4>Top 5 productos</h4>
+                    <button type="button" class="btn btn-link btn-sm" t-on-click="() => onView('products')">Ver todos</button>
+                </div>
+                <div t-foreach="props.top5?.products or []" t-as="p" t-key="p.product_id"
+                     class="gn-sd-top5__row" t-on-click="() => this.onClickRow('products', p)">
+                    <span class="gn-sd-top5__name" t-esc="p.name"/>
+                    <strong t-esc="props.fmtMoney(p.sales)"/>
+                </div>
+            </div>
+            <div class="gn-sd-top5__block">
+                <div class="gn-sd-top5__head">
+                    <h4>Top 5 clientes</h4>
+                    <button type="button" class="btn btn-link btn-sm" t-on-click="() => onView('customers')">Ver todos</button>
+                </div>
+                <div t-foreach="props.top5?.customers or []" t-as="c" t-key="c.partner_id"
+                     class="gn-sd-top5__row" t-on-click="() => this.onClickRow('customers', c)">
+                    <span class="gn-sd-top5__name" t-esc="c.name"/>
+                    <strong t-esc="props.fmtMoney(c.sales)"/>
+                </div>
+            </div>
+        </section>
+    </t>
+</templates>

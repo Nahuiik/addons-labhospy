@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Agrupador: Empleados → Configuración → Correos -->
+    <menuitem id="menu_gn_hr_correos"
+              name="Correos"
+              parent="hr.menu_human_resources_configuration"
+              sequence="12"/>
+
+    <record id="view_gn_hr_ecosystem_ir_cron_search" model="ir.ui.view">
+        <field name="name">ir.cron.search.gn.hr.ecosystem</field>
+        <field name="model">ir.cron</field>
+        <field name="inherit_id" ref="base.ir_cron_view_search"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <separator/>
+                <filter name="gn_cron_model_gn_application" string="Solicitud GN"
+                        domain="[('model_id.model', '=', 'gn.employee.application')]"/>
+                <filter name="gn_cron_model_applicant" string="Candidato"
+                        domain="[('model_id.model', '=', 'hr.applicant')]"/>
+                <filter name="gn_cron_model_employee" string="Empleado"
+                        domain="[('model_id.model', '=', 'hr.employee')]"/>
+                <filter name="gn_cron_model_leave" string="Ausencia / vacaciones"
+                        domain="[('model_id.model', '=', 'hr.leave')]"/>
+                <filter name="gn_cron_model_users" string="Usuario"
+                        domain="[('model_id.model', '=', 'res.users')]"/>
+                <filter name="gn_cron_model_payslip" string="Recibo de nómina"
+                        domain="[('model_id.model', '=', 'hr.payslip')]"/>
+                <filter name="gn_cron_model_mail_mail" string="Cola correo saliente"
+                        domain="[('model_id.model', '=', 'mail.mail')]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_gn_hr_ecosystem_ir_cron" model="ir.actions.act_window">
+        <field name="name">Acciones planificadas</field>
+        <field name="res_model">ir.cron</field>
+        <field name="view_mode">list,form,calendar</field>
+        <field name="view_id" ref="base.ir_cron_view_tree"/>
+        <field name="search_view_id" ref="view_gn_hr_ecosystem_ir_cron_search"/>
+        <field name="domain" eval="[('model_id.model', 'in', (
+                'gn.employee.application',
+                'hr.applicant',
+                'hr.employee',
+                'hr.leave',
+                'res.users',
+                'hr.payslip',
+                'mail.mail',
+            ))]"/>
+        <field name="context">{'search_default_all': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay acciones planificadas en este filtro
+            </p>
+            <p>
+                Tareas programadas cuyo modelo coincide con los envíos de correo del ecosistema
+                GN (plantillas: solicitud de ingreso, candidato, empleado, ausencias, usuario,
+                recibo de nómina) más la cola estándar <em>mail.mail</em> (Email Queue Manager).
+            </p>
+            <p>
+                Los crons sobre <em>hr.employee</em> o <em>hr.leave</em> pueden incluir lógica que no
+                envía correo (p. ej. acumulación de vacaciones); revise el nombre y el código Python.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_gn_hr_ecosystem_ir_cron"
+              name="Acciones planificadas"
+              parent="menu_gn_hr_correos"
+              action="action_gn_hr_ecosystem_ir_cron"
+              sequence="30"
+              groups="l10n_hn_payroll_base.group_hn_payroll_user,l10n_hn_payroll_base.group_hn_payroll_manager,hr.group_hr_manager"/>
+</odoo>

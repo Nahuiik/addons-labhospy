@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_card_agreement_user,card.agreement.user,model_card_agreement,base.group_user,1,0,0,0
+access_card_agreement_manager,card.agreement.manager,model_card_agreement,account.group_account_manager,1,1,1,1
+access_card_agreement_line_user,card.agreement.line.user,model_card_agreement_line,base.group_user,1,0,0,0
+access_card_agreement_line_manager,card.agreement.line.manager,model_card_agreement_line,account.group_account_manager,1,1,1,1
+access_pos_commission_wizard_user,pos.commission.report.wizard.user,model_pos_commission_report_wizard,account.group_account_invoice,1,1,1,1
+access_pos_commission_wizard_manager,pos.commission.report.wizard.manager,model_pos_commission_report_wizard,account.group_account_manager,1,1,1,1
+

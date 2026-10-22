@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Menú principal de Monitoreo Consola -->
+    <menuitem id="menu_monitor_console_root"
+              name="Monitoreo Consola"
+              sequence="100"
+              web_icon="odoo_monitor_console,static/description/icon.png"
+              groups="odoo_monitor_console.group_monitor_console_admin,odoo_monitor_console.group_monitor_console_user"/>
+
+    <!-- Dashboard -->
+    <menuitem id="menu_monitor_console_dashboard"
+              name="Dashboard"
+              parent="menu_monitor_console_root"
+              action="action_monitor_instance"
+              sequence="10"/>
+
+    <!-- Instancias -->
+    <menuitem id="menu_monitor_console_instances"
+              name="Instancias"
+              parent="menu_monitor_console_root"
+              action="action_monitor_instance"
+              sequence="20"/>
+
+    <!-- Usuarios Activos -->
+    <menuitem id="menu_monitor_console_active_users"
+              name="Usuarios Activos"
+              parent="menu_monitor_console_root"
+              action="action_monitor_user_activity_line"
+              sequence="30"/>
+
+    <!-- Snapshots -->
+    <menuitem id="menu_monitor_console_snapshots"
+              name="Historial de Métricas"
+              parent="menu_monitor_console_root"
+              action="action_monitor_user_snapshot"
+              sequence="40"/>
+</odoo>
+

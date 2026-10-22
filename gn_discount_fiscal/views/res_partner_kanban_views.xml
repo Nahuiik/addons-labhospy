@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_kanban_gn_discount_fiscal" model="ir.ui.view">
+        <field name="name">res.partner.kanban.gn.discount.fiscal</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.res_partner_kanban_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='avatar_128']" position="after">
+                <field name="gn_fiscal_ribbon_type"/>
+            </xpath>
+            <xpath expr="//t[@t-name='card']/widget[@name='web_ribbon'][1]" position="after">
+                <widget name="web_ribbon" title="4ta Edad" bg_color="text-bg-warning" invisible="is_company or gn_fiscal_ribbon_type != 'fourth'"/>
+                <widget name="web_ribbon" title="3ra Edad" bg_color="text-bg-info" invisible="is_company or gn_fiscal_ribbon_type != 'third'"/>
+                <widget name="web_ribbon" title="Especial" bg_color="text-bg-success" invisible="is_company or gn_fiscal_ribbon_type != 'special'"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

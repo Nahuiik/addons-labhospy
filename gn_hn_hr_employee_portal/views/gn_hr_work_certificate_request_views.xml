@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="gn_hr_work_certificate_request_view_tree" model="ir.ui.view">
+        <field name="name">gn.hr.work.certificate.request.tree</field>
+        <field name="model">gn.hr.work.certificate.request</field>
+        <field name="arch" type="xml">
+            <list string="Solicitudes de constancias">
+                <field name="name"/>
+                <field name="company_id" optional="show"/>
+                <field name="employee_id"/>
+                <field name="certificate_type_id"/>
+                <field name="recipient_id"/>
+                <field name="request_date"/>
+                <field name="state" decoration-info="state in ('submitted','in_review')" decoration-success="state == 'issued'" decoration-danger="state == 'rejected'"/>
+                <field name="issued_on"/>
+                <field name="issued_by"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="gn_hr_work_certificate_request_view_form" model="ir.ui.view">
+        <field name="name">gn.hr.work.certificate.request.form</field>
+        <field name="model">gn.hr.work.certificate.request</field>
+        <field name="arch" type="xml">
+            <form string="Solicitud de constancia">
+                <header>
+                    <button name="action_in_review" string="En revisión" type="object"
+                        invisible="state != 'submitted'"/>
+                    <button name="action_issue" string="Emitir" type="object" class="btn-primary"
+                        invisible="state not in ('submitted','in_review')"/>
+                    <button name="action_reject" string="Rechazar" type="object"
+                        invisible="state not in ('submitted','in_review')"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group name="general_info">
+                        <group>
+                            <field name="employee_id" context="{'active_test': False}"/>
+                            <field name="certificate_type_id"/>
+                            <field name="recipient_id" required="certificate_type_id and not certificate_type_id.no_recipient"/>
+                            <field name="footer_id" domain="['|', ('company_id', '=', company_id), ('company_id', '=', False)]"/>
+                            <field name="quality_ids" widget="many2many_tags" options="{'no_create': False}"/>
+                        </group>
+                        <group>
+                            <field name="version_id" domain="[('employee_id', '=', employee_id)]" context="{'include_start_date_in_name': True}"/>
+                            <field name="company_id"/>
+                            <field name="request_date"/>
+                            <field name="notes"/>
+                            <field name="state"/>
+                            <field name="attachment_ids" widget="many2many_binary"/>
+                            <field name="work_certificate_id" invisible="state != 'issued'" readonly="1"/>
+                            <field name="issued_document_id" invisible="state != 'issued'"/>
+                            <field name="issued_on" invisible="state != 'issued'"/>
+                            <field name="issued_by" invisible="state != 'issued'"/>
+                            <field name="rejected_reason" invisible="state != 'rejected'"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="gn_hr_work_certificate_request_view_search" model="ir.ui.view">
+        <field name="name">gn.hr.work.certificate.request.search</field>
+        <field name="model">gn.hr.work.certificate.request</field>
+        <field name="arch" type="xml">
+            <search string="Solicitudes de constancias">
+                <field name="name"/>
+                <field name="company_id"/>
+                <field name="employee_id"/>
+                <field name="certificate_type_id"/>
+                <field name="state"/>
+                <group>
+                    <filter name="group_company" string="Compañía" domain="[]" context="{'group_by': 'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="gn_hr_work_certificate_request_action" model="ir.actions.act_window">
+        <field name="name">Solicitudes de constancias</field>
+        <field name="res_model">gn.hr.work.certificate.request</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="gn_hr_work_certificate_request_view_search"/>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem id="menu_gn_hr_work_certificate_request"
+        name="Solicitudes de constancias"
+        parent="gn_hr_documents.menu_hr_work_certificate_root"
+        action="gn_hr_work_certificate_request_action"
+        sequence="5"/>
+</odoo>

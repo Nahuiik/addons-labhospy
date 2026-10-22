@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.actions.act_window" id="action_hr_rap">
+        <field name="name">Establecer RAP</field>
+        <field name="res_model">hr.rap</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Establecer RAP</p>
+            <p>Configure los parámetros de RAP y asígnelos a los empleados.</p>
+        </field>
+    </record>
+
+    <record id="hr_rap_form_view" model="ir.ui.view">
+        <field name="name">hr.rap.form.view</field>
+        <field name="model">hr.rap</field>
+        <field name="arch" type="xml">
+            <form string="Establecer RAP">
+                <header>
+                    <button name="get_employees" type="object" string="Obtener Empleados" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="set_rap" type="object" string="Establecer RAP" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="set_to_draft" type="object" string="Volver a Borrador"
+                            invisible="state != 'validated'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,validated" nolabel="1"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="state != 'draft'"/>
+                            <field name="techo_rap_min" readonly="state != 'draft'"/>
+                            <field name="techo_rap_max" readonly="state != 'draft'"/>
+                            <field name="rap_percentage" readonly="state != 'draft'"/>
+                            <field name="rap_fee_max" readonly="state != 'draft'"
+                                   invisible="not techo_rap_max"/>
+                        </group>
+                        <group>
+                            <field name="pay_periodicity" readonly="state != 'draft'"/>
+                            <field name="include_in" readonly="state != 'draft'"/>
+                            <field name="department_id" options="{'no_create': True}" readonly="state != 'draft'"/>
+                        </group>
+                    </group>
+                    <separator string="Información de cálculo"/>
+                    <div class="alert alert-info" role="alert">
+                        <p><strong>Fórmula:</strong> Si salario &gt; Salario Mín → RAP = (Salario - Salario Mín) × Porcentaje%</p>
+                        <p><strong>Tope:</strong> Si Salario Máx &gt; 0 y salario &gt; Salario Máx → RAP = Cuota Máxima</p>
+                    </div>
+                    <notebook>
+                        <page string="Empleados">
+                            <field name="employee_line_ids" readonly="state != 'draft'">
+                                <list editable="bottom" default_order="employee_id">
+                                    <field name="employee_id" options="{'no_create': True}"/>
+                                    <field name="actual_salary" readonly="1"/>
+                                    <field name="difference" readonly="1"/>
+                                    <field name="rap_fee" readonly="1"/>
+                                    <field name="bi_weekly_fee" readonly="1"/>
+                                    <field name="period_fee" readonly="1"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_rap_tree_view" model="ir.ui.view">
+        <field name="name">hr.rap.tree.view</field>
+        <field name="model">hr.rap</field>
+        <field name="arch" type="xml">
+            <list string="Establecer RAP">
+                <field name="name"/>
+                <field name="techo_rap_min"/>
+                <field name="rap_percentage"/>
+                <field name="pay_periodicity"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+</odoo>

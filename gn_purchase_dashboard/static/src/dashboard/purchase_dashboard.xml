@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_purchase_dashboard.PurchaseDashboardPremium">
+        <Layout display="display" className="rootClassName">
+            <div class="gn-pd-shell">
+                <div class="gn-pd-sticky-bar">
+                    <div class="gn-pd-layout gn-pd-layout--toolbar gn-pd-layout--toolbar-compact">
+                        <header class="gn-pd-premium-header gn-pd-premium-header--compact">
+                            <div class="gn-pd-premium-header__main">
+                                <h1 class="gn-pd-premium-header__title" t-esc="state.data.header?.title or 'Dashboard de Compras'"/>
+                                <span t-if="headerMetaLine" class="gn-pd-premium-header__meta" t-esc="headerMetaLine"/>
+                                <span t-if="state.loading or state.filtersApplying" class="gn-pd-premium-header__sync">Actualizando</span>
+                            </div>
+                            <div class="gn-pd-premium-header__toolbar">
+                                <button type="button" class="gn-pd-btn gn-pd-btn--xs gn-pd-btn--executive"
+                                        t-att-class="state.executiveView ? ' active' : ''"
+                                        t-on-click="toggleExecutiveView" title="Executive View">
+                                    <i class="fa fa-briefcase"/> Executive
+                                </button>
+                                <button type="button" class="gn-pd-btn gn-pd-btn--xs gn-pd-btn--primary"
+                                        t-att-disabled="state.loading" t-on-click="loadInit" title="Actualizar">
+                                    <i class="fa fa-refresh"/> <span class="gn-pd-premium-header__refresh-label">Actualizar</span>
+                                </button>
+                                <div class="gn-pd-actions-menu">
+                                    <button type="button" class="gn-pd-btn gn-pd-btn--xs gn-pd-btn--ghost"
+                                            t-att-class="state.actionsMenuOpen ? ' active' : ''"
+                                            t-on-click="toggleActionsMenu" title="Más acciones">
+                                        <i class="fa fa-ellipsis-v"/>
+                                    </button>
+                                    <div t-if="state.actionsMenuOpen" class="gn-pd-actions-menu__dropdown">
+                                        <button type="button" class="gn-pd-actions-menu__item" t-on-click="() => this.runHeaderAction('exportCsv')">
+                                            <i class="fa fa-file-excel-o"/> Exportar Excel
+                                        </button>
+                                        <button type="button" class="gn-pd-actions-menu__item" t-on-click="() => this.runHeaderAction('exportPdf')">
+                                            <i class="fa fa-file-pdf-o"/> Exportar PDF
+                                        </button>
+                                        <button type="button" class="gn-pd-actions-menu__item" t-on-click="() => this.runHeaderAction('share')">
+                                            <i class="fa fa-share-alt"/> Compartir
+                                        </button>
+                                        <button type="button" class="gn-pd-actions-menu__item" t-on-click="() => this.runHeaderAction('layout')">
+                                            <i class="fa fa-th"/> <t t-esc="state.layoutEditMode ? labels.layoutDone : labels.layoutEdit"/>
+                                        </button>
+                                        <button type="button" class="gn-pd-actions-menu__item" t-on-click="() => this.runHeaderAction('fullscreen')">
+                                            <i class="fa fa-expand"/> Pantalla completa
+                                        </button>
+                                        <button type="button" class="gn-pd-actions-menu__item" t-on-click="() => this.runHeaderAction('autoRefresh')">
+                                            <i class="fa fa-clock-o"/> Auto refresh <t t-if="state.autoRefresh">(ON)</t>
+                                        </button>
+                                        <button type="button" class="gn-pd-actions-menu__item" t-on-click="() => this.runHeaderAction('darkMode')">
+                                            <i t-att-class="state.darkMode ? 'fa fa-sun-o' : 'fa fa-moon-o'"/> Modo oscuro
+                                        </button>
+                                        <button type="button" class="gn-pd-actions-menu__item" t-on-click="() => this.runHeaderAction('presentation')">
+                                            <i class="fa fa-television"/> Presentación
+                                        </button>
+                                        <button type="button" class="gn-pd-actions-menu__item" t-on-click="() => this.runHeaderAction('alerts')">
+                                            <i class="fa fa-bell"/> Centro de alertas
+                                        </button>
+                                        <button type="button" class="gn-pd-actions-menu__item" t-on-click="() => this.runHeaderAction('simulator')">
+                                            <i class="fa fa-calculator"/> Simulador
+                                        </button>
+                                        <button type="button" class="gn-pd-actions-menu__item" t-on-click="() => this.runHeaderAction('compare')">
+                                            <i class="fa fa-exchange"/> Comparativos
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </header>
+
+                        <PurchaseFilterBar
+                            filterOptions="state.filterOptions"
+                            draftFilters="state.draftFilters"
+                            labels="labels"
+                            applying="state.filtersApplying"
+                            expanded="state.filtersExpanded"
+                            favorites="state.filterFavorites"
+                            favoritesOpen="state.filterFavoritesOpen"
+                            activeChips="activeFilterChips"
+                            onSelect.bind="onSelect"
+                            onApply.bind="applyFilters"
+                            onReset.bind="resetFilters"
+                            onToggleExpanded.bind="toggleFiltersPanel"
+                            onSaveFavorite.bind="saveFilterFavorite"
+                            onApplyFavorite.bind="applyFilterFavorite"
+                            onRemoveFavorite.bind="removeFilterFavorite"
+                            onToggleFavorites.bind="toggleFilterFavorites"
+                            onRemoveChip.bind="removeFilterChip"
+                        />
+
+                        <div t-if="state.loadError" class="alert alert-danger mb-0 gn-pd-toolbar-error" t-esc="state.loadError"/>
+                    </div>
+                </div>
+
+                <div t-if="state.commandPaletteOpen" class="gn-pd-command-palette">
+                    <input type="text" class="form-control" placeholder="Comando (Ctrl+K)…" readonly="readonly"/>
+                    <div class="gn-pd-command-palette__list">
+                        <button type="button" class="gn-pd-command-item" t-on-click="() => this.runCommand('refresh')">Actualizar</button>
+                        <button type="button" class="gn-pd-command-item" t-on-click="() => this.runCommand('presentation')">Modo presentación</button>
+                        <button type="button" class="gn-pd-command-item" t-on-click="() => this.runCommand('alerts')">Centro de alertas</button>
+                        <button type="button" class="gn-pd-command-item" t-on-click="() => this.runCommand('simulator')">Simulador</button>
+                        <button type="button" class="gn-pd-command-item" t-on-click="() => this.runCommand('compare')">Comparativos</button>
+                        <button type="button" class="gn-pd-command-item" t-on-click="() => this.runCommand('export')">Exportar Excel</button>
+                    </div>
+                </div>
+
+                <div class="gn-pd-scroll">
+                    <div class="gn-pd-layout gn-pd-layout--body gn-pd-layout--body-compact">
+
+                        <PurchaseNarrativeBanner narrative="narrativeText" loading="state.loading"/>
+
+                        <section class="gn-pd-section gn-pd-section--kpis">
+                            <div t-if="!state.mobileView" class="gn-pd-kpi-grid gn-pd-kpi-grid--primary gn-pd-kpi-grid--fold">
+                                <t t-if="state.loading and !primaryKpis.length">
+                                    <div t-foreach="[1,2,3,4,5,6]" t-as="i" t-key="i" class="gn-pd-skeleton gn-pd-skeleton--kpi-primary"/>
+                                </t>
+                                <t t-else="">
+                                    <PurchaseKpiCard t-foreach="primaryKpis" t-as="kpi" t-key="kpi.key"
+                                        kpi="kpi" size="'primary'" currencyId="currencyId"
+                                        lastUpdate="labels.lastUpdateShort"
+                                        onClick.bind="onKpiClick"/>
+                                </t>
+                            </div>
+                            <section t-if="state.mobileView" class="gn-pd-mobile-kpis">
+                                <PurchaseKpiCard t-foreach="primaryKpis.slice(0, 4)" t-as="kpi" t-key="kpi.key"
+                                    kpi="kpi" size="'primary'" currencyId="currencyId" onClick.bind="onKpiClick"/>
+                            </section>
+                            <section t-if="secondaryKpis.length and !state.mobileView and !state.executiveView" class="gn-pd-kpi-grid gn-pd-kpi-grid--secondary">
+                                <PurchaseKpiCard t-foreach="secondaryKpis" t-as="kpi" t-key="kpi.key"
+                                    kpi="kpi" size="'secondary'" currencyId="currencyId" onClick.bind="onKpiClick"/>
+                            </section>
+                        </section>
+
+                        <!-- Inteligencia -->
+                        <section t-if="!state.presentationMode" class="gn-pd-section gn-pd-section--intel gn-pd-section--intel-compact">
+                            <div class="gn-pd-section__head gn-pd-section__head--inline">
+                                <h2 class="gn-pd-section__title gn-pd-section__title--inline">Salud e inteligencia</h2>
+                            </div>
+                            <div class="gn-pd-main--intel-row">
+                                <PurchaseHealthGauge health="state.advanced.health" loading="state.loading"/>
+                                <PurchaseInsightsPanel insights="state.advanced.insights" loading="state.loading"
+                                    onInsightClick.bind="onInsightClick"/>
+                                <PurchaseAlertsPanel alerts="state.advanced.alerts" loading="state.loading"
+                                    lastUpdate="labels.lastUpdate"
+                                    onAlertClick.bind="onAlertClick"/>
+                            </div>
+                        </section>
+
+                        <!-- Forecast ejecutivo (solo en Executive View) -->
+                        <section t-if="state.executiveView and state.widgets.forecast" class="gn-pd-section">
+                            <div class="gn-pd-section__head">
+                                <div class="gn-pd-section__title-wrap">
+                                    <span class="gn-pd-section__icon"><i class="fa fa-forward"/></span>
+                                    <div>
+                                        <h2 class="gn-pd-section__title">Forecast</h2>
+                                        <p class="gn-pd-section__desc">Proyección de compras</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="gn-pd-panel gn-pd-executive-forecast">
+                                <PurchaseWidgetContent widgetId="'forecast'" t-props="widgetContentProps"/>
+                            </div>
+                        </section>
+
+                        <!-- Analítica avanzada -->
+                        <section t-if="!state.executiveView and !state.presentationMode" class="gn-pd-section gn-pd-section--analytics">
+                            <div t-if="state.drilldownOpen" class="gn-pd-drill-section gn-pd-section">
+                                <div class="gn-pd-section__head">
+                                    <div class="gn-pd-section__title-wrap">
+                                        <span class="gn-pd-section__icon"><i class="fa fa-sitemap"/></span>
+                                        <div>
+                                            <h2 class="gn-pd-section__title">Navegación analítica</h2>
+                                            <p class="gn-pd-section__desc">Drill-down sin salir del dashboard</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <PurchaseDrilldownNavigator
+                                    breadcrumb="state.drilldownBreadcrumb"
+                                    rows="state.drilldownRows"
+                                    level="state.drilldownLevel"
+                                    loading="state.drilldownLoading"
+                                    fmtMoney="fmtMoney.bind(this)"
+                                    onNavigate.bind="onDrilldownNavigate"
+                                    onRowClick.bind="onDrilldownRowClick"
+                                    onOpenPanel.bind="openSidePanel"/>
+                            </div>
+
+                            <div class="gn-pd-section__head">
+                                <div class="gn-pd-section__title-wrap">
+                                    <span class="gn-pd-section__icon"><i class="fa fa-bar-chart"/></span>
+                                    <div>
+                                        <h2 class="gn-pd-section__title">Analítica operativa</h2>
+                                        <p class="gn-pd-section__desc">Tendencias, proveedores, costos y operación</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div t-att-class="'gn-pd-widget-grid' + (state.layoutEditMode ? ' gn-pd-widget-grid--edit' : '')">
+                                <PurchaseWidgetShell t-foreach="visibleWidgetLayout" t-as="item" t-key="item.id"
+                                    item="item"
+                                    editMode="state.layoutEditMode"
+                                    gridStyle="gridStyleFor(item)"
+                                    staggerIndex="item_index"
+                                    onDrop.bind="onWidgetDrop"
+                                    onResizeStart.bind="onResizeStart">
+                                    <PurchaseWidgetContent widgetId="item.id" t-props="widgetContentProps"/>
+                                </PurchaseWidgetShell>
+                            </div>
+
+                            <PurchaseMaturityGauges indexes="maturityIndexes" loading="state.loading" darkMode="state.darkMode"/>
+                        </section>
+
+                    </div>
+                </div>
+
+                <PurchaseEntitySidePanel
+                    open="state.sidePanelOpen"
+                    entityType="state.sidePanelEntity?.type"
+                    entityId="state.sidePanelEntity?.id"
+                    filters="state.appliedFilters"
+                    currencyId="currencyId"
+                    darkMode="state.darkMode"
+                    onClose.bind="closeSidePanel"/>
+
+                <PurchaseAlertCenter
+                    open="state.alertCenterOpen"
+                    filters="state.appliedFilters"
+                    onClose="() => state.alertCenterOpen = false"/>
+
+                <PurchaseSimulatorPanel
+                    open="state.simulatorOpen"
+                    filters="state.appliedFilters"
+                    currencyId="currencyId"
+                    onClose="() => state.simulatorOpen = false"/>
+
+                <PurchaseComparativePanel
+                    open="state.comparativeOpen"
+                    filters="state.appliedFilters"
+                    filterOptions="state.filterOptions"
+                    currencyId="currencyId"
+                    onClose="() => state.comparativeOpen = false"/>
+            </div>
+        </Layout>
+    </t>
+</templates>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="gn_hr_profile_change_request_view_tree" model="ir.ui.view">
+        <field name="name">gn.hr.profile.change.request.tree</field>
+        <field name="model">gn.hr.profile.change.request</field>
+        <field name="arch" type="xml">
+            <list string="Solicitudes de cambio de perfil">
+                <field name="employee_id"/>
+                <field name="requested_by"/>
+                <field name="requested_on"/>
+                <field name="state" decoration-info="state == 'submitted'" decoration-success="state == 'approved'" decoration-danger="state == 'rejected'"/>
+                <field name="approver_id"/>
+                <field name="approved_on"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="gn_hr_profile_change_request_view_form" model="ir.ui.view">
+        <field name="name">gn.hr.profile.change.request.form</field>
+        <field name="model">gn.hr.profile.change.request</field>
+        <field name="arch" type="xml">
+            <form string="Solicitud de cambio de perfil">
+                <header>
+                    <button name="action_approve" string="Aprobar" type="object" class="btn-primary"
+                        invisible="state != 'submitted'"/>
+                    <button name="action_reject" string="Rechazar" type="object"
+                        invisible="state != 'submitted'"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="requested_by"/>
+                            <field name="requested_on"/>
+                            <field name="state"/>
+                            <field name="approver_id" invisible="state != 'approved'"/>
+                            <field name="approved_on" invisible="state != 'approved'"/>
+                            <field name="rejection_reason" invisible="state != 'rejected'"/>
+                        </group>
+                        <group>
+                            <field name="phone_personal"/>
+                            <field name="mobile_phone"/>
+                            <field name="address"/>
+                            <field name="emergency_contact"/>
+                            <field name="emergency_contact_phone"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="gn_hr_profile_change_request_action" model="ir.actions.act_window">
+        <field name="name">Solicitudes de cambio de perfil</field>
+        <field name="res_model">gn.hr.profile.change.request</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem id="menu_gn_hr_profile_change_request"
+        name="Solicitudes de perfil"
+        parent="hr.menu_human_resources_configuration"
+        action="gn_hr_profile_change_request_action"
+        sequence="50"/>
+</odoo>

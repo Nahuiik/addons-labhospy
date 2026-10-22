@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <record id="report_purcharse_analysis_wizard_form" model="ir.ui.view">
+            <field name="name">purcharse.analysis.report.wizard.view</field>
+            <field name="model">purcharse.analysis.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Purcharse Analysis Wizard">
+                    <group col="2">
+                        <group>
+                            <field name="start_date" required="1"/>
+                        </group>
+                        <group>
+                            <field name="end_date" required="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <!-- <field name="type_operation"/> -->
+                    </group>
+                    <footer>
+                        <button string="Print" icon="fa-file-o"  class="btn_nahuiik text_uppercase btn btn-primary" name="action_print_report" type="object"/>
+                        <button special="cancel" class="btn_nahuiik text_uppercase btn btn-danger" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_report_purcharse_analysis" model="ir.actions.act_window">
+            <field name="name">Purcharse Analysis</field>
+            <field name="res_model">purcharse.analysis.report</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <menuitem
+            id="report_purcharse_analysis_menu"
+            name="Purcharse Analysis"
+            action="action_report_purcharse_analysis"
+            parent="gn_report_account.nahuiik_accounting_menu"
+            sequence="4"/>
+    </data>
+</odoo>

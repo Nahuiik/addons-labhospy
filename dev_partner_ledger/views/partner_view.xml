@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_partner_form_partner_ledger_stat" model="ir.ui.view">
+            <field name="name">res.partner.form.partner.ledger.stat</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="action_open_partner_ledger"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-list"
+                            groups="account.group_account_invoice,account.group_account_readonly"
+                            title="Enterprise: Accounting Reports. Community: Reporte de seguimiento (bi_financial_reports_comm).">
+                        <div class="o_form_field o_stat_info">
+                            <span class="o_stat_value">
+                                <field name="currency_id" invisible="1"/>
+                                <field name="credit"
+                                       widget="monetary"
+                                       options="{'currency_field': 'currency_id'}"
+                                       invisible="not customer_rank"/>
+                                <field name="debit"
+                                       widget="monetary"
+                                       options="{'currency_field': 'currency_id'}"
+                                       invisible="customer_rank"/>
+                            </span>
+                            <span class="o_stat_text">Adeudado</span>
+                        </div>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="parnter_ledger_view" model="ir.ui.view">
+            <field name="name">parnter.ledger.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account.view_partner_property_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='accounting_disabled']" position="after">
+                    <!-- Mismos grupos que la pestaña Invoicing: credit/debit en partner exigen permiso contable -->
+                    <page string="Follow-up report" name="dev_partner_ledger_tab"
+                          invisible="not customer_rank and not supplier_rank"
+                          groups="account.group_account_invoice,account.group_account_readonly">
+                        <div class="alert alert-info mb-3" role="status" groups="account.group_account_invoice,account.group_account_readonly">
+                            Quick view (latest lines). Open follow-up report (same OWL as Accounting reports from BrowseInfo): ageing buckets, filters, PDF/XLSX.
+                        </div>
+                        <div class="mb-2">
+                            <button name="action_open_partner_ledger"
+                                    type="object"
+                                    class="btn btn-primary"
+                                    string="Open follow-up report"
+                                    groups="account.group_account_invoice,account.group_account_readonly"/>
+                        </div>
+                        <group>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="customer_rank" invisible="1"/>
+                            <field name="supplier_rank" invisible="1"/>
+                            <field name="credit"
+                                   string="Adeudado"
+                                   widget="monetary"
+                                   options="{'currency_field': 'currency_id'}"
+                                   invisible="not customer_rank"/>
+                            <field name="debit"
+                                   string="Adeudado"
+                                   widget="monetary"
+                                   options="{'currency_field': 'currency_id'}"
+                                   invisible="customer_rank"/>
+                            <field name="balance"
+                                   widget="monetary"
+                                   options="{'currency_field': 'currency_id'}"/>
+                        </group>
+                        <group string="Move lines"/>
+                        <field name="journal_item_ids" nolabel="1">
+                            <list>
+                                <field name="date"/>
+                                <field name="move_id" string="Factura" options="{'no_create': True}"/>
+                                <field name="move_invoice_user_id" string="Vendedor" widget="many2one_avatar_user"/>
+                                <field name="name"/>
+                                <field name="ref"/>
+                                <field name="debit" sum="Total debit"/>
+                                <field name="credit" sum="Total credit"/>
+                                <field name="balance" sum="Total balance"/>
+                            </list>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

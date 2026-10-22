@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_bank_rate.BankRateSystray" owl="1">
+        <div class="o_gn_bank_rate_systray">
+            <span class="o_gn_bank_time" t-esc="state.time"/>
+            <span class="o_gn_bank_rate" t-if="state.rate !== null">
+                <t t-esc="state.currencySymbol"/>
+                <t t-esc="rateDisplay"/>
+            </span>
+        </div>
+    </t>
+</templates>

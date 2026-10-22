@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="gn_purchase_dashboard.PurchaseKpiCard">
+        <article t-att-class="cardClass + (pulseClass ? ' gn-pd-kpi--pulse' : '')"
+                 t-on-click="onCardClick"
+                 t-on-keydown="onCardKeydown"
+                 tabindex="0"
+                 role="button"
+                 t-att-title="props.kpi.explanation or props.kpi.tooltip or props.kpi.label"
+                 t-att-aria-label="props.kpi.label">
+            <div class="gn-pd-kpi__head">
+                <div>
+                    <span class="gn-pd-kpi__label" t-esc="props.kpi.label"/>
+                    <div class="gn-pd-kpi__value" t-esc="formattedValue"/>
+                </div>
+                <span class="gn-pd-kpi__icon-wrap">
+                    <i t-att-class="'fa ' + (props.kpi.icon || 'fa-circle')" aria-hidden="true"/>
+                </span>
+            </div>
+            <p t-if="props.kpi.explanation and isPrimary" class="gn-pd-kpi__explanation" t-esc="props.kpi.explanation"/>
+            <div class="gn-pd-kpi__footer">
+                <div class="gn-pd-kpi__meta">
+                    <span t-att-class="'gn-pd-kpi__var ' + variationClass" t-esc="variationLabel"/>
+                    <span t-if="props.kpi.semaphore" t-att-class="'gn-pd-kpi__semaphore gn-pd-kpi__semaphore--' + props.kpi.semaphore"/>
+                    <span class="gn-pd-kpi__updated" t-esc="updatedLabel"/>
+                </div>
+                <svg t-if="sparklinePath" class="gn-pd-kpi__spark" t-att-viewBox="isPrimary ? '0 0 120 36' : '0 0 72 28'" preserveAspectRatio="none" aria-hidden="true">
+                    <path t-att-d="sparklinePath" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+            </div>
+        </article>
+    </t>
+</templates>

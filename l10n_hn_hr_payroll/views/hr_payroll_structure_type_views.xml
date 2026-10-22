@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_payroll_structure_type_view_form_advance_hn" model="ir.ui.view">
+        <field name="name">hr.payroll.structure.type.form.advance.hn</field>
+        <field name="model">hr.payroll.structure.type</field>
+        <field name="inherit_id" ref="l10n_hn_payroll_base.hr_payroll_structure_type_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group string="Anticipos salariales" name="salary_advance_policy"
+                       colspan="2">
+                    <group>
+                        <field name="max_advance_percentage"/>
+                        <field name="advance_max_base"/>
+                        <field name="min_days_advance"/>
+                    </group>
+                    <group>
+                        <div class="text-muted" colspan="2">
+                            El porcentaje se aplica sobre la base elegida: salario bruto mensual del contrato,
+                            o el neto pagado en la última nómina (total de la línea con código NET tras deducciones).
+                            Configure 0 % si no desea tope porcentual.
+                        </div>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,112 @@
+<odoo>
+  <data>
+    <record id="mjt_view_account_payment_form_inherit" model="ir.ui.view">
+      <field name="name">mjt.account.payment.form.inherit</field>
+      <field name="model">account.payment</field>
+      <field name="inherit_id" ref="account.view_account_payment_form"/>
+      <field name="arch" type="xml">
+
+        <!-- Coloca los toggles justo después del monto -->
+        <xpath expr="//sheet//field[@name='amount']" position="after">
+          <field name="is_pass_writeoff" invisible="1"/>
+          <field name="is_wht_trx" modifiers="{'invisible': [('is_internal_transfer','=', True)]}"/>
+        </xpath>
+
+        <!-- Agrega una pestaña nueva dentro del notebook principal -->
+        <xpath expr="//sheet//notebook" position="inside">
+          <page string="Withholding / Bukti Potong" name="mjt_wht_tab"
+                modifiers="{'invisible': [('is_wht_trx','=', False)]}">
+            <group>
+              <!-- MUY IMPORTANTE: el tree va DENTRO del field one2many -->
+              <field name="wht_line_ids" nolabel="1" context="{'default_payment_id': active_id}">
+                <list editable="bottom" string="Withholding Items">
+                  <field name="account_id" required="1"/>
+                  <field name="name" required="1"/>
+                  <field name="amount_wht"/>
+                </list>
+                <form>
+                  <sheet>
+                    <group>
+                      <field name="account_id" required="1"/>
+                      <field name="name" required="1"/>
+                      <field name="amount_wht"/>
+                    </group>
+                  </sheet>
+                </form>
+              </field>
+            </group>
+
+            <group>
+              <field name="bukti_potong_ids" nolabel="1">
+                <list editable="bottom" string="Bukti Potong Items">
+                  <field name="number_bukti_potong"/>
+                  <field name="date_bukti_potong"/>
+                  <field name="jumlah"/>
+                  <field name="sisa" readonly="1"/>
+                  <field name="date_terima_bukti_potong"/>
+                </list>
+                <form>
+                  <sheet>
+                    <group>
+                      <field name="payment_id" readonly="1"/>
+                      <field name="number_bukti_potong"/>
+                      <field name="date_bukti_potong"/>
+                      <field name="jumlah"/>
+                      <field name="sisa" readonly="1"/>
+                      <field name="date_terima_bukti_potong"/>
+                    </group>
+                  </sheet>
+                </form>
+              </field>
+            </group>
+          </page>
+        </xpath>
+
+        <!-- FALLBACK: si tu vista NO tiene notebook (raro), descomenta este bloque:
+        <xpath expr="//sheet" position="inside">
+          <group modifiers="{'invisible': [('is_wht_trx','=', False)]}">
+            <field name="wht_line_ids" nolabel="1" context="{'default_payment_id': active_id}">
+              <list editable="bottom" string="Withholding Items">
+                <field name="account_id" required="1"/>
+                <field name="name" required="1"/>
+                <field name="amount_wht"/>
+              </list>
+              <form>
+                <sheet>
+                  <group>
+                    <field name="account_id" required="1"/>
+                    <field name="name" required="1"/>
+                    <field name="amount_wht"/>
+                  </group>
+                </sheet>
+              </form>
+            </field>
+            <field name="bukti_potong_ids" nolabel="1">
+              <list editable="bottom" string="Bukti Potong Items">
+                <field name="number_bukti_potong"/>
+                <field name="date_bukti_potong"/>
+                <field name="jumlah"/>
+                <field name="sisa" readonly="1"/>
+                <field name="date_terima_bukti_potong"/>
+              </list>
+              <form>
+                <sheet>
+                  <group>
+                    <field name="payment_id" readonly="1"/>
+                    <field name="number_bukti_potong"/>
+                    <field name="date_bukti_potong"/>
+                    <field name="jumlah"/>
+                    <field name="sisa" readonly="1"/>
+                    <field name="date_terima_bukti_potong"/>
+                  </group>
+                </sheet>
+              </form>
+            </field>
+          </group>
+        </xpath>
+        -->
+
+      </field>
+    </record>
+  </data>
+</odoo>

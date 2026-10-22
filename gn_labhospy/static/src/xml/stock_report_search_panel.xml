@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+<t t-name="stock.StockReportSearchPanel.Regular" t-inherit="stock.StockReportSearchPanel.Regular" t-inherit-mode="extension">
+    <xpath expr="//section[hasclass('o_search_panel_warehouse')]" position="before">
+        <section t-if="branches.length" class="o_search_panel_section o_search_panel_branch">
+            <header class="o_search_panel_section_header pt-4 pb-2 text-uppercase o_cursor_default">
+                <i t-attf-class="fa fa-filter o_search_panel_section_icon text-warning me-2"/>
+                <b>Sucursales</b>
+            </header>
+            <ul class="list-group d-block o_search_panel_field">
+                <li class="o_search_panel_filter_value list-group-item p-0 mb-1 border-0 o_cursor_pointer"
+                    t-foreach="branches" t-as="branch" t-key="branch.id">
+                    <div t-out="branch.name"
+                        t-on-click="() => this.applyBranchContext(branch.id)"
+                        t-att-class="{
+                            'fw-bolder': selectedBranchId === branch.id,
+                            'o_search_panel_label_title': true,
+                            'bg-info-subtle': selectedBranchId === branch.id,
+                        }"/>
+                </li>
+            </ul>
+        </section>
+    </xpath>
+
+    <xpath expr="//section[hasclass('o_search_panel_warehouse')]//ul" position="replace">
+        <ul class="list-group d-block o_search_panel_field">
+            <li class="o_search_panel_filter_value list-group-item p-0 mb-1 border-0 o_cursor_pointer">
+                <span t-on-click="() => this.clearWarehouseContext()"
+                      t-att-class="{'fw-bolder': !selectedWarehouseIds.length, 'o_search_panel_label_title': true}">
+                    Todos los almacenes
+                </span>
+            </li>
+            <li class="o_search_panel_filter_value list-group-item p-0 mb-1 border-0 o_cursor_pointer"
+                t-foreach="warehouses" t-as="warehouse" t-key="warehouse.id">
+                <div t-out="warehouse.name"
+                    t-on-click="() => this.applyWarehouseContext(warehouse.id)"
+                    t-att-class="{
+                        'fw-bolder': isWarehouseSelected(warehouse.id),
+                        'o_search_panel_label_title': true,
+                        'bg-info-subtle': isWarehouseSelected(warehouse.id),
+                    }"/>
+            </li>
+        </ul>
+    </xpath>
+</t>
+
+</templates>

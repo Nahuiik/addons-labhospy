@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="stock_movement_report.PrintConfirmationDialog" t-inherit="web.ConfirmationDialog">
+        <xpath expr="//t[@t-set-slot='footer']" position="replace">
+            <t t-set-slot="footer">
+                <button class="btn" t-att-class="props.confirmClass" t-on-click="_printsingle_page" t-esc="props.printsingleLabel"/>
+                <button class="btn" t-att-class="props.confirmClass" t-on-click="_printall_page" t-esc="props.printallLabel"/>
+                <button t-if="props.cancel" class="btn btn-secondary" t-on-click="_cancel" t-esc="props.cancelLabel"/>
+            </t>
+        </xpath>
+    </t>
+
+    <t t-name="stock_movement_report.DeleteFavouriteRecord" t-inherit="web.ConfirmationDialog">
+        <xpath expr="//t[@t-set-slot='footer']" position="replace">
+            <t t-set-slot="footer">
+                <button class="btn btn-primary" t-on-click="_confirmDelete" t-out="i18n.yes"/>
+                <button class="btn btn-secondary" t-on-click="_cancelDelete" t-out="i18n.no"/>
+            </t>
+        </xpath>
+    </t>
+
+
+    <t t-name="stock_movement_report.InventoryReport" class="o_action">
+        <div class="o_action inventory_report" t-att-class="cssCustomClass">
+            <ControlPanel>
+                <t t-set-slot="control-panel-create-button">
+                    <t t-foreach="buttons" t-as="button" t-key="button.name">
+                        <button
+                            class="btn text-nowrap btn-primary" t-att-title="button.action"
+                            t-on-click="(ev) => this.actionPrint(button.action)"
+                        >
+                            <t t-out="button.name"/>
+                        </button>
+                    </t>
+                </t>
+                <t t-set-slot="layout-actions">
+                    <div class="d-flex gap-1 flex-wrap"  style="margin-left:auto">
+                        <div class="o_inventory_movement_filters" style="display:contents;">
+                            <div id="filter_date" class="filter_date">
+                                <t t-call="stock_movement_report.StockReportFilterDate"/>
+                            </div>
+                            <div id="filter_product" class="filter_product">
+                                <t t-call="stock_movement_report.StockReportFilterProduct"/>
+                            </div>
+                            <div id="filter_product_categories" class="filter_product_categories">
+                                <t t-call="stock_movement_report.StockReportFilterCategories"/>
+                            </div>
+                            <div id="filter_company" class="filter_company d-none">
+                                <t t-call="stock_movement_report.StockReportFilterCompany"/>
+                            </div>
+                            <div class="d-flex align-items-center ms-1">
+                                <div class="form-check form-switch mb-0">
+                                    <input class="form-check-input" type="checkbox" id="inv_only_mov"
+                                           t-att-checked="filters.only_with_movements !== false"
+                                           t-on-change="onOnlyMovementsToggle"/>
+                                    <label class="form-check-label small text-nowrap" for="inv_only_mov" t-out="i18n.onlyWithMovements"/>
+                                </div>
+                            </div>
+                            <div id="filter_warehouse" class="filter_warehouse">
+                                <t t-call="stock_movement_report.StockReportFilterWarehouse"/>
+                            </div>
+                            <div id="filter_location" class="filter_location">
+                                <t t-call="stock_movement_report.StockReportFilterLocation"/>
+                            </div>
+                            <div id="filter_favorites" class="filter_favorites">
+                                <t t-call="stock_movement_report.StockReportFilterFavourite"/>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+                <t t-set-slot="control-panel-navigation-additional">
+                    <div class="o_cp_pager" role="search">
+                        <Pager t-props="getGroupPagerProps"/>
+                    </div>
+                </t>
+            </ControlPanel>
+            <div class="o_content" t-ref="report_body">
+            </div>
+        </div>
+    </t>
+
+    <t t-name="stock_movement_report.StockReportFilterDate">
+        <Dropdown
+            menuClass="'inventory_movement_report date'"
+        >
+            <button class="btn btn-secondary">
+                <i class="fa fa-calendar me-1"/>
+                <t t-if="filters.date.filter === 'custom'">
+                    <t t-out="i18n.fromLabel"/> <t t-esc="localeDateFrom('date')"/> <t t-out="i18n.toLabel"/> <t t-esc="localeDateTo('date')"/>
+                </t>
+                <t t-else="">
+                    <t t-if="filters.date and filters.date.filter">
+                        <t t-if="filters.date.filter == 'today'" t-out="i18n.today"/>
+                        <t t-if="filters.date.filter == 'month'" t-out="i18n.thisMonth"/>
+                        <t t-if="filters.date.filter == 'week'" t-out="i18n.thisWeek"/>
+                    </t>
+                </t>
+            </button>
+
+            <t t-set-slot="content">
+                <t t-if="filters.date.filter">
+                    <DropdownItem
+                        class="{'selected': (filters.date.filter == 'today') }"
+                        attrs="{
+                            'data-period-type': 'today',
+                        }"
+                        onSelected="() => this.updateFilter('date.filter', 'today')" closingMode="'none'">
+                        <div class="filter_name pe-3" t-out="i18n.today"/>
+                    </DropdownItem>
+                    <DropdownItem
+                        class="{'selected': (filters.date.filter == 'month') }"
+                        attrs="{
+                            'data-period-type': 'month',
+                        }"
+                        onSelected="() => this.updateFilter('date.filter', 'month')">
+                        <div class="filter_name pe-3" t-out="i18n.thisMonth"/>
+                    </DropdownItem>
+                    <DropdownItem
+                        class="{'selected': (filters.date.filter == 'week') }"
+                        attrs="{
+                            'data-period-type': 'week',
+                        }"
+                        onSelected="() => this.updateFilter('date.filter', 'week')">
+                        <div class="filter_name pe-3" t-out="i18n.thisWeek"/>
+                    </DropdownItem>
+                </t>
+                <div class="dropdown-divider"></div>
+                <div class="dropdown-item date d-flex justify-content-between" t-att-class="(filters.date.filter == 'custom') ? 'selected' : ''">
+                    <div class="d-flex align-items-center" t-out="i18n.customRange"/>
+                    <div class="d-flex flex-row">
+                        <DateTimeInput
+                            type="'date'"
+                            class="'o-navigable'"
+                            value="dateFrom('date')"
+                            onChange="(dateFrom) => this.setDateFrom('date', dateFrom)"
+                        />
+                        <span class="d-flex align-items-center" t-out="i18n.until"/>
+                        <DateTimeInput
+                            type="'date'"
+                            class="'o-navigable'"
+                            value="dateTo('date')"
+                            onChange="(dateTo) => this.setDateTo('date', dateTo)"
+                        />
+                        <button
+                            class="btn btn-sm btn-primary"
+                            t-on-click="() => this.updateFilter('date.filter', 'custom')">
+                            <t t-out="i18n.apply"/>
+                        </button>
+                    </div>
+                </div>
+            </t>
+        </Dropdown>
+    </t>
+
+    <t t-name="stock_movement_report.StockReportFilterProduct">
+        <Dropdown
+            menuClass="'inventory_movement_report product'"
+        >
+            <button class="btn btn-secondary">
+                <i class="fa fa-cubes me-1"/><t t-out="i18n.products"/>
+            </button>
+
+            <t t-set-slot="content">
+                <div class="dropdown-item gap-2 align-items-center">
+                    <label t-out="i18n.products"/>
+                    <MultiRecordSelector t-props="getMultiRecordSelectorProps('product.product', 'products')"/>
+                </div>
+            </t>
+        </Dropdown>
+    </t>
+
+    <t t-name="stock_movement_report.StockReportFilterCategories">
+        <Dropdown
+            menuClass="'inventory_movement_report category'"
+        >
+            <button class="btn btn-secondary">
+                <i class="fa fa-th-list me-1"/><t t-out="i18n.categories"/>
+            </button>
+
+            <t t-set-slot="content">
+                <div class="dropdown-item gap-2 align-items-center">
+                    <label t-out="i18n.categories"/>
+                    <MultiRecordSelector t-props="getMultiRecordSelectorProps('product.category', 'categories')"/>
+                </div>
+            </t>
+        </Dropdown>
+    </t>
+
+    <t t-name="stock_movement_report.StockReportFilterCompany">
+        <Dropdown>
+            <button class="btn btn-secondary">
+                <i class="fa fa-book me-1"/><t t-out="i18n.companyPrefix"/> <t t-esc="selectedCompanyName || i18n.selectCompany"/>
+            </button>
+
+            <t t-set-slot="content">
+                <t t-set="companyListNew" t-value="companyList"/>
+                <t t-foreach="filteredCompanyList" t-as="company_id" t-key="company_id">
+                    <t t-set="company" t-value="allCompaniesList.find(c => c.id === company_id)"/>
+                    <t t-if="company">
+                        <t t-if="!company.parent_id">
+                            <t t-if="companyListNew.includes(company_id)">
+                                <DropdownItem
+                                    class="{ 'selected':  selectedCompanyId === company.id }"
+                                    onSelected="() => this.filterCompany(company.id)"
+                                    t-out="company.name"
+                                />
+                            </t>
+                            <t t-else="">
+                                <DropdownItem t-out="company.name"/>
+                            </t>
+                            <t t-foreach="company.child_ids || []" t-as="child_id" t-key="child_id">
+                                <t t-set="child_company" t-value="companyListNew.includes(child_id)"/>
+                                <t t-if="child_company">
+                                    <t t-set="child_company_id" t-value="allCompaniesList.find(c => c.id === child_id)"/>
+                                    <div t-if="child_company_id" class="ms-3 text-muted">
+                                        <DropdownItem
+                                            class="{ 'selected':  selectedCompanyId === child_company_id.id }"
+                                            onSelected="() => this.filterCompany(child_company_id.id)"
+                                            t-out="child_company_id.name"
+                                        />
+                                    </div>
+                                </t>
+                            </t>
+                        </t>
+                    </t>
+                </t>
+            </t>
+        </Dropdown>
+    </t>
+
+    <t t-name="stock_movement_report.StockReportFilterWarehouse">
+        <Dropdown
+            menuClass="'inventory_movement_report warehouse'"
+        >
+            <button class="btn btn-secondary">
+                <i class="fa fa-cubes me-1"/><t t-out="i18n.warehouse"/>
+            </button>
+
+            <t t-set-slot="content">
+                <div class="dropdown-item gap-2 align-items-center">
+                    <label t-out="i18n.warehouse"/>
+                    <MultiRecordSelector t-props="getMultiRecordSelectorProps('stock.warehouse', 'warehouses')" domain="evaluatedWarehouseDomain"/>
+                </div>
+            </t>
+        </Dropdown>
+    </t>
+
+    <t t-name="stock_movement_report.StockReportFilterLocation">
+        <Dropdown
+            menuClass="'inventory_movement_report location'"
+        >
+            <button class="btn btn-secondary">
+                <i class="fa fa-cubes me-1"/><t t-out="i18n.locations"/>
+            </button>
+
+            <t t-set-slot="content">
+                <div class="dropdown-item gap-2 align-items-center">
+                    <label t-out="i18n.locations"/>
+                    <MultiRecordSelector t-props="getMultiRecordSelectorProps('stock.location', 'locations')" domain="evaluatedLocationDomain"/>
+                </div>
+            </t>
+        </Dropdown>
+    </t>
+
+    <t t-name="stock_movement_report.StockReportFilterFavourite">
+        <Dropdown
+            navigationOptions="dropdownProps" menuClass="'inventory_movement_report favorites'"
+        >
+            <button class="btn btn-secondary">
+                <i class="fa fa-star me-1"/> <t t-out="i18n.favorites"/>
+            </button>
+
+            <t t-set-slot="content">
+                <t t-foreach="favouriteRecords" t-as="record" t-key="record.id">
+                    <li class="favorites o-dropdown-item dropdown-item o-navigable d-flex justify-content-between ps-4 pe-1 " t-att-data-id="record.id">
+                        <input type="radio" style="cursor: pointer;" name="fav_list"
+                                       t-att-data-filters="record.filter_options" class="fav_list fa" t-att-value="record.id"
+                                       t-att-checked="currentFavorites == record.id ? 'checked' : undefined"
+                                       t-on-click="(ev) => this.favClick(ev)"/>
+                        <input type="text" autofocus="" name="edit_name" maxlength="20" size="20"
+                               class="d-none o_input cursor-pointer" t-att-value="record.name"/>
+                        <input type="text" autofocus="" name="edit_name_readonly"
+                               class="o_name_span o_input cursor-pointer" t-att-value="record.name" readonly="readonly"/>
+                        <button class="btn p-0 px-1" t-att-title="i18n.edit">
+                            <i class="fa fa-pencil" t-att-data-id="record.id" t-on-click="(ev) => this.editClick(ev)" />
+                        </button>
+                        <button class="btn p-0 px-1" t-att-title="i18n.save">
+                            <i class="fa fa-save" t-att-data-id="record.id" t-on-click="(ev) => this.saveClick(ev)" />
+                        </button>
+                        <button class="btn p-0 px-1" t-att-title="i18n.delete">
+                            <i class="fa fa-trash"  t-att-data-id="record.id" t-on-click="(ev) => this.deleteClick(record.id)"  />
+                        </button>
+                    </li>
+                </t>
+
+                <div class="dropdown-divider"/>
+
+                <div class="o-dropdown-item dropdown-item d-flex align-items-center pe-1">
+                    <input
+                        class="o_input"
+                        type="text"
+                        t-att-placeholder="i18n.favoriteNamePlaceholder"
+                        name="favorites"
+                        maxlength="20" size="20"
+                    />
+                    <button class="o_save_favorite btn btn-primary" data-hotkey="s" t-on-click="(ev) => this.saveFavoriteClick(ev)" t-out="i18n.save"/>
+                </div>
+            </t>
+        </Dropdown>
+    </t>
+
+</templates>

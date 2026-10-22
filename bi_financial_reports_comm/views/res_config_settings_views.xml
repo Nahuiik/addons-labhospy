@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_bi_financial_reports" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.bi_financial_reports</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@id='accounting_reports']" position="after">
+                <block title="Informes financieros" id="bi_financial_reports_settings" groups="account.group_account_user">
+                    <setting
+                        string="Totales bajo secciones"
+                        help="Muestra el total de cada sección debajo del desglose de cuentas en Estado de resultados y Balance general.">
+                        <field name="bi_totals_below_sections"/>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>

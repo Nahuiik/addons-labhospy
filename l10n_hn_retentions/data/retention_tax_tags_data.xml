@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Etiquetas de impuestos para líneas de retención en pagos (informes / balance fiscal). -->
+        <record id="hn_ret_tag_1" model="account.account.tag">
+            <field name="name">HN Retención 1%</field>
+            <field name="applicability">taxes</field>
+            <field name="country_id" ref="base.hn"/>
+        </record>
+        <record id="hn_ret_tag_12_5" model="account.account.tag">
+            <field name="name">HN Retención 12.5%</field>
+            <field name="applicability">taxes</field>
+            <field name="country_id" ref="base.hn"/>
+        </record>
+        <record id="hn_ret_tag_15" model="account.account.tag">
+            <field name="name">HN Retención 15%</field>
+            <field name="applicability">taxes</field>
+            <field name="country_id" ref="base.hn"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--############### REPORT PARENTS IN EXCEL FORMAT WITH MENU ##############-->
+        <record id="action_deposit_report_xls" model="ir.actions.report">
+            <field name="name">Deposits XLS</field>
+            <field name="model">debit.credit</field>
+            <field name="report_type">xlsx</field>
+            <field name="report_name">gn_banks.deposit_report_xls.xlsx</field>
+            <field name="report_file">Depositos</field>
+        </record>
+        
+        <!--############### REPORT PARENTS IN EXCEL FORMAT WITH MENU ##############-->
+        <record id="action_debit_report_xls" model="ir.actions.report">
+            <field name="name">Debits XLS</field>
+            <field name="model">debit.credit</field>
+            <field name="report_type">xlsx</field>
+            <field name="report_name">gn_banks.debit_report_xls.xlsx</field>
+            <field name="report_file">Debitos</field>
+        </record>
+        
+        <!--############### REPORT PARENTS IN EXCEL FORMAT WITH MENU ##############-->
+        <record id="action_credit_report_xls" model="ir.actions.report">
+            <field name="name">Credits XLS</field>
+            <field name="model">debit.credit</field>
+            <field name="report_type">xlsx</field>
+            <field name="report_name">gn_banks.credit_report_xls.xlsx</field>
+            <field name="report_file">Creditos</field>
+        </record>
+        
+        <!--############### REPORT PARENTS IN EXCEL FORMAT WITH MENU ##############-->
+        <record id="action_card_settlement_report_xls" model="ir.actions.report">
+            <field name="name">POS Settlements XLS</field>
+            <field name="model">debit.credit</field>
+            <field name="report_type">xlsx</field>
+            <field name="report_name">gn_banks.card_settlement_report_xls.xlsx</field>
+            <field name="report_file">Liquidacion de Tarjeta</field>
+        </record>
+        
+        <!--############### REPORT PARENTS IN EXCEL FORMAT WITH MENU ##############-->
+        <record id="action_transfer_banks_report_xls" model="ir.actions.report">
+            <field name="name">Transfer Between Banks XLS</field>
+            <field name="model">bank.transfer</field>
+            <field name="report_type">xlsx</field>
+            <field name="report_name">gn_banks.transfer_banks_report_xls.xlsx</field>
+            <field name="report_file">Transferencia entre Bancos</field>
+        </record>
+        
+        <!--############### REPORT PARENTS IN EXCEL FORMAT WITH MENU ##############-->
+        <record id="action_wire_transfer_report_xls" model="ir.actions.report">
+            <field name="name">Wire Transfer XLS</field>
+            <field name="model">bank.check</field>
+            <field name="report_type">xlsx</field>
+            <field name="report_name">gn_banks.wire_transfer_report_xls.xlsx</field>
+            <field name="report_file">Transferencias Bancarias</field>
+        </record>
+        
+        <!--############### REPORT PARENTS IN EXCEL FORMAT WITH MENU ##############-->
+        <record id="action_check_report_xls" model="ir.actions.report">
+            <field name="name">Banks - Cheque Report</field>
+            <field name="model">bank.check</field>
+            <field name="report_type">xlsx</field>
+            <field name="report_name">gn_banks.check_report.xls</field>
+            <field name="report_file">Banks - Cheque Report</field>
+        </record>
+        
+    </data>
+</odoo>
